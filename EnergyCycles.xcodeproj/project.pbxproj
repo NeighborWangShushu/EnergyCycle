@@ -587,10 +587,8 @@
 		D07E24531D12BFD100854B51 /* ted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244C1D12BFD100854B51 /* ted@2x.png */; };
 		D07E24541D12BFD100854B51 /* voa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244D1D12BFD100854B51 /* voa@2x.png */; };
 		D07E24581D12C8EA00854B51 /* ReferralHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E24571D12C8EA00854B51 /* ReferralHeadView.m */; };
-		D07E245A1D12CE5A00854B51 /* referral_cctalk_radio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24591D12CE5A00854B51 /* referral_cctalk_radio@2x.png */; };
 		D07E24611D13907300854B51 /* AFAudioRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E245E1D13907300854B51 /* AFAudioRouter.m */; };
 		D07E24621D13907300854B51 /* AFSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E24601D13907300854B51 /* AFSoundManager.m */; };
-		D07E24641D1393E800854B51 /* read_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24631D1393E800854B51 /* read_icon@2x.png */; };
 		D07E246B1D13CD9C00854B51 /* WebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E246A1D13CD9C00854B51 /* WebVC.m */; };
 		D07E24801D13DB2300854B51 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E24731D13DB2300854B51 /* TAAbstractDotView.m */; };
 		D07E24811D13DB2300854B51 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E24751D13DB2300854B51 /* TAAnimatedDotView.m */; };
@@ -2035,12 +2033,10 @@
 		D07E244D1D12BFD100854B51 /* voa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voa@2x.png"; sourceTree = "<group>"; };
 		D07E24561D12C8EA00854B51 /* ReferralHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferralHeadView.h; sourceTree = "<group>"; };
 		D07E24571D12C8EA00854B51 /* ReferralHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferralHeadView.m; sourceTree = "<group>"; };
-		D07E24591D12CE5A00854B51 /* referral_cctalk_radio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "referral_cctalk_radio@2x.png"; path = "../../../../project/source/学习模块切图/referral_cctalk_radio@2x.png"; sourceTree = "<group>"; };
 		D07E245D1D13907300854B51 /* AFAudioRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAudioRouter.h; sourceTree = "<group>"; };
 		D07E245E1D13907300854B51 /* AFAudioRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFAudioRouter.m; sourceTree = "<group>"; };
 		D07E245F1D13907300854B51 /* AFSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSoundManager.h; sourceTree = "<group>"; };
 		D07E24601D13907300854B51 /* AFSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSoundManager.m; sourceTree = "<group>"; };
-		D07E24631D1393E800854B51 /* read_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "read_icon@2x.png"; path = "../../../../project/source/学习模块切图/read_icon@2x.png"; sourceTree = "<group>"; };
 		D07E24691D13CD9C00854B51 /* WebVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebVC.h; sourceTree = "<group>"; };
 		D07E246A1D13CD9C00854B51 /* WebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebVC.m; sourceTree = "<group>"; };
 		D07E24721D13DB2300854B51 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
@@ -3581,8 +3577,6 @@
 				D07EB1D01D17D63300840AC2 /* close@2x.png */,
 				D07EB1CC1D17D2DD00840AC2 /* learn_delete@2x.png */,
 				D07EB1C31D17824200840AC2 /* play@2x.png */,
-				D07E24631D1393E800854B51 /* read_icon@2x.png */,
-				D07E24591D12CE5A00854B51 /* referral_cctalk_radio@2x.png */,
 				D07E24471D12BFD100854B51 /* bbc@2x.png */,
 				D07E24481D12BFD100854B51 /* cctalk@2x.png */,
 				D07E24491D12BFD100854B51 /* cnn@2x.png */,
@@ -6302,7 +6296,6 @@
 				26E987EA1C0DAE4000C6A7BB /* video@2x.png in Resources */,
 				26D8B1F31C0FEEE900A1DB04 /* 05_1@3x.png in Resources */,
 				D07EB2621D18DE6800840AC2 /* face@2x.png in Resources */,
-				D07E245A1D12CE5A00854B51 /* referral_cctalk_radio@2x.png in Resources */,
 				DA9A95481C23ABEE00FBE107 /* xinfeng@3x.png in Resources */,
 				D077C5951D1D613C00303A90 /* 8_03.png in Resources */,
 				DA9A23341C43B24B0012265D /* 50zan_@2x.png in Resources */,
@@ -6504,7 +6497,6 @@
 				D07EB2B61D192BB400840AC2 /* LoadMoreCollectionCell.xib in Resources */,
 				26E987DB1C0DAE4000C6A7BB /* calendar_pressed@3x.png in Resources */,
 				DAC4D0A41C4C90FE00BCC979 /* icon-40@2x.png in Resources */,
-				D07E24641D1393E800854B51 /* read_icon@2x.png in Resources */,
 				D07EB26D1D18DE6800840AC2 /* InputBack.png in Resources */,
 				D00591791D25454000F91692 /* ec_search@2x.png in Resources */,
 				DAC4D0A61C4C90FE00BCC979 /* icon-60@2x.png in Resources */,
