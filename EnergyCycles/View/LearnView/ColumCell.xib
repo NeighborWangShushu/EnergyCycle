@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ColumCell">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pmk-Lu-l00">
+                        <rect key="frame" x="4" y="15.5" width="42" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WgP-U6-JUP">
+                        <rect key="frame" x="43" y="-6" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="12" id="OQ5-xN-BY4"/>
+                            <constraint firstAttribute="height" constant="12" id="y7B-Qb-TKG"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="Pmk-Lu-l00" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="HUj-Rx-H5c"/>
+                <constraint firstItem="Pmk-Lu-l00" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ImF-x5-BiM"/>
+                <constraint firstItem="Pmk-Lu-l00" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="LPZ-z8-jDX"/>
+                <constraint firstItem="WgP-U6-JUP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-6" id="PJb-lJ-Jmd"/>
+                <constraint firstAttribute="trailing" secondItem="Pmk-Lu-l00" secondAttribute="trailing" constant="4" id="ZFR-jG-aRh"/>
+                <constraint firstItem="WgP-U6-JUP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="43" id="cig-FB-VdN"/>
+                <constraint firstItem="Pmk-Lu-l00" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="mBU-g8-uj9"/>
+                <constraint firstAttribute="trailing" secondItem="WgP-U6-JUP" secondAttribute="trailing" constant="-5" id="rG9-lV-k5X"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="ImF-x5-BiM"/>
+                    <exclude reference="mBU-g8-uj9"/>
+                    <exclude reference="cig-FB-VdN"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="img" destination="WgP-U6-JUP" id="TPZ-QC-M79"/>
+                <outlet property="text" destination="Pmk-Lu-l00" id="CwY-3I-jPa"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

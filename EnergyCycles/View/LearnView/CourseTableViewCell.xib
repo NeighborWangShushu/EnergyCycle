@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourseTableViewCellId" rowHeight="295" id="KGk-i7-Jjw" customClass="CourseTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="295"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ndc-va-AfH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="285"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placepic.png" translatesAutoresizingMaskIntoConstraints="NO" id="XTi-cg-SQn">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="163"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="163" id="Ypd-IY-iKR"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="产品经理实战训练营" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWE-x3-nuf">
+                                <rect key="frame" x="12" y="175" width="226" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chakan_.png" translatesAutoresizingMaskIntoConstraints="NO" id="1ca-43-UEw">
+                                <rect key="frame" x="14" y="259" width="20" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="2Nm-nH-xHj"/>
+                                    <constraint firstAttribute="height" constant="18" id="Bru-i4-GXQ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1268" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOh-eT-Xjc">
+                                <rect key="frame" x="40" y="259" width="29" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="uxT-Y9-0sD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不管你是产品新人、企业高管、创业还是非产品岗从业者，你是否已发现因为您不懂产品？或者产品能力有待提升？阻碍了您的职业发展。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHY-aZ-rBB">
+                                <rect key="frame" x="12" y="201" width="298" height="51"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="省会省会" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFM-R0-y7q">
+                                <rect key="frame" x="255" y="175" width="55" height="20"/>
+                                <color key="backgroundColor" red="0.31764705879999999" green="0.6705882353" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="GiK-PP-YDV"/>
+                                    <constraint firstAttribute="width" constant="55" id="pjF-MD-fXf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nWE-x3-nuf" firstAttribute="top" secondItem="XTi-cg-SQn" secondAttribute="bottom" constant="12" id="50b-il-IxW"/>
+                            <constraint firstItem="XTi-cg-SQn" firstAttribute="leading" secondItem="ndc-va-AfH" secondAttribute="leading" id="6Oo-6L-fcA"/>
+                            <constraint firstAttribute="bottom" secondItem="UOh-eT-Xjc" secondAttribute="bottom" constant="6" id="6nd-cN-XsH"/>
+                            <constraint firstItem="mHY-aZ-rBB" firstAttribute="leading" secondItem="ndc-va-AfH" secondAttribute="leading" constant="12" id="9aE-8c-7Xo"/>
+                            <constraint firstItem="XTi-cg-SQn" firstAttribute="top" secondItem="ndc-va-AfH" secondAttribute="top" id="GMm-JN-6Dw"/>
+                            <constraint firstAttribute="trailing" secondItem="mHY-aZ-rBB" secondAttribute="trailing" constant="10" id="GeY-Z6-Z6z"/>
+                            <constraint firstItem="mHY-aZ-rBB" firstAttribute="top" secondItem="BFM-R0-y7q" secondAttribute="bottom" constant="6" id="IHN-Hn-sh8"/>
+                            <constraint firstAttribute="trailing" secondItem="XTi-cg-SQn" secondAttribute="trailing" id="UPS-UX-LMK"/>
+                            <constraint firstItem="mHY-aZ-rBB" firstAttribute="top" secondItem="nWE-x3-nuf" secondAttribute="bottom" constant="6" id="YYX-B5-Sx4"/>
+                            <constraint firstItem="BFM-R0-y7q" firstAttribute="top" secondItem="XTi-cg-SQn" secondAttribute="bottom" constant="12" id="eHa-zT-w4L"/>
+                            <constraint firstItem="1ca-43-UEw" firstAttribute="leading" secondItem="ndc-va-AfH" secondAttribute="leading" constant="14" id="iWG-59-kI6"/>
+                            <constraint firstItem="BFM-R0-y7q" firstAttribute="leading" secondItem="nWE-x3-nuf" secondAttribute="trailing" constant="17" id="ixh-7Y-Vjv"/>
+                            <constraint firstItem="UOh-eT-Xjc" firstAttribute="leading" secondItem="1ca-43-UEw" secondAttribute="trailing" constant="6" id="oTc-hH-ksa"/>
+                            <constraint firstItem="nWE-x3-nuf" firstAttribute="leading" secondItem="ndc-va-AfH" secondAttribute="leading" constant="12" id="qUd-Ik-PnY"/>
+                            <constraint firstAttribute="trailing" secondItem="BFM-R0-y7q" secondAttribute="trailing" constant="10" id="tIJ-r3-Q1z"/>
+                            <constraint firstAttribute="bottom" secondItem="1ca-43-UEw" secondAttribute="bottom" constant="8" id="xCQ-DP-0kc"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="IHN-Hn-sh8"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ndc-va-AfH" secondAttribute="trailing" id="BHg-Pn-cic"/>
+                    <constraint firstAttribute="bottom" secondItem="ndc-va-AfH" secondAttribute="bottom" constant="9" id="aI6-YG-cTO"/>
+                    <constraint firstItem="ndc-va-AfH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fMo-FV-mfp"/>
+                    <constraint firstItem="ndc-va-AfH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="kwb-QI-qfB"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="biaoLabel" destination="BFM-R0-y7q" id="oVA-0f-cRw"/>
+                <outlet property="contentLabel" destination="mHY-aZ-rBB" id="igK-bF-tdj"/>
+                <outlet property="liulanLabel" destination="UOh-eT-Xjc" id="wq1-LD-2FF"/>
+                <outlet property="showImageView" destination="XTi-cg-SQn" id="Jj2-z8-Weo"/>
+                <outlet property="titleLabel" destination="nWE-x3-nuf" id="P39-fV-nlA"/>
+                <outlet property="typeLabelAutoLayout" destination="pjF-MD-fXf" id="fxx-He-FQ5"/>
+            </connections>
+            <point key="canvasLocation" x="397" y="378.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="chakan_.png" width="20" height="20"/>
+        <image name="placepic.png" width="375" height="170"/>
+    </resources>
+</document>

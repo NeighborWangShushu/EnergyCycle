@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9CCC7CD317DE64FC9D420D8E9156F8EB88B273B2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "9CCC7CD317DE64FC9D420D8E9156F8EB88B273B2" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "9CCC7CD317DE64FC9D420D8E9156F8EB88B273B2" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "76F95C10-7CC5-4111-95B1-CC2BE62E00FA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "9CCC7CD317DE64FC9D420D8E9156F8EB88B273B2" : "EnergyCycles\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "EnergyCycles",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "EnergyCycles.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/101.231.200.154:1688\/svn\/nengliangquanapp",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9CCC7CD317DE64FC9D420D8E9156F8EB88B273B2"
+    }
+  ]
+}

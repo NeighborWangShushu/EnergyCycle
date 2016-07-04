@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PkHomeCollectionViewCellId" id="gTV-IL-0wX" customClass="PkHomeCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="315" height="150"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="315" height="150"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ra3-0Y-8Pl">
+                        <rect key="frame" x="0.0" y="0.0" width="315" height="150"/>
+                        <animations/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PK竞赛" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sp0-a6-sh5">
+                        <rect key="frame" x="0.0" y="30" width="315" height="33"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <animations/>
+            <constraints>
+                <constraint firstItem="ra3-0Y-8Pl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="30K-zx-VDm"/>
+                <constraint firstAttribute="trailing" secondItem="ra3-0Y-8Pl" secondAttribute="trailing" id="7hA-Ca-VMP"/>
+                <constraint firstItem="ra3-0Y-8Pl" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Dxm-qS-2ZO"/>
+                <constraint firstAttribute="trailing" secondItem="sp0-a6-sh5" secondAttribute="trailing" id="HRA-oi-ELb"/>
+                <constraint firstItem="sp0-a6-sh5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Kqf-6o-tnA"/>
+                <constraint firstAttribute="bottom" secondItem="ra3-0Y-8Pl" secondAttribute="bottom" id="YDB-Ql-NYd"/>
+                <constraint firstAttribute="bottom" secondItem="sp0-a6-sh5" secondAttribute="bottom" constant="87" id="vWi-Aw-1rf"/>
+                <constraint firstItem="sp0-a6-sh5" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="30" id="wNT-p2-n3Z"/>
+            </constraints>
+            <size key="customSize" width="250" height="152"/>
+            <connections>
+                <outlet property="headImageView" destination="ra3-0Y-8Pl" id="PUi-Cz-Tez"/>
+                <outlet property="titleLabel" destination="sp0-a6-sh5" id="TJZ-5N-Rzz"/>
+            </connections>
+            <point key="canvasLocation" x="400.5" y="480"/>
+        </collectionViewCell>
+    </objects>
+</document>

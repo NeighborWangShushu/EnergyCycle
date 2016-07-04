@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PkEveryDayHeadViewCellId" id="gTV-IL-0wX" customClass="PkEveryDayHeadViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="70" height="39"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="70" height="39"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zg-KN-oWB">
+                        <rect key="frame" x="0.0" y="0.0" width="70" height="39"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kg6-hP-4tg">
+                        <rect key="frame" x="10" y="30" width="50" height="2"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="1JS-Fo-5F1"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="6zg-KN-oWB" secondAttribute="trailing" id="2gP-JE-X3o"/>
+                <constraint firstItem="6zg-KN-oWB" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="GKH-3z-XyZ"/>
+                <constraint firstAttribute="bottom" secondItem="Kg6-hP-4tg" secondAttribute="bottom" constant="7" id="ILs-Iw-xSc"/>
+                <constraint firstItem="6zg-KN-oWB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="IYG-kB-PFA"/>
+                <constraint firstAttribute="trailing" secondItem="Kg6-hP-4tg" secondAttribute="trailing" constant="10" id="hQh-qp-Y5T"/>
+                <constraint firstItem="Kg6-hP-4tg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="wJx-fN-eqz"/>
+                <constraint firstAttribute="bottom" secondItem="6zg-KN-oWB" secondAttribute="bottom" id="wmJ-bq-qNo"/>
+            </constraints>
+            <size key="customSize" width="77" height="39"/>
+            <connections>
+                <outlet property="headLineView" destination="Kg6-hP-4tg" id="WaO-Z9-dgV"/>
+                <outlet property="titleLabel" destination="6zg-KN-oWB" id="CCS-NT-Lex"/>
+            </connections>
+            <point key="canvasLocation" x="792" y="543.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

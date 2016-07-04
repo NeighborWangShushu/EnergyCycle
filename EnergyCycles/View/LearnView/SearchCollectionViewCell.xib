@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchCollectionViewCellId" id="gTV-IL-0wX" customClass="SearchCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="40"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="40"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="history.png" translatesAutoresizingMaskIntoConstraints="NO" id="76d-OO-v91">
+                        <rect key="frame" x="8" y="12" width="15" height="15"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sl5-2g-Kbg">
+                        <rect key="frame" x="30" y="10" width="42" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eS3-sI-Uqv">
+                        <rect key="frame" x="0.0" y="38" width="100" height="1"/>
+                        <color key="backgroundColor" red="0.7895806064572426" green="0.7895806064572426" blue="0.7895806064572426" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="V7f-qI-zYl"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BoF-PF-xoD">
+                        <rect key="frame" x="99" y="8" width="2" height="24"/>
+                        <color key="backgroundColor" red="0.74466895724258286" green="0.74466895724258286" blue="0.74466895724258286" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="Al3-M0-izE"/>
+                            <constraint firstAttribute="width" constant="2" id="xPX-9U-sAH"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="BoF-PF-xoD" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="1UC-gf-Ikl"/>
+                <constraint firstItem="Sl5-2g-Kbg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8xJ-3X-oSO"/>
+                <constraint firstItem="76d-OO-v91" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="FKS-eF-4vt"/>
+                <constraint firstAttribute="bottom" secondItem="eS3-sI-Uqv" secondAttribute="bottom" constant="1" id="ILO-JI-iFw"/>
+                <constraint firstItem="Sl5-2g-Kbg" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Jpa-J0-gzQ"/>
+                <constraint firstAttribute="trailing" secondItem="Sl5-2g-Kbg" secondAttribute="trailing" id="KWY-9b-TFI"/>
+                <constraint firstItem="Sl5-2g-Kbg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="30" id="Xue-If-FI5"/>
+                <constraint firstAttribute="trailing" secondItem="BoF-PF-xoD" secondAttribute="trailing" constant="-1" id="b74-ad-lD1"/>
+                <constraint firstAttribute="bottom" secondItem="Sl5-2g-Kbg" secondAttribute="bottom" id="bKe-Jw-2z9"/>
+                <constraint firstAttribute="trailing" secondItem="eS3-sI-Uqv" secondAttribute="trailing" id="c5j-Xx-fKl"/>
+                <constraint firstItem="Sl5-2g-Kbg" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="mUw-x1-ksB"/>
+                <constraint firstItem="76d-OO-v91" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="n8X-7h-hao"/>
+                <constraint firstItem="76d-OO-v91" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="r2a-HK-Kwz"/>
+                <constraint firstAttribute="trailing" secondItem="76d-OO-v91" secondAttribute="trailing" constant="77" id="rGC-Dt-a1l"/>
+                <constraint firstItem="eS3-sI-Uqv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="rPn-lv-ip9"/>
+            </constraints>
+            <size key="customSize" width="100" height="40"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="FKS-eF-4vt"/>
+                    <exclude reference="rGC-Dt-a1l"/>
+                    <exclude reference="8xJ-3X-oSO"/>
+                    <exclude reference="Jpa-J0-gzQ"/>
+                    <exclude reference="KWY-9b-TFI"/>
+                    <exclude reference="bKe-Jw-2z9"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="historyImg" destination="76d-OO-v91" id="Hz3-Dv-yZL"/>
+                <outlet property="rightLine" destination="BoF-PF-xoD" id="TWp-XO-3FO"/>
+                <outlet property="showLabel" destination="Sl5-2g-Kbg" id="dMl-Fk-Rwr"/>
+            </connections>
+            <point key="canvasLocation" x="477" y="419"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="history.png" width="15" height="15"/>
+    </resources>
+</document>

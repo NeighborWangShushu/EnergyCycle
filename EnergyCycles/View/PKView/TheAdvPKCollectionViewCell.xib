@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TheAdvPKCollectionViewCellId" id="gTV-IL-0wX" customClass="TheAdvPKCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
+                <subviews>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MRv-pu-rX0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </tableView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="MRv-pu-rX0" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8uG-vT-3m1"/>
+                <constraint firstItem="MRv-pu-rX0" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="AJn-wd-Z3Q"/>
+                <constraint firstAttribute="bottom" secondItem="MRv-pu-rX0" secondAttribute="bottom" id="Zeh-Aa-D0c"/>
+                <constraint firstAttribute="trailing" secondItem="MRv-pu-rX0" secondAttribute="trailing" id="Zpy-NK-D9n"/>
+            </constraints>
+            <size key="customSize" width="107" height="335"/>
+            <connections>
+                <outlet property="theAdvTableView" destination="MRv-pu-rX0" id="wu4-Bf-Fnq"/>
+            </connections>
+            <point key="canvasLocation" x="653" y="500.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

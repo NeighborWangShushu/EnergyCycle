@@ -1,0 +1,51 @@
+//
+//  EnergyCycles-prefix.pch
+//  EnergyCycles
+//
+//  Created by Adinnet_Mac on 15/11/23.
+//  Copyright © 2015年 Apple. All rights reserved.
+//
+
+#ifndef EnergyCycles_prefix_pch
+#define EnergyCycles_prefix_pch
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    //第三方
+    #import "MJRefresh.h"
+    #import "JSONModel.h"
+    #import "AFURLSessionManager.h"
+    #import "AFHTTPRequestOperation.h"
+    #import "AFHTTPRequestOperationManager.h"
+    #import "Reachability.h"
+    #import "UIImageView+WebCache.h"
+    #import "UIButton+WebCache.h"
+    #import "SVProgressHUD.h"
+    #import "UIImage+Extension.h"
+    #import "IQKeyboardManager.h"
+    #import "APService.h"
+
+    #import "AppDelegate.h"
+
+    //自定工具类
+    #import "AppHelpManager.h"
+    #import "AppNetWork.h"
+    #import "AppHttpManager.h"
+    #import "LocationManager.h"
+
+    #import "MyImageView.h"
+
+    //极光
+    #define AppJPushAppKey @""
+
+    //百度地图
+    #define BaiDuMapAppKey @"iX4vzaKj5CIk1QxqtwcG9niq"
+#endif
+
+#endif
+
+
+
+
+
