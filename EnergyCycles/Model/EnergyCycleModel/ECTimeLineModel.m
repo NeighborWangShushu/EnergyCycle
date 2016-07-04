@@ -8,8 +8,8 @@
 
 #import "ECTimeLineModel.h"
 
- CGFloat contentLabelFontSize;
- CGFloat maxContentLabelHeight;
+ CGFloat contentLabelFontSize = 15;
+ CGFloat maxContentLabelHeight = 70;
 
 @implementation ECTimeLineModel
 {
@@ -21,6 +21,7 @@
 - (void)setMsgContent:(NSString *)msgContent
 {
     _msgContent = msgContent;
+    
 }
 
 - (NSString *)msgContent

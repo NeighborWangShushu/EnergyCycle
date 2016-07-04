@@ -96,6 +96,7 @@
         model.msgContent = textArray[contentRandomIndex];
         
         
+        
         // 模拟“随机图片”
         int random = arc4random_uniform(10);
         
@@ -123,6 +124,12 @@
             [tempComments addObject:commentItemModel];
         }
         model.commentItemsArray = [tempComments copy];
+        
+        ECTimeLineCellLikeItemModel*likeModel = [ECTimeLineCellLikeItemModel new];
+        likeModel.userName = @"1231";
+        likeModel.userId = @"3";
+        model.likeItemsArray = @[likeModel,likeModel];
+        
         
         [resArr addObject:model];
     }

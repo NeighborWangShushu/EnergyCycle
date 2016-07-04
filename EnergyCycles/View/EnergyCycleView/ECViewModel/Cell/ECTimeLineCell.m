@@ -18,7 +18,11 @@
 
 #import "SDTimeLineCellOperationMenu.h"
 
+#import "SDTimeLineCellBottomView.h"
+
 #import "LEETheme.h"
+
+
 
 const CGFloat contentLabelFontSize2 = 15;
 CGFloat maxContentLabelHeight2 = 0; // 根据具体font而定
@@ -40,6 +44,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     SDTimeLineCellCommentView *_commentView;
     BOOL _shouldOpenContentLabel;
     SDTimeLineCellOperationMenu *_operationMenu;
+    SDTimeLineCellBottomView * _bottomView;
+    UIView * _marginView;
+    
 }
 
 
@@ -101,6 +108,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _picContainerView = [SDWeiXinPhotoContainerView new];
     
     _commentView = [SDTimeLineCellCommentView new];
+    _commentView.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1.0];
     
     _operationMenu = [SDTimeLineCellOperationMenu new];
     __weak typeof(self) weakSelf = self;
@@ -109,6 +117,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
             [weakSelf.delegate didClickLikeButtonInCell:weakSelf];
         }
     }];
+    
     [_operationMenu setCommentButtonClickedOperation:^{
         if ([weakSelf.delegate respondsToSelector:@selector(didClickcCommentButtonInCell:)]) {
             [weakSelf.delegate didClickcCommentButtonInCell:weakSelf];
@@ -116,8 +125,16 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     }];
     
     
-    NSArray *views = @[_iconView, _nameLable, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView];
+    _bottomView = [SDTimeLineCellBottomView new];
+    _bottomView.SDTimeLineCellBottomSelectedBlock = ^(NSInteger type){
+        NSLog(@"%ld",type);
+    };
     
+    _marginView = [UIView new];
+    _marginView.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1.0];
+
+    
+    NSArray *views = @[_iconView, _nameLable, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
     [self.contentView sd_addSubviews:views];
     
     UIView *contentView = self.contentView;
@@ -150,7 +167,6 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .rightSpaceToView(contentView,margin)
     .centerYEqualToView(_location);
     
-    
     _contentLabel.sd_layout
     .leftEqualToView(_nameLable)
     .topSpaceToView(_nameLable, margin)
@@ -163,10 +179,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .topSpaceToView(_contentLabel, 0)
     .widthIs(30);
     
-    
     _picContainerView.sd_layout
     .leftEqualToView(_contentLabel); // 已经在内部实现宽度和高度自适应所以不需要再设置宽度高度，top值是具体有无图片在setModel方法中设置
-    
     
     _commentView.sd_layout
     .leftEqualToView(_contentLabel)
@@ -178,6 +192,19 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .heightIs(36)
     .centerYEqualToView(_operationButton)
     .widthIs(0);
+    
+    _bottomView.sd_layout
+    .leftEqualToView(contentView)
+    .rightEqualToView(contentView)
+    .topSpaceToView(_commentView,margin)
+    .heightIs(40);
+    
+    _marginView.sd_layout
+    .leftEqualToView(contentView)
+    .rightEqualToView(contentView)
+    .topSpaceToView(_bottomView,0)
+    .heightIs(15);
+    
 }
 
 - (void)configTheme{
@@ -250,7 +277,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         bottomView = _commentView;
     }
     
-    [self setupAutoHeightWithBottomView:bottomView bottomMargin:15];
+    [self setupAutoHeightWithBottomView:_marginView bottomMargin:0];
     
     
 }
