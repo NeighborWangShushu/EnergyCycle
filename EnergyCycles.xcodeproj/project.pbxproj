@@ -427,6 +427,9 @@
 		26E987ED1C0DAE4000C6A7BB /* whiteback_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987C91C0DAE4000C6A7BB /* whiteback_normal@3x.png */; };
 		26E987EE1C0DAE4000C6A7BB /* whiteback_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */; };
 		26E987EF1C0DAE4000C6A7BB /* whiteback_pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */; };
+		6293337D1D2B5EF60085AE82 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6293337C1D2B5EF60085AE82 /* SettingViewController.m */; };
+		629333821D2B628B0085AE82 /* MinePersonDataViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 629333801D2B628B0085AE82 /* MinePersonDataViewCell.m */; };
+		629333831D2B628B0085AE82 /* MinePersonDataViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 629333811D2B628B0085AE82 /* MinePersonDataViewCell.xib */; };
 		D00591601D24F6B300F91692 /* pengyouquan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005915F1D24F6B300F91692 /* pengyouquan@2x.png */; };
 		D00591641D24F77D00F91692 /* qzone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591611D24F77D00F91692 /* qzone@2x.png */; };
 		D00591651D24F77D00F91692 /* wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591621D24F77D00F91692 /* wechat@2x.png */; };
@@ -1797,6 +1800,11 @@
 		26E987C91C0DAE4000C6A7BB /* whiteback_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_normal@3x.png"; sourceTree = "<group>"; };
 		26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@2x.png"; sourceTree = "<group>"; };
 		26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@3x.png"; sourceTree = "<group>"; };
+		6293337B1D2B5EF60085AE82 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		6293337C1D2B5EF60085AE82 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		6293337F1D2B628B0085AE82 /* MinePersonDataViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinePersonDataViewCell.h; sourceTree = "<group>"; };
+		629333801D2B628B0085AE82 /* MinePersonDataViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MinePersonDataViewCell.m; sourceTree = "<group>"; };
+		629333811D2B628B0085AE82 /* MinePersonDataViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MinePersonDataViewCell.xib; sourceTree = "<group>"; };
 		D005915F1D24F6B300F91692 /* pengyouquan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pengyouquan@2x.png"; path = "Mine/FourImage/pengyouquan@2x.png"; sourceTree = "<group>"; };
 		D00591611D24F77D00F91692 /* qzone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "qzone@2x.png"; path = "Mine/FourImage/qzone@2x.png"; sourceTree = "<group>"; };
 		D00591621D24F77D00F91692 /* wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wechat@2x.png"; path = "Mine/FourImage/wechat@2x.png"; sourceTree = "<group>"; };
@@ -3348,6 +3356,7 @@
 				DAAEC6FC1C1FE85700FA094B /* OldStudentCertificate */,
 				DAAEC7011C1FE8A600FA094B /* IntegralMall */,
 				DAAEC7051C1FE8D200FA094B /* IWillAdvise */,
+				6293337A1D2B5E830085AE82 /* Setting */,
 			);
 			path = MineVC;
 			sourceTree = "<group>";
@@ -4338,6 +4347,7 @@
 		26D99E901C0C4D7B007AF579 /* MineView */ = {
 			isa = PBXGroup;
 			children = (
+				6293337E1D2B61300085AE82 /* MineSettingView */,
 				DAAEC7101C1FED5200FA094B /* MineHomeView */,
 				DA8AFF7E1C2A9D480064B9A7 /* MyUpButton */,
 				DA7674D41C27C94E00A34D9C /* MyProfileView */,
@@ -4410,6 +4420,25 @@
 				26E987701C0D6C9100C6A7BB /* EnergyPostTwoViewCell.xib */,
 			);
 			name = EnergyPostView;
+			sourceTree = "<group>";
+		};
+		6293337A1D2B5E830085AE82 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				6293337B1D2B5EF60085AE82 /* SettingViewController.h */,
+				6293337C1D2B5EF60085AE82 /* SettingViewController.m */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		6293337E1D2B61300085AE82 /* MineSettingView */ = {
+			isa = PBXGroup;
+			children = (
+				6293337F1D2B628B0085AE82 /* MinePersonDataViewCell.h */,
+				629333801D2B628B0085AE82 /* MinePersonDataViewCell.m */,
+				629333811D2B628B0085AE82 /* MinePersonDataViewCell.xib */,
+			);
+			name = MineSettingView;
 			sourceTree = "<group>";
 		};
 		D00820E41D1D7DEA00D34117 /* RefreshHeadView */ = {
@@ -6207,6 +6236,7 @@
 				DA8AFF531C2A4BF90064B9A7 /* 08QQ@3x.png in Resources */,
 				DAE035011C182181007E6DBD /* NO1_@2x.png in Resources */,
 				DA9A952E1C23ABEE00FBE107 /* jiangpai03@3x.png in Resources */,
+				629333831D2B628B0085AE82 /* MinePersonDataViewCell.xib in Resources */,
 				DA76750B1C27F39900A34D9C /* 06beijing01@3x.png in Resources */,
 				DAE035031C182181007E6DBD /* NO2_@2x.png in Resources */,
 				DAE035061C182181007E6DBD /* NO3_@3x.png in Resources */,
@@ -7016,6 +7046,7 @@
 				DA68D5C61C96A46E0073E0F6 /* MineTheAdvThrViewCell.m in Sources */,
 				D07EB2A11D18DE6800840AC2 /* UUMessageContentButton.m in Sources */,
 				26D99F081C0C4D7C007AF579 /* SBJsonUTF8Stream.m in Sources */,
+				629333821D2B628B0085AE82 /* MinePersonDataViewCell.m in Sources */,
 				26D99EEA1C0C4D7C007AF579 /* MJRefreshAutoFooter.m in Sources */,
 				DA7674C71C27A66900A34D9C /* NewsOneViewCell.m in Sources */,
 				DA7CE5591C3E38BF00272952 /* TwoLineChartView.m in Sources */,
@@ -7211,6 +7242,7 @@
 				DA827FD71C48D0F8006E2704 /* LearnCommentModel.m in Sources */,
 				DA7AC8CC1C3FA1CB00CD97EE /* ReCiModel.m in Sources */,
 				DA4459C61C2136250069415D /* MineEveryDayPKViewController.m in Sources */,
+				6293337D1D2B5EF60085AE82 /* SettingViewController.m in Sources */,
 				DA4459C31C2136160069415D /* MineEneryCycleViewController.m in Sources */,
 				26D99EFE1C0C4D7C007AF579 /* NSObject+SBJson.m in Sources */,
 				DAA8DBDE1C97BAA20011EB7E /* SetNoteNameView.m in Sources */,
