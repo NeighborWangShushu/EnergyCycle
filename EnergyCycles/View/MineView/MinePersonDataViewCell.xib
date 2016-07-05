@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,32 +14,26 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cia-hf-Qss">
-                        <rect key="frame" x="20" y="15" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="个人资料" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cia-hf-Qss">
+                        <rect key="frame" x="20" y="15" width="68" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="Jnd-43-Kop"/>
-                            <constraint firstAttribute="height" constant="21" id="uyU-vo-0mh"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="uyU-vo-0mh"/>
-                            </mask>
-                        </variation>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="cia-hf-Qss" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4qv-p6-CFE"/>
                     <constraint firstItem="cia-hf-Qss" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="N3Q-9D-vUe"/>
+                    <constraint firstItem="cia-hf-Qss" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="XPR-aC-BTH"/>
                     <constraint firstItem="cia-hf-Qss" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="bwK-IF-Mc2"/>
-                    <constraint firstItem="cia-hf-Qss" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="d9S-zl-lD7"/>
-                    <constraint firstItem="cia-hf-Qss" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="15" id="eOj-QV-afF"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
-                        <exclude reference="d9S-zl-lD7"/>
-                        <exclude reference="eOj-QV-afF"/>
+                        <exclude reference="XPR-aC-BTH"/>
+                        <exclude reference="bwK-IF-Mc2"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
