@@ -22,7 +22,7 @@
 
 #import "LEETheme.h"
 
-
+#import "UIImageView+WebCache.h"
 
 const CGFloat contentLabelFontSize2 = 15;
 CGFloat maxContentLabelHeight2 = 0; // 根据具体font而定
@@ -72,6 +72,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _shouldOpenContentLabel = NO;
     
+    UIView *line = [UIView new];
+    line.backgroundColor = [UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7];
+    
     _iconView = [UIImageView new];
     
     _nameLable = [UILabel new];
@@ -79,6 +82,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _nameLable.textColor = [UIColor colorWithRed:(74 / 255.0) green:(74 / 255.0) blue:(74 / 255.0) alpha:1.0];
     
     _locaIcon = [UIImageView new];
+    _locaIcon.image = [UIImage imageNamed:@"location_icon"];
     
     _location = [UILabel new];
     _location.font = [UIFont systemFontOfSize:14];
@@ -124,25 +128,48 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         }
     }];
     
-    
     _bottomView = [SDTimeLineCellBottomView new];
     _bottomView.SDTimeLineCellBottomSelectedBlock = ^(NSInteger type){
-        NSLog(@"%ld",type);
+        switch (type) {
+            case 0:
+                weakSelf.type = ECTimeLineCellActionTypeShare;
+                break;
+            case 1:
+                weakSelf.type = ECTimeLineCellActionTypeComment;
+
+                break;
+            case 2:
+                weakSelf.type = ECTimeLineCellActionTypeLike;
+
+                break;
+                
+            default:
+                break;
+        }
+        if ([weakSelf.delegate respondsToSelector:@selector(didActionInCell:actionType:atIndexPath:)]) {
+            [weakSelf.delegate didActionInCell:weakSelf actionType:weakSelf.type atIndexPath:weakSelf.indexPath];
+        }
     };
     
     _marginView = [UIView new];
     _marginView.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1.0];
-
     
-    NSArray *views = @[_iconView, _nameLable, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
+    
+    NSArray *views = @[line, _iconView, _nameLable, _locaIcon, _location, _time, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
     [self.contentView sd_addSubviews:views];
     
     UIView *contentView = self.contentView;
     CGFloat margin = 10;
     
+    line.sd_layout
+    .leftEqualToView(contentView)
+    .rightEqualToView(contentView)
+    .topEqualToView(contentView)
+    .heightIs(1);
+    
     _iconView.sd_layout
     .leftSpaceToView(contentView, margin)
-    .topSpaceToView(contentView, margin + 5)
+    .topSpaceToView(line, margin + 5)
     .widthIs(50)
     .heightIs(50);
     _iconView.sd_cornerRadiusFromHeightRatio = [NSNumber numberWithFloat:0.5];
@@ -168,8 +195,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .centerYEqualToView(_location);
     
     _contentLabel.sd_layout
-    .leftEqualToView(_nameLable)
-    .topSpaceToView(_nameLable, margin)
+    .leftEqualToView(_iconView)
+    .topSpaceToView(_iconView, margin)
     .rightSpaceToView(contentView, margin)
     .autoHeightRatio(0);
     
@@ -233,10 +260,11 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _shouldOpenContentLabel = NO;
     
-    _iconView.image = [UIImage imageNamed:model.iconName];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:nil];
     _nameLable.text = model.name;
     _location.text = model.location;
     _time.text = model.time;
+    
     // 防止单行文本label在重用时宽度计算不准的问题
     [_nameLable sizeToFit];
     _contentLabel.text = model.msgContent;

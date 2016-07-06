@@ -140,7 +140,7 @@
     NSAttributedString *likeIcon = [NSAttributedString attributedStringWithAttachment:attach];
     
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:likeIcon];
-    
+    [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@"  "]];
     for (int i = 0; i < likeItemsArray.count; i++) {
         ECTimeLineCellLikeItemModel *model = likeItemsArray[i];
         if (i > 0) {
@@ -249,7 +249,7 @@
 {
     NSString *text = model.userName;
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
-    UIColor *highLightColor = [UIColor colorWithRed:100.0/255.0 green:206.0/255.0 blue:205.0/255.0 alpha:1.0];
+    UIColor *highLightColor = [UIColor colorWithRed:101.0/255.0 green:187.0/255.0 blue:242.0/255.0 alpha:1.0];
     [attString setAttributes:@{NSForegroundColorAttributeName : highLightColor, NSLinkAttributeName : model.userId} range:[text rangeOfString:model.userName]];
     
     return attString;

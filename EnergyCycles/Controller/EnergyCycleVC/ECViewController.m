@@ -13,15 +13,23 @@
 #import "ECTimeLineCell.h"
 #import "ECTimeLineCellLikeItemModel.h"
 #import "ECTimeLineCellCommentItemModel.h"
+#import "XMShareView.h"
+#import "GifHeader.h"
 
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 
 
-@interface ECViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ECViewController ()<UITableViewDelegate,UITableViewDataSource,ECTimeLineCellDelegate>{
+    XMShareView*shareView;
+    UILabel*titleLabel;
+    UIImageView *arrowImg;
+}
 
 @property (nonatomic,strong)UITableView * tableView;
 @property (nonatomic,strong)NSMutableArray * dataArray;
+
+
 @end
 
 @implementation ECViewController
@@ -29,121 +37,121 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataArray = [NSMutableArray array];
-    [self.dataArray addObjectsFromArray:[self creatModelsWithCount:10]];
-    
+    [self getData];
     
     [self setup];
     
     // Do any additional setup after loading the view.
 }
 
-- (NSArray *)creatModelsWithCount:(NSInteger)count
-{
-    NSArray *iconImageNamesArray = @[@"icon0.jpg",
-                                     @"icon1.jpg",
-                                     @"icon2.jpg",
-                                     @"icon3.jpg",
-                                     @"icon4.jpg",
-                                     ];
-    
-    NSArray *namesArray = @[@"GSD_iOS",
-                            @"风口上的猪",
-                            @"当今世界网名都不好起了",
-                            @"我叫郭德纲",
-                            @"Hello Kitty"];
-    
-    NSArray *textArray = @[@"当你的 app 没有提供 3x 的 LaunchImage 时，系统默认进入兼容模式，https://github.com/gsdios/SDAutoLayout大屏幕一切按照 320 宽度渲染，屏幕宽度返回 320；然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。",
-                           @"然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，https://github.com/gsdios/SDAutoLayout等于把小屏完全拉伸。",
-                           @"当你的 app 没有提供 3x 的 LaunchImage 时屏幕宽度返回 320；然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。屏幕宽度返回 320；https://github.com/gsdios/SDAutoLayout然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。屏幕宽度返回 320；然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。",
-                           @"但是建议不要长期处于这种模式下，否则在大屏上会显得字大，内容少，容易遭到用户投诉。",
-                           @"屏幕宽度返回 320；https://github.com/gsdios/SDAutoLayout然后等比例拉伸到大屏。这种情况下对界面不会产生任何影响，等于把小屏完全拉伸。但是建议不要长期处于这种模式下。"
-                           ];
-    
-    NSArray *commentsArray = @[@"社会主义好！👌👌👌👌",
-                               @"正宗好凉茶，正宗好声音。。。",
-                               @"你好，我好，大家好才是真的好",
-                               @"有意思",
-                               @"你瞅啥？",
-                               @"瞅你咋地？？？！！！",
-                               @"hello，看我",
-                               @"曾经在幽幽暗暗反反复复中追问，才知道平平淡淡从从容容才是真，再回首恍然如梦，再回首我心依旧，只有那不变的长路伴着我",
-                               @"人艰不拆",
-                               @"咯咯哒",
-                               @"呵呵~~~~~~~~",
-                               @"我勒个去，啥世道啊",
-                               @"真有意思啊你💢💢💢"];
-    
-    NSArray *picImageNamesArray = @[ @"pic0.jpg",
-                                     @"pic1.jpg",
-                                     @"pic2.jpg",
-                                     @"pic3.jpg",
-                                     @"pic4.jpg",
-                                     @"pic5.jpg",
-                                     @"pic6.jpg",
-                                     @"pic7.jpg",
-                                     @"pic8.jpg"
-                                     ];
-    NSMutableArray *resArr = [NSMutableArray new];
-    
-    for (int i = 0; i < count; i++) {
-        int iconRandomIndex = arc4random_uniform(5);
-        int nameRandomIndex = arc4random_uniform(5);
-        int contentRandomIndex = arc4random_uniform(5);
-        
-        ECTimeLineModel *model = [ECTimeLineModel new];
-        model.iconName = iconImageNamesArray[iconRandomIndex];
-        model.name = namesArray[nameRandomIndex];
-        model.msgContent = textArray[contentRandomIndex];
-        
-        
-        
-        // 模拟“随机图片”
-        int random = arc4random_uniform(10);
-        
-        NSMutableArray *temp = [NSMutableArray new];
-        for (int i = 0; i < random; i++) {
-            int randomIndex = arc4random_uniform(9);
-            [temp addObject:picImageNamesArray[randomIndex]];
-        }
-        if (temp.count) {
-            model.picNamesArray = [temp copy];
-        }
-        
-        int commentRandom = arc4random_uniform(6);
-        NSMutableArray *tempComments = [NSMutableArray new];
-        for (int i = 0; i < commentRandom; i++) {
-            ECTimeLineCellCommentItemModel *commentItemModel = [ECTimeLineCellCommentItemModel new];
-            int index = arc4random_uniform((int)namesArray.count);
-            commentItemModel.firstUserName = namesArray[index];
-            commentItemModel.firstUserId = @"666";
-            if (arc4random_uniform(10) < 5) {
-                commentItemModel.secondUserName = namesArray[arc4random_uniform((int)namesArray.count)];
-                commentItemModel.secondUserId = @"888";
+- (void)getData {
+    __weak typeof(self) weakSelf = self;
+
+    [[AppHttpManager shareInstance] getGetArticleListWithType:@"1" Userid:User_ID Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%d",1] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            
+            for (NSDictionary * data in dict[@"Data"]) {
+                ECTimeLineModel*model = [self sortByData:data];
+                [weakSelf.dataArray addObject:model];
             }
-            commentItemModel.commentString = commentsArray[arc4random_uniform((int)commentsArray.count)];
-            [tempComments addObject:commentItemModel];
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView reloadData];
         }
-        model.commentItemsArray = [tempComments copy];
+    } failure:^(NSString *str) {
+        [weakSelf.tableView.mj_header endRefreshing];
         
+    }];
+
+}
+
+- (ECTimeLineModel*)sortByData:(NSDictionary*)data {
+    ECTimeLineModel*model = [ECTimeLineModel new];
+    model.iconName = data[@"photoUrl"];
+    model.name = data[@"nickName"];
+    model.ID = [NSString stringWithFormat:@"%@",data[@"artId"]];
+    NSString *informationStr = [data[@"artContent"] stringByRemovingPercentEncoding];
+    informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
+    informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+    model.msgContent = informationStr;
+    model.location = data[@"address"];
+    model.time = data[@"createTime"];
+    model.picNamesArray = data[@"artPic"];
+    NSMutableArray * likeArr = [NSMutableArray array];
+    for (NSDictionary * like in data[@"LikeUserList"]) {
         ECTimeLineCellLikeItemModel*likeModel = [ECTimeLineCellLikeItemModel new];
-        likeModel.userName = @"1231";
-        likeModel.userId = @"3";
-        model.likeItemsArray = @[likeModel,likeModel];
-        
-        
-        [resArr addObject:model];
+        likeModel.userId = like[@"UserID"];
+        likeModel.userName = like[@"NickName"];
+        [likeArr addObject:likeModel];
     }
-    return [resArr copy];
+    NSMutableArray * commentArr = [NSMutableArray array];
+    for (NSDictionary * comment in data[@"CommentList"]) {
+        ECTimeLineCellCommentItemModel*commentModel = [ECTimeLineCellCommentItemModel new];
+        commentModel.firstUserName = comment[@"commNickName"];
+        commentModel.commentString = comment[@"commContent"];
+        commentModel.firstUserId = comment[@"commUserId"];
+        [commentArr addObject:commentModel];
+    }
+    model.likeItemsArray = likeArr;
+    model.commentItemsArray = commentArr;
+    
+    return model;
 }
 
 
 - (void)setup {
+
+    UIView*navView=[[UIView alloc] initWithFrame:CGRectMake(200, 10, 150, 50)];
+
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(showFromNavigation) forControlEvents:UIControlEventTouchUpInside];
+    [navView addSubview:button];
+
+    titleLabel = [UILabel new];
+    titleLabel.text = @"能量圈";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:18];
+    [navView addSubview:titleLabel];
     
-    UITableView * tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-//    tableView.estimatedRowHeight = 100.0f;
-//    tableView.rowHeight = UITableViewAutomaticDimension;
+    arrowImg = [UIImageView new];
+    [arrowImg setImage:[UIImage imageNamed:@"ec_arrow"]];
+    [navView addSubview:arrowImg];
+    
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.equalTo(navView);
+    }];
+    
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(navView.mas_centerX);
+        make.centerY.equalTo(navView.mas_centerY);
+    }];
+    
+    [arrowImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(titleLabel.mas_right).with.offset(5);
+        make.centerY.equalTo(titleLabel.mas_centerY);
+    }];
+    
+    self.navigationItem.titleView = navView;
+    
+    UIButton *rightbutton = [UIButton buttonWithType:UIButtonTypeSystem];
+    rightbutton.frame = CGRectMake(0, 0, 21, 25);
+    [rightbutton setBackgroundImage:[UIImage imageNamed:@"ec_sign"] forState:UIControlStateNormal];
+    rightbutton.tag = 1001;
+    [rightbutton addTarget:self action:@selector(energyRightActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightbutton];
+    self.navigationItem.rightBarButtonItems = @[item];
+    
+    UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
+    leftbutton.frame = CGRectMake(0, 0, 21, 25);
+    [leftbutton setBackgroundImage:[UIImage imageNamed:@"ec_invite"] forState:UIControlStateNormal];
+    leftbutton.tag = 1002;
+    [leftbutton addTarget:self action:@selector(energyLeftActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftitem = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
+    self.navigationItem.leftBarButtonItems = @[leftitem];
+    
+    UITableView * tableView   = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    tableView.delegate        = self;
+    tableView.dataSource      = self;
+    tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
     tableView.backgroundColor = [UIColor clearColor];
     [tableView registerClass:[ECTimeLineCell class] forCellReuseIdentifier:@"TestCell2"];
     [self.view addSubview:tableView];
@@ -155,17 +163,56 @@
     }];
     
     self.tableView = tableView;
+    self.tableView.mj_header = [GifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    
+}
+
+//签到
+- (void)energyRightActionWithBtn:(id)sender {
+    if ([User_TOKEN length] <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+    }else {
+        [self performSegueWithIdentifier:@"EnergyCycleViewToSignInView" sender:nil];
+    }
+
+}
+
+//邀请
+- (void)energyLeftActionWithBtn:(id)sender {
+    [self performSegueWithIdentifier:@"EnergyCycleViewToInviteView" sender:nil];
+
+}
+
+
+- (void)loadNewData {
+    [self getData];
 }
 
 #pragma mark UITableViewDelegate
 
+- (void)didActionInCell:(UITableViewCell *)cell actionType:(ECTimeLineCellActionType)type atIndexPath:(NSIndexPath *)indexPath{
+    switch (type) {
+        case ECTimeLineCellActionTypeShare:
+            [self share:self.dataArray[indexPath.row]];
+            break;
+        case ECTimeLineCellActionTypeLike:
+            [self doLike:self.dataArray[indexPath.row]];
+            break;
+        case ECTimeLineCellActionTypeComment:
+            [self doComment:self.dataArray[indexPath.row]];
+            break;
+            
+        default:
+            break;
+    }
+}
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     id model = self.dataArray[indexPath.row];
     return [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[ECTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
-
 }
+
 
 - (CGFloat)cellContentViewWith
 {
@@ -180,6 +227,22 @@
 
 
 #pragma mark UITableViewDataSource
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView * view = [UIView new];
+    view.backgroundColor = [UIColor whiteColor];
+    UILabel*title = [UILabel new];
+    title.text = @"精彩推荐";
+    title.textColor = [UIColor colorWithRed:(74 / 255.0) green:(74 / 255.0) blue:(74 / 255.0) alpha:1.0];
+    title.font = [UIFont systemFontOfSize:18];
+    [view addSubview:title];
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(view.mas_left).with.offset(10);
+        make.centerY.equalTo(view.mas_centerY);
+    }];
+    return view;
+}
+
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
     cell.indexPath = indexPath;
@@ -205,15 +268,53 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 40;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.dataArray count];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)showFromNavigation {
+    NSLog(@"showFromNavigation");
+    
+}
+
+#pragma mark - 分享
+- (void)share:(ECTimeLineModel*)model {
+    
+    shareView = [[XMShareView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height)];
+    shareView.alpha = 0.0;
+    shareView.shareTitle = model.msgContent;
+    shareView.shareText = @"";
+    NSString * share_url = @"";
+    share_url = [NSString stringWithFormat:@"%@/%@?id=%@",INTERFACE_URL,StudyDetailAspx,model.ID];
+    shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
+    [[UIApplication sharedApplication].keyWindow addSubview:shareView];
+    [UIView animateWithDuration:0.25 animations:^{
+        shareView.alpha = 1.0;
+    }];
+}
+
+//评论
+- (void)doComment:(ECTimeLineModel*)model {
+   
+}
+
+//点赞
+- (void)doLike:(ECTimeLineModel*)model {
+  
 }
 
 /*
