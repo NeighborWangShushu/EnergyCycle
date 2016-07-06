@@ -244,6 +244,8 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
     ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
     cell.indexPath = indexPath;
     __weak typeof(self) weakSelf = self;
@@ -257,11 +259,7 @@
     }
     
     ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
-    
     [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
-    
-    ///////////////////////////////////////////////////////////////////////
-    
     cell.model = self.dataArray[indexPath.row];
     
     return cell;
