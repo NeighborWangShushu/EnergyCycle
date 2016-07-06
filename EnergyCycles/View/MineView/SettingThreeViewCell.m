@@ -1,14 +1,19 @@
 //
-//  InviteCodeViewCell.m
+//  SettingThreeViewCell.m
 //  EnergyCycles
 //
 //  Created by 王斌 on 16/7/5.
 //  Copyright © 2016年 Apple. All rights reserved.
 //
 
-#import "InviteCodeViewCell.h"
+#import "SettingThreeViewCell.h"
 
-@implementation InviteCodeViewCell
+@implementation SettingThreeViewCell
+
+- (void)updateDataWithData:(CGFloat)data {
+    self.leftLabel.text = @"清理缓存";
+    self.rightLabel.text = [NSString stringWithFormat:@"%.1fM",data];
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
