@@ -84,14 +84,18 @@
     
     CGFloat itemW = [self itemWidthForPicPathArray:_picPathStringsArray];
     CGFloat itemH = 0;
-    if (_picPathStringsArray.count == 1) {
-        UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
-        if (image.size.width) {
-            itemH = image.size.height / image.size.width * itemW;
-        }
-    } else {
-        itemH = itemW;
-    }
+    
+    //当只有一张图的时候，放大显示
+//    if (_picPathStringsArray.count == 1) {
+//        UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
+//        if (image.size.width) {
+//            itemH = image.size.height / image.size.width * itemW;
+//        }
+//    } else {
+//    }
+    
+    //保持正方形，固定大小
+    itemH = itemW;
     long perRowItemCount = [self perRowItemCountForPicPathArray:_picPathStringsArray];
     CGFloat margin = 5;
     
@@ -100,7 +104,7 @@
         long rowIndex = idx / perRowItemCount;
         UIImageView *imageView = [_imageViewsArray objectAtIndex:idx];
         imageView.hidden = NO;
-        imageView.image = [UIImage imageNamed:obj];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:nil];
         imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
     }];
     
@@ -142,7 +146,7 @@
     if (array.count < 3) {
         return array.count;
     } else if (array.count <= 4) {
-        return 2;
+        return 3;
     } else {
         return 3;
     }

@@ -135,8 +135,8 @@
     _likeItemsArray = likeItemsArray;
     
     NSTextAttachment *attach = [NSTextAttachment new];
-    attach.image = [UIImage imageNamed:@"Like"];
-    attach.bounds = CGRectMake(0, -3, 16, 16);
+    attach.image = [UIImage imageNamed:@"ec_like"];
+    attach.bounds = CGRectMake(0, -3, 19, 16);
     NSAttributedString *likeIcon = [NSAttributedString attributedStringWithAttachment:attach];
     
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:likeIcon];
@@ -147,7 +147,7 @@
             [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@"，"]];
         }
         [attributedText appendAttributedString:[self generateAttributedStringWithLikeItemModel:model]];
-        ;
+        
     }
     
     _likeLabel.attributedText = [attributedText copy];
@@ -249,7 +249,7 @@
 {
     NSString *text = model.userName;
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
-    UIColor *highLightColor = [UIColor blueColor];
+    UIColor *highLightColor = [UIColor colorWithRed:100.0/255.0 green:206.0/255.0 blue:205.0/255.0 alpha:1.0];
     [attString setAttributes:@{NSForegroundColorAttributeName : highLightColor, NSLinkAttributeName : model.userId} range:[text rangeOfString:model.userName]];
     
     return attString;

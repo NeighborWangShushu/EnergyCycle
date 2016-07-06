@@ -55,7 +55,7 @@
         <!--能量圈-->
         <scene sceneID="Bpc-yU-rMN">
             <objects>
-                <viewController id="4QD-KA-AGP" customClass="EnergyCycleViewController" sceneMemberID="viewController">
+                <viewController id="4QD-KA-AGP" customClass="ECViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="B3F-fM-Am4"/>
                         <viewControllerLayoutGuide type="bottom" id="aDz-kP-V92"/>
@@ -63,59 +63,10 @@
                     <view key="view" contentMode="scaleToFill" id="8se-0F-CAP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XIi-KN-69Y">
-                                <rect key="frame" x="-4" y="64" width="383" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="C7c-pk-VC9"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buH-wh-AH9">
-                                <rect key="frame" x="312" y="555" width="55" height="55"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="4b1-wC-6Lj"/>
-                                    <constraint firstAttribute="width" constant="55" id="Ebf-UF-Yfs"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="write_normal.png"/>
-                                <connections>
-                                    <action selector="postButtonClick:" destination="4QD-KA-AGP" eventType="touchUpInside" id="OfO-bB-hCR"/>
-                                </connections>
-                            </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="d1S-bu-ENe">
-                                <rect key="frame" x="-4" y="104" width="383" height="514"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OIT-d4-1S8">
-                                    <size key="itemSize" width="141" height="74"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                                <connections>
-                                    <outlet property="dataSource" destination="4QD-KA-AGP" id="HQh-w3-VzP"/>
-                                    <outlet property="delegate" destination="4QD-KA-AGP" id="XHx-y4-uNa"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="XIi-KN-69Y" firstAttribute="top" secondItem="B3F-fM-Am4" secondAttribute="bottom" id="5Qh-kt-Ii8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="d1S-bu-ENe" secondAttribute="trailing" constant="-20" id="AEh-eY-Qc6"/>
-                            <constraint firstItem="d1S-bu-ENe" firstAttribute="leading" secondItem="8se-0F-CAP" secondAttribute="leadingMargin" constant="-20" id="Iiq-me-qIf"/>
-                            <constraint firstItem="XIi-KN-69Y" firstAttribute="leading" secondItem="8se-0F-CAP" secondAttribute="leadingMargin" constant="-20" id="PIx-0i-fsj"/>
-                            <constraint firstItem="aDz-kP-V92" firstAttribute="top" secondItem="d1S-bu-ENe" secondAttribute="bottom" id="VmI-3j-ATX"/>
-                            <constraint firstItem="aDz-kP-V92" firstAttribute="top" secondItem="buH-wh-AH9" secondAttribute="bottom" constant="8" symbolic="YES" id="b0M-CM-X65"/>
-                            <constraint firstItem="d1S-bu-ENe" firstAttribute="top" secondItem="XIi-KN-69Y" secondAttribute="bottom" id="bc7-mk-BdU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="XIi-KN-69Y" secondAttribute="trailing" constant="-20" id="xCb-1u-29q"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="buH-wh-AH9" secondAttribute="trailing" constant="-8" id="yDZ-2r-oot"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="能量圈" id="kjH-pg-fov"/>
                     <connections>
-                        <outlet property="energyHeadView" destination="XIi-KN-69Y" id="ZSH-NS-2Mw"/>
-                        <outlet property="postButton" destination="buH-wh-AH9" id="yFM-DH-qZm"/>
-                        <outlet property="showBackCollectionView" destination="d1S-bu-ENe" id="iJ6-PD-f2d"/>
                         <segue destination="Ujn-li-TvK" kind="show" identifier="EnergyCyclesViewToDetailView" id="XSA-PQ-u0b"/>
                         <segue destination="jfQ-f9-7Aw" kind="show" identifier="EnergyCycleViewToPostView" id="hHS-9z-uiu"/>
                         <segue destination="yZ9-Vs-zgt" kind="show" identifier="EnergyCycleViewToSignInView" id="Jcv-q1-TeK"/>
