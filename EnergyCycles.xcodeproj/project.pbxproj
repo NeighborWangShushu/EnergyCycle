@@ -437,6 +437,14 @@
 		6259021D1D2BAEBF00F3F13C /* SettingFourViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6259021B1D2BAEBF00F3F13C /* SettingFourViewCell.xib */; };
 		625902201D2BB0EF00F3F13C /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259021F1D2BB0EF00F3F13C /* SettingTableViewController.m */; };
 		625902231D2BC34200F3F13C /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 625902221D2BC34200F3F13C /* CacheManager.m */; };
+		625902261D2CF99600F3F13C /* AMChangePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625902251D2CF99600F3F13C /* AMChangePhoneViewController.m */; };
+		6259022A1D2CFADC00F3F13C /* AMBoundPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625902291D2CFADC00F3F13C /* AMBoundPhoneViewController.m */; };
+		6259022D1D2CFB1900F3F13C /* VerificationPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259022C1D2CFB1900F3F13C /* VerificationPasswordViewController.m */; };
+		625902301D2CFB3300F3F13C /* NewVerificationPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259022F1D2CFB3300F3F13C /* NewVerificationPhoneViewController.m */; };
+		625902361D2CFB6100F3F13C /* InputPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625902351D2CFB6100F3F13C /* InputPasswordViewController.m */; };
+		625902391D2CFB6A00F3F13C /* BoundSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625902381D2CFB6A00F3F13C /* BoundSuccessViewController.m */; };
+		6259023C1D2CFB7B00F3F13C /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */; };
+		6259023F1D2D02EC00F3F13C /* VerificationPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */; };
 		6293337D1D2B5EF60085AE82 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6293337C1D2B5EF60085AE82 /* SettingViewController.m */; };
 		D00591601D24F6B300F91692 /* pengyouquan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005915F1D24F6B300F91692 /* pengyouquan@2x.png */; };
 		D00591641D24F77D00F91692 /* qzone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591611D24F77D00F91692 /* qzone@2x.png */; };
@@ -1827,6 +1835,22 @@
 		6259021F1D2BB0EF00F3F13C /* SettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewController.m; sourceTree = "<group>"; };
 		625902211D2BC34200F3F13C /* CacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheManager.h; sourceTree = "<group>"; };
 		625902221D2BC34200F3F13C /* CacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManager.m; sourceTree = "<group>"; };
+		625902241D2CF99600F3F13C /* AMChangePhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMChangePhoneViewController.h; sourceTree = "<group>"; };
+		625902251D2CF99600F3F13C /* AMChangePhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMChangePhoneViewController.m; sourceTree = "<group>"; };
+		625902281D2CFADC00F3F13C /* AMBoundPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBoundPhoneViewController.h; sourceTree = "<group>"; };
+		625902291D2CFADC00F3F13C /* AMBoundPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBoundPhoneViewController.m; sourceTree = "<group>"; };
+		6259022B1D2CFB1900F3F13C /* VerificationPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationPasswordViewController.h; sourceTree = "<group>"; };
+		6259022C1D2CFB1900F3F13C /* VerificationPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationPasswordViewController.m; sourceTree = "<group>"; };
+		6259022E1D2CFB3300F3F13C /* NewVerificationPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewVerificationPhoneViewController.h; sourceTree = "<group>"; };
+		6259022F1D2CFB3300F3F13C /* NewVerificationPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewVerificationPhoneViewController.m; sourceTree = "<group>"; };
+		625902341D2CFB6100F3F13C /* InputPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputPasswordViewController.h; sourceTree = "<group>"; };
+		625902351D2CFB6100F3F13C /* InputPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputPasswordViewController.m; sourceTree = "<group>"; };
+		625902371D2CFB6A00F3F13C /* BoundSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundSuccessViewController.h; sourceTree = "<group>"; };
+		625902381D2CFB6A00F3F13C /* BoundSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoundSuccessViewController.m; sourceTree = "<group>"; };
+		6259023A1D2CFB7B00F3F13C /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		6259023D1D2D02EC00F3F13C /* VerificationPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationPhoneViewController.h; sourceTree = "<group>"; };
+		6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationPhoneViewController.m; sourceTree = "<group>"; };
 		6293337B1D2B5EF60085AE82 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		6293337C1D2B5EF60085AE82 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		D005915F1D24F6B300F91692 /* pengyouquan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pengyouquan@2x.png"; path = "Mine/FourImage/pengyouquan@2x.png"; sourceTree = "<group>"; };
@@ -4454,6 +4478,29 @@
 			name = EnergyPostView;
 			sourceTree = "<group>";
 		};
+		625902271D2CF99C00F3F13C /* AccountManage */ = {
+			isa = PBXGroup;
+			children = (
+				625902241D2CF99600F3F13C /* AMChangePhoneViewController.h */,
+				625902251D2CF99600F3F13C /* AMChangePhoneViewController.m */,
+				625902281D2CFADC00F3F13C /* AMBoundPhoneViewController.h */,
+				625902291D2CFADC00F3F13C /* AMBoundPhoneViewController.m */,
+				6259022B1D2CFB1900F3F13C /* VerificationPasswordViewController.h */,
+				6259022C1D2CFB1900F3F13C /* VerificationPasswordViewController.m */,
+				6259022E1D2CFB3300F3F13C /* NewVerificationPhoneViewController.h */,
+				6259022F1D2CFB3300F3F13C /* NewVerificationPhoneViewController.m */,
+				6259023D1D2D02EC00F3F13C /* VerificationPhoneViewController.h */,
+				6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */,
+				625902341D2CFB6100F3F13C /* InputPasswordViewController.h */,
+				625902351D2CFB6100F3F13C /* InputPasswordViewController.m */,
+				625902371D2CFB6A00F3F13C /* BoundSuccessViewController.h */,
+				625902381D2CFB6A00F3F13C /* BoundSuccessViewController.m */,
+				6259023A1D2CFB7B00F3F13C /* ChangePasswordViewController.h */,
+				6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */,
+			);
+			name = AccountManage;
+			sourceTree = "<group>";
+		};
 		6293337A1D2B5E830085AE82 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -4461,6 +4508,7 @@
 				6293337C1D2B5EF60085AE82 /* SettingViewController.m */,
 				6259021E1D2BB0EF00F3F13C /* SettingTableViewController.h */,
 				6259021F1D2BB0EF00F3F13C /* SettingTableViewController.m */,
+				625902271D2CF99C00F3F13C /* AccountManage */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -7007,6 +7055,7 @@
 				DA2AE49A1C2D3BFA00F2F182 /* GuidePageViewController.m in Sources */,
 				26D99ED51C0C4D7B007AF579 /* IQSegmentedNextPrevious.m in Sources */,
 				D04B54931D23C85A00DC259A /* SDBrowserImageView.m in Sources */,
+				625902391D2CFB6A00F3F13C /* BoundSuccessViewController.m in Sources */,
 				26D99EA21C0C4D7B007AF579 /* BaseNavigationController.m in Sources */,
 				DAD1A1E81C16F31A000A39D3 /* PkHomeCollectionViewCell.m in Sources */,
 				26D99EAB1C0C4D7B007AF579 /* UIView+Extension.m in Sources */,
@@ -7022,6 +7071,7 @@
 				625902171D2B943C00F3F13C /* SettingThreeViewCell.m in Sources */,
 				E879D1551C34E025005005B4 /* EnergyMainModel.m in Sources */,
 				DA82CCFA1C3CF1F600C6D8EA /* WDTwoScrollView.m in Sources */,
+				6259022A1D2CFADC00F3F13C /* AMBoundPhoneViewController.m in Sources */,
 				D07EB2601D18DE6800840AC2 /* FacialView.m in Sources */,
 				26D99EC01C0C4D7B007AF579 /* XMShareWechatUtil.m in Sources */,
 				DA8AFF671C2A65260064B9A7 /* MineEveryTwoViewCell.m in Sources */,
@@ -7144,6 +7194,7 @@
 				26D99EA51C0C4D7B007AF579 /* BaseViewController.m in Sources */,
 				D04B54DD1D23C90D00DC259A /* SDRefreshHeaderView.m in Sources */,
 				DA4459CF1C2137320069415D /* BrokenLineViewController.m in Sources */,
+				625902301D2CFB3300F3F13C /* NewVerificationPhoneViewController.m in Sources */,
 				26D99F0B1C0C4D7C007AF579 /* NSData+ImageContentType.m in Sources */,
 				26D99ED31C0C4D7B007AF579 /* IQKeyboardManager.m in Sources */,
 				DA4459CC1C21364A0069415D /* RecommentViewController.m in Sources */,
@@ -7159,6 +7210,7 @@
 				DAF48DBA1C1E728900D9C136 /* CourseRegTwoViewCell.m in Sources */,
 				26E9877F1C0D85F300C6A7BB /* PKHomeViewCell.m in Sources */,
 				26D99ECC1C0C4D7B007AF579 /* AFURLResponseSerialization.m in Sources */,
+				625902261D2CF99600F3F13C /* AMChangePhoneViewController.m in Sources */,
 				D04B54D31D23C90D00DC259A /* NSAttributedString+MLExpression.m in Sources */,
 				D07EB25B1D18DE6800840AC2 /* Emoji.m in Sources */,
 				D07E24801D13DB2300854B51 /* TAAbstractDotView.m in Sources */,
@@ -7223,6 +7275,7 @@
 				DAE033831C181294007E6DBD /* TheAdvThrViewCell.m in Sources */,
 				D04B54601D23BEDF00DC259A /* ECTimeLineModel.m in Sources */,
 				26D99F221C0C4D7C007AF579 /* EnergyShowOneViewCell.m in Sources */,
+				625902361D2CFB6100F3F13C /* InputPasswordViewController.m in Sources */,
 				D07D2ED81D0FD6CC00AF35B1 /* MASLayoutConstraint.m in Sources */,
 				DA7D19C91C5AF84600FFB337 /* UIImage+Utility.m in Sources */,
 				DA7CE5541C3E38BF00272952 /* LineChartView.m in Sources */,
@@ -7238,6 +7291,7 @@
 				DAAEC6E21C1FBD1B00FA094B /* SearchResultTableViewCell.m in Sources */,
 				26D99ED21C0C4D7B007AF579 /* IQUIWindow+Hierarchy.m in Sources */,
 				DA7CE5511C3E38BF00272952 /* UIKit+DrawingHelpers.m in Sources */,
+				6259023F1D2D02EC00F3F13C /* VerificationPhoneViewController.m in Sources */,
 				26E987761C0D763500C6A7BB /* EnergyPostCollectionViewCell.m in Sources */,
 				D07E241E1D11382000854B51 /* CCTalkModel.m in Sources */,
 				26D99EFA1C0C4D7C007AF579 /* UIScrollView+MJExtension.m in Sources */,
@@ -7294,6 +7348,8 @@
 				DA7CE5321C3E15BE00272952 /* BrokenModel.m in Sources */,
 				26D99F171C0C4D7C007AF579 /* UIImageView+HighlightedWebCache.m in Sources */,
 				26E987661C0D6BD100C6A7BB /* EnergyPostViewCell.m in Sources */,
+				6259022D1D2CFB1900F3F13C /* VerificationPasswordViewController.m in Sources */,
+				6259023C1D2CFB7B00F3F13C /* ChangePasswordViewController.m in Sources */,
 				DA8AFF5D1C2A51180064B9A7 /* MineEveryDayPKViewCell.m in Sources */,
 				DA78A34B1C9154020036912C /* LearnShowTwoCollectionViewCell.m in Sources */,
 				DA7674DD1C27CB2D00A34D9C /* SoicalTableViewCell.m in Sources */,

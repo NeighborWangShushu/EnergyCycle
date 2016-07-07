@@ -115,7 +115,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1) {
+//            [self performSegueWithIdentifier:@"AMChangePhoneViewController" sender:nil];
+            [self performSegueWithIdentifier:@"AMBoundPhoneViewController" sender:nil];
+        }
+    } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             [CacheManager cleadDisk];
             NSLog(@"clear");

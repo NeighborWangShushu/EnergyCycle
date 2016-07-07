@@ -96,9 +96,11 @@
         [SVProgressHUD showImage:nil status:@"请输入手机号"];
     }else if ([self.loginPassWordTextField.text length] <= 0) {
         [SVProgressHUD showImage:nil status:@"请输入密码"];
-    }else if (![[AppHelpManager sharedInstance] isValidPassword:self.loginPassWordTextField.text]) {
-        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
-    }else {
+    }
+//    else if (![[AppHelpManager sharedInstance] isValidPassword:self.loginPassWordTextField.text]) {
+//        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
+//    }
+    else {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"请等待.."];
         
@@ -108,6 +110,8 @@
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"use_id"] forKey:@"USERID"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"token"] forKey:@"TOKEN"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"phone"] forKey:@"PHONE"];
+                
+                [[NSUserDefaults standardUserDefaults] setObject:subDict[@"pwd"] forKey:@"PASSWORD"];
                 
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"jifen"] forKey:@"UserJiFen"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"studyVal"] forKey:@"UserStudyValues"];
