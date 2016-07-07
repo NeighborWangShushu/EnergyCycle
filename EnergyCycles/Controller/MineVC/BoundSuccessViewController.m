@@ -10,15 +10,22 @@
 
 @interface BoundSuccessViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *boundSuccess;
+
 @end
 
 @implementation BoundSuccessViewController
 
 - (IBAction)back:(id)sender {
+    UIViewController *settingVC = [self.navigationController.viewControllers objectAtIndex:0];
+    [self.navigationController popToViewController:settingVC animated:YES];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title = @"账号管理";
+    
     // Do any additional setup after loading the view.
 }
 

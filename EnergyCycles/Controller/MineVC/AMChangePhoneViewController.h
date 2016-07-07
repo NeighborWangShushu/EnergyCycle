@@ -10,4 +10,6 @@
 
 @interface AMChangePhoneViewController : BaseViewController
 
+@property (nonatomic, strong) NSString *phone;
+
 @end

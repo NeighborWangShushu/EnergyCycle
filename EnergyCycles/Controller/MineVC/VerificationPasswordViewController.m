@@ -10,16 +10,44 @@
 
 @interface VerificationPasswordViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+
+@property (weak, nonatomic) IBOutlet UIButton *passwordFieldEye;
+
 @end
 
 @implementation VerificationPasswordViewController
 
+- (IBAction)passwordFieldEye:(id)sender {
+    if (self.passwordField.secureTextEntry) {
+        [sender setImage:[UIImage imageNamed:@"loginxianshi.png"] forState:UIControlStateNormal];
+        self.passwordField.secureTextEntry = NO;
+    } else {
+        [sender setImage:[UIImage imageNamed:@"loginyincang.png"] forState:UIControlStateNormal];
+        self.passwordField.secureTextEntry = YES;
+    }
+}
+
 - (IBAction)verificationPassword:(id)sender {
-    [self performSegueWithIdentifier:@"NewVerificationPhoneViewController" sender:nil];
+    if ([self.passwordField.text length] == 0) {
+        [SVProgressHUD showImage:nil status:@"请输入密码"];
+    } else if (![[AppHelpManager sharedInstance] isValidPassword:self.passwordField.text]) {
+        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
+    } else if (![[self md5StringForString:self.passwordField.text] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"PASSWORD"]]) {
+        [SVProgressHUD showImage:nil status:@"密码不正确"];
+//        NSLog(@"%@\n%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"PASSWORD"], [self md5StringForString:self.passwordField.text]);
+    } else {
+        [self performSegueWithIdentifier:@"NewVerificationPhoneViewController" sender:nil];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title = @"账号管理";
+    
+    self.passwordField.secureTextEntry = YES;
+    
     // Do any additional setup after loading the view.
 }
 

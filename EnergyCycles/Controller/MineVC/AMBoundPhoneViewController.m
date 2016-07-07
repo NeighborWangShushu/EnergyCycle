@@ -15,10 +15,14 @@
 @implementation AMBoundPhoneViewController
 
 - (IBAction)verificationPhone:(id)sender {
+    [self performSegueWithIdentifier:@"VerificationPhoneViewController" sender:nil];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title = @"账号管理";
+    
     // Do any additional setup after loading the view.
 }
 

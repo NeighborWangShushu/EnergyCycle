@@ -10,4 +10,6 @@
 
 @interface InputPasswordViewController : BaseViewController
 
+@property (nonatomic,strong) NSString *phoneNumber;
+
 @end
