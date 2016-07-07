@@ -2444,9 +2444,12 @@ static AFHTTPRequestOperationManager *manager;
                      }];
 }
 
-<<<<<<< HEAD
+
 #pragma mark - 92.获取推荐用户（2.0版本）
-=======
+
+
+
+
 #pragma mark - 93.更换、绑定手机号时发送验证码
 //接口请求参数
 //把参数直接放到Body里面（Json格式）
@@ -2471,7 +2474,7 @@ static AFHTTPRequestOperationManager *manager;
                          failure(dict);
                      }];
 }
->>>>>>> f1e13e01182d41d0f694fe3c3d67dd5225db1379
+
 
 #pragma mark - 94.修改密码、绑定手机号
 //请求参数：
