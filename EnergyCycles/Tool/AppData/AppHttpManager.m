@@ -31,7 +31,7 @@ static AFHTTPRequestOperationManager *manager;
     }
     manager.requestSerializer.timeoutInterval=30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
-    NSLog(@"url------%@\r type=%@&content=%@",str,[postDict objectForKey:@"types"],[postDict objectForKey:@"content"]);
+    NSLog(@"%@",postDict);
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
     
     [manager GET:str
@@ -2417,6 +2417,7 @@ static AFHTTPRequestOperationManager *manager;
 }
 
 
+#pragma mark - 92.获取推荐用户（2.0版本）
 
 
 @end

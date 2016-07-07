@@ -188,11 +188,16 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _location.sd_layout
     .leftSpaceToView(_locaIcon,5)
-    .centerYEqualToView(_locaIcon);
+    .topSpaceToView(_nameLable,5);
     
     _time.sd_layout
-    .rightSpaceToView(contentView,margin)
-    .centerYEqualToView(_location);
+    .rightSpaceToView(contentView, 10)
+    .heightIs(20)
+    .topEqualToView(_locaIcon);
+    
+    [_time setSingleLineAutoResizeWithMaxWidth:100];
+
+
     
     _contentLabel.sd_layout
     .leftEqualToView(_iconView)
@@ -262,7 +267,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:nil];
     _nameLable.text = model.name;
-    _location.text = model.location;
+    _location.text = @"123";
     _time.text = model.time;
     
     // 防止单行文本label在重用时宽度计算不准的问题

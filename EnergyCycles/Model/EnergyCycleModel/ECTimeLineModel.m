@@ -53,11 +53,8 @@
 
 - (void)setTime:(NSString *)time {
     NSDateFormatter*f = [NSDateFormatter defaultDateFormatter];
-    NSString * s = [time stringByReplacingOccurrencesOfString:@"T" withString:@" "];
-    NSString*newTime = [s stringByReplacingCharactersInRange:NSMakeRange([time length] - 4, 4 - ([time length] - [s length])) withString:@""];
-    NSLog(@"%@",newTime);
     
-    NSDate*date  = [f dateFromString:newTime];
+    NSDate*date  = [f dateFromString:time];
     _time = [date timeIntervalDescription];
     NSLog(@"%@",_time);
 }

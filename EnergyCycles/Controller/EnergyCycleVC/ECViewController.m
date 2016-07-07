@@ -24,10 +24,14 @@
     XMShareView*shareView;
     UILabel*titleLabel;
     UIImageView *arrowImg;
+    NSInteger pageType;//0 能量圈  1关注的人
+    
 }
 
 @property (nonatomic,strong)UITableView * tableView;
 @property (nonatomic,strong)NSMutableArray * dataArray;
+@property (nonatomic,strong)NSMutableArray * commentArray;
+@property (nonatomic,strong)NSMutableArray * newerArray;
 
 
 @end
@@ -37,9 +41,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataArray = [NSMutableArray array];
-    [self getData];
+    self.commentArray = [NSMutableArray array];
+    self.newerArray = [NSMutableArray array];
     
     [self setup];
+    
+    [self getData];
+    
     
     // Do any additional setup after loading the view.
 }
@@ -47,20 +55,50 @@
 - (void)getData {
     __weak typeof(self) weakSelf = self;
 
-    [[AppHttpManager shareInstance] getGetArticleListWithType:@"1" Userid:User_ID Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%d",1] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+    if (pageType == 0) {
+        //能量圈
+        dispatch_queue_t queue = dispatch_queue_create("tk.bourne.testQueue", NULL);
+        dispatch_sync(queue, ^{
+            //任务1 精选动态
+            [[AppHttpManager shareInstance] getGetArticleListWithType:@"2" Userid:User_ID Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%d",1] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    
+                    for (NSDictionary * data in dict[@"Data"]) {
+                        ECTimeLineModel*model = [self sortByData:data];
+                        [weakSelf.dataArray addObject:model];
+                    }
+                }
+            } failure:^(NSString *str) {
+                [weakSelf.tableView.mj_header endRefreshing];
+                
+            }];
             
-            for (NSDictionary * data in dict[@"Data"]) {
-                ECTimeLineModel*model = [self sortByData:data];
-                [weakSelf.dataArray addObject:model];
-            }
-            [weakSelf.tableView.mj_header endRefreshing];
-            [weakSelf.tableView reloadData];
-        }
-    } failure:^(NSString *str) {
-        [weakSelf.tableView.mj_header endRefreshing];
+            //任务2 推荐用户
+            [[AppHttpManager shareInstance] getGetRecommendUserWithUserId:[User_ID intValue] Token:User_TOKEN PostOrGet:@"get" success:^(NSDictionary *dict){
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    
+                    for (NSDictionary * data in dict[@"Data"]) {
+                        
+                        
+                    }
+                }
+            } failure:^(NSString *str) {
+                [weakSelf.tableView.mj_header endRefreshing];
+                
+            }];
+            
+            
+            
+        });
+    }else {
+        //关注的人
         
-    }];
+        
+    }
+   
+    
+
+
 
 }
 

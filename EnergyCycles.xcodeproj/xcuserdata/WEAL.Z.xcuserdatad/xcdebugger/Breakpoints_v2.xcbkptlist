@@ -34,11 +34,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EnergyCycles/Controller/LearnVC/LearnDetailViewController.m"
-            timestampString = "488964189.950112"
+            timestampString = "489575025.988985"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
             landmarkName = "-getZanOrCaiDataWithId:withHeight:"
             landmarkType = "5">
          </BreakpointContent>
@@ -66,61 +66,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EnergyCycles/Controller/LearnVC/LearnDetailViewController.m"
-            timestampString = "488964377.465738"
+            timestampString = "489575025.988985"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "790"
-            endingLineNumber = "790"
+            startingLineNumber = "812"
+            endingLineNumber = "812"
             landmarkName = "-detailRightActionWithBtn:"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Controller/LearnVC/LearnDetailViewController.m"
-            timestampString = "488964242.261527"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[LearnDetailViewController viewDidLoad]"
-                  moduleName = "EnergyCycles"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/WEAL.Z/work/EnergyCycles/EnergyCycles/Controller/LearnVC/LearnDetailViewController.m"
-                  timestampString = "488964242.278344"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "2432">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__40-[LearnDetailViewController viewDidLoad]_block_invoke"
-                  moduleName = "EnergyCycles"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/WEAL.Z/work/EnergyCycles/EnergyCycles/Controller/LearnVC/LearnDetailViewController.m"
-                  timestampString = "488964242.278508"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "28">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -168,6 +120,22 @@
             startingLineNumber = "153"
             endingLineNumber = "153"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/View/EnergyCycleView/ECViewModel/Cell/ECTimeLineCell.m"
+            timestampString = "489577904.336256"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "-setModel:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
