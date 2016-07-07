@@ -1094,4 +1094,17 @@
                          success:(void (^)(NSDictionary *dict))success
                          failure:(void (^)(NSString *str))failure;
 
+#pragma mark - 95.获取推荐用户（2.0版本）
+//请求参数：
+//把参数直接放到Body里面（Json格式）
+//必选	类型及范围	说明
+//userid	true	String	用户ID  0=未登录  否则传id
+
+
+- (void)getCommentUsers:(NSString*)userid
+              PostOrGet:(NSString *)postOrGetType
+                success:(void (^)(NSDictionary *dict))success
+                failure:(void (^)(NSString *str))failure;
+
+
 @end

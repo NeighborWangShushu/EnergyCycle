@@ -243,9 +243,6 @@
 //57.获取能量圈tab顺序
 #define GetTabOfArticle            @"Article/GetTabOfArticle"
 
-
-
-
 //58.获取pk广告
 #define GetADV                     @"pk/GetADV"
 
@@ -346,22 +343,23 @@
 #define GetFriendsList             @"Member/GetFriendsList/"
 
 //91.分享成功获得积分
-<<<<<<< HEAD
+
 #define Share                      @"Member/Share/"
 
-//92.获取推荐用户(2.0版本)
-#define GetCommentUsers            @"Member/RecommendUse_List"
-=======
-#define Share      @"Member/Share/"
+
+#define Share                      @"Member/Share/"
 
 //92.更换、绑定手机号
-#define ChangePhoneNumber @"user/User_Phone_Upd"
+#define ChangePhoneNumber          @"user/User_Phone_Upd"
 
 //93.更换手机号时发送验证码
-#define GetVerificationCode @"user/ChangePhoneNoSendCode"
->>>>>>> f1e13e01182d41d0f694fe3c3d67dd5225db1379
+#define GetVerificationCode        @"user/ChangePhoneNoSendCode"
+
 
 //94.修改密码
-#define ChangePassword @"user/User_Pwd_Upd"
+#define ChangePassword             @"user/User_Pwd_Upd"
+
+//95.获取推荐用户(2.0版本)
+#define GetCommentUsers            @"Member/RecommendUse_List"
 
 #endif

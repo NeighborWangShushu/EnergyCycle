@@ -2445,7 +2445,6 @@ static AFHTTPRequestOperationManager *manager;
 }
 
 
-#pragma mark - 92.获取推荐用户（2.0版本）
 
 
 
@@ -2498,6 +2497,26 @@ static AFHTTPRequestOperationManager *manager;
     [dic setObject:phone forKey:@"phone"];
     
     [self callInterfaceByUrl:ChangePassword
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict){
+                         success(dict);
+                     }failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 95.获取推荐用户（2.0版本）
+
+
+- (void)getCommentUsers:(NSString*)userid
+                       PostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:userid forKey:@"userid"];
+    
+    [self callInterfaceByUrl:GetCommentUsers
                    PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict){

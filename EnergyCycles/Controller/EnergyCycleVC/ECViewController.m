@@ -74,9 +74,9 @@
             }];
             
             //任务2 推荐用户
-            [[AppHttpManager shareInstance] getGetRecommendUserWithUserId:[User_ID intValue] Token:User_TOKEN PostOrGet:@"get" success:^(NSDictionary *dict){
+            NSString * userid = User_ID == nil?@"0":User_ID;
+            [[AppHttpManager shareInstance] getCommentUsers:@"0" PostOrGet:@"get" success:^(NSDictionary *dict) {
                 if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                    
                     for (NSDictionary * data in dict[@"Data"]) {
                         
                         
