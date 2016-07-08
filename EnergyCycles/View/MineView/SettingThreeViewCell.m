@@ -12,7 +12,7 @@
 
 - (void)updateDataWithData:(CGFloat)data {
     self.leftLabel.text = @"清理缓存";
-    self.rightLabel.text = [NSString stringWithFormat:@"%.1fM",data];
+    self.rightLabel.text = [NSString stringWithFormat:@"%.fM",data];
 }
 
 - (void)awakeFromNib {

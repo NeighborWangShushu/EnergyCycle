@@ -15,32 +15,31 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="消息推送" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYv-tW-BGE">
-                        <rect key="frame" x="20" y="11" width="68" height="21"/>
+                        <rect key="frame" x="31" y="11" width="68" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="tqN-l7-Ybc"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未开启" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ujE-5Y-4PY">
-                        <rect key="frame" x="249" y="11" width="51" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wio-BC-cQY">
+                        <rect key="frame" x="252" y="6" width="51" height="31"/>
+                        <color key="onTintColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </switch>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ujE-5Y-4PY" firstAttribute="centerY" secondItem="gYv-tW-BGE" secondAttribute="centerY" id="3VZ-G7-t1g"/>
                     <constraint firstItem="gYv-tW-BGE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Fxv-MW-Tpr"/>
-                    <constraint firstAttribute="trailing" secondItem="ujE-5Y-4PY" secondAttribute="trailing" constant="20" id="IJm-Z9-Feb"/>
-                    <constraint firstItem="gYv-tW-BGE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Mfa-Ag-ub8"/>
+                    <constraint firstItem="gYv-tW-BGE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="31" id="Mfa-Ag-ub8"/>
+                    <constraint firstItem="Wio-BC-cQY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Uqe-nu-Fcy"/>
+                    <constraint firstAttribute="trailing" secondItem="Wio-BC-cQY" secondAttribute="trailing" constant="19" id="aRg-ZC-WH8"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="leftLabel" destination="gYv-tW-BGE" id="4pc-NM-aQY"/>
-                <outlet property="rightLabel" destination="ujE-5Y-4PY" id="zYi-KJ-LDc"/>
+                <outlet property="rightSwitch" destination="Wio-BC-cQY" id="axY-Bc-vNp"/>
             </connections>
+            <point key="canvasLocation" x="256" y="445"/>
         </tableViewCell>
     </objects>
 </document>

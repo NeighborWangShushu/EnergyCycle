@@ -445,7 +445,6 @@
 		625902391D2CFB6A00F3F13C /* BoundSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625902381D2CFB6A00F3F13C /* BoundSuccessViewController.m */; };
 		6259023C1D2CFB7B00F3F13C /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */; };
 		6259023F1D2D02EC00F3F13C /* VerificationPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */; };
-		6293337D1D2B5EF60085AE82 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6293337C1D2B5EF60085AE82 /* SettingViewController.m */; };
 		D00591601D24F6B300F91692 /* pengyouquan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005915F1D24F6B300F91692 /* pengyouquan@2x.png */; };
 		D00591641D24F77D00F91692 /* qzone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591611D24F77D00F91692 /* qzone@2x.png */; };
 		D00591651D24F77D00F91692 /* wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591621D24F77D00F91692 /* wechat@2x.png */; };
@@ -1851,8 +1850,6 @@
 		6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		6259023D1D2D02EC00F3F13C /* VerificationPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationPhoneViewController.h; sourceTree = "<group>"; };
 		6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationPhoneViewController.m; sourceTree = "<group>"; };
-		6293337B1D2B5EF60085AE82 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		6293337C1D2B5EF60085AE82 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		D005915F1D24F6B300F91692 /* pengyouquan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pengyouquan@2x.png"; path = "Mine/FourImage/pengyouquan@2x.png"; sourceTree = "<group>"; };
 		D00591611D24F77D00F91692 /* qzone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "qzone@2x.png"; path = "Mine/FourImage/qzone@2x.png"; sourceTree = "<group>"; };
 		D00591621D24F77D00F91692 /* wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wechat@2x.png"; path = "Mine/FourImage/wechat@2x.png"; sourceTree = "<group>"; };
@@ -4504,8 +4501,6 @@
 		6293337A1D2B5E830085AE82 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				6293337B1D2B5EF60085AE82 /* SettingViewController.h */,
-				6293337C1D2B5EF60085AE82 /* SettingViewController.m */,
 				6259021E1D2BB0EF00F3F13C /* SettingTableViewController.h */,
 				6259021F1D2BB0EF00F3F13C /* SettingTableViewController.m */,
 				625902271D2CF99C00F3F13C /* AccountManage */,
@@ -7361,7 +7356,6 @@
 				DA827FD71C48D0F8006E2704 /* LearnCommentModel.m in Sources */,
 				DA7AC8CC1C3FA1CB00CD97EE /* ReCiModel.m in Sources */,
 				DA4459C61C2136250069415D /* MineEveryDayPKViewController.m in Sources */,
-				6293337D1D2B5EF60085AE82 /* SettingViewController.m in Sources */,
 				DA4459C31C2136160069415D /* MineEneryCycleViewController.m in Sources */,
 				26D99EFE1C0C4D7C007AF579 /* NSObject+SBJson.m in Sources */,
 				625902121D2B92C500F3F13C /* SettingTwoViewCell.m in Sources */,

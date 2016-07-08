@@ -24,7 +24,6 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     postDict = [[NSMutableDictionary alloc] init];
     
-    //
     [self setupLeftNavBarWithimage:@"blackback_normal.png"];
     
     self.inputTextView.placehoder = @"可输入200字";
@@ -39,6 +38,7 @@
     rightButton.frame = CGRectMake(0, 0, 35, 30);
     [rightButton setTitle:@"提交" forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+    [rightButton setTintColor:[UIColor whiteColor]];
     [rightButton addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     rightButton.userInteractionEnabled = NO;
     

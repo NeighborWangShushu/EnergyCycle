@@ -25,6 +25,11 @@
             self.leftLabel.text = @"关于能量圈";
         }
     }
+    if (section == 3) {
+        self.leftLabel.text = @"退出当前账号";
+        self.leftLabel.textColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+        self.rightImage.hidden = YES;
+    }
 }
 
 - (void)awakeFromNib {

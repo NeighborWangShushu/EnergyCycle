@@ -8,7 +8,7 @@
 
 #import "InputPasswordViewController.h"
 
-@interface InputPasswordViewController ()
+@interface InputPasswordViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
@@ -45,17 +45,38 @@
 
 - (IBAction)bound:(id)sender {
     
-//    [[AppHttpManager shareInstance] changePasswordWithUserid:[User_ID intValue] Token:User_TOKEN Pwd:[self md5StringForString:self.passwordField.text] Phone:self.phoneNumber PostOrGet:@"post" success:^(NSDictionary *dict) {
-//        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-//            [SVProgressHUD showImage:nil status:@"绑定成功"];
-//            [[NSUserDefaults standardUserDefaults] setObject:self.phoneNumber forKey:@"PHONE"];
-//            [[NSUserDefaults standardUserDefaults] setObject:[self md5StringForString:self.passwordField.text] forKey:@"PASSWORD"];
-//            [self performSegueWithIdentifier:@"BoundSuccessViewController" sender:nil];
-//        }
-//    } failure:^(NSString *str) {
-//        NSLog(@"%@",str);
-//    }];
-    [self performSegueWithIdentifier:@"BoundSuccessViewController" sender:nil];
+    if ([self.passwordField.text length] == 0) {
+        [SVProgressHUD showImage:nil status:@"请输入密码"];
+    } else if ([self.repeatPasswordField.text length] == 0) {
+        [SVProgressHUD showImage:nil status:@"请输入确认密码"];
+    } else if (![[AppHelpManager sharedInstance] isValidPassword:self.passwordField.text]) {
+        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
+    } else if (![self.passwordField.text isEqualToString:self.repeatPasswordField.text]) {
+        [SVProgressHUD showImage:nil status:@"两次输入密码不一致"];
+    } else {
+        [[AppHttpManager shareInstance] changePasswordWithUserid:[User_ID intValue] Token:User_TOKEN Pwd:[self md5StringForString:self.passwordField.text] Phone:self.phoneNumber PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [SVProgressHUD showImage:nil status:@"绑定成功"];
+                [[NSUserDefaults standardUserDefaults] setObject:self.phoneNumber forKey:@"PHONE"];
+                [[NSUserDefaults standardUserDefaults] setObject:[self md5StringForString:self.passwordField.text] forKey:@"PASSWORD"];
+                [self performSegueWithIdentifier:@"BoundSuccessViewController" sender:nil];
+            } else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@",str);
+        }];
+    }
+}
+
+// 限制文本框输入的字符长度
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.length + range.location > textField.text.length) {
+        return NO;
+    }
+    
+    NSUInteger newLength = textField.text.length + string.length - range.length;
+    return newLength <= 19;
 }
 
 - (void)viewDidLoad {
@@ -65,6 +86,9 @@
     
     self.passwordField.secureTextEntry = YES;
     self.repeatPasswordField.secureTextEntry = YES;
+    
+    self.passwordField.delegate = self;
+    self.repeatPasswordField.delegate = self;
     
     // Do any additional setup after loading the view.
 }
