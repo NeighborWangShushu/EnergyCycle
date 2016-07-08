@@ -12,5 +12,6 @@
 
 @interface ECRecommendCell : UITableViewCell
 
+@property (nonatomic,copy)NSMutableArray *datas;
 
 @end

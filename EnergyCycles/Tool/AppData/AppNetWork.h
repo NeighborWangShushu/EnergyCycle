@@ -35,7 +35,7 @@
 //#define INTERFACE_URL @"http://10.40.200.186:8089/"
 
 //测试环境
-#define INTERFACE_URL @"http://192.168.2.13:8888"
+#define INTERFACE_URL @"http://192.168.2.13:8888/"
 
 //正式环境
 //#define INTERFACE_URL @"http://120.26.218.68:8038"
@@ -220,7 +220,7 @@
 
 
 //50.获取能量圈列表
-#define GetArticleList             @"Article/Article_List"
+#define GetArticleList             @"Article/Article_List/"
 
 //51.获取某个能量圈的详情
 #define GetArticleInfoById         @"Article/GetArticleInfoById"
@@ -304,7 +304,7 @@
 #define GetMyPkProjectInfo         @"Member/GetMyPkProjectInfo/"
 
 //78.获取推荐用户列表
-#define GetRecommendUser           @"Member/GetRecommendUser/"
+#define GetRecommendUser           @"Member/RecommendUser_List"
 
 //79.进阶pk-获取某个人发布的进阶pk列表
 #define GetPostListByUser          @"pk/GetPostListByUser/"

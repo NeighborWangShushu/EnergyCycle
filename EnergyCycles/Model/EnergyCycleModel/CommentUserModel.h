@@ -12,5 +12,7 @@
 
 @property (nonatomic,copy)NSString * name;
 @property (nonatomic,copy)NSString * url;
+@property (nonatomic,assign)NSInteger ID;
+@property (nonatomic,assign)BOOL isHeart;
 
 @end

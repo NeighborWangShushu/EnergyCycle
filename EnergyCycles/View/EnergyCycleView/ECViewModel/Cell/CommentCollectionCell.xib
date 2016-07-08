@@ -3,44 +3,65 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CommentCollectionCell">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="75"/>
+            <rect key="frame" x="0.0" y="0.0" width="66" height="86"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="75"/>
+                <rect key="frame" x="0.0" y="0.0" width="66" height="86"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gj3-jQ-PCW">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="52"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="52" id="FJU-Lk-NkO"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="王宝强" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Org-bV-Pik">
-                        <rect key="frame" x="4" y="55" width="42" height="17"/>
+                        <rect key="frame" x="0.0" y="68" width="66" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gj3-jQ-PCW">
+                        <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Gj3-jQ-PCW" secondAttribute="height" multiplier="25:26" constant="2.5384615384615401" id="3WE-7s-NU4"/>
+                            <constraint firstAttribute="height" constant="50" id="FJU-Lk-NkO"/>
+                            <constraint firstAttribute="width" constant="66" id="TZT-PE-bCe"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="FJU-Lk-NkO"/>
+                            </mask>
+                        </variation>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="Gj3-jQ-PCW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="2g5-5c-y1l"/>
                 <constraint firstItem="Gj3-jQ-PCW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="72a-mC-sxq"/>
-                <constraint firstItem="Org-bV-Pik" firstAttribute="top" secondItem="Gj3-jQ-PCW" secondAttribute="bottom" constant="3" id="GNR-Q4-yUh"/>
+                <constraint firstItem="Gj3-jQ-PCW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="FDZ-Lz-dKP"/>
+                <constraint firstItem="Org-bV-Pik" firstAttribute="top" secondItem="Gj3-jQ-PCW" secondAttribute="bottom" constant="5" id="GNR-Q4-yUh"/>
+                <constraint firstAttribute="trailing" secondItem="Org-bV-Pik" secondAttribute="trailing" id="OBI-CK-SXS"/>
+                <constraint firstItem="Org-bV-Pik" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="SOh-10-xyc"/>
+                <constraint firstItem="Gj3-jQ-PCW" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ZT4-do-9em"/>
                 <constraint firstAttribute="trailing" secondItem="Gj3-jQ-PCW" secondAttribute="trailing" id="aVl-bq-aCp"/>
+                <constraint firstItem="Org-bV-Pik" firstAttribute="top" secondItem="Gj3-jQ-PCW" secondAttribute="bottom" constant="2" id="t0g-o3-Gqh"/>
                 <constraint firstItem="Org-bV-Pik" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="tge-z7-GAM"/>
             </constraints>
-            <size key="customSize" width="50" height="75"/>
+            <size key="customSize" width="66" height="86"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="2g5-5c-y1l"/>
+                    <exclude reference="72a-mC-sxq"/>
+                    <exclude reference="aVl-bq-aCp"/>
+                    <exclude reference="GNR-Q4-yUh"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="icon" destination="Gj3-jQ-PCW" id="i4x-Gh-2Zy"/>
                 <outlet property="name" destination="Org-bV-Pik" id="SLc-Lm-aLT"/>
             </connections>
-            <point key="canvasLocation" x="330" y="304.5"/>
+            <point key="canvasLocation" x="338" y="310"/>
         </collectionViewCell>
     </objects>
 </document>

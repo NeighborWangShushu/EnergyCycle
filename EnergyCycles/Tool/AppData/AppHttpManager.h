@@ -10,6 +10,9 @@
 //单例
 + (AppHttpManager *)shareInstance;
 
+
+
+
 #pragma mark - 服务端请求数据
 - (void)callInterfaceByUrl:(NSString *)requestUrl
                  PostOrGet:(NSString *)type
