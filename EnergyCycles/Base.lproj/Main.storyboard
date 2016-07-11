@@ -1945,12 +1945,12 @@
                     </navigationBar>
                     <connections>
                         <outlet property="mineItem" destination="y25-TD-bqt" id="Tbn-1W-gSz"/>
-                        <segue destination="uel-tT-MCR" kind="relationship" relationship="rootViewController" id="oya-Hq-XYp"/>
+                        <segue destination="6KS-XE-o5U" kind="relationship" relationship="rootViewController" id="3aC-eN-H0K"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BgP-vE-4nA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10.5" y="5090.5"/>
+            <point key="canvasLocation" x="-971.5" y="2784.5"/>
         </scene>
         <!--Login Nav Controller-->
         <scene sceneID="vh3-gw-Qcs">
@@ -2443,6 +2443,38 @@
             </objects>
             <point key="canvasLocation" x="-1058" y="4413"/>
         </scene>
+        <!--Mine Table View Controller-->
+        <scene sceneID="Mzx-Sn-Y99">
+            <objects>
+                <tableViewController id="6KS-XE-o5U" customClass="MineTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ePY-Jh-EQ9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zfr-Mk-bGQ">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zfr-Mk-bGQ" id="F4M-Q6-4mp">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="6KS-XE-o5U" id="Zm4-A5-JW8"/>
+                            <outlet property="delegate" destination="6KS-XE-o5U" id="Eff-bF-EeB"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="eT2-5K-pns"/>
+                    <connections>
+                        <segue destination="uel-tT-MCR" kind="push" identifier="SettingTableViewController" id="vpn-CB-KIX"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZUJ-NW-vvx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-513.5" y="3152.5"/>
+        </scene>
         <!--Setting Table View Controller-->
         <scene sceneID="kuT-Ig-Qq2">
             <objects>
@@ -2477,7 +2509,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5l-n6-mqc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="126.5" y="3797.5"/>
+            <point key="canvasLocation" x="34.5" y="3489.5"/>
         </scene>
         <!--Feedback View Controller-->
         <scene sceneID="vqM-Se-qwN">
@@ -2805,7 +2837,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4p2-oD-N0c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1148.5" y="5113.5"/>
+            <point key="canvasLocation" x="1764" y="4549"/>
         </scene>
         <!--New Verification Phone View Controller-->
         <scene sceneID="yMq-jj-Aum">
@@ -2825,7 +2857,7 @@
                                     <constraint firstAttribute="height" constant="50" id="kNW-SV-Rr3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BXn-vh-Xvh">
@@ -2843,7 +2875,7 @@
                                             <constraint firstAttribute="height" constant="21" id="D0v-QN-gHK"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3o-vd-Qg9">
@@ -2898,7 +2930,7 @@
                                             <constraint firstAttribute="height" constant="21" id="U2t-o8-vSa"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mYj-SI-oU2">
@@ -3014,7 +3046,7 @@
                                     <constraint firstAttribute="height" constant="50" id="SRr-gz-Imk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ra-ts-DJw">
@@ -3407,7 +3439,7 @@
                                     <constraint firstAttribute="height" constant="50" id="nfi-V5-9OC"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9rr-dA-xVZ">
@@ -3433,7 +3465,7 @@
                                             <constraint firstAttribute="width" constant="70" id="QUi-2h-Cvk"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="irK-gp-xZS">
@@ -3480,7 +3512,7 @@
                                             <constraint firstAttribute="height" constant="21" id="gcH-er-5gV"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lnY-BY-fOt">
@@ -5868,13 +5900,13 @@
         <image name="write_normal.png" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oya-Hq-XYp"/>
-        <segue reference="PKj-mJ-5kS"/>
-        <segue reference="qpV-fR-jXy"/>
-        <segue reference="I2i-X2-oaq"/>
-        <segue reference="mMa-EG-ekD"/>
-        <segue reference="XSA-PQ-u0b"/>
-        <segue reference="R8s-I5-eNH"/>
         <segue reference="DWR-ZX-Hly"/>
+        <segue reference="vpn-CB-KIX"/>
+        <segue reference="PKj-mJ-5kS"/>
+        <segue reference="I2i-X2-oaq"/>
+        <segue reference="qpV-fR-jXy"/>
+        <segue reference="mMa-EG-ekD"/>
+        <segue reference="R8s-I5-eNH"/>
+        <segue reference="XSA-PQ-u0b"/>
     </inferredMetricsTieBreakers>
 </document>

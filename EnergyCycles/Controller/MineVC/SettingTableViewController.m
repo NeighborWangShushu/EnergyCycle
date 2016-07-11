@@ -121,7 +121,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0) { // 个人资料
             [self performSegueWithIdentifier:@"MyProfileViewController" sender:nil];
         }
         if (indexPath.row == 1) { // 账号管理

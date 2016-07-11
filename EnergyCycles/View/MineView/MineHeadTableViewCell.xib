@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="127" id="KGk-i7-Jjw" customClass="MineHeadTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="405" height="127"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="405" height="126.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XeU-2a-uFk">
+                        <rect key="frame" x="17" y="15" width="75" height="75"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="75" id="KDn-uo-K70"/>
+                            <constraint firstAttribute="width" constant="75" id="sNI-bb-fOw"/>
+                        </constraints>
+                        <state key="normal" image="touxiang.png"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <real key="value" value="37.5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRw-hs-pTk">
+                        <rect key="frame" x="106" y="19" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Oval 362 + Oval 363 + Oval 364.png" translatesAutoresizingMaskIntoConstraints="NO" id="pp5-Vj-8PB">
+                        <rect key="frame" x="106" y="48" width="7" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="SQW-Rv-lry"/>
+                            <constraint firstAttribute="width" constant="7" id="kUW-gl-mcX"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ypa-wy-jay">
+                        <rect key="frame" x="119" y="47" width="26.5" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RDS-LH-vvz">
+                        <rect key="frame" x="106" y="66" width="26.5" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Myjiantou.png" translatesAutoresizingMaskIntoConstraints="NO" id="lkx-5Q-qGY">
+                        <rect key="frame" x="378" y="58" width="8" height="12"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advice_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="o9Q-V8-cxG">
+                        <rect key="frame" x="138" y="67.5" width="9" height="9"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="9" id="ThO-jt-QDd"/>
+                            <constraint firstAttribute="height" constant="9" id="sVY-fU-QeD"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qh8-ME-TST">
+                        <rect key="frame" x="180" y="23" width="26.5" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="man.png" translatesAutoresizingMaskIntoConstraints="NO" id="KIH-Wr-gma">
+                        <rect key="frame" x="154" y="23" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="12" id="DQW-dd-oaP"/>
+                            <constraint firstAttribute="height" constant="24" id="DWl-U0-k2I"/>
+                            <constraint firstAttribute="width" constant="24" id="iYJ-nW-9wa"/>
+                            <constraint firstAttribute="height" constant="12" id="xsT-l2-sZJ"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="DWl-U0-k2I"/>
+                                <exclude reference="iYJ-nW-9wa"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ypa-wy-jay" firstAttribute="centerY" secondItem="pp5-Vj-8PB" secondAttribute="centerY" id="F7p-Sk-9Ff"/>
+                    <constraint firstItem="pp5-Vj-8PB" firstAttribute="top" secondItem="KRw-hs-pTk" secondAttribute="bottom" constant="8" id="HAt-Tc-xJu"/>
+                    <constraint firstAttribute="trailing" secondItem="lkx-5Q-qGY" secondAttribute="trailing" constant="19" id="Kv7-h2-enr"/>
+                    <constraint firstItem="KIH-Wr-gma" firstAttribute="centerY" secondItem="KRw-hs-pTk" secondAttribute="centerY" id="LvT-0v-RGD"/>
+                    <constraint firstItem="RDS-LH-vvz" firstAttribute="leading" secondItem="XeU-2a-uFk" secondAttribute="trailing" constant="14" id="PmP-ff-pzd"/>
+                    <constraint firstItem="Qh8-ME-TST" firstAttribute="leading" secondItem="KIH-Wr-gma" secondAttribute="trailing" constant="14" id="UTq-W6-heN"/>
+                    <constraint firstItem="ypa-wy-jay" firstAttribute="leading" secondItem="pp5-Vj-8PB" secondAttribute="trailing" constant="6" id="Ufj-mh-GSt"/>
+                    <constraint firstItem="pp5-Vj-8PB" firstAttribute="leading" secondItem="XeU-2a-uFk" secondAttribute="trailing" constant="14" id="VIU-Wq-xTu"/>
+                    <constraint firstItem="XeU-2a-uFk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="W4v-01-UDf"/>
+                    <constraint firstItem="lkx-5Q-qGY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Xah-vb-bgb"/>
+                    <constraint firstItem="o9Q-V8-cxG" firstAttribute="leading" secondItem="RDS-LH-vvz" secondAttribute="trailing" constant="6" id="ZHF-iw-7XK"/>
+                    <constraint firstItem="KRw-hs-pTk" firstAttribute="leading" secondItem="XeU-2a-uFk" secondAttribute="trailing" constant="14" id="eYN-Ti-qbu"/>
+                    <constraint firstItem="XeU-2a-uFk" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="feW-n1-Il1"/>
+                    <constraint firstItem="KIH-Wr-gma" firstAttribute="leading" secondItem="KRw-hs-pTk" secondAttribute="trailing" constant="6" id="g3B-4f-MN0"/>
+                    <constraint firstItem="Qh8-ME-TST" firstAttribute="centerY" secondItem="KIH-Wr-gma" secondAttribute="centerY" id="jj5-tJ-9L0"/>
+                    <constraint firstItem="KRw-hs-pTk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19" id="nCu-ec-atA"/>
+                    <constraint firstItem="XeU-2a-uFk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="sTz-e8-lTO"/>
+                    <constraint firstItem="RDS-LH-vvz" firstAttribute="top" secondItem="pp5-Vj-8PB" secondAttribute="bottom" constant="8" id="vXl-3P-eZc"/>
+                    <constraint firstItem="o9Q-V8-cxG" firstAttribute="centerY" secondItem="RDS-LH-vvz" secondAttribute="centerY" id="xnk-yG-oOU"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="feW-n1-Il1"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="addressLabel" destination="ypa-wy-jay" id="IIB-qo-cL1"/>
+                <outlet property="headImage" destination="XeU-2a-uFk" id="FWs-dg-7Dw"/>
+                <outlet property="introLabel" destination="RDS-LH-vvz" id="xnn-72-WUm"/>
+                <outlet property="nameLabel" destination="KRw-hs-pTk" id="QAm-u6-wyG"/>
+                <outlet property="sexImage" destination="KIH-Wr-gma" id="6mi-8H-XTF"/>
+                <outlet property="signInLabel" destination="Qh8-ME-TST" id="tvU-PO-eqi"/>
+            </connections>
+            <point key="canvasLocation" x="243.5" y="440.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Myjiantou.png" width="8" height="12"/>
+        <image name="Oval 362 + Oval 363 + Oval 364.png" width="14" height="20"/>
+        <image name="advice_black.png" width="18" height="18"/>
+        <image name="man.png" width="24" height="24"/>
+        <image name="touxiang.png" width="40" height="40"/>
+    </resources>
+</document>
