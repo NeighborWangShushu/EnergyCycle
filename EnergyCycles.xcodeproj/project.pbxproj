@@ -478,6 +478,11 @@
 		625902391D2CFB6A00F3F13C /* BoundSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625902381D2CFB6A00F3F13C /* BoundSuccessViewController.m */; };
 		6259023C1D2CFB7B00F3F13C /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */; };
 		6259023F1D2D02EC00F3F13C /* VerificationPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */; };
+		629E41D51D3500E200695296 /* MineHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629E41D41D3500E200695296 /* MineHomePageViewController.m */; };
+		62EDB8031D34D0B000D6F772 /* AboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */; };
+		62EDB8041D34D0B000D6F772 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */; };
+		62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8081D34D3CF00D6F772 /* AboutViewController.m */; };
+		62EDB80C1D34E51300D6F772 /* FunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB80B1D34E51300D6F772 /* FunctionViewController.m */; };
 		D00591601D24F6B300F91692 /* pengyouquan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005915F1D24F6B300F91692 /* pengyouquan@2x.png */; };
 		D00591641D24F77D00F91692 /* qzone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591611D24F77D00F91692 /* qzone@2x.png */; };
 		D00591651D24F77D00F91692 /* wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591621D24F77D00F91692 /* wechat@2x.png */; };
@@ -1919,6 +1924,15 @@
 		6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		6259023D1D2D02EC00F3F13C /* VerificationPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationPhoneViewController.h; sourceTree = "<group>"; };
 		6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationPhoneViewController.m; sourceTree = "<group>"; };
+		629E41D31D3500E200695296 /* MineHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageViewController.h; sourceTree = "<group>"; };
+		629E41D41D3500E200695296 /* MineHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageViewController.m; sourceTree = "<group>"; };
+		62EDB8001D34D0B000D6F772 /* AboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewCell.h; sourceTree = "<group>"; };
+		62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewCell.m; sourceTree = "<group>"; };
+		62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutTableViewCell.xib; sourceTree = "<group>"; };
+		62EDB8071D34D3CF00D6F772 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		62EDB8081D34D3CF00D6F772 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		62EDB80A1D34E51300D6F772 /* FunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionViewController.h; sourceTree = "<group>"; };
+		62EDB80B1D34E51300D6F772 /* FunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunctionViewController.m; sourceTree = "<group>"; };
 		D005915F1D24F6B300F91692 /* pengyouquan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pengyouquan@2x.png"; path = "Mine/FourImage/pengyouquan@2x.png"; sourceTree = "<group>"; };
 		D00591611D24F77D00F91692 /* qzone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "qzone@2x.png"; path = "Mine/FourImage/qzone@2x.png"; sourceTree = "<group>"; };
 		D00591621D24F77D00F91692 /* wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wechat@2x.png"; path = "Mine/FourImage/wechat@2x.png"; sourceTree = "<group>"; };
@@ -3468,6 +3482,7 @@
 				26D99D3B1C0C4D7B007AF579 /* MineViewController.m */,
 				625750A41D33493600E46B2E /* MineTableViewController.h */,
 				625750A51D33493600E46B2E /* MineTableViewController.m */,
+				629E41D21D3500C300695296 /* HomePage */,
 				DA4459C01C2135DC0069415D /* UpButton */,
 				DAAEC6F01C1FE79F00FA094B /* MyNews */,
 				DAAEC6FD1C1FE88200FA094B /* MyProfile */,
@@ -4588,9 +4603,10 @@
 		6293337A1D2B5E830085AE82 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				625902271D2CF99C00F3F13C /* AccountManage */,
+				62EDB8061D34D39D00D6F772 /* About */,
 				6259021E1D2BB0EF00F3F13C /* SettingTableViewController.h */,
 				6259021F1D2BB0EF00F3F13C /* SettingTableViewController.m */,
-				625902271D2CF99C00F3F13C /* AccountManage */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -4610,8 +4626,39 @@
 				625902191D2BAEBF00F3F13C /* SettingFourViewCell.h */,
 				6259021A1D2BAEBF00F3F13C /* SettingFourViewCell.m */,
 				6259021B1D2BAEBF00F3F13C /* SettingFourViewCell.xib */,
+				62EDB8051D34D0B900D6F772 /* About */,
 			);
 			name = MineSettingView;
+			sourceTree = "<group>";
+		};
+		629E41D21D3500C300695296 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				629E41D31D3500E200695296 /* MineHomePageViewController.h */,
+				629E41D41D3500E200695296 /* MineHomePageViewController.m */,
+			);
+			name = HomePage;
+			sourceTree = "<group>";
+		};
+		62EDB8051D34D0B900D6F772 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				62EDB8001D34D0B000D6F772 /* AboutTableViewCell.h */,
+				62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */,
+				62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
+		62EDB8061D34D39D00D6F772 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				62EDB8071D34D3CF00D6F772 /* AboutViewController.h */,
+				62EDB8081D34D3CF00D6F772 /* AboutViewController.m */,
+				62EDB80A1D34E51300D6F772 /* FunctionViewController.h */,
+				62EDB80B1D34E51300D6F772 /* FunctionViewController.m */,
+			);
+			name = About;
 			sourceTree = "<group>";
 		};
 		D00820E41D1D7DEA00D34117 /* RefreshHeadView */ = {
@@ -6695,6 +6742,7 @@
 				26E987A21C0DAD2400C6A7BB /* tabbar_pressed_2@2x.png in Resources */,
 				D077C5B01D1D613C00303A90 /* 35_03.png in Resources */,
 				26E987E91C0DAE4000C6A7BB /* video 1@3x.png in Resources */,
+				62EDB8041D34D0B000D6F772 /* AboutTableViewCell.xib in Resources */,
 				D07E24511D12BFD100854B51 /* lbc@2x.png in Resources */,
 				DAE1A47C1C196B58006FE119 /* OtherUserTableViewCell.xib in Resources */,
 				DA9A95241C23ABEE00FBE107 /* dizhi@3x.png in Resources */,
@@ -7243,6 +7291,7 @@
 				26D99F181C0C4D7C007AF579 /* UIImageView+WebCache.m in Sources */,
 				DAAEC70E1C1FED4C00FA094B /* MineTwoViewCell.m in Sources */,
 				625902231D2BC34200F3F13C /* CacheManager.m in Sources */,
+				62EDB8031D34D0B000D6F772 /* AboutTableViewCell.m in Sources */,
 				D07EB29C1D18DE6800840AC2 /* UUAVAudioPlayer.m in Sources */,
 				DA7D19CA1C5AF84600FFB337 /* UIImageView+XHURLDownload.m in Sources */,
 				D07EB25A1D18DE6800840AC2 /* ChatModel.m in Sources */,
@@ -7321,6 +7370,7 @@
 				D07D2EDB1D0FD6CC00AF35B1 /* NSArray+MASAdditions.m in Sources */,
 				26E9873C1C0D363A00C6A7BB /* ThePizeViewController.m in Sources */,
 				26E987481C0D386A00C6A7BB /* OtherUserReportViewController.m in Sources */,
+				62EDB80C1D34E51300D6F772 /* FunctionViewController.m in Sources */,
 				26D99EFC1C0C4D7C007AF579 /* UIView+MJExtension.m in Sources */,
 				DA39A69C1C3E64AF0045E224 /* NSDate+Category.m in Sources */,
 				DA7AC8D21C3FBF1B00CD97EE /* JiFenHistoryModel.m in Sources */,
@@ -7409,6 +7459,7 @@
 				26D99EA71C0C4D7B007AF579 /* UIColor+Extension.m in Sources */,
 				DA9124251C28E2310018DBAF /* DrawCashViewController.m in Sources */,
 				26D99EA91C0C4D7B007AF579 /* UIImage+Extension.m in Sources */,
+				62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */,
 				26D99ECF1C0C4D7B007AF579 /* IQUITextFieldView+Additions.m in Sources */,
 				DA7CE5551C3E38BF00272952 /* NSDate+Additions.m in Sources */,
 				26D99ECB1C0C4D7B007AF579 /* AFURLRequestSerialization.m in Sources */,
@@ -7468,6 +7519,7 @@
 				DA4459EB1C2160070069415D /* PhoneNumberViewCell.m in Sources */,
 				D07E24821D13DB2300854B51 /* TADotView.m in Sources */,
 				DA91242E1C29160D0018DBAF /* MallDetailViewCell.m in Sources */,
+				629E41D51D3500E200695296 /* MineHomePageViewController.m in Sources */,
 				D044E6231D07F49E00CD24DF /* ECAvatarManager.m in Sources */,
 				26D99E961C0C4D7B007AF579 /* LearnNavController.m in Sources */,
 				D04B54791D23C75700DC259A /* SDTimeLineTableHeaderView.m in Sources */,

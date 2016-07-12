@@ -14,13 +14,16 @@
     if (section == 0) {
         if (index == 0) {
             self.leftLabel.text = @"个人资料";
+            [self lineView];
         } else if (index == 1) {
             self.leftLabel.text = @"账号管理";
+            [self lineView];
         }
     }
     if (section == 2) {
         if (index == 1) {
             self.leftLabel.text = @"意见反馈";
+            [self lineView];
         } else if (index == 2){
             self.leftLabel.text = @"关于能量圈";
         }
@@ -30,6 +33,13 @@
         self.leftLabel.textColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
         self.rightImage.hidden = YES;
     }
+}
+
+- (void)lineView {
+    UIView *line = [[UIView alloc] init];
+    line.frame = CGRectMake(self.frame.origin.x + 31, self.frame.size.height - 1, self.frame.size.width + 50, 1);
+    line.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.2];
+    [self.contentView addSubview:line];
 }
 
 - (void)awakeFromNib {

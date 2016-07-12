@@ -17,12 +17,14 @@
                      signIn:(NSInteger)signIn
                     address:(NSString *)address
                       intro:(NSString *)intro {
+    
     // 头像
     if ([image isEqualToString:@""]) {
         self.headImage.imageView.image = [UIImage imageNamed:@"touxiang"];
     } else {
-        [self.headImage.imageView sd_setImageWithURL:[NSURL URLWithString:image]];
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:image] forState:UIControlStateNormal];
     }
+    
     // 昵称
     self.nameLabel.text = name;
     // 性别
@@ -40,13 +42,37 @@
         self.signInLabel.text = [NSString stringWithFormat:@"连续签到%ld天",signIn];
     }
     // 地址
-    self.addressLabel.text = address;
+    if ([address isEqualToString:@""]) {
+        self.constraint.constant = 6;
+        self.addressImage.hidden = YES;
+        self.addressLabel.hidden = YES;
+    } else {
+        self.addressLabel.text = address;
+    }
+    
     // 简介
     if ([intro isEqualToString:@""]) {
         self.introLabel.text = @"简介:暂无";
     } else {
         self.introLabel.text = [NSString stringWithFormat:@"简介:%@",intro];
     }
+    
+}
+
+- (IBAction)CacheIntro:(id)sender {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更换头像" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:photoAction];
+    [alert addAction:albumAction];
+    [alert addAction:cancelAction];
     
 }
 

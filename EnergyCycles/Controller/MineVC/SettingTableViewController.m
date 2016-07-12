@@ -152,6 +152,8 @@
             [self clearDisk];
         } else if (indexPath.row == 1) {
             [self performSegueWithIdentifier:@"IWillAdviseViewController" sender:nil];
+        } else if (indexPath.row == 2) {
+            [self performSegueWithIdentifier:@"AboutViewController" sender:nil];
         }
     } else { // 确认退出
         [self exit];
@@ -202,6 +204,8 @@
     
     self.title = @"设置";
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     // Do any additional setup after loading the view.
 }

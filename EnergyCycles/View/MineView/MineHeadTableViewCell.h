@@ -20,8 +20,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *signInLabel;
 // 地址
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+// 地址图标
+@property (weak, nonatomic) IBOutlet UIImageView *addressImage;
 // 简介
 @property (weak, nonatomic) IBOutlet UILabel *introLabel;
+// 简介图标
+@property (weak, nonatomic) IBOutlet UIImageView *introImage;
+// 简介按钮
+@property (weak, nonatomic) IBOutlet UIButton *introButton;
+// 简介的位置约束
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
 
 // 获取数据
 - (void)updataDataWithImage:(NSString *)image
