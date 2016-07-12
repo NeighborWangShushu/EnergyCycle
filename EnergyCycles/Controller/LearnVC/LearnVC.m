@@ -64,7 +64,7 @@
     lastPlayIndex = -1;
     self.otherTags = [NSMutableArray array];
     self.pageTags  = [NSMutableArray array];
-
+    
     [self getPageData];
     [self getMyTag];
     
@@ -78,7 +78,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReferralRefresh:) name:@"ReferralRefresh" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(PageViewChanged:) name:@"PageViewChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReferralHeadViewShowMore:) name:@"ReferralHeadViewShowMore" object:nil];
+    
 }
+
 
 - (void)getPageData {
     [[AppHttpManager shareInstance] getGetStudyTypeWithPostOrGet:@"get" success:^(NSDictionary *dict) {
@@ -88,10 +90,11 @@
                 model.name = [subDict objectForKey:@"courseTypeName"];
                 [self.otherTags addObject:model];
             }
+            [self compareData];
         }else {
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
-
+        
     } failure:^(NSString *str) {
         NSLog(@"%@",str);
     }];
@@ -134,13 +137,12 @@
 
 - (void)ReferralHeadViewShowMore:(NSNotification*)noti {
     NSDictionary * userInfo = [noti userInfo];
-    NSString * name           = [userInfo objectForKey:@"name"];
-    MoreVC*morevc = MainStoryBoard(@"MoreVC");;
+    NSString * name = [userInfo objectForKey:@"name"];
+    MoreVC*morevc = MainStoryBoard(@"MoreVC");
     morevc.name = name;
     [self.navigationController pushViewController:morevc animated:YES];
     
 }
-
 
 - (void)ReferralRefresh:(NSNotification*)noti {
     
@@ -154,6 +156,7 @@
     NSString * title        = [userInfo objectForKey:@"title"];
     NSString * content      = [userInfo objectForKey:@"content"];
     NSNumber * type         = [userInfo objectForKey:@"type"];
+    
     
     if ([type isEqualToNumber:[NSNumber numberWithBool:YES]]) {
         [self stopAudio];
@@ -179,9 +182,10 @@
     NSDictionary * user = [notifi userInfo];
     weburl = [user objectForKey:@"url"];
     NSNumber *number = [user objectForKey:@"type"];
+    NSString * name = [user objectForKey:@"name"];
     if ([number isEqualToNumber:[NSNumber numberWithInteger:2]]) {
-       //do some other
-        [self autoSetupTuwen];
+        //do some other
+        [self autoSetupTuwen:name];
         return;
     }
     
@@ -251,9 +255,7 @@
     {
         [self createTable];
     }
-    [self compareData];
-
-
+    
 }
 
 
@@ -309,7 +311,7 @@
     
     [self setSegmentControl];
     [self setPage];
-
+    
 }
 
 
@@ -355,7 +357,7 @@
             segmentedControl1 = nil;
             [self setSegmentControl];
         }
-
+        
     }
 }
 
@@ -396,7 +398,7 @@
     {
         contentView = [self.tabBarController.view.subviews objectAtIndex:0];
     }
-        [UIView beginAnimations:@"TabbarHide" context:nil];
+    [UIView beginAnimations:@"TabbarHide" context:nil];
     if ( hide )
     {
         contentView.frame = self.tabBarController.view.bounds;
@@ -441,42 +443,46 @@
 }
 
 
-#pragma mark 自动定制图文直播频道 
-- (void)autoSetupTuwen {
+#pragma mark 自动定制频道
+- (void)autoSetupTuwen:(NSString*)name {
     for (CategoryModel*model in self.pageTags) {
-        if ([model.name isEqualToString:@"图文直播"]) {
+        if ([model.name isEqualToString:name]) {
             for (CategoryModel*m in self.otherTags) {
-                if ([m.name isEqualToString:@"图文直播"]) {
+                if ([m.name isEqualToString:name]) {
                     [self.otherTags removeObject:m];
                 }
             }
-            [self jumpToTuwen];
-
+            [self jumpToTuwen:name];
+            
             return;
         }
     }
     
-    //新建图文直播频道
+    //    新建图文直播频道
     CategoryModel*newmodel = [[CategoryModel alloc] init];
-    newmodel.name = @"图文直播";
+    newmodel.name = name;
+    [newmodel save];
     [self.pageTags addObject:newmodel];
+    
+    
     for (CategoryModel*m in self.otherTags) {
-        if ([m.name isEqualToString:@"图文直播"]) {
+        if ([m.name isEqualToString:name]) {
             [self.otherTags removeObject:m];
+            break;
         }
     }
     
     [self setSegmentControl];
-    [self jumpToTuwen];
-
+    [self jumpToTuwen:name];
+    
     
 }
 
-- (void)jumpToTuwen {
+- (void)jumpToTuwen:(NSString*)name {
     NSInteger index = 0;
     for (int i = 0;i<self.pageTags.count;i++) {
         CategoryModel*model = self.pageTags[i];
-        if ([model.name isEqualToString:@"图文直播"]) {
+        if ([model.name isEqualToString:name]) {
             index = i;
         }
     }
@@ -486,11 +492,11 @@
 }
 
 
-#pragma mark PopColumViewDelegate 
+#pragma mark PopColumViewDelegate
 - (void)popColunView:(PopColumView *)view didChooseColums:(NSMutableArray *)items otherItems:(NSMutableArray *)others{
     
     [self makeTabBarHidden:NO];
-
+    
     [UIView animateWithDuration:0.25 animations:^{
         popView.alpha = 0.0;
     } completion:^(BOOL finished) {
@@ -501,19 +507,24 @@
     
     //处理数据
     BOOL isDelete = [self.pageTags count] > [items count];
-    NSMutableArray * p = [NSMutableArray arrayWithArray:self.pageTags];
+    NSMutableArray * p = [NSMutableArray arrayWithArray:items];
     if (isDelete) {
         //删数据
-        for (int i = 0; i < [self.pageTags count]; i++) {
-            CategoryModel*model = self.pageTags[i];
-            for (int j = 0; j < [p count]; j++) {
-                CategoryModel*model2 = p[j];
+        for (int i = 0; i < [p count]; i++) {
+            CategoryModel*model = p[i];
+            for (int j = 0; j < [self.pageTags count]; j++) {
+                CategoryModel*model2 = self.pageTags[j];
                 if ([model.name isEqualToString:model2.name]) {
-                    [p removeObject:model2];
+                    [self.pageTags removeObject:model2];
                 }
             }
         }
+        for (CategoryModel * delete in self.pageTags) {
+            [delete deleteObject];
+        }
+        
         self.pageTags = items;
+        
     }else {
         
         NSMutableArray * itemscopy = [NSMutableArray arrayWithArray:items];
@@ -533,13 +544,12 @@
             [model3 save];
             [self.pageTags addObject:model3];
         }
-
+        
     }
     
     self.otherTags = others;
     [self setSegmentControl];
 }
-
 
 - (NSInteger)indexOfPageName:(NSString*)name {
     for (int i = 0; i < self.pageTags.count; i++) {
@@ -552,7 +562,7 @@
 }
 
 
-#pragma mark HMSegmentedControl Method 
+#pragma mark HMSegmentedControl Method
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl*)segmentedControl {
     LearnPageViewController * refView = [self viewControllerAtIndex:segmentedControl.selectedSegmentIndex];
@@ -560,7 +570,7 @@
 }
 
 
-#pragma mark UIPageControl DataSource 
+#pragma mark UIPageControl DataSource
 - (NSUInteger)indexOfViewController:(LearnPageViewController *)viewController {
     return [self.pageTags indexOfObject:viewController.model];
 }
@@ -584,7 +594,6 @@
         return nil;
     }
     index++;
-
     
     if (index == [self.pageTags count]) {
         return nil;
@@ -595,7 +604,7 @@
 - (UIViewController*)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
     
     NSUInteger index = [self indexOfViewController:(LearnPageViewController *)viewController];
-
+    
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
@@ -612,13 +621,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

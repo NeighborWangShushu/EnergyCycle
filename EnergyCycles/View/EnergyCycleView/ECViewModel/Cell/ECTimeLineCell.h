@@ -14,7 +14,8 @@
 typedef NS_ENUM(NSUInteger, ECTimeLineCellActionType) {
     ECTimeLineCellActionTypeShare,
     ECTimeLineCellActionTypeComment,
-    ECTimeLineCellActionTypeLike
+    ECTimeLineCellActionTypeLike,
+    ECTimeLineCellActionTypeReply
 };
 
 @protocol ECTimeLineCellDelegate <NSObject>

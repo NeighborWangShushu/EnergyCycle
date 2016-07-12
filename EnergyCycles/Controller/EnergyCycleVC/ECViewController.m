@@ -19,13 +19,14 @@
 #import "ECRecommendCell.h"
 #import "AFHttpRequestOperation.h"
 #import "JSONKit.h"
-
+#import "NavMenuView.h"
+#import "ECNavMenuModel.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
 
 
-@interface ECViewController ()<UITableViewDelegate,UITableViewDataSource,ECTimeLineCellDelegate>{
+@interface ECViewController ()<UITableViewDelegate,UITableViewDataSource,ECTimeLineCellDelegate,UITextFieldDelegate,NavMenuViewDelegate>{
     XMShareView*shareView;
     UILabel*titleLabel;
     UIImageView *arrowImg;
@@ -33,10 +34,19 @@
     NSInteger currentPage;
     NSString * userId;
     NSInteger maxPageSize; //总页数
+    UITextField*text;
     
+    ECNavMenuModel*selectedModel;
+    ECTimeLineModel * commendModel;
+    ECTimeLineModel * selectedLikeModel;
 }
 
 @property (nonatomic,strong)UITableView * tableView;
+
+@property (nonatomic,strong)NavMenuView *navMenuView;
+@property (nonatomic,strong)NSMutableArray *menuDataArray;
+
+
 @property (nonatomic,strong)NSMutableArray * dataArray;
 @property (nonatomic,strong)NSMutableArray * commentArray;
 @property (nonatomic,strong)NSMutableArray * newerArray;
@@ -48,17 +58,64 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    currentPage = 1;
-    self.dataArray = [NSMutableArray array];
-    self.commentArray = [NSMutableArray array];
-    self.newerArray = [NSMutableArray array];
-    userId = [User_ID isEqualToString:@""]?@"0":User_ID;
+    [self initialize];
+    
     [self setup];
     
     [self getData];
     
     
     // Do any additional setup after loading the view.
+}
+
+- (void)initialize {
+    
+    currentPage = 1;
+    self.dataArray = [NSMutableArray array];
+    self.commentArray = [NSMutableArray array];
+    self.newerArray = [NSMutableArray array];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory=[paths objectAtIndex:0];//Documents目录
+    NSLog(@"NSDocumentDirectory:%@",documentsDirectory);
+    
+    NSLog(@"%@",[User_ID class]);
+    userId = User_ID == 0?@"0":User_ID;
+    [self getNavData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidChange:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    
+}
+
+
+
+#pragma mark  GET
+
+- (void)getNavData {
+    NSArray * all = [ECNavMenuModel findAll];
+    if ([all count]) {
+        [self.menuDataArray addObjectsFromArray:all];
+        for (ECNavMenuModel*model in all) {
+            if (model.isSelected) {
+                selectedModel = model;
+            }
+        }
+        
+    }else {
+        ECNavMenuModel*model1 = [ECNavMenuModel new];
+        model1.name = @"能量圈";
+        model1.isSelected = YES;
+        
+        ECNavMenuModel*model2 = [ECNavMenuModel new];
+        model2.name = @"关注的人";
+        
+        [model1 save];
+        [model2 save];
+        [self.menuDataArray addObject:model1];
+        [self.menuDataArray addObject:model2];
+    }
 }
 
 - (void)getData {
@@ -123,14 +180,15 @@
         [operation3 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             AFHTTPRequestOperation * result3 = operation;
             NSDictionary * dict3 = [result3.responseString objectFromJSONString];
-//            maxPageSize = [dict3 ];
             for (NSDictionary * data in dict3[@"Data"]) {
                     ECTimeLineModel*model = [self sortByData:data];
+                maxPageSize = [[data objectForKey:@"RowCounts"] integerValue]/10;
                     [weakSelf.newerArray addObject:model];
                 }
             NSLog(@"operation3 is complete");
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 NSLog(@"tableview reloaddata");
+                self.tableView.hidden = NO;
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
             }];
@@ -147,11 +205,7 @@
         
         
     }
-   
     
-
-
-
 }
 
 - (ECTimeLineModel*)sortByData:(NSDictionary*)data {
@@ -167,24 +221,78 @@
     model.time = data[@"createTime"];
     model.picNamesArray = data[@"artPic"];
     NSMutableArray * likeArr = [NSMutableArray array];
-    for (NSDictionary * like in data[@"LikeUserList"]) {
-        ECTimeLineCellLikeItemModel*likeModel = [ECTimeLineCellLikeItemModel new];
-        likeModel.userId = like[@"UserID"];
-        likeModel.userName = like[@"NickName"];
-        [likeArr addObject:likeModel];
+    if ([data[@"LikeUserList"] count]) {
+        for (NSDictionary * like in data[@"LikeUserList"]) {
+            ECTimeLineCellLikeItemModel*likeModel = [ECTimeLineCellLikeItemModel new];
+            likeModel.userId = like[@"UserID"];
+            likeModel.userName = like[@"NickName"];
+            [likeArr addObject:likeModel];
+        }
     }
+   
     NSMutableArray * commentArr = [NSMutableArray array];
-    for (NSDictionary * comment in data[@"CommentList"]) {
-        ECTimeLineCellCommentItemModel*commentModel = [ECTimeLineCellCommentItemModel new];
-        commentModel.firstUserName = comment[@"commNickName"];
-        commentModel.commentString = comment[@"commContent"];
-        commentModel.firstUserId = comment[@"commUserId"];
-        [commentArr addObject:commentModel];
+    if ([data[@"commentList"] count]) {
+        for (NSDictionary * comment in data[@"commentList"]) {
+            ECTimeLineCellCommentItemModel*commentModel = [ECTimeLineCellCommentItemModel new];
+            commentModel.firstUserName = comment[@"commNickName"];
+            NSString * commentText = [comment[@"commContent"] stringByRemovingPercentEncoding];
+            commentText = [commentText stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
+            commentText = [commentText stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+            commentModel.commentString = commentText;
+            commentModel.firstUserId = comment[@"commUserId"];
+            [commentArr addObject:commentModel];
+        }
     }
     model.likeItemsArray = likeArr;
     model.commentItemsArray = commentArr;
-    
     return model;
+}
+
+/**
+ *  GET
+ */
+
+- (UIView*)navMenuView {
+    if (!_navMenuView) {
+        _navMenuView = [[NavMenuView alloc] initWithDatas:self.menuDataArray];
+        [[[UIApplication sharedApplication] keyWindow] addSubview:_navMenuView];
+    }
+    return _navMenuView;
+}
+
+- (NSMutableArray*)menuDataArray {
+    if (!_menuDataArray) {
+        _menuDataArray = [NSMutableArray array];
+    }
+    return _menuDataArray;
+}
+
+
+- (void)toolBar {
+    
+    if (!text) {
+        text = [UITextField new];
+        [self.view addSubview:text];
+        text.delegate = self;
+    }
+    
+    UITextField*toolText = [[UITextField alloc] initWithFrame:CGRectMake(5, 3, self.view.frame.size.width - 30, 45)];
+    toolText.borderStyle = UITextBorderStyleRoundedRect;
+    toolText.placeholder = @"评论";
+    toolText.delegate = self;
+    toolText.returnKeyType = UIReturnKeySend;
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    numberToolbar.barStyle = UIBarStyleDefault;
+    numberToolbar.items = [NSArray arrayWithObjects:
+                           [[UIBarButtonItem alloc]initWithCustomView:toolText],
+                           
+                           nil];
+    [numberToolbar sizeToFit];
+
+    text.inputAccessoryView = numberToolbar;
+    [text becomeFirstResponder];
+    [toolText becomeFirstResponder];
+    
 }
 
 
@@ -196,7 +304,7 @@
     [navView addSubview:button];
     
     titleLabel = [UILabel new];
-    titleLabel.text = @"能量圈";
+    titleLabel.text = selectedModel.name;
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = [UIFont systemFontOfSize:18];
     [navView addSubview:titleLabel];
@@ -245,6 +353,7 @@
     [tableView registerClass:[ECTimeLineCell class] forCellReuseIdentifier:@"TestCell2"];
     [tableView registerClass:[ECRecommendCell class] forCellReuseIdentifier:kCommentUserCellId];
     [self.view addSubview:tableView];
+    tableView.hidden = YES;
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
@@ -257,6 +366,27 @@
     self.tableView.mj_header = [GifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     
+}
+
+
+#pragma mark Actions
+
+//Navigation Action
+- (void)showFromNavigation {
+    if (self.navMenuView) {
+        self.navMenuView.delegate = self;
+        [self.navMenuView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(@60);
+            make.centerX.equalTo(self.view.mas_centerX);
+            make.width.equalTo(@150);
+            make.height.equalTo(@(self.menuDataArray.count * 50));
+        }];
+        
+        
+    }else {
+        [self.navMenuView removeFromSuperview];
+        self.navMenuView = nil;
+    }
 }
 
 //签到
@@ -279,9 +409,14 @@
 
 - (void)loadMoreData {
     currentPage ++;
+    if (currentPage >= maxPageSize) {
+        currentPage = maxPageSize;
+        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        return;
+    }
     __weak typeof(self) weakSelf = self;
     
-    [[AppHttpManager shareInstance] getGetArticleListWithType:@"1" Userid:userId Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%ld",currentPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getGetArticleListWithType:@"1" Userid:userId Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%ld",(long)currentPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
         for (NSDictionary * data in dict[@"Data"]) {
             ECTimeLineModel*model = [self sortByData:data];
             [weakSelf.newerArray addObject:model];
@@ -291,31 +426,61 @@
             [weakSelf.tableView reloadData];
         });
         
+    } failure:^(NSString *str) {
+        
+    }];
+}
+
+/**
+ *  发送评论接口
+ *
+ *  @return
+ */
+
+- (void)sendCommend:(NSString*)message {
+    
+    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[userId intValue] token:User_TOKEN PostOrGet:@"get" success:^(NSDictionary *dict) {
+        
         
     } failure:^(NSString *str) {
         
     }];
 }
 
+- (void)sendReply:(NSString*)message {
+    
+}
+
+
+#pragma mark NavMenuViewDelegate
+- (void)didSelected:(NSIndexPath *)indexPath item:(ECNavMenuModel *)model {
+    pageType = indexPath.row;
+    titleLabel.text = model.name;
+    [self.navMenuView removeFromSuperview];
+    self.navMenuView = nil;
+    [self getData];
+}
+
+
 #pragma mark UITableViewDelegate
 
-- (void)didActionInCell:(UITableViewCell *)cell actionType:(ECTimeLineCellActionType)type atIndexPath:(NSIndexPath *)indexPath{
+- (void)didActionInCell:(UITableViewCell *)cell actionType:(ECTimeLineCellActionType)type atIndexPath:(NSIndexPath *)indexPath {
+    
     switch (type) {
         case ECTimeLineCellActionTypeShare:
             [self share:self.dataArray[indexPath.row]];
             break;
         case ECTimeLineCellActionTypeLike:
-            [self doLike:self.dataArray[indexPath.row]];
+            [self doLike:self.dataArray[indexPath.row] indexPath:indexPath];
             break;
         case ECTimeLineCellActionTypeComment:
-            [self doComment:self.dataArray[indexPath.row]];
+            [self doComment:self.dataArray[indexPath.row] indexPath:indexPath];
             break;
             
         default:
             break;
     }
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 || indexPath.section == 2) {
@@ -418,16 +583,6 @@
     return 3;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-- (void)showFromNavigation {
-    NSLog(@"showFromNavigation");
-    
-}
 
 #pragma mark - 分享
 - (void)share:(ECTimeLineModel*)model {
@@ -446,13 +601,53 @@
 }
 
 //评论
-- (void)doComment:(ECTimeLineModel*)model {
-   
+- (void)doComment:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
+    
+//    UITableViewCell*cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    CGFloat cellBottom = cell.frame.size.height + cell.frame.origin.y;
+    commendModel = model;
+    
+    [self toolBar];
 }
 
+
 //点赞
-- (void)doLike:(ECTimeLineModel*)model {
-  
+- (void)doLike:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
+    selectedLikeModel = model;
+}
+
+
+#pragma mark  UIKeyboardNotification 
+- (void)keyboardWillShow:(NSNotification*)notifi {
+    
+}
+
+- (void)keyboardWillHide:(NSNotification*)notifi {
+    
+}
+
+- (void)keyboardDidChange:(NSNotification*)notifi {
+    [text resignFirstResponder];
+    
+}
+
+
+#pragma mark UITextFieldDelegate
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    //发送评论
+    
+    
+    
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 /*
