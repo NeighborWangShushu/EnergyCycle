@@ -11,10 +11,19 @@
 #import <UIKit/UIKit.h>
 #import "ECTimeLineModel.h"
 
+typedef NS_ENUM(NSUInteger, ECTimeLineCellActionType) {
+    ECTimeLineCellActionTypeShare,
+    ECTimeLineCellActionTypeComment,
+    ECTimeLineCellActionTypeLike,
+    ECTimeLineCellActionTypeReply
+};
+
 @protocol ECTimeLineCellDelegate <NSObject>
 
 - (void)didClickLikeButtonInCell:(UITableViewCell *)cell;
 - (void)didClickcCommentButtonInCell:(UITableViewCell *)cell;
+
+- (void)didActionInCell:(UITableViewCell*)cell actionType:(ECTimeLineCellActionType)type atIndexPath:(NSIndexPath*)indexPath;
 
 @end
 
@@ -30,4 +39,5 @@
 
 @property (nonatomic, copy) void (^moreButtonClickedBlock)(NSIndexPath *indexPath);
 
+@property (nonatomic) ECTimeLineCellActionType type;
 @end

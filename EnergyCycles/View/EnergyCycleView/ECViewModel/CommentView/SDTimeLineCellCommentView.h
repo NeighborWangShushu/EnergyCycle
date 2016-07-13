@@ -30,6 +30,12 @@
 
 #import "GlobalDefines.h"
 
+@protocol SDTimeLineCellCommentViewDelegate <NSObject>
+
+
+
+@end
+
 @interface SDTimeLineCellCommentView : UIView
 
 - (void)setupWithLikeItemsArray:(NSArray *)likeItemsArray commentItemsArray:(NSArray *)commentItemsArray;

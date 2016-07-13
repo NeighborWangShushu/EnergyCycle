@@ -7,9 +7,11 @@
 //
 
 #import "ECTimeLineModel.h"
+#import "NSDate+Category.h"
+#import "NSDateFormatter+Category.h"
 
- CGFloat contentLabelFontSize;
- CGFloat maxContentLabelHeight;
+ CGFloat contentLabelFontSize = 15;
+ CGFloat maxContentLabelHeight = 70;
 
 @implementation ECTimeLineModel
 {
@@ -21,6 +23,7 @@
 - (void)setMsgContent:(NSString *)msgContent
 {
     _msgContent = msgContent;
+    
 }
 
 - (NSString *)msgContent
@@ -46,6 +49,14 @@
     } else {
         _isOpening = isOpening;
     }
+}
+
+- (void)setTime:(NSString *)time {
+    NSDateFormatter*f = [NSDateFormatter defaultDateFormatter];
+    
+    NSDate*date  = [f dateFromString:time];
+    _time = [date timeIntervalDescription];
+    NSLog(@"%@",_time);
 }
 
 @end

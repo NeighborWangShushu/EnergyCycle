@@ -8,6 +8,7 @@
 
 #import "WebVC.h"
 #import "Masonry.h"
+#import <WebKit/WebKit.h>
 
 
 @interface WebVC () {
@@ -34,11 +35,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"name is %@", _url);
+    
     self.navigationController.navigationBar.hidden = NO;
     self.view.backgroundColor = [UIColor whiteColor];
-    UIWebView * webview = [UIWebView new];
+    WKWebView * webview = [WKWebView new];
     [self.view addSubview:webview];
+    
     [webview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
@@ -46,6 +48,7 @@
         make.bottom.equalTo(self.view.mas_bottom);
     }];
     [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+    
     // Do any additional setup after loading the view.
 }
 

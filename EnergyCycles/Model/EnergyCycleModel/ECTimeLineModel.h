@@ -18,7 +18,7 @@
 @property (nonatomic, copy) NSString * time;
 @property (nonatomic, copy) NSString *msgContent;
 @property (nonatomic, strong) NSArray *picNamesArray;
-
+@property (nonatomic, copy)NSString *ID;
 @property (nonatomic, assign, getter = isLiked) BOOL liked;
 
 @property (nonatomic, strong) NSArray<ECTimeLineCellLikeItemModel *> *likeItemsArray;
