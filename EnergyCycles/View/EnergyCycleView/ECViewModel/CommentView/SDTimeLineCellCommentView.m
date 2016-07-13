@@ -117,6 +117,7 @@
     for (int i = 0; i < commentItemsArray.count; i++) {
         ECTimeLineCellCommentItemModel *model = commentItemsArray[i];
         MLLinkLabel *label = self.commentLabelsArray[i];
+        label.delegate = self;
         label.attributedText = [self generateAttributedStringWithCommentItemModel:model];
     }
 }
@@ -241,9 +242,10 @@
     if (model.secondUserName.length) {
         text = [text stringByAppendingString:[NSString stringWithFormat:@"回复%@", model.secondUserName]];
     }
+    UIColor *highLightColor = [UIColor colorWithRed:101.0/255.0 green:187.0/255.0 blue:242.0/255.0 alpha:1.0];
     text = [text stringByAppendingString:[NSString stringWithFormat:@"：%@", model.commentString]];
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
-    [attString setAttributes:@{NSLinkAttributeName : model.firstUserId} range:[text rangeOfString:model.firstUserName]];
+    [attString setAttributes:@{NSLinkAttributeName : model.firstUserId,NSForegroundColorAttributeName:highLightColor} range:[text rangeOfString:model.firstUserName]];
     if (model.secondUserName) {
         [attString setAttributes:@{NSLinkAttributeName : model.secondUserId} range:[text rangeOfString:model.secondUserName]];
     }
