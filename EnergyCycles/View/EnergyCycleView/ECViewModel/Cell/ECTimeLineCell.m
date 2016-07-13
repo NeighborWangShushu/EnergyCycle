@@ -136,11 +136,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
                 break;
             case 1:
                 weakSelf.type = ECTimeLineCellActionTypeComment;
-
                 break;
             case 2:
                 weakSelf.type = ECTimeLineCellActionTypeLike;
-
                 break;
                 
             default:
@@ -196,8 +194,6 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .topEqualToView(_locaIcon);
     
     [_time setSingleLineAutoResizeWithMaxWidth:100];
-
-
     
     _contentLabel.sd_layout
     .leftEqualToView(_iconView)
@@ -267,7 +263,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:nil];
     _nameLable.text = model.name;
-    _location.text = @"123";
+    _location.text = model.location;
     _time.text = model.time;
     
     // 防止单行文本label在重用时宽度计算不准的问题

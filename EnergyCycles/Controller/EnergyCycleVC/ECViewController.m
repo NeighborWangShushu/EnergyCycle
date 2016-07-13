@@ -224,7 +224,7 @@
     if ([data[@"LikeUserList"] count]) {
         for (NSDictionary * like in data[@"LikeUserList"]) {
             ECTimeLineCellLikeItemModel*likeModel = [ECTimeLineCellLikeItemModel new];
-            likeModel.userId = like[@"UserID"];
+            likeModel.userId = [like[@"UserID"] stringValue];
             likeModel.userName = like[@"NickName"];
             [likeArr addObject:likeModel];
         }
@@ -239,7 +239,7 @@
             commentText = [commentText stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
             commentText = [commentText stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
             commentModel.commentString = commentText;
-            commentModel.firstUserId = comment[@"commUserId"];
+            commentModel.firstUserId = [comment[@"commUserId"] stringValue];
             [commentArr addObject:commentModel];
         }
     }
@@ -603,16 +603,14 @@
 //评论
 - (void)doComment:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
     
-//    UITableViewCell*cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//    CGFloat cellBottom = cell.frame.size.height + cell.frame.origin.y;
     commendModel = model;
-    
     [self toolBar];
 }
 
 
 //点赞
 - (void)doLike:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
+    
     selectedLikeModel = model;
 }
 

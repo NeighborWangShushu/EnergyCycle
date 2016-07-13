@@ -12,7 +12,6 @@
 #import "UIView+SDAutoLayout.h"
 #import "ECTimeLineModel.h"
 #import "MLLinkLabel.h"
-#import "ECTimeLineCellCommentItemModel.h"
 #import "ECTimeLineCellLikeItemModel.h"
 #import "LEETheme.h"
 
@@ -57,6 +56,7 @@
     [self addSubview:_bgImageView];
     
     _likeLabel = [MLLinkLabel new];
+    _likeLabel.delegate = self;
     _likeLabel.font = [UIFont systemFontOfSize:14];
     _likeLabel.linkTextAttributes = @{NSForegroundColorAttributeName : TimeLineCellHighlightedColor};
     [self addSubview:_likeLabel];
@@ -91,25 +91,28 @@
 {
     _commentItemsArray = commentItemsArray;
     
-    _commentButtonArray = [NSMutableArray array];
     
     long originalLabelsCount = self.commentLabelsArray.count;
     long needsToAddCount = commentItemsArray.count > originalLabelsCount ? (commentItemsArray.count - originalLabelsCount) : 0;
     for (int i = 0; i < needsToAddCount; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
+        [button setBackgroundImage:[UIImage imageNamed:@"ec_comment_bg"] forState:UIControlStateNormal];
+        button.tag = i;
+        [button addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
         [self.commentButtonArray addObject:button];
         MLLinkLabel *label = [MLLinkLabel new];
         UIColor *highLightColor = TimeLineCellHighlightedColor;
         label.linkTextAttributes = @{NSForegroundColorAttributeName : highLightColor};
+        label.allowLineBreakInsideLinks = YES;
+        label.beforeAddLinkBlock = nil;
         label.lee_theme
         .LeeAddTextColor(DAY , [UIColor blackColor])
         .LeeAddTextColor(NIGHT , [UIColor grayColor]);
         label.font = [UIFont systemFontOfSize:14];
         label.delegate = self;
         [self addSubview:label];
+        
         [self.commentLabelsArray addObject:label];
         
     }
@@ -173,6 +176,12 @@
         }];
     }
     
+    if (self.commentButtonArray.count) {
+        [self.commentButtonArray enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger idx, BOOL * _Nonnull stop) {
+            button.hidden = YES;
+        }];
+    }
+    
     CGFloat margin = 5;
     
     UIView *lastTopView = nil;
@@ -208,21 +217,24 @@
   
         UILabel *label = (UILabel *)self.commentLabelsArray[i];
         label.hidden = NO;
+        
         CGFloat topMargin = (i == 0 && likeItemsArray.count == 0) ? 10 : 5;
         label.sd_layout
         .leftSpaceToView(self, 8)
         .rightSpaceToView(self, 5)
         .topSpaceToView(lastTopView, topMargin)
         .autoHeightRatio(0);
+        
         label.isAttributedContent = YES;
         lastTopView = label;
         
-//        UIButton*button = (UIButton*)self.commentButtonArray[i];
-//        button.sd_layout
-//        .leftSpaceToView(self, 0)
-//        .rightSpaceToView(self, 0)
-//        .topSpaceToView(lastTopView, topMargin)
-//        .autoHeightRatio(0);
+        UIButton*button = (UIButton*)self.commentButtonArray[i];
+        button.hidden = NO;
+        button.sd_layout
+        .leftSpaceToView(self, 0)
+        .rightSpaceToView(self, 0)
+        .topEqualToView(lastTopView)
+        .heightRatioToView(label,1.1);
         
     }
     
@@ -263,13 +275,22 @@
 }
 
 
+#pragma mark - ReplyAction 
+
+- (void)replyAction:(UIButton*)sender {
+    NSLog(@"%ld",sender.tag);
+    
+}
+
+
 #pragma mark - MLLinkLabelDelegate
 
 - (void)didClickLink:(MLLink *)link linkText:(NSString *)linkText linkLabel:(MLLinkLabel *)linkLabel
 {
     NSLog(@"%@", link.linkValue);
-    
-    
+    if ([self.delegate respondsToSelector:@selector(didClickLink:linkName:)]) {
+        [self.delegate didClickLink:link.linkValue linkName:linkText];
+    }
 }
 
 @end
