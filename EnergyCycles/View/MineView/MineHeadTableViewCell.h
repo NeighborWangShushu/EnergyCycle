@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MineHomePageHeadModel.h"
 
 @interface MineHeadTableViewCell : UITableViewCell
 
@@ -38,5 +39,8 @@
                      signIn:(NSInteger)signIn
                     address:(NSString *)address
                       intro:(NSString *)intro;
+
+- (void)updateDataWithModel:(MineHomePageHeadModel *)model
+                     signIn:(NSInteger)signIn;
 
 @end

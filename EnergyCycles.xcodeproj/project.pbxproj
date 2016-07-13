@@ -479,6 +479,9 @@
 		6259023C1D2CFB7B00F3F13C /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */; };
 		6259023F1D2D02EC00F3F13C /* VerificationPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */; };
 		629E41D51D3500E200695296 /* MineHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629E41D41D3500E200695296 /* MineHomePageViewController.m */; };
+		62A93BD61D361EA200343B63 /* MineHomePageHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */; };
+		62A93BD81D361EBC00343B63 /* MineHomePageHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */; };
+		62A93BDC1D3628B600343B63 /* MineHomePageHeadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A93BDB1D3628B600343B63 /* MineHomePageHeadModel.m */; };
 		62EDB8031D34D0B000D6F772 /* AboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */; };
 		62EDB8041D34D0B000D6F772 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */; };
 		62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8081D34D3CF00D6F772 /* AboutViewController.m */; };
@@ -1926,6 +1929,11 @@
 		6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationPhoneViewController.m; sourceTree = "<group>"; };
 		629E41D31D3500E200695296 /* MineHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageViewController.h; sourceTree = "<group>"; };
 		629E41D41D3500E200695296 /* MineHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageViewController.m; sourceTree = "<group>"; };
+		62A93BD41D361EA200343B63 /* MineHomePageHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageHeadView.h; sourceTree = "<group>"; };
+		62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageHeadView.m; sourceTree = "<group>"; };
+		62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineHomePageHeadView.xib; sourceTree = "<group>"; };
+		62A93BDA1D3628B600343B63 /* MineHomePageHeadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageHeadModel.h; sourceTree = "<group>"; };
+		62A93BDB1D3628B600343B63 /* MineHomePageHeadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageHeadModel.m; sourceTree = "<group>"; };
 		62EDB8001D34D0B000D6F772 /* AboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewCell.h; sourceTree = "<group>"; };
 		62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewCell.m; sourceTree = "<group>"; };
 		62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutTableViewCell.xib; sourceTree = "<group>"; };
@@ -3595,6 +3603,7 @@
 		26D99D481C0C4D7B007AF579 /* MineModel */ = {
 			isa = PBXGroup;
 			children = (
+				62A93BD91D36281000343B63 /* MineHomePage */,
 				DA6CFAD01C311D4600C77D45 /* UserModel.h */,
 				DA6CFAD11C311D4600C77D45 /* UserModel.m */,
 				DA6F79301C34DB400095C82F /* MallModel.h */,
@@ -4488,6 +4497,7 @@
 		26D99E901C0C4D7B007AF579 /* MineView */ = {
 			isa = PBXGroup;
 			children = (
+				62A93BD31D361E4B00343B63 /* MineHomePageView */,
 				625750A71D33498300E46B2E /* MineTableView */,
 				6293337E1D2B61300085AE82 /* MineSettingView */,
 				DAAEC7101C1FED5200FA094B /* MineHomeView */,
@@ -4638,6 +4648,25 @@
 				629E41D41D3500E200695296 /* MineHomePageViewController.m */,
 			);
 			name = HomePage;
+			sourceTree = "<group>";
+		};
+		62A93BD31D361E4B00343B63 /* MineHomePageView */ = {
+			isa = PBXGroup;
+			children = (
+				62A93BD41D361EA200343B63 /* MineHomePageHeadView.h */,
+				62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */,
+				62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */,
+			);
+			name = MineHomePageView;
+			sourceTree = "<group>";
+		};
+		62A93BD91D36281000343B63 /* MineHomePage */ = {
+			isa = PBXGroup;
+			children = (
+				62A93BDA1D3628B600343B63 /* MineHomePageHeadModel.h */,
+				62A93BDB1D3628B600343B63 /* MineHomePageHeadModel.m */,
+			);
+			name = MineHomePage;
 			sourceTree = "<group>";
 		};
 		62EDB8051D34D0B900D6F772 /* About */ = {
@@ -6976,6 +7005,7 @@
 				26D8B20D1C0FEEE900A1DB04 /* 12_1@3x.png in Resources */,
 				D077C5A81D1D613C00303A90 /* 27_03.png in Resources */,
 				DA7674D21C27B0AA00A34D9C /* NewsCollectionViewCell.xib in Resources */,
+				62A93BD81D361EBC00343B63 /* MineHomePageHeadView.xib in Resources */,
 				D077C5961D1D613C00303A90 /* 9_03.png in Resources */,
 				26D8B2121C0FEEE900A1DB04 /* 13_2@2x.png in Resources */,
 				26E987E01C0DAE4000C6A7BB /* jia_normal@2x.png in Resources */,
@@ -7264,6 +7294,7 @@
 				DAF48DAC1C1E533E00D9C136 /* LearnViewShowModel.m in Sources */,
 				26D99ED81C0C4D7B007AF579 /* IQTitleBarButtonItem.m in Sources */,
 				26D99EE51C0C4D7C007AF579 /* JSONModel+networking.m in Sources */,
+				62A93BDC1D3628B600343B63 /* MineHomePageHeadModel.m in Sources */,
 				26D99EE61C0C4D7C007AF579 /* JSONKeyMapper.m in Sources */,
 				DA7674BF1C279A1800A34D9C /* MyProfileViewCell.m in Sources */,
 				26D99E9B1C0C4D7B007AF579 /* MineViewController.m in Sources */,
@@ -7379,6 +7410,7 @@
 				D04B54DC1D23C90D00DC259A /* SDRefreshFooterView.m in Sources */,
 				26D99EED1C0C4D7C007AF579 /* MJRefreshFooter.m in Sources */,
 				DA9124341C291DE10018DBAF /* RecordDetailViewCell.m in Sources */,
+				62A93BD61D361EA200343B63 /* MineHomePageHeadView.m in Sources */,
 				DA26A5011C30E1CD00F503CD /* EveryDayPKModel.m in Sources */,
 				26D99EA51C0C4D7B007AF579 /* BaseViewController.m in Sources */,
 				D04B54DD1D23C90D00DC259A /* SDRefreshHeaderView.m in Sources */,

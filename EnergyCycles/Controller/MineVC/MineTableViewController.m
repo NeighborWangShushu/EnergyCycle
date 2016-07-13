@@ -8,12 +8,15 @@
 
 #import "MineTableViewController.h"
 
+#import "MineHomePageViewController.h"
+#import "MineHomePageHeadModel.h"
 #import "MineHeadTableViewCell.h"
 #import "MineTableViewCell.h"
 
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableDictionary *userInfoDict;
+@property (nonatomic, strong) MineHomePageHeadModel *model;
 
 @end
 
@@ -87,6 +90,8 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell updataDataWithImage:self.userInfoDict[@"photourl"] name:self.userInfoDict[@"nickname"] sex:self.userInfoDict[@"sex"] signIn:0 address:self.userInfoDict[@"city"] intro:self.userInfoDict[@"Brief"]];
+//        [cell updateDataWithModel:self.model signIn:0];
+
         return cell;
     } else {
         static NSString *mineTableViewCell = @"mineTableViewCell";
@@ -103,7 +108,7 @@
 // 点击cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) { // 个人主页
-        
+        [self performSegueWithIdentifier:@"MineHomePageViewController" sender:nil];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) { // 能量圈
             
@@ -125,12 +130,25 @@
     }
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"MineHomePageViewController"]) {
+        MineHomePageViewController *mineHomePageVC = segue.destinationViewController;
+        mineHomePageVC.userInfoDic = self.userInfoDict;
+    }
+}
+
 // 获取用户信息
 - (void)getUserInfo {
     [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             
             if ([dict[@"Data"] count]) {
+                
+//                for(NSDictionary *dic in dict[@"Data"][0]) {
+//                    [self.model setValuesForKeysWithDictionary:dic];
+//                }
+//                NSLog(@"%@",dict[@"Data"][0]);
+                
                 [self.userInfoDict setObject:[dict[@"Data"][0][@"nickname"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"nickname"] forKey:@"nickname"]; // 昵称
                 [self.userInfoDict setObject:[dict[@"Data"][0][@"username"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"username"] forKey:@"username"]; // 姓名
                 [self.userInfoDict setObject:[dict[@"Data"][0][@"sex"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"sex"] forKey:@"sex"]; // 性别
@@ -142,6 +160,9 @@
                 [self.userInfoDict setObject:[dict[@"Data"][0][@"Brief"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"Brief"] forKey:@"Brief"]; // 简介
             
                 NSLog(@"wangbin  %@",self.userInfoDict);
+                
+//                NSLog(@"dofigfdoighoidfhgohdfoighofdhgoidfhgoidfhgohd%@",self.model.nickname);
+                
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"VerifyCount"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"VerifyCount"] forKey:@"UserVerifyCount"];
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"jifen"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"jifen"] forKey:@"UserJiFen"];
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0 ][@"studyVal"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"studyVal"] forKey:@"UserStudyValues"];
@@ -167,7 +188,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+
     [self getUserInfo];
     
     // Do any additional setup after loading the view.

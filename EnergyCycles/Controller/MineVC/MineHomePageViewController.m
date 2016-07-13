@@ -8,39 +8,35 @@
 
 #import "MineHomePageViewController.h"
 
+#import "MineHomePageHeadView.h"
+
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+#define kHeaderImgHeight 226
+#define kNavigationHeight 64
+#define kSegmentedHeight 40
+
 @interface MineHomePageViewController ()
 
-// 背景图
-@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
-// 头像
-@property (weak, nonatomic) IBOutlet UIButton *iconImage;
-// 昵称
-@property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
-// 性别
-@property (weak, nonatomic) IBOutlet UIImageView *sexImage;
-// 地址
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
-// 地址图标
-@property (weak, nonatomic) IBOutlet UIImageView *addressImage;
-// 关注
-@property (weak, nonatomic) IBOutlet UIButton *attentionButton;
-// 粉丝
-@property (weak, nonatomic) IBOutlet UIButton *fansButton;
-// 简介
-@property (weak, nonatomic) IBOutlet UILabel *introLabel;
-// 位置约束
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
+@property (nonatomic, strong) MineHomePageHeadView *mineView;
 
 @end
 
 @implementation MineHomePageViewController
 
-- (void)getdateDataWithDic:(NSDictionary *)dic {
-    
+- (void)addHeadView {
+    MineHomePageHeadView *mineView = [[NSBundle mainBundle] loadNibNamed:@"MineHomePageHeadView" owner:nil options:nil].lastObject;
+    mineView.frame = CGRectMake(0, 0, kScreenWidth, kHeaderImgHeight + kSegmentedHeight);
+    [mineView getdateDataWithImage:self.userInfoDic[@"photourl"] name:self.userInfoDic[@"nickname"] sex:self.userInfoDic[@"sex"] signIn:0 address:self.userInfoDic[@"city"] intro:self.userInfoDic[@"Brief"] attention:0 fans:0];
+    self.mineView = mineView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self addHeadView];
+    [self.view addSubview:self.mineView];
+    
     // Do any additional setup after loading the view.
 }
 

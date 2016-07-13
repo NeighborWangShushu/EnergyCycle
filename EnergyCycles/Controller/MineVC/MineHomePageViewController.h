@@ -10,4 +10,6 @@
 
 @interface MineHomePageViewController : BaseViewController
 
+@property (nonatomic, strong) NSDictionary *userInfoDic;
+
 @end
