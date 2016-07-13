@@ -26,10 +26,7 @@
 
 -(void)layoutView
 {
-    _tabbarView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tabbar_0"]];
-    [_tabbarView setFrame:CGRectMake(0, 9, _tabbarView.bounds.size.width, 51)];
-    [_tabbarView setUserInteractionEnabled:YES];
-    
+
     _tabbarViewCenter = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tabbar_mainbtn_bg"]];
 
     _tabbarViewCenter.center = CGPointMake(self.center.x, self.bounds.size.height/2.0);
@@ -46,7 +43,6 @@
     
     [_tabbarViewCenter addSubview:_button_center];
     
-    [self addSubview:_tabbarView];
     [self addSubview:_tabbarViewCenter];
     
     [self layoutBtn];
@@ -56,30 +52,37 @@
 -(void)layoutBtn
 {
     _button_1 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [_button_1 setBackgroundColor:[UIColor blueColor]];
+    [_button_1 setImage:[UIImage imageNamed:@"tabbar_normal_1"] forState:UIControlStateNormal];
+    [_button_1 setImage:[UIImage imageNamed:@"tabbar_pressed_1"] forState:UIControlStateSelected];
     [_button_1 setFrame:CGRectMake(0, 0, 64, 60)];
     [_button_1 setTag:101];
     [_button_1 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
     _button_2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_button_2 setImage:[UIImage imageNamed:@"tabbar_normal_2"] forState:UIControlStateNormal];
+    [_button_2 setImage:[UIImage imageNamed:@"tabbar_pressed_2"] forState:UIControlStateSelected];
     [_button_2 setFrame:CGRectMake(65, 0, 64, 60)];
     [_button_2 setTag:102];
     [_button_2 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
     _button_3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_button_3 setImage:[UIImage imageNamed:@"tabbar_normal_3"] forState:UIControlStateNormal];
+    [_button_3 setImage:[UIImage imageNamed:@"tabbar_pressed_3"] forState:UIControlStateSelected];
     [_button_3 setFrame:CGRectMake(202, 0, 64, 60)];
     [_button_3 setTag:103];
     [_button_3 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
     _button_4 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_button_4 setImage:[UIImage imageNamed:@"tabbar_normal_4"] forState:UIControlStateNormal];
+    [_button_4 setImage:[UIImage imageNamed:@"tabbar_pressed_4"] forState:UIControlStateSelected];
     [_button_4 setFrame:CGRectMake(267, 0, 64, 60)];
     [_button_4 setTag:104];
     [_button_4 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
-    [_tabbarView addSubview:_button_1];
-    [_tabbarView addSubview:_button_2];
-    [_tabbarView addSubview:_button_3];
-    [_tabbarView addSubview:_button_4];
+    [self addSubview:_button_1];
+    [self addSubview:_button_2];
+    [self addSubview:_button_3];
+    [self addSubview:_button_4];
     
 }
 
@@ -91,22 +94,22 @@
     switch (btn.tag) {
         case 101:
         {
-            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_0"]];
+            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_normal_1"]];
             [self.delegate touchBtnAtIndex:0];
             
             break;
         }
         case 102:
         {
-            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_1"]];
+            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_normal_2"]];
             [self.delegate touchBtnAtIndex:1];
             break;
         }
         case 103:
-            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_3"]];
+            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_normal_3"]];
             break;
         case 104:
-            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_4"]];
+            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_normal_4"]];
             break;
         default:
             break;

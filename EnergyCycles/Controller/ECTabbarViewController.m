@@ -7,12 +7,18 @@
 //
 
 #import "ECTabbarViewController.h"
-
+#import "TabbarView.h"
 
 #define SELECTED_VIEW_CONTROLLER_TAG 98456345
 
-@interface ECTabbarViewController ()
+#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : 0)
+#define addHeight 88
 
+
+@interface ECTabbarViewController ()<ECTabbarDelegate>
+
+
+@property (nonatomic,strong)TabbarView*tabbar;
 @end
 
 @implementation ECTabbarViewController
@@ -52,20 +58,22 @@
     viewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height- 50);
     
     [self.view insertSubview:viewController.view belowSubview:_tabbar];
-
+    
 }
 
 -(NSArray *)getViewcontrollers
 {
     NSArray* tabBarItems = nil;
     
-    FirstViewController *first = [[FirstViewController alloc]initWithNibName:@"FirstViewController" bundle:nil];
+    UIViewController *first = [[UIViewController alloc]init];
     
-    SecondViewController *second = [[SecondViewController alloc]init];
+    UIViewController *second = [[UIViewController alloc]init];
     
     tabBarItems = [NSArray arrayWithObjects:
-                   [NSDictionary dictionaryWithObjectsAndKeys:@"tabicon_home", @"image",@"tabicon_home", @"image_locked", first, @"viewController",@"主页",@"title", nil],
-                   [NSDictionary dictionaryWithObjectsAndKeys:@"tabicon_home", @"image",@"tabicon_home", @"image_locked", second, @"viewController",@"主页",@"title", nil],nil];
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"tabbar_normal_1", @"image",@"tabbar_pressed_1", @"image_locked", first, @"viewController",@"能量圈",@"title", nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"tabbar_normal_2", @"image",@"tabbar_pressed_2", @"image_locked", second, @"viewController",@"PK",@"title", nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"tabbar_normal_3", @"image",@"tabbar_pressed_3", @"image_locked", second, @"viewController",@"学习",@"title", nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"tabbar_normal_4", @"image",@"tabbar_pressed_4", @"image_locked", second, @"viewController",@"我的",@"title", nil],nil];
     return tabBarItems;
     
 }
