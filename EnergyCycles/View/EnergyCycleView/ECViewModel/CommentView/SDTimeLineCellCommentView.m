@@ -40,7 +40,6 @@
         [self setupViews];
     
         //设置主题
-        
         [self configTheme];
 
     }

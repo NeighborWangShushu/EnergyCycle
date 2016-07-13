@@ -465,6 +465,8 @@
 		D01D88161D1A8DFD004B7F0F /* learn_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D01D88151D1A8DFD004B7F0F /* learn_add@2x.png */; };
 		D029BC071D361B9900B20D65 /* ec_comment_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D029BC051D361B9900B20D65 /* ec_comment_bg@2x.png */; };
 		D029BC081D361B9900B20D65 /* ec_comment_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D029BC061D361B9900B20D65 /* ec_comment_bg@3x.png */; };
+		D029BC101D365E7D00B20D65 /* TabbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D029BC0F1D365E7D00B20D65 /* TabbarView.m */; };
+		D029BC131D365F3500B20D65 /* ECTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D029BC121D365F3500B20D65 /* ECTabbarViewController.m */; };
 		D0429E871D2657150031C0CA /* share_weibo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0429E861D2657150031C0CA /* share_weibo@2x.png */; };
 		D044E6231D07F49E00CD24DF /* ECAvatarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D044E6221D07F49E00CD24DF /* ECAvatarManager.m */; };
 		D04B54601D23BEDF00DC259A /* ECTimeLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B545F1D23BEDF00DC259A /* ECTimeLineModel.m */; };
@@ -1912,6 +1914,10 @@
 		D01D88151D1A8DFD004B7F0F /* learn_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "learn_add@2x.png"; sourceTree = "<group>"; };
 		D029BC051D361B9900B20D65 /* ec_comment_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ec_comment_bg@2x.png"; sourceTree = "<group>"; };
 		D029BC061D361B9900B20D65 /* ec_comment_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ec_comment_bg@3x.png"; sourceTree = "<group>"; };
+		D029BC0E1D365E7D00B20D65 /* TabbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarView.h; sourceTree = "<group>"; };
+		D029BC0F1D365E7D00B20D65 /* TabbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarView.m; sourceTree = "<group>"; };
+		D029BC111D365F3500B20D65 /* ECTabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECTabbarViewController.h; sourceTree = "<group>"; };
+		D029BC121D365F3500B20D65 /* ECTabbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTabbarViewController.m; sourceTree = "<group>"; };
 		D0429E861D2657150031C0CA /* share_weibo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_weibo@2x.png"; sourceTree = "<group>"; };
 		D044E6211D07F49E00CD24DF /* ECAvatarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAvatarManager.h; sourceTree = "<group>"; };
 		D044E6221D07F49E00CD24DF /* ECAvatarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAvatarManager.m; sourceTree = "<group>"; };
@@ -3401,6 +3407,7 @@
 		26D99D231C0C4D7B007AF579 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D029BC0D1D365E5500B20D65 /* TabbarController */,
 				26D99D241C0C4D7B007AF579 /* AppTabBarController.h */,
 				26D99D251C0C4D7B007AF579 /* AppTabBarController.m */,
 				26D99D261C0C4D7B007AF579 /* EnergyCycleVC */,
@@ -4662,6 +4669,17 @@
 				D010F3101D2A4FE200CA5D7C /* SDTimeLineCellBottomView.m */,
 			);
 			path = BottomView;
+			sourceTree = "<group>";
+		};
+		D029BC0D1D365E5500B20D65 /* TabbarController */ = {
+			isa = PBXGroup;
+			children = (
+				D029BC111D365F3500B20D65 /* ECTabbarViewController.h */,
+				D029BC121D365F3500B20D65 /* ECTabbarViewController.m */,
+				D029BC0E1D365E7D00B20D65 /* TabbarView.h */,
+				D029BC0F1D365E7D00B20D65 /* TabbarView.m */,
+			);
+			name = TabbarController;
 			sourceTree = "<group>";
 		};
 		D04B54611D23C75700DC259A /* ECViewModel */ = {
@@ -7117,6 +7135,7 @@
 				DA82CD011C3D0FBD00C6D8EA /* LearnTabModel.m in Sources */,
 				26D99EC91C0C4D7B007AF579 /* AFSecurityPolicy.m in Sources */,
 				26E987541C0D49CB00C6A7BB /* SignInOneCollectionViewCell.m in Sources */,
+				D029BC131D365F3500B20D65 /* ECTabbarViewController.m in Sources */,
 				26D99EC11C0C4D7B007AF579 /* XMShareWeiboUtil.m in Sources */,
 				26D99EC41C0C4D7B007AF579 /* XMShareView.m in Sources */,
 				DA4459E21C215A700069415D /* TheAddressBookViewController.m in Sources */,
@@ -7185,6 +7204,7 @@
 				26D99E981C0C4D7B007AF579 /* LoginNavController.m in Sources */,
 				26D99EF21C0C4D7C007AF579 /* MJRefreshBackGifFooter.m in Sources */,
 				D04B54E91D23CF5800DC259A /* ECTimeLineCellLikeItemModel.m in Sources */,
+				D029BC101D365E7D00B20D65 /* TabbarView.m in Sources */,
 				DA5D7D5E1CA236CA00FF5378 /* OtherUserGuanZhuViewController.m in Sources */,
 				D07EB1C81D17849E00840AC2 /* RecipeCollectionHeaderView.m in Sources */,
 				26D99EBF1C0C4D7B007AF579 /* XMShareUtil.m in Sources */,
