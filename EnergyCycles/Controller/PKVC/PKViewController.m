@@ -23,6 +23,16 @@
 
 @implementation PKViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    
+    //获取collectionView网络数据
+    [self getPKHeadCollectionViewData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -35,12 +45,6 @@
     pkHomeTableView.bounces = YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    //获取collectionView网络数据
-    [self getPKHeadCollectionViewData];
-}
 
 #pragma mark - 获得网络数据
 - (void)getPKHeadCollectionViewData {

@@ -25,6 +25,7 @@
 #import "WXApiRequestHandler.h"
 #import "WXApiManager.h"
 #import "Constant.h"
+#import "ECTabbarViewController.h"
 
 
 @interface LoginViewController () <getQQLoginGetInformationDelegate,WBHttpRequestDelegate,WXApiDelegate> {
@@ -77,12 +78,7 @@
     EnetgyCycle.isEnterLoginView = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
     
-    if (EnetgyCycle.energyTabBar.selectedIndex == 3) {
-        EnetgyCycle.energyTabBar.selectedIndex = 0;
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }else {
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma mark - 忘记密码按键响应事件

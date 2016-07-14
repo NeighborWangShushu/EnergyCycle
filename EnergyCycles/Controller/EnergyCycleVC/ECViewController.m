@@ -21,6 +21,7 @@
 #import "JSONKit.h"
 #import "NavMenuView.h"
 #import "ECNavMenuModel.h"
+#import "PostingViewController.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
@@ -50,11 +51,20 @@
 @property (nonatomic,strong)NSMutableArray * dataArray;
 @property (nonatomic,strong)NSMutableArray * commentArray;
 @property (nonatomic,strong)NSMutableArray * newerArray;
+@property (nonatomic,strong)NSMutableArray * attentionArray;
 
 
 @end
 
 @implementation ECViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -83,9 +93,16 @@
     userId = User_ID == 0?@"0":User_ID;
     [self getNavData];
     
+    if ([selectedModel.name isEqualToString:@"能量圈"]) {
+        pageType = 0;
+    }else {
+        pageType = 1;
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidChange:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
+
     
 }
 
@@ -126,7 +143,7 @@
         NSString * jingxuan = [NSString stringWithFormat:@"%@%@?type=2&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,userId,User_TOKEN,@"1",@"10"];
         NSString * tuijian = [NSString stringWithFormat:@"%@%@?userId=%@",INTERFACE_URL,GetRecommendUser,@"0"];
         NSString * zuixin = [NSString stringWithFormat:@"%@%@?type=1&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,userId,User_TOKEN,@"1",@"10"];
-        
+        currentPage = 1;
         NSURLRequest * request1 = [NSURLRequest requestWithURL:[NSURL URLWithString:jingxuan]];
         NSURLRequest * request2 = [NSURLRequest requestWithURL:[NSURL URLWithString:tuijian]];
         NSURLRequest * request3 = [NSURLRequest requestWithURL:[NSURL URLWithString:zuixin]];
@@ -202,7 +219,21 @@
         
     }else {
         //关注的人
+        if ([User_TOKEN length] <= 0) {
+            [SVProgressHUD showImage:nil status:@"您还未登录，暂无数据"];
+            return;
+        }
         
+        [[AppHttpManager shareInstance] getMyHeartWithUserid:[NSString stringWithFormat:@"%@",User_ID] PostOrGet:@"get" success:^(NSDictionary *dict) {
+            for (NSDictionary * data in dict[@"Data"]) {
+                ECTimeLineModel*model = [self sortByData:data];
+                [weakSelf.attentionArray addObject:model];
+            }
+            weakSelf.tableView.hidden = NO;
+            [weakSelf.tableView reloadData];
+        } failure:^(NSString *str) {
+            
+        }];
         
     }
     
@@ -267,6 +298,20 @@
     return _menuDataArray;
 }
 
+- (NSMutableArray*)attentionArray {
+    if (!_attentionArray) {
+        _attentionArray = [NSMutableArray array];
+    }
+    return _attentionArray;
+}
+
+
+/**
+ *  弹出评论键盘
+ */
+- (void)showKeyboard {
+    [self toolBar];
+}
 
 - (void)toolBar {
     
@@ -439,7 +484,7 @@
 
 - (void)sendCommend:(NSString*)message {
     
-    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[userId intValue] token:User_TOKEN PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] token:User_TOKEN PostOrGet:@"get" success:^(NSDictionary *dict) {
         
         
     } failure:^(NSString *str) {
@@ -512,7 +557,7 @@
         UIView * view = [UIView new];
         view.backgroundColor = [UIColor whiteColor];
         UILabel*title = [UILabel new];
-        title.text = @"精彩推荐";
+        title.text = pageType == 0?@"精彩推荐":@"关注的人";
         title.textColor = [UIColor colorWithRed:(74 / 255.0) green:(74 / 255.0) blue:(74 / 255.0) alpha:1.0];
         title.font = [UIFont systemFontOfSize:18];
         [view addSubview:title];
@@ -536,20 +581,24 @@
         __weak typeof(self) weakSelf = self;
         if (!cell.moreButtonClickedBlock) {
             [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
-                ECTimeLineModel *model = indexPath.section == 0? weakSelf.dataArray[indexPath.row]:weakSelf.newerArray[indexPath.row];
-                model.isOpening = !model.isOpening;
+                if (pageType == 0) {
+                    ECTimeLineModel *model = indexPath.section == 0? weakSelf.dataArray[indexPath.row]:weakSelf.newerArray[indexPath.row];
+                    model.isOpening = !model.isOpening;
+                }else {
+                    ECTimeLineModel *model = weakSelf.attentionArray[indexPath.row];
+                    model.isOpening = !model.isOpening;
+                }
                 [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             }];
             cell.delegate = self;
         }
         ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
         [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
-        cell.model = indexPath.section == 0? weakSelf.dataArray[indexPath.row]:weakSelf.newerArray[indexPath.row];
-        
-        if (indexPath.section == 2 && indexPath.row == [self.newerArray count] - 1) {
-            [self loadMoreData];
+        if (pageType == 0) {
+            cell.model = indexPath.section == 0? weakSelf.dataArray[indexPath.row]:weakSelf.newerArray[indexPath.row];
+        }else {
+            cell.model = weakSelf.attentionArray[indexPath.row];
         }
-        
         
         return cell;
     }else {
@@ -569,18 +618,27 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return [self.dataArray count];
-    }else if (section == 2){
-        return [self.newerArray count];
+    if (pageType == 0) {
+        if (section == 0) {
+            return [self.dataArray count];
+        }else if (section == 2){
+            return [self.newerArray count];
+        }
+        else {
+            return 1;
+        }
+    }else {
+        return [self.attentionArray count];
     }
-    else {
-        return 1;
-    }
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    if (currentPage == 0) {
+        return 3;
+    }else {
+        return 1;
+    }
 }
 
 
@@ -603,19 +661,28 @@
 //评论
 - (void)doComment:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
     
+    if ([User_TOKEN length] <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+        return;
+    }
+    
     commendModel = model;
-    [self toolBar];
+    [self showKeyboard];
 }
 
 
 //点赞
 - (void)doLike:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
     
+    if ([User_TOKEN length] <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+        return;
+    }
     selectedLikeModel = model;
 }
 
 
-#pragma mark  UIKeyboardNotification 
+#pragma mark  Notification
 - (void)keyboardWillShow:(NSNotification*)notifi {
     
 }
@@ -629,13 +696,24 @@
     
 }
 
+- (void)gotoCyclePostView:(NSNotification*)notifi {
+    
+    if ([User_TOKEN length] <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+    }else {
+        PostingViewController * postView = MainStoryBoard(@"EnergyCycleViewToPostView");
+        [self presentViewController:postView animated:YES completion:nil];
+    }
+  
+}
+
 
 #pragma mark UITextFieldDelegate
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     //发送评论
-    
+    [self sendCommend:textField.text];
     
     
     [textField resignFirstResponder];

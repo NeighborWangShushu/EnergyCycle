@@ -9,6 +9,7 @@
 #import "ECTabbarViewController.h"
 #import "TabbarView.h"
 #import "Masonry.h"
+#import "LoginNavController.h"
 
 #define SELECTED_VIEW_CONTROLLER_TAG 98456345
 
@@ -24,9 +25,26 @@
 
 @implementation ECTabbarViewController
 
+#pragma mark - 单例
++ (ECTabbarViewController *)shareInstance {
+    static ECTabbarViewController *shareNetworkMessage = nil;
+    
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+        shareNetworkMessage = [[self alloc] init];
+    });
+    
+    return shareNetworkMessage;
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.selctedIndex = -1;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabBarConToLoginView:) name:@"AllVCNotificationTabBarConToLoginView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(isLoginViewBackButtonClick:) name:@"isLoginViewBackButtonClick" object:nil];
+
 	// Do any additional setup after loading the view, typically from a nib.
     _tabbar = [[TabbarView alloc]initWithFrame:CGRectZero];
     _tabbar.delegate = self;
@@ -49,10 +67,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setSelectedIndex:(NSInteger)index {
+    [self touchBtnAtIndex:index];
+}
+
+- (void)isLoginViewBackButtonClick:(NSNotification*)notifi {
+    if (self.selctedIndex == 3) {
+        [_tabbar setSelectedIndex:0];
+    }
+}
+
 -(void)touchBtnAtIndex:(NSInteger)index
 {
+    if (self.selctedIndex == index) {
+        return;
+    }
+    self.selctedIndex = index;
     UIView* currentView = [self.view viewWithTag:SELECTED_VIEW_CONTROLLER_TAG];
     [currentView removeFromSuperview];
+    NSLog(@"view subviews:%ld",[self.view.subviews count]);
     
     NSDictionary* data = [_arrayViewcontrollers objectAtIndex:index];
     
@@ -68,17 +101,39 @@
 {
     NSArray* tabBarItems = nil;
     
-    UIViewController *first = [[UIViewController alloc]init];
+    UINavigationController *first = MainStoryBoard(@"EnergyCycleNavController");
     
-    UIViewController *second = [[UIViewController alloc]init];
+    UIViewController *second = MainStoryBoard(@"PKNavController");
+    
+    UIViewController *three = MainStoryBoard(@"LearnNavController");
+
+    UIViewController *four = MainStoryBoard(@"MineNavController");
+
     
     tabBarItems = [NSArray arrayWithObjects:
                    [NSDictionary dictionaryWithObjectsAndKeys:@"tabbar_normal_1", @"image",@"tabbar_pressed_1", @"image_locked", first, @"viewController",@"能量圈",@"title", nil],
                    [NSDictionary dictionaryWithObjectsAndKeys:@"tabbar_normal_2", @"image",@"tabbar_pressed_2", @"image_locked", second, @"viewController",@"PK",@"title", nil],
-                   [NSDictionary dictionaryWithObjectsAndKeys:@"tabbar_normal_3", @"image",@"tabbar_pressed_3", @"image_locked", second, @"viewController",@"学习",@"title", nil],
-                   [NSDictionary dictionaryWithObjectsAndKeys:@"tabbar_normal_4", @"image",@"tabbar_pressed_4", @"image_locked", second, @"viewController",@"我的",@"title", nil],nil];
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"tabbar_normal_3", @"image",@"tabbar_pressed_3", @"image_locked", three, @"viewController",@"学习",@"title", nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"tabbar_normal_4", @"image",@"tabbar_pressed_4", @"image_locked", four, @"viewController",@"我的",@"title", nil],nil];
     return tabBarItems;
     
+}
+
+#pragma mark - 消息中心判断是否进入登录界面
+- (void)tabBarConToLoginView:(NSNotification *)notification {
+    if ([notification object] != nil) {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"账号异常"];
+        if ([[[notification object] objectForKey:@"Code"] integerValue] == 109) {
+            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"账号不存在"];
+        }
+    }else {
+        [SVProgressHUD dismiss];
+    }
+    if (EnetgyCycle.isEnterLoginView == NO) {
+        LoginNavController *loginNav = MainStoryBoard(@"loginNav");
+        [self presentViewController:loginNav animated:YES completion:nil];
+        EnetgyCycle.isEnterLoginView = YES;
+    }
 }
 
 @end

@@ -189,7 +189,7 @@
                 addRessStr = [NSString stringWithFormat:@"%@%@",itemArr.firstObject,@"区"];
             }
         }
-
+        
         [[NSUserDefaults standardUserDefaults] setObject:addRessStr forKey:@"AddRessStr"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -208,7 +208,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[IQKeyboardManager sharedManager]resignFirstResponder];
+    [[IQKeyboardManager sharedManager] resignFirstResponder];
 
     _locService.delegate = nil;
     _geocodesearch.delegate = nil;

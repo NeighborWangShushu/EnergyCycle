@@ -125,6 +125,7 @@ AppDelegate *EnetgyCycle = nil;
     
     return YES;
 }
+
 #pragma mark - 腾讯
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     NSString *urlStr = [NSString stringWithFormat:@"%@",url];
@@ -139,6 +140,8 @@ AppDelegate *EnetgyCycle = nil;
     
     return YES;
 }
+
+
 
 #pragma mark - 微博
 - (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
@@ -178,7 +181,7 @@ AppDelegate *EnetgyCycle = nil;
     }else if ([response isKindOfClass:WBSendMessageToWeiboResponse.class]) {
         if (response.statusCode == 0) {
             [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
-                NSLog(@"%@",dict);
+                NSLog(@"微博分享成功%@",dict);
             } failure:^(NSString *str) {
                 NSLog(@"%@",str);
             }];
@@ -197,7 +200,7 @@ AppDelegate *EnetgyCycle = nil;
         if (resp.errCode == 0) {
             //分享成功
             [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
-                NSLog(@"%@",dict);
+                NSLog(@"微信分享成功%@",dict);
             } failure:^(NSString *str) {
                 NSLog(@"%@",str);
             }];

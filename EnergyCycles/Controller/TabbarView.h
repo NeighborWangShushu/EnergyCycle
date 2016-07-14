@@ -28,4 +28,6 @@
 
 @property(nonatomic,weak) id<ECTabbarDelegate> delegate;
 
+- (void)setSelectedIndex:(NSInteger)index;
+
 @end

@@ -13,11 +13,16 @@
 #import "EnergyPostTwoViewCell.h"
 #import "ZYQAssetPickerController.h"
 #import "EnergyPostCollectionViewCell.h"
+#import "ECShareCell.h"
+#import "XMTwoShareView.h"
 
 #import "XHImageViewer.h"
 #import "UIImageView+XHURLDownload.h"
 
-@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate> {
+#import "XMShareWechatUtil.h"
+#import "XMShareWeiboUtil.h"
+
+@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,EnergyPostViewCellDelegate,ECShareCellDelegate> {
     NSMutableDictionary *postDict;
     NSMutableArray *_dataArr;
     NSMutableArray *_selectImgArray;
@@ -34,6 +39,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     _selectImgArray = [[NSMutableArray alloc] initWithCapacity:1];
     _selectImgArrayLocal = [[NSMutableArray alloc] initWithCapacity:1];
     self.title = @"发帖";
@@ -91,8 +98,8 @@
 }
 
 - (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
     
+    [self dismissViewControllerAnimated:YES completion:nil];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
@@ -103,15 +110,16 @@
     NSString * title=[postDict valueForKey:@"title"];
     NSString * context=[postDict valueForKey:@"content"];
     NSLog(@"title:%@----context:%@",title,context);
-    if (title == nil || context == nil || [title isEqualToString:@""] || [context isEqualToString:@""]) {
-        [SVProgressHUD showImage:nil status:@"标题或内容不能为空"];
+    if (context == nil ||[context isEqualToString:@""]) {
+        [SVProgressHUD showImage:nil status:@"内容不能为空"];
         return;
     }
     if ([User_TOKEN length] > 0) {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"提交中.."];
         
-        if(_selectImgArrayLocal.count){
+        if(_selectImgArrayLocal.count) {
+            
             NSData * data=UIImageJPEGRepresentation(_selectImgArrayLocal[0], 0.05);
             [self submitImage:data];
         }else {
@@ -122,7 +130,8 @@
     }
 }
 
--(void)getURLContext{
+-(void)getURLContext {
+    
     NSString * title=[postDict valueForKey:@"title"];
     NSString * context=[postDict valueForKey:@"content"];
     
@@ -156,6 +165,7 @@
 }
 
 -(void)submitImage:(NSData*)imageData {
+    
     [[AppHttpManager shareInstance] postPostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             _tempIndex++;
@@ -165,7 +175,7 @@
             if (_selectImgArrayLocal.count) {// 九张
                 if(_tempIndex<_selectImgArrayLocal.count){
                     NSData * data=UIImageJPEGRepresentation(_selectImgArrayLocal[_tempIndex], 0.05);
-                    NSLog(@"_tempIndex:%ld",_tempIndex);
+                    NSLog(@"_tempIndex:%ld",(long)_tempIndex);
                     [self submitImage:data];
                 }else{
                  // 提交数据
@@ -188,14 +198,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         return 308.f;
     }else if (indexPath.row == 1) {
-        return 120.f;
+        return 50.0f;
     }
     
     return 50.f;
@@ -205,46 +215,47 @@
     if (indexPath.row == 0) {
         EnergyPostViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"EnergyPostViewCell" owner:self options:nil].lastObject;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.titleTextField.placeholder = @" 请输入标题";
-        [cell.titleTextField addTarget:self action:@selector(textFieldValueChange:) forControlEvents:UIControlEventEditingChanged];
-        cell.titleTextField.text=postDict[@"title"];
-        
+        cell.pics = _selectImgArrayLocal;
+        cell.delegate = self;
         NSString *showText = [postDict[@"content"] stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
         
         cell.informationTextView.text = showText;
         cell.informationTextView.delegate = self;
         
-        cell.rightLabel.text = @"可以输入800字";
         return cell;
-    }else if (indexPath.row == 1) {
-        EnergyPostOneViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"EnergyPostOneViewCell" owner:self options:nil].lastObject;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }else {
         
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-        layout.minimumInteritemSpacing = 10.f;
-        layout.minimumLineSpacing = 10.f;
-        cell.showImageCollectionView.collectionViewLayout = layout;
-        cell.showImageCollectionView.backgroundColor = [UIColor clearColor];
-        [cell.showImageCollectionView registerNib:[UINib nibWithNibName:@"EnergyPostCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"EnergyPostCollectionViewCellId"];
+        ECShareCell*cell = [[[NSBundle mainBundle] loadNibNamed:@"ECShareCell" owner:self options:nil] lastObject];
+        cell.delegate = self;
         
-        cell.showImageCollectionView.dataSource = self;
-        cell.showImageCollectionView.delegate = self;
         
-        cell.showImageCollectionView.showsHorizontalScrollIndicator = NO;
-        cell.showImageCollectionView.showsVerticalScrollIndicator = NO;
+        
         
         return cell;
     }
     
-    EnergyPostTwoViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"EnergyPostTwoViewCell" owner:self options:nil].lastObject;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell.videoURlTextFiled addTarget:self action:@selector(getVideoURL:) forControlEvents:UIControlEventEditingChanged];
-    cell.videoURlTextFiled.text=postDict[@"videoUrl"];
-    
-    return cell;
 }
 
+
+
+#pragma mark --EnergyPostViewCellDelegate
+
+/**
+ *  添加照片
+ */
+- (void)didAddPic {
+    [self clickToShow];
+}
+
+
+#pragma mark --ECShareCellDelegate
+
+- (void)didChooseShareItems:(NSMutableArray *)items {
+    
+    NSString * context=[postDict valueForKey:@"content"];
+
+    
+}
 
 #pragma mark - textField值改变
 - (void)textFieldValueChange:(UITextField *)textField {
@@ -466,4 +477,12 @@
 }
 
 
+- (IBAction)cancel:(id)sender {
+    [self leftAction];
+}
+
+- (IBAction)push:(id)sender {
+    [self rightAction];
+    
+}
 @end
