@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HMSegmentedControl.h"
 
 @interface MineHomePageHeadView : UIView
 
+// 背景
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 // 头像
 @property (weak, nonatomic) IBOutlet UIButton *headImage;
 // 昵称
@@ -32,14 +35,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *introLabel;
 // 约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
+// 分段控件
+@property (weak, nonatomic) IBOutlet HMSegmentedControl *segControl;
 
-- (void)getdateDataWithImage:(NSString *)image
-                        name:(NSString *)name
-                         sex:(NSString *)sex
-                      signIn:(NSInteger)signIn
-                     address:(NSString *)address
-                       intro:(NSString *)intro
-                   attention:(NSInteger)attention
-                        fans:(NSInteger)fans;
+
+- (void)getdateDataWithBackgroundImage:(NSString *)backgroundImage
+                             headImage:(NSString *)headImage
+                                  name:(NSString *)name
+                                   sex:(NSString *)sex
+                                signIn:(NSInteger)signIn
+                               address:(NSString *)address
+                                 intro:(NSString *)intro
+                             attention:(NSInteger)attention
+                                  fans:(NSInteger)fans;
 
 @end

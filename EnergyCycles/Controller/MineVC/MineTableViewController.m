@@ -158,6 +158,7 @@
                 [self.userInfoDict setObject:[dict[@"Data"][0][@"city"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"city"] forKey:@"city"]; // 地址
                 [self.userInfoDict setObject:[dict[@"Data"][0][@"photourl"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"photourl"] forKey:@"photourl"]; // 头像
                 [self.userInfoDict setObject:[dict[@"Data"][0][@"Brief"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"Brief"] forKey:@"Brief"]; // 简介
+                [self.userInfoDict setObject:[dict[@"Data"][0][@"BackgroundImg"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"BackgroundImg"] forKey:@"BackgroundImg"]; // 背景图片
             
                 NSLog(@"wangbin  %@",self.userInfoDict);
                 

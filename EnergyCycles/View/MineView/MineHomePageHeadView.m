@@ -7,23 +7,40 @@
 //
 
 #import "MineHomePageHeadView.h"
+#import "UIImage+Category.h"
 
 @implementation MineHomePageHeadView
 
-- (void)getdateDataWithImage:(NSString *)image
-                        name:(NSString *)name
-                         sex:(NSString *)sex
-                      signIn:(NSInteger)signIn
-                     address:(NSString *)address
-                       intro:(NSString *)intro
-                   attention:(NSInteger)attention
-                        fans:(NSInteger)fans {
+- (void)tap {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    [tap setNumberOfTouchesRequired:1];
+    [tap setNumberOfTouchesRequired:1];
+    [self.backgroundImage addGestureRecognizer:tap];
+}
+
+- (void)tapAction:(UITapGestureRecognizer *)sender {
+    NSLog(@"aa");
+}
+
+- (void)getdateDataWithBackgroundImage:(NSString *)backgroundImage
+                             headImage:(NSString *)headImage
+                                  name:(NSString *)name
+                                   sex:(NSString *)sex
+                                signIn:(NSInteger)signIn
+                               address:(NSString *)address
+                                 intro:(NSString *)intro
+                             attention:(NSInteger)attention
+                                  fans:(NSInteger)fans {
+    
+
+    
+    
     
     // 头像
-    if ([image isEqualToString:@""]) {
+    if ([headImage isEqualToString:@""]) {
         [self.headImage setImage:[UIImage imageNamed:@"touxiang"] forState:UIControlStateNormal];
     } else {
-        [self.headImage sd_setImageWithURL:[NSURL URLWithString:image] forState:UIControlStateNormal];
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:headImage] forState:UIControlStateNormal];
     }
     
     // 昵称
@@ -57,11 +74,10 @@
     }
     
     // 关注
-    self.attentionButton.titleLabel.text = [NSString stringWithFormat:@"关注&nbsp;%ld",attention];
-    self.attentionButton.titleLabel.text = @"adf";
+    [self.attentionButton setTitle:[NSString stringWithFormat:@"关注 %ld",attention] forState:UIControlStateNormal];
     
     // 粉丝
-    self.fansButton.titleLabel.text = [NSString stringWithFormat:@"粉丝&nbsp;%ld", fans];
+    [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝 %ld", fans] forState:UIControlStateNormal];
     
     // 简介
     if ([intro isEqualToString:@""]) {
@@ -70,7 +86,23 @@
         self.introLabel.text = [NSString stringWithFormat:@"简介:%@", intro];
     }
     
+    // 背景
+    if ([backgroundImage isEqualToString:@""]) {
+        [self.backgroundImage setImage:[UIImage imageNamed:@"bg"]];
+    } else {
+        [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:backgroundImage] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            if (self.backgroundImage.image.size.height >= 452) {
+                self.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
+            }
+            if (self.backgroundImage.image.size.width >= 375) {
+                self.backgroundImage.contentMode = UIViewContentModeScaleAspectFill;
+            }
+        }];
+    }
+    
 }
+
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
