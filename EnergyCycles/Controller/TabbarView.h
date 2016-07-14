@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ECTabbarViewController.h"
 
+@protocol ECTabbarDelegate <NSObject>
+
+-(void)touchBtnAtIndex:(NSInteger)index;
+
+@end
+
 @interface TabbarView : UIView
 
 @property(nonatomic,strong) UIImageView *tabbarView;
@@ -20,6 +26,6 @@
 @property(nonatomic,strong) UIButton *button_4;
 @property(nonatomic,strong) UIButton *button_center;
 
-@property(nonatomic,weak) id<tabbarDelegate> delegate;
+@property(nonatomic,weak) id<ECTabbarDelegate> delegate;
 
 @end

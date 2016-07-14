@@ -9,6 +9,12 @@
 #import "TabbarView.h"
 #import "Masonry.h"
 
+@interface TabbarView ()
+{
+    UIButton * lastButton;
+}
+
+@end
 
 @implementation TabbarView
 
@@ -26,78 +32,101 @@
 
 -(void)layoutView
 {
-    
-    _tabbarViewCenter = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tabbar_mainbtn_bg"]];
-    _tabbarViewCenter.center = CGPointMake(self.center.x, self.bounds.size.height/2.0);
-    [_tabbarViewCenter setUserInteractionEnabled:YES];
-    
-    _button_center = [UIButton buttonWithType:UIButtonTypeCustom];
-    _button_center.adjustsImageWhenHighlighted = YES;
-    [_button_center setBackgroundImage:[UIImage imageNamed:@"tabbar_mainbtn"] forState:UIControlStateNormal];
-    _button_center.center =CGPointMake(_tabbarViewCenter.bounds.size.width/2.0, _tabbarViewCenter.bounds.size.height/2.0 + 5) ;
-    [_tabbarViewCenter addSubview:_button_center];
-    
-    
-    [self addSubview:_tabbarViewCenter];
-    
     [self layoutBtn];
-
 }
 
 -(void)layoutBtn
 {
     _button_1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_button_1 setTag:101];
+    [_button_1 setImage:[UIImage imageNamed:@"tabbar_normal_1"] forState:UIControlStateNormal];
+    [_button_1 setImage:[UIImage imageNamed:@"tabbar_pressed_1"] forState:UIControlStateSelected];
+    [_button_1 setImage:[UIImage imageNamed:@"tabbar_pressed_1"] forState:UIControlStateHighlighted];
+    [_button_1 setTag:0];
+    [_button_1 setSelected:YES];
+    [_button_1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_button_1 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
     _button_2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_button_2 setTag:102];
+    [_button_2 setImage:[UIImage imageNamed:@"tabbar_normal_2"] forState:UIControlStateNormal];
+    [_button_2 setImage:[UIImage imageNamed:@"tabbar_pressed_2"] forState:UIControlStateSelected];
+    [_button_2 setImage:[UIImage imageNamed:@"tabbar_pressed_2"] forState:UIControlStateHighlighted];
+    [_button_2 setTag:1];
     [_button_2 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
+    _button_center = [UIButton buttonWithType:UIButtonTypeCustom];
+    _button_center.adjustsImageWhenHighlighted = YES;
+    [_button_center setBackgroundImage:[UIImage imageNamed:@"ec_center_button"] forState:UIControlStateNormal];
+    [_button_center setBackgroundImage:[UIImage imageNamed:@"ec_center_button"] forState:UIControlStateHighlighted];
+
     _button_3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_button_3 setTag:103];
+    [_button_3 setImage:[UIImage imageNamed:@"tabbar_normal_3"] forState:UIControlStateNormal];
+    [_button_3 setImage:[UIImage imageNamed:@"tabbar_pressed_3"] forState:UIControlStateSelected];
+    [_button_3 setImage:[UIImage imageNamed:@"tabbar_pressed_3"] forState:UIControlStateHighlighted];
+    [_button_3 setTag:2];
     [_button_3 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
     _button_4 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_button_4 setTag:104];
+    [_button_4 setImage:[UIImage imageNamed:@"tabbar_normal_4"] forState:UIControlStateNormal];
+    [_button_4 setImage:[UIImage imageNamed:@"tabbar_pressed_4"] forState:UIControlStateSelected];
+    [_button_4 setImage:[UIImage imageNamed:@"tabbar_pressed_4"] forState:UIControlStateHighlighted];
+    [_button_4 setTag:3];
     [_button_4 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
-    [_tabbarView addSubview:_button_1];
-    [_tabbarView addSubview:_button_2];
-    [_tabbarView addSubview:_button_3];
-    [_tabbarView addSubview:_button_4];
+    [self addSubview:_button_1];
+    [self addSubview:_button_2];
+    [self addSubview:_button_center];
+    [self addSubview:_button_3];
+    [self addSubview:_button_4];
     
     
+    [_button_1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left);
+        make.bottom.equalTo(self.mas_bottom);
+        make.width.equalTo(@(Screen_width/5));
+        make.height.equalTo(@49);
+    }];
+    
+    [_button_2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_button_1.mas_right);
+        make.bottom.equalTo(self.mas_bottom);
+        make.width.equalTo(@(Screen_width/5));
+        make.height.equalTo(@49);
+    }];
+    
+    [_button_center mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_button_2.mas_right);
+        make.bottom.equalTo(self.mas_bottom);
+        make.width.equalTo(@(Screen_width/5));
+        make.height.equalTo(@68);
+    }];
+    
+    [_button_3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_button_center.mas_right);
+        make.bottom.equalTo(self.mas_bottom);
+        make.width.equalTo(@(Screen_width/5));
+        make.height.equalTo(@49);
+    }];
+    
+    [_button_4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_button_3.mas_right);
+        make.bottom.equalTo(self.mas_bottom);
+        make.right.equalTo(self.mas_right);
+        make.height.equalTo(@49);
+    }];
+    
+    lastButton = _button_1;
 }
 
 -(void)btn1Click:(id)sender
 {
-        
+    
     UIButton *btn = (UIButton *)sender;
-    NSLog(@"%i",btn.tag);
-    switch (btn.tag) {
-        case 101:
-        {
-            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_0"]];
-            [self.delegate touchBtnAtIndex:0];
-            
-            break;
-        }
-        case 102:
-        {
-            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_1"]];
-            [self.delegate touchBtnAtIndex:1];
-            break;
-        }
-        case 103:
-            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_3"]];
-            break;
-        case 104:
-            [_tabbarView setImage:[UIImage imageNamed:@"tabbar_4"]];
-            break;
-        default:
-            break;
+    [lastButton setSelected:NO];
+    [btn setSelected:YES];
+    if ([self.delegate respondsToSelector:@selector(touchBtnAtIndex:)]) {
+        [self.delegate touchBtnAtIndex:btn.tag];
     }
+    lastButton = btn;
 }
 
 
