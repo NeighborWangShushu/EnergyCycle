@@ -18,6 +18,8 @@
 #define User_ID [[AppHelpManager sharedInstance] readUserId]
 #define User_TOKEN [[AppHelpManager sharedInstance] readToken]
 #define User_PHONE [[AppHelpManager sharedInstance] readPhone]
+#define User_NAME [[AppHelpManager sharedInstance] readUserName]
+
 
 #define MYJYAppId @"1079791492"
 
@@ -319,7 +321,10 @@
 #define AwardDetailAspx            @"html/AwardDetail.aspx"
 
 //82.获取能量圈详情h5页面
-#define ArticleDetailAspx          @"html/ArticleDetail.aspx"
+//#define ArticleDetailAspx          @"html/ArticleDetail.aspx"
+
+#define ArticleDetailAspx          @"html/Article/ArticleDetail.aspx"
+
 
 //83.获取进阶pk帖子详情h5页面
 #define PostDetailAspx             @"html/PostDetail.aspx"

@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ECTimeLineModel.h"
 
 @interface SDTimeLineCellBottomView : UIView
 
 @property (nonatomic,copy)void(^SDTimeLineCellBottomSelectedBlock)(NSInteger type);
+
+
+@property (nonatomic,strong)ECTimeLineModel *model;
 
 @end
 
@@ -24,6 +27,8 @@ typedef NS_ENUM(NSUInteger, SDAdditionalActionViewType) {
 @interface SDAdditionalActionView : UIView
 
 @property (nonatomic,assign)SDAdditionalActionViewType type;
+
+@property (nonatomic,strong)ECTimeLineModel *model;
 
 @property (nonatomic,copy)void(^selctedAddition)(SDAdditionalActionViewType type);
 

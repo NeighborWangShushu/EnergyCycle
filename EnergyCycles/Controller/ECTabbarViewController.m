@@ -7,9 +7,10 @@
 //
 
 #import "ECTabbarViewController.h"
-#import "TabbarView.h"
+#import "ECTabbarView.h"
 #import "Masonry.h"
 #import "LoginNavController.h"
+#import "AppDelegate.h"
 
 #define SELECTED_VIEW_CONTROLLER_TAG 98456345
 
@@ -19,8 +20,9 @@
 
 @interface ECTabbarViewController ()<ECTabbarDelegate>
 
+@property (nonatomic,strong)ECTabbarView*tabbar;
 
-@property (nonatomic,strong)TabbarView*tabbar;
+
 @end
 
 @implementation ECTabbarViewController
@@ -37,16 +39,44 @@
     return shareNetworkMessage;
 }
 
+- (void)hideTabbar:(BOOL)hide {
+    if (hide) {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.tabbar mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.view.mas_left);
+                make.right.equalTo(self.view.mas_right);
+                make.bottom.equalTo(self.view.mas_bottom).with.offset(70);
+                make.height.equalTo(@60);
+            }];
+            [self.tabbar layoutIfNeeded];
+        }];
+    }else {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.tabbar mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.view.mas_left);
+                make.right.equalTo(self.view.mas_right);
+                make.bottom.equalTo(self.view.mas_bottom).with.offset(0);
+                make.height.equalTo(@60);
+            }];
+            [self.tabbar layoutIfNeeded];
+        }];
+    }
+   
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    AppDelegate*delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    delegate.tabbarController = self;
+    
+    
     self.selctedIndex = -1;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabBarConToLoginView:) name:@"AllVCNotificationTabBarConToLoginView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(isLoginViewBackButtonClick:) name:@"isLoginViewBackButtonClick" object:nil];
-
+    
 	// Do any additional setup after loading the view, typically from a nib.
-    _tabbar = [[TabbarView alloc]initWithFrame:CGRectZero];
+    _tabbar = [[ECTabbarView alloc]initWithFrame:CGRectZero];
     _tabbar.delegate = self;
     [self.view addSubview:_tabbar];
     

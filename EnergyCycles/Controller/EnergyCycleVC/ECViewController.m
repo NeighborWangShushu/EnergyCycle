@@ -22,6 +22,10 @@
 #import "NavMenuView.h"
 #import "ECNavMenuModel.h"
 #import "PostingViewController.h"
+#import "WebVC.h"
+#import "ECTabbarViewController.h"
+#import "OtherUesrViewController.h"
+#import "Appdelegate.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
@@ -29,16 +33,26 @@
 
 @interface ECViewController ()<UITableViewDelegate,UITableViewDataSource,ECTimeLineCellDelegate,UITextFieldDelegate,NavMenuViewDelegate>{
     XMShareView*shareView;
+    AppDelegate*delegate;
+    
     UILabel*titleLabel;
     UIImageView *arrowImg;
     NSInteger pageType;//0 能量圈  1关注的人
     NSInteger currentPage;
-    NSString * userId;
+    NSString * _userId;
     NSInteger maxPageSize; //总页数
     UITextField*text;
     
     ECNavMenuModel*selectedModel;
     ECTimeLineModel * commendModel;
+    /**
+     *  点击评论的索引（哪条cell）
+     */
+    NSInteger commentIndex;
+    /**
+     *  点击评论在哪个组
+     */
+    NSInteger commentSection;
     ECTimeLineModel * selectedLikeModel;
 }
 
@@ -63,6 +77,8 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    [delegate.tabbarController hideTabbar:NO];
+    
 }
 
 
@@ -80,6 +96,8 @@
 
 - (void)initialize {
     
+    delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+
     currentPage = 1;
     self.dataArray = [NSMutableArray array];
     self.commentArray = [NSMutableArray array];
@@ -90,7 +108,7 @@
     NSLog(@"NSDocumentDirectory:%@",documentsDirectory);
     
     NSLog(@"%@",[User_ID class]);
-    userId = User_ID == 0?@"0":User_ID;
+    _userId = User_ID == 0?@"0":User_ID;
     [self getNavData];
     
     if ([selectedModel.name isEqualToString:@"能量圈"]) {
@@ -140,9 +158,9 @@
 
     if (pageType == 0) {
         //能量圈
-        NSString * jingxuan = [NSString stringWithFormat:@"%@%@?type=2&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,userId,User_TOKEN,@"1",@"10"];
+        NSString * jingxuan = [NSString stringWithFormat:@"%@%@?type=2&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"1",@"10"];
         NSString * tuijian = [NSString stringWithFormat:@"%@%@?userId=%@",INTERFACE_URL,GetRecommendUser,@"0"];
-        NSString * zuixin = [NSString stringWithFormat:@"%@%@?type=1&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,userId,User_TOKEN,@"1",@"10"];
+        NSString * zuixin = [NSString stringWithFormat:@"%@%@?type=1&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"1",@"10"];
         currentPage = 1;
         NSURLRequest * request1 = [NSURLRequest requestWithURL:[NSURL URLWithString:jingxuan]];
         NSURLRequest * request2 = [NSURLRequest requestWithURL:[NSURL URLWithString:tuijian]];
@@ -230,7 +248,9 @@
                 [weakSelf.attentionArray addObject:model];
             }
             weakSelf.tableView.hidden = NO;
-            [weakSelf.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+            });
         } failure:^(NSString *str) {
             
         }];
@@ -251,6 +271,7 @@
     model.location = data[@"address"];
     model.time = data[@"createTime"];
     model.picNamesArray = data[@"artPic"];
+    model.liked = [data[@"isHasLike"] boolValue];
     NSMutableArray * likeArr = [NSMutableArray array];
     if ([data[@"LikeUserList"] count]) {
         for (NSDictionary * like in data[@"LikeUserList"]) {
@@ -260,7 +281,7 @@
             [likeArr addObject:likeModel];
         }
     }
-   
+    
     NSMutableArray * commentArr = [NSMutableArray array];
     if ([data[@"commentList"] count]) {
         for (NSDictionary * comment in data[@"commentList"]) {
@@ -333,7 +354,7 @@
                            
                            nil];
     [numberToolbar sizeToFit];
-
+    
     text.inputAccessoryView = numberToolbar;
     [text becomeFirstResponder];
     [toolText becomeFirstResponder];
@@ -382,6 +403,7 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightbutton];
     self.navigationItem.rightBarButtonItems = @[item];
     
+    
     UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
     leftbutton.frame = CGRectMake(0, 0, 21, 25);
     [leftbutton setBackgroundImage:[UIImage imageNamed:@"ec_invite"] forState:UIControlStateNormal];
@@ -389,6 +411,7 @@
     [leftbutton addTarget:self action:@selector(energyLeftActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftitem = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
     self.navigationItem.leftBarButtonItems = @[leftitem];
+    
     
     UITableView * tableView   = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.delegate        = self;
@@ -461,7 +484,7 @@
     }
     __weak typeof(self) weakSelf = self;
     
-    [[AppHttpManager shareInstance] getGetArticleListWithType:@"1" Userid:userId Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%ld",(long)currentPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getGetArticleListWithType:@"1" Userid:_userId Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%ld",(long)currentPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
         for (NSDictionary * data in dict[@"Data"]) {
             ECTimeLineModel*model = [self sortByData:data];
             [weakSelf.newerArray addObject:model];
@@ -482,12 +505,34 @@
  *  @return
  */
 
-- (void)sendCommend:(NSString*)message {
+- (void)sendCommend:(NSString*)message index:(NSInteger)index section:(NSInteger)section {
     
-    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] token:User_TOKEN PostOrGet:@"get" success:^(NSDictionary *dict) {
+    __weak typeof(self) weakSelf = self;
+    
+    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
+        NSDictionary*data = dict[@"Data"];
+        ECTimeLineModel*model = [self sortByData:data];
+        NSIndexPath*indexPath = [NSIndexPath indexPathForRow:index inSection:section];
+        if (commentSection == 0) {
+            if (pageType == 0) {
+                [weakSelf.dataArray replaceObjectAtIndex:index withObject:model];
+            }else {
+                [weakSelf.attentionArray replaceObjectAtIndex:index withObject:model];
+            }
+            
+        } else if(commentSection == 2){
+            [weakSelf.newerArray replaceObjectAtIndex:index withObject:model];
+            
+        }
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        });
+        
+        [SVProgressHUD showImage:nil status:@"评论成功"];
         
     } failure:^(NSString *str) {
+        
         
     }];
 }
@@ -509,23 +554,76 @@
 
 #pragma mark UITableViewDelegate
 
+- (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
+    
+    [delegate.tabbarController hideTabbar:YES];
+    OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
+    otherUserVC.otherUserId = userId;
+    otherUserVC.otherName = name;
+    [self.navigationController pushViewController:otherUserVC animated:YES];
+    
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+   
+    ECTimeLineModel*model = nil;
+
+    if (indexPath.section != 1) {
+        if (pageType == 0) {
+            if (indexPath.section == 0) {
+                model = [self.dataArray objectAtIndex:indexPath.row];
+            }else if (indexPath.section == 1) {
+                model = [self.newerArray objectAtIndex:indexPath.row];
+            }
+        }else {
+            model = [self.attentionArray objectAtIndex:indexPath.row];
+        }
+        
+        NSString*aid = model.ID;
+        
+        WebVC *webVC = MainStoryBoard(@"WebVC");
+        webVC.titleName = @"动态详情";
+        webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,aid,[NSString stringWithFormat:@"%@",User_ID]];
+        
+        
+        [self.navigationController pushViewController:webVC animated:YES];
+        
+        [delegate.tabbarController hideTabbar:YES];
+    }
+    
+}
+
+
 - (void)didActionInCell:(UITableViewCell *)cell actionType:(ECTimeLineCellActionType)type atIndexPath:(NSIndexPath *)indexPath {
+    
+    NSMutableArray * data = nil;
+    if (pageType == 0) {
+        if (indexPath.section == 0) {
+            data = self.dataArray;
+        }else if (indexPath.section == 2) {
+            data = self.newerArray;
+        }
+    }else {
+        data = self.attentionArray;
+    }
     
     switch (type) {
         case ECTimeLineCellActionTypeShare:
-            [self share:self.dataArray[indexPath.row]];
+            [self share:data[indexPath.row]];
             break;
         case ECTimeLineCellActionTypeLike:
-            [self doLike:self.dataArray[indexPath.row] indexPath:indexPath];
+            [self doLike:data[indexPath.row] indexPath:indexPath];
             break;
         case ECTimeLineCellActionTypeComment:
-            [self doComment:self.dataArray[indexPath.row] indexPath:indexPath];
+            [self doComment:data[indexPath.row] indexPath:indexPath];
             break;
             
         default:
             break;
     }
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 || indexPath.section == 2) {
@@ -534,7 +632,6 @@
     }else {
         return 150;
     }
-    
 }
 
 
@@ -592,12 +689,13 @@
             }];
             cell.delegate = self;
         }
+        
         ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
         [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
         if (pageType == 0) {
-            cell.model = indexPath.section == 0? weakSelf.dataArray[indexPath.row]:weakSelf.newerArray[indexPath.row];
+            cell.model = indexPath.section == 0? self.dataArray[indexPath.row]:self.newerArray[indexPath.row];
         }else {
-            cell.model = weakSelf.attentionArray[indexPath.row];
+            cell.model = self.attentionArray[indexPath.row];
         }
         
         return cell;
@@ -621,7 +719,7 @@
     if (pageType == 0) {
         if (section == 0) {
             return [self.dataArray count];
-        }else if (section == 2){
+        }else if (section == 2) {
             return [self.newerArray count];
         }
         else {
@@ -633,8 +731,9 @@
     
 }
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (currentPage == 0) {
+    if (pageType == 0) {
         return 3;
     }else {
         return 1;
@@ -650,7 +749,7 @@
     shareView.shareTitle = model.msgContent;
     shareView.shareText = @"";
     NSString * share_url = @"";
-    share_url = [NSString stringWithFormat:@"%@/%@?id=%@",INTERFACE_URL,StudyDetailAspx,model.ID];
+    share_url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,model.ID,@"0"];
     shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
     [[UIApplication sharedApplication].keyWindow addSubview:shareView];
     [UIView animateWithDuration:0.25 animations:^{
@@ -665,7 +764,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
         return;
     }
-    
+    commentIndex = indexPath.row;
+    commentSection = indexPath.section;
     commendModel = model;
     [self showKeyboard];
 }
@@ -679,6 +779,58 @@
         return;
     }
     selectedLikeModel = model;
+    [self like:model indexPath:indexPath];
+}
+
+- (void)like:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
+    
+    model.liked = !model.liked;
+    NSMutableArray * likes = model.likeItemsArray;
+    if (!model.liked) {
+        //删除点赞名
+        for (ECTimeLineCellLikeItemModel *model in likes) {
+            if ([model.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
+                NSLog(@"删除了点赞人%@",model.userName);
+                [likes removeObject:model];
+            }
+        }
+        
+    }else {
+        //添加点赞名
+        ECTimeLineCellLikeItemModel*likeModel = [ECTimeLineCellLikeItemModel new];
+        likeModel.userId = [NSString stringWithFormat:@"%@",User_ID];
+        likeModel.userName = User_NAME;
+        [model.likeItemsArray addObject:likeModel];
+    }
+    
+    if (pageType == 0) {
+        if (indexPath.section == 0) {
+            [self.dataArray replaceObjectAtIndex:indexPath.row withObject:model];
+        }else if (indexPath.section == 0) {
+            [self.newerArray replaceObjectAtIndex:indexPath.row withObject:model];
+        }
+    }else {
+        [self.attentionArray replaceObjectAtIndex:indexPath.row withObject:model];
+    }
+    
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+    [self postLike:model];
+}
+
+/**
+ *  调用点赞接口
+ */
+- (void)postLike:(ECTimeLineModel*)model {
+    
+    NSInteger OpeType = !model.liked;
+    [[AppHttpManager shareInstance] postAddLikeOrNoLikeWithType:@"1" OpeType:[NSString stringWithFormat:@"%ld",(long)OpeType] ArticleId:[model.ID intValue] UserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
+        
+    } failure:^(NSString *str) {
+        
+    }];
+    
+    
 }
 
 
@@ -696,6 +848,7 @@
     
 }
 
+
 - (void)gotoCyclePostView:(NSNotification*)notifi {
     
     if ([User_TOKEN length] <= 0) {
@@ -704,7 +857,7 @@
         PostingViewController * postView = MainStoryBoard(@"EnergyCycleViewToPostView");
         [self presentViewController:postView animated:YES completion:nil];
     }
-  
+    
 }
 
 
@@ -713,8 +866,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     //发送评论
-    [self sendCommend:textField.text];
-    
+    [self sendCommend:textField.text index:commentIndex section:commentSection];
     
     [textField resignFirstResponder];
     return YES;

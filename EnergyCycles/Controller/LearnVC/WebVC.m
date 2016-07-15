@@ -36,6 +36,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
+    leftbutton.frame = CGRectMake(0, 0, 30, 35);
+    [leftbutton setBackgroundImage:[UIImage imageNamed:@"whiteback_normal"] forState:UIControlStateNormal];
+    leftbutton.tag = 1002;
+    [leftbutton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftitem = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
+    self.navigationItem.leftBarButtonItems = @[leftitem];
+    
+    
+    self.title = self.titleName;
     self.navigationController.navigationBar.hidden = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     WKWebView * webview = [WKWebView new];
@@ -52,6 +62,10 @@
     // Do any additional setup after loading the view.
 }
 
+
+- (void)back:(UIButton*)button {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {

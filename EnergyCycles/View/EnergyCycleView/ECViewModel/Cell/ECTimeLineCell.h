@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, ECTimeLineCellActionType) {
 
 - (void)didClickLikeButtonInCell:(UITableViewCell *)cell;
 - (void)didClickcCommentButtonInCell:(UITableViewCell *)cell;
+- (void)didClickOtherUser:(UITableViewCell*)cell userId:(NSString*)userId userName:(NSString*)name;
 
 - (void)didActionInCell:(UITableViewCell*)cell actionType:(ECTimeLineCellActionType)type atIndexPath:(NSIndexPath*)indexPath;
 

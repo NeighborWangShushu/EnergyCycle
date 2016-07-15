@@ -13,6 +13,7 @@
 #import "PKNavController.h"
 #import "LearnNavController.h"
 #import "MineNavController.h"
+#import "ECTabbarViewController.h"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -35,6 +36,8 @@
 
 //音频播放index
 @property (nonatomic) NSInteger audioPlayIndex;
+
+@property (nonatomic,strong)ECTabbarViewController*tabbarController;
 
 @end
 

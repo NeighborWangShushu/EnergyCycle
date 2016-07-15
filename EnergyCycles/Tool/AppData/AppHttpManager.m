@@ -31,7 +31,7 @@ static AFHTTPRequestOperationManager *manager;
     }
     manager.requestSerializer.timeoutInterval=30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
-    NSLog(@"%@",postDict);
+    NSLog(@"%@",str);
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
     
     [manager GET:str
@@ -61,7 +61,7 @@ static AFHTTPRequestOperationManager *manager;
     if (manager == nil) {
         manager = [AFHTTPRequestOperationManager manager];
     }
-    manager.requestSerializer.timeoutInterval=30.0f;
+    manager.requestSerializer.timeoutInterval = 30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
     [manager POST:str

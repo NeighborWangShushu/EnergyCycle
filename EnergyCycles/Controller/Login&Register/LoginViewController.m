@@ -71,6 +71,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"USERID"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"TOKEN"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"PHONE"];
+
 }
 
 #pragma mark - 返回按键响应事件

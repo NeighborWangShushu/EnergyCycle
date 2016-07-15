@@ -29,6 +29,10 @@ CGFloat maxContentLabelHeight2 = 0; // 根据具体font而定
 
 NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLineCellOperationButtonClickedNotification";
 
+@interface ECTimeLineCell ()<SDTimeLineCellCommentViewDelegate>
+
+@end
+
 @implementation ECTimeLineCell
 
 {
@@ -112,6 +116,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _picContainerView = [SDWeiXinPhotoContainerView new];
     
     _commentView = [SDTimeLineCellCommentView new];
+    _commentView.delegate = self;
     _commentView.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1.0];
     
     _operationMenu = [SDTimeLineCellOperationMenu new];
@@ -129,6 +134,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     }];
     
     _bottomView = [SDTimeLineCellBottomView new];
+    _bottomView.model = self.model;
     _bottomView.SDTimeLineCellBottomSelectedBlock = ^(NSInteger type){
         switch (type) {
             case 0:
@@ -306,6 +312,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         bottomView = _commentView;
     }
     
+    _bottomView.model = model;
+    
     [self setupAutoHeightWithBottomView:_marginView bottomMargin:0];
     
     
@@ -318,6 +326,17 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         _operationMenu.show = NO;
     }
 }
+
+#pragma mark SDCommentViewCellDelegate
+
+- (void)didClickLink:(NSString *)linkId linkName:(NSString *)linkName {
+    if ([self.delegate respondsToSelector:@selector(didClickOtherUser:userId:userName:)]) {
+        [self.delegate didClickOtherUser:self userId:linkId userName:linkName];
+    }
+}
+
+
+
 
 #pragma mark - private actions
 

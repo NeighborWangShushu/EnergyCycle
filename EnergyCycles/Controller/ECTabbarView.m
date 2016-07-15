@@ -6,10 +6,10 @@
 //  Copyright (c) 2013年 Kevin. All rights reserved.
 //
 
-#import "TabbarView.h"
+#import "ECTabbarView.h"
 #import "Masonry.h"
 
-@interface TabbarView ()
+@interface ECTabbarView ()
 {
     UIButton * lastButton;
 }
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation TabbarView
+@implementation ECTabbarView
 
 - (id)initWithFrame:(CGRect)frame
 {

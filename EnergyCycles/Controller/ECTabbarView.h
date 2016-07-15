@@ -15,7 +15,7 @@
 
 @end
 
-@interface TabbarView : UIView
+@interface ECTabbarView : UIView
 
 @property(nonatomic,strong) UIImageView *tabbarView;
 @property(nonatomic,strong) UIImageView *tabbarViewCenter;

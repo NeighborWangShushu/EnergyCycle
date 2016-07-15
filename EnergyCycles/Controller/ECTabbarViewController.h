@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
-#import "TabbarView.h"
+#import "ECTabbarView.h"
 
 
 
 @interface ECTabbarViewController : UIViewController
 
 
+- (void)hideTabbar:(BOOL)hide;
 
 @property(nonatomic,strong) NSArray *arrayViewcontrollers;
 
@@ -32,6 +32,8 @@
 + (ECTabbarViewController *)shareInstance;
 
 - (void)setSelectedIndex:(NSInteger)index;
+
+
 
 @end
 
