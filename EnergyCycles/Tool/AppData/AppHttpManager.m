@@ -2500,4 +2500,31 @@ static AFHTTPRequestOperationManager *manager;
                      }];
 }
 
+#pragma mark - 95.修改个人简介
+//请求参数:
+//把参数直接放到Body里面(Json格式)
+//UserID   int     用户ID
+//token    string  令牌
+//Brief    string  简介
+- (void)changeBriefWithUserid:(int)userid
+                        Token:(NSString *)token
+                        Brief:(NSString *)brief
+                    PostOrGet:(NSString *)postOrGetType
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:brief forKey:@"Brief"];
+    
+    [self callInterfaceByUrl:ChangeBrief
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict){
+                         success(dict);
+                     }failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
 @end

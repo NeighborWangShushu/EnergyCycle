@@ -2443,6 +2443,44 @@
             </objects>
             <point key="canvasLocation" x="-1058" y="4413"/>
         </scene>
+        <!--Intro View Controller-->
+        <scene sceneID="hbz-FH-55f">
+            <objects>
+                <viewController id="rvb-HC-G4q" customClass="IntroViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zit-Rx-rNd"/>
+                        <viewControllerLayoutGuide type="bottom" id="OUm-Cm-lJz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Kkt-0e-RNe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fib-lz-2bI" customClass="CustomTextView">
+                                <rect key="frame" x="12" y="74" width="351" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="BiS-ZQ-Spe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fib-lz-2bI" firstAttribute="top" secondItem="zit-Rx-rNd" secondAttribute="bottom" constant="10" id="TKJ-8L-gi1"/>
+                            <constraint firstItem="fib-lz-2bI" firstAttribute="leading" secondItem="Kkt-0e-RNe" secondAttribute="leading" constant="12" id="TpL-dT-tez"/>
+                            <constraint firstAttribute="trailing" secondItem="fib-lz-2bI" secondAttribute="trailing" constant="12" id="lFF-6R-Zea"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="2jA-Tt-rvi"/>
+                    <connections>
+                        <outlet property="introTextView" destination="fib-lz-2bI" id="76b-lx-bFY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B1t-6D-4KX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="101.5" y="2826.5"/>
+        </scene>
         <!--Mine Table View Controller-->
         <scene sceneID="Mzx-Sn-Y99">
             <objects>
@@ -2470,6 +2508,7 @@
                     <connections>
                         <segue destination="uel-tT-MCR" kind="push" identifier="SettingTableViewController" id="vpn-CB-KIX"/>
                         <segue destination="h9q-Bh-j75" kind="push" identifier="MineHomePageViewController" id="ikM-y1-ngs"/>
+                        <segue destination="rvb-HC-G4q" kind="push" identifier="IntroViewController" id="POg-6i-jIU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZUJ-NW-vvx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2504,52 +2543,13 @@
                         <segue destination="3X1-6c-SNn" kind="push" identifier="AMChangePhoneViewController" id="PKj-mJ-5kS"/>
                         <segue destination="bsu-lg-i6t" kind="push" identifier="AMBoundPhoneViewController" id="lXq-nD-2J1"/>
                         <segue destination="JmS-ln-bCM" kind="push" identifier="IWillAdviseViewController" id="qpV-fR-jXy"/>
-                        <segue destination="Fbs-hm-UX4" kind="push" identifier="FeedbackViewController" id="jBn-nG-Y6H"/>
                         <segue destination="aCq-sr-uEj" kind="push" identifier="MyProfileViewController" id="I2i-X2-oaq"/>
                         <segue destination="D2v-rR-YSs" kind="push" identifier="AboutViewController" id="JaJ-pQ-10D"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5l-n6-mqc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="34.5" y="3489.5"/>
-        </scene>
-        <!--Feedback View Controller-->
-        <scene sceneID="vqM-Se-qwN">
-            <objects>
-                <viewController id="Fbs-hm-UX4" customClass="FeedbackViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1oN-BF-UL3"/>
-                        <viewControllerLayoutGuide type="bottom" id="d2W-bu-Lzs"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="OHL-MF-0Vo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SW3-px-eNo">
-                                <rect key="frame" x="12" y="74" width="351" height="150"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="hjO-mA-jqH"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="SW3-px-eNo" secondAttribute="trailing" constant="12" id="PVV-z6-YGG"/>
-                            <constraint firstItem="SW3-px-eNo" firstAttribute="leading" secondItem="OHL-MF-0Vo" secondAttribute="leading" constant="12" id="ZyD-iu-LTT"/>
-                            <constraint firstItem="SW3-px-eNo" firstAttribute="top" secondItem="1oN-BF-UL3" secondAttribute="bottom" constant="10" id="cKM-IJ-L8T"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="bfO-VV-c0m"/>
-                    <connections>
-                        <outlet property="textView" destination="SW3-px-eNo" id="W1q-By-38x"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I8z-Zk-HPH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="781" y="3790"/>
+            <point key="canvasLocation" x="47.5" y="3530.5"/>
         </scene>
         <!--我的-->
         <scene sceneID="Yf3-ny-6qg">

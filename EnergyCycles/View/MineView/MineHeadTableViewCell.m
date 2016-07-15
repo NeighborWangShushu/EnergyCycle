@@ -102,7 +102,12 @@
     }
 }
 
-- (IBAction)CacheIntro:(id)sender {
+
+- (IBAction)ChangeIntro:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"JumpToIntroViewController" object:nil];
+}
+
+- (IBAction)ChangeIcon:(id)sender {
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更换头像" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -116,6 +121,7 @@
     [alert addAction:photoAction];
     [alert addAction:albumAction];
     [alert addAction:cancelAction];
+    NSLog(@"哈哈哈哈哈哈哈啊哈哈哈");
     
 }
 

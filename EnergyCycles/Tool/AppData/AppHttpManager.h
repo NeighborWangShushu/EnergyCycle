@@ -1094,4 +1094,16 @@
                          success:(void (^)(NSDictionary *dict))success
                          failure:(void (^)(NSString *str))failure;
 
+#pragma mark - 95.修改个人简介
+//请求参数:
+//把参数直接放到Body里面(Json格式)
+//UserID   int     用户ID
+//token    string  令牌
+//Brief    string  简介
+- (void)changeBriefWithUserid:(int)userid
+                        Token:(NSString *)token
+                        Brief:(NSString *)brief
+                    PostOrGet:(NSString *)postOrGetType
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure;
 @end

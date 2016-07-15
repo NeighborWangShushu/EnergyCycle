@@ -9,6 +9,7 @@
 #import "MineTableViewController.h"
 
 #import "MineHomePageViewController.h"
+#import "IntroViewController.h"
 #import "MineHomePageHeadModel.h"
 #import "MineHeadTableViewCell.h"
 #import "MineTableViewCell.h"
@@ -130,10 +131,19 @@
     }
 }
 
+- (void)jumpToIntroViewController {
+    [self performSegueWithIdentifier:@"IntroViewController" sender:nil];
+}
+
+// 传值
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"MineHomePageViewController"]) {
         MineHomePageViewController *mineHomePageVC = segue.destinationViewController;
         mineHomePageVC.userInfoDic = self.userInfoDict;
+    } else if([segue.identifier isEqualToString:@"IntroViewController"]){
+        IntroViewController *introVC = segue.destinationViewController;
+//        [introVC.introTextView setText:self.userInfoDict[@"Brief"]];
+        introVC.introString = self.userInfoDict[@"Brief"];
     }
 }
 
@@ -192,7 +202,14 @@
 
     [self getUserInfo];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"JumpToIntroViewController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"reloadData" object:nil];
     // Do any additional setup after loading the view.
+}
+
+- (void)reloadData {
+    [self getUserInfo];
 }
 
 - (void)didReceiveMemoryWarning {

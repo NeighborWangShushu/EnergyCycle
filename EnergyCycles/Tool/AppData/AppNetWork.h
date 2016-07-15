@@ -357,4 +357,7 @@
 //94.修改密码
 #define ChangePassword @"user/User_Pwd_Upd"
 
+//95.修改个人简介
+#define ChangeBrief @"/user/App_User_Brief_Upd"
+
 #endif

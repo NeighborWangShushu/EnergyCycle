@@ -479,6 +479,7 @@
 		625902391D2CFB6A00F3F13C /* BoundSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625902381D2CFB6A00F3F13C /* BoundSuccessViewController.m */; };
 		6259023C1D2CFB7B00F3F13C /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */; };
 		6259023F1D2D02EC00F3F13C /* VerificationPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */; };
+		627F76F81D38D9EF00552B96 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 627F76F71D38D9EF00552B96 /* IntroViewController.m */; };
 		629E41D51D3500E200695296 /* MineHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629E41D41D3500E200695296 /* MineHomePageViewController.m */; };
 		62A93BD61D361EA200343B63 /* MineHomePageHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */; };
 		62A93BD81D361EBC00343B63 /* MineHomePageHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */; };
@@ -1933,6 +1934,8 @@
 		6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		6259023D1D2D02EC00F3F13C /* VerificationPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationPhoneViewController.h; sourceTree = "<group>"; };
 		6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationPhoneViewController.m; sourceTree = "<group>"; };
+		627F76F61D38D9EF00552B96 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
+		627F76F71D38D9EF00552B96 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		629E41D31D3500E200695296 /* MineHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageViewController.h; sourceTree = "<group>"; };
 		629E41D41D3500E200695296 /* MineHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageViewController.m; sourceTree = "<group>"; };
 		62A93BD41D361EA200343B63 /* MineHomePageHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageHeadView.h; sourceTree = "<group>"; };
@@ -3496,6 +3499,7 @@
 		26D99D371C0C4D7B007AF579 /* MineVC */ = {
 			isa = PBXGroup;
 			children = (
+				627F76F51D38D99700552B96 /* Intro */,
 				62C99F351D37A6CC0032E83C /* PKRecord */,
 				62C99F341D37A6A40032E83C /* EnergyPost */,
 				26D99D381C0C4D7B007AF579 /* MineNavController.h */,
@@ -4626,6 +4630,15 @@
 				6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */,
 			);
 			name = AccountManage;
+			sourceTree = "<group>";
+		};
+		627F76F51D38D99700552B96 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				627F76F61D38D9EF00552B96 /* IntroViewController.h */,
+				627F76F71D38D9EF00552B96 /* IntroViewController.m */,
+			);
+			name = Intro;
 			sourceTree = "<group>";
 		};
 		6293337A1D2B5E830085AE82 /* Setting */ = {
@@ -7294,6 +7307,7 @@
 				26D99EF31C0C4D7C007AF579 /* MJRefreshBackNormalFooter.m in Sources */,
 				DA6F79351C34F1740095C82F /* RecordModel.m in Sources */,
 				DA9125001C2940730018DBAF /* MyImageView.m in Sources */,
+				627F76F81D38D9EF00552B96 /* IntroViewController.m in Sources */,
 				DA68D5B71C96A1680073E0F6 /* MineEnergyShowThreeViewCell.m in Sources */,
 				D04B54D01D23C90D00DC259A /* NSString+MLLabel.m in Sources */,
 				26D99EDF1C0C4D7C007AF579 /* JSONModelArray.m in Sources */,
