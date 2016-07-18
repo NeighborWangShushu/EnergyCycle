@@ -33,8 +33,19 @@
                                   fans:(NSInteger)fans {
     
 
-    
-    
+    // 背景
+    if ([backgroundImage isEqualToString:@""]) {
+        [self.backgroundImage setImage:[UIImage imageNamed:@"bg"]];
+    } else {
+        [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:backgroundImage] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            if (self.backgroundImage.image.size.height >= 452) {
+                self.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
+            }
+            if (self.backgroundImage.image.size.width >= 375) {
+                self.backgroundImage.contentMode = UIViewContentModeScaleAspectFill;
+            }
+        }];
+    }
     
     // 头像
     if ([headImage isEqualToString:@""]) {
@@ -84,20 +95,6 @@
         self.introLabel.text = @"简介:暂无";
     } else {
         self.introLabel.text = [NSString stringWithFormat:@"简介:%@", intro];
-    }
-    
-    // 背景
-    if ([backgroundImage isEqualToString:@""]) {
-        [self.backgroundImage setImage:[UIImage imageNamed:@"bg"]];
-    } else {
-        [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:backgroundImage] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            if (self.backgroundImage.image.size.height >= 452) {
-                self.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
-            }
-            if (self.backgroundImage.image.size.width >= 375) {
-                self.backgroundImage.contentMode = UIViewContentModeScaleAspectFill;
-            }
-        }];
     }
     
 }

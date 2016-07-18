@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomTextView.h"
-
 @interface IntroViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet CustomTextView *introTextView;

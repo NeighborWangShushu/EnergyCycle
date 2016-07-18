@@ -108,21 +108,7 @@
 }
 
 - (IBAction)ChangeIcon:(id)sender {
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更换头像" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:photoAction];
-    [alert addAction:albumAction];
-    [alert addAction:cancelAction];
-    NSLog(@"哈哈哈哈哈哈哈啊哈哈哈");
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeHeadImage" object:nil];
 }
 
 - (void)awakeFromNib {

@@ -14,10 +14,15 @@
 #import "MineHeadTableViewCell.h"
 #import "MineTableViewCell.h"
 
-@interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource>
+#import "AttentionAndFansTableViewController.h"
+
+@interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *userInfoDict;
 @property (nonatomic, strong) MineHomePageHeadModel *model;
+
+@property (nonatomic, strong) UIImagePickerController *picker;
+@property (nonatomic, strong) NSData *headImageData;
 
 @end
 
@@ -114,9 +119,13 @@
         if (indexPath.row == 0) { // 能量圈
             
         } else if (indexPath.row == 1) { // 关注
-            
+            AttentionAndFansTableViewController *afVC = [[AttentionAndFansTableViewController alloc] init];
+            afVC.type = 1;
+            [self.navigationController pushViewController:afVC animated:YES];
         } else if (indexPath.row == 2) { // 粉丝
-            
+            AttentionAndFansTableViewController *afVC = [[AttentionAndFansTableViewController alloc] init];
+            afVC.type = 2;
+            [self.navigationController pushViewController:afVC animated:YES];
         } else if (indexPath.row == 3) { // 消息
             
         } else if (indexPath.row == 4) { // PK记录
@@ -204,10 +213,53 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"JumpToIntroViewController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeHeadImage) name:@"ChangeHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"reloadData" object:nil];
     // Do any additional setup after loading the view.
 }
 
+- (void)changeHeadImage {
+    
+    if (!self.picker) {
+        self.picker = [[UIImagePickerController alloc] init];
+        self.picker.delegate = self;
+        self.picker.allowsEditing = YES;
+    }
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:self.picker animated:YES completion:nil];
+    }];
+    UIAlertAction *photoAciton = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:self.picker animated:YES completion:nil];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cameraAction];
+    [alert addAction:photoAciton];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    self.headImageData = UIImageJPEGRepresentation(image, 0.01);
+    [self.picker dismissViewControllerAnimated:YES completion:nil];
+    
+    [[AppHttpManager shareInstance] postAddImgWithPhoneNo:User_ID Img:self.headImageData PostOrGet:@"post" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            [self getUserInfo];
+        } else {
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
+}
+
+// 刷新视图
 - (void)reloadData {
     [self getUserInfo];
 }

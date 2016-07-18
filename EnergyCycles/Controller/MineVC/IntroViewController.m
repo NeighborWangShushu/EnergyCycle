@@ -25,25 +25,10 @@
     
     self.title = @"简介";
     
-    self.introTextView.placehoder = @"可输入200字";
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    
-    self.introTextView.backgroundColor = [UIColor whiteColor];
-    self.introTextView.layer.borderWidth = 1.f;
-    self.introTextView.layer.borderColor = [[UIColor blackColor] colorWithAlphaComponent:0.1].CGColor;
-    self.introTextView.layer.masksToBounds = YES;
-    self.introTextView.layer.cornerRadius = 2.f;
-    self.introTextView.delegate = self;
-    
-    self.changeButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.changeButton.frame = CGRectMake(0, 0, 35, 30);
-    [self.changeButton setTitle:@"修改" forState:UIControlStateNormal];
-    [self.changeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.changeButton setTintColor:[UIColor whiteColor]];
-    [self.changeButton addTarget:self action:@selector(changeAction) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.changeButton];
-    self.navigationItem.rightBarButtonItem = item;
+    [self createTextView];
+    [self createChangeButton];
     
     if (![self.introString isEqualToString:@""]) {
         self.introTextView.text = self.introString;
@@ -53,6 +38,31 @@
     // Do any additional setup after loading the view.
 }
 
+// 创建textView
+- (void)createTextView {
+    self.introTextView.placehoder = @"可输入200字";
+    self.introTextView.backgroundColor = [UIColor whiteColor];
+    self.introTextView.layer.borderWidth = 1.f;
+    self.introTextView.layer.borderColor = [[UIColor blackColor] colorWithAlphaComponent:0.1].CGColor;
+    self.introTextView.layer.masksToBounds = YES;
+    self.introTextView.layer.cornerRadius = 2.f;
+    self.introTextView.delegate = self;
+}
+
+// 创建修改按钮
+- (void)createChangeButton {
+    self.changeButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.changeButton.frame = CGRectMake(0, 0, 35, 30);
+    [self.changeButton setTitle:@"修改" forState:UIControlStateNormal];
+    [self.changeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.changeButton setTintColor:[UIColor whiteColor]];
+    [self.changeButton addTarget:self action:@selector(changeAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.changeButton];
+    self.navigationItem.rightBarButtonItem = item;
+}
+
+// 点击修改触发的方法
 - (void)changeAction {
     if (self.updateIntroString.length > 200) {
         [SVProgressHUD showImage:nil status:@"请将字数限制在200字以内"];
@@ -72,6 +82,7 @@
     }
 }
 
+// 当textView的内容改变时自动触发的协议方法
 - (void)textViewDidChange:(UITextView *)textView {
     if ([self.introString isEqualToString:textView.text]) {
         self.changeButton.enabled = NO;
