@@ -59,7 +59,6 @@
             break;
         case 2:
             return ECShareTypeSina;
-
             break;
         case 3:
             return ECShareTypeQzone;

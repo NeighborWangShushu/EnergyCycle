@@ -98,6 +98,7 @@
     
 }
 
+#pragma mark UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -116,8 +117,15 @@
     return cell;
 }
 
+
+#pragma mark UICollectionViewDelegate
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    CommentUserModel * model = [self.datas objectAtIndex:indexPath.row];
+    if ([self.delegate respondsToSelector:@selector(didClickCommendUser:userId:userName:)]) {
+        [self.delegate didClickCommendUser:self userId:[NSString stringWithFormat:@"%ld",model.ID] userName:model.name];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

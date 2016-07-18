@@ -22,16 +22,26 @@
 #import "XMShareWechatUtil.h"
 #import "XMShareWeiboUtil.h"
 
-@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,EnergyPostViewCellDelegate,ECShareCellDelegate> {
+#import "SDPhotoBrowser.h"
+#import "Masonry.h"
+
+@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,EnergyPostViewCellDelegate,ECShareCellDelegate,SDPhotoBrowserDelegate,SDPhotoBrowserDelegate,EnergyPostCollectionViewCellDelegate> {
     NSMutableDictionary *postDict;
     NSMutableArray *_dataArr;
     NSMutableArray *_selectImgArray;
     NSMutableArray *_selectImgArrayLocal;
+    NSMutableArray *_sharesArray;
     UIButton *rightButton;
     NSInteger _tempIndex;
     
     UIAlertView *delAlertView;
+    
+    EnergyPostViewCell * energyPostViewCell;
 }
+
+@property (nonatomic,strong)NSArray * pics;
+
+@property (nonatomic,strong)UICollectionView * collectionView;
 
 @end
 
@@ -39,19 +49,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     
+    [self initialize];
+    [self setup];
     
+}
+
+- (void)initialize {
     _selectImgArray = [[NSMutableArray alloc] initWithCapacity:1];
     _selectImgArrayLocal = [[NSMutableArray alloc] initWithCapacity:1];
+    _sharesArray = [NSMutableArray array];
     self.title = @"发帖";
     postDict = [[NSMutableDictionary alloc] init];
     _dataArr = [[NSMutableArray alloc] init];
     
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1];
-    
-    energyPostTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    energyPostTableView.showsVerticalScrollIndicator = NO;
-    energyPostTableView.backgroundColor = [UIColor clearColor];
+}
+
+- (void)setup {
     
     [self setupLeftNavBarWithimage:@"blackback_normal.png"];
     
@@ -63,6 +79,54 @@
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = item;
+    
+    energyPostViewCell = [[[NSBundle mainBundle] loadNibNamed:@"EnergyPostViewCell" owner:self options:nil] lastObject];
+    energyPostViewCell.informationTextView.delegate = self;
+    [self.view addSubview:energyPostViewCell];
+    
+    
+    UICollectionViewFlowLayout*layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.itemSize = CGSizeMake(60, 60);
+    layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 0);
+    
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    [self.collectionView registerClass:[EnergyPostCollectionViewCell class] forCellWithReuseIdentifier:@"EnergyPostCollectionViewCell"];
+    self.collectionView.delegate = self;
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+    [self.collectionView setShowsHorizontalScrollIndicator:NO];
+    self.collectionView.dataSource = self;
+    [self.view addSubview:self.collectionView];
+    
+    
+    ECShareCell * shareView = [[[NSBundle mainBundle] loadNibNamed:@"ECShareCell" owner:self options:nil] lastObject];
+    shareView.delegate = self;
+    [self.view addSubview:shareView];
+    
+    [energyPostViewCell mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.view.mas_left).with.offset(0);
+        make.right.equalTo(self.view.mas_right).with.offset(0);
+        make.top.equalTo(self.view.mas_top).with.offset(74);
+        make.height.equalTo(@100);
+
+    }];
+    
+    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).with.offset(0);
+        make.right.equalTo(self.view.mas_right);
+        make.top.equalTo(energyPostViewCell.mas_bottom);
+        make.height.equalTo(@80);
+    }];
+    
+    [shareView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).with.offset(0);
+        make.right.equalTo(self.view.mas_right).with.offset(0);
+        make.top.equalTo(self.collectionView.mas_bottom);
+        make.height.equalTo(@50);
+    }];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -88,7 +152,7 @@
         if (buttonIndex == 1) {
             [_selectImgArray removeObjectAtIndex:delAlertView.tag];
             [_selectImgArrayLocal removeObjectAtIndex:delAlertView.tag];
-            [energyPostTableView reloadData];
+            [self.collectionView reloadData];
         }
     }else {
         if (buttonIndex == 1) {
@@ -96,6 +160,8 @@
         }
     }
 }
+
+
 
 - (void)back {
     
@@ -138,8 +204,8 @@
     title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     context = [context stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    if (title==nil||context==nil) {
-        [SVProgressHUD showImage:nil status:@"内容或标题不能为空"];
+    if (context==nil) {
+        [SVProgressHUD showImage:nil status:@"内容不能为空"];
         return;
     }
     
@@ -150,19 +216,25 @@
         viderUrl = [postDict valueForKey:@"videoUrl"];
     }
     
-    [[AppHttpManager shareInstance] postAddArticleWithTitle:title Content:context VideoUrl:viderUrl UserId:[User_ID intValue] token:User_TOKEN List:_dataArr PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:viderUrl UserId:[User_ID intValue] token:User_TOKEN List:_dataArr PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [SVProgressHUD showImage:nil status:@"发布成功"];
-            
-            [self.navigationController popViewControllerAnimated:YES];
+            if ([_sharesArray count]) {
+                [self share];
+            }else {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
         }else {
+            [_dataArr removeAllObjects];
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
     } failure:^(NSString *str) {
         NSLog(@"发布失败 %@",str);
         [SVProgressHUD dismiss];
+        [_dataArr removeAllObjects];
     }];
 }
+
 
 -(void)submitImage:(NSData*)imageData {
     
@@ -192,47 +264,76 @@
     }];
 }
 
-#pragma mark - 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+
+
+- (void)showImageView:(NSInteger )index
+{
+    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+    browser.currentImageIndex = index;
+    browser.sourceImagesContainerView = self.collectionView;
+    browser.imageCount = _selectImgArrayLocal.count;
+    browser.delegate = self;
+    [browser show];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+#pragma mark UICollectionViewDelegate
+
+- (void)share {
+    
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        return 308.f;
-    }else if (indexPath.row == 1) {
-        return 50.0f;
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == [_selectImgArrayLocal count]) {
+        [self didAddPic];
+    }else {
+        [self showImageView:indexPath.row];
+    }
+}
+
+- (void)didLongpressedImage:(NSInteger)index {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提醒" message:@"确认要删除该图片吗？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *  action) {
+        [self dismissViewControllerAnimated:alertController completion:nil];
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *  action) {
+        [_selectImgArray removeObjectAtIndex:index];
+        [_selectImgArrayLocal removeObjectAtIndex:index];
+        [self.collectionView reloadData];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+#pragma mark --UICollectionViewDataSource
+
+- (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *EnergyPostCollectionViewCellId = @"EnergyPostCollectionViewCell";
+    EnergyPostCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:EnergyPostCollectionViewCellId forIndexPath:indexPath];
+    cell.delegate = self;
+    cell.tag = indexPath.row;
+    if (indexPath.row != [_selectImgArrayLocal count]) {
+        [cell.showImageView setImage:_selectImgArrayLocal[indexPath.row]];
+    }else {
+        [cell.showImageView setImage:[UIImage imageNamed:@"Rectangle "]];
     }
     
-    return 50.f;
+    return cell;
 }
-//创建cell
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        EnergyPostViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"EnergyPostViewCell" owner:self options:nil].lastObject;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.pics = _selectImgArrayLocal;
-        cell.delegate = self;
-        NSString *showText = [postDict[@"content"] stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
-        
-        cell.informationTextView.text = showText;
-        cell.informationTextView.delegate = self;
-        
-        return cell;
-    }else {
-        
-        ECShareCell*cell = [[[NSBundle mainBundle] loadNibNamed:@"ECShareCell" owner:self options:nil] lastObject];
-        cell.delegate = self;
-        
-        
-        
-        
-        return cell;
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if (_selectImgArrayLocal.count == 9) {
+        return [_selectImgArrayLocal count];
     }
+    return _selectImgArrayLocal.count + 1;
+}
+
+- (UIImage*)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index {
+    
+    return _selectImgArrayLocal[index];
     
 }
 
@@ -253,7 +354,7 @@
 - (void)didChooseShareItems:(NSMutableArray *)items {
     
     NSString * context=[postDict valueForKey:@"content"];
-
+    _sharesArray = items;
     
 }
 
@@ -286,100 +387,6 @@
         textViewStr = textView.text;
     }
     [postDict setObject:textViewStr forKey:@"content"];
-}
-
-#pragma mark - 实现UIcollectionView协议方法
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if(_selectImgArrayLocal.count<9){
-        return _selectImgArrayLocal.count+1;
-    }else{
-        return _selectImgArrayLocal.count;
-    }
-    return 1;
-}
-
-#pragma mark - 定义每个UICollectionView的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(80, 80);
-}
-
-#pragma mark - 定义每个UICollectionView的margin
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(0, 10, 0, 10);
-}
-
-#pragma mark - 填充collectionView
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *EnergyPostCollectionViewCellId = @"EnergyPostCollectionViewCellId";
-    EnergyPostCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:EnergyPostCollectionViewCellId forIndexPath:indexPath];
-    if (cell == nil) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"EnergyPostCollectionViewCell" owner:self options:nil] lastObject];
-    }
-   
-    if (_selectImgArrayLocal.count==0) {
-        [cell.showJiaImageView setImage:[UIImage imageNamed:@"jia_normal.png"]];
-        [cell.showImageView setImage:[UIImage imageNamed:@"Rectangle .png"]];
-    }else{
-       [cell.showJiaImageView setImage:[UIImage imageNamed:@""]];
-    }
-    
-    if (_selectImgArrayLocal.count) {
-         if (_selectImgArrayLocal.count<9) {
-             if (indexPath.item==_selectImgArrayLocal.count) {
-                 [cell.showJiaImageView setImage:[UIImage imageNamed:@"jia_normal.png"]];
-                 [cell.showImageView setImage:[UIImage imageNamed:@"Rectangle .png"]];
-             }else{
-                 [cell.showImageView setImage:_selectImgArrayLocal[indexPath.item]];
-             }
-        }else {
-            //最后一张是图片
-           [cell.showImageView setImage:_selectImgArrayLocal[indexPath.item]];
-        }
-    }
-    
-    //添加长按手势
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGesture:)];
-    cell.tag = indexPath.row;
-    [cell addGestureRecognizer:longPress];
-    
-    return cell;
-}
-
-#pragma mark - 返回这个UICollectionView是否可以被选择
--(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-#pragma mark ---  获取图片资源
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item == _selectImgArrayLocal.count) {
-        [self clickToShow];
-    }else {//图片浏览
-        NSMutableArray *sumImageArr = [[NSMutableArray alloc] init];
-        for (UIImage *getImage in _selectImgArrayLocal) {
-            UIImageView *imageView = [[UIImageView alloc] init];
-            imageView.image = getImage;
-            [sumImageArr addObject:imageView];
-        }
-        XHImageViewer *imageViewer = [[XHImageViewer alloc] init];
-        imageViewer.delegate = self;
-        [imageViewer showWithImageViews:sumImageArr selectedView:sumImageArr[indexPath.row]];
-    }
-}
-
-#pragma mark - 长按手势响应事件
-- (void)longPressGesture:(UILongPressGestureRecognizer *)longPress {
-    if (longPress.view.tag != _selectImgArray.count) {
-        if (longPress.state == UIGestureRecognizerStateEnded) {
-            delAlertView = [[UIAlertView alloc] initWithTitle:@"确认移除照片吗？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            delAlertView.tag = longPress.view.tag;
-            [delAlertView show];
-        }
-    }
 }
 
 //点击选择图片 入口
@@ -451,8 +458,9 @@
     
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [_selectImgArrayLocal addObject:image];
-    [energyPostTableView reloadData];
+    [self.collectionView reloadData];
 }
+
 //相册
 -(void)assetPickerController:(ZYQAssetPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
     if(assets!=nil&&assets.count>0){
@@ -462,14 +470,9 @@
             UIImage *tempImg=[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
             [_selectImgArrayLocal addObject:tempImg];
             [_selectImgArray addObject:tempImg];
+            [self.collectionView reloadData];
         }
     }
-    [energyPostTableView reloadData];
-}
-
-#pragma mark - XHImageViewerDelegate
-- (void)imageViewer:(XHImageViewer *)imageViewer willDismissWithSelectedView:(UIImageView *)selectedView {
-    
 }
 
 - (void)didReceiveMemoryWarning {

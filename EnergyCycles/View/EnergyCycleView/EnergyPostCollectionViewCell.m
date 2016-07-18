@@ -12,6 +12,19 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    UILongPressGestureRecognizer*longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressGesture:)];
+    longGesture.minimumPressDuration = 1.0;
+    [self addGestureRecognizer:longGesture];
+    
+}
+
+
+- (void)longpressGesture:(UILongPressGestureRecognizer*)gesture {
+    
+    if ([self.delegate respondsToSelector:@selector(didLongpressedImage:)]) {
+        [self.delegate didLongpressedImage:self.tag];
+    }
+    
 }
 
 - (id)initWithFrame:(CGRect)frame {

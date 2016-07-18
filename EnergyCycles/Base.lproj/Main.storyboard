@@ -844,29 +844,14 @@
                                     <constraint firstItem="ZV1-nJ-Z3R" firstAttribute="centerY" secondItem="VlA-Fj-vWo" secondAttribute="centerY" constant="10" id="uxD-D5-ZJf"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="su1-zc-68u">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="jfQ-f9-7Aw" id="ua8-OP-aBv"/>
-                                    <outlet property="delegate" destination="jfQ-f9-7Aw" id="lO6-z7-4fK"/>
-                                </connections>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="su1-zc-68u" firstAttribute="top" secondItem="VlA-Fj-vWo" secondAttribute="bottom" id="87w-Tz-nBa"/>
-                            <constraint firstAttribute="bottom" secondItem="su1-zc-68u" secondAttribute="bottom" id="Cxi-ch-Xbb"/>
                             <constraint firstItem="VlA-Fj-vWo" firstAttribute="top" secondItem="65X-7M-UwF" secondAttribute="topMargin" id="DjO-ZS-ceB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="VlA-Fj-vWo" secondAttribute="trailing" constant="-20" id="Irn-K5-jcj"/>
-                            <constraint firstAttribute="trailing" secondItem="su1-zc-68u" secondAttribute="trailing" id="J9d-6P-06x"/>
-                            <constraint firstItem="su1-zc-68u" firstAttribute="leading" secondItem="65X-7M-UwF" secondAttribute="leading" id="QtA-7K-jJp"/>
                             <constraint firstItem="VlA-Fj-vWo" firstAttribute="leading" secondItem="65X-7M-UwF" secondAttribute="leadingMargin" constant="-20" id="azw-ke-6fl"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="energyPostTableView" destination="su1-zc-68u" id="KxI-os-snv"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mDe-Hc-FI6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

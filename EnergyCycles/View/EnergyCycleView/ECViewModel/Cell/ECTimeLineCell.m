@@ -37,6 +37,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 
 {
     UIImageView *_iconView;
+    UIButton *iconButton;
     UILabel *_nameLable;
     UIImageView *_locaIcon;
     UILabel *_location;
@@ -80,6 +81,10 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     line.backgroundColor = [UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7];
     
     _iconView = [UIImageView new];
+  
+    iconButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [iconButton addTarget:self action:@selector(tapIcon) forControlEvents:UIControlEventTouchUpInside];
+    
     
     _nameLable = [UILabel new];
     _nameLable.font = [UIFont systemFontOfSize:14];
@@ -159,7 +164,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _marginView.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1.0];
     
     
-    NSArray *views = @[line, _iconView, _nameLable, _locaIcon, _location, _time, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
+    NSArray *views = @[line, _iconView,iconButton, _nameLable, _time, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
     [self.contentView sd_addSubviews:views];
     
     UIView *contentView = self.contentView;
@@ -178,6 +183,12 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .heightIs(50);
     _iconView.sd_cornerRadiusFromHeightRatio = [NSNumber numberWithFloat:0.5];
     
+    iconButton.sd_layout
+    .leftEqualToView(_iconView)
+    .topEqualToView(_iconView)
+    .widthRatioToView(_iconView,1)
+    .heightRatioToView(_iconView,1);
+    
     _nameLable.sd_layout
     .leftSpaceToView(_iconView, margin)
     .topEqualToView(_iconView)
@@ -195,9 +206,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .topSpaceToView(_nameLable,5);
     
     _time.sd_layout
-    .rightSpaceToView(contentView, 10)
+    .leftSpaceToView(_iconView, 10)
     .heightIs(20)
-    .topEqualToView(_locaIcon);
+    .topSpaceToView(_nameLable,margin); 
     
     [_time setSingleLineAutoResizeWithMaxWidth:100];
     
@@ -238,6 +249,14 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .rightEqualToView(contentView)
     .topSpaceToView(_bottomView,0)
     .heightIs(15);
+    
+}
+
+- (void)tapIcon {
+    NSLog(@"tapIcon");
+    if ([self.delegate respondsToSelector:@selector(didClickOtherUser:userId:userName:)]) {
+        [self.delegate didClickOtherUser:self userId:self.model.ID userName:self.model.name];
+    }
     
 }
 
@@ -334,9 +353,6 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         [self.delegate didClickOtherUser:self userId:linkId userName:linkName];
     }
 }
-
-
-
 
 #pragma mark - private actions
 

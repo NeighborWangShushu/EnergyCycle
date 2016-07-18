@@ -9,6 +9,9 @@
 #import "ECTabbarView.h"
 #import "Masonry.h"
 
+#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : 0)
+
+
 @interface ECTabbarView ()
 {
     UIButton * lastButton;
@@ -69,7 +72,7 @@
     [_button_center setBackgroundImage:[UIImage imageNamed:@"ec_center_button"] forState:UIControlStateNormal];
     [_button_center setBackgroundImage:[UIImage imageNamed:@"ec_center_button"] forState:UIControlStateHighlighted];
     [_button_center addTarget:self action:@selector(centerAction) forControlEvents:UIControlEventTouchUpInside];
-
+    
     _button_3 = [UIButton buttonWithType:UIButtonTypeCustom];
     [_button_3 setImage:[UIImage imageNamed:@"tabbar_normal_3"] forState:UIControlStateNormal];
     [_button_3 setImage:[UIImage imageNamed:@"tabbar_pressed_3"] forState:UIControlStateSelected];
@@ -92,40 +95,50 @@
     [self addSubview:_button_3];
     [self addSubview:_button_4];
     
+    CGFloat height = 0.0;
+    if (iPhone5) {
+        height = 43;
+    }else {
+        height = 49;
+    }
     
     [_button_1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.bottom.equalTo(self.mas_bottom);
         make.width.equalTo(@(Screen_width/5));
-        make.height.equalTo(@49);
+        make.height.equalTo(@(height));
     }];
     
     [_button_2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_button_1.mas_right);
         make.bottom.equalTo(self.mas_bottom);
         make.width.equalTo(@(Screen_width/5));
-        make.height.equalTo(@49);
+        make.height.equalTo(@(height));
     }];
     
     [_button_center mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_button_2.mas_right);
         make.bottom.equalTo(self.mas_bottom);
         make.width.equalTo(@(Screen_width/5));
-        make.height.equalTo(@68);
+        if (iPhone5) {
+            make.height.equalTo(@60);
+        }else {
+            make.height.equalTo(@68);
+        }
     }];
     
     [_button_3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_button_center.mas_right);
         make.bottom.equalTo(self.mas_bottom);
         make.width.equalTo(@(Screen_width/5));
-        make.height.equalTo(@49);
+        make.height.equalTo(@(height));
     }];
     
     [_button_4 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_button_3.mas_right);
         make.bottom.equalTo(self.mas_bottom);
         make.right.equalTo(self.mas_right);
-        make.height.equalTo(@49);
+        make.height.equalTo(@(height));
     }];
     
     lastButton = _button_1;
