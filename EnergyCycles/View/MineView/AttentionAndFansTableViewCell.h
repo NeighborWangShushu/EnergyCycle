@@ -20,14 +20,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *introLabel;
 // 关注
 @property (weak, nonatomic) IBOutlet UIButton *isAttention;
+// 用户ID
+@property (nonatomic, copy) NSString *userid;
+// 是否关注
+@property (nonatomic, assign) BOOL attention;
 
-- (void)getdateDataWithHeadImage:(NSString *)headImage
-                            name:(NSString *)name
-                           intro:(NSString *)intro
-                     isAttention:(int)isAttention;
-
-- (void)getdateDataWithUserModel:(UserModel *)userModel;
-
+// 关注的数据
+- (void)getdateAttentionDataWithUserModel:(UserModel *)userModel;
+// 粉丝的数据
+- (void)getdateFansDataWithUserModel:(UserModel *)userModel;
+// 其他用户的关注与粉丝的数据
 - (void)getdateDataWithOtherUserModel:(OtherUserModel *)otherUserModel;
 
 @end

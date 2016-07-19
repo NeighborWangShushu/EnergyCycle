@@ -12,7 +12,7 @@
 
 // 获取用户的ID
 @property (nonatomic, copy) NSString *userId;
-// 列表的类型(关注或者粉丝)
+// 列表的类型(关注或者粉丝),必须要给
 @property (nonatomic, assign) int type; // 1是关注,2是粉丝
 
 @end

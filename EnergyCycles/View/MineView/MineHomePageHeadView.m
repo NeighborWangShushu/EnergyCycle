@@ -21,23 +21,28 @@
 - (void)tapAction:(UITapGestureRecognizer *)sender {
     NSLog(@"aa");
 }
+- (IBAction)changeHeadImage:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"headViewChangeHeadImage" object:nil];
+}
 
-- (void)getdateDataWithBackgroundImage:(NSString *)backgroundImage
-                             headImage:(NSString *)headImage
-                                  name:(NSString *)name
-                                   sex:(NSString *)sex
-                                signIn:(NSInteger)signIn
-                               address:(NSString *)address
-                                 intro:(NSString *)intro
-                             attention:(NSInteger)attention
-                                  fans:(NSInteger)fans {
-    
+- (IBAction)jumpToAttentionController:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToAttentionController" object:nil];
+}
 
+- (IBAction)jumpToFansController:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToFansController" object:nil];
+}
+
+- (IBAction)jumpToIntroViewController:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToIntroViewController" object:nil];
+}
+
+- (void)getdateDataWithModel:(UserModel *)model signIn:(NSInteger)signIn attention:(NSInteger)attention fans:(NSInteger)fans {
     // 背景
-    if ([backgroundImage isEqualToString:@""]) {
+    if (model.BackgroundImg == NULL) {
         [self.backgroundImage setImage:[UIImage imageNamed:@"bg"]];
     } else {
-        [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:backgroundImage] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             if (self.backgroundImage.image.size.height >= 452) {
                 self.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
             }
@@ -48,26 +53,26 @@
     }
     
     // 头像
-    if ([headImage isEqualToString:@""]) {
+    if (model.photourl == NULL) {
         [self.headImage setImage:[UIImage imageNamed:@"touxiang"] forState:UIControlStateNormal];
     } else {
-        [self.headImage sd_setImageWithURL:[NSURL URLWithString:headImage] forState:UIControlStateNormal];
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:model.photourl] forState:UIControlStateNormal];
     }
     
     // 昵称
-    self.nicknameLabel.text = name;
+    self.nicknameLabel.text = model.nickname;
     
     // 性别
-    if ([sex isEqualToString:@"男"]) {
+    if ([model.sex isEqualToString:@"男"]) {
         self.sexImage.image = [UIImage imageNamed:@"man"];
-    } else if ([sex isEqualToString:@"女"]) {
+    } else if ([model.sex isEqualToString:@"女"]) {
         self.sexImage.image = [UIImage imageNamed:@"woman"];
     } else {
         self.sexImage.image = [UIImage imageNamed:@""];
     }
     
     // 地址
-    if ([address isEqualToString:@""]) {
+    if (model.city == NULL) {
         self.addressImage.hidden = YES;
         self.addressLabel.hidden = YES;
         self.signLabel.hidden = YES;
@@ -91,15 +96,22 @@
     [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝 %ld", fans] forState:UIControlStateNormal];
     
     // 简介
-    if ([intro isEqualToString:@""]) {
+    if (model.Brief == NULL) {
         self.introLabel.text = @"简介:暂无";
     } else {
-        self.introLabel.text = [NSString stringWithFormat:@"简介:%@", intro];
+        self.introLabel.text = [NSString stringWithFormat:@"简介:%@", model.Brief];
+    }
+    
+    NSNumberFormatter *number = [[NSNumberFormatter alloc] init];
+    if ([model.use_id isEqualToString:[number stringFromNumber:User_ID]]) {
+        self.introImage.hidden = NO;
+        self.introButton.hidden = NO;
+    } else {
+        self.introImage.hidden = YES;
+        self.introButton.hidden = YES;
     }
     
 }
-
-
 
 /*
 // Only override drawRect: if you perform custom drawing.

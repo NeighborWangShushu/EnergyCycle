@@ -31,15 +31,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"%@",self.userId);
+    // 设置tableView中cell的线条隐藏
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    if (self.userId == NULL) {
+    // 设置标题与加载数据
+    if (self.userId == NULL || [self.userId isEqualToString:[[NSNumberFormatter alloc] stringFromNumber:User_ID]]) {
         if (self.type == 1) {
+            self.title = @"我的关注";
             [self getAttentionInfo];
         } else if (self.type == 2) {
+            self.title = @"我的粉丝";
             [self getFansInfo];
         }
     } else {
+        if (self.type == 1) {
+            self.title = @"他的关注";
+        } else {
+            self.title = @"他的粉丝";
+        }
         [self getUserIdAttentionOrFansInfo];
     }
     
@@ -143,15 +152,19 @@
         cell = [[NSBundle mainBundle] loadNibNamed:@"AttentionAndFansTableViewCell" owner:self options:nil].lastObject;
     }
     
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (self.userId == NULL) {
-        UserModel *model = self.dataArr[indexPath.row];
-        [cell getdateDataWithUserModel:model];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (self.userId == NULL || [self.userId isEqualToString:[[NSNumberFormatter alloc] stringFromNumber:User_ID]]) {
+        if (self.type == 1) {
+            UserModel *model = self.dataArr[indexPath.row];
+            [cell getdateAttentionDataWithUserModel:model];
+        } else if (self.type == 2) {
+            UserModel *model = self.dataArr[indexPath.row];
+            [cell getdateFansDataWithUserModel:model];
+        }
     } else {
         OtherUserModel *model = self.dataArr[indexPath.row];
         [cell getdateDataWithOtherUserModel:model];
     }
-    
     // Configure the cell...
     
     return cell;

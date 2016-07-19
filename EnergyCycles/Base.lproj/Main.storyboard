@@ -2446,7 +2446,7 @@
         <!--Intro View Controller-->
         <scene sceneID="hbz-FH-55f">
             <objects>
-                <viewController id="rvb-HC-G4q" customClass="IntroViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IntroViewController" id="rvb-HC-G4q" customClass="IntroViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zit-Rx-rNd"/>
                         <viewControllerLayoutGuide type="bottom" id="OUm-Cm-lJz"/>

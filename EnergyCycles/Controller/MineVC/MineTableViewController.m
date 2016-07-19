@@ -10,7 +10,7 @@
 
 #import "MineHomePageViewController.h"
 #import "IntroViewController.h"
-#import "MineHomePageHeadModel.h"
+#import "UserModel.h"
 #import "MineHeadTableViewCell.h"
 #import "MineTableViewCell.h"
 
@@ -19,7 +19,7 @@
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *userInfoDict;
-@property (nonatomic, strong) MineHomePageHeadModel *model;
+@property (nonatomic, strong) UserModel *model;
 
 @property (nonatomic, strong) UIImagePickerController *picker;
 @property (nonatomic, strong) NSData *headImageData;
@@ -95,8 +95,7 @@
             cell = [[NSBundle mainBundle] loadNibNamed:@"MineHeadTableViewCell" owner:self options:nil].lastObject;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell updataDataWithImage:self.userInfoDict[@"photourl"] name:self.userInfoDict[@"nickname"] sex:self.userInfoDict[@"sex"] signIn:0 address:self.userInfoDict[@"city"] intro:self.userInfoDict[@"Brief"]];
-//        [cell updateDataWithModel:self.model signIn:0];
+        [cell updateDataWithModel:self.model signIn:0];
 
         return cell;
     } else {
@@ -140,6 +139,7 @@
     }
 }
 
+// 跳转到修改简介页面
 - (void)jumpToIntroViewController {
     [self performSegueWithIdentifier:@"IntroViewController" sender:nil];
 }
@@ -148,11 +148,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"MineHomePageViewController"]) {
         MineHomePageViewController *mineHomePageVC = segue.destinationViewController;
-        mineHomePageVC.userInfoDic = self.userInfoDict;
+        mineHomePageVC.userId = User_ID;
     } else if([segue.identifier isEqualToString:@"IntroViewController"]){
         IntroViewController *introVC = segue.destinationViewController;
-//        [introVC.introTextView setText:self.userInfoDict[@"Brief"]];
-        introVC.introString = self.userInfoDict[@"Brief"];
+        introVC.introString = self.model.Brief;
     }
 }
 
@@ -162,26 +161,10 @@
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             
             if ([dict[@"Data"] count]) {
-                
-//                for(NSDictionary *dic in dict[@"Data"][0]) {
-//                    [self.model setValuesForKeysWithDictionary:dic];
-//                }
-//                NSLog(@"%@",dict[@"Data"][0]);
-                
-                [self.userInfoDict setObject:[dict[@"Data"][0][@"nickname"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"nickname"] forKey:@"nickname"]; // 昵称
-                [self.userInfoDict setObject:[dict[@"Data"][0][@"username"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"username"] forKey:@"username"]; // 姓名
-                [self.userInfoDict setObject:[dict[@"Data"][0][@"sex"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"sex"] forKey:@"sex"]; // 性别
-                [self.userInfoDict setObject:[dict[@"Data"][0][@"birth"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"birth"] forKey:@"birth"]; // 出生年月
-                [self.userInfoDict setObject:[dict[@"Data"][0][@"phone"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"phone"] forKey:@"phone"]; // 手机号
-                [self.userInfoDict setObject:[dict[@"Data"][0][@"email"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"email"] forKey:@"email"]; // 邮箱
-                [self.userInfoDict setObject:[dict[@"Data"][0][@"city"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"city"] forKey:@"city"]; // 地址
-                [self.userInfoDict setObject:[dict[@"Data"][0][@"photourl"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"photourl"] forKey:@"photourl"]; // 头像
-                [self.userInfoDict setObject:[dict[@"Data"][0][@"Brief"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"Brief"] forKey:@"Brief"]; // 简介
-                [self.userInfoDict setObject:[dict[@"Data"][0][@"BackgroundImg"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"BackgroundImg"] forKey:@"BackgroundImg"]; // 背景图片
-            
-                NSLog(@"wangbin  %@",self.userInfoDict);
-                
-//                NSLog(@"dofigfdoighoidfhgohdfoighofdhgoidfhgoidfhgohd%@",self.model.nickname);
+                for (NSDictionary *subDict in dict[@"Data"]) {
+                    UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
+                    self.model = model;
+                }
                 
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"VerifyCount"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"VerifyCount"] forKey:@"UserVerifyCount"];
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"jifen"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"jifen"] forKey:@"UserJiFen"];

@@ -65,7 +65,9 @@
 
 //是否彼此关注
 @property (nonatomic, strong) NSString<Optional> *isFriend;
-
-
+// 简介
+@property (nonatomic, strong) NSString<Optional> *Brief;
+// 背景图片
+@property (nonatomic, strong) NSString<Optional> *BackgroundImg;
 
 @end

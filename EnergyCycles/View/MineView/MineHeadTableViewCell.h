@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MineHomePageHeadModel.h"
+#import "UserModel.h"
 
 @interface MineHeadTableViewCell : UITableViewCell
 
@@ -33,14 +33,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
 
 // 获取数据
-- (void)updataDataWithImage:(NSString *)image
-                       name:(NSString *)name
-                        sex:(NSString *)sex
-                     signIn:(NSInteger)signIn
-                    address:(NSString *)address
-                      intro:(NSString *)intro;
-
-- (void)updateDataWithModel:(MineHomePageHeadModel *)model
+- (void)updateDataWithModel:(UserModel *)model
                      signIn:(NSInteger)signIn;
-
 @end

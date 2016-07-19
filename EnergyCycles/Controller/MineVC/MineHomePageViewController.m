@@ -12,14 +12,21 @@
 #import "MineHomePageHeadView.h"
 #import "HMSegmentedControl.h"
 
+#import "UserModel.h"
+
+#import "IntroViewController.h"
+#import "AttentionAndFansTableViewController.h"
 #import "EnergyPostTableViewController.h"
 #import "PKRecordTableViewController.h"
 
-@interface MineHomePageViewController ()<TabelViewScrollingProtocol>
+@interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) MineHomePageHeadView *mineView;
 @property (nonatomic, strong) HMSegmentedControl *segControl;
+@property (nonatomic, strong) UserModel *model;
 
+@property (nonatomic, strong) UIImagePickerController *picker;
+@property (nonatomic, strong) NSData *headImageData;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, weak) UIViewController *showVC;
 @property (nonatomic, strong) NSMutableDictionary *offsetYDict; // 存储每个列表在Y轴的偏移量
@@ -44,6 +51,31 @@
 //    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
+    [self reloadHeadView];
+}
+
+- (void)reloadHeadView {
+    [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:self.userId PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            NSLog(@"ID%@",self.userId);
+            
+            if ([dict[@"Data"] count]) {
+                for (NSDictionary *subDict in dict[@"Data"]) {
+                    UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
+                    self.model = model;
+                    NSLog(@"Model%@",self.model);
+                }
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"haha%@",self.model);
+                [self.mineView getdateDataWithModel:self.model signIn:0 attention:0 fans:0];
+            });
+        }
+        
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -107,13 +139,14 @@
     
 }
 
+// 添加头视图
 - (void)addHeadView {
     MineHomePageHeadView *mineView = [[NSBundle mainBundle] loadNibNamed:@"MineHomePageHeadView" owner:nil options:nil].lastObject;
     mineView.frame = CGRectMake(0, 0, kScreenWidth, kHeaderImgHeight + kSegmentedHeight);
-    [mineView getdateDataWithBackgroundImage:self.userInfoDic[@"BackgroundImg"] headImage:self.userInfoDic[@"photourl"] name:self.userInfoDic[@"nickname"] sex:self.userInfoDic[@"sex"] signIn:0 address:self.userInfoDic[@"city"] intro:self.userInfoDic[@"Brief"] attention:0 fans:0];
+    [mineView getdateDataWithModel:self.model signIn:0 attention:0 fans:0];
     
     self.titleLabel = [[UILabel alloc] init];
-    self.titleLabel.text = self.userInfoDic[@"nickname"];
+    self.titleLabel.text = self.model.nickname;
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.titleLabel sizeToFit];
     self.titleLabel.hidden = YES;
@@ -209,6 +242,33 @@
     self.mineView.userInteractionEnabled = NO;
 }
 
+// 获取用户基本数据
+- (void)getUserInfo {
+    [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:self.userId PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            NSLog(@"ID%@",self.userId);
+            
+            if ([dict[@"Data"] count]) {
+                for (NSDictionary *subDict in dict[@"Data"]) {
+                    UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
+                    self.model = model;
+                    NSLog(@"Model%@",self.model);
+                }
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"haha%@",self.model);
+                [self addHeadView];
+                [self addController];
+                [self segmentedControlChangedValue:self.segControl];
+            });
+        }
+        
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -217,11 +277,76 @@
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     
-    [self addHeadView];
-    [self addController];
-    [self segmentedControlChangedValue:self.segControl];
+    [self getUserInfo];
+    
+    // 通知中心
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headViewChangeHeadImage) name:@"headViewChangeHeadImage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToAttentionController) name:@"jumpToAttentionController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)headViewChangeHeadImage {
+    if (!self.picker) {
+        self.picker = [[UIImagePickerController alloc] init];
+        self.picker.delegate = self;
+        self.picker.allowsEditing = YES;
+    }
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:self.picker animated:YES completion:nil];
+    }];
+    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:self.picker animated:YES completion:nil];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cameraAction];
+    [alert addAction:photoAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    self.headImageData = UIImageJPEGRepresentation(image, 0.01);
+    [self.picker dismissViewControllerAnimated:YES completion:nil];
+    
+    [[AppHttpManager shareInstance] postAddImgWithPhoneNo:self.userId Img:self.headImageData PostOrGet:@"post" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            [self reloadHeadView];
+        } else {
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
+}
+
+- (void)jumpToAttentionController {
+    AttentionAndFansTableViewController *afVC = [[AttentionAndFansTableViewController alloc] init];
+    afVC.userId = self.model.use_id;
+    afVC.type = 1;
+    [self.navigationController pushViewController:afVC animated:YES];
+}
+
+- (void)jumpToFansController {
+    AttentionAndFansTableViewController *afVC = [[AttentionAndFansTableViewController alloc] init];
+    afVC.userId = self.model.use_id;
+    afVC.type = 2;
+    [self.navigationController pushViewController:afVC animated:YES];
+}
+
+- (void)jumpToIntroViewController {
+    IntroViewController *introVC = MainStoryBoard(@"IntroViewController");
+    introVC.introString = self.model.Brief;
+    [self.navigationController pushViewController:introVC animated:YES];
 }
 
 // 创建分段控件

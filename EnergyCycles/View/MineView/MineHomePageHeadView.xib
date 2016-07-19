@@ -29,6 +29,9 @@
                             <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="changeHeadImage:" destination="ibT-XF-nB3" eventType="touchUpInside" id="bUk-af-gwB"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHR-TL-hMf">
                     <rect key="frame" x="139" y="105" width="42" height="21"/>
@@ -68,19 +71,25 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHH-2y-UNx">
-                    <rect key="frame" x="105" y="159" width="43" height="29"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHH-2y-UNx">
+                    <rect key="frame" x="20" y="159" width="128" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="jumpToAttentionController:" destination="ibT-XF-nB3" eventType="touchUpInside" id="VQF-VD-E8Z"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYH-wt-X7G">
-                    <rect key="frame" x="173" y="159" width="43" height="29"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYH-wt-X7G">
+                    <rect key="frame" x="173" y="159" width="127" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="jumpToFansController:" destination="ibT-XF-nB3" eventType="touchUpInside" id="jh2-Ug-0oC"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="简介：暂无" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ii-fW-4r6">
                     <rect key="frame" x="125" y="192" width="70" height="17"/>
@@ -128,12 +137,21 @@
                     <color key="textColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVY-fm-nkH">
+                    <rect key="frame" x="20" y="192" width="280" height="34"/>
+                    <connections>
+                        <action selector="jumpToIntroViewController:" destination="ibT-XF-nB3" eventType="touchUpInside" id="WxB-MM-ebX"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="cVY-fm-nkH" firstAttribute="leading" secondItem="ibT-XF-nB3" secondAttribute="leading" constant="20" id="0HT-24-vg2"/>
                 <constraint firstItem="M5D-jK-d68" firstAttribute="centerY" secondItem="pSd-uu-ZNk" secondAttribute="centerY" id="1L1-d3-LWC"/>
                 <constraint firstItem="Arw-qJ-nlk" firstAttribute="top" secondItem="pSd-uu-ZNk" secondAttribute="bottom" constant="10" id="1oJ-Lr-56J"/>
+                <constraint firstItem="cVY-fm-nkH" firstAttribute="top" secondItem="6ii-fW-4r6" secondAttribute="top" id="1s2-F5-DhW"/>
                 <constraint firstItem="cZo-Zv-uic" firstAttribute="centerY" secondItem="6ii-fW-4r6" secondAttribute="centerY" id="3wq-nS-srX"/>
+                <constraint firstItem="BHH-2y-UNx" firstAttribute="leading" secondItem="ibT-XF-nB3" secondAttribute="leading" constant="20" id="56e-nQ-Cty"/>
                 <constraint firstItem="M5D-jK-d68" firstAttribute="leading" secondItem="pSd-uu-ZNk" secondAttribute="trailing" constant="10" id="7Uu-3s-47W"/>
                 <constraint firstItem="6ii-fW-4r6" firstAttribute="top" secondItem="Arw-qJ-nlk" secondAttribute="bottom" constant="10" id="7Ya-R2-7Ez"/>
                 <constraint firstItem="cYH-wt-X7G" firstAttribute="leading" secondItem="Arw-qJ-nlk" secondAttribute="trailing" constant="10" id="7d8-m6-CsY"/>
@@ -146,8 +164,10 @@
                 <constraint firstItem="ehw-bt-Ua0" firstAttribute="leading" secondItem="ibT-XF-nB3" secondAttribute="leading" id="KyJ-Or-OwV"/>
                 <constraint firstItem="AHR-TL-hMf" firstAttribute="top" secondItem="UYn-XY-rUx" secondAttribute="bottom" constant="10" id="NUa-Mt-xqR"/>
                 <constraint firstItem="6ii-fW-4r6" firstAttribute="centerX" secondItem="ibT-XF-nB3" secondAttribute="centerX" id="SL6-cv-DPl"/>
+                <constraint firstAttribute="trailing" secondItem="cVY-fm-nkH" secondAttribute="trailing" constant="20" id="Soc-pY-ItF"/>
                 <constraint firstItem="b0h-wD-U8f" firstAttribute="leading" secondItem="AHR-TL-hMf" secondAttribute="trailing" constant="6" id="Sqv-oS-FtL"/>
                 <constraint firstItem="pSd-uu-ZNk" firstAttribute="centerX" secondItem="ibT-XF-nB3" secondAttribute="centerX" id="UsK-58-B2v"/>
+                <constraint firstItem="Hqh-2s-8E6" firstAttribute="top" secondItem="cVY-fm-nkH" secondAttribute="bottom" id="Vlh-Lu-8Um"/>
                 <constraint firstItem="pSd-uu-ZNk" firstAttribute="leading" secondItem="k9W-Dd-5Sd" secondAttribute="trailing" constant="6" id="c4w-qv-GDL"/>
                 <constraint firstAttribute="trailing" secondItem="ehw-bt-Ua0" secondAttribute="trailing" id="csv-bo-N2N"/>
                 <constraint firstItem="Hqh-2s-8E6" firstAttribute="top" secondItem="6ii-fW-4r6" secondAttribute="bottom" constant="17" id="fLP-gr-0yS"/>
@@ -159,6 +179,7 @@
                 <constraint firstItem="b0h-wD-U8f" firstAttribute="centerY" secondItem="AHR-TL-hMf" secondAttribute="centerY" id="psF-qp-M6u"/>
                 <constraint firstItem="AHR-TL-hMf" firstAttribute="centerX" secondItem="ibT-XF-nB3" secondAttribute="centerX" id="snO-M1-3fH"/>
                 <constraint firstItem="cZo-Zv-uic" firstAttribute="leading" secondItem="6ii-fW-4r6" secondAttribute="trailing" constant="6" id="tM3-4s-KtS"/>
+                <constraint firstAttribute="trailing" secondItem="cYH-wt-X7G" secondAttribute="trailing" constant="20" id="weq-Fd-ThH"/>
                 <constraint firstItem="UYn-XY-rUx" firstAttribute="centerX" secondItem="ibT-XF-nB3" secondAttribute="centerX" id="xrt-6a-iSp"/>
                 <constraint firstItem="BHH-2y-UNx" firstAttribute="centerY" secondItem="Arw-qJ-nlk" secondAttribute="centerY" id="zB9-5d-3xt"/>
             </constraints>
@@ -171,6 +192,8 @@
                 <outlet property="constraint" destination="Hqk-2S-V0J" id="VrS-XG-AuK"/>
                 <outlet property="fansButton" destination="cYH-wt-X7G" id="QbI-uJ-vv3"/>
                 <outlet property="headImage" destination="UYn-XY-rUx" id="1sq-mH-0tf"/>
+                <outlet property="introButton" destination="cVY-fm-nkH" id="Y6B-ZC-VYw"/>
+                <outlet property="introImage" destination="cZo-Zv-uic" id="sei-3y-Nf5"/>
                 <outlet property="introLabel" destination="6ii-fW-4r6" id="1BG-KM-Ag0"/>
                 <outlet property="nicknameLabel" destination="AHR-TL-hMf" id="idX-oz-3Du"/>
                 <outlet property="segControl" destination="Hqh-2s-8E6" id="2QZ-zl-ZwM"/>
