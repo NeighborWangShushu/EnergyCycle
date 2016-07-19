@@ -224,7 +224,6 @@
                 util.shareTitle = shareTitle;
                 util.shareText = shareText;
                 util.shareUrl = shareUrl;
-                
                 [util shareToQQ];
             }else {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示信息", nil) message:NSLocalizedString(@"手机未安装相关应用", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil, nil];

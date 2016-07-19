@@ -21,6 +21,7 @@
 
 #import "XMShareWechatUtil.h"
 #import "XMShareWeiboUtil.h"
+#import "XMShareQQUtil.h"
 
 #import "SDPhotoBrowser.h"
 #import "Masonry.h"
@@ -37,6 +38,7 @@
     UIAlertView *delAlertView;
     
     EnergyPostViewCell * energyPostViewCell;
+    NSInteger postIndex;
 }
 
 @property (nonatomic,strong)NSArray * pics;
@@ -65,6 +67,14 @@
     _dataArr = [[NSMutableArray alloc] init];
     
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wechatShareSuccess) name:@"wechatShareSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weiboShareSuccess) name:@"weiboShareSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(QQShareSuccess) name:@"QQShareSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareCancel) name:@"shareCancel" object:nil];
+
+    
+    
 }
 
 - (void)setup {
@@ -126,7 +136,6 @@
         make.height.equalTo(@50);
     }];
     
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -160,7 +169,6 @@
         }
     }
 }
-
 
 
 - (void)back {
@@ -219,8 +227,9 @@
     [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:viderUrl UserId:[User_ID intValue] token:User_TOKEN List:_dataArr PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [SVProgressHUD showImage:nil status:@"发布成功"];
+            postIndex = [[dict objectForKey:@"Data"] integerValue];
             if ([_sharesArray count]) {
-                [self share];
+                [self share:_sharesArray];
             }else {
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
@@ -276,10 +285,120 @@
     [browser show];
 }
 
+
+#pragma mark ShareSuccess
+
+- (void)QQShareSuccess {
+    [_sharesArray removeObjectAtIndex:0];
+    if ([_sharesArray count]) {
+        NSNumber*num = _sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+}
+
+- (void)wechatShareSuccess {
+    
+    [_sharesArray removeObjectAtIndex:0];
+    if ([_sharesArray count]) {
+        NSNumber*num = _sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+    
+}
+
+- (void)weiboShareSuccess {
+    [_sharesArray removeObjectAtIndex:0];
+    if ([_sharesArray count]) {
+        NSNumber*num = _sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+}
+
+
+#pragma mark Share 
+
+- (void)shareCancel {
+    
+    [SVProgressHUD dismiss];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (void)shareToWechatTimeline:(NSString*)url title:(NSString*)title {
+    
+    XMShareWechatUtil *util = [XMShareWechatUtil sharedInstance];
+    util.shareUrl = url;
+    util.shareText = @"123123";
+    util.shareTitle = title;
+    [util shareToWeixinTimeline];
+}
+
+- (void)shareToWechatSession:(NSString*)url title:(NSString*)title {
+    
+    XMShareWechatUtil *util = [XMShareWechatUtil sharedInstance];
+    util.shareUrl = url;
+    util.shareText = @"123123";
+    util.shareTitle = title;
+    [util shareToWeixinSession];
+}
+
+- (void)shareToWeibo:(NSString*)url title:(NSString*)title {
+    
+    XMShareWeiboUtil *util = [XMShareWeiboUtil sharedInstance];
+    util.shareUrl = url;
+    util.shareText = @"123123";
+    util.shareTitle = title;
+    [util shareToWeibo];
+}
+
+- (void)shareToQQ:(NSString*)url title:(NSString*)title {
+    
+    XMShareQQUtil *util = [XMShareQQUtil sharedInstance];
+    util.shareText = @"123123";
+    util.shareUrl = url;
+    util.shareTitle = title;
+    [util shareToQQ];
+}
+
+
 #pragma mark UICollectionViewDelegate
 
-- (void)share {
+- (void)share:(NSMutableArray*)items {
+
+    [SVProgressHUD showWithStatus:@""];
+    NSNumber*num = items[0];
+    [self shareByIndex:[num integerValue]];
     
+}
+
+- (void)shareByIndex:(NSInteger)index {
+    
+    NSString * title = energyPostViewCell.informationTextView.text;
+    NSString* share_url = [NSString stringWithFormat:@"%@%@?aid=%@",INTERFACE_URL,ArticleDetailAspx,[NSString stringWithFormat:@"%ld",(long)postIndex]];
+    
+    switch (index) {
+        case 0:
+            [self shareToWechatTimeline:share_url title:title];
+            break;
+        case 1:
+            [self shareToWechatSession:share_url title:title];
+            break;
+        case 2:
+            [self shareToWeibo:share_url title:title];
+            break;
+        case 3:
+            [self shareToQQ:share_url title:title];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
@@ -295,7 +414,7 @@
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提醒" message:@"确认要删除该图片吗？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *  action) {
-        [self dismissViewControllerAnimated:alertController completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil ];
     }];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *  action) {
         [_selectImgArray removeObjectAtIndex:index];
@@ -337,8 +456,6 @@
     
 }
 
-
-
 #pragma mark --EnergyPostViewCellDelegate
 
 /**
@@ -353,7 +470,7 @@
 
 - (void)didChooseShareItems:(NSMutableArray *)items {
     
-    NSString * context=[postDict valueForKey:@"content"];
+//    NSString * context=[postDict valueForKey:@"content"];
     _sharesArray = items;
     
 }
@@ -436,8 +553,10 @@
     if (_selectImgArray != nil && _selectImgArray.count > 0) {
         count =_selectImgArray.count;
     }
+    
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
-    picker.navigationBar.tintColor=[UIColor whiteColor];
+    picker.navigationBar.tintColor=[UIColor redColor];
+    picker.navigationBar.translucent = NO;
     picker.maximumNumberOfSelection = 9-count;
     picker.assetsFilter = [ALAssetsFilter allPhotos];
     picker.showEmptyGroups=NO;

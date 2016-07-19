@@ -53,6 +53,10 @@
     [arrow setImage:[UIImage imageNamed:@"ec_comment_arrow"]];
     [self addSubview:arrow];
     
+    UIButton*arrowButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self addSubview:arrowButton];
+    [arrowButton addTarget:self action:@selector(arrowButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     layout.itemSize = CGSizeMake(66, 86);
@@ -79,6 +83,13 @@
     [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).with.offset(-10);
         make.top.equalTo(self.mas_top).with.offset(10);
+    }];
+    
+    [arrowButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).with.offset(-10);
+        make.top.equalTo(self.mas_top).with.offset(10);
+        make.width.equalTo(@40);
+        make.height.equalTo(@30);
     }];
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -117,6 +128,12 @@
     return cell;
 }
 
+
+- (void)arrowButtonAction {
+    if ([self.delegate respondsToSelector:@selector(didClickMoreCommendUser)]) {
+        [self.delegate didClickMoreCommendUser];
+    }
+}
 
 #pragma mark UICollectionViewDelegate
 

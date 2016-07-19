@@ -25,7 +25,6 @@
     [self.icon sd_setImageWithURL:[NSURL URLWithString:model.url] placeholderImage:nil];
     self.name.text = model.name;
     self.name.adjustsFontSizeToFitWidth = YES;
-
     
 }
 

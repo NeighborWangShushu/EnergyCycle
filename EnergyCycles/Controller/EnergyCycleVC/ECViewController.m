@@ -54,6 +54,9 @@
      */
     NSInteger commentSection;
     ECTimeLineModel * selectedLikeModel;
+    
+    
+    BOOL navIsOpen;
 }
 
 @property (nonatomic,strong)UITableView * tableView;
@@ -86,6 +89,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self transformImg:0];
     [self.navMenuView removeFromSuperview];
     self.navMenuView = nil;
     
@@ -267,7 +271,6 @@
         }];
         
     }
-    
 }
 
 - (ECTimeLineModel*)sortByData:(NSDictionary*)data {
@@ -452,8 +455,9 @@
 
 //Navigation Action
 - (void)showFromNavigation {
-    if (self.navMenuView) {
+    if (self.navMenuView && !navIsOpen) {
         self.navMenuView.delegate = self;
+        navIsOpen = YES;
         [self.navMenuView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(@60);
             make.centerX.equalTo(self.view.mas_centerX);
@@ -463,6 +467,7 @@
         [self transformImg:-180];
         
     }else {
+        navIsOpen = NO;
         [self removeNavMenu];
     }
 }
@@ -590,6 +595,10 @@
 }
 
 
+- (void)didClickMoreCommendUser {
+    [self performSegueWithIdentifier:@"EnergyCycleViewToInviteView" sender:nil];
+}
+
 
 - (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
     
@@ -696,15 +705,28 @@
         UILabel*title = [UILabel new];
         title.text = pageType == 0?@"精彩推荐":@"关注的人";
         title.textColor = [UIColor colorWithRed:(74 / 255.0) green:(74 / 255.0) blue:(74 / 255.0) alpha:1.0];
-        title.font = [UIFont systemFontOfSize:18];
+        title.font = [UIFont systemFontOfSize:16];
         [view addSubview:title];
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(view.mas_left).with.offset(10);
             make.centerY.equalTo(view.mas_centerY);
         }];
         return view;
-    }else
-    {
+    }else if(section == 2){
+        UIView * view = [UIView new];
+        view.backgroundColor = [UIColor whiteColor];
+        UILabel*title = [UILabel new];
+        title.text = @"最新动态";
+        title.textColor = [UIColor colorWithRed:(74 / 255.0) green:(74 / 255.0) blue:(74 / 255.0) alpha:1.0];
+        title.font = [UIFont systemFontOfSize:16];
+        [view addSubview:title];
+        [title mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(view.mas_left).with.offset(10);
+            make.centerY.equalTo(view.mas_centerY);
+        }];
+        return view;
+    }
+    else {
         return [UIView new];
     }
 
@@ -750,7 +772,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == 0 || section == 2) {
         return 40;
     }
     return 0.1;
@@ -789,7 +811,7 @@
     shareView.shareTitle = model.msgContent;
     shareView.shareText = @"";
     NSString * share_url = @"";
-    share_url = [NSString stringWithFormat:@"%@%@?aid=%@",INTERFACE_URL,ArticleDetailAspx,model.ID  ];
+    share_url = [NSString stringWithFormat:@"%@%@?aid=%@",INTERFACE_URL,ArticleDetailAspx,model.ID];
     shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
     [[UIApplication sharedApplication].keyWindow addSubview:shareView];
     [UIView animateWithDuration:0.25 animations:^{

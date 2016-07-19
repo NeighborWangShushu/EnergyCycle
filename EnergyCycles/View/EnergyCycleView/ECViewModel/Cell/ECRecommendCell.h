@@ -19,6 +19,8 @@
  */
 - (void)didClickCommendUser:(UITableViewCell*)cell userId:(NSString*)userId userName:(NSString*)name;
 
+- (void)didClickMoreCommendUser;
+
 @end
 
 @interface ECRecommendCell : UITableViewCell
