@@ -13,6 +13,8 @@
 #import "ECTimeLineCellLikeItemModel.h"
 #import "ECTimeLineCellCommentItemModel.h"
 #import "XMShareView.h"
+#import "PostingViewController.h"
+#import "CommentUserModel.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 
@@ -31,7 +33,11 @@
 
 @property (nonatomic, assign) NSInteger startPage;
 
+@property (nonatomic, assign) NSInteger maxPage;
+
 @property (nonatomic, strong) NSMutableArray *dataArray;
+
+@property (nonatomic, copy) NSString *userId;
 
 @end
 
@@ -50,16 +56,14 @@
     NSLog(@"%@",[notification.userInfo[@"userId"] class]);
     NSDictionary *dic = notification.userInfo;
     NSString *userId = dic[@"userId"];
-//    NSString *token = dic[@"token"];
-    
+    self.userId = userId;
     [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
             for (NSDictionary *data in dict[@"Data"]) {
                 ECTimeLineModel *model = [self sortByData:data];
-                NSLog(@"222%@", model.name);
+                NSLog(@"222%@", model.liked ? @"YES" : @"NO");
                 [self.dataArray addObject:model];
             }
-            [self.tableView reloadData];
             NSLog(@"1%@",self.dataArray);
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -74,6 +78,22 @@
     }];
 }
 
+- (void)loadNewData {
+    self.startPage = 1;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
+}
+
+- (void)loadMoreData {
+    self.startPage ++;
+    if (self.startPage >= self.maxPage) {
+        self.startPage = self.maxPage;
+        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        return;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
+}
+
+
 // 数据转模型
 - (ECTimeLineModel *)sortByData:(NSDictionary *)data {
     ECTimeLineModel*model = [ECTimeLineModel new];
@@ -87,10 +107,11 @@
     model.location = data[@"address"];
     model.time = data[@"createTime"];
     model.picNamesArray = data[@"artPic"];
+    model.liked = [data[@"isHasLike"] boolValue];
     NSMutableArray * likeArr = [NSMutableArray array];
     for (NSDictionary * like in data[@"LikeUserList"]) {
         ECTimeLineCellLikeItemModel*likeModel = [ECTimeLineCellLikeItemModel new];
-        likeModel.userId = like[@"UserID"];
+        likeModel.userId = [NSString stringWithFormat:@"%@",like[@"UserID"]];
         likeModel.userName = like[@"NickName"];
         [likeArr addObject:likeModel];
     }
@@ -111,7 +132,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.startPage = 0;
+    self.startPage = 1;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getData:) name:@"EnergyPostTableViewController" object:nil];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -254,23 +275,32 @@
         //添加点赞名
         ECTimeLineCellLikeItemModel *likeModel = [ECTimeLineCellLikeItemModel new];
         likeModel.userId = [NSString stringWithFormat:@"%@",User_ID];
-        likeModel.userName = User_NAME;
+        
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        likeModel.userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserNickName"];
         [model.likeItemsArray addObject:likeModel];
     }
-    
-    if (pageType == 0) {
-        if (indexPath.section == 0) {
-            [self.dataArray replaceObjectAtIndex:indexPath.row withObject:model];
-        }else if (indexPath.section == 0) {
-            [self.newerArray replaceObjectAtIndex:indexPath.row withObject:model];
-        }
-    }else {
-        [self.attentionArray replaceObjectAtIndex:indexPath.row withObject:model];
-    }
+
+    [self.dataArray replaceObjectAtIndex:indexPath.row withObject:model];
     
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     
     [self postLike:model];
+}
+
+/**
+ *  调用点赞接口
+ */
+- (void)postLike:(ECTimeLineModel*)model {
+    
+    NSInteger OpeType = !model.liked;
+    [[AppHttpManager shareInstance] postAddLikeOrNoLikeWithType:@"1" OpeType:[NSString stringWithFormat:@"%ld",(long)OpeType] ArticleId:[model.ID intValue] UserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
+        
+    } failure:^(NSString *str) {
+        
+    }];
+    
+    
 }
 
 /**
@@ -306,6 +336,72 @@
     [toolText becomeFirstResponder];
     
 }
+
+#pragma mark  Notification
+- (void)keyboardWillShow:(NSNotification*)notifi {
+    
+}
+
+- (void)keyboardWillHide:(NSNotification*)notifi {
+    
+}
+
+- (void)keyboardDidChange:(NSNotification*)notifi {
+    [text resignFirstResponder];
+    
+}
+
+
+- (void)gotoCyclePostView:(NSNotification*)notifi {
+    
+    if ([User_TOKEN length] <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+    }else {
+        PostingViewController * postView = MainStoryBoard(@"EnergyCycleViewToPostView");
+        [self presentViewController:postView animated:YES completion:nil];
+    }
+    
+}
+
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    //发送评论
+    [self sendCommend:textField.text index:commentIndex section:commentSection];
+    
+    [textField resignFirstResponder];
+    return YES;
+}
+
+/**
+ *  发送评论接口
+ *
+ *  @return
+ */
+
+- (void)sendCommend:(NSString*)message index:(NSInteger)index section:(NSInteger)section {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
+        NSDictionary*data = dict[@"Data"];
+        ECTimeLineModel*model = [self sortByData:data];
+        NSIndexPath*indexPath = [NSIndexPath indexPathForRow:index inSection:section];
+        [weakSelf.dataArray replaceObjectAtIndex:index withObject:model];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        });
+        
+        [SVProgressHUD showImage:nil status:@"评论成功"];
+        
+    } failure:^(NSString *str) {
+        
+        
+    }];
+}
+
 
 /*
 // Override to support conditional editing of the table view.

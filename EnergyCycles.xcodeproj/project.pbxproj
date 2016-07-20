@@ -480,6 +480,7 @@
 		6259023C1D2CFB7B00F3F13C /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */; };
 		6259023F1D2D02EC00F3F13C /* VerificationPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */; };
 		627F76F81D38D9EF00552B96 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 627F76F71D38D9EF00552B96 /* IntroViewController.m */; };
+		629485A21D3F8B0100938E49 /* CommentUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 629485A11D3F8B0100938E49 /* CommentUserModel.m */; };
 		6297DDA41D3E0736004E42AA /* MineUserDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6297DDA31D3E0736004E42AA /* MineUserDateModel.m */; };
 		629E41D51D3500E200695296 /* MineHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629E41D41D3500E200695296 /* MineHomePageViewController.m */; };
 		62A93BD61D361EA200343B63 /* MineHomePageHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */; };
@@ -1945,6 +1946,8 @@
 		6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationPhoneViewController.m; sourceTree = "<group>"; };
 		627F76F61D38D9EF00552B96 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		627F76F71D38D9EF00552B96 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		629485A11D3F8B0100938E49 /* CommentUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentUserModel.m; sourceTree = "<group>"; };
+		629485A31D3F8B0C00938E49 /* CommentUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentUserModel.h; sourceTree = "<group>"; };
 		6297DDA21D3E0736004E42AA /* MineUserDateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineUserDateModel.h; sourceTree = "<group>"; };
 		6297DDA31D3E0736004E42AA /* MineUserDateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineUserDateModel.m; sourceTree = "<group>"; };
 		629E41D31D3500E200695296 /* MineHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageViewController.h; sourceTree = "<group>"; };
@@ -3594,6 +3597,8 @@
 		26D99D441C0C4D7B007AF579 /* EnergyCycleModel */ = {
 			isa = PBXGroup;
 			children = (
+				629485A31D3F8B0C00938E49 /* CommentUserModel.h */,
+				629485A11D3F8B0100938E49 /* CommentUserModel.m */,
 				DA4459E71C215DED0069415D /* PhoneNumberModel.h */,
 				DA4459E61C215DED0069415D /* PhoneNumberModel.m */,
 				26D99D451C0C4D7B007AF579 /* EnergyCycleShowCellModel.h */,
@@ -7417,6 +7422,7 @@
 				2609B00B1C02DD2A0006BC02 /* main.m in Sources */,
 				26D26FEB1C11983F008511A9 /* SearchResultsViewController.m in Sources */,
 				DAD1A1D91C167527000A39D3 /* PkEveryDayHeadViewCell.m in Sources */,
+				629485A21D3F8B0100938E49 /* CommentUserModel.m in Sources */,
 				DA6CFAD21C311D4600C77D45 /* UserModel.m in Sources */,
 				26D99F241C0C4D7C007AF579 /* EnergyShowTwoViewCell.m in Sources */,
 				D07D2EB21D0FC3DF00AF35B1 /* TagItemView.m in Sources */,

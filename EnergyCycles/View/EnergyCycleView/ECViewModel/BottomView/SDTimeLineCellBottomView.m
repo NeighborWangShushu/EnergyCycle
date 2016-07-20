@@ -9,6 +9,12 @@
 #import "SDTimeLineCellBottomView.h"
 #import "UIView+SDAutoLayout.h"
 
+@interface SDTimeLineCellBottomView () {
+    SDAdditionalActionView * zanView;
+}
+
+@end
+
 
 @implementation SDTimeLineCellBottomView
 
@@ -30,6 +36,10 @@
     
 }
 
+- (void)setModel:(ECTimeLineModel *)model {
+    _model = model;
+    zanView.model = model;
+}
 
 - (void)setup {
     
@@ -54,8 +64,9 @@
         [weakself callBack:1];
     };
     
-    SDAdditionalActionView * zanView = [SDAdditionalActionView new];
+    zanView = [SDAdditionalActionView new];
     zanView.type = SDAdditionalActionViewTypeLike;
+    zanView.model = self.model;
     zanView.selctedAddition = ^(SDAdditionalActionViewType type) {
         [weakself callBack:2];
     };
@@ -95,6 +106,13 @@
 
 @end
 
+@interface SDAdditionalActionView () {
+    UIImage*icon;
+    UIButton * button;
+}
+
+@end
+
 
 @implementation SDAdditionalActionView
 
@@ -110,16 +128,23 @@
     [self setup];
 }
 
+- (void)setModel:(ECTimeLineModel *)model {
+    _model = model;
+    icon = model.liked?[UIImage imageNamed:@"ec_like_selected"]:[UIImage imageNamed:@"ec_like"];
+    [button setImage:icon forState:UIControlStateNormal];
+}
+
 - (void)setup {
-    UIImage*icon = nil;
     UIImage *highlight = nil;
     NSString * title;
     
     
     switch (self.type) {
-        case SDAdditionalActionViewTypeLike:
-            icon = [UIImage imageNamed:@"ec_like"];
+        case SDAdditionalActionViewTypeLike: {
+            icon = self.model.isLiked?[UIImage imageNamed:@"ec_like_selected"]:[UIImage imageNamed:@"ec_like"];
             title = @"赞";
+        }
+           
             break;
         case SDAdditionalActionViewTypeShare:
             icon = [UIImage imageNamed:@"ec_share"];
@@ -134,8 +159,7 @@
             break;
     }
     
-    
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:icon forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateHighlighted];
@@ -145,13 +169,14 @@
     [button setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
     [self sd_addSubviews:@[button]];
     
-    
     button.sd_layout
     .leftEqualToView(self)
     .rightEqualToView(self)
     .topEqualToView(self)
     .bottomEqualToView(self);
 }
+
+
 
 - (void)addtionAction:(id)sender {
     
