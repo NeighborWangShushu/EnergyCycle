@@ -22,6 +22,7 @@
 #import "MineAdvPKViewController.h"
 #import "MineEveryDayPKViewController.h"
 #import "RecommentViewController.h"
+#import "PostingViewController.h"
 
 
 @interface MineViewController () <UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate> {
@@ -38,6 +39,17 @@
 
 @implementation MineViewController
 
+- (void)gotoCyclePostView:(NSNotification*)noti {
+    
+    if ([User_TOKEN length] <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+    }else {
+        PostingViewController * postView = MainStoryBoard(@"EnergyCycleViewToPostView");
+        [self presentViewController:postView animated:YES completion:nil];
+    }
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -53,7 +65,7 @@
     self.guanzhuLabel.text = [NSString stringWithFormat:@"关注 %@",@""];
     self.addressLabel.text = nil;
     
-    //
+    // 
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     rightButton.frame = CGRectMake(Screen_width-50, 24, 50, 50);
     [rightButton setImage:[[UIImage imageNamed:@"xinfeng.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
@@ -93,7 +105,8 @@
     
     //消息中心,监听是否收到推送
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appGetJPush:) name:@"isAppGetJPush" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
+
     self.addressLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"AddRessStr"];
     self.iconImageView.image = [UIImage imageNamed:@""];
 }

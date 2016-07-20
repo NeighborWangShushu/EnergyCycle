@@ -18,6 +18,7 @@
 #import "AppHttpManager.h"
 #import "LearnDetailViewController.h"
 #import "MoreVC.h"
+#import "PostingViewController.h"
 
 
 @interface LearnVC ()<UIPageViewControllerDelegate,UIPageViewControllerDataSource,PopColumViewDelegate>{
@@ -78,6 +79,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReferralRefresh:) name:@"ReferralRefresh" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(PageViewChanged:) name:@"PageViewChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReferralHeadViewShowMore:) name:@"ReferralHeadViewShowMore" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
     
 }
 
@@ -99,6 +101,17 @@
         NSLog(@"%@",str);
     }];
 }
+
+- (void)gotoCyclePostView:(NSNotification*)noti {
+    
+    if ([User_TOKEN length] <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+    }else {
+        PostingViewController * postView = MainStoryBoard(@"EnergyCycleViewToPostView");
+        [self presentViewController:postView animated:YES completion:nil];
+    }
+}
+
 
 
 //对我的定制数据和标签数据进行比较

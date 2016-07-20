@@ -12,6 +12,7 @@
 #import "PkHomeCollectionViewCell.h"
 #import "PKHomeModel.h"
 #import "WDTwoScrollView.h"
+#import "PostingViewController.h"
 
 @interface PKViewController () <UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
     UICollectionView *showCollectionView;
@@ -37,12 +38,24 @@
     [super viewDidLoad];
     
     _homeCollecctionArr = [[NSMutableArray alloc] init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
+
     
     pkHomeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     pkHomeTableView.showsVerticalScrollIndicator = NO;
     pkHomeTableView.showsHorizontalScrollIndicator = NO;
     pkHomeTableView.backgroundColor = [UIColor whiteColor];
     pkHomeTableView.bounces = YES;
+}
+
+- (void)gotoCyclePostView:(NSNotification*)noti {
+    
+    if ([User_TOKEN length] <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+    }else {
+        PostingViewController * postView = MainStoryBoard(@"EnergyCycleViewToPostView");
+        [self presentViewController:postView animated:YES completion:nil];
+    }
 }
 
 

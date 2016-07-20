@@ -38,9 +38,11 @@
     UILabel*titleLabel;
     UIImageView *arrowImg;
     NSInteger pageType;//0 能量圈  1关注的人
-    NSInteger currentPage;
+    NSInteger currentPage; //最新动态页数
+    NSInteger attentionPage; //关注的人页数
     NSString * _userId;
     NSInteger maxPageSize; //总页数
+    NSInteger maxAttentionPageSize; //关注的人总页数
     UITextField*text;
     
     ECNavMenuModel*selectedModel;
@@ -113,6 +115,7 @@
     delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
 
     currentPage = 1;
+    attentionPage = 1;
     self.dataArray = [NSMutableArray array];
     self.commentArray = [NSMutableArray array];
     self.newerArray = [NSMutableArray array];
@@ -172,6 +175,7 @@
         NSString * tuijian = [NSString stringWithFormat:@"%@%@?userId=%@",INTERFACE_URL,GetRecommendUser,@"0"];
         NSString * zuixin = [NSString stringWithFormat:@"%@%@?type=1&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"1",@"10"];
         currentPage = 1;
+        [self.tableView.mj_footer resetNoMoreData];
         NSURLRequest * request1 = [NSURLRequest requestWithURL:[NSURL URLWithString:jingxuan]];
         NSURLRequest * request2 = [NSURLRequest requestWithURL:[NSURL URLWithString:tuijian]];
         NSURLRequest * request3 = [NSURLRequest requestWithURL:[NSURL URLWithString:zuixin]];
@@ -256,16 +260,22 @@
             [self.tableView reloadData];
             return;
         }
-        
-        [[AppHttpManager shareInstance] getMyHeartWithUserid:[NSString stringWithFormat:@"%@",User_ID] PostOrGet:@"get" success:^(NSDictionary *dict) {
+        attentionPage = 1;
+        [self.tableView.mj_footer resetNoMoreData];
+        [self.attentionArray removeAllObjects];
+        [[AppHttpManager shareInstance] getGetArticleListWithType:@"3" Userid:_userId Token:User_TOKEN PageIndex:@"1" PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
             for (NSDictionary * data in dict[@"Data"]) {
-                ECTimeLineModel*model = [self sortByData:data];
+                ECTimeLineModel*model     = [self sortByData:data];
                 [weakSelf.attentionArray addObject:model];
+                maxAttentionPageSize = [[data objectForKey:@"RowCounts"] integerValue]/10;
             }
             weakSelf.tableView.hidden = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+
             });
+            
         } failure:^(NSString *str) {
             
         }];
@@ -508,27 +518,57 @@
 }
 
 - (void)loadMoreData {
-    currentPage ++;
-    if (currentPage >= maxPageSize) {
-        currentPage = maxPageSize;
-        [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        return;
-    }
-    __weak typeof(self) weakSelf = self;
-    
-    [[AppHttpManager shareInstance] getGetArticleListWithType:@"1" Userid:_userId Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%ld",(long)currentPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
-        for (NSDictionary * data in dict[@"Data"]) {
-            ECTimeLineModel*model = [self sortByData:data];
-            [weakSelf.newerArray addObject:model];
+    if (pageType == 0) {
+        currentPage ++;
+        if (currentPage > maxPageSize) {
+            currentPage = maxPageSize;
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            return;
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tableView.mj_footer endRefreshing];
-            [weakSelf.tableView reloadData];
-        });
-        
-    } failure:^(NSString *str) {
-        
-    }];
+    }else {
+        attentionPage ++;
+        if (attentionPage > maxAttentionPageSize) {
+            attentionPage = maxAttentionPageSize;
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            return;
+        }
+
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    if (pageType == 0) {
+        //能量圈
+        [[AppHttpManager shareInstance] getGetArticleListWithType:@"1" Userid:_userId Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%ld",(long)currentPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
+            for (NSDictionary * data in dict[@"Data"]) {
+                ECTimeLineModel*model = [self sortByData:data];
+                [weakSelf.newerArray addObject:model];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView.mj_footer endRefreshing];
+                [weakSelf.tableView reloadData];
+            });
+            
+        } failure:^(NSString *str) {
+            
+        }];
+    }else {
+        //关注的人
+        [[AppHttpManager shareInstance] getGetArticleListWithType:@"3" Userid:_userId Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%ld",(long)attentionPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
+            for (NSDictionary * data in dict[@"Data"]) {
+                ECTimeLineModel*model = [self sortByData:data];
+                [weakSelf.attentionArray addObject:model];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView.mj_footer endRefreshing];
+                [weakSelf.tableView reloadData];
+            });
+            
+        } failure:^(NSString *str) {
+            
+        }];
+    }
+    
+
 }
 
 /**
@@ -635,7 +675,6 @@
         
         [delegate.tabbarController hideTabbar:YES];
     }
-    
 }
 
 

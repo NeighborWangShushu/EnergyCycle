@@ -775,6 +775,8 @@
 		D083524F1D2F909E0094AC2E /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = D08352441D2F909E0094AC2E /* NSString+MJExtension.m */; };
 		D08352531D2F92950094AC2E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D08352521D2F92950094AC2E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0946D9B1D3CAC90003C9C4C /* icon-80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0946D9A1D3CAC90003C9C4C /* icon-80@2x.png */; };
+		D0946DA01D3F676D003C9C4C /* ec_zhiding@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0946D9E1D3F676D003C9C4C /* ec_zhiding@2x.png */; };
+		D0946DA11D3F676D003C9C4C /* ec_zhiding@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0946D9F1D3F676D003C9C4C /* ec_zhiding@3x.png */; };
 		D0BEF3131D20DAEA00F1985C /* ECViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF3121D20DAEA00F1985C /* ECViewController.m */; };
 		D0BEF32D1D22A01600F1985C /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF32A1D22A01600F1985C /* UITableView+SDAutoTableViewCellHeight.m */; };
 		D0BEF32E1D22A01600F1985C /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF32C1D22A01600F1985C /* UIView+SDAutoLayout.m */; };
@@ -2390,6 +2392,8 @@
 		D08352511D2F92950094AC2E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		D08352521D2F92950094AC2E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		D0946D9A1D3CAC90003C9C4C /* icon-80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-80@2x.png"; sourceTree = "<group>"; };
+		D0946D9E1D3F676D003C9C4C /* ec_zhiding@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ec_zhiding@2x.png"; sourceTree = "<group>"; };
+		D0946D9F1D3F676D003C9C4C /* ec_zhiding@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ec_zhiding@3x.png"; sourceTree = "<group>"; };
 		D0BEF3111D20DAEA00F1985C /* ECViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECViewController.h; sourceTree = "<group>"; };
 		D0BEF3121D20DAEA00F1985C /* ECViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECViewController.m; sourceTree = "<group>"; };
 		D0BEF3281D22A01600F1985C /* SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAutoLayout.h; sourceTree = "<group>"; };
@@ -3755,6 +3759,8 @@
 		26D99D4B1C0C4D7B007AF579 /* EnergyCycle */ = {
 			isa = PBXGroup;
 			children = (
+				D0946D9E1D3F676D003C9C4C /* ec_zhiding@2x.png */,
+				D0946D9F1D3F676D003C9C4C /* ec_zhiding@3x.png */,
 				D029BC551D37A7A900B20D65 /* post_qq_selected@3x.png */,
 				D029BC531D378F3E00B20D65 /* ec_add_photo_button@2x.png */,
 				D029BC3F1D3779D500B20D65 /* post_moments_normal@2x.png */,
@@ -6581,6 +6587,7 @@
 				26D8B2001C0FEEE900A1DB04 /* 09_1@2x.png in Resources */,
 				DA68D5C51C96A46E0073E0F6 /* MineTheAdvOneViewCell.xib in Resources */,
 				D07E244F1D12BFD100854B51 /* cctalk@2x.png in Resources */,
+				D0946DA01D3F676D003C9C4C /* ec_zhiding@2x.png in Resources */,
 				DA3190E01C22A54D00972F63 /* loginfanhui@3x.png in Resources */,
 				26E987E71C0DAE4000C6A7BB /* renzheng@3x.png in Resources */,
 				DAE034D41C182181007E6DBD /* 3cai_@3x.png in Resources */,
@@ -7074,6 +7081,7 @@
 				DA677B8A1C3A6E11004A534E /* QDDT00032.png in Resources */,
 				DA9A95491C23ABEE00FBE107 /* yingbi@2x.png in Resources */,
 				DA677B841C3A6E11004A534E /* QDDT00026.png in Resources */,
+				D0946DA11D3F676D003C9C4C /* ec_zhiding@3x.png in Resources */,
 				D010F30D1D2A094000CA5D7C /* read_icon@2x.png in Resources */,
 				26D8B20D1C0FEEE900A1DB04 /* 12_1@3x.png in Resources */,
 				D077C5A81D1D613C00303A90 /* 27_03.png in Resources */,

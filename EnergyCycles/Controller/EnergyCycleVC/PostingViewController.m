@@ -96,9 +96,9 @@
     
     
     UICollectionViewFlowLayout*layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     layout.itemSize = CGSizeMake(60, 60);
-    layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 0);
+    layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     [self.collectionView registerClass:[EnergyPostCollectionViewCell class] forCellWithReuseIdentifier:@"EnergyPostCollectionViewCell"];
@@ -122,11 +122,13 @@
 
     }];
     
+    CGFloat height = 45 + (70*([_selectImgArrayLocal count]+1)/5);
+    
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).with.offset(0);
-        make.right.equalTo(self.view.mas_right);
+        make.right.equalTo(self.view.mas_right).with.offset(0);
         make.top.equalTo(energyPostViewCell.mas_bottom);
-        make.height.equalTo(@80);
+        make.height.equalTo(@(height));
     }];
     
     [shareView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -277,12 +279,25 @@
 
 - (void)showImageView:(NSInteger )index
 {
+    NSLog(@"%ld",[self.collectionView.subviews count]);
     SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
     browser.currentImageIndex = index;
     browser.sourceImagesContainerView = self.collectionView;
     browser.imageCount = _selectImgArrayLocal.count;
     browser.delegate = self;
     [browser show];
+    
+}
+
+- (void)updateCollectionHeight {
+    CGFloat height = 45 + (70*([_selectImgArrayLocal count]+1)/5);
+    
+    [self.collectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).with.offset(0);
+        make.right.equalTo(self.view.mas_right).with.offset(-10);
+        make.top.equalTo(energyPostViewCell.mas_bottom);
+        make.height.equalTo(@(height));
+    }];
 }
 
 
@@ -420,6 +435,7 @@
         [_selectImgArray removeObjectAtIndex:index];
         [_selectImgArrayLocal removeObjectAtIndex:index];
         [self.collectionView reloadData];
+        [self updateCollectionHeight];
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
@@ -577,6 +593,7 @@
     
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [_selectImgArrayLocal addObject:image];
+    [self updateCollectionHeight];
     [self.collectionView reloadData];
 }
 
@@ -590,6 +607,7 @@
             [_selectImgArrayLocal addObject:tempImg];
             [_selectImgArray addObject:tempImg];
             [self.collectionView reloadData];
+            [self updateCollectionHeight];
         }
     }
 }
