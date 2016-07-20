@@ -160,7 +160,7 @@
             [self share:self.dataArray[indexPath.row]];
             break;
         case ECTimeLineCellActionTypeLike:
-//            [self doLike:self.dataArray[indexPath.row] indexPath:indexPath];
+            [self doLike:self.dataArray[indexPath.row] indexPath:indexPath];
             break;
         case ECTimeLineCellActionTypeComment:
             [self doComment:self.dataArray[indexPath.row] indexPath:indexPath];
@@ -227,51 +227,51 @@
 }
 
 //点赞
-//- (void)doLike:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
-//    
-//    if ([User_TOKEN length] <= 0) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
-//        return;
-//    }
-//    selectedLikeModel = model;
-//    [self like:model indexPath:indexPath];
-//}
-//
-//- (void)like:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
-//    
-//    model.liked = !model.liked;
-//    NSMutableArray * likes = model.likeItemsArray;
-//    if (!model.liked) {
-//        //删除点赞名
-//        for (ECTimeLineCellLikeItemModel *model in likes) {
-//            if ([model.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
-//                NSLog(@"删除了点赞人%@",model.userName);
-//                [likes removeObject:model];
-//            }
-//        }
-//        
-//    }else {
-//        //添加点赞名
-//        ECTimeLineCellLikeItemModel *likeModel = [ECTimeLineCellLikeItemModel new];
-//        likeModel.userId = [NSString stringWithFormat:@"%@",User_ID];
-//        likeModel.userName = User_NAME;
-//        [model.likeItemsArray addObject:likeModel];
-//    }
-//    
-//    if (pageType == 0) {
-//        if (indexPath.section == 0) {
-//            [self.dataArray replaceObjectAtIndex:indexPath.row withObject:model];
-//        }else if (indexPath.section == 0) {
-//            [self.newerArray replaceObjectAtIndex:indexPath.row withObject:model];
-//        }
-//    }else {
-//        [self.attentionArray replaceObjectAtIndex:indexPath.row withObject:model];
-//    }
-//    
-//    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//    
-//    [self postLike:model];
-//}
+- (void)doLike:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
+    
+    if ([User_TOKEN length] <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+        return;
+    }
+    selectedLikeModel = model;
+    [self like:model indexPath:indexPath];
+}
+
+- (void)like:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
+    
+    model.liked = !model.liked;
+    NSMutableArray * likes = model.likeItemsArray;
+    if (!model.liked) {
+        //删除点赞名
+        for (ECTimeLineCellLikeItemModel *model in likes) {
+            if ([model.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
+                NSLog(@"删除了点赞人%@",model.userName);
+                [likes removeObject:model];
+            }
+        }
+        
+    }else {
+        //添加点赞名
+        ECTimeLineCellLikeItemModel *likeModel = [ECTimeLineCellLikeItemModel new];
+        likeModel.userId = [NSString stringWithFormat:@"%@",User_ID];
+        likeModel.userName = User_NAME;
+        [model.likeItemsArray addObject:likeModel];
+    }
+    
+    if (pageType == 0) {
+        if (indexPath.section == 0) {
+            [self.dataArray replaceObjectAtIndex:indexPath.row withObject:model];
+        }else if (indexPath.section == 0) {
+            [self.newerArray replaceObjectAtIndex:indexPath.row withObject:model];
+        }
+    }else {
+        [self.attentionArray replaceObjectAtIndex:indexPath.row withObject:model];
+    }
+    
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+    [self postLike:model];
+}
 
 /**
  *  弹出评论键盘
