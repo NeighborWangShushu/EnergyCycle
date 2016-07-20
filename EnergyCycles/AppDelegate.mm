@@ -125,6 +125,7 @@ AppDelegate *EnetgyCycle = nil;
     
     return YES;
 }
+
 #pragma mark - 腾讯
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     NSString *urlStr = [NSString stringWithFormat:@"%@",url];
@@ -139,6 +140,8 @@ AppDelegate *EnetgyCycle = nil;
     
     return YES;
 }
+
+
 
 #pragma mark - 微博
 - (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
@@ -166,8 +169,8 @@ AppDelegate *EnetgyCycle = nil;
                     }else if ([userInfo.gender isEqualToString:@"f"]) {
                         weiboSex = @"女";
                     }
-                    [dict setObject:weiboSex forKey:@"sex"];
                     
+                    [dict setObject:weiboSex forKey:@"sex"];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"isWeiboNotification" object:dict];
                 }
             }];
@@ -177,8 +180,10 @@ AppDelegate *EnetgyCycle = nil;
         }
     }else if ([response isKindOfClass:WBSendMessageToWeiboResponse.class]) {
         if (response.statusCode == 0) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"weiboShareSuccess" object:nil];
             [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
-                NSLog(@"%@",dict);
+                NSLog(@"微博分享成功%@",dict);
             } failure:^(NSString *str) {
                 NSLog(@"%@",str);
             }];
@@ -196,19 +201,24 @@ AppDelegate *EnetgyCycle = nil;
     if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
         if (resp.errCode == 0) {
             //分享成功
-            [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
-                NSLog(@"%@",dict);
-            } failure:^(NSString *str) {
-                NSLog(@"%@",str);
-            }];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"wechatShareSuccess" object:nil];
+            
+//            [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
+//                NSLog(@"微信分享成功%@",dict);
+//                
+//            } failure:^(NSString *str) {
+//                NSLog(@"%@",str);
+//            }];
+        }
+    }if ([resp isKindOfClass:[QQBaseResp class]]) {
+        if (resp.errCode == 0) {
+            NSLog(@"分享qq成功");
+            
         }
     }
 }
 
-- (void)onReq:(BaseReq *)req {
-    NSLog(@"微信请求");
-    NSLog(@"onReq");
-}
+
 - (void)tagsAliasCallback:(int)iResCode tags:(NSSet *)tags alias:(NSString *)alias {
     NSLog(@"%@",[NSString stringWithFormat:@"%d, tags: %@, alias: %@\n", iResCode,tags, alias]);
 }
@@ -217,7 +227,7 @@ AppDelegate *EnetgyCycle = nil;
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [APService registerDeviceToken:deviceToken];
     self.appJPushRegisterId = [APService registrationID];
-//    NSLog(@"%@",[APService registrationID]);
+    
 }
 
 #pragma mark - 接收推送的处理//APNs.正在前台或者后台运行
@@ -230,10 +240,9 @@ AppDelegate *EnetgyCycle = nil;
     completionHandler(UIBackgroundFetchResultNewData);
     
     NSDictionary *apsDictionary = (NSDictionary *)userInfo;
-//    NSLog(@"推送：%@",apsDictionary);
+    
     if (apsDictionary) {
         [application setApplicationIconBadgeNumber:0];
-//        EnetgyCycle.mineNavC.mineItem.badgeValue = @"";
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         
         if ([apsDictionary[@"type"] isKindOfClass:[NSNull class]] || [apsDictionary[@"type"] isEqual:[NSNull null]] || apsDictionary[@"type"] == nil) {
@@ -241,7 +250,7 @@ AppDelegate *EnetgyCycle = nil;
         }else {
             [dict setObject:apsDictionary[@"type"] forKey:@"type"];
         }
- 
+        
         self.isHaveJPush = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"isAppGetJPush" object:dict];
     }

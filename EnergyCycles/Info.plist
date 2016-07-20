@@ -123,10 +123,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>能量圈需要获取您的位置信息，以提供更精准的定位服务</string>
-	<key>NSLocationWhenInUsageDescription</key>
-	<string>能量圈需要获取您的位置信息，以提供更精准的定位服务</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>能量圈需要获取您的位置信息，以提供更精准的定位服务和共享您的位置</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

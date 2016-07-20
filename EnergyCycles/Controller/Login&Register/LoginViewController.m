@@ -25,6 +25,7 @@
 #import "WXApiRequestHandler.h"
 #import "WXApiManager.h"
 #import "Constant.h"
+#import "ECTabbarViewController.h"
 
 
 @interface LoginViewController () <getQQLoginGetInformationDelegate,WBHttpRequestDelegate,WXApiDelegate> {
@@ -70,6 +71,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"USERID"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"TOKEN"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"PHONE"];
+
 }
 
 #pragma mark - 返回按键响应事件
@@ -77,12 +79,7 @@
     EnetgyCycle.isEnterLoginView = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
     
-    if (EnetgyCycle.energyTabBar.selectedIndex == 3) {
-        EnetgyCycle.energyTabBar.selectedIndex = 0;
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }else {
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma mark - 忘记密码按键响应事件
@@ -96,9 +93,11 @@
         [SVProgressHUD showImage:nil status:@"请输入手机号"];
     }else if ([self.loginPassWordTextField.text length] <= 0) {
         [SVProgressHUD showImage:nil status:@"请输入密码"];
-    }else if (![[AppHelpManager sharedInstance] isValidPassword:self.loginPassWordTextField.text]) {
-        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
-    }else {
+    }
+//    else if (![[AppHelpManager sharedInstance] isValidPassword:self.loginPassWordTextField.text]) {
+//        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
+//    }
+    else {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"请等待.."];
         
@@ -108,6 +107,8 @@
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"use_id"] forKey:@"USERID"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"token"] forKey:@"TOKEN"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"phone"] forKey:@"PHONE"];
+                
+                [[NSUserDefaults standardUserDefaults] setObject:subDict[@"pwd"] forKey:@"PASSWORD"];
                 
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"jifen"] forKey:@"UserJiFen"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"studyVal"] forKey:@"UserStudyValues"];

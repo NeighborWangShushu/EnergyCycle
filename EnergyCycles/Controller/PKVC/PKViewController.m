@@ -12,6 +12,7 @@
 #import "PkHomeCollectionViewCell.h"
 #import "PKHomeModel.h"
 #import "WDTwoScrollView.h"
+#import "PostingViewController.h"
 
 @interface PKViewController () <UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
     UICollectionView *showCollectionView;
@@ -23,10 +24,22 @@
 
 @implementation PKViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    
+    //获取collectionView网络数据
+    [self getPKHeadCollectionViewData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     _homeCollecctionArr = [[NSMutableArray alloc] init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
+
     
     pkHomeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     pkHomeTableView.showsVerticalScrollIndicator = NO;
@@ -35,12 +48,16 @@
     pkHomeTableView.bounces = YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)gotoCyclePostView:(NSNotification*)noti {
     
-    //获取collectionView网络数据
-    [self getPKHeadCollectionViewData];
+    if ([User_TOKEN length] <= 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+    }else {
+        PostingViewController * postView = MainStoryBoard(@"EnergyCycleViewToPostView");
+        [self presentViewController:postView animated:YES completion:nil];
+    }
 }
+
 
 #pragma mark - 获得网络数据
 - (void)getPKHeadCollectionViewData {

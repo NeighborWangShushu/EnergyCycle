@@ -9,8 +9,10 @@
 #import "BaseViewController.h"
 
 @interface PostingViewController : BaseViewController {
-    IBOutlet UITableView *energyPostTableView;
+    
 }
 
+- (IBAction)cancel:(id)sender;
+- (IBAction)push:(id)sender;
 
 @end

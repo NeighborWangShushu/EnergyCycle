@@ -8,6 +8,7 @@
 
 #import "WebVC.h"
 #import "Masonry.h"
+#import <WebKit/WebKit.h>
 
 
 @interface WebVC () {
@@ -34,11 +35,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"name is %@", _url);
+    
+    UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
+    leftbutton.frame = CGRectMake(0, 0, 30, 35);
+    [leftbutton setBackgroundImage:[UIImage imageNamed:@"whiteback_normal"] forState:UIControlStateNormal];
+    leftbutton.tag = 1002;
+    [leftbutton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftitem = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
+    self.navigationItem.leftBarButtonItems = @[leftitem];
+    
+    
+    self.title = self.titleName;
     self.navigationController.navigationBar.hidden = NO;
     self.view.backgroundColor = [UIColor whiteColor];
-    UIWebView * webview = [UIWebView new];
+    WKWebView * webview = [WKWebView new];
     [self.view addSubview:webview];
+    
     [webview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
@@ -46,9 +58,14 @@
         make.bottom.equalTo(self.view.mas_bottom);
     }];
     [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+    
     // Do any additional setup after loading the view.
 }
 
+
+- (void)back:(UIButton*)button {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {

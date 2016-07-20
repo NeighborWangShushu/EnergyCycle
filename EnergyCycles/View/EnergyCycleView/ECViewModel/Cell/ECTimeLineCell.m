@@ -29,10 +29,15 @@ CGFloat maxContentLabelHeight2 = 0; // 根据具体font而定
 
 NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLineCellOperationButtonClickedNotification";
 
+@interface ECTimeLineCell ()<SDTimeLineCellCommentViewDelegate>
+
+@end
+
 @implementation ECTimeLineCell
 
 {
     UIImageView *_iconView;
+    UIButton *iconButton;
     UILabel *_nameLable;
     UIImageView *_locaIcon;
     UILabel *_location;
@@ -76,6 +81,10 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     line.backgroundColor = [UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7];
     
     _iconView = [UIImageView new];
+  
+    iconButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [iconButton addTarget:self action:@selector(tapIcon) forControlEvents:UIControlEventTouchUpInside];
+    
     
     _nameLable = [UILabel new];
     _nameLable.font = [UIFont systemFontOfSize:14];
@@ -112,6 +121,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _picContainerView = [SDWeiXinPhotoContainerView new];
     
     _commentView = [SDTimeLineCellCommentView new];
+    _commentView.delegate = self;
     _commentView.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1.0];
     
     _operationMenu = [SDTimeLineCellOperationMenu new];
@@ -129,6 +139,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     }];
     
     _bottomView = [SDTimeLineCellBottomView new];
+    _bottomView.model = self.model;
     _bottomView.SDTimeLineCellBottomSelectedBlock = ^(NSInteger type){
         switch (type) {
             case 0:
@@ -136,11 +147,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
                 break;
             case 1:
                 weakSelf.type = ECTimeLineCellActionTypeComment;
-
                 break;
             case 2:
                 weakSelf.type = ECTimeLineCellActionTypeLike;
-
                 break;
                 
             default:
@@ -155,7 +164,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _marginView.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1.0];
     
     
-    NSArray *views = @[line, _iconView, _nameLable, _locaIcon, _location, _time, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
+    NSArray *views = @[line, _iconView,iconButton, _nameLable, _time, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
     [self.contentView sd_addSubviews:views];
     
     UIView *contentView = self.contentView;
@@ -174,6 +183,12 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .heightIs(50);
     _iconView.sd_cornerRadiusFromHeightRatio = [NSNumber numberWithFloat:0.5];
     
+    iconButton.sd_layout
+    .leftEqualToView(_iconView)
+    .topEqualToView(_iconView)
+    .widthRatioToView(_iconView,1)
+    .heightRatioToView(_iconView,1);
+    
     _nameLable.sd_layout
     .leftSpaceToView(_iconView, margin)
     .topEqualToView(_iconView)
@@ -188,11 +203,14 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _location.sd_layout
     .leftSpaceToView(_locaIcon,5)
-    .centerYEqualToView(_locaIcon);
+    .topSpaceToView(_nameLable,5);
     
     _time.sd_layout
-    .rightSpaceToView(contentView,margin)
-    .centerYEqualToView(_location);
+    .leftSpaceToView(_iconView, 10)
+    .heightIs(20)
+    .topSpaceToView(_nameLable,margin); 
+    
+    [_time setSingleLineAutoResizeWithMaxWidth:100];
     
     _contentLabel.sd_layout
     .leftEqualToView(_iconView)
@@ -231,6 +249,14 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .rightEqualToView(contentView)
     .topSpaceToView(_bottomView,0)
     .heightIs(15);
+    
+}
+
+- (void)tapIcon {
+    NSLog(@"tapIcon");
+    if ([self.delegate respondsToSelector:@selector(didClickOtherUser:userId:userName:)]) {
+        [self.delegate didClickOtherUser:self userId:self.model.ID userName:self.model.name];
+    }
     
 }
 
@@ -305,6 +331,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         bottomView = _commentView;
     }
     
+    _bottomView.model = model;
+    
     [self setupAutoHeightWithBottomView:_marginView bottomMargin:0];
     
     
@@ -315,6 +343,14 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     [super setFrame:frame];
     if (_operationMenu.isShowing) {
         _operationMenu.show = NO;
+    }
+}
+
+#pragma mark SDCommentViewCellDelegate
+
+- (void)didClickLink:(NSString *)linkId linkName:(NSString *)linkName {
+    if ([self.delegate respondsToSelector:@selector(didClickOtherUser:userId:userName:)]) {
+        [self.delegate didClickOtherUser:self userId:linkId userName:linkName];
     }
 }
 

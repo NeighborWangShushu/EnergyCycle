@@ -7,20 +7,72 @@
 //
 
 #import "EnergyPostViewCell.h"
+#import "EnergyPostCollectionViewCell.h"
+#import "Masonry.h"
 
-@interface EnergyPostViewCell ()
+
+@interface EnergyPostViewCell ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @end
 
 @implementation EnergyPostViewCell
 
 - (void)awakeFromNib {
-    self.informationTextView.placehoder = @"请输入内容";
+    self.informationTextView.placehoder = @"说点什么吧...";
+
+    
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
+
+
+//#pragma mark --GET
+//
+//- (void)setPics:(NSMutableArray *)pics {
+//    
+//    _pics = pics;
+//    if (self.collectionView) {
+//        [self.collectionView reloadData];
+//    }
+//}
+//
+//
+//#pragma mark UICollectionViewDelegate
+//
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+//    if (indexPath.row == [self.pics count]) {
+//        if ([self.delegate respondsToSelector:@selector(didAddPic)]) {
+//            [self.delegate didAddPic];
+//        }
+//    }else {
+//        if ([self.delegate respondsToSelector:@selector(didClickPic:currentIndex:pics:)]) {
+//            [self.delegate didClickPic:self currentIndex:indexPath.row pics:self.pics];
+//        }
+//    }
+//}
+//
+//
+//#pragma mark --UICollectionViewDataSource
+//
+//- (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    static NSString *EnergyPostCollectionViewCellId = @"EnergyPostCollectionViewCell";
+//    EnergyPostCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:EnergyPostCollectionViewCellId forIndexPath:indexPath];
+//    if (indexPath.row != [self.pics count]) {
+//        [cell.showImageView setImage:self.pics[indexPath.row]];
+//    }
+//    
+//    return cell;
+//}
+//
+//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+//    if (self.pics.count == 8) {
+//        return [self.pics count];
+//    }
+//    return self.pics.count + 1;
+//}
 
 
 @end

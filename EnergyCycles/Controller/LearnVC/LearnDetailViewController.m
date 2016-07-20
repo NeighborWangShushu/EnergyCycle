@@ -18,7 +18,8 @@
 #import "NSDate+Category.h"
 #import "Masonry.h"
 
-@interface LearnDetailViewController () <UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UITextFieldDelegate> {
+@interface LearnDetailViewController () <UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UITextFieldDelegate,WKScriptMessageHandler,WKUIDelegate> {
+    
     XMShareView *shareView;
     NSMutableArray *_tuiJDataArr;
     
@@ -72,37 +73,39 @@
     button.frame = CGRectMake(0, 0, 25, 19);
     [button setBackgroundImage:[[UIImage imageNamed:@"share_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(detailRightActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = item;
-
+    
     [UIView setAnimationsEnabled:NO];
-
+    
+    
+    //    NSString * jsstring = @" $(\"img\").on(\"taphold,\" function () {});";
+    //    WKUserScript *script = [[WKUserScript alloc] initWithSource:jsstring injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    [config.userContentController addScriptMessageHandler:self name:@"AppModel"];
+    
+    
     //加载网页
-    learnWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 80)];
+    learnWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 80) configuration:config];
     learnWebView.backgroundColor = [UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1];
-//    learnWebView.navigationDelegate = self;
+    //    learnWebView.navigationDelegate = self;
     learnWebView.UIDelegate = self;
     [self.view addSubview:learnWebView];
+    
     NSString * user_id = [[NSString stringWithFormat:@"%@",User_ID] isEqualToString:@""]?@"0":[NSString stringWithFormat:@"%@",User_ID];
     loadStr = [NSString stringWithFormat:@"%@/%@?id=%@&userId=%@",INTERFACE_URL,StudyDetailAspx,self.learnAtriID,user_id];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:loadStr]];
-    request.cachePolicy = NSURLRequestReloadRevalidatingCacheData;
     [learnWebView loadRequest:request];
+    
+    
     [learnWebView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.top.equalTo(self.view.mas_top);
         make.bottom.equalTo(self.view.mas_bottom);
-
     }];
-//    learnWebView.allowsInlineMediaPlayback = YES;
-//    learnWebView.mediaPlaybackRequiresUserAction = YES;
-
-//    [self getPinLunListWithStudyId:self.learnAtriID];
     
-    //创建输入框
-//    [self creatInputTextFieldView];
     
     //监听键盘弹出
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -137,7 +140,26 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
     
-//    [self getAboutTuiJian];
+    //    [self getAboutTuiJian];
+}
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    if ([message.name isEqualToString:@"AppModel"]) {
+        // 打印所传过来的参数，只支持NSNumber, NSString, NSDate, NSArray,
+        // NSDictionary, and NSNull类型
+        NSLog(@"%@", message.body);
+        
+    }
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler {
+    NSLog(@"%@", message);
+    
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
+    
+    
 }
 
 
@@ -226,9 +248,9 @@
     learnDetailTableView.tableHeaderView = learnWabBackView;
     [learnWabBackView addSubview:learnWebView];
     
-//    subHeight = height;
+    //    subHeight = height;
     //
-//    [self getZanOrCaiDataWithId:self.learnAtriID withHeight:subHeight];
+    //    [self getZanOrCaiDataWithId:self.learnAtriID withHeight:subHeight];
 }
 
 #pragma mark -
@@ -318,7 +340,7 @@
             
             NSArray *imageArr = @[@"zan_normal.png",@"pinglun_normal.png"];
             NSArray *titleArr = @[@"赞",@"评论"];
-     
+            
             //赞
             zanButton = [UIButton buttonWithType:UIButtonTypeSystem];
             zanButton.frame = CGRectMake(Screen_width/2*0, height, Screen_width/2, 40);
@@ -329,18 +351,18 @@
             zanButton.tag = 3201;
             [zanButton addTarget:self action:@selector(tableViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             [learnWabBackView addSubview:zanButton];
-//            //踩
-//            caiButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//            caiButton.frame = CGRectMake(Screen_width/3*1, height, Screen_width/3, 40);
-//            caiButton.titleLabel.font = [UIFont systemFontOfSize:14];
-//            [caiButton setTitle:titleArr[1] forState:UIControlStateNormal];
-//            [caiButton setTitleColor:[[UIColor blackColor] colorWithAlphaComponent:0.5] forState:UIControlStateNormal];
-//            caiButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-//            caiButton.tag = 3201 + 1;
-//            [caiButton addTarget:self action:@selector(tableViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//            [learnWabBackView addSubview:caiButton];
-//            
-//            //评论
+            //            //踩
+            //            caiButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            //            caiButton.frame = CGRectMake(Screen_width/3*1, height, Screen_width/3, 40);
+            //            caiButton.titleLabel.font = [UIFont systemFontOfSize:14];
+            //            [caiButton setTitle:titleArr[1] forState:UIControlStateNormal];
+            //            [caiButton setTitleColor:[[UIColor blackColor] colorWithAlphaComponent:0.5] forState:UIControlStateNormal];
+            //            caiButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+            //            caiButton.tag = 3201 + 1;
+            //            [caiButton addTarget:self action:@selector(tableViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            //            [learnWabBackView addSubview:caiButton];
+            //
+            //            //评论
             commentButton = [UIButton buttonWithType:UIButtonTypeSystem];
             commentButton.frame = CGRectMake(Screen_width/2, height, Screen_width/2, 40);
             [commentButton setImage:[[UIImage imageNamed:imageArr[1]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
@@ -715,7 +737,7 @@
 
 #pragma mark - 赞、踩
 - (void)zanOrCaiButtonWithType:(NSString *)type {
-//    1 赞 2 踩
+    //    1 赞 2 踩
     if ([User_TOKEN length] <= 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
     }else {
@@ -784,7 +806,7 @@
     shareView.shareText = @"";
     NSString * share_url = @"";
     share_url = [NSString stringWithFormat:@"%@/%@?id=%@",INTERFACE_URL,StudyDetailAspx,self.learnAtriID];
-
+    
     shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
     
     [[UIApplication sharedApplication].keyWindow addSubview:shareView];

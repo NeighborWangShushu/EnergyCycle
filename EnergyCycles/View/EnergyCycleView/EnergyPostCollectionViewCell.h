@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol EnergyPostCollectionViewCellDelegate <NSObject>
+
+- (void)didLongpressedImage:(NSInteger)index;
+
+@end
+
+
 @interface EnergyPostCollectionViewCell : UICollectionViewCell
 
 //显示图片
@@ -15,5 +22,5 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *showJiaImageView;
 
-
+@property (nonatomic,weak) id<EnergyPostCollectionViewCellDelegate>delegate;
 @end

@@ -9,6 +9,7 @@
 #import "ECRecommendCell.h"
 #import "Masonry.h"
 #import "CommentCollectionCell.h"
+#import "CommentUserModel.h"
 
 @interface ECRecommendCell ()<UICollectionViewDelegate,UICollectionViewDataSource> {
     
@@ -23,8 +24,21 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    [self setup];
     
+}
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self setup];
+    }
+    
+    return self;
+}
+
+- (void)setDatas:(NSMutableArray *)datas {
+    _datas = datas;
+    [self.collectionView reloadData];
 }
 
 - (void)setup {
@@ -39,18 +53,27 @@
     [arrow setImage:[UIImage imageNamed:@"ec_comment_arrow"]];
     [self addSubview:arrow];
     
+    UIButton*arrowButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self addSubview:arrowButton];
+    [arrowButton addTarget:self action:@selector(arrowButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    layout.itemSize = CGSizeMake(100, 100);
+    layout.itemSize = CGSizeMake(66, 86);
     
-    
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout] ;
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.collectionView.backgroundColor = [UIColor clearColor];
     [self.collectionView setShowsVerticalScrollIndicator:NO];
+    [self.collectionView setShowsHorizontalScrollIndicator:NO];
+    [self.collectionView registerClass:[CommentCollectionCell class] forCellWithReuseIdentifier:@"CommentCellID"];
     self.collectionView.allowsMultipleSelection = NO;//默认为NO,是否可以多选
     [self addSubview:self.collectionView];
+    
+    UIView * bottomView = [UIView new];
+    bottomView.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1.0];
+    [self addSubview:bottomView];
     
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(10);
@@ -62,40 +85,65 @@
         make.top.equalTo(self.mas_top).with.offset(10);
     }];
     
+    [arrowButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).with.offset(-10);
+        make.top.equalTo(self.mas_top).with.offset(10);
+        make.width.equalTo(@40);
+        make.height.equalTo(@30);
+    }];
+    
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.top.equalTo(title.mas_bottom);
         make.right.equalTo(self.mas_right);
-        make.bottom.equalTo(self.mas_bottom).with.offset(-10);
+        make.bottom.equalTo(self.mas_bottom).with.offset(-15);
     }];
     
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.top.equalTo(self.collectionView.mas_bottom);
+        make.bottom.equalTo(self.mas_bottom);
+        
+    }];
     
 }
 
+#pragma mark UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return self.datas.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * cellID = @"CommentCellID";
     CommentCollectionCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
-    
-    
+    CommentUserModel * model = [self.datas objectAtIndex:indexPath.row];
+    cell.model = model;
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+
+- (void)arrowButtonAction {
+    if ([self.delegate respondsToSelector:@selector(didClickMoreCommendUser)]) {
+        [self.delegate didClickMoreCommendUser];
+    }
 }
 
+#pragma mark UICollectionViewDelegate
 
-
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CommentUserModel * model = [self.datas objectAtIndex:indexPath.row];
+    if ([self.delegate respondsToSelector:@selector(didClickCommendUser:userId:userName:)]) {
+        [self.delegate didClickCommendUser:self userId:[NSString stringWithFormat:@"%ld",model.ID] userName:model.name];
+    }
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

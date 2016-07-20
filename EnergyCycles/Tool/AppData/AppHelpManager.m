@@ -118,6 +118,14 @@
     return phone;
 }
 
+- (NSString *)readUserName {
+    NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserNickName"];
+    if ((name == nil || [name isKindOfClass:[NSNull class]] || [name isEqual:[NSNull null]])) {
+        name = @"";
+    }
+    return name;
+}
+
 #pragma mark - 获取通讯录权限
 + (void)CheckAddressBookAuthorization:(void (^)(bool isAuthorized))block {
     ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);

@@ -13,4 +13,6 @@
 @property (nonatomic,copy)NSString * url;
 @property (nonatomic,strong)NSURL * pic;
 @property (nonatomic,assign)NSInteger type;
+@property (nonatomic,copy)NSString *name;
+
 @end
