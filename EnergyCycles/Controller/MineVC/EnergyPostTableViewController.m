@@ -56,15 +56,14 @@
     NSLog(@"%@",[notification.userInfo[@"userId"] class]);
     NSDictionary *dic = notification.userInfo;
     NSString *userId = dic[@"userId"];
+    NSLog(@"%@",userId);
     self.userId = userId;
     [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
             for (NSDictionary *data in dict[@"Data"]) {
                 ECTimeLineModel *model = [self sortByData:data];
-                NSLog(@"222%@", model.liked ? @"YES" : @"NO");
                 [self.dataArray addObject:model];
             }
-            NSLog(@"1%@",self.dataArray);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
@@ -78,8 +77,9 @@
     }];
 }
 
+
 - (void)loadNewData {
-    self.startPage = 1;
+    self.startPage = 0;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
 }
 
@@ -132,7 +132,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.startPage = 1;
+    self.startPage = 0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getData:) name:@"EnergyPostTableViewController" object:nil];
     
     // Uncomment the following line to preserve selection between presentations.
