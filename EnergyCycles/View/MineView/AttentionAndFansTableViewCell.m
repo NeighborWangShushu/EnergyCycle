@@ -26,7 +26,7 @@
     self.nameLabel.text = userModel.nickname;
     
     // 简介
-    
+    self.introLabel.text = userModel.Brief;
     
     // 是否关注
     [self.isAttention setImage:[UIImage imageNamed:@"attention"] forState:UIControlStateNormal];
@@ -57,7 +57,7 @@
     self.nameLabel.text = userModel.nickname;
     
     // 简介
-    
+    self.introLabel.text = userModel.Brief;
     
     // 是否关注
     if ([userModel.isFriend isEqualToString:@"0"]) {
@@ -91,9 +91,7 @@
     self.nameLabel.text = otherUserModel.nickName;
     
     // 简介
-//    if (otherUserModel.) {
-//        <#statements#>
-//    }
+    self.introLabel.text = otherUserModel.Brief;
     
     // 是否关注
     if ([otherUserModel.isHeart isEqualToString:@"1"]) {

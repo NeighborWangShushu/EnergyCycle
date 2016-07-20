@@ -51,31 +51,8 @@
 //    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
-    [self reloadHeadView];
-}
-
-- (void)reloadHeadView {
-    [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:self.userId PostOrGet:@"get" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            NSLog(@"ID%@",self.userId);
-            
-            if ([dict[@"Data"] count]) {
-                for (NSDictionary *subDict in dict[@"Data"]) {
-                    UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
-                    self.model = model;
-                    NSLog(@"Model%@",self.model);
-                }
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"haha%@",self.model);
-                [self.mineView getdateDataWithModel:self.model signIn:0 attention:0 fans:0];
-            });
-        }
-        
-    } failure:^(NSString *str) {
-        NSLog(@"%@", str);
-    }];
+    [self getUserInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -84,6 +61,26 @@
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = nil;
+}
+
+// 获取用户基本数据
+- (void)getUserInfo {
+    [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:self.userId PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            if ([dict[@"Data"] count]) {
+                for (NSDictionary *subDict in dict[@"Data"]) {
+                    UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
+                    self.model = model;
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.mineView getdateDataWithModel:self.model signIn:0 attention:0 fans:0];
+            });
+        }
+        
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
 }
 
 - (void)tableViewScroll:(UITableView *)tableView offsetY:(CGFloat)offsetY {
@@ -242,33 +239,6 @@
     self.mineView.userInteractionEnabled = NO;
 }
 
-// 获取用户基本数据
-- (void)getUserInfo {
-    [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:self.userId PostOrGet:@"get" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            NSLog(@"ID%@",self.userId);
-            
-            if ([dict[@"Data"] count]) {
-                for (NSDictionary *subDict in dict[@"Data"]) {
-                    UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
-                    self.model = model;
-                    NSLog(@"Model%@",self.model);
-                }
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"haha%@",self.model);
-                [self addHeadView];
-                [self addController];
-                [self segmentedControlChangedValue:self.segControl];
-            });
-        }
-        
-    } failure:^(NSString *str) {
-        NSLog(@"%@", str);
-    }];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -277,7 +247,9 @@
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     
-    [self getUserInfo];
+    [self addHeadView];
+    [self addController];
+    [self segmentedControlChangedValue:self.segControl];
     
     // 通知中心
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headViewChangeHeadImage) name:@"headViewChangeHeadImage" object:nil];
@@ -320,7 +292,7 @@
     
     [[AppHttpManager shareInstance] postAddImgWithPhoneNo:self.userId Img:self.headImageData PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            [self reloadHeadView];
+            [self getUserInfo];
         } else {
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }

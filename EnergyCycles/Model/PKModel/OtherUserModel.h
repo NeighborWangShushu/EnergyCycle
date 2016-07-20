@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString<Optional> *nickName;
 @property (nonatomic, strong) NSString<Optional> *photoUrl;
 @property (nonatomic, strong) NSString<Optional> *isHeart;
+@property (nonatomic, strong) NSString<Optional> *Brief;
 
 
 @end
