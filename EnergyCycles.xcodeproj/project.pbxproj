@@ -4705,8 +4705,6 @@
 		6293337E1D2B61300085AE82 /* MineSettingView */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-=======
 				6259020A1D2B92B300F3F13C /* SettingOneViewCell.h */,
 				6259020B1D2B92B300F3F13C /* SettingOneViewCell.m */,
 				6259020C1D2B92B300F3F13C /* SettingOneViewCell.xib */,
@@ -4719,7 +4717,6 @@
 				625902191D2BAEBF00F3F13C /* SettingFourViewCell.h */,
 				6259021A1D2BAEBF00F3F13C /* SettingFourViewCell.m */,
 				6259021B1D2BAEBF00F3F13C /* SettingFourViewCell.xib */,
->>>>>>> developCustomTabbar
 			);
 			name = MineSettingView;
 			sourceTree = "<group>";
