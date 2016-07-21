@@ -11,16 +11,21 @@
 
 @implementation MineHomePageHeadView
 
-- (void)tap {
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-    [tap setNumberOfTouchesRequired:1];
-    [tap setNumberOfTouchesRequired:1];
-    [self.backgroundImage addGestureRecognizer:tap];
+//- (void)tap {
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+//    [tap setNumberOfTouchesRequired:1];
+//    [tap setNumberOfTouchesRequired:1];
+//    [self.backgroundImage addGestureRecognizer:tap];
+//}
+//
+//- (void)tapAction:(UITapGestureRecognizer *)sender {
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"headViewChangeBackgroundImage" object:nil];
+//}
+
+- (IBAction)changBackgroundImage:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"headViewChangeBackgroundImage" object:nil];
 }
 
-- (void)tapAction:(UITapGestureRecognizer *)sender {
-    NSLog(@"aa");
-}
 - (IBAction)changeHeadImage:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"headViewChangeHeadImage" object:nil];
 }
@@ -106,9 +111,13 @@
     if ([model.use_id isEqualToString:[number stringFromNumber:User_ID]]) {
         self.introImage.hidden = NO;
         self.introButton.hidden = NO;
+        self.leftBackgroundButton.hidden = NO;
+        self.rightBackgroundButton.hidden = NO;
     } else {
         self.introImage.hidden = YES;
         self.introButton.hidden = YES;
+        self.leftBackgroundButton.hidden = YES;
+        self.rightBackgroundButton.hidden = YES;
     }
     
 }

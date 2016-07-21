@@ -7,15 +7,57 @@
 //
 
 #import "PKRecordTableViewController.h"
+#import "MinePKRecordViewTableViewCell.h"
+#import "MyPkEveryModel.h"
+#import "BrokenLineViewController.h"
 
 @interface PKRecordTableViewController ()
+
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
 
 @implementation PKRecordTableViewController
 
+// 懒加载
+- (NSMutableArray *)dataArray {
+    if (!_dataArray) {
+        self.dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
+}
+
+// 获取PK项目数据
+- (void)getPKData:(NSNotification *)notification {
+    NSDictionary *dic = notification.userInfo;
+    NSString *userId = dic[@"userId"];
+    
+    [[AppHttpManager shareInstance] getGetMyPkHistoryProjectWithUserId:[userId intValue] Token:@"" PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            for (NSDictionary *dic in dict[@"Data"]) {
+                MyPkEveryModel *model = [[MyPkEveryModel alloc] initWithDictionary:dic error:nil];
+                [self.dataArray addObject:model];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+            
+        } else {
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }
+        
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPKData:) name:@"PKRecordTableViewController" object:nil];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -32,31 +74,41 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 50;
+    return [self.dataArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
+    return 55;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *ID = @"tableview";
+    static NSString *minePKRecordViewTableViewCell = @"minePKRecordViewTableViewCell";
+    MinePKRecordViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:minePKRecordViewTableViewCell];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell  == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[NSBundle mainBundle] loadNibNamed:@"MinePKRecordViewTableViewCell" owner:self options:nil].lastObject;
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"PK记录%ld",indexPath.row];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    MyPkEveryModel *model = self.dataArray[indexPath.row];
+    [cell getDataWithModel:model number:indexPath.row + 1];
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    BrokenLineViewController *blVC = MainStoryBoard(@"BrokenLineViewController");
+    MyPkEveryModel *model = self.dataArray[indexPath.row];
+    blVC.projectID = model.pId;
+    blVC.showStr = model.name;
+    [self.navigationController pushViewController:blVC animated:YES];
+}
+
 
 /*
 // Override to support conditional editing of the table view.

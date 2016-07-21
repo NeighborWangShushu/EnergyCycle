@@ -427,6 +427,9 @@
 		26E987ED1C0DAE4000C6A7BB /* whiteback_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987C91C0DAE4000C6A7BB /* whiteback_normal@3x.png */; };
 		26E987EE1C0DAE4000C6A7BB /* whiteback_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */; };
 		26E987EF1C0DAE4000C6A7BB /* whiteback_pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */; };
+		622BA6501D40ADBB00194984 /* MinePKRecordViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 622BA64E1D40ADBB00194984 /* MinePKRecordViewTableViewCell.m */; };
+		622BA6511D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622BA64F1D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib */; };
+		622BA6541D40E71A00194984 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 622BA6531D40E71A00194984 /* UserInfoModel.m */; };
 		6237739A1D3735E900B99BEF /* UIImage+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 623773991D3735E900B99BEF /* UIImage+Category.m */; };
 		625750A61D33493600E46B2E /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625750A51D33493600E46B2E /* MineTableViewController.m */; };
 		625750AE1D334A4300E46B2E /* MineHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625750AC1D334A4300E46B2E /* MineHeadTableViewCell.m */; };
@@ -1874,6 +1877,11 @@
 		26E987C91C0DAE4000C6A7BB /* whiteback_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_normal@3x.png"; sourceTree = "<group>"; };
 		26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@2x.png"; sourceTree = "<group>"; };
 		26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@3x.png"; sourceTree = "<group>"; };
+		622BA64D1D40ADBB00194984 /* MinePKRecordViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinePKRecordViewTableViewCell.h; sourceTree = "<group>"; };
+		622BA64E1D40ADBB00194984 /* MinePKRecordViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MinePKRecordViewTableViewCell.m; sourceTree = "<group>"; };
+		622BA64F1D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MinePKRecordViewTableViewCell.xib; sourceTree = "<group>"; };
+		622BA6521D40E71A00194984 /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
+		622BA6531D40E71A00194984 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		623773981D3735E900B99BEF /* UIImage+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Category.h"; sourceTree = "<group>"; };
 		623773991D3735E900B99BEF /* UIImage+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Category.m"; sourceTree = "<group>"; };
 		625750A41D33493600E46B2E /* MineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewController.h; sourceTree = "<group>"; };
@@ -3652,6 +3660,8 @@
 				62A93BD91D36281000343B63 /* MineHomePage */,
 				DA6CFAD01C311D4600C77D45 /* UserModel.h */,
 				DA6CFAD11C311D4600C77D45 /* UserModel.m */,
+				622BA6521D40E71A00194984 /* UserInfoModel.h */,
+				622BA6531D40E71A00194984 /* UserInfoModel.m */,
 				DA6F79301C34DB400095C82F /* MallModel.h */,
 				DA6F79311C34DB400095C82F /* MallModel.m */,
 				DA6F79331C34F1740095C82F /* RecordModel.h */,
@@ -4555,6 +4565,7 @@
 		26D99E901C0C4D7B007AF579 /* MineView */ = {
 			isa = PBXGroup;
 			children = (
+				622BA6471D40AD6600194984 /* MinePKRecordView */,
 				62FCE9051D3CAF3500F52E05 /* MineAttentionAndFansView */,
 				62A93BD31D361E4B00343B63 /* MineHomePageView */,
 				625750A71D33498300E46B2E /* MineTableView */,
@@ -4631,6 +4642,16 @@
 				26E987701C0D6C9100C6A7BB /* EnergyPostTwoViewCell.xib */,
 			);
 			name = EnergyPostView;
+			sourceTree = "<group>";
+		};
+		622BA6471D40AD6600194984 /* MinePKRecordView */ = {
+			isa = PBXGroup;
+			children = (
+				622BA64D1D40ADBB00194984 /* MinePKRecordViewTableViewCell.h */,
+				622BA64E1D40ADBB00194984 /* MinePKRecordViewTableViewCell.m */,
+				622BA64F1D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib */,
+			);
+			name = MinePKRecordView;
 			sourceTree = "<group>";
 		};
 		625750A71D33498300E46B2E /* MineTableView */ = {
@@ -6994,6 +7015,7 @@
 				625750DD1D33885B00E46B2E /* Group 62.png in Resources */,
 				DA7674C81C27A66900A34D9C /* NewsOneViewCell.xib in Resources */,
 				DA68D5C91C96A46E0073E0F6 /* MineTheAdvTwoViewCell.xib in Resources */,
+				622BA6511D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib in Resources */,
 				DA68D5B61C96A1680073E0F6 /* MineEnergyShowOneViewCell.xib in Resources */,
 				26E987E41C0DAE4000C6A7BB /* Rectangle @2x.png in Resources */,
 				26D8B22A1C0FEEE900A1DB04 /* 19_2@2x.png in Resources */,
@@ -7240,6 +7262,7 @@
 			files = (
 				26E987301C0D305B00C6A7BB /* SignInViewController.m in Sources */,
 				D07EB29D1D18DE6800840AC2 /* UUImageAvatarBrowser.m in Sources */,
+				622BA6541D40E71A00194984 /* UserInfoModel.m in Sources */,
 				26D99EA01C0C4D7B007AF579 /* AppHelpManager.m in Sources */,
 				26D99F191C0C4D7C007AF579 /* UIView+WebCacheOperation.m in Sources */,
 				D04B547B1D23C75700DC259A /* SDWeiXinPhotoContainerView.m in Sources */,
@@ -7712,6 +7735,7 @@
 				DAA8DBDE1C97BAA20011EB7E /* SetNoteNameView.m in Sources */,
 				26D26FD81C1186B9008511A9 /* CoursesCompletedViewController.m in Sources */,
 				D00820E71D1D7F2B00D34117 /* GifHeader.m in Sources */,
+				622BA6501D40ADBB00194984 /* MinePKRecordViewTableViewCell.m in Sources */,
 				26D99ED91C0C4D7B007AF579 /* IQToolbar.m in Sources */,
 				D07EB1D71D17EA6900840AC2 /* JKDBHelper.m in Sources */,
 			);

@@ -14,6 +14,10 @@
 
 // 背景
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
+// 左侧背景按钮
+@property (weak, nonatomic) IBOutlet UIButton *leftBackgroundButton;
+// 右侧背景按钮
+@property (weak, nonatomic) IBOutlet UIButton *rightBackgroundButton;
 // 头像
 @property (weak, nonatomic) IBOutlet UIButton *headImage;
 // 昵称

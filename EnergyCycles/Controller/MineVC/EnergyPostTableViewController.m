@@ -15,6 +15,7 @@
 #import "XMShareView.h"
 #import "PostingViewController.h"
 #import "CommentUserModel.h"
+#import "Masonry.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 
@@ -53,10 +54,8 @@
 
 // 获取数据
 - (void)getData:(NSNotification *)notification {
-    NSLog(@"%@",[notification.userInfo[@"userId"] class]);
     NSDictionary *dic = notification.userInfo;
     NSString *userId = dic[@"userId"];
-    NSLog(@"%@",userId);
     self.userId = userId;
     [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
@@ -116,7 +115,7 @@
         [likeArr addObject:likeModel];
     }
     NSMutableArray * commentArr = [NSMutableArray array];
-    for (NSDictionary * comment in data[@"CommentList"]) {
+    for (NSDictionary * comment in data[@"commentList"]) {
         ECTimeLineCellCommentItemModel*commentModel = [ECTimeLineCellCommentItemModel new];
         commentModel.firstUserName = comment[@"commNickName"];
         commentModel.commentString = comment[@"commContent"];
@@ -133,7 +132,12 @@
     [super viewDidLoad];
     
     self.startPage = 0;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getData:) name:@"EnergyPostTableViewController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidChange:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -149,10 +153,7 @@
 
 #pragma mark - Table view data source
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return 1;
-//}
-
+// cell的数量
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.dataArray count];
 }
@@ -160,7 +161,9 @@
 // cell高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     id model = self.dataArray[indexPath.row];
-    return [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[ECTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
+    CGFloat height = [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[ECTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
+    NSLog(@"cell Height %f",height);
+    return height;
 }
 
 // cell 高度适配
@@ -214,6 +217,7 @@
     
     cell.model = self.dataArray[indexPath.row];
     
+    NSLog(@"hight2%f",self.tableView.contentSize.height);
     return cell;
 }
 
@@ -286,6 +290,7 @@
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     
     [self postLike:model];
+    
 }
 
 /**
@@ -294,13 +299,18 @@
 - (void)postLike:(ECTimeLineModel*)model {
     
     NSInteger OpeType = !model.liked;
+    NSLog(@"hight%f",self.tableView.contentSize.height);
     [[AppHttpManager shareInstance] postAddLikeOrNoLikeWithType:@"1" OpeType:[NSString stringWithFormat:@"%ld",(long)OpeType] ArticleId:[model.ID intValue] UserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"mineHomePageReloadView" object:self];
+            NSLog(@"hight%f",self.tableView.contentSize.height);
+        });
         
     } failure:^(NSString *str) {
         
     }];
-    
-    
+   
 }
 
 /**
@@ -368,6 +378,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     //发送评论
+    NSLog(@"%@",textField.text);
     [self sendCommend:textField.text index:commentIndex section:commentSection];
     
     [textField resignFirstResponder];
@@ -386,12 +397,15 @@
     
     [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
         NSDictionary*data = dict[@"Data"];
+        NSLog(@"sdfasd%@", data[@"commentList"]);
         ECTimeLineModel*model = [self sortByData:data];
         NSIndexPath*indexPath = [NSIndexPath indexPathForRow:index inSection:section];
+        NSLog(@"%@",model.commentItemsArray);
         [weakSelf.dataArray replaceObjectAtIndex:index withObject:model];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"mineHomePageReloadView" object:self];
         });
         
         [SVProgressHUD showImage:nil status:@"评论成功"];

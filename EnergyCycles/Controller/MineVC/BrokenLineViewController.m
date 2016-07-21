@@ -38,38 +38,43 @@
     _dataArr = [[NSMutableArray alloc] init];
     showType = 1;
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
     brokenTableView.showsHorizontalScrollIndicator = NO;
     brokenTableView.showsVerticalScrollIndicator = NO;
     brokenTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.title = [NSString stringWithFormat:@"%@记录",self.showStr];
-    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
+//    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
     
-    //去掉阴影
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
+//    //去掉阴影
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
     
     //
     self.brokenSegmentedControl.selectedSegmentIndex = 0;
     [self setUpMJRefresh];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
-}
+//- (void)viewWillDisappear:(BOOL)animated {
+//    self.navigationController.navigationBar.translucent = YES;
+//}
 
-#pragma mark - 返回按键
-- (void)leftAction {
-    [self.navigationController popViewControllerAnimated:YES];
-    
-    EnetgyCycle.energyTabBar.tabBar.translucent = YES;
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+//}
+
+//#pragma mark - 返回按键
+//- (void)leftAction {
+//    [self.navigationController popViewControllerAnimated:YES];
+//    
+//    EnetgyCycle.energyTabBar.tabBar.translucent = YES;
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+//}
 
 //设置MJResfresh
 - (void)setUpMJRefresh {

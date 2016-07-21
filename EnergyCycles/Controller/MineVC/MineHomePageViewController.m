@@ -13,6 +13,7 @@
 #import "HMSegmentedControl.h"
 
 #import "UserModel.h"
+#import "UserInfoModel.h"
 
 #import "IntroViewController.h"
 #import "AttentionAndFansTableViewController.h"
@@ -24,8 +25,10 @@
 @property (nonatomic, strong) MineHomePageHeadView *mineView;
 @property (nonatomic, strong) HMSegmentedControl *segControl;
 @property (nonatomic, strong) UserModel *model;
+@property (nonatomic, strong) UserInfoModel *infoModel;
 
 @property (nonatomic, strong) UIImagePickerController *picker;
+@property (nonatomic, assign) BOOL isHeadImage;
 @property (nonatomic, strong) NSData *headImageData;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, weak) UIViewController *showVC;
@@ -48,11 +51,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     [self getUserInfo];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PKRecordTableViewController" object:self userInfo:@{@"userId" : self.userId}];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -74,6 +78,7 @@
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self addNavgationTitle];
                 [self.mineView getdateDataWithModel:self.model signIn:0 attention:0 fans:0];
             });
         }
@@ -82,6 +87,12 @@
         NSLog(@"%@", str);
     }];
 }
+
+- (void)getUserInfoModel {
+    
+}
+
+
 
 - (void)tableViewScroll:(UITableView *)tableView offsetY:(CGFloat)offsetY {
     if (offsetY > kHeaderImgHeight - kNavigationHeight) {
@@ -142,16 +153,20 @@
     mineView.frame = CGRectMake(0, 0, kScreenWidth, kHeaderImgHeight + kSegmentedHeight);
     [mineView getdateDataWithModel:self.model signIn:0 attention:0 fans:0];
     
+    [self addNavgationTitle];
+    
+    self.mineView = mineView;
+    self.segControl = mineView.segControl;
+    [self createSegmentControl];
+}
+
+- (void)addNavgationTitle {
     self.titleLabel = [[UILabel alloc] init];
     self.titleLabel.text = self.model.nickname;
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.titleLabel sizeToFit];
     self.titleLabel.hidden = YES;
     self.navigationItem.titleView = self.titleLabel;
-    
-    self.mineView = mineView;
-    self.segControl = mineView.segControl;
-    [self createSegmentControl];
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl*)sender {
@@ -160,6 +175,7 @@
     MineHomePageTableViewControllerProtocol *newVC = self.childViewControllers[sender.selectedSegmentIndex];
     if (!newVC.view.superview) {
         [self.view addSubview:newVC.view];
+//        newVC.view.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height - 50);
         newVC.view.frame = self.view.bounds;
     }
     
@@ -167,6 +183,7 @@
     CGFloat offsetY = [_offsetYDict[nextAddressStr] floatValue];
     newVC.tableView.contentOffset = CGPointMake(0, offsetY);
     
+//    newVC.tableView.frame = CGRectMake(newVC.tableView.frame.origin.x, offsetY, newVC.tableView.frame.size.width, newVC.tableView.frame.size.height);
     [self.view insertSubview:newVC.view belowSubview:self.navigationController.navigationBar];
     if (offsetY <= kHeaderImgHeight - kNavigationHeight) {
         [newVC.view addSubview:self.mineView];
@@ -243,7 +260,7 @@
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationController.navigationBar.translucent = YES;
+//    self.navigationController.navigationBar.translucent = YES;
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     
@@ -252,7 +269,9 @@
     [self segmentedControlChangedValue:self.segControl];
     
     // 通知中心
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mineHomePageReloadView) name:@"mineHomePageReloadView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headViewChangeHeadImage) name:@"headViewChangeHeadImage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headViewChangeBackgroundImage) name:@"headViewChangeBackgroundImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToAttentionController) name:@"jumpToAttentionController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
@@ -260,7 +279,25 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)mineHomePageReloadView {
+//    [self getUserInfo];
+    [self.view insertSubview:self.mineView belowSubview:self.navigationController.navigationBar];
+}
+
+// 更改头像
 - (void)headViewChangeHeadImage {
+    self.isHeadImage = YES;
+    [self createPicker];
+}
+
+// 更改背景
+- (void)headViewChangeBackgroundImage {
+    self.isHeadImage = NO;
+    [self createPicker];
+}
+
+// 创建图片选择器
+- (void)createPicker {
     if (!self.picker) {
         self.picker = [[UIImagePickerController alloc] init];
         self.picker.delegate = self;
@@ -282,7 +319,6 @@
     [alert addAction:photoAction];
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
-    
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
@@ -290,7 +326,35 @@
     self.headImageData = UIImageJPEGRepresentation(image, 0.01);
     [self.picker dismissViewControllerAnimated:YES completion:nil];
     
-    [[AppHttpManager shareInstance] postAddImgWithPhoneNo:self.userId Img:self.headImageData PostOrGet:@"post" success:^(NSDictionary *dict) {
+    if (self.isHeadImage) { // 上传头像
+        [[AppHttpManager shareInstance] postAddImgWithPhoneNo:self.model.use_id Img:self.headImageData PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [self getUserInfo];
+            } else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    } else { // 上传背景图片
+        [[AppHttpManager shareInstance] postPostFileWithImageData:self.headImageData PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+//                NSLog(@"%@", dict[@"Data"]);
+                NSString *backgroundImage = dict[@"Data"][0];
+                [self changeBackgoundImage:backgroundImage];
+            } else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+        
+
+    }
+    
+}
+- (void)changeBackgoundImage:(NSString *)backgroundImage {
+    [[AppHttpManager shareInstance] changeBackgroundImgWithUserid:[self.model.use_id intValue] Token:self.model.token BackgroundImg:backgroundImage PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self getUserInfo];
         } else {

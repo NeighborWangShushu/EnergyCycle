@@ -15,13 +15,15 @@
     
     self.tableView.showsHorizontalScrollIndicator = NO;
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kHeaderImgHeight + kSegmentedHeight)];
     headerView.backgroundColor = [UIColor whiteColor];
     self.tableView.tableHeaderView = headerView;
     
-    if (self.tableView.contentSize.height < kScreenHeight + kHeaderImgHeight - kNavigationHeight) {
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, kScreenHeight + kHeaderImgHeight - kNavigationHeight - self.tableView.contentSize.height, 0);
-    }
+//    if (self.tableView.contentSize.height < kScreenHeight + kHeaderImgHeight - kNavigationHeight) {
+//        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, kScreenHeight + kHeaderImgHeight - kNavigationHeight - self.tableView.contentSize.height, 0);
+//    }
     
 }
 

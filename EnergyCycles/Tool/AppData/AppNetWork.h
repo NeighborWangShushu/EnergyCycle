@@ -360,4 +360,10 @@
 //95.修改个人简介
 #define ChangeBrief @"/user/App_User_Brief_Upd"
 
+//96.获取用户粉丝/关注/能连贴等数量
+#define UserInfo_Get @"/user/UserInfo_Get"
+
+//97.修改个人主页背景图片
+#define ChangeBackgroundImg @"/user/App_User_BackgroundImg_Upd"
+
 #endif
