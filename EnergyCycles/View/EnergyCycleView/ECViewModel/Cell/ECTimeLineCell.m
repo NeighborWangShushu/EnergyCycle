@@ -24,7 +24,7 @@
 
 #import "UIImageView+WebCache.h"
 
-const CGFloat contentLabelFontSize2 = 15;
+const CGFloat contentLabelFontSize2 = 13;
 CGFloat maxContentLabelHeight2 = 0; // 根据具体font而定
 
 NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLineCellOperationButtonClickedNotification";

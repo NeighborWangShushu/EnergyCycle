@@ -44,8 +44,9 @@
     if ([User_TOKEN length] <= 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
     }else {
-        PostingViewController * postView = MainStoryBoard(@"EnergyCycleViewToPostView");
-        [self presentViewController:postView animated:YES completion:nil];
+        PostingViewController * postView = MainStoryBoard(@"ECPostingViewController");
+        UIViewController * viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        [viewController presentViewController:postView animated:YES completion:nil];
     }
 }
 

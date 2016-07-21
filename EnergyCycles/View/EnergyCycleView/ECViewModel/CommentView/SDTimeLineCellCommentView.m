@@ -15,6 +15,8 @@
 #import "ECTimeLineCellLikeItemModel.h"
 #import "LEETheme.h"
 
+#define sdLikeLabelTextFontSize 13
+
 @interface SDTimeLineCellCommentView () <MLLinkLabelDelegate>
 
 @property (nonatomic, strong) NSArray *likeItemsArray;
@@ -56,7 +58,7 @@
     
     _likeLabel = [MLLinkLabel new];
     _likeLabel.delegate = self;
-    _likeLabel.font = [UIFont systemFontOfSize:14];
+    _likeLabel.font = [UIFont systemFontOfSize:sdLikeLabelTextFontSize];
     _likeLabel.linkTextAttributes = @{NSForegroundColorAttributeName : TimeLineCellHighlightedColor};
     [self addSubview:_likeLabel];
     
@@ -108,7 +110,7 @@
         label.lee_theme
         .LeeAddTextColor(DAY , [UIColor blackColor])
         .LeeAddTextColor(NIGHT , [UIColor grayColor]);
-        label.font = [UIFont systemFontOfSize:14];
+        label.font = [UIFont systemFontOfSize:sdLikeLabelTextFontSize];
         label.delegate = self;
         [self addSubview:label];
         

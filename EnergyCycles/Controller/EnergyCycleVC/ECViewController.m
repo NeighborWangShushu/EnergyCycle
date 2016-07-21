@@ -101,7 +101,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initialize];
-    
+
     [self setup];
     
     [self getData];
@@ -171,6 +171,7 @@
 
     if (pageType == 0) {
         //能量圈
+        [SVProgressHUD showWithStatus:@""];
         NSString * jingxuan = [NSString stringWithFormat:@"%@%@?type=2&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"1",@"10"];
         NSString * tuijian = [NSString stringWithFormat:@"%@%@?userId=%@",INTERFACE_URL,GetRecommendUser,@"0"];
         NSString * zuixin = [NSString stringWithFormat:@"%@%@?type=1&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"1",@"10"];
@@ -242,6 +243,7 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 NSLog(@"tableview reloaddata");
                 self.tableView.hidden = NO;
+                [SVProgressHUD dismiss];
                 [self.tableView reloadData];
                 [self.tableView.mj_header endRefreshing];
             }];
@@ -255,6 +257,8 @@
         
     }else {
         //关注的人
+        [SVProgressHUD showWithStatus:@""];
+
         if ([User_TOKEN length] <= 0) {
             [SVProgressHUD showImage:nil status:@"您还未登录，暂无数据"];
             [self.tableView reloadData];
@@ -273,17 +277,18 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
-
+                [SVProgressHUD dismiss];
             });
             
         } failure:^(NSString *str) {
             
         }];
-        
     }
 }
 
+
 - (ECTimeLineModel*)sortByData:(NSDictionary*)data {
+    
     ECTimeLineModel*model = [ECTimeLineModel new];
     model.iconName = data[@"photoUrl"];
     model.name = data[@"nickName"];
@@ -667,13 +672,13 @@
         }
         
         NSString*aid = model.ID;
-        
+        [delegate.tabbarController hideTabbar:YES];
+
         WebVC *webVC = MainStoryBoard(@"WebVC");
         webVC.titleName = @"动态详情";
         webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,aid,[NSString stringWithFormat:@"%@",User_ID]];
         [self.navigationController pushViewController:webVC animated:YES];
         
-        [delegate.tabbarController hideTabbar:YES];
     }
 }
 
@@ -954,10 +959,32 @@
     if ([User_TOKEN length] <= 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
     }else {
-        PostingViewController * postView = MainStoryBoard(@"EnergyCycleViewToPostView");
-        [self presentViewController:postView animated:YES completion:nil];
+        
+        PostingViewController * postView = MainStoryBoard(@"ECPostingViewController");
+        
+        UIViewController * viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        [viewController presentViewController:postView animated:YES completion:nil];
+        
+        
+        //        [postView.view mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.view.mas_left);
+//            make.right.equalTo(self.view.mas_right);
+//            make.top.equalTo(self.view.mas_bottom);
+//            make.height.equalTo(self.view.mas_height);
+//
+//        }];
+        
+//        [UIView animateWithDuration:0.25 animations:^{
+//            [postView.view mas_updateConstraints:^(MASConstraintMaker *make) {
+//                make.left.equalTo(self.view.mas_left);
+//                make.right.equalTo(self.view.mas_right);
+//                make.top.equalTo(self.view.mas_top);
+//                make.bottom.equalTo(self.view.mas_bottom);
+//                
+//            }];
+//            [postView.view layoutIfNeeded];
+//        }];
     }
-    
 }
 
 

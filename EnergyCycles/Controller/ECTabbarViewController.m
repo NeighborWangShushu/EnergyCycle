@@ -45,8 +45,8 @@
             [self.tabbar mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.view.mas_left);
                 make.right.equalTo(self.view.mas_right);
-                make.bottom.equalTo(self.view.mas_bottom).with.offset(70);
-                make.height.equalTo(@60);
+                make.bottom.equalTo(self.view.mas_bottom).with.offset(65);
+                make.height.equalTo(@55);
             }];
             [self.tabbar layoutIfNeeded];
         }];
@@ -56,7 +56,7 @@
                 make.left.equalTo(self.view.mas_left);
                 make.right.equalTo(self.view.mas_right);
                 make.bottom.equalTo(self.view.mas_bottom).with.offset(0);
-                make.height.equalTo(@60);
+                make.height.equalTo(@55);
             }];
             [self.tabbar layoutIfNeeded];
         }];
@@ -84,7 +84,7 @@
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.bottom.equalTo(self.view.mas_bottom);
-        make.height.equalTo(@60);
+        make.height.equalTo(@55);
     }];
     
     _arrayViewcontrollers = [self getViewcontrollers];
@@ -115,15 +115,23 @@
     self.selctedIndex = index;
     UIView* currentView = [self.view viewWithTag:SELECTED_VIEW_CONTROLLER_TAG];
     [currentView removeFromSuperview];
-    NSLog(@"view subviews:%ld",[self.view.subviews count]);
+    
     
     NSDictionary* data = [_arrayViewcontrollers objectAtIndex:index];
     
     UIViewController *viewController = data[@"viewController"];
     viewController.view.tag = SELECTED_VIEW_CONTROLLER_TAG;
-    viewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height- 50);
-    
     [self.view insertSubview:viewController.view belowSubview:_tabbar];
+    
+    [viewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.top.equalTo(self.view.mas_top);
+        make.bottom.equalTo(_tabbar.mas_top).with.offset(0);
+
+        
+    }];
     
 }
 

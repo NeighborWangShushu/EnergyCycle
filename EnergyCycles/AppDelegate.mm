@@ -41,7 +41,6 @@ AppDelegate *EnetgyCycle = nil;
     [WeiboSDK enableDebugMode:YES];
     [WeiboSDK registerApp:APP_KEY_WEIBO];
     [XMShareQQUtil sharedInstance];
-
     
     self.audioPlayIndex = -1;
     //进入引导页
@@ -157,8 +156,8 @@ AppDelegate *EnetgyCycle = nil;
                 if (userInfo == nil || [userInfo isKindOfClass:[NSNull class]] || [userInfo isEqual:[NSNull null]]) {
                     [SVProgressHUD showImage:nil status:@"微博登录失败"];
                 }else {
-                    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
                     
+                    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
                     [dict setObject:userInfo.userID forKey:@"openId"];
                     [dict setObject:userInfo.screenName forKey:@"nickname"];
                     [dict setObject:userInfo.profileImageUrl forKey:@"photoUrl"];
