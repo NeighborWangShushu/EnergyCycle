@@ -121,6 +121,8 @@
         if (indexPath.row == 0) { // 能量圈
             EnergyPostTableViewController *enVC = [[EnergyPostTableViewController alloc] init];
 //            [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self  userInfo:@{@"userId" : self.model.use_id}];
+            enVC.userId = self.model.use_id;
+            enVC.isMineTableView = YES;
             [self.navigationController pushViewController:enVC animated:YES];
         } else if (indexPath.row == 1) { // 关注
             AttentionAndFansTableViewController *afVC = [[AttentionAndFansTableViewController alloc] init];

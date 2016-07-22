@@ -29,11 +29,11 @@
     self.introLabel.text = userModel.Brief;
     
     // 是否关注
-    [self.isAttention setImage:[UIImage imageNamed:@"attention"] forState:UIControlStateNormal];
+    [self.isAttention setImage:[UIImage imageNamed:@"attentionButton"] forState:UIControlStateNormal];
     
     self.attention = YES;
     
-    if ([userModel.use_id isEqualToString:[[NSNumberFormatter alloc] stringFromNumber:User_ID]]) {
+    if ([userModel.use_id isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
         self.isAttention.hidden = YES;
     }
     
@@ -61,14 +61,14 @@
     
     // 是否关注
     if ([userModel.isFriend isEqualToString:@"0"]) {
-        [self.isAttention setImage:[UIImage imageNamed:@"addAttention"] forState:UIControlStateNormal];
+        [self.isAttention setImage:[UIImage imageNamed:@"addAttentionButton"] forState:UIControlStateNormal];
         self.attention = NO;
     } else {
-        [self.isAttention setImage:[UIImage imageNamed:@"attention"] forState:UIControlStateNormal];
+        [self.isAttention setImage:[UIImage imageNamed:@"attentionButton"] forState:UIControlStateNormal];
         self.attention = YES;
     }
     
-    if ([userModel.use_id isEqualToString:[[NSNumberFormatter alloc] stringFromNumber:User_ID]]) {
+    if ([userModel.use_id isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
         self.isAttention.hidden = YES;
     }
     
@@ -95,14 +95,14 @@
     
     // 是否关注
     if ([otherUserModel.isHeart isEqualToString:@"1"]) {
-        [self.isAttention setImage:[UIImage imageNamed:@"attention"] forState:UIControlStateNormal];
+        [self.isAttention setImage:[UIImage imageNamed:@"attentionButton"] forState:UIControlStateNormal];
         self.attention = YES;
     } else if ([otherUserModel.isHeart isEqualToString:@"0"]) {
-        [self.isAttention setImage:[UIImage imageNamed:@"addAttention"] forState:UIControlStateNormal];
+        [self.isAttention setImage:[UIImage imageNamed:@"addAttentionButton"] forState:UIControlStateNormal];
         self.attention = NO;
     }
     
-    if ([otherUserModel.userId isEqualToString:[[NSNumberFormatter alloc] stringFromNumber:User_ID]]) {
+    if ([otherUserModel.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
         self.isAttention.hidden = YES;
     }
     
@@ -115,7 +115,7 @@
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 [SVProgressHUD showImage:nil status:@"已取消关注"];
                 self.attention = NO;
-                [self.isAttention setImage:[UIImage imageNamed:@"addAttention"] forState:UIControlStateNormal];
+                [self.isAttention setImage:[UIImage imageNamed:@"addAttentionButton"] forState:UIControlStateNormal];
             }else {
                 [SVProgressHUD showImage:nil status:dict[@"Msg"]];
             }
@@ -127,7 +127,7 @@
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 [SVProgressHUD showImage:nil status:@"关注成功"];
                 self.attention = YES;
-                [self.isAttention setImage:[UIImage imageNamed:@"attention"] forState:UIControlStateNormal];
+                [self.isAttention setImage:[UIImage imageNamed:@"attentionButton"] forState:UIControlStateNormal];
             }else {
                 [SVProgressHUD showImage:nil status:dict[@"Msg"]];
             }
