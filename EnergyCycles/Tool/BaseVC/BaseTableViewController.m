@@ -22,7 +22,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:title
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
-                                                                            action:@selector(rightAction)];
+                                                                            action:@selector(leftAction)];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 #pragma mark - 左边button-图片
@@ -30,7 +30,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
-                                                                             action:@selector(rightAction)];
+                                                                             action:@selector(leftAction)];
     self.navigationController.navigationBar.tintColor = [UIColor clearColor];
 }
 #pragma mark - 左边button-响应事件

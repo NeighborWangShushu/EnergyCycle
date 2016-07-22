@@ -59,6 +59,7 @@
     _likeLabel = [MLLinkLabel new];
     _likeLabel.delegate = self;
     _likeLabel.font = [UIFont systemFontOfSize:sdLikeLabelTextFontSize];
+    _likeLabel.font = [UIFont systemFontOfSize:14];
     _likeLabel.linkTextAttributes = @{NSForegroundColorAttributeName : TimeLineCellHighlightedColor};
     [self addSubview:_likeLabel];
     

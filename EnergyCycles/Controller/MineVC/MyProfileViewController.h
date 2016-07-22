@@ -7,12 +7,13 @@
 //
 
 #import "BaseViewController.h"
+#import "UserModel.h"
 
 @interface MyProfileViewController : BaseViewController {
     IBOutlet UITableView *mineProfileTableView;
 }
 
 @property (nonatomic, strong) NSMutableDictionary *inforDict;
-
+@property (nonatomic, strong) UserModel *model;
 
 @end

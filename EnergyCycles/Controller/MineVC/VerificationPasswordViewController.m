@@ -8,7 +8,7 @@
 
 #import "VerificationPasswordViewController.h"
 
-@interface VerificationPasswordViewController ()
+@interface VerificationPasswordViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
@@ -41,12 +41,23 @@
     }
 }
 
+// 限制文本框输入的字符长度
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.length + range.location > textField.text.length) {
+        return NO;
+    }
+    
+    NSUInteger newLength = textField.text.length + string.length - range.length;
+    return newLength <= 19;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"账号管理";
     
     self.passwordField.secureTextEntry = YES;
+    self.passwordField.delegate = self;
     
     // Do any additional setup after loading the view.
 }

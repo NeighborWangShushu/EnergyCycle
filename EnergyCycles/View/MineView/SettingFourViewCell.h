@@ -12,7 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *leftLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *rightLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *rightSwitch;
+
 
 // 获取数据
 - (void)updateDataWithJudge:(BOOL)judge;

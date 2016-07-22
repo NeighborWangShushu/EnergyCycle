@@ -15,27 +15,33 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="个人资料" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNw-CU-bEV">
-                        <rect key="frame" x="20" y="14" width="68" height="21"/>
+                        <rect key="frame" x="31" y="14" width="68" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="MND-Py-yaS"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sTU-wH-nq4">
-                        <rect key="frame" x="280" y="14" width="20" height="20"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Myjiantou.png" translatesAutoresizingMaskIntoConstraints="NO" id="sTU-wH-nq4">
+                        <rect key="frame" x="293" y="18" width="8" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="dQv-EY-nQf"/>
                             <constraint firstAttribute="width" constant="20" id="ikH-gV-mt1"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="dQv-EY-nQf"/>
+                                <exclude reference="ikH-gV-mt1"/>
+                            </mask>
+                        </variation>
                     </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="sTU-wH-nq4" firstAttribute="centerY" secondItem="qNw-CU-bEV" secondAttribute="centerY" id="5nV-EA-3Rx"/>
-                    <constraint firstAttribute="trailing" secondItem="sTU-wH-nq4" secondAttribute="trailing" constant="20" id="9FP-uN-GWx"/>
+                    <constraint firstAttribute="trailing" secondItem="sTU-wH-nq4" secondAttribute="trailing" constant="19" id="9FP-uN-GWx"/>
                     <constraint firstItem="qNw-CU-bEV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="CHh-Qc-TCJ"/>
-                    <constraint firstItem="qNw-CU-bEV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="o3R-A5-kRw"/>
+                    <constraint firstItem="qNw-CU-bEV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="31" id="o3R-A5-kRw"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -44,4 +50,7 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Myjiantou.png" width="8" height="12"/>
+    </resources>
 </document>

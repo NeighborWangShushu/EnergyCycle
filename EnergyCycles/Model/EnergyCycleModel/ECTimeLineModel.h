@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSMutableArray <ECTimeLineCellLikeItemModel *> *likeItemsArray;
 @property (nonatomic, strong) NSMutableArray <ECTimeLineCellCommentItemModel *> *commentItemsArray;
 
+
 @property (nonatomic, assign) BOOL isOpening;
 
 @property (nonatomic, assign, readonly) BOOL shouldShowMoreButton;

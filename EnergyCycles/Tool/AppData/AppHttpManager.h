@@ -10,9 +10,6 @@
 //单例
 + (AppHttpManager *)shareInstance;
 
-
-
-
 #pragma mark - 服务端请求数据
 - (void)callInterfaceByUrl:(NSString *)requestUrl
                  PostOrGet:(NSString *)type
@@ -1097,17 +1094,59 @@
                          success:(void (^)(NSDictionary *dict))success
                          failure:(void (^)(NSString *str))failure;
 
-#pragma mark - 95.获取推荐用户（2.0版本）
+#pragma mark - 95.修改个人简介
+//请求参数:
+//把参数直接放到Body里面(Json格式)
+//UserID   int     用户ID
+//token    string  令牌
+//Brief    string  简介
+- (void)changeBriefWithUserid:(int)userid
+                        Token:(NSString *)token
+                        Brief:(NSString *)brief
+                    PostOrGet:(NSString *)postOrGetType
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 96.获取用户粉丝/关注/能连贴等数量
+//请求参数
+//把参数直接放到Body里面(Json格式)
+//UserID       int  当前登录用户ID
+//OtherUserID  int  其他用户ID
+- (void)getGetUserInfoWithUserid:(int)userid
+                     OtherUserID:(int)otherUserID
+                       PostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 97.修改个人主页背景图片
+//请求参数
+//把参数直接放到Body里面(Json格式)
+//UserID            int     用户ID
+//token             string  令牌
+//BackgroundImg     string  图片地址
+- (void)changeBackgroundImgWithUserid:(int)userid
+                                Token:(NSString *)token
+                         BackgroundImg:(NSString *)backgroundImg
+                            PostOrGet:(NSString *)postOrGetType
+                              success:(void (^)(NSDictionary *dict))success
+                              failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 98.获取能量圈列表(查看其他人的能量圈)
 //请求参数：
-//把参数直接放到Body里面（Json格式）
-//必选	类型及范围	说明
-//userid	true	String	用户ID  0=未登录  否则传id
-
-
-- (void)getCommentUsers:(NSString*)userid
-              PostOrGet:(NSString *)postOrGetType
-                success:(void (^)(NSDictionary *dict))success
-                failure:(void (^)(NSString *str))failure;
-
+//type  // 1-最新 2-最热 3-精选 4-关注
+//userid  //用户id  (当type=4的时候需要传)
+//otherUserId  // 其他用户id
+//token   //用户token     (当type=4的时候需要传)
+//pageIndex  //页码
+//pageSize   //每页显示数
+- (void)getGetArticleListWithType:(NSString *)type
+                           Userid:(NSString *)userid
+                      OtherUserId:(NSString *)otherUserId
+                            Token:(NSString *)token
+                        PageIndex:(NSString *)pageIndex
+                         PageSize:(NSString *)pageSize
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure;
 
 @end

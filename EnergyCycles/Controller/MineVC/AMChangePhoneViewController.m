@@ -36,11 +36,20 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"账号管理";
+//    NSString *addCipher = [[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"];
+//    self.phoneNumberLabel.text = [addCipher stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+//    NSLog(@"phone number %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"]);
     
-    self.phoneNumberLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"];
-    NSLog(@"phone number %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"]);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTextAndPhone:) name:@"ChangePhoneNumber" object:nil];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)changeTextAndPhone:(NSNotification *)notification {
+    NSDictionary *dic = notification.userInfo;
+    NSString *addCipher = dic[@"phone"];
+    self.phoneNumberLabel.text = [addCipher stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+    self.textLabel.text = dic[@"text"];
 }
 
 - (void)didReceiveMemoryWarning {

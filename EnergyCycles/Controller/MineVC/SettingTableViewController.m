@@ -15,7 +15,7 @@
 
 #import "CacheManager.h"
 
-@interface SettingTableViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface SettingTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
 @end
 
@@ -37,7 +37,7 @@
 
 // 每一组的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10.f;
+    return 14.f;
 }
 
 // 每一行的高度
@@ -51,6 +51,20 @@
         return 15.f;
     }
     return 0;
+}
+
+// 设置分区头的View
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
+    return view;
+}
+
+// 设置分区尾的View
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
+    return view;
 }
 
 // 每行的内容
@@ -92,15 +106,6 @@
             
             return cell;
         }
-    } else if (indexPath.section == 3) { // 退出当前账号
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = @"退出当前账号";
-        cell.textLabel.font = [UIFont systemFontOfSize:16];
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [UIColor redColor];
-        
-        return cell;
     }
     
     static NSString *twoViewCell = @"twoViewCell";
@@ -116,17 +121,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row == 1) {
-//            [self performSegueWithIdentifier:@"AMChangePhoneViewController" sender:nil];
-            [self performSegueWithIdentifier:@"AMBoundPhoneViewController" sender:nil];
+        if (indexPath.row == 0) { // 个人资料
+            [self performSegueWithIdentifier:@"MyProfileViewController" sender:nil];
         }
-    } else if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
-            [CacheManager cleadDisk];
-            NSLog(@"clear");
-            [self.tableView reloadData];
+        if (indexPath.row == 1) { // 账号管理
+            [self performSegueWithIdentifier:@"AMChangePhoneViewController" sender:nil];
+//            [self performSegueWithIdentifier:@"AMBoundPhoneViewController" sender:nil];
         }
-    } else if (indexPath.section == 1) {
+    } else if (indexPath.section == 1) { // 消息推送
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
             if ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications] == NO) {
                 UIUserNotificationSettings *setting = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge categories:nil];
@@ -145,15 +147,72 @@
             }
             
         }
+    } else if (indexPath.section == 2) { // 意见反馈
+        if (indexPath.row == 0) {
+            [self clearDisk];
+        } else if (indexPath.row == 1) {
+            [self performSegueWithIdentifier:@"IWillAdviseViewController" sender:nil];
+        } else if (indexPath.row == 2) {
+            [self performSegueWithIdentifier:@"AboutViewController" sender:nil];
+        }
+    } else { // 确认退出
+        [self exit];
     }
     
 }
 
+// 退出登录
+- (void)exit {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *exitAction = [UIAlertAction actionWithTitle:@"确认退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"USERID"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"TOKEN"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"PHONE"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"PASSWORD"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"UserPowerSource"];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"isUnLoginSetAPService" object:nil];
+        EnetgyCycle.energyTabBar.selectedIndex = 0;
+        [self.tableView reloadData];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:exitAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
+// 清理缓存
+- (void)clearDisk {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认清除缓存" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *exitAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [CacheManager cleadDisk];
+        [self.tableView reloadData];
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:exitAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
+    self.title = @"设置";
+    self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     // Do any additional setup after loading the view.
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -26,6 +26,9 @@
     
     self.navigationItem.title = @"账号管理";
     
+    [self.boundSuccess.text stringByReplacingCharactersInRange:NSMakeRange(6, 11) withString:[[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"]];
+    [self.boundSuccess.text stringByReplacingCharactersInRange:NSMakeRange(9, 4) withString:@"****"];
+    
     // Do any additional setup after loading the view.
 }
 
