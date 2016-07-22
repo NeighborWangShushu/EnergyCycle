@@ -30,9 +30,14 @@
     return _dataArr;
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     // 设置tableView中cell的线条隐藏
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     

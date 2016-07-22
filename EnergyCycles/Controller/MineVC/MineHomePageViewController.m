@@ -270,6 +270,10 @@
     self.mineView.userInteractionEnabled = NO;
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)moreButton {
     UIImage *image = [UIImage imageNamed:@"more"];
     UIBarButtonItem *moreButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickMoreButton)];
@@ -285,6 +289,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     self.automaticallyAdjustsScrollViewInsets = NO;
 //    self.navigationController.navigationBar.translucent = YES;
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
@@ -384,6 +390,9 @@
     }
     
 }
+
+
+
 - (void)changeBackgoundImage:(NSString *)backgroundImage {
     [[AppHttpManager shareInstance] changeBackgroundImgWithUserid:[self.model.use_id intValue] Token:self.model.token BackgroundImg:backgroundImage PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {

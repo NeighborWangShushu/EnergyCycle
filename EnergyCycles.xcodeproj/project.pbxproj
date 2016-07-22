@@ -821,7 +821,6 @@
 		D083521C1D2D195B0094AC2E /* ec_comment_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D083521A1D2D195B0094AC2E /* ec_comment_arrow@3x.png */; };
 		D08352201D2D25340094AC2E /* CommentCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D083521E1D2D25340094AC2E /* CommentCollectionCell.m */; };
 		D08352211D2D25340094AC2E /* CommentCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D083521F1D2D25340094AC2E /* CommentCollectionCell.xib */; };
-		D08352241D2D27170094AC2E /* CommentUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D08352231D2D27170094AC2E /* CommentUserModel.m */; };
 		D08352451D2F909E0094AC2E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D083522F1D2F909E0094AC2E /* Info.plist */; };
 		D08352461D2F909E0094AC2E /* MJExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = D08352321D2F909E0094AC2E /* MJExtensionConst.m */; };
 		D08352471D2F909E0094AC2E /* MJFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08352341D2F909E0094AC2E /* MJFoundation.m */; };
@@ -2505,8 +2504,6 @@
 		D083521D1D2D25340094AC2E /* CommentCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCollectionCell.h; sourceTree = "<group>"; };
 		D083521E1D2D25340094AC2E /* CommentCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCollectionCell.m; sourceTree = "<group>"; };
 		D083521F1D2D25340094AC2E /* CommentCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCollectionCell.xib; sourceTree = "<group>"; };
-		D08352221D2D27170094AC2E /* CommentUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentUserModel.h; sourceTree = "<group>"; };
-		D08352231D2D27170094AC2E /* CommentUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentUserModel.m; sourceTree = "<group>"; };
 		D083522F1D2F909E0094AC2E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08352301D2F909E0094AC2E /* MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtension.h; sourceTree = "<group>"; };
 		D08352311D2F909E0094AC2E /* MJExtensionConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConst.h; sourceTree = "<group>"; };
@@ -3777,8 +3774,6 @@
 				D04B54E51D23CF2F00DC259A /* ECTimeLineCellCommentItemModel.m */,
 				D04B54E71D23CF5800DC259A /* ECTimeLineCellLikeItemModel.h */,
 				D04B54E81D23CF5800DC259A /* ECTimeLineCellLikeItemModel.m */,
-				D08352221D2D27170094AC2E /* CommentUserModel.h */,
-				D08352231D2D27170094AC2E /* CommentUserModel.m */,
 				D05B9CF61D34C74F00A88A10 /* ECNavMenuModel.h */,
 				D05B9CF71D34C74F00A88A10 /* ECNavMenuModel.m */,
 			);
@@ -3888,11 +3883,6 @@
 				62724E681D41BBE800E84202 /* more@3x.png */,
 				625750BC1D337F6200E46B2E /* Group.png */,
 				625750BD1D337F6200E46B2E /* Group@3x.png */,
-				D010F3161D2B988500CA5D7C /* ec_share@2x.png */,
-				D010F3171D2B988500CA5D7C /* ec_share@3x.png */,
-				D00591701D25454000F91692 /* ec_like@2x.png */,
-				D00591711D25454000F91692 /* ec_msg_highlight@2x.png */,
-				D00591721D25454000F91692 /* ec_msg_normal@2x.png */,
 				D00591731D25454000F91692 /* ec_search@2x.png */,
 				D00591741D25454000F91692 /* ec_sign@2x.png */,
 				D00591751D25454000F91692 /* location_icon@2x.png */,
@@ -6868,7 +6858,6 @@
 				DA7674EE1C27F21A00A34D9C /* cha@3x.png in Resources */,
 				26D8B1F41C0FEEE900A1DB04 /* 05_2@2x.png in Resources */,
 				26D8B2491C0FEEE900A1DB04 /* 27_1@3x.png in Resources */,
-				26E987A11C0DAD2400C6A7BB /* tabbar_pressed_1@3x.png in Resources */,
 				62FCE90A1D3CAFB900F52E05 /* AttentionAndFansTableViewCell.xib in Resources */,
 				DA8103A51C2BABD300CFFF44 /* loginicon@2x.png in Resources */,
 				625750EF1D33886400E46B2E /* paihang@3x.png in Resources */,
@@ -6958,7 +6947,6 @@
 				D029BC5C1D37BB0500B20D65 /* ec_like@3x.png in Resources */,
 				DA3190E41C22A54D00972F63 /* loginqq@3x.png in Resources */,
 				62724E691D41BBE800E84202 /* more@3x.png in Resources */,
-				26E9879D1C0DAD2400C6A7BB /* tabbar_normal_3@3x.png in Resources */,
 				D077C5931D1D613C00303A90 /* 6_03.png in Resources */,
 				DA9A95251C23ABEE00FBE107 /* gengxin@2x.png in Resources */,
 				26D8B2241C0FEEE900A1DB04 /* 18_1@2x.png in Resources */,
@@ -7979,7 +7967,6 @@
 				D07E24861D13DB2300854B51 /* UIView+SDExtension.m in Sources */,
 				D07EB2841D18DE6800840AC2 /* MessagesViewController.m in Sources */,
 				26E987821C0D933D00C6A7BB /* CustomChooseClassView.m in Sources */,
-				D08352241D2D27170094AC2E /* CommentUserModel.m in Sources */,
 				26D99EDA1C0C4D7B007AF579 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				D07E23F31D10EEDD00854B51 /* LearnVC.m in Sources */,
 				D04B54D41D23C90D00DC259A /* NSString+MLExpression.m in Sources */,

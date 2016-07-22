@@ -21,13 +21,9 @@
 @property (nonatomic, copy)NSString *ID;
 @property (nonatomic, assign, getter = isLiked) BOOL liked;
 
-<<<<<<< HEAD
 @property (nonatomic, strong) NSMutableArray <ECTimeLineCellLikeItemModel *> *likeItemsArray;
 @property (nonatomic, strong) NSMutableArray <ECTimeLineCellCommentItemModel *> *commentItemsArray;
-=======
-@property (nonatomic, strong) NSMutableArray<ECTimeLineCellLikeItemModel *> *likeItemsArray;
-@property (nonatomic, strong) NSMutableArray<ECTimeLineCellCommentItemModel *> *commentItemsArray;
->>>>>>> wangbin
+
 
 @property (nonatomic, assign) BOOL isOpening;
 

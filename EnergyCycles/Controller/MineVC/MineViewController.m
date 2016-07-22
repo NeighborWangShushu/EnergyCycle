@@ -54,6 +54,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     mineTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     mineTableView.showsVerticalScrollIndicator = NO;
     mineTableView.showsHorizontalScrollIndicator = NO;
