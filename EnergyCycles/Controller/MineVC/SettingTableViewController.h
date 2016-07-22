@@ -1,5 +1,5 @@
 //
-//  SettingViewController.h
+//  SettingTableViewController.h
 //  EnergyCycles
 //
 //  Created by 王斌 on 16/7/5.
@@ -8,6 +8,6 @@
 
 #import "BaseTableViewController.h"
 
-@interface SettingViewController : BaseTableViewController
+@interface SettingTableViewController : BaseTableViewController
 
 @end

@@ -6,31 +6,41 @@
 //  Copyright © 2016年 GSD. All rights reserved.
 //
 
-/*
- 
- *********************************************************************************
- *
- * GSD_WeiXin
- *
- * QQ交流群: 459274049
- * Email : gsdios@126.com
- * GitHub: https://github.com/gsdios/GSD_WeiXin
- * 新浪微博:GSD_iOS
- *
- * 此“高仿微信”用到了很高效方便的自动布局库SDAutoLayout（一行代码搞定自动布局）
- * SDAutoLayout地址：https://github.com/gsdios/SDAutoLayout
- * SDAutoLayout视频教程：http://www.letv.com/ptv/vplay/24038772.html
- * SDAutoLayout用法示例：https://github.com/gsdios/SDAutoLayout/blob/master/README.md
- *
- *********************************************************************************
- 
- */
 
 #import <UIKit/UIKit.h>
 
 #import "GlobalDefines.h"
+#import "ECTimeLineCellCommentItemModel.h"
+
+@protocol SDTimeLineCellCommentViewDelegate <NSObject>
+
+
+
+/**
+ *  点击评论人的名字或者点赞人的名字
+ *
+ *  @param linkId   评论人或者点赞人的id
+ *  @param linkName 评论人或者点赞人的名称
+ */
+
+
+- (void)didClickLink:(NSString*)linkId linkName:(NSString*)linkName;
+
+
+/**
+ *  点击回复
+ *
+ *  @param model 该条回复的model数据，里面包括回复人和被回复人的相关信息
+ */
+
+- (void)didChooseReplyItem:(ECTimeLineCellCommentItemModel*)model;
+
+@end
 
 @interface SDTimeLineCellCommentView : UIView
+
+@property (nonatomic,assign)id<SDTimeLineCellCommentViewDelegate>delegate;
+
 
 - (void)setupWithLikeItemsArray:(NSArray *)likeItemsArray commentItemsArray:(NSArray *)commentItemsArray;
 

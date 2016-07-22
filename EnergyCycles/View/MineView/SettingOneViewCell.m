@@ -1,14 +1,19 @@
 //
-//  MinePersonDataViewCell.m
+//  SettingOneViewCell.m
 //  EnergyCycles
 //
 //  Created by 王斌 on 16/7/5.
 //  Copyright © 2016年 Apple. All rights reserved.
 //
 
-#import "MinePersonDataViewCell.h"
+#import "SettingOneViewCell.h"
 
-@implementation MinePersonDataViewCell
+@implementation SettingOneViewCell
+
+- (void)updateDataWithString:(NSString *)string {
+    self.leftLabel.text = @"我的邀请码";
+    self.rightLabel.text = string;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

@@ -2416,7 +2416,202 @@ static AFHTTPRequestOperationManager *manager;
                      }];
 }
 
+#pragma mark - 92.更换手机号
+//接口请求参数
+//把参数直接放到Body里面（Json格式）
+//必选  类型及范围   说明
+//UserID  true    int 用户ID
+//Token   true    string  令牌
+//Phone   true    string  用户id
+- (void)changePhoneNumberWithUserid:(int)userid
+                              Token:(NSString *)token
+                              Phone:(NSString *)phone
+                          PostOrGet:(NSString *)postOrGetType
+                            success:(void (^)(NSDictionary *dict))success
+                            failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:phone forKey:@"phone"];
+    
+    [self callInterfaceByUrl:ChangePhoneNumber
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict){
+                         success(dict);
+                     }failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
 
+#pragma mark - 93.更换、绑定手机号时发送验证码
+//接口请求参数
+//把参数直接放到Body里面（Json格式）
+//必选  类型及范围   说明
+//phoneNo string 用户id
+//type  int 验证码类型
+- (void)getVerificationCodeWithPhoneNo:(NSString *)phoneNo
+                                  Type:(int)type
+                         PostOrGet:(NSString *)postOrGetType
+                            success:(void (^)(NSDictionary *dict))success
+                            failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:phoneNo forKey:@"phoneNo"];
+    [dic setObject:[NSNumber numberWithInt:type] forKey:@"type"];
+    
+    [self callInterfaceByUrl:GetVerificationCode
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict){
+                         success(dict);
+                     }failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 94.修改密码、绑定手机号
+//请求参数：
+//把参数直接放到Body里面（Json格式）
+//必选	类型及范围	说明
+//UserID	true	int	用户ID
+//Token	true	string	令牌
+//Pwd	true	string	用户密码
+//Phone true    string  用户手机号
+- (void)changePasswordWithUserid:(int)userid
+                           Token:(NSString *)token
+                             Pwd:(NSString *)pwd
+                           Phone:(NSString *)phone
+                          PostOrGet:(NSString *)postOrGetType
+                            success:(void (^)(NSDictionary *dict))success
+                            failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:pwd forKey:@"pwd"];
+    [dic setObject:phone forKey:@"phone"];
+    
+    [self callInterfaceByUrl:ChangePassword
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict){
+                         success(dict);
+                     }failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 95.修改个人简介
+//请求参数:
+//把参数直接放到Body里面(Json格式)
+//UserID   int     用户ID
+//token    string  令牌
+//Brief    string  简介
+- (void)changeBriefWithUserid:(int)userid
+                        Token:(NSString *)token
+                        Brief:(NSString *)brief
+                    PostOrGet:(NSString *)postOrGetType
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:brief forKey:@"Brief"];
+    
+    [self callInterfaceByUrl:ChangeBrief
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict){
+                         success(dict);
+                     }failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 96.获取用户粉丝/关注/能连贴等数量
+//请求参数
+//把参数直接放到Body里面(Json格式)
+//UserID       int  当前登录用户ID
+//OtherUserID  int  其他用户ID
+- (void)getGetUserInfoWithUserid:(int)userid
+                     OtherUserID:(int)otherUserID
+                       PostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:[NSNumber numberWithInt:otherUserID] forKey:@"otherUserID"];
+    
+    [self callInterfaceByUrl:UserInfo_Get
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                        success(dict);
+                    } failure:^(NSString *str) {
+                        failure(str);
+                    }];
+}
+
+#pragma mark - 97.修改个人主页背景图片
+//请求参数
+//把参数直接放到Body里面(Json格式)
+//UserID            int     用户ID
+//token             string  令牌
+//BackgroundImg     string  图片地址
+- (void)changeBackgroundImgWithUserid:(int)userid
+                                Token:(NSString *)token
+                        BackgroundImg:(NSString *)backgroundImg
+                            PostOrGet:(NSString *)postOrGetType
+                              success:(void (^)(NSDictionary *dict))success
+                              failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:backgroundImg forKey:@"BackgroundImg"];
+    
+    [self callInterfaceByUrl:ChangeBackgroundImg
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+}
+
+#pragma mark - 98.获取能量圈列表(查看其他人的能量圈)
+//请求参数：
+//type  // 1-最新 2-最热 3-精选 4-关注
+//userid  //用户id  (当type=4的时候需要传)
+//otherUserId  // 其他用户id
+//token   //用户token     (当type=4的时候需要传)
+//pageIndex  //页码
+//pageSize   //每页显示数
+- (void)getGetArticleListWithType:(NSString *)type
+                           Userid:(NSString *)userid
+                      OtherUserId:(NSString *)otherUserId
+                            Token:(NSString *)token
+                        PageIndex:(NSString *)pageIndex
+                         PageSize:(NSString *)pageSize
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:type forKey:@"type"];
+    [dic setObject:userid forKey:@"userId"];
+    [dic setObject:otherUserId forKey:@"otherUserId"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:pageIndex forKey:@"pageIndex"];
+    [dic setObject:pageSize forKey:@"pageSize"];
+    
+    [self callInterfaceByUrl:GetArticleList
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
 
 
 @end
