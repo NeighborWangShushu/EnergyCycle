@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UserModel.h"
+#import "UserInfoModel.h"
 
 @interface MineHeadTableViewCell : UITableViewCell
 
@@ -19,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *sexImage;
 // 签到
 @property (weak, nonatomic) IBOutlet UILabel *signInLabel;
+// 签到的位置约束
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
 // 地址
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 // 地址图标
@@ -29,10 +32,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *introImage;
 // 简介按钮
 @property (weak, nonatomic) IBOutlet UIButton *introButton;
-// 简介的位置约束
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
+
 
 // 获取数据
 - (void)updateDataWithModel:(UserModel *)model
-                     signIn:(NSInteger)signIn;
+                  infoModel:(UserInfoModel *)infoModel;
 @end

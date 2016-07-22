@@ -2577,4 +2577,41 @@ static AFHTTPRequestOperationManager *manager;
                          failure(str);
                      }];
 }
+
+#pragma mark - 98.获取能量圈列表(查看其他人的能量圈)
+//请求参数：
+//type  // 1-最新 2-最热 3-精选 4-关注
+//userid  //用户id  (当type=4的时候需要传)
+//otherUserId  // 其他用户id
+//token   //用户token     (当type=4的时候需要传)
+//pageIndex  //页码
+//pageSize   //每页显示数
+- (void)getGetArticleListWithType:(NSString *)type
+                           Userid:(NSString *)userid
+                      OtherUserId:(NSString *)otherUserId
+                            Token:(NSString *)token
+                        PageIndex:(NSString *)pageIndex
+                         PageSize:(NSString *)pageSize
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:type forKey:@"type"];
+    [dic setObject:userid forKey:@"userId"];
+    [dic setObject:otherUserId forKey:@"otherUserId"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:pageIndex forKey:@"pageIndex"];
+    [dic setObject:pageSize forKey:@"pageSize"];
+    
+    [self callInterfaceByUrl:GetArticleList
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+
 @end

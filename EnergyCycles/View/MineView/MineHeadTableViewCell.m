@@ -12,7 +12,7 @@
 @implementation MineHeadTableViewCell
 
 - (void)updateDataWithModel:(UserModel *)model
-                     signIn:(NSInteger)signIn {
+                  infoModel:(UserInfoModel *)infoModel {
     // 头像
     if (model.photourl == NULL) {
         self.headImage.imageView.image = [UIImage imageNamed:@"touxiang"];
@@ -25,22 +25,26 @@
     // 性别
     if ([model.sex isEqualToString:@"男"]) {
         self.sexImage.image = [UIImage imageNamed:@"man"];
+        self.constraint.constant = 32;
     } else if ([model.sex isEqualToString:@"女"]) {
         self.sexImage.image = [UIImage imageNamed:@"woman"];
+        self.constraint.constant = 32;
     } else {
         self.sexImage.image = [UIImage imageNamed:@""];
+        self.constraint.constant = 14;
     }
     // 签到
-    if (signIn == 0) {
+    if ([infoModel.AS_CONTINUONS integerValue] == 0) {
         self.signInLabel.text = @"";
     } else {
-        self.signInLabel.text = [NSString stringWithFormat:@"连续签到%ld天",signIn];
+        self.signInLabel.text = [NSString stringWithFormat:@"连续签到%ld天",[infoModel.AS_CONTINUONS integerValue]];
     }
     // 地址
     if (model.city == NULL) {
-        self.constraint.constant = 6;
-        self.addressImage.hidden = YES;
-        self.addressLabel.hidden = YES;
+//        self.constraint.constant = 6;
+//        self.addressImage.hidden = YES;
+//        self.addressLabel.hidden = YES;
+        self.addressLabel.text = @"暂无数据";
     } else {
         self.addressLabel.text = model.city;
     }

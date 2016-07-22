@@ -38,8 +38,6 @@
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
-@property (nonatomic, copy) NSString *userId;
-
 @end
 
 @implementation EnergyPostTableViewController
@@ -57,7 +55,28 @@
     NSDictionary *dic = notification.userInfo;
     NSString *userId = dic[@"userId"];
     self.userId = userId;
-    [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [self getDateWithUserId:self.userId];
+}
+
+- (void)getDateWithUserId:(NSString *)userId {
+//    [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
+//        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
+//            for (NSDictionary *data in dict[@"Data"]) {
+//                ECTimeLineModel *model = [self sortByData:data];
+//                [self.dataArray addObject:model];
+//            }
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self.tableView reloadData];
+//            });
+//        } else {
+//            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+//        }
+//    } failure:^(NSString *str) {
+//        NSLog(@"%@", str);
+//    }];
+    NSNumberFormatter *number = [[NSNumberFormatter alloc] init];
+    [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:[number stringFromNumber:User_ID] OtherUserId:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
             for (NSDictionary *data in dict[@"Data"]) {
                 ECTimeLineModel *model = [self sortByData:data];
@@ -68,7 +87,6 @@
                 [self.tableView reloadData];
             });
         } else {
-            NSLog(@"%@",dic[@"Msg"]);
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
     } failure:^(NSString *str) {
@@ -107,6 +125,7 @@
     model.time = data[@"createTime"];
     model.picNamesArray = data[@"artPic"];
     model.liked = [data[@"isHasLike"] boolValue];
+    NSLog(@"liked is = %@", model.liked ? @"YES" : @"NO");
     NSMutableArray * likeArr = [NSMutableArray array];
     for (NSDictionary * like in data[@"LikeUserList"]) {
         ECTimeLineCellLikeItemModel*likeModel = [ECTimeLineCellLikeItemModel new];
@@ -132,6 +151,7 @@
     [super viewDidLoad];
     
     self.startPage = 0;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getData:) name:@"EnergyPostTableViewController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -162,7 +182,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     id model = self.dataArray[indexPath.row];
     CGFloat height = [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[ECTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
-    NSLog(@"cell Height %f",height);
     return height;
 }
 
@@ -217,7 +236,6 @@
     
     cell.model = self.dataArray[indexPath.row];
     
-    NSLog(@"hight2%f",self.tableView.contentSize.height);
     return cell;
 }
 
@@ -259,12 +277,14 @@
         return;
     }
     selectedLikeModel = model;
+    NSLog(@"2liked is = %@", model.liked ? @"YES" : @"NO");
     [self like:model indexPath:indexPath];
 }
 
 - (void)like:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath{
     
     model.liked = !model.liked;
+    NSLog(@"3liked is = %@", model.liked ? @"YES" : @"NO");
     NSMutableArray * likes = model.likeItemsArray;
     if (!model.liked) {
         //删除点赞名
@@ -272,10 +292,11 @@
             if ([model.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
                 NSLog(@"删除了点赞人%@",model.userName);
                 [likes removeObject:model];
+                break;
             }
         }
         
-    }else {
+    } else {
         //添加点赞名
         ECTimeLineCellLikeItemModel *likeModel = [ECTimeLineCellLikeItemModel new];
         likeModel.userId = [NSString stringWithFormat:@"%@",User_ID];
@@ -299,12 +320,11 @@
 - (void)postLike:(ECTimeLineModel*)model {
     
     NSInteger OpeType = !model.liked;
-    NSLog(@"hight%f",self.tableView.contentSize.height);
+    NSLog(@"4liked is = %@", model.liked ? @"YES" : @"NO");
     [[AppHttpManager shareInstance] postAddLikeOrNoLikeWithType:@"1" OpeType:[NSString stringWithFormat:@"%ld",(long)OpeType] ArticleId:[model.ID intValue] UserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
-        
+        NSLog(@"5liked is = %@", model.liked ? @"YES" : @"NO");
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"mineHomePageReloadView" object:self];
-            NSLog(@"hight%f",self.tableView.contentSize.height);
         });
         
     } failure:^(NSString *str) {
@@ -397,7 +417,6 @@
     
     [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
         NSDictionary*data = dict[@"Data"];
-        NSLog(@"sdfasd%@", data[@"commentList"]);
         ECTimeLineModel*model = [self sortByData:data];
         NSIndexPath*indexPath = [NSIndexPath indexPathForRow:index inSection:section];
         NSLog(@"%@",model.commentItemsArray);

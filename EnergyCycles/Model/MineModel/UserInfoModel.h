@@ -19,5 +19,6 @@
 @property (nonatomic, strong) NSString<Optional> *TuiJianCount;
 @property (nonatomic, strong) NSString<Optional> *Brief;
 @property (nonatomic, strong) NSString<Optional> *MsgCount;
+@property (nonatomic, strong) NSString<Optional> *AS_CONTINUONS;
 
 @end

@@ -68,13 +68,15 @@
         [SVProgressHUD showImage:nil status:@"请将字数限制在200字以内"];
     } else {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-        [SVProgressHUD showWithStatus:@"提交中.."];
+//        [SVProgressHUD showWithStatus:@"提交中.."];
         
         [[AppHttpManager shareInstance] changeBriefWithUserid:[User_ID intValue] Token:User_TOKEN Brief:self.updateIntroString PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 [SVProgressHUD showImage:nil status:@"修改成功"];
                 [self.navigationController popViewControllerAnimated:YES];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadData" object:nil];
+            } else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
             }
         } failure:^(NSString *str) {
             [SVProgressHUD showImage:nil status:@"请检查您的网络"];

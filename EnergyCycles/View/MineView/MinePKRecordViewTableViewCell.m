@@ -28,6 +28,15 @@
     NSString *time = [model.RI_DATE substringToIndex:10];
     self.timeLabel.text = [NSString stringWithFormat:@"最近%@", time];
     
+    [self lineView];
+    
+}
+
+- (void)lineView {
+    UIView *line = [[UIView alloc] init];
+    line.frame = CGRectMake(self.frame.origin.x + 12, self.frame.size.height - 1, self.frame.size.width + 50, 1);
+    line.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.2];
+    [self.contentView addSubview:line];
 }
 
 - (void)awakeFromNib {

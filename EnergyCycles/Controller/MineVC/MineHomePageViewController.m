@@ -19,6 +19,7 @@
 #import "AttentionAndFansTableViewController.h"
 #import "EnergyPostTableViewController.h"
 #import "PKRecordTableViewController.h"
+#import "MyProfileViewController.h"
 
 @interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -55,6 +56,7 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     [self getUserInfo];
+    [self getUserInfoModel];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PKRecordTableViewController" object:self userInfo:@{@"userId" : self.userId}];
 }
@@ -79,7 +81,7 @@
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self addNavgationTitle];
-                [self.mineView getdateDataWithModel:self.model signIn:0 attention:0 fans:0];
+                [self.mineView getdateDataWithModel:self.model userInfoModel:self.infoModel];
             });
         }
         
@@ -88,8 +90,20 @@
     }];
 }
 
+// 获取关注数,粉丝数等数据
 - (void)getUserInfoModel {
-    
+    [[AppHttpManager shareInstance] getGetUserInfoWithUserid:[User_ID intValue] OtherUserID:[self.userId intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            UserInfoModel *model = [[UserInfoModel alloc] initWithDictionary:dict[@"Data"][0] error:nil];
+            self.infoModel = model;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self addNavgationTitle];
+                [self.mineView getdateDataWithModel:self.model userInfoModel:self.infoModel];
+            });
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
 }
 
 
@@ -151,7 +165,7 @@
 - (void)addHeadView {
     MineHomePageHeadView *mineView = [[NSBundle mainBundle] loadNibNamed:@"MineHomePageHeadView" owner:nil options:nil].lastObject;
     mineView.frame = CGRectMake(0, 0, kScreenWidth, kHeaderImgHeight + kSegmentedHeight);
-    [mineView getdateDataWithModel:self.model signIn:0 attention:0 fans:0];
+//    [mineView getdateDataWithModel:self.model signIn:0 attention:0 fans:0];
     
     [self addNavgationTitle];
     
@@ -256,6 +270,18 @@
     self.mineView.userInteractionEnabled = NO;
 }
 
+- (void)moreButton {
+    UIImage *image = [UIImage imageNamed:@"more"];
+    UIBarButtonItem *moreButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickMoreButton)];
+    self.navigationItem.rightBarButtonItem = moreButton;
+}
+
+- (void)clickMoreButton {
+    MyProfileViewController *myVC = MainStoryBoard(@"MyProfileViewController");
+    myVC.model = self.model;
+    [self.navigationController pushViewController:myVC animated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -263,6 +289,11 @@
 //    self.navigationController.navigationBar.translucent = YES;
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    
+    // 判断是否是自己的主页
+    if ([self.userId integerValue] == [User_ID integerValue]) {
+        [self moreButton];
+    }
     
     [self addHeadView];
     [self addController];

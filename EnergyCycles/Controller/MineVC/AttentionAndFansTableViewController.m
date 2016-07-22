@@ -12,6 +12,8 @@
 #import "UserModel.h"
 #import "OtherUserModel.h"
 
+#import "MineHomePageViewController.h"
+
 @interface AttentionAndFansTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
@@ -71,7 +73,6 @@
         }else {
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
-
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -171,7 +172,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+    if (self.userId == NULL || [self.userId isEqualToString:[[NSNumberFormatter alloc] stringFromNumber:User_ID]]) {
+        UserModel *model = self.dataArr[indexPath.row];
+        mineVC.userId = model.use_id;
+    } else {
+        OtherUserModel *model = self.dataArr[indexPath.row];
+        mineVC.userId = model.userId;
+    }
+    [self.navigationController pushViewController:mineVC animated:YES];
 }
 
 

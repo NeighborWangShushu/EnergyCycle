@@ -11,15 +11,18 @@
 #import "MineHomePageViewController.h"
 #import "IntroViewController.h"
 #import "UserModel.h"
+#import "UserInfoModel.h"
 #import "MineHeadTableViewCell.h"
 #import "MineTableViewCell.h"
 
 #import "AttentionAndFansTableViewController.h"
+#import "EnergyPostTableViewController.h"
 
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *userInfoDict;
 @property (nonatomic, strong) UserModel *model;
+@property (nonatomic, strong) UserInfoModel *infoModel;
 
 @property (nonatomic, strong) UIImagePickerController *picker;
 @property (nonatomic, strong) NSData *headImageData;
@@ -95,7 +98,7 @@
             cell = [[NSBundle mainBundle] loadNibNamed:@"MineHeadTableViewCell" owner:self options:nil].lastObject;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell updateDataWithModel:self.model signIn:0];
+        [cell updateDataWithModel:self.model infoModel:self.infoModel];
 
         return cell;
     } else {
@@ -105,7 +108,7 @@
             cell = [[NSBundle mainBundle] loadNibNamed:@"MineTableViewCell" owner:self options:nil].lastObject;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell updateDataWithSection:indexPath.section index:indexPath.row count:nil]; 
+        [cell updateDataWithSection:indexPath.section index:indexPath.row userInfoModel:self.infoModel];
         return cell;
     }
 }
@@ -116,7 +119,9 @@
         [self performSegueWithIdentifier:@"MineHomePageViewController" sender:nil];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) { // 能量圈
-            
+            EnergyPostTableViewController *enVC = [[EnergyPostTableViewController alloc] init];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self  userInfo:@{@"userId" : self.model.use_id}];
+            [self.navigationController pushViewController:enVC animated:YES];
         } else if (indexPath.row == 1) { // 关注
             AttentionAndFansTableViewController *afVC = [[AttentionAndFansTableViewController alloc] init];
             afVC.type = 1;
@@ -139,11 +144,6 @@
     }
 }
 
-// 跳转到修改简介页面
-- (void)jumpToIntroViewController {
-    [self performSegueWithIdentifier:@"IntroViewController" sender:nil];
-}
-
 // 传值
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"MineHomePageViewController"]) {
@@ -153,6 +153,14 @@
         IntroViewController *introVC = segue.destinationViewController;
         introVC.introString = self.model.Brief;
     }
+}
+// 跳转到修改简介页面
+- (void)jumpToIntroViewController {
+    [self performSegueWithIdentifier:@"IntroViewController" sender:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self reloadData];
 }
 
 // 获取用户信息
@@ -184,6 +192,21 @@
     }];
 }
 
+// 获取关注数,粉丝数等数据
+- (void)getUserInfoModel {
+    [[AppHttpManager shareInstance] getGetUserInfoWithUserid:[User_ID intValue] OtherUserID:[User_ID intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            UserInfoModel *model = [[UserInfoModel alloc] initWithDictionary:dict[@"Data"][0] error:nil];
+            self.infoModel = model;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -193,6 +216,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self getUserInfo];
+    [self getUserInfoModel];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"JumpToIntroViewController" object:nil];
@@ -245,6 +269,7 @@
 // 刷新视图
 - (void)reloadData {
     [self getUserInfo];
+    [self getUserInfoModel];
 }
 
 - (void)didReceiveMemoryWarning {

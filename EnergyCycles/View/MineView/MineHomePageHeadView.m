@@ -42,7 +42,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToIntroViewController" object:nil];
 }
 
-- (void)getdateDataWithModel:(UserModel *)model signIn:(NSInteger)signIn attention:(NSInteger)attention fans:(NSInteger)fans {
+- (void)getdateDataWithModel:(UserModel *)model userInfoModel:(UserInfoModel *)userInfoModel {
     // 背景
     if (model.BackgroundImg == NULL) {
         [self.backgroundImage setImage:[UIImage imageNamed:@"bg"]];
@@ -77,28 +77,32 @@
     }
     
     // 地址
-    if (model.city == NULL) {
+    if ([model.city isEqualToString:@""]) {
         self.addressImage.hidden = YES;
         self.addressLabel.hidden = YES;
         self.signLabel.hidden = YES;
-        if (signIn == 0) {
+        self.signTwoLabel.hidden = NO;
+        if ([userInfoModel.AS_CONTINUONS integerValue] <= 0) {
             self.constraint.constant = 12;
+        } else {
+            self.constraint.constant = 39;
         }
     }
     
     // 签到
-    if (signIn == 0) {
+    if ([userInfoModel.AS_CONTINUONS integerValue] <= 0) {
         self.signLabel.hidden = YES;
+        self.signTwoLabel.hidden = YES;
     } else {
-        self.signLabel.text = [NSString stringWithFormat:@"连续签到%ld天",signIn];
+        self.signLabel.text = [NSString stringWithFormat:@"连续签到%ld天",[userInfoModel.AS_CONTINUONS integerValue]];
         self.signTwoLabel.text = self.signLabel.text;
     }
     
     // 关注
-    [self.attentionButton setTitle:[NSString stringWithFormat:@"关注 %ld",attention] forState:UIControlStateNormal];
+    [self.attentionButton setTitle:[NSString stringWithFormat:@"关注 %ld",[userInfoModel.GuanZhuCount integerValue]] forState:UIControlStateNormal];
     
     // 粉丝
-    [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝 %ld", fans] forState:UIControlStateNormal];
+    [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝 %ld", [userInfoModel.FenSiCount integerValue]] forState:UIControlStateNormal];
     
     // 简介
     if (model.Brief == NULL) {
@@ -113,14 +117,16 @@
         self.introButton.hidden = NO;
         self.leftBackgroundButton.hidden = NO;
         self.rightBackgroundButton.hidden = NO;
+        self.headImage.userInteractionEnabled = YES;
     } else {
         self.introImage.hidden = YES;
         self.introButton.hidden = YES;
         self.leftBackgroundButton.hidden = YES;
         self.rightBackgroundButton.hidden = YES;
+        self.headImage.userInteractionEnabled = NO;
     }
-    
 }
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

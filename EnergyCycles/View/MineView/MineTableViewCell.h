@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserInfoModel.h"
 
 @interface MineTableViewCell : UITableViewCell
 
@@ -20,6 +21,6 @@
 
 - (void)updateDataWithSection:(NSInteger)section
                         index:(NSInteger)index
-                        count:(NSDictionary *)count;
+                userInfoModel:(UserInfoModel *)userInfoModel;
 
 @end

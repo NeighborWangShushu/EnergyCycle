@@ -3634,7 +3634,7 @@
         <!--Mine Home Page View Controller-->
         <scene sceneID="Mhf-6c-qhT">
             <objects>
-                <viewController id="h9q-Bh-j75" customClass="MineHomePageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MineHomePageViewController" id="h9q-Bh-j75" customClass="MineHomePageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Ec-H7-hem"/>
                         <viewControllerLayoutGuide type="bottom" id="XSj-ld-5CC"/>
@@ -4390,7 +4390,7 @@
         <!--My Profile View Controller-->
         <scene sceneID="bKE-N4-c6d">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="aCq-sr-uEj" customClass="MyProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyProfileViewController" hidesBottomBarWhenPushed="YES" id="aCq-sr-uEj" customClass="MyProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qAK-vt-BxB"/>
                         <viewControllerLayoutGuide type="bottom" id="kay-XS-Q08"/>
@@ -6024,13 +6024,13 @@
         <image name="write_normal.png" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZMB-6O-NCg"/>
-        <segue reference="R8s-I5-eNH"/>
-        <segue reference="axj-NJ-TGV"/>
-        <segue reference="OUY-i2-Yfb"/>
         <segue reference="Jyv-eP-V7z"/>
-        <segue reference="mMa-EG-ekD"/>
-        <segue reference="PKj-mJ-5kS"/>
+        <segue reference="OUY-i2-Yfb"/>
         <segue reference="DWR-ZX-Hly"/>
+        <segue reference="I2i-X2-oaq"/>
+        <segue reference="PKj-mJ-5kS"/>
+        <segue reference="mMa-EG-ekD"/>
+        <segue reference="R8s-I5-eNH"/>
+        <segue reference="ZMB-6O-NCg"/>
     </inferredMetricsTieBreakers>
 </document>

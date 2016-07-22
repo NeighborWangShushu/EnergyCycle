@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HMSegmentedControl.h"
 #import "UserModel.h"
+#import "UserInfoModel.h"
 
 @interface MineHomePageHeadView : UIView
 
@@ -48,6 +49,5 @@
 @property (weak, nonatomic) IBOutlet HMSegmentedControl *segControl;
 
 // 获取数据
-- (void)getdateDataWithModel:(UserModel *)model signIn:(NSInteger)signIn attention:(NSInteger)attention fans:(NSInteger)fans;
-
+- (void)getdateDataWithModel:(UserModel *)model userInfoModel:(UserInfoModel *)userInfoModel;
 @end
