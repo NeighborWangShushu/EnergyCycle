@@ -24,8 +24,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     postDict = [[NSMutableDictionary alloc] init];
     
-    //
-    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
+//    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
     
     self.inputTextView.placehoder = @"可输入200字";
     self.inputTextView.backgroundColor = [UIColor whiteColor];
@@ -38,34 +37,37 @@
     rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     rightButton.frame = CGRectMake(0, 0, 35, 30);
     [rightButton setTitle:@"提交" forState:UIControlStateNormal];
-    [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [rightButton setTintColor:[UIColor whiteColor]];
     [rightButton addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
-    rightButton.userInteractionEnabled = NO;
+//    rightButton.userInteractionEnabled = NO;
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = item;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+//}
 
-#pragma mark - 返回按键
-- (void)leftAction {
-    [self.navigationController popViewControllerAnimated:YES];
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
-}
+//#pragma mark - 返回按键
+//- (void)leftAction {
+//    [self.navigationController popViewControllerAnimated:YES];
+//    
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+//}
 
 #pragma mark - 提交按键响应事件
 - (void)rightAction {
     if ([postDict[@"contents"] length] <= 0) {
         [SVProgressHUD showImage:nil status:@"请输入建议内容."];
-    }else {
+    } else if ([postDict[@"contents"] length] > 200) {
+        [SVProgressHUD showImage:nil status:@"请将字数限制在200字以内"];
+    } else {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"提交中.."];
         
@@ -84,13 +86,13 @@
 
 #pragma mark - TextView值改变
 - (void)textViewDidChange:(UITextView *)textView {
-    if (textView.text.length <= 0) {
-        [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:0.5] forState:UIControlStateNormal];
-        rightButton.userInteractionEnabled = NO;
-    }else {
-        [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
-        rightButton.userInteractionEnabled = YES;
-    }
+//    if (textView.text.length <= 0) {
+//        [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:0.5] forState:UIControlStateNormal];
+//        rightButton.userInteractionEnabled = NO;
+//    }else {
+//        [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+//        rightButton.userInteractionEnabled = YES;
+//    }
     [postDict setObject:textView.text forKey:@"contents"];
 }
 

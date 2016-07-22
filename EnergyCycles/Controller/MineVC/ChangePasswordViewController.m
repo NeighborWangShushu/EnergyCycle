@@ -8,7 +8,7 @@
 
 #import "ChangePasswordViewController.h"
 
-@interface ChangePasswordViewController ()
+@interface ChangePasswordViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *originalPasswordField;
 
@@ -48,35 +48,54 @@
 }
 
 - (IBAction)repeatPasswordFieldEye:(id)sender {
-//    if (self.repeatPasswordField.secureTextEntry) {
-//        [sender setImage:[UIImage imageNamed:@"loginxianshi.png"] forState:UIControlStateNormal];
-//        self.repeatPasswordField.secureTextEntry = NO;
-//    } else {
-//        [sender setImage:[UIImage imageNamed:@"loginyincang.png"] forState:UIControlStateNormal];
-//        self.repeatPasswordField.secureTextEntry = YES;
-//    }
-    [self performSegueWithIdentifier:@"ModelToLogin" sender:nil];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (self.repeatPasswordField.secureTextEntry) {
+        [sender setImage:[UIImage imageNamed:@"loginxianshi.png"] forState:UIControlStateNormal];
+        self.repeatPasswordField.secureTextEntry = NO;
+    } else {
+        [sender setImage:[UIImage imageNamed:@"loginyincang.png"] forState:UIControlStateNormal];
+        self.repeatPasswordField.secureTextEntry = YES;
+    }
 }
 
 - (IBAction)changePassword:(id)sender {
-    
-    [[AppHttpManager shareInstance] changePasswordWithUserid:[User_ID intValue] Token:User_TOKEN Pwd:[self md5StringForString:self.passwordField.text] Phone:[[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"] PostOrGet:@"post" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            [SVProgressHUD showImage:nil status:@"修改成功"];
-            [self performSegueWithIdentifier:@"ModelToLogin" sender:nil];
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
-    } failure:^(NSString *str) {
-        NSLog(@"%@",str);
-    }];
-    
-//    NSLog(@"%@",[])
-    
-//    [self performSegueWithIdentifier:@"ModelToLogin" sender:nil];
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-    
+    if ([self.originalPasswordField.text length] == 0) {
+        [SVProgressHUD showImage:nil status:@"请输入原密码"];
+    } else if ([self.passwordField.text length] == 0) {
+        [SVProgressHUD showImage:nil status:@"请输入新密码"];
+    } else if ([self.passwordField.text length] == 0) {
+        [SVProgressHUD showImage:nil status:@"请输入确认密码"];
+    } else if (![[self md5StringForString:self.originalPasswordField.text] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"PASSWORD"]]) {
+        [SVProgressHUD showImage:nil status:@"密码错误"];
+    } else if (![[AppHelpManager sharedInstance] isValidPassword:self.passwordField.text]) {
+        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
+    } else if (![self.passwordField.text isEqualToString:self.repeatPasswordField.text]) {
+        [SVProgressHUD showImage:nil status:@"两次输入密码不一致"];
+    } else {
+        [[AppHttpManager shareInstance] changePasswordWithUserid:[User_ID intValue] Token:User_TOKEN Pwd:[self md5StringForString:self.passwordField.text] Phone:[[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"] PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [SVProgressHUD showImage:nil status:@"修改成功"];
+                [[NSUserDefaults standardUserDefaults] setObject:[self md5StringForString:self.passwordField.text] forKey:@"PASSWORD"];
+                [self performSegueWithIdentifier:@"ModelToLoginNavController" sender:nil];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            } else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@",str);
+        }];
+    }
 }
+
+// 限制文本框输入的字符长度
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.length + range.location > textField.text.length) {
+        return NO;
+    }
+    
+    NSUInteger newLength = textField.text.length + string.length - range.length;
+    return newLength <= 19;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -87,6 +106,9 @@
     self.passwordField.secureTextEntry = YES;
     self.repeatPasswordField.secureTextEntry = YES;
     
+    self.originalPasswordField.delegate = self;
+    self.passwordField.delegate = self;
+    self.repeatPasswordField.delegate = self;
     
     // Do any additional setup after loading the view.
 }
