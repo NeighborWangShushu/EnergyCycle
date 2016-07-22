@@ -2333,11 +2333,11 @@
                         <viewControllerLayoutGuide type="bottom" id="IV4-ie-Xct"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Bk9-gR-tZg">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您已使用手机号码登录能量圈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4YW-jw-Twl">
-                                <rect key="frame" x="31" y="20" width="538" height="50"/>
+                                <rect key="frame" x="31" y="64" width="313" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="z04-se-pYY"/>
                                 </constraints>
@@ -2346,13 +2346,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还可以" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iwq-XJ-7BI">
-                                <rect key="frame" x="432" y="134" width="64" height="32"/>
+                                <rect key="frame" x="207" y="178" width="64" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0t-v8-USy">
-                                <rect key="frame" x="496" y="134" width="64" height="32"/>
+                                <rect key="frame" x="271" y="178" width="64" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="修改密码">
                                     <color key="titleColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -2362,7 +2362,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sM3-sC-baY">
-                                <rect key="frame" x="0.0" y="70" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRY-yX-CMq">
                                         <rect key="frame" x="31" y="14" width="70" height="21"/>
@@ -2375,7 +2375,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8le-f5-rcJ">
-                                        <rect key="frame" x="480" y="15" width="80" height="20"/>
+                                        <rect key="frame" x="255" y="15" width="80" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="322-0G-7SZ"/>
@@ -2390,7 +2390,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13333333333" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSm-hn-OLg">
-                                        <rect key="frame" x="110" y="15" width="360" height="19.5"/>
+                                        <rect key="frame" x="110" y="15" width="135" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="0.0" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -2531,15 +2531,15 @@
             <objects>
                 <tableViewController id="uel-tT-MCR" customClass="SettingTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="xHM-90-rGQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="PTb-fP-YK7">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PTb-fP-YK7" id="rsM-Mp-lnr">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -2861,11 +2861,11 @@
                         <viewControllerLayoutGuide type="bottom" id="BVD-pj-cMj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="C2n-t0-rH2">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入新的手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7V7-Zs-np3">
-                                <rect key="frame" x="31" y="20" width="538" height="50"/>
+                                <rect key="frame" x="31" y="64" width="313" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="kNW-SV-Rr3"/>
                                 </constraints>
@@ -2874,10 +2874,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BXn-vh-Xvh">
-                                <rect key="frame" x="0.0" y="70" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="50"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dX8-KG-RDr">
-                                        <rect key="frame" x="110" y="15" width="360" height="20"/>
+                                        <rect key="frame" x="110" y="15" width="135" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -2892,7 +2892,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3o-vd-Qg9">
-                                        <rect key="frame" x="480" y="9" width="80" height="32"/>
+                                        <rect key="frame" x="255" y="9" width="80" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="Gmp-lo-ktf"/>
                                         </constraints>
@@ -2934,7 +2934,7 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cG-bS-pJr">
-                                <rect key="frame" x="0.0" y="134" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="178" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B5N-DG-XXd">
                                         <rect key="frame" x="31" y="14" width="70" height="21"/>
@@ -2947,7 +2947,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mYj-SI-oU2">
-                                        <rect key="frame" x="110" y="14" width="480" height="20"/>
+                                        <rect key="frame" x="110" y="14" width="255" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -2974,7 +2974,7 @@
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lof-x0-keD">
-                                <rect key="frame" x="25" y="208" width="550" height="44"/>
+                                <rect key="frame" x="25" y="252" width="325" height="44"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="JlR-j7-qLl"/>
@@ -3050,11 +3050,11 @@
                         <viewControllerLayoutGuide type="bottom" id="FIz-SP-3hN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7np-bL-9hB">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您已使用第三方账号登录能量圈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Yp-S0-M9h">
-                                <rect key="frame" x="31" y="20" width="538" height="50"/>
+                                <rect key="frame" x="31" y="64" width="313" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="SRr-gz-Imk"/>
                                 </constraints>
@@ -3063,7 +3063,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ra-ts-DJw">
-                                <rect key="frame" x="25" y="70" width="550" height="44"/>
+                                <rect key="frame" x="25" y="114" width="325" height="44"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="P5s-lm-vuL"/>
@@ -3129,11 +3129,11 @@
                         <viewControllerLayoutGuide type="bottom" id="4Uf-Aa-QVI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0ao-Wd-pyQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="为了您的账号安全,请输入您的登录密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RXa-45-bEK">
-                                <rect key="frame" x="31" y="20" width="538" height="50"/>
+                                <rect key="frame" x="31" y="64" width="313" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="BNK-SE-z8K"/>
                                 </constraints>
@@ -3142,7 +3142,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Pm-rX-c7g">
-                                <rect key="frame" x="0.0" y="70" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFT-sV-46L">
                                         <rect key="frame" x="31" y="15" width="70" height="19.5"/>
@@ -3154,12 +3154,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u0j-cq-QVI">
-                                        <rect key="frame" x="110" y="14" width="417" height="20"/>
+                                        <rect key="frame" x="110" y="14" width="192" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="159-tv-h2Z">
-                                        <rect key="frame" x="535" y="5" width="40" height="40"/>
+                                        <rect key="frame" x="310" y="5" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="FDD-5l-sgj"/>
                                             <constraint firstAttribute="width" constant="40" id="rwU-aX-l7d"/>
@@ -3195,7 +3195,7 @@
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v9k-4r-PeX">
-                                <rect key="frame" x="25" y="144" width="550" height="44"/>
+                                <rect key="frame" x="25" y="188" width="325" height="44"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="K8Y-CE-Pa8"/>
@@ -3256,11 +3256,11 @@
                         <viewControllerLayoutGuide type="bottom" id="3u1-KT-aya"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vVn-ij-Z9h">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUU-Zb-vej">
-                                <rect key="frame" x="0.0" y="70" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJn-aa-DMS">
                                         <rect key="frame" x="31" y="14" width="70" height="21"/>
@@ -3273,12 +3273,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="srM-3K-geM">
-                                        <rect key="frame" x="110" y="14" width="417" height="20"/>
+                                        <rect key="frame" x="110" y="14" width="192" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mxd-2L-UBL">
-                                        <rect key="frame" x="535" y="5" width="40" height="40"/>
+                                        <rect key="frame" x="310" y="5" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="dxe-rG-DQN"/>
                                             <constraint firstAttribute="width" constant="40" id="v6t-CO-zm5"/>
@@ -3312,7 +3312,7 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icJ-LL-sZi">
-                                <rect key="frame" x="0.0" y="134" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="178" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="再次确认" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEu-rp-Y12">
                                         <rect key="frame" x="31" y="14" width="70" height="21"/>
@@ -3325,12 +3325,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L4W-mz-la7">
-                                        <rect key="frame" x="110" y="14" width="417" height="20"/>
+                                        <rect key="frame" x="110" y="14" width="192" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gBa-iN-0Xb">
-                                        <rect key="frame" x="535" y="5" width="40" height="40"/>
+                                        <rect key="frame" x="310" y="5" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="XkR-1t-FMy"/>
                                             <constraint firstAttribute="height" constant="40" id="cJY-hi-4Wy"/>
@@ -3364,7 +3364,7 @@
                                 </variation>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入以手机号登录的密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJe-eW-U4e">
-                                <rect key="frame" x="31" y="20" width="538" height="50"/>
+                                <rect key="frame" x="31" y="64" width="313" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="S3M-4i-zxv"/>
                                 </constraints>
@@ -3373,7 +3373,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owm-1B-7iJ">
-                                <rect key="frame" x="25" y="208" width="550" height="44"/>
+                                <rect key="frame" x="25" y="252" width="325" height="44"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="jag-bn-DWD"/>
@@ -3443,11 +3443,11 @@
                         <viewControllerLayoutGuide type="bottom" id="T1n-18-dIM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hxN-X4-u7S">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入绑定手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4w-mR-ych">
-                                <rect key="frame" x="31" y="20" width="538" height="50"/>
+                                <rect key="frame" x="31" y="64" width="313" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="nfi-V5-9OC"/>
                                 </constraints>
@@ -3456,10 +3456,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9rr-dA-xVZ">
-                                <rect key="frame" x="0.0" y="70" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BW1-1L-eQr">
-                                        <rect key="frame" x="480" y="9" width="80" height="32"/>
+                                        <rect key="frame" x="255" y="9" width="80" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="KuG-mW-nBn"/>
                                         </constraints>
@@ -3482,7 +3482,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="irK-gp-xZS">
-                                        <rect key="frame" x="110" y="15" width="360" height="20"/>
+                                        <rect key="frame" x="110" y="15" width="135" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -3516,7 +3516,7 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4E-uc-dWk">
-                                <rect key="frame" x="0.0" y="134" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="178" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3HD-kq-U9r">
                                         <rect key="frame" x="31" y="14" width="70" height="21"/>
@@ -3529,7 +3529,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lnY-BY-fOt">
-                                        <rect key="frame" x="110" y="14" width="480" height="20"/>
+                                        <rect key="frame" x="110" y="14" width="255" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -3554,7 +3554,7 @@
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vvb-eU-mZI">
-                                <rect key="frame" x="25" y="208" width="550" height="44"/>
+                                <rect key="frame" x="25" y="252" width="325" height="44"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="BYd-JR-Ej1"/>
@@ -3617,10 +3617,10 @@
                         <viewControllerLayoutGuide type="bottom" id="aig-B2-fUi"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kaN-AX-lEN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfj-a1-exs">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfj-a1-exs">
                                 <rect key="frame" x="50" y="114" width="39.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
@@ -3670,7 +3670,7 @@
                         <viewControllerLayoutGuide type="bottom" id="FhT-nT-poX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hwZ-NV-lz5">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Group.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dse-F5-vRQ">
@@ -3687,17 +3687,17 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5Rx-gA-efe">
-                                <rect key="frame" x="0.0" y="215" width="600" height="302.5"/>
+                                <rect key="frame" x="0.0" y="215" width="375" height="302.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="上海摩英商务咨询有限公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgZ-Hr-6hr">
-                                <rect key="frame" x="246" y="574" width="108" height="11"/>
+                                <rect key="frame" x="133" y="574" width="108" height="11"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="©2015-2016 All Rights Reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ayr-hp-hZu">
-                                <rect key="frame" x="220" y="593" width="160.5" height="12"/>
+                                <rect key="frame" x="107" y="593" width="160.5" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -3738,11 +3738,11 @@
                         <viewControllerLayoutGuide type="bottom" id="W0G-4q-LCf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ACv-Va-GzA">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入原密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Jb-ku-Zjd">
-                                <rect key="frame" x="31" y="20" width="538" height="50"/>
+                                <rect key="frame" x="31" y="64" width="313" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="6iW-ce-a5c"/>
                                 </constraints>
@@ -3751,7 +3751,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fth-Vi-Nif">
-                                <rect key="frame" x="0.0" y="70" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1H-nB-bec">
                                         <rect key="frame" x="31" y="14" width="70" height="21"/>
@@ -3764,12 +3764,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dNT-AZ-3wQ">
-                                        <rect key="frame" x="110" y="15" width="417" height="20"/>
+                                        <rect key="frame" x="110" y="15" width="192" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QcL-5t-gpp">
-                                        <rect key="frame" x="535" y="5" width="40" height="40"/>
+                                        <rect key="frame" x="310" y="5" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="8je-BH-xyz"/>
                                             <constraint firstAttribute="height" constant="40" id="hlb-uE-ly7"/>
@@ -3803,7 +3803,7 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRg-wn-f62">
-                                <rect key="frame" x="0.0" y="170" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="214" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xe2-Qv-kGe">
                                         <rect key="frame" x="31" y="14" width="70" height="21"/>
@@ -3816,12 +3816,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dxb-et-s5c">
-                                        <rect key="frame" x="110" y="14" width="417" height="20"/>
+                                        <rect key="frame" x="110" y="14" width="192" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssO-HB-ZnF">
-                                        <rect key="frame" x="535" y="5" width="40" height="40"/>
+                                        <rect key="frame" x="310" y="5" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="IGJ-0n-eHI"/>
                                             <constraint firstAttribute="width" constant="40" id="otq-tD-Ogc"/>
@@ -3855,7 +3855,7 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOB-mA-pS1">
-                                <rect key="frame" x="0.0" y="234" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="278" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="再次确认" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gRZ-y5-gxh">
                                         <rect key="frame" x="31" y="14" width="70" height="21"/>
@@ -3868,12 +3868,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iRk-lf-Jll">
-                                        <rect key="frame" x="110" y="14" width="417" height="20"/>
+                                        <rect key="frame" x="110" y="14" width="192" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpy-to-Sdc">
-                                        <rect key="frame" x="535" y="5" width="40" height="40"/>
+                                        <rect key="frame" x="310" y="5" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="3wb-wd-19a"/>
                                             <constraint firstAttribute="width" constant="40" id="x3B-a8-pEG"/>
@@ -3907,7 +3907,7 @@
                                 </variation>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入新密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEW-kC-HrN">
-                                <rect key="frame" x="31" y="120" width="538" height="50"/>
+                                <rect key="frame" x="31" y="164" width="313" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="jei-hf-ofj"/>
                                 </constraints>
@@ -3916,7 +3916,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="da2-Nu-46S">
-                                <rect key="frame" x="25" y="308" width="550" height="44"/>
+                                <rect key="frame" x="25" y="352" width="325" height="44"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="04A-pQ-d4E"/>
@@ -3992,11 +3992,11 @@
                         <viewControllerLayoutGuide type="bottom" id="RYE-Rd-2bw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="p9L-gf-q2z">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yJZ-uX-ziu">
-                                <rect key="frame" x="25" y="158" width="550" height="44"/>
+                                <rect key="frame" x="25" y="202" width="325" height="44"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="InW-1v-32b"/>
@@ -4020,7 +4020,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWj-TY-Efg">
-                                <rect key="frame" x="0.0" y="34" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="78" width="375" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已绑定手机号150*****0983,可使用手机号登录能量圈" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ho-jl-df6">
                                         <rect key="frame" x="31" y="40" width="250" height="19.5"/>
@@ -6054,13 +6054,13 @@
         <image name="write_normal.png" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZMB-6O-NCg"/>
-        <segue reference="OUY-i2-Yfb"/>
+        <segue reference="R8s-I5-eNH"/>
         <segue reference="axj-NJ-TGV"/>
         <segue reference="Jyv-eP-V7z"/>
         <segue reference="mMa-EG-ekD"/>
         <segue reference="DWR-ZX-Hly"/>
+        <segue reference="vpn-CB-KIX"/>
         <segue reference="PKj-mJ-5kS"/>
-        <segue reference="R8s-I5-eNH"/>
+        <segue reference="ZMB-6O-NCg"/>
     </inferredMetricsTieBreakers>
 </document>
