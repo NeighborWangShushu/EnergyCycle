@@ -56,7 +56,7 @@
     
     NSDate*date  = [f dateFromString:time];
     _time = [date timeIntervalDescription];
-    NSLog(@"%@",_time);
+    
 }
 
 @end

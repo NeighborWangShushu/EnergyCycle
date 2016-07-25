@@ -9,9 +9,10 @@
 #import "WebVC.h"
 #import "Masonry.h"
 #import <WebKit/WebKit.h>
+#import "AttentionAndFansTableViewController.h"
 
 
-@interface WebVC () {
+@interface WebVC ()<WKScriptMessageHandler,WKUIDelegate> {
     NSString * _url;
 }
 
@@ -49,8 +50,13 @@
     self.navigationController.navigationBar.hidden = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
-    WKWebView * webview = [WKWebView new];
+    
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    [config.userContentController addScriptMessageHandler:self name:@"UserID"];
+    
+    WKWebView * webview = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
     webview.backgroundColor = [UIColor redColor];
+    webview.UIDelegate = self;
     [self.view addSubview:webview];
     
     [webview mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,9 +65,34 @@
         make.top.equalTo(self.view.mas_top);
         make.bottom.equalTo(self.view.mas_bottom).with.offset(0);
     }];
-    [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+    
+    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30];
+    [webview loadRequest:request];
     
     // Do any additional setup after loading the view.
+}
+
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    if ([message.name isEqualToString:@"UserID"]) {
+        NSLog(@"%@",[message.body class]);
+        NSString*user_id = [message.body objectForKey:@"body"];
+        AttentionAndFansTableViewController *home = [[AttentionAndFansTableViewController alloc] init];
+        home.userId = user_id;
+        home.type = 0;
+        [self.navigationController pushViewController:home animated:YES];
+    }
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler {
+    NSLog(@"%@", message);
+    
+    
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
+    
+    
 }
 
 

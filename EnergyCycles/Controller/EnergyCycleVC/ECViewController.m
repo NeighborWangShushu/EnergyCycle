@@ -550,7 +550,7 @@
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView.mj_footer endRefreshing];
-                [weakSelf.tableView reloadData];
+                [weakSelf.tableView reloadDataWithExistedHeightCache];
             });
             
         } failure:^(NSString *str) {
@@ -565,7 +565,7 @@
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView.mj_footer endRefreshing];
-                [weakSelf.tableView reloadData];
+                [weakSelf.tableView reloadDataWithExistedHeightCache];
             });
             
         } failure:^(NSString *str) {

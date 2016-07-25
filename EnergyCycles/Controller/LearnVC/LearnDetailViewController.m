@@ -82,6 +82,7 @@
     
     //    NSString * jsstring = @" $(\"img\").on(\"taphold,\" function () {});";
     //    WKUserScript *script = [[WKUserScript alloc] initWithSource:jsstring injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     [config.userContentController addScriptMessageHandler:self name:@"AppModel"];
     
@@ -154,6 +155,7 @@
 
 - (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler {
     NSLog(@"%@", message);
+    
     
 }
 
