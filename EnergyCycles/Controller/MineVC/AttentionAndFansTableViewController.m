@@ -37,7 +37,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     // 设置标题与加载数据
-    if (self.userId == NULL || [self.userId isEqualToString:[[NSNumberFormatter alloc] stringFromNumber:User_ID]]) {
+    if (self.userId == NULL || [self.userId isEqualToString:[NSString stringWithFormat:@"%@", User_ID]]) {
         if (self.type == 1) {
             self.title = @"我的关注";
             [self getAttentionInfo];

@@ -118,8 +118,7 @@
         self.introLabel.text = [NSString stringWithFormat:@"简介:%@", model.Brief];
     }
     
-    NSNumberFormatter *number = [[NSNumberFormatter alloc] init];
-    if ([model.use_id isEqualToString:[number stringFromNumber:User_ID]]) {
+    if ([model.use_id isEqualToString:[NSString stringWithFormat:@"%@", User_ID]]) {
         self.introImage.hidden = NO;
         self.introButton.hidden = NO;
         self.leftBackgroundButton.hidden = NO;

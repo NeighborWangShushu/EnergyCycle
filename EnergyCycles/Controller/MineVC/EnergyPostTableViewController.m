@@ -56,10 +56,10 @@
     NSString *userId = dic[@"userId"];
     self.userId = userId;
     NSLog(@"notification userid = %@", self.userId);
-    [self getDateWithUserId:self.userId];
+    [self getDataWithUserId:self.userId];
 }
 
-- (void)getDateWithUserId:(NSString *)userId {
+- (void)getDataWithUserId:(NSString *)userId {
     [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:[NSString stringWithFormat:@"%@", User_ID] OtherUserId:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
             for (NSDictionary *data in dict[@"Data"]) {
@@ -136,7 +136,7 @@
     self.startPage = 0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (self.isMineTableView) {
-        [self getDateWithUserId:self.userId];
+        [self getDataWithUserId:self.userId];
         self.tableView.tableHeaderView = nil;
         self.title = @"能量圈";
         self.navigationController.navigationBar.translucent = NO;

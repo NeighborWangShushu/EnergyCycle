@@ -27,11 +27,16 @@
     return _dataArray;
 }
 
-// 获取PK项目数据
+// 通知获取用户ID并调用获取数据方法
 - (void)getPKData:(NSNotification *)notification {
     NSDictionary *dic = notification.userInfo;
     NSString *userId = dic[@"userId"];
-    
+    self.userId = userId;
+    [self getDataWithUserId:userId];
+}
+
+// 获取数据
+- (void)getDataWithUserId:(NSString *)userId {
     [[AppHttpManager shareInstance] getGetMyPkHistoryProjectWithUserId:[userId intValue] Token:@"" PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             for (NSDictionary *dic in dict[@"Data"]) {
@@ -43,10 +48,7 @@
                 [self.tableView reloadData];
             });
             
-        } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
-        
     } failure:^(NSString *str) {
         NSLog(@"%@", str);
     }];
@@ -57,6 +59,18 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    if (self.isMineTableView) {
+        [self getDataWithUserId:self.userId];
+        self.tableView.tableHeaderView = nil;
+        self.title = @"PK记录";
+        self.navigationController.navigationBar.translucent = NO;
+        self.tableView.showsVerticalScrollIndicator = NO;
+        self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
+//        self.tabBarController.tabBar.hidden = YES;
+    }
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPKData:) name:@"PKRecordTableViewController" object:nil];
     
     // Uncomment the following line to preserve selection between presentations.
