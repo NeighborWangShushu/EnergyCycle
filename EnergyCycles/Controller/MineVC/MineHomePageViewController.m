@@ -111,7 +111,8 @@
                 } else {
                     [self attentionButton];
                 }
-                [self addNavgationTitle];
+//                [self addNavgationTitle];
+                self.titleLabel.text = self.model.nickname;
                 [self.mineView getdateDataWithModel:self.model userInfoModel:self.infoModel];
             });
         }
