@@ -100,14 +100,17 @@
 
 // 获取关注数,粉丝数等数据
 - (void)getUserInfoModel {
-//    if (User_ID == NULL) {
-//        self
-//    }
-    [[AppHttpManager shareInstance] getGetUserInfoWithUserid:[User_ID intValue] OtherUserID:[self.userId intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getGetUserInfoWithUserid:[User_ID == NULL ? 0 : User_ID intValue] OtherUserID:[self.userId intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             UserInfoModel *model = [[UserInfoModel alloc] initWithDictionary:dict[@"Data"][0] error:nil];
             self.infoModel = model;
             dispatch_async(dispatch_get_main_queue(), ^{
+                // 判断是否是自己的主页
+                if ([self.userId integerValue] == [User_ID integerValue]) {
+                    [self moreButton];
+                } else {
+                    [self attentionButton];
+                }
                 [self addNavgationTitle];
                 [self.mineView getdateDataWithModel:self.model userInfoModel:self.infoModel];
             });
@@ -281,6 +284,7 @@
     self.mineView.userInteractionEnabled = NO;
 }
 
+// 添加更多按钮
 - (void)moreButton {
     UIImage *image = [UIImage imageNamed:@"more"];
     UIBarButtonItem *moreButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickMoreButton)];
@@ -293,6 +297,47 @@
     [self.navigationController pushViewController:myVC animated:YES];
 }
 
+// 添加关注按钮
+- (void)attentionButton {
+    UIImage *image = [[UIImage alloc] init];
+    if ([self.infoModel.IsGuanZhu intValue] == 1) {
+        image = [UIImage imageNamed:@"attentionButton"];
+    } else {
+        image = [UIImage imageNamed:@"addAttentionButton"];
+    }
+    UIBarButtonItem *attentionButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickAttentionButton)];
+    self.navigationItem.rightBarButtonItem = attentionButton;
+}
+
+- (void)clickAttentionButton {
+    if ([self.infoModel.IsGuanZhu intValue] == 1) {
+        [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:2 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userId intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [SVProgressHUD showImage:nil status:@"已取消关注"];
+                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"addAttentionButton"];
+                [self getUserInfoModel];
+            }else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    } else {
+        [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:1 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userId intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [SVProgressHUD showImage:nil status:@"关注成功"];
+                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"attentionButton"];
+                [self getUserInfoModel];
+            }else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    }
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -301,10 +346,7 @@
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     
-    // 判断是否是自己的主页
-    if ([self.userId integerValue] == [User_ID integerValue]) {
-        [self moreButton];
-    }
+
     
     [self addHeadView];
     [self addController];
