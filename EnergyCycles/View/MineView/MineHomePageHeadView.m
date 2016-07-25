@@ -77,25 +77,32 @@
     }
     
     // 地址
-    if ([model.city isEqualToString:@""]) {
+    NSLog(@"%@",model.city);
+    if ([model.city isEqualToString:@""] || model.city == NULL) {
         self.addressImage.hidden = YES;
         self.addressLabel.hidden = YES;
         self.signLabel.hidden = YES;
         self.signTwoLabel.hidden = NO;
+        // 无地址无签到
         if ([userInfoModel.AS_CONTINUONS integerValue] <= 0) {
             self.constraint.constant = 12;
-        } else {
+            self.signTwoLabel.hidden = YES;
+        } else { // 无地址有签到
+            self.signLabel.text = [NSString stringWithFormat:@"连续签到%ld天",[userInfoModel.AS_CONTINUONS integerValue]];
+            self.signTwoLabel.text = self.signLabel.text;
             self.constraint.constant = 39;
         }
-    }
-    
-    // 签到
-    if ([userInfoModel.AS_CONTINUONS integerValue] <= 0) {
-        self.signLabel.hidden = YES;
-        self.signTwoLabel.hidden = YES;
     } else {
-        self.signLabel.text = [NSString stringWithFormat:@"连续签到%ld天",[userInfoModel.AS_CONTINUONS integerValue]];
-        self.signTwoLabel.text = self.signLabel.text;
+        self.addressLabel.text = model.city;
+        // 有地址无签到
+        if ([userInfoModel.AS_CONTINUONS integerValue] <= 0) {
+            self.signLabel.hidden = YES;
+            self.signTwoLabel.hidden = YES;
+        } else { // 有地址有签到
+            self.signLabel.hidden = NO;
+            self.signTwoLabel.hidden = YES;
+            self.signLabel.text = [NSString stringWithFormat:@"连续签到%ld天",[userInfoModel.AS_CONTINUONS integerValue]];
+        }
     }
     
     // 关注
@@ -111,8 +118,7 @@
         self.introLabel.text = [NSString stringWithFormat:@"简介:%@", model.Brief];
     }
     
-    NSNumberFormatter *number = [[NSNumberFormatter alloc] init];
-    if ([model.use_id isEqualToString:[number stringFromNumber:User_ID]]) {
+    if ([model.use_id isEqualToString:[NSString stringWithFormat:@"%@", User_ID]]) {
         self.introImage.hidden = NO;
         self.introButton.hidden = NO;
         self.leftBackgroundButton.hidden = NO;
