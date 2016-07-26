@@ -285,14 +285,12 @@
     self.mineView.userInteractionEnabled = NO;
 }
 
-<<<<<<< HEAD
+
 - (void)leftAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-=======
 // 添加更多按钮
->>>>>>> wangbin
 - (void)moreButton {
     UIImage *image = [UIImage imageNamed:@"more"];
     UIBarButtonItem *moreButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickMoreButton)];
@@ -442,11 +440,6 @@
     
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> wangbin
 - (void)changeBackgoundImage:(NSString *)backgroundImage {
     [[AppHttpManager shareInstance] changeBackgroundImgWithUserid:[self.model.use_id intValue] Token:self.model.token BackgroundImg:backgroundImage PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {

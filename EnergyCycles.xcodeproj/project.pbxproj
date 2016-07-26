@@ -3884,7 +3884,6 @@
 		26D99D4A1C0C4D7B007AF579 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				D0946D9A1D3CAC90003C9C4C /* icon-80@2x.png */,
 				D029BC5F1D38B6DD00B20D65 /* ec_like_selected@2x.png */,
 				D029BC601D38B6DD00B20D65 /* ec_like_selected@3x.png */,
@@ -3897,12 +3896,10 @@
 				D08352031D2CE79B0094AC2E /* ec_invite@3x.png */,
 				D08351FE1D2CB1D90094AC2E /* ec_share@2x.png */,
 				D08351FF1D2CB1D90094AC2E /* ec_share@3x.png */,
-=======
 				62724E6A1D42225900E84202 /* addAttentionButton.png */,
 				62724E6B1D42225900E84202 /* addAttentionButton@3x.png */,
 				62724E6C1D42225900E84202 /* attentionButton.png */,
 				62724E6D1D42225900E84202 /* attentionButton@3x.png */,
->>>>>>> wangbin
 				62724E661D41BBE300E84202 /* more.png */,
 				62724E681D41BBE800E84202 /* more@3x.png */,
 				625750BC1D337F6200E46B2E /* Group.png */,
