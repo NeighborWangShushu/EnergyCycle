@@ -6213,7 +6213,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZMB-6O-NCg"/>
-<<<<<<< HEAD
         <segue reference="OUY-i2-Yfb"/>
         <segue reference="axj-NJ-TGV"/>
         <segue reference="Jyv-eP-V7z"/>
@@ -6221,7 +6220,6 @@
         <segue reference="DWR-ZX-Hly"/>
         <segue reference="PKj-mJ-5kS"/>
         <segue reference="R8s-I5-eNH"/>
-=======
         <segue reference="vpn-CB-KIX"/>
         <segue reference="PKj-mJ-5kS"/>
         <segue reference="I2i-X2-oaq"/>
@@ -6229,6 +6227,5 @@
         <segue reference="mMa-EG-ekD"/>
         <segue reference="R8s-I5-eNH"/>
         <segue reference="DWR-ZX-Hly"/>
->>>>>>> wangbin
     </inferredMetricsTieBreakers>
 </document>
