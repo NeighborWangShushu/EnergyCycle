@@ -59,6 +59,13 @@
     [self getUserInfoModel];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PKRecordTableViewController" object:self userInfo:@{@"userId" : self.userId}];
+    // 通知中心
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mineHomePageReloadView) name:@"mineHomePageReloadView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headViewChangeHeadImage) name:@"headViewChangeHeadImage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headViewChangeBackgroundImage) name:@"headViewChangeBackgroundImage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToAttentionController) name:@"jumpToAttentionController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -67,6 +74,7 @@
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 // 获取用户基本数据
@@ -92,12 +100,19 @@
 
 // 获取关注数,粉丝数等数据
 - (void)getUserInfoModel {
-    [[AppHttpManager shareInstance] getGetUserInfoWithUserid:[User_ID intValue] OtherUserID:[self.userId intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getGetUserInfoWithUserid:[User_ID == NULL ? 0 : User_ID intValue] OtherUserID:[self.userId intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             UserInfoModel *model = [[UserInfoModel alloc] initWithDictionary:dict[@"Data"][0] error:nil];
             self.infoModel = model;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self addNavgationTitle];
+                // 判断是否是自己的主页
+                if ([self.userId integerValue] == [User_ID integerValue]) {
+                    [self moreButton];
+                } else {
+                    [self attentionButton];
+                }
+//                [self addNavgationTitle];
+                self.titleLabel.text = self.model.nickname;
                 [self.mineView getdateDataWithModel:self.model userInfoModel:self.infoModel];
             });
         }
@@ -270,10 +285,14 @@
     self.mineView.userInteractionEnabled = NO;
 }
 
+<<<<<<< HEAD
 - (void)leftAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+=======
+// 添加更多按钮
+>>>>>>> wangbin
 - (void)moreButton {
     UIImage *image = [UIImage imageNamed:@"more"];
     UIBarButtonItem *moreButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickMoreButton)];
@@ -286,6 +305,47 @@
     [self.navigationController pushViewController:myVC animated:YES];
 }
 
+// 添加关注按钮
+- (void)attentionButton {
+    UIImage *image = [[UIImage alloc] init];
+    if ([self.infoModel.IsGuanZhu intValue] == 1) {
+        image = [UIImage imageNamed:@"attentionButton"];
+    } else {
+        image = [UIImage imageNamed:@"addAttentionButton"];
+    }
+    UIBarButtonItem *attentionButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickAttentionButton)];
+    self.navigationItem.rightBarButtonItem = attentionButton;
+}
+
+- (void)clickAttentionButton {
+    if ([self.infoModel.IsGuanZhu intValue] == 1) {
+        [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:2 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userId intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [SVProgressHUD showImage:nil status:@"已取消关注"];
+                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"addAttentionButton"];
+                [self getUserInfoModel];
+            }else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    } else {
+        [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:1 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userId intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [SVProgressHUD showImage:nil status:@"关注成功"];
+                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"attentionButton"];
+                [self getUserInfoModel];
+            }else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    }
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -296,22 +356,13 @@
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     
-    // 判断是否是自己的主页
-    if ([self.userId integerValue] == [User_ID integerValue]) {
-        [self moreButton];
-    }
+
     
     [self addHeadView];
     [self addController];
     [self segmentedControlChangedValue:self.segControl];
     
-    // 通知中心
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mineHomePageReloadView) name:@"mineHomePageReloadView" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headViewChangeHeadImage) name:@"headViewChangeHeadImage" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headViewChangeBackgroundImage) name:@"headViewChangeBackgroundImage" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToAttentionController) name:@"jumpToAttentionController" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
+
     
     // Do any additional setup after loading the view.
 }
@@ -391,8 +442,11 @@
     
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> wangbin
 - (void)changeBackgoundImage:(NSString *)backgroundImage {
     [[AppHttpManager shareInstance] changeBackgroundImgWithUserid:[self.model.use_id intValue] Token:self.model.token BackgroundImg:backgroundImage PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {

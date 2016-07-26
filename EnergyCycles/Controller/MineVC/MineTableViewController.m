@@ -17,6 +17,9 @@
 
 #import "AttentionAndFansTableViewController.h"
 #import "EnergyPostTableViewController.h"
+#import "PKRecordTableViewController.h"
+#import "leaderboardViewController.h"
+#import "MessageViewController.h"
 
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -64,7 +67,7 @@
 // 每一行的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 113.f;
+        return 105.f;
     }
     return 50.f;
 }
@@ -120,7 +123,8 @@
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) { // 能量圈
             EnergyPostTableViewController *enVC = [[EnergyPostTableViewController alloc] init];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self  userInfo:@{@"userId" : self.model.use_id}];
+            enVC.userId = self.model.use_id;
+            enVC.isMineTableView = YES;
             [self.navigationController pushViewController:enVC animated:YES];
         } else if (indexPath.row == 1) { // 关注
             AttentionAndFansTableViewController *afVC = [[AttentionAndFansTableViewController alloc] init];
@@ -131,14 +135,20 @@
             afVC.type = 2;
             [self.navigationController pushViewController:afVC animated:YES];
         } else if (indexPath.row == 3) { // 消息
-            
+            [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
         } else if (indexPath.row == 4) { // PK记录
-            
+            PKRecordTableViewController *pkVC = [[PKRecordTableViewController alloc] init];
+            pkVC.userId = self.model.use_id;
+            pkVC.isMineTableView = YES;
+            [self.navigationController pushViewController:pkVC animated:YES];
         } else if (indexPath.row == 5) { // 推荐用户
             
         }
     } else if (indexPath.section == 2) { // 积分榜
-        
+        leaderboardViewController *leadVC = MainStoryBoard(@"leaderboardViewController");
+        leadVC.showName = self.model.nickname;
+        leadVC.userId = self.model.use_id;
+        [self.navigationController pushViewController:leadVC animated:YES];
     } else if (indexPath.section == 3) { // 设置
         [self performSegueWithIdentifier:@"SettingTableViewController" sender:nil];
     }

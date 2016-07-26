@@ -468,6 +468,10 @@
 		6259023F1D2D02EC00F3F13C /* VerificationPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */; };
 		62724E671D41BBE300E84202 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E661D41BBE300E84202 /* more.png */; };
 		62724E691D41BBE800E84202 /* more@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E681D41BBE800E84202 /* more@3x.png */; };
+		62724E6E1D42225900E84202 /* addAttentionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E6A1D42225900E84202 /* addAttentionButton.png */; };
+		62724E6F1D42225900E84202 /* addAttentionButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E6B1D42225900E84202 /* addAttentionButton@3x.png */; };
+		62724E701D42225900E84202 /* attentionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E6C1D42225900E84202 /* attentionButton.png */; };
+		62724E711D42225900E84202 /* attentionButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E6D1D42225900E84202 /* attentionButton@3x.png */; };
 		627F76F81D38D9EF00552B96 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 627F76F71D38D9EF00552B96 /* IntroViewController.m */; };
 		629485A21D3F8B0100938E49 /* CommentUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 629485A11D3F8B0100938E49 /* CommentUserModel.m */; };
 		6297DDA41D3E0736004E42AA /* MineUserDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6297DDA31D3E0736004E42AA /* MineUserDateModel.m */; };
@@ -490,6 +494,9 @@
 		62FCE9121D3CB2A500F52E05 /* attention@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62FCE90E1D3CB2A500F52E05 /* attention@3x.png */; };
 		62FCE9151D3CC1D300F52E05 /* AttentionAndFansTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62FCE9141D3CC1D300F52E05 /* AttentionAndFansTableViewController.m */; };
 		62FCE9191D3CC52D00F52E05 /* AttentionAndFansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 62FCE9181D3CC52D00F52E05 /* AttentionAndFansModel.m */; };
+		62FE509B1D45B62E0082BD03 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62FE509A1D45B62E0082BD03 /* MessageViewController.m */; };
+		62FE50A01D45DEE40082BD03 /* MineMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62FE509E1D45DEE40082BD03 /* MineMessageTableViewCell.m */; };
+		62FE50A11D45DEE40082BD03 /* MineMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62FE509F1D45DEE40082BD03 /* MineMessageTableViewCell.xib */; };
 		D00591601D24F6B300F91692 /* pengyouquan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005915F1D24F6B300F91692 /* pengyouquan@2x.png */; };
 		D00591641D24F77D00F91692 /* qzone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591611D24F77D00F91692 /* qzone@2x.png */; };
 		D00591651D24F77D00F91692 /* wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591621D24F77D00F91692 /* wechat@2x.png */; };
@@ -2000,6 +2007,10 @@
 		6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationPhoneViewController.m; sourceTree = "<group>"; };
 		62724E661D41BBE300E84202 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
 		62724E681D41BBE800E84202 /* more@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more@3x.png"; sourceTree = "<group>"; };
+		62724E6A1D42225900E84202 /* addAttentionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addAttentionButton.png; sourceTree = "<group>"; };
+		62724E6B1D42225900E84202 /* addAttentionButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addAttentionButton@3x.png"; sourceTree = "<group>"; };
+		62724E6C1D42225900E84202 /* attentionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = attentionButton.png; sourceTree = "<group>"; };
+		62724E6D1D42225900E84202 /* attentionButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "attentionButton@3x.png"; sourceTree = "<group>"; };
 		627F76F61D38D9EF00552B96 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		627F76F71D38D9EF00552B96 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		629485A11D3F8B0100938E49 /* CommentUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentUserModel.m; sourceTree = "<group>"; };
@@ -2037,6 +2048,11 @@
 		62FCE9141D3CC1D300F52E05 /* AttentionAndFansTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionAndFansTableViewController.m; sourceTree = "<group>"; };
 		62FCE9171D3CC52D00F52E05 /* AttentionAndFansModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionAndFansModel.h; sourceTree = "<group>"; };
 		62FCE9181D3CC52D00F52E05 /* AttentionAndFansModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionAndFansModel.m; sourceTree = "<group>"; };
+		62FE50991D45B62E0082BD03 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		62FE509A1D45B62E0082BD03 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		62FE509D1D45DEE40082BD03 /* MineMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineMessageTableViewCell.h; sourceTree = "<group>"; };
+		62FE509E1D45DEE40082BD03 /* MineMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineMessageTableViewCell.m; sourceTree = "<group>"; };
+		62FE509F1D45DEE40082BD03 /* MineMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineMessageTableViewCell.xib; sourceTree = "<group>"; };
 		D005915F1D24F6B300F91692 /* pengyouquan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pengyouquan@2x.png"; path = "Mine/FourImage/pengyouquan@2x.png"; sourceTree = "<group>"; };
 		D00591611D24F77D00F91692 /* qzone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "qzone@2x.png"; path = "Mine/FourImage/qzone@2x.png"; sourceTree = "<group>"; };
 		D00591621D24F77D00F91692 /* wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wechat@2x.png"; path = "Mine/FourImage/wechat@2x.png"; sourceTree = "<group>"; };
@@ -3679,6 +3695,7 @@
 		26D99D371C0C4D7B007AF579 /* MineVC */ = {
 			isa = PBXGroup;
 			children = (
+				62FE50981D45B5FA0082BD03 /* Message */,
 				62FCE9161D3CC1F300F52E05 /* AttentionAndFans */,
 				627F76F51D38D99700552B96 /* Intro */,
 				62C99F351D37A6CC0032E83C /* PKRecord */,
@@ -3867,6 +3884,7 @@
 		26D99D4A1C0C4D7B007AF579 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				D0946D9A1D3CAC90003C9C4C /* icon-80@2x.png */,
 				D029BC5F1D38B6DD00B20D65 /* ec_like_selected@2x.png */,
 				D029BC601D38B6DD00B20D65 /* ec_like_selected@3x.png */,
@@ -3879,6 +3897,12 @@
 				D08352031D2CE79B0094AC2E /* ec_invite@3x.png */,
 				D08351FE1D2CB1D90094AC2E /* ec_share@2x.png */,
 				D08351FF1D2CB1D90094AC2E /* ec_share@3x.png */,
+=======
+				62724E6A1D42225900E84202 /* addAttentionButton.png */,
+				62724E6B1D42225900E84202 /* addAttentionButton@3x.png */,
+				62724E6C1D42225900E84202 /* attentionButton.png */,
+				62724E6D1D42225900E84202 /* attentionButton@3x.png */,
+>>>>>>> wangbin
 				62724E661D41BBE300E84202 /* more.png */,
 				62724E681D41BBE800E84202 /* more@3x.png */,
 				625750BC1D337F6200E46B2E /* Group.png */,
@@ -4750,6 +4774,7 @@
 		26D99E901C0C4D7B007AF579 /* MineView */ = {
 			isa = PBXGroup;
 			children = (
+				62FE509C1D45DED60082BD03 /* MineMessage */,
 				622BA6471D40AD6600194984 /* MinePKRecordView */,
 				62FCE9051D3CAF3500F52E05 /* MineAttentionAndFansView */,
 				62A93BD31D361E4B00343B63 /* MineHomePageView */,
@@ -5004,6 +5029,25 @@
 				62FCE9141D3CC1D300F52E05 /* AttentionAndFansTableViewController.m */,
 			);
 			name = AttentionAndFans;
+			sourceTree = "<group>";
+		};
+		62FE50981D45B5FA0082BD03 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				62FE50991D45B62E0082BD03 /* MessageViewController.h */,
+				62FE509A1D45B62E0082BD03 /* MessageViewController.m */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		62FE509C1D45DED60082BD03 /* MineMessage */ = {
+			isa = PBXGroup;
+			children = (
+				62FE509D1D45DEE40082BD03 /* MineMessageTableViewCell.h */,
+				62FE509E1D45DEE40082BD03 /* MineMessageTableViewCell.m */,
+				62FE509F1D45DEE40082BD03 /* MineMessageTableViewCell.xib */,
+			);
+			name = MineMessage;
 			sourceTree = "<group>";
 		};
 		D00820E41D1D7DEA00D34117 /* RefreshHeadView */ = {
@@ -7359,6 +7403,7 @@
 				D029BC381D3771C300B20D65 /* ec_post_add_button@2x.png in Resources */,
 				26D8B26E1C0FEEE900A1DB04 /* 5@2x.png in Resources */,
 				DAE034DA1C182181007E6DBD /* 39xin01_@3x.png in Resources */,
+				62724E6E1D42225900E84202 /* addAttentionButton.png in Resources */,
 				DAE034EE1C182181007E6DBD /* 35pen_@3x.png in Resources */,
 				D08352181D2D0AE10094AC2E /* ECRecommendCell.xib in Resources */,
 				D07EB2761D18DE6800840AC2 /* messageBubbleTyping@2x.png in Resources */,
@@ -7402,6 +7447,7 @@
 				26D8B2251C0FEEE900A1DB04 /* 18_1@3x.png in Resources */,
 				26D8B21B1C0FEEE900A1DB04 /* 15_2@3x.png in Resources */,
 				DA4459F71C2173290069415D /* InvitationOneViewCell.xib in Resources */,
+				62724E6F1D42225900E84202 /* addAttentionButton@3x.png in Resources */,
 				26D8B2651C0FEEE900A1DB04 /* 11@3x.png in Resources */,
 				26D8B2771C0FEEE900A1DB04 /* 9@3x.png in Resources */,
 				DA9A953D1C23ABEE00FBE107 /* nengliangquan@2x.png in Resources */,
@@ -7451,6 +7497,7 @@
 				DA677B911C3A6E11004A534E /* QDDT00039.png in Resources */,
 				DA677B7C1C3A6E11004A534E /* QDDT00018.png in Resources */,
 				DA677B891C3A6E11004A534E /* QDDT00031.png in Resources */,
+				62FE50A11D45DEE40082BD03 /* MineMessageTableViewCell.xib in Resources */,
 				DAE035051C182181007E6DBD /* NO3_@2x.png in Resources */,
 				D07E244E1D12BFD100854B51 /* bbc@2x.png in Resources */,
 				DA3190E81C22A54D00972F63 /* loginweixin@3x.png in Resources */,
@@ -7479,6 +7526,7 @@
 				DAE034E21C182181007E6DBD /* 48zongpiao_@3x.png in Resources */,
 				D00591601D24F6B300F91692 /* pengyouquan@2x.png in Resources */,
 				DA3190E51C22A54D00972F63 /* loginweibo@2x.png in Resources */,
+				62724E711D42225900E84202 /* attentionButton@3x.png in Resources */,
 				DA7675091C27F39900A34D9C /* 05choujiang@3x.png in Resources */,
 				DAC4D0A71C4C90FE00BCC979 /* icon-60@3x.png in Resources */,
 				DA677B771C3A6E11004A534E /* QDDT00013.png in Resources */,
@@ -7538,6 +7586,7 @@
 				DAE034D71C182181007E6DBD /* 38paimingkuang_@2x.png in Resources */,
 				D077C58E1D1D613C00303A90 /* 1_03.png in Resources */,
 				26D8B2471C0FEEE900A1DB04 /* 26_2@3x.png in Resources */,
+				62724E701D42225900E84202 /* attentionButton.png in Resources */,
 				26D8B2141C0FEEE900A1DB04 /* 14_1@2x.png in Resources */,
 				D04B54FB1D23D64600DC259A /* icon2.jpg in Resources */,
 				DAE034E41C182181007E6DBD /* 6pinglun_@3x.png in Resources */,
@@ -7670,6 +7719,7 @@
 				26D99EAA1C0C4D7B007AF579 /* UIView+AEBHandyAutoLayout.m in Sources */,
 				26D99EEF1C0C4D7C007AF579 /* MJRefreshAutoGifFooter.m in Sources */,
 				26E9876C1C0D6C8100C6A7BB /* EnergyPostOneViewCell.m in Sources */,
+				62FE50A01D45DEE40082BD03 /* MineMessageTableViewCell.m in Sources */,
 				D07EB2801D18DE6800840AC2 /* BubbleMessageCell.m in Sources */,
 				DA68D5B51C96A1680073E0F6 /* MineEnergyShowOneViewCell.m in Sources */,
 				DA7674C31C279BB500A34D9C /* ChangeProfileViewController.m in Sources */,
@@ -7786,6 +7836,7 @@
 				D07E24611D13907300854B51 /* AFAudioRouter.m in Sources */,
 				26D99E9A1C0C4D7B007AF579 /* MineNavController.m in Sources */,
 				26D99EEE1C0C4D7C007AF579 /* MJRefreshHeader.m in Sources */,
+				62FE509B1D45B62E0082BD03 /* MessageViewController.m in Sources */,
 				26D99ECD1C0C4D7B007AF579 /* AFURLSessionManager.m in Sources */,
 				D07D2EED1D101A4A00AF35B1 /* HMSegmentedControl.m in Sources */,
 				26D99EF11C0C4D7C007AF579 /* MJRefreshAutoStateFooter.m in Sources */,

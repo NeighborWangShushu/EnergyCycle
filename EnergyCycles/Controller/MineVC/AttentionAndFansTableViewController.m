@@ -42,7 +42,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     // 设置标题与加载数据
-    if (self.userId == NULL || [self.userId isEqualToString:[[NSNumberFormatter alloc] stringFromNumber:User_ID]]) {
+    if (self.userId == NULL || [self.userId isEqualToString:[NSString stringWithFormat:@"%@", User_ID]]) {
         if (self.type == 1) {
             self.title = @"我的关注";
             [self getAttentionInfo];
@@ -74,7 +74,7 @@
                 UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
                 [self.dataArr addObject:model];
             }
-            NSLog(@"%@",self.dataArr);
+            NSLog(@"%ld",self.dataArr.count);
         }else {
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
@@ -159,7 +159,7 @@
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (self.userId == NULL || [self.userId isEqualToString:[[NSNumberFormatter alloc] stringFromNumber:User_ID]]) {
+    if (self.userId == NULL || [self.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
         if (self.type == 1) {
             UserModel *model = self.dataArr[indexPath.row];
             [cell getdateAttentionDataWithUserModel:model];
@@ -178,7 +178,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
-    if (self.userId == NULL || [self.userId isEqualToString:[[NSNumberFormatter alloc] stringFromNumber:User_ID]]) {
+    if (self.userId == NULL || [self.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
         UserModel *model = self.dataArr[indexPath.row];
         mineVC.userId = model.use_id;
     } else {
