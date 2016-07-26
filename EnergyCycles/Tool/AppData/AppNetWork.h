@@ -366,4 +366,10 @@
 //97.修改个人主页背景图片
 #define ChangeBackgroundImg @"/user/App_User_BackgroundImg_Upd"
 
+//98.获取能量圈列表(查看其他人的能量圈)
+#define GetOtherArticleList      @"Article/Article_List"
+
+//99.获取用户点赞/评论消息
+#define Message_Get @"/user/Message_Get"
+
 #endif

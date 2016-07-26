@@ -302,9 +302,9 @@
 - (void)attentionButton {
     UIImage *image = [[UIImage alloc] init];
     if ([self.infoModel.IsGuanZhu intValue] == 1) {
-        image = [UIImage imageNamed:@"attentionButton"];
+        image = [UIImage imageNamed:@"Guanzhu"];
     } else {
-        image = [UIImage imageNamed:@"addAttentionButton"];
+        image = [UIImage imageNamed:@"addGuanzhu"];
     }
     UIBarButtonItem *attentionButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickAttentionButton)];
     self.navigationItem.rightBarButtonItem = attentionButton;
@@ -315,7 +315,7 @@
         [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:2 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userId intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 [SVProgressHUD showImage:nil status:@"已取消关注"];
-                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"addAttentionButton"];
+                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"addGuanzhu"];
                 [self getUserInfoModel];
             }else {
                 [SVProgressHUD showImage:nil status:dict[@"Msg"]];
@@ -327,7 +327,7 @@
         [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:1 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userId intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 [SVProgressHUD showImage:nil status:@"关注成功"];
-                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"attentionButton"];
+                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"Guanzhu"];
                 [self getUserInfoModel];
             }else {
                 [SVProgressHUD showImage:nil status:dict[@"Msg"]];

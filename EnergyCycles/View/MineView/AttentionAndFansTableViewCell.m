@@ -16,7 +16,7 @@
     self.userid = userModel.use_id;
     
     // 头像
-    if ([userModel.photourl isEqualToString:@""]) {
+    if ([userModel.photourl isEqualToString:@""] || userModel.photourl == nil) {
         [self.headImage setImage:[UIImage imageNamed:@"touxiang"]];
     } else {
         [self.headImage sd_setImageWithURL:[NSURL URLWithString:userModel.photourl]];
@@ -47,7 +47,7 @@
     self.userid = userModel.use_id;
     
     // 头像
-    if ([userModel.photourl isEqualToString:@""]) {
+    if ([userModel.photourl isEqualToString:@""] || userModel.photourl == nil) {
         [self.headImage setImage:[UIImage imageNamed:@"touxiang"]];
     } else {
         [self.headImage sd_setImageWithURL:[NSURL URLWithString:userModel.photourl]];
@@ -81,7 +81,7 @@
     self.userid = otherUserModel.userId;
     
     // 头像
-    if ([otherUserModel.photoUrl isEqualToString:@""]) {
+    if ([otherUserModel.photoUrl isEqualToString:@""] || otherUserModel.photoUrl == nil) {
         [self.headImage setImage:[UIImage imageNamed:@"touxiang"]];
     } else {
         [self.headImage sd_setImageWithURL:[NSURL URLWithString:otherUserModel.photoUrl]];

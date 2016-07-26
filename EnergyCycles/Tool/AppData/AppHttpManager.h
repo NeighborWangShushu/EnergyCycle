@@ -1149,4 +1149,20 @@
                           success:(void (^)(NSDictionary *dict))success
                           failure:(void (^)(NSString *str))failure;
 
+#pragma mark - 99.获取用户点赞/评论消息
+//请求参数:
+//Type      int 1.赞 2.评论
+//UserID    int 用户ID
+//PageIndex int 页码
+//PageSize  int 每页显示数
+- (void)getMessageGetWithType:(int)type
+                       Userid:(int)userid
+                    PageIndex:(int)pageIndex
+                     PageSize:(int)pageSize
+                    PostOrGet:(NSString *)postOrGetType
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure;
+
+
+
 @end
