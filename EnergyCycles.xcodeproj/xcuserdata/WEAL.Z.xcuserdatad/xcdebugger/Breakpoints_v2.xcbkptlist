@@ -433,22 +433,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/View/EnergyCycleView/ECViewModel/Cell/ECTimeLineCell.m"
-            timestampString = "491196386.774774"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
-            landmarkName = "-tapIcon"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
             timestampString = "491290182.584295"
             startingColumnNumber = "9223372036854775807"
@@ -488,6 +472,22 @@
             startingLineNumber = "209"
             endingLineNumber = "209"
             landmarkName = "+sendAuthRequestScope:State:OpenID:InViewController:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
+            timestampString = "491303674.39015"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "736"
+            endingLineNumber = "736"
+            landmarkName = "-tableView:heightForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

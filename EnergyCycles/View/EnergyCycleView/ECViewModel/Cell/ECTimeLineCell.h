@@ -26,6 +26,7 @@ typedef NS_ENUM(NSUInteger, ECTimeLineCellActionType) {
 
 - (void)didActionInCell:(UITableViewCell*)cell actionType:(ECTimeLineCellActionType)type atIndexPath:(NSIndexPath*)indexPath;
 
+- (void)didDelete:(ECTimeLineModel*)model atIndexPath:(NSIndexPath*)indexPath;
 @end
 
 @class ECTimeLineModel;

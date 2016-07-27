@@ -39,6 +39,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     UIImageView *_iconView;
     UIButton *iconButton;
     UILabel *_nameLable;
+    UIButton *_deleteButton;
     UIImageView *_locaIcon;
     UILabel *_location;
     UILabel *_time;
@@ -51,6 +52,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     SDTimeLineCellOperationMenu *_operationMenu;
     SDTimeLineCellBottomView * _bottomView;
     UIView * _marginView;
+    
     
 }
 
@@ -89,6 +91,12 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _nameLable = [UILabel new];
     _nameLable.font = [UIFont systemFontOfSize:14];
     _nameLable.textColor = [UIColor colorWithRed:(74 / 255.0) green:(74 / 255.0) blue:(74 / 255.0) alpha:1.0];
+    
+    
+    _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+    [_deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+    _deleteButton.hidden = YES;
     
     _locaIcon = [UIImageView new];
     _locaIcon.image = [UIImage imageNamed:@"location_icon"];
@@ -164,7 +172,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _marginView.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1.0];
     
     
-    NSArray *views = @[line, _iconView,iconButton, _nameLable, _time, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
+    NSArray *views = @[line, _iconView,iconButton, _nameLable,_deleteButton, _time, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
     [self.contentView sd_addSubviews:views];
     
     UIView *contentView = self.contentView;
@@ -194,6 +202,11 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .topEqualToView(_iconView)
     .heightIs(18);
     [_nameLable setSingleLineAutoResizeWithMaxWidth:200];
+    
+    
+    _deleteButton.sd_layout
+    .rightSpaceToView(contentView,10)
+    .topSpaceToView(contentView,20);
     
     _locaIcon.sd_layout
     .leftSpaceToView(_iconView,margin)
@@ -252,10 +265,19 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
 }
 
+
 - (void)tapIcon {
     
     if ([self.delegate respondsToSelector:@selector(didClickOtherUser:userId:userName:)]) {
         [self.delegate didClickOtherUser:self userId:self.model.UserID userName:self.model.name];
+    }
+    
+}
+
+- (void)deleteAction {
+    
+    if ([self.delegate respondsToSelector:@selector(didDelete:atIndexPath:)]) {
+        [self.delegate didDelete:self.model atIndexPath:self.indexPath];
     }
     
 }
@@ -280,6 +302,10 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 - (void)setModel:(ECTimeLineModel *)model
 {
     _model = model;
+    
+    if ([model.UserID isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
+        _deleteButton.hidden = NO;
+    }
     
     _commentView.frame = CGRectZero;
     [_commentView setupWithLikeItemsArray:model.likeItemsArray commentItemsArray:model.commentItemsArray];
@@ -314,26 +340,42 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     CGFloat picContainerTopMargin = 0;
     if (model.picNamesArray.count) {
         picContainerTopMargin = 10;
+    }else {
+        _picContainerView.fixedHeight = @0;
+        _picContainerView.picPathStringsArray = model.picNamesArray;
     }
     _picContainerView.sd_layout.topSpaceToView(_moreButton, picContainerTopMargin);
     
     UIView *bottomView;
     
-    if (!model.commentItemsArray.count && !model.likeItemsArray.count) {
-        _commentView.fixedWidth = @0; // 如果没有评论或者点赞，设置commentview的固定宽度为0（设置了fixedWith的控件将不再在自动布局过程中调整宽度）
+    if (!model.picNamesArray.count && !model.commentItemsArray.count && !model.likeItemsArray.count) {
+        _commentView.fixedWidth = @0; // 如果没有评论或者点赞，设置commentview的固定宽度为0（设置了fixedWidth的控件将不再在自动布局过程中调整宽度）
+        _commentView.fixedHeight = @0; // 如果没有评论或者点赞，设置commentview的固定高度为0（设置了fixedHeight的控件将不再在自动布局过程中调整高度）
+        _commentView.sd_layout.topSpaceToView(_contentLabel,0);
+        _bottomView.sd_layout.topSpaceToView(_picContainerView, 10);
+
+        
+    }
+    else if (model.commentItemsArray.count == 0 && model.likeItemsArray.count == 0) {
+        _commentView.fixedWidth = @0; // 如果没有评论或者点赞，设置commentview的固定宽度为0（设置了fixedWidth的控件将不再在自动布局过程中调整宽度）
         _commentView.fixedHeight = @0; // 如果没有评论或者点赞，设置commentview的固定高度为0（设置了fixedHeight的控件将不再在自动布局过程中调整高度）
         _commentView.sd_layout.topSpaceToView(_picContainerView, 0);
+        _bottomView.sd_layout.topSpaceToView(_commentView, 10);
         bottomView = _picContainerView;
-    } else {
+    }
+    else {
         _commentView.fixedHeight = nil; // 取消固定宽度约束
         _commentView.fixedWidth = nil; // 取消固定高度约束
         _commentView.sd_layout.topSpaceToView(_picContainerView, 10);
+        _bottomView.sd_layout.topSpaceToView(_commentView, 10);
         bottomView = _commentView;
     }
     
-    _bottomView.model = model;
+//    _bottomView.model = model;
+    NSLog(@"%@:%@",model.msgContent, _picContainerView.fixedHeight);
+    NSLog(@"_marginView:%f----%f",_commentView.frame.size.height,_bottomView.frame.origin.y);
     
-    [self setupAutoHeightWithBottomView:_marginView bottomMargin:0];
+    [self setupAutoHeightWithBottomView:_bottomView bottomMargin:10];
     
     
 }

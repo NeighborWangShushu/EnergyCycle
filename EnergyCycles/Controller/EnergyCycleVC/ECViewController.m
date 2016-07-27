@@ -662,6 +662,10 @@
     
 }
 
+- (void)didDelete:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
@@ -728,7 +732,12 @@
         }else {
             model = self.attentionArray[indexPath.row];
         }
-        return [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[ECTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
+        
+        CGFloat height = [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[ECTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
+        
+        NSLog(@"height:%f",height);
+        
+        return height;
     }else {
         return 150;
     }
