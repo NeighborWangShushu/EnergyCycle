@@ -55,28 +55,12 @@
     NSDictionary *dic = notification.userInfo;
     NSString *userId = dic[@"userId"];
     self.userId = userId;
-    [self getDateWithUserId:self.userId];
+    NSLog(@"notification userid = %@", self.userId);
+    [self getDataWithUserId:self.userId];
 }
 
-- (void)getDateWithUserId:(NSString *)userId {
-//    [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
-//        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
-//            for (NSDictionary *data in dict[@"Data"]) {
-//                ECTimeLineModel *model = [self sortByData:data];
-//                [self.dataArray addObject:model];
-//            }
-//            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.tableView reloadData];
-//            });
-//        } else {
-//            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
-//        }
-//    } failure:^(NSString *str) {
-//        NSLog(@"%@", str);
-//    }];
-    NSNumberFormatter *number = [[NSNumberFormatter alloc] init];
-    [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:[number stringFromNumber:User_ID] OtherUserId:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
+- (void)getDataWithUserId:(NSString *)userId {
+    [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:[NSString stringWithFormat:@"%@", User_ID] OtherUserId:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
             for (NSDictionary *data in dict[@"Data"]) {
                 ECTimeLineModel *model = [self sortByData:data];
@@ -109,7 +93,6 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
 }
-
 
 // 数据转模型
 - (ECTimeLineModel *)sortByData:(NSDictionary *)data {
@@ -152,6 +135,15 @@
     
     self.startPage = 0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    if (self.isMineTableView) {
+        [self getDataWithUserId:self.userId];
+        self.tableView.tableHeaderView = nil;
+        self.title = @"能量圈";
+        self.navigationController.navigationBar.translucent = NO;
+        self.tableView.showsVerticalScrollIndicator = NO;
+        self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
+//        self.tabBarController.tabBar.hidden = YES;
+    }
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getData:) name:@"EnergyPostTableViewController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];

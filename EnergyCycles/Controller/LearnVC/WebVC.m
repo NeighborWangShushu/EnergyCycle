@@ -9,7 +9,7 @@
 #import "WebVC.h"
 #import "Masonry.h"
 #import <WebKit/WebKit.h>
-#import "AttentionAndFansTableViewController.h"
+#import "MineHomePageViewController.h"
 
 
 @interface WebVC ()<WKScriptMessageHandler,WKUIDelegate> {
@@ -77,9 +77,8 @@
     if ([message.name isEqualToString:@"UserID"]) {
         NSLog(@"%@",[message.body class]);
         NSString*user_id = [message.body objectForKey:@"body"];
-        AttentionAndFansTableViewController *home = [[AttentionAndFansTableViewController alloc] init];
+        MineHomePageViewController *home = MainStoryBoard(@"MineHomePageViewController");
         home.userId = user_id;
-        home.type = 0;
         [self.navigationController pushViewController:home animated:YES];
     }
 }

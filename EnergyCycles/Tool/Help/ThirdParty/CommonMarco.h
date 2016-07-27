@@ -9,12 +9,15 @@
 
 //微信
 #define APP_KEY_WEIXIN            @"wx4db0f86a514ef7ef"
+#define APP_SECRECT_WEIXIN        @"eb7c123f1794cd3f173569e5bb6801dc"
 
 //QQ
-#define APP_KEY_QQ                @"1104987324"
+#define APP_ID_QQ                 @"1104987324"
+#define APP_KEY_QQ                @"Icfd6jAfqflPmMuL"
 
 //微博
 #define APP_KEY_WEIBO             @"4273175200"
+#define APP_SECRECT_WEIBO         @"922730ffd03b87285c07c27325146937"
 #define APP_KEY_WEIBO_RedirectURL @"http://www.sina.com"
 
 //分享图片

@@ -24,8 +24,10 @@
 #import "PostingViewController.h"
 #import "WebVC.h"
 #import "ECTabbarViewController.h"
-#import "OtherUesrViewController.h"
+#import "MineHomePageViewController.h"
 #import "Appdelegate.h"
+#import "ShareModel.h"
+#import "ShareSDKManager.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
@@ -132,11 +134,14 @@
     }else {
         pageType = 1;
     }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidChange:) name:UIKeyboardDidChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
+ 
     
+   
 }
 
 
@@ -293,6 +298,7 @@
     model.iconName = data[@"photoUrl"];
     model.name = data[@"nickName"];
     model.ID = [NSString stringWithFormat:@"%@",data[@"artId"]];
+    model.UserID = [NSString stringWithFormat:@"%@",data[@"userId"]];
     NSString *informationStr = [data[@"artContent"] stringByRemovingPercentEncoding];
     informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
     informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
@@ -584,6 +590,10 @@
 
 - (void)sendCommend:(NSString*)message index:(NSInteger)index section:(NSInteger)section {
     
+    if ([message isEqualToString:@""]) {
+        [SVProgressHUD showImage:nil status:@"发送内容不能为空"];
+        return;
+    }
     __weak typeof(self) weakSelf = self;
     
     [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
@@ -599,7 +609,6 @@
             
         } else if(commentSection == 2){
             [weakSelf.newerArray replaceObjectAtIndex:index withObject:model];
-            
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -633,10 +642,9 @@
 
 - (void)didClickCommendUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
     [delegate.tabbarController hideTabbar:YES];
-    OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
-    otherUserVC.otherUserId = userId;
-    otherUserVC.otherName = name;
-    [self.navigationController pushViewController:otherUserVC animated:YES];
+    MineHomePageViewController *home = MainStoryBoard(@"MineHomePageViewController");
+    home.userId = userId;
+    [self.navigationController pushViewController:home animated:YES];
 }
 
 
@@ -648,9 +656,8 @@
 - (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
     
     [delegate.tabbarController hideTabbar:YES];
-    OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
-    otherUserVC.otherUserId = userId;
-    otherUserVC.otherName = name;
+    MineHomePageViewController *otherUserVC = MainStoryBoard(@"MineHomePageViewController");
+    otherUserVC.userId = userId;
     [self.navigationController pushViewController:otherUserVC animated:YES];
     
 }
@@ -664,7 +671,7 @@
         if (pageType == 0) {
             if (indexPath.section == 0) {
                 model = [self.dataArray objectAtIndex:indexPath.row];
-            }else if (indexPath.section == 1) {
+            }else if (indexPath.section == 2) {
                 model = [self.newerArray objectAtIndex:indexPath.row];
             }
         }else {
@@ -991,6 +998,7 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
     //发送评论
     [self sendCommend:textField.text index:commentIndex section:commentSection];
     

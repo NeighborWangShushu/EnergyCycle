@@ -12,5 +12,6 @@
 @interface EnergyPostTableViewController : MineHomePageTableViewControllerProtocol
 
 @property (nonatomic, copy) NSString *userId;
+@property (nonatomic, assign) BOOL isMineTableView;
 
 @end

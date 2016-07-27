@@ -11,6 +11,7 @@
 #import "XMShareWeiboUtil.h"
 #import "XMShareWechatUtil.h"
 #import "XMShareQQUtil.h"
+#import "ShareSDKManager.h"
 
 //每行显示数量
 static const NSInteger numbersOfItemInLine = 4;
@@ -178,48 +179,56 @@ static const NSInteger numbersOfItemInLine = 4;
 }
 
 - (void)shareToWeixinSession {
-    XMShareWechatUtil *util = [XMShareWechatUtil sharedInstance];
-    util.shareTitle = self.shareTitle;
-    util.shareText = self.shareText;
-    util.shareUrl = self.shareUrl;
     
-    [util shareToWeixinSession];
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = self.shareTitle;
+    model.content = self.shareText;
+    model.shareUrl = self.shareUrl;
+    [[ShareSDKManager shareInstance] shareClientToWeixinSession:model block:^(SSDKResponseState state) {
+        
+    }];
+    
 }
 
 - (void)shareToWeixinTimeline {
-    XMShareWechatUtil *util = [XMShareWechatUtil sharedInstance];
-    util.shareTitle = self.shareTitle;
-    util.shareText = self.shareText;
-    util.shareUrl = self.shareUrl;
     
-    [util shareToWeixinTimeline];
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = self.shareTitle;
+    model.content = self.shareText;
+    model.shareUrl = self.shareUrl;
+    [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model block:^(SSDKResponseState state) {
+        
+    }];
 }
 
 - (void)shareToQQ {
-    XMShareQQUtil *util = [XMShareQQUtil sharedInstance];
-    util.shareTitle = self.shareTitle;
-    util.shareText = self.shareText;
-    util.shareUrl = self.shareUrl;
-    
-    [util shareToQQ];
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = self.shareTitle;
+    model.content = self.shareText;
+    model.shareUrl = self.shareUrl;
+    [[ShareSDKManager shareInstance] shareClientToQQSession:model block:^(SSDKResponseState state) {
+        
+    }];
 }
 
 - (void)shareToQzone {
-    XMShareQQUtil *util = [XMShareQQUtil sharedInstance];
-    util.shareTitle = self.shareTitle;
-    util.shareText = self.shareText;
-    util.shareUrl = self.shareUrl;
-    
-    [util shareToQzone];
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = self.shareTitle;
+    model.content = self.shareText;
+    model.shareUrl = self.shareUrl;
+    [[ShareSDKManager shareInstance] shareClientToQQZone:model block:^(SSDKResponseState state) {
+        
+    }];
 }
 
 - (void)shareToWeibo {
-    XMShareWeiboUtil *util = [XMShareWeiboUtil sharedInstance];
-    util.shareTitle = self.shareTitle;
-    util.shareText = self.shareText;
-    util.shareUrl = self.shareUrl;
-    
-    [util shareToWeibo];
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = self.shareTitle;
+    model.content = self.shareText;
+    model.shareUrl = self.shareUrl;
+    [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {
+        
+    }];
 }
 
 
