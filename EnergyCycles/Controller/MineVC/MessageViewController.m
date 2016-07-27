@@ -7,12 +7,13 @@
 //
 
 #import "MessageViewController.h"
+#import "MineWhisperTableViewCell.h"
 #import "MineMessageTableViewCell.h"
 #import "GifHeader.h"
+#import "MessageModel.h"
+#import "MineChatViewController.h"
 
 @interface MessageViewController ()<UITableViewDelegate,UITableViewDataSource>
-
-@property (nonatomic, assign) int page;
 
 @property (nonatomic, assign) int commentPage;
 
@@ -23,6 +24,8 @@
 @property (nonatomic, assign) BOOL unCommentRead;
 
 @property (nonatomic, assign) BOOL unLikeRead;
+
+@property (nonatomic, assign) BOOL unMessageRead;
 
 @property (nonatomic, strong) NSMutableArray *commentArray;
 
@@ -56,6 +59,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.type == 3) {
+        return 100;
+    }
     return 160;
 }
 
@@ -73,8 +79,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.type == 3) {
-//        static NSString *
-        return nil;
+        static NSString *mineWhisperTableViewCell = @"mineWhisperTableViewCell";
+        MineWhisperTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mineWhisperTableViewCell];
+        
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"MineWhisperTableViewCell" owner:self options:nil].lastObject;
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        MessageModel *model = [[MessageModel alloc] init];
+        model = self.messageArray[indexPath.row];
+        [cell updateDataWithModel:model];
+        
+        return cell;
     } else {
         static NSString *mineMessageTableViewCell = @"mineMessageTableViewCell";
         MineMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mineMessageTableViewCell];
@@ -89,11 +105,19 @@
         } else {
             model = self.likeArray[indexPath.row];
         }
-        NSLog(@"%@", [model class]);
         [cell updateDataWithModel:model];
         return cell;
     }
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.type == 3) {
+        MessageModel *model = self.messageArray[indexPath.row];
+        MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
+        chatVC.useredId = model.UserID;
+        [self.navigationController pushViewController:chatVC animated:YES];
+    }
 }
 
 - (void)createTableView {
@@ -110,11 +134,21 @@
         } else if (self.type == 2) {
             self.likePage = 0;
             [weakSelf updateDataWithPage:self.likePage];
+        } else if (self.type == 3) {
+            self.messagePage = 0;
+            [weakSelf updateMessageData];
         }
     }];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        self.page ++;
-        [weakSelf updateDataWithPage:self.page];
+        if (self.type == 1) {
+            self.commentPage ++ ;
+            [weakSelf updateDataWithPage:self.commentPage];
+        } else if (self.type == 2) {
+            self.likePage ++;
+            [weakSelf updateDataWithPage:self.likePage];
+        } else if (self.type == 3) {
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
     }];
     [self.tableView.mj_header beginRefreshing];
 }
@@ -123,7 +157,6 @@
     [self.tableView.mj_header endRefreshing];
     [self.tableView.mj_footer endRefreshing];
 }
-
 
 - (void)updateDataWithPage:(int)page {
     [[AppHttpManager shareInstance] getMessageGetWithType:self.type Userid:[User_ID intValue] PageIndex:page PageSize:10 PostOrGet:@"get" success:^(NSDictionary *dict) {
@@ -138,12 +171,12 @@
             for (NSDictionary *data in dict[@"Data"]) {
                 GetMessageModel *model = [[GetMessageModel alloc] initWithDictionary:data error:nil];
                 if (self.type == 1) {
-                    if (model.NotifyRead == 0) {
+                    if ([model.NotifyIsRead isEqualToString:@"0"] || model.NotifyIsRead == nil) {
                         self.unCommentRead = YES;
                     }
                     [self.commentArray addObject:model];
                 } else if (self.type == 2) {
-                    if (model.NotifyRead == 0) {
+                    if ([model.NotifyIsRead isEqualToString:@"0"] || model.NotifyIsRead == nil) {
                         self.unLikeRead = YES;
                     }
                     [self.likeArray addObject:model];
@@ -160,6 +193,12 @@
                 if ((page + 1) * 10 >= [model.RowCounts intValue]) {
                     [self.tableView.mj_footer endRefreshingWithNoMoreData];
                 }
+                if (self.unCommentRead) {
+                    self.unreadComment.hidden = NO;
+                }
+                if (self.unLikeRead) {
+                    self.unreadLike.hidden = NO;
+                }
                 [self.tableView reloadData];
             });
         } else {
@@ -173,10 +212,90 @@
             if ((page + 1) * 10 >= [model.RowCounts intValue]) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
+            if ((self.commentArray.count == 0 && self.type == 1) || (self.likeArray.count == 0 && self.type == 2)) {
+                [self.tableView reloadData];
+            }
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
     } failure:^(NSString *str) {
         [self endRefresh];
+        NSLog(@"%@", str);
+    }];
+}
+
+// 第一次加载数据
+- (void)updateDataWithType:(int)type {
+    [[AppHttpManager shareInstance] getMessageGetWithType:type Userid:[User_ID intValue] PageIndex:0 PageSize:10 PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            [self.likeArray removeAllObjects];
+            for (NSDictionary *data in dict[@"Data"]) {
+                GetMessageModel *model = [[GetMessageModel alloc] initWithDictionary:data error:nil];
+                if ([model.NotifyIsRead isEqualToString:@"0"] || model.NotifyIsRead == nil) {
+                    self.unLikeRead = YES;
+                }
+                [self.likeArray addObject:model];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self endRefresh];
+                if (self.unLikeRead) {
+                    self.unreadLike.hidden = NO;
+                }
+                [self.tableView reloadData];
+            });
+        }
+    } failure:^(NSString *str) {
+        [self endRefresh];
+        NSLog(@"%@", str);
+    }];
+}
+
+- (void)updateMessageData {
+    [[AppHttpManager shareInstance] getGetTopOnePeopleWithUserid:[User_ID intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            if (self.messagePage == 0) {
+                [self.messageArray removeAllObjects];
+            }
+            for (NSDictionary *dic in dict[@"Data"]) {
+                MessageModel *model = [[MessageModel alloc] initWithDictionary:dic error:nil];
+                if ([model.MessageIsRead isEqualToString:@"0"] || model.MessageIsRead == nil) {
+                    self.unMessageRead = YES;
+                }
+                [self.messageArray addObject:model];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self endRefresh];
+                if (self.unMessageRead) {
+                    self.unreadMessage.hidden = NO;
+                }
+                [self.tableView reloadData];
+            });
+        } else {
+            if (self.messageArray.count == 0) {
+                [self.tableView reloadData];
+            }
+//            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }
+    } failure:^(NSString *str) {
+        [self endRefresh];
+        NSLog(@"%@", str);
+    }];
+}
+
+- (void)getMessageReaded {
+    [[AppHttpManager shareInstance] getMessageReadedWithType:self.type Userid:[User_ID intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            NSLog(@"置为已读");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (self.type == 1) {
+                    [self updateDataWithPage:self.commentPage];
+                } else if (self.type == 2) {
+                    [self updateDataWithPage:self.likePage];
+                }
+            });
+        } else {
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }
+    } failure:^(NSString *str) {
         NSLog(@"%@", str);
     }];
 }
@@ -186,9 +305,17 @@
     [self createTableView];
     [self setUpMJRefresh];
     
+    self.unreadComment.hidden = YES;
+    self.unreadLike.hidden = YES;
+    self.unreadMessage.hidden = YES;
+    
     self.commentPage = 0;
     self.likePage = 0;
     self.messagePage = 0;
+    
+//    [self updateDataWithType:1];
+    [self updateDataWithType:2];
+    [self updateMessageData];
     
     [self commentClick:self.commentButton];
     
@@ -199,21 +326,29 @@
 
 - (IBAction)commentClick:(id)sender {
     self.unreadComment.hidden = YES;
+    self.unCommentRead = NO;
+//    self
     [self changeLineFrameAndTextColor:sender];
     self.type = 1;
-    [self updateDataWithPage:self.commentPage];
+    [self getMessageReaded];
+//    [self updateDataWithPage:self.commentPage];
 }
 
 - (IBAction)likeClick:(id)sender {
     self.unreadLike.hidden = YES;
+    self.unLikeRead = NO;
     [self changeLineFrameAndTextColor:sender];
     self.type = 2;
-    [self updateDataWithPage:self.likePage];
+    [self getMessageReaded];
+//    [self updateDataWithPage:self.likePage];
 }
 
 - (IBAction)messageClick:(id)sender {
+    self.unreadMessage.hidden = YES;
+    self.unMessageRead = NO;
     self.type = 3;
     [self changeLineFrameAndTextColor:sender];
+    [self updateMessageData];
 }
 
 // 改变下划线的位置与按钮的颜色

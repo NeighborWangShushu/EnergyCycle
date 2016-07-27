@@ -34,7 +34,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYT-N6-FNj">
-                        <rect key="frame" x="89" y="47" width="276" height="14.5"/>
+                        <rect key="frame" x="89" y="47" width="251" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -45,11 +45,27 @@
                         <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ty4-Pj-9nP">
+                        <rect key="frame" x="357" y="46.5" width="8" height="8"/>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="8" id="OBb-WK-h47"/>
+                            <constraint firstAttribute="width" constant="8" id="sqk-9L-Ykt"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Ty4-Pj-9nP" secondAttribute="trailing" constant="17" id="Dmf-gZ-kiv"/>
                     <constraint firstItem="4gl-aN-RV8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="KVH-PQ-i8I"/>
                     <constraint firstItem="afd-gV-69l" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="MBo-dt-Ex7"/>
-                    <constraint firstAttribute="trailing" secondItem="vYT-N6-FNj" secondAttribute="trailing" constant="17" id="R45-4O-dg4"/>
+                    <constraint firstItem="Ty4-Pj-9nP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="Odf-qg-IP7"/>
+                    <constraint firstAttribute="trailing" secondItem="vYT-N6-FNj" secondAttribute="trailing" constant="42" id="R45-4O-dg4"/>
+                    <constraint firstItem="Ty4-Pj-9nP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Snf-UH-ygH"/>
                     <constraint firstItem="vYT-N6-FNj" firstAttribute="top" secondItem="afd-gV-69l" secondAttribute="bottom" constant="8" id="TsM-EB-vv8"/>
                     <constraint firstItem="vYT-N6-FNj" firstAttribute="leading" secondItem="afd-gV-69l" secondAttribute="leading" id="Wxb-re-Thb"/>
                     <constraint firstItem="4gl-aN-RV8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cbd-JM-0Mi"/>
@@ -57,12 +73,19 @@
                     <constraint firstItem="TTr-ma-R7w" firstAttribute="centerY" secondItem="afd-gV-69l" secondAttribute="centerY" id="wm9-Yg-Drh"/>
                     <constraint firstItem="TTr-ma-R7w" firstAttribute="leading" secondItem="afd-gV-69l" secondAttribute="trailing" constant="8" id="ypa-7F-hiG"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="Odf-qg-IP7"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
+                <outlet property="constraint" destination="R45-4O-dg4" id="Yia-oo-8o3"/>
                 <outlet property="contentLabel" destination="vYT-N6-FNj" id="4H2-tm-mYz"/>
                 <outlet property="headImage" destination="4gl-aN-RV8" id="xA3-D8-vUq"/>
                 <outlet property="nameLabel" destination="afd-gV-69l" id="P4f-Qn-Qk3"/>
                 <outlet property="timeLabel" destination="TTr-ma-R7w" id="BN3-hr-a8r"/>
+                <outlet property="unReadView" destination="Ty4-Pj-9nP" id="1uP-ls-TVa"/>
             </connections>
             <point key="canvasLocation" x="397" y="300.5"/>
         </tableViewCell>

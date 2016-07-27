@@ -137,7 +137,7 @@
 #define GetTalkList      @"user/GetTalkList"
 
 //27.获取私信列表
-#define GetTopOnePeople      @"user/GetTopOnePeople"
+#define GetTopOnePeople      @"user/MyMessage_get"
 
 //28.查询我的积分排名
 #define GetJinfenCount      @"user/GetJinfenCount"
@@ -372,4 +372,6 @@
 //99.获取用户点赞/评论消息
 #define Message_Get @"/user/Message_Get"
 
+//100.将消息置为已读
+#define Message_Readed @"/user/Message_Readed"
 #endif

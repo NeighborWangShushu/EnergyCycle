@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSString<Optional> *NotifyContent;
 @property (nonatomic, strong) NSString<Optional> *NotifyTime;
-@property (nonatomic, strong) NSString<Optional> *NotifyRead;
+@property (nonatomic, strong) NSString<Optional> *NotifyIsRead;
 @property (nonatomic, strong) NSString<Optional> *A_ID;
 @property (nonatomic, strong) NSString<Optional> *A_CONTENT;
 @property (nonatomic, strong) NSString<Optional> *use_id;

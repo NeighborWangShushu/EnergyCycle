@@ -10,6 +10,35 @@
 
 @implementation MineWhisperTableViewCell
 
+- (void)updateDataWithModel:(MessageModel *)model {
+    
+    // 未读
+    if ([model.MessageIsRead isEqualToString:@"0"] || model.MessageIsRead == nil) {
+        self.unReadView.hidden = NO;
+        self.constraint.constant = 42;
+    } else {
+        self.unReadView.hidden = YES;
+        self.constraint.constant = 17;
+    }
+    
+    // 头像
+    if ([model.photourl isEqualToString:@""] || model.photourl == nil) {
+        [self.headImage setImage:[UIImage imageNamed:@"touxiang"]];
+    } else {
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:model.photourl]];
+    }
+    
+    // 昵称
+    self.nameLabel.text = model.nickname;
+    
+    // 时间
+    self.timeLabel.text = model.MessageTime;
+    
+    // 内容
+    self.contentLabel.text = model.MessageContent;
+    
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

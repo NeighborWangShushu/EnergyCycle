@@ -489,6 +489,15 @@
 		625902391D2CFB6A00F3F13C /* BoundSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625902381D2CFB6A00F3F13C /* BoundSuccessViewController.m */; };
 		6259023C1D2CFB7B00F3F13C /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */; };
 		6259023F1D2D02EC00F3F13C /* VerificationPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */; };
+		626D3F0D1D489A6C00724000 /* MineChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */; };
+		626D3F0E1D489A6C00724000 /* MineChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */; };
+		626D3F111D48A29400724000 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F101D48A29400724000 /* ChatTableViewCell.m */; };
+		626D3F131D48A2CA00724000 /* ChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F121D48A2CA00724000 /* ChatTableViewCell.xib */; };
+		626D3F161D48A43A00724000 /* MineChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F151D48A43A00724000 /* MineChatViewController.m */; };
+		626D3F1E1D48DB2100724000 /* MineChatLeftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F1C1D48DB2100724000 /* MineChatLeftTableViewCell.m */; };
+		626D3F1F1D48DB2100724000 /* MineChatLeftTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F1D1D48DB2100724000 /* MineChatLeftTableViewCell.xib */; };
+		626D3F2A1D48E1CF00724000 /* chat_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F281D48E1CF00724000 /* chat_left.png */; };
+		626D3F2B1D48E1CF00724000 /* chat_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F291D48E1CF00724000 /* chat_right.png */; };
 		62724E671D41BBE300E84202 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E661D41BBE300E84202 /* more.png */; };
 		62724E691D41BBE800E84202 /* more@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E681D41BBE800E84202 /* more@3x.png */; };
 		62724E6E1D42225900E84202 /* addAttentionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E6A1D42225900E84202 /* addAttentionButton.png */; };
@@ -1977,6 +1986,19 @@
 		6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		6259023D1D2D02EC00F3F13C /* VerificationPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationPhoneViewController.h; sourceTree = "<group>"; };
 		6259023E1D2D02EC00F3F13C /* VerificationPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationPhoneViewController.m; sourceTree = "<group>"; };
+		626D3F0A1D489A6C00724000 /* MineChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineChatTableViewCell.h; sourceTree = "<group>"; };
+		626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineChatTableViewCell.m; sourceTree = "<group>"; };
+		626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineChatTableViewCell.xib; sourceTree = "<group>"; };
+		626D3F0F1D48A29400724000 /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
+		626D3F101D48A29400724000 /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
+		626D3F121D48A2CA00724000 /* ChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatTableViewCell.xib; sourceTree = "<group>"; };
+		626D3F141D48A43A00724000 /* MineChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineChatViewController.h; sourceTree = "<group>"; };
+		626D3F151D48A43A00724000 /* MineChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineChatViewController.m; sourceTree = "<group>"; };
+		626D3F1B1D48DB2100724000 /* MineChatLeftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineChatLeftTableViewCell.h; sourceTree = "<group>"; };
+		626D3F1C1D48DB2100724000 /* MineChatLeftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineChatLeftTableViewCell.m; sourceTree = "<group>"; };
+		626D3F1D1D48DB2100724000 /* MineChatLeftTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineChatLeftTableViewCell.xib; sourceTree = "<group>"; };
+		626D3F281D48E1CF00724000 /* chat_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_left.png; sourceTree = "<group>"; };
+		626D3F291D48E1CF00724000 /* chat_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_right.png; sourceTree = "<group>"; };
 		62724E661D41BBE300E84202 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
 		62724E681D41BBE800E84202 /* more@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more@3x.png"; sourceTree = "<group>"; };
 		62724E6A1D42225900E84202 /* addAttentionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addAttentionButton.png; sourceTree = "<group>"; };
@@ -3776,6 +3798,8 @@
 				D00591611D24F77D00F91692 /* qzone@2x.png */,
 				D00591621D24F77D00F91692 /* wechat@2x.png */,
 				D005915F1D24F6B300F91692 /* pengyouquan@2x.png */,
+				626D3F281D48E1CF00724000 /* chat_left.png */,
+				626D3F291D48E1CF00724000 /* chat_right.png */,
 				D04B54EA1D23D64600DC259A /* testImg */,
 				D077C5651D1D613C00303A90 /* images */,
 				DA937D531C44FDA900F174F6 /* touxiang@2x.png */,
@@ -4614,6 +4638,7 @@
 		26D99E901C0C4D7B007AF579 /* MineView */ = {
 			isa = PBXGroup;
 			children = (
+				626D3F091D489A4200724000 /* MineChat */,
 				62FE509C1D45DED60082BD03 /* MineMessage */,
 				622BA6471D40AD6600194984 /* MinePKRecordView */,
 				62FCE9051D3CAF3500F52E05 /* MineAttentionAndFansView */,
@@ -4738,6 +4763,22 @@
 				6259023B1D2CFB7B00F3F13C /* ChangePasswordViewController.m */,
 			);
 			name = AccountManage;
+			sourceTree = "<group>";
+		};
+		626D3F091D489A4200724000 /* MineChat */ = {
+			isa = PBXGroup;
+			children = (
+				626D3F0A1D489A6C00724000 /* MineChatTableViewCell.h */,
+				626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */,
+				626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */,
+				626D3F1B1D48DB2100724000 /* MineChatLeftTableViewCell.h */,
+				626D3F1C1D48DB2100724000 /* MineChatLeftTableViewCell.m */,
+				626D3F1D1D48DB2100724000 /* MineChatLeftTableViewCell.xib */,
+				626D3F0F1D48A29400724000 /* ChatTableViewCell.h */,
+				626D3F101D48A29400724000 /* ChatTableViewCell.m */,
+				626D3F121D48A2CA00724000 /* ChatTableViewCell.xib */,
+			);
+			name = MineChat;
 			sourceTree = "<group>";
 		};
 		627F76F51D38D99700552B96 /* Intro */ = {
@@ -4871,6 +4912,8 @@
 			children = (
 				62FE50991D45B62E0082BD03 /* MessageViewController.h */,
 				62FE509A1D45B62E0082BD03 /* MessageViewController.m */,
+				626D3F141D48A43A00724000 /* MineChatViewController.h */,
+				626D3F151D48A43A00724000 /* MineChatViewController.m */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -6568,6 +6611,7 @@
 			files = (
 				DA2AE49F1C2D45BD00F2F182 /* InviteThreeTableViewCell.xib in Resources */,
 				26D8B1FB1C0FEEE900A1DB04 /* 07_1@3x.png in Resources */,
+				626D3F2A1D48E1CF00724000 /* chat_left.png in Resources */,
 				26D8B2361C0FEEE900A1DB04 /* 22_2@2x.png in Resources */,
 				DA677B921C3A6E11004A534E /* QDDT00040.png in Resources */,
 				26C959371C0C5BFF008A9273 /* EnergyShowThreeViewCell.xib in Resources */,
@@ -6583,6 +6627,7 @@
 				DAE034D91C182181007E6DBD /* 39xin01_@2x.png in Resources */,
 				DA677B961C3A6E11004A534E /* QDDT00044.png in Resources */,
 				DA8103A61C2BABD300CFFF44 /* loginIcon@3x.png in Resources */,
+				626D3F1F1D48DB2100724000 /* MineChatLeftTableViewCell.xib in Resources */,
 				D077C5A31D1D613C00303A90 /* 22_03.png in Resources */,
 				DA677B6F1C3A6E11004A534E /* QDDT00005.png in Resources */,
 				DA3190DE1C22A54D00972F63 /* loginbeijing@3x.png in Resources */,
@@ -6613,6 +6658,7 @@
 				DA4459B91C210E460069415D /* learnyinying@3x.png in Resources */,
 				26D8B2341C0FEEE900A1DB04 /* 22_1@2x.png in Resources */,
 				26D8B2161C0FEEE900A1DB04 /* 14_2@2x.png in Resources */,
+				626D3F131D48A2CA00724000 /* ChatTableViewCell.xib in Resources */,
 				D04B54CA1D23C90D00DC259A /* MLEmoji_Expression.bundle in Resources */,
 				26D8B2101C0FEEE900A1DB04 /* 13_1@2x.png in Resources */,
 				26D8B24B1C0FEEE900A1DB04 /* 27_2@3x.png in Resources */,
@@ -7232,6 +7278,7 @@
 				DA677B911C3A6E11004A534E /* QDDT00039.png in Resources */,
 				DA677B7C1C3A6E11004A534E /* QDDT00018.png in Resources */,
 				DA677B891C3A6E11004A534E /* QDDT00031.png in Resources */,
+				626D3F0E1D489A6C00724000 /* MineChatTableViewCell.xib in Resources */,
 				62FE50A11D45DEE40082BD03 /* MineMessageTableViewCell.xib in Resources */,
 				DAE035051C182181007E6DBD /* NO3_@2x.png in Resources */,
 				D07E244E1D12BFD100854B51 /* bbc@2x.png in Resources */,
@@ -7300,6 +7347,7 @@
 				DA937D511C44FA7A00F174F6 /* EveryDayPKViewCell.xib in Resources */,
 				DAAEC7171C1FFBF000FA094B /* bg_tou@3x.png in Resources */,
 				DA7675281C280EE100A34D9C /* RecordTableViewCell.xib in Resources */,
+				626D3F2B1D48E1CF00724000 /* chat_right.png in Resources */,
 				DA677B941C3A6E11004A534E /* QDDT00042.png in Resources */,
 				26D8B1E41C0FEEE900A1DB04 /* 01_2@2x.png in Resources */,
 				625750BF1D337F6200E46B2E /* Group@3x.png in Resources */,
@@ -7411,6 +7459,7 @@
 				D04B54DE1D23C90D00DC259A /* SDRefreshView.m in Sources */,
 				DA4459BF1C2114C70069415D /* ForgetPassWordViewController.m in Sources */,
 				D07EB29B1D18DE6800840AC2 /* JiaoLiuListModel.m in Sources */,
+				626D3F161D48A43A00724000 /* MineChatViewController.m in Sources */,
 				26D99EE81C0C4D7C007AF579 /* MGSwipeButton.m in Sources */,
 				26D99E9F1C0C4D7B007AF579 /* EnergyCycleShowCellModel.m in Sources */,
 				26D99F0A1C0C4D7C007AF579 /* MKAnnotationView+WebCache.m in Sources */,
@@ -7488,6 +7537,7 @@
 				26E987861C0D94DB00C6A7BB /* CustomTableViewCell.m in Sources */,
 				DA7D19CF1C5AF84600FFB337 /* XHZoomingImageView.m in Sources */,
 				DA6F79321C34DB400095C82F /* MallModel.m in Sources */,
+				626D3F1E1D48DB2100724000 /* MineChatLeftTableViewCell.m in Sources */,
 				26D99F0F1C0C4D7C007AF579 /* SDWebImageDownloader.m in Sources */,
 				DA2AE49A1C2D3BFA00F2F182 /* GuidePageViewController.m in Sources */,
 				26D99ED51C0C4D7B007AF579 /* IQSegmentedNextPrevious.m in Sources */,
@@ -7519,6 +7569,7 @@
 				26D99EE51C0C4D7C007AF579 /* JSONModel+networking.m in Sources */,
 				62A93BDC1D3628B600343B63 /* MineHomePageHeadModel.m in Sources */,
 				26D99EE61C0C4D7C007AF579 /* JSONKeyMapper.m in Sources */,
+				626D3F0D1D489A6C00724000 /* MineChatTableViewCell.m in Sources */,
 				DA7674BF1C279A1800A34D9C /* MyProfileViewCell.m in Sources */,
 				26D99E9B1C0C4D7B007AF579 /* MineViewController.m in Sources */,
 				DA77F3AE1C479438003CBA4D /* TheAdvDetailModel.m in Sources */,
@@ -7728,6 +7779,7 @@
 				D04B54601D23BEDF00DC259A /* ECTimeLineModel.m in Sources */,
 				26D99F221C0C4D7C007AF579 /* EnergyShowOneViewCell.m in Sources */,
 				625902361D2CFB6100F3F13C /* InputPasswordViewController.m in Sources */,
+				626D3F111D48A29400724000 /* ChatTableViewCell.m in Sources */,
 				D07D2ED81D0FD6CC00AF35B1 /* MASLayoutConstraint.m in Sources */,
 				DA7D19C91C5AF84600FFB337 /* UIImage+Utility.m in Sources */,
 				DA7CE5541C3E38BF00272952 /* LineChartView.m in Sources */,

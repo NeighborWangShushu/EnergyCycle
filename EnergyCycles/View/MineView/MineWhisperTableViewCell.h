@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessageModel.h"
 
 @interface MineWhisperTableViewCell : UITableViewCell
 
@@ -18,5 +19,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 // 内容
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+// 是否未读
+@property (weak, nonatomic) IBOutlet UIView *unReadView;
+// 约束
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
+
+- (void)updateDataWithModel:(MessageModel *)model;
 
 @end

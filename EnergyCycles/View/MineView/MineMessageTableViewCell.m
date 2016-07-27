@@ -12,7 +12,7 @@
 
 - (void)updateDataWithModel:(GetMessageModel *)model {
     
-    NSLog(@"sdfasdfsdf%@",model);
+//    NSLog(@"sdfasdfsdf%@",model);
     // 用户名
     self.nameLabel.text = model.nickname;
     

@@ -2615,7 +2615,7 @@ static AFHTTPRequestOperationManager *manager;
 
 #pragma mark - 99.获取用户点赞/评论消息
 //请求参数:
-//Type      int 1.赞 2.评论
+//Type      int 1.评论 2.赞
 //UserID    int 用户ID
 //PageIndex int 页码
 //PageSize  int 每页显示数
@@ -2641,6 +2641,29 @@ static AFHTTPRequestOperationManager *manager;
                          failure(dict);
                      }];
     
+}
+
+#pragma mark - 100.将消息置为已读
+//请求参数
+//Type      int 1.评论 2.赞
+//UserID    int 用户ID
+- (void)getMessageReadedWithType:(int)type
+                          Userid:(int)userid
+                       PostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:type] forKey:@"type"];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    
+    [self callInterfaceByUrl:Message_Readed
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                        success(dict);
+                    } failure:^(NSString *dict) {
+                        failure(dict);
+                    }];
 }
 
 @end
