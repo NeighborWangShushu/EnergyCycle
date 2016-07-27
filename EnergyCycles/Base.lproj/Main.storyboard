@@ -814,7 +814,6 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="cancel:" destination="jfQ-f9-7Aw" eventType="touchUpInside" id="R0g-mx-m2l"/>
                                             <action selector="push:" destination="jfQ-f9-7Aw" eventType="touchUpInside" id="Ey2-Jz-nht"/>
                                         </connections>
                                     </button>
@@ -2688,7 +2687,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t4a-LC-ZtG">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t4a-LC-ZtG">
                                 <rect key="frame" x="0.0" y="104" width="375" height="514"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -3844,17 +3843,17 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5Rx-gA-efe">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5Rx-gA-efe">
                                 <rect key="frame" x="0.0" y="215" width="375" height="302.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海摩英商务咨询有限公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgZ-Hr-6hr">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="上海摩英商务咨询有限公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgZ-Hr-6hr">
                                 <rect key="frame" x="133" y="574" width="108" height="11"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="©2015-2016 All Rights Reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ayr-hp-hZu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="©2015-2016 All Rights Reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ayr-hp-hZu">
                                 <rect key="frame" x="107" y="593" width="160.5" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="0.5" colorSpace="calibratedRGB"/>
@@ -6212,20 +6211,13 @@
         <image name="write_normal.png" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="R8s-I5-eNH"/>
         <segue reference="ZMB-6O-NCg"/>
-        <segue reference="OUY-i2-Yfb"/>
-        <segue reference="axj-NJ-TGV"/>
-        <segue reference="Jyv-eP-V7z"/>
-        <segue reference="mMa-EG-ekD"/>
         <segue reference="DWR-ZX-Hly"/>
-        <segue reference="PKj-mJ-5kS"/>
-        <segue reference="R8s-I5-eNH"/>
-        <segue reference="vpn-CB-KIX"/>
-        <segue reference="PKj-mJ-5kS"/>
+        <segue reference="mMa-EG-ekD"/>
         <segue reference="I2i-X2-oaq"/>
+        <segue reference="vpn-CB-KIX"/>
         <segue reference="qpV-fR-jXy"/>
-        <segue reference="mMa-EG-ekD"/>
-        <segue reference="R8s-I5-eNH"/>
-        <segue reference="DWR-ZX-Hly"/>
+        <segue reference="PKj-mJ-5kS"/>
     </inferredMetricsTieBreakers>
 </document>

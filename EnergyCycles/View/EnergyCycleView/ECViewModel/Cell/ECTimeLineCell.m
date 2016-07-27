@@ -253,9 +253,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 }
 
 - (void)tapIcon {
-    NSLog(@"tapIcon");
+    
     if ([self.delegate respondsToSelector:@selector(didClickOtherUser:userId:userName:)]) {
-        [self.delegate didClickOtherUser:self userId:self.model.ID userName:self.model.name];
+        [self.delegate didClickOtherUser:self userId:self.model.UserID userName:self.model.name];
     }
     
 }

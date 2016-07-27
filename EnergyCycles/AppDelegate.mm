@@ -17,6 +17,7 @@
 #import <TencentOpenAPI/QQApiInterfaceObject.h>
 #import "GuidePageViewController.h"
 #import "XMShareQQUtil.h"
+#import "ShareSDKManager.h"
 
 
 @interface AppDelegate () <WeiboSDKDelegate,WXApiDelegate,QQApiInterfaceDelegate,UIAlertViewDelegate>
@@ -35,16 +36,17 @@ AppDelegate *EnetgyCycle = nil;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     
-    //第三方_微信
-    [WXApi registerApp:APP_KEY_WEIXIN withDescription:@"weixin"];
-    //第三方_微博
-    [WeiboSDK enableDebugMode:YES];
-    [WeiboSDK registerApp:APP_KEY_WEIBO];
-    [XMShareQQUtil sharedInstance];
-    
-    self.audioPlayIndex = -1;
-    //进入引导页
-    NSString *isEnterGuidePage = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsEnterGuidePage"];
+//    //第三方_微信
+//    [WXApi registerApp:APP_KEY_WEIXIN withDescription:@"weixin"];
+//    //第三方_微博
+//    [WeiboSDK enableDebugMode:YES];
+//    [WeiboSDK registerApp:APP_KEY_WEIBO];
+//    [XMShareQQUtil sharedInstance];
+//    
+    [ShareSDKManager shareInstance];
+     
+     
+     NSString *isEnterGuidePage = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsEnterGuidePage"];
     if (!isEnterGuidePage) {
         [self creatGuidePageView];
     }
