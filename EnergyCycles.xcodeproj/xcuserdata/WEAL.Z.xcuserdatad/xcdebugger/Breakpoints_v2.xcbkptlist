@@ -370,11 +370,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
-            timestampString = "491290182.584295"
+            timestampString = "491388109.258523"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "553"
-            endingLineNumber = "553"
+            startingLineNumber = "564"
+            endingLineNumber = "564"
             landmarkName = "-loadMoreData"
             landmarkType = "5">
             <Locations>
@@ -418,12 +418,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EnergyCycles/View/EnergyCycleView/ECViewModel/Cell/ECTimeLineCell.m"
-            timestampString = "491135412.742595"
+            timestampString = "491384221.694478"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
-            landmarkName = "-setModel:"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
+            landmarkName = "-deleteAction"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -482,13 +482,93 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
-            timestampString = "491303674.39015"
+            timestampString = "491391421.40673"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "736"
-            endingLineNumber = "736"
+            startingLineNumber = "799"
+            endingLineNumber = "799"
             landmarkName = "-tableView:heightForRowAtIndexPath:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/View/EnergyCycleView/ECViewModel/Cell/ECTimeLineCell.m"
+            timestampString = "491384221.694478"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
+            landmarkName = "-setModel:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/View/EnergyCycleView/ECViewModel/BottomView/SDTimeLineCellBottomView.m"
+            timestampString = "491377762.576908"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "-setup"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
+            timestampString = "491396765.799211"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
+            landmarkName = "-getData:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__28-[ECViewController getData:]_block_invoke_2.200"
+                  moduleName = "EnergyCycles"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/WEAL.Z/work/team/project-dev/EnergyCycle/EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
+                  timestampString = "491396765.957159"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "224"
+                  endingLineNumber = "224"
+                  offsetFromSymbolStart = "332">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__28-[ECViewController getData:]_block_invoke_2.200"
+                  moduleName = "EnergyCycles"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/WEAL.Z/work/team/project-dev/EnergyCycle/EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
+                  timestampString = "491396765.957636"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "224"
+                  endingLineNumber = "224"
+                  offsetFromSymbolStart = "347">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

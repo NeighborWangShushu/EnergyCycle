@@ -32,6 +32,8 @@
     NSInteger currentSegmentIndex;
     NSString * weburl;
     BOOL isGotoDetail;
+    
+    AppDelegate*delegate;
 }
 
 @property (nonatomic,strong)UIPageViewController * pageController;
@@ -52,6 +54,8 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [super viewWillAppear:animated];
     
+    [delegate.tabbarController hideTabbar:NO];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -65,7 +69,8 @@
     lastPlayIndex = -1;
     self.otherTags = [NSMutableArray array];
     self.pageTags  = [NSMutableArray array];
-    
+    delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+
     [self getPageData];
     [self getMyTag];
     
@@ -102,6 +107,7 @@
     }];
 }
 
+
 - (void)gotoCyclePostView:(NSNotification*)noti {
     
     if ([User_TOKEN length] <= 0) {
@@ -112,8 +118,6 @@
         [viewController presentViewController:postView animated:YES completion:nil];
     }
 }
-
-
 
 //对我的定制数据和标签数据进行比较
 - (void)compareData {
@@ -150,6 +154,7 @@
  */
 
 - (void)ReferralHeadViewShowMore:(NSNotification*)noti {
+    [delegate.tabbarController hideTabbar:YES];
     NSDictionary * userInfo = [noti userInfo];
     NSString * name = [userInfo objectForKey:@"name"];
     MoreVC*morevc = MainStoryBoard(@"MoreVC");
@@ -172,6 +177,7 @@
     NSNumber * type         = [userInfo objectForKey:@"type"];
     
     
+    [delegate.tabbarController hideTabbar:YES];
     if ([type isEqualToNumber:[NSNumber numberWithBool:YES]]) {
         [self stopAudio];
     }
@@ -396,45 +402,15 @@
 }
 
 
-- (void)makeTabBarHidden:(BOOL)hide
-{
-    if ( [self.tabBarController.view.subviews count] < 2 )
-    {
-        return;
-    }
-    UIView *contentView;
-    
-    if ( [[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]] )
-    {
-        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
-    }
-    else
-    {
-        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-    }
-    [UIView beginAnimations:@"TabbarHide" context:nil];
-    if ( hide )
-    {
-        contentView.frame = self.tabBarController.view.bounds;
-    }
-    else
-    {
-        contentView.frame = CGRectMake(self.tabBarController.view.bounds.origin.x,
-                                       self.tabBarController.view.bounds.origin.y,
-                                       self.tabBarController.view.bounds.size.width,
-                                       self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
-    }
-    
-    self.tabBarController.tabBar.hidden = hide;
-    [UIView commitAnimations];
-}
 
 //打开popview
 - (void)startAnimation {
     if (popView) {
         return;
     }
-    [self makeTabBarHidden:YES];
+    
+    [delegate.tabbarController hideTabbar:YES];
+    
     popView = [[PopColumView alloc] initWithData:self.pageTags myColum:self.otherTags];
     popView.delegate = self;
     [self.view addSubview:popView];
@@ -509,15 +485,13 @@
 #pragma mark PopColumViewDelegate
 - (void)popColunView:(PopColumView *)view didChooseColums:(NSMutableArray *)items otherItems:(NSMutableArray *)others{
     
-    [self makeTabBarHidden:NO];
-    
     [UIView animateWithDuration:0.25 animations:^{
         popView.alpha = 0.0;
     } completion:^(BOOL finished) {
         [popView removeFromSuperview];
         popView = nil;
     }];
-    
+    [delegate.tabbarController hideTabbar:NO];
     
     //处理数据
     BOOL isDelete = [self.pageTags count] > [items count];

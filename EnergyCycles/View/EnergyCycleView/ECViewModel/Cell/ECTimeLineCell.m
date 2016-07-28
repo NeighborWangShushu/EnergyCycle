@@ -24,7 +24,7 @@
 
 #import "UIImageView+WebCache.h"
 
-const CGFloat contentLabelFontSize2 = 13;
+const CGFloat contentLabelFontSize2 = 14;
 CGFloat maxContentLabelHeight2 = 0; // 根据具体font而定
 
 NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLineCellOperationButtonClickedNotification";
@@ -52,7 +52,6 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     SDTimeLineCellOperationMenu *_operationMenu;
     SDTimeLineCellBottomView * _bottomView;
     UIView * _marginView;
-    
     
 }
 
@@ -94,7 +93,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     
     _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+    [_deleteButton setImage:[UIImage imageNamed:@"trash-icon"] forState:UIControlStateNormal];
     [_deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
     _deleteButton.hidden = YES;
     
@@ -206,7 +205,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _deleteButton.sd_layout
     .rightSpaceToView(contentView,10)
-    .topSpaceToView(contentView,20);
+    .topSpaceToView(contentView,10)
+    .widthIs(20)
+    .heightIs(20);
     
     _locaIcon.sd_layout
     .leftSpaceToView(_iconView,margin)
@@ -371,9 +372,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         bottomView = _commentView;
     }
     
-//    _bottomView.model = model;
-    NSLog(@"%@:%@",model.msgContent, _picContainerView.fixedHeight);
-    NSLog(@"_marginView:%f----%f",_commentView.frame.size.height,_bottomView.frame.origin.y);
+    _bottomView.model = model;
     
     [self setupAutoHeightWithBottomView:_bottomView bottomMargin:10];
     

@@ -18,6 +18,12 @@
     
 }
 
+- (void)showMore {
+    [self.icon setImage:[UIImage imageNamed:@"ec_comment_more"]];
+    self.name.text = @"";
+    
+}
+
 - (void)setModel:(CommentUserModel *)model {
     _model = model;
     self.icon.layer.masksToBounds = YES;

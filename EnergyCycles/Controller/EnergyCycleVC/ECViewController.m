@@ -49,6 +49,7 @@
     
     ECNavMenuModel*selectedModel;
     ECTimeLineModel * commendModel;
+    
     /**
      *  点击评论的索引（哪条cell）
      */
@@ -106,7 +107,7 @@
 
     [self setup];
     
-    [self getData];
+    [self getData:YES];
     
     
     // Do any additional setup after loading the view.
@@ -139,9 +140,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidChange:) name:UIKeyboardDidChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
- 
     
-   
 }
 
 
@@ -171,14 +170,16 @@
     }
 }
 
-- (void)getData {
+- (void)getData:(BOOL)isloading {
     __weak typeof(self) weakSelf = self;
 
     if (pageType == 0) {
         //能量圈
-        [SVProgressHUD showWithStatus:@""];
+        if(isloading)[SVProgressHUD showWithStatus:@""];
+        
+        
         NSString * jingxuan = [NSString stringWithFormat:@"%@%@?type=2&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"0",@"10"];
-        NSString * tuijian = [NSString stringWithFormat:@"%@%@?userId=%@",INTERFACE_URL,GetRecommendUser,@"0"];
+        NSString * tuijian = [NSString stringWithFormat:@"%@%@?userId=%@&pageSize=%@",INTERFACE_URL,GetRecommendUser,@"0",[NSNumber numberWithInt:10]];
         NSString * zuixin = [NSString stringWithFormat:@"%@%@?type=1&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"0",@"10"];
         currentPage = 1;
         [self.tableView.mj_footer resetNoMoreData];
@@ -222,9 +223,9 @@
 
             for (NSDictionary * data in dict2[@"Data"]) {
                 CommentUserModel*model = [CommentUserModel new];
-                model.name = data[@"nickName"];
-                model.url = data[@"photoUrl"];
-                model.ID = [data[@"userId"] integerValue];
+                model.name = data[@"nickname"];
+                model.url = data[@"photourl"];
+                model.ID = [data[@"use_id"] integerValue];
                 model.isHeart = [data[@"isHeart"] boolValue];
                 [weakSelf.commentArray addObject:model];
             }
@@ -377,16 +378,23 @@
         text.delegate = self;
     }
     
-    UITextField*toolText = [[UITextField alloc] initWithFrame:CGRectMake(5, 3, self.view.frame.size.width - 30, 45)];
+    UITextField*toolText = [[UITextField alloc] initWithFrame:CGRectMake(5, 3, self.view.frame.size.width - 70, 40)];
     toolText.borderStyle = UITextBorderStyleRoundedRect;
     toolText.placeholder = @"评论";
     toolText.delegate = self;
     toolText.returnKeyType = UIReturnKeySend;
+    
+    UIButton*button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    [button setTitle:@"取消" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(self.view.frame.size.width - 60, 3, 30, 20)];
+    
     UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
     numberToolbar.barStyle = UIBarStyleDefault;
     numberToolbar.items = [NSArray arrayWithObjects:
                            [[UIBarButtonItem alloc]initWithCustomView:toolText],
-                           
+                           [[UIBarButtonItem alloc]initWithCustomView:button],
                            nil];
     [numberToolbar sizeToFit];
     
@@ -426,6 +434,8 @@
     [arrowImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titleLabel.mas_right).with.offset(5);
         make.centerY.equalTo(titleLabel.mas_centerY);
+        make.width.equalTo(@17);
+        make.height.equalTo(@8);
     }];
     
     self.navigationItem.titleView = navView;
@@ -456,6 +466,7 @@
     [tableView registerClass:[ECTimeLineCell class] forCellReuseIdentifier:@"TestCell2"];
     [tableView registerClass:[ECRecommendCell class] forCellReuseIdentifier:kCommentUserCellId];
     [self.view addSubview:tableView];
+    
     tableView.hidden = YES;
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -525,7 +536,7 @@
 }
 
 - (void)loadNewData {
-    [self getData];
+    [self getData:NO];
 }
 
 - (void)loadMoreData {
@@ -583,6 +594,14 @@
 }
 
 /**
+ *  取消发送评论
+ */
+
+- (void)cancelAction {
+    [[IQKeyboardManager sharedManager] resignFirstResponder];
+}
+
+/**
  *  发送评论接口
  *
  *  @return
@@ -633,12 +652,11 @@
     pageType = indexPath.row;
     titleLabel.text = model.name;
     [self removeNavMenu];
-    [self getData];
+    [self getData:YES];
 }
 
-
-
 #pragma mark UITableViewDelegate
+
 
 - (void)didClickCommendUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
     [delegate.tabbarController hideTabbar:YES];
@@ -647,11 +665,11 @@
     [self.navigationController pushViewController:home animated:YES];
 }
 
-
 - (void)didClickMoreCommendUser {
-    [self performSegueWithIdentifier:@"EnergyCycleViewToInviteView" sender:nil];
-}
 
+    [self performSegueWithIdentifier:@"EnergyCycleViewToInviteView" sender:nil];
+    
+}
 
 - (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
     
@@ -662,7 +680,50 @@
     
 }
 
+//删除动态
 - (void)didDelete:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除该动态吗?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteArticle:model indexPath:indexPath];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:alert completion:nil];
+    }];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
+- (void)deleteArticle:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath {
+    
+    switch (indexPath.section) {
+        case 0:{
+            [self.dataArray removeObjectAtIndex:indexPath.row];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            });
+        }
+            break;
+        case 2: {
+            [self.newerArray removeObjectAtIndex:indexPath.row];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            });
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    [[AppHttpManager shareInstance] getDeleteArticleWithuserId:[User_ID intValue] Token:User_TOKEN AType:1 AId:[model.ID intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
+        
+    } failure:^(NSString *str) {
+        
+    }];
     
 }
 
@@ -684,12 +745,14 @@
         
         NSString*aid = model.ID;
         [delegate.tabbarController hideTabbar:YES];
-
+        
         WebVC *webVC = MainStoryBoard(@"WebVC");
         webVC.titleName = @"动态详情";
         webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,aid,[NSString stringWithFormat:@"%@",User_ID]];
         [self.navigationController pushViewController:webVC animated:YES];
         
+    }else {
+        [self performSegueWithIdentifier:@"EnergyCycleViewToInviteView" sender:nil];
     }
 }
 
@@ -739,7 +802,7 @@
         
         return height;
     }else {
-        return 150;
+        return 155;
     }
 }
 
@@ -833,7 +896,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0 || section == 2) {
-        return 40;
+        return 30;
     }
     return 0.1;
 }

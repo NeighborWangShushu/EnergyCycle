@@ -63,7 +63,7 @@
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.top.equalTo(self.view.mas_top);
-        make.bottom.equalTo(self.view.mas_bottom).with.offset(0);
+        make.bottom.equalTo(self.view.mas_bottom).with.offset(-5);
     }];
     
     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30];
