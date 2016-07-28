@@ -113,7 +113,7 @@
             [self endRefresh];
         }else {
             [self endRefresh];
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
         
         if (_subDataArr.count) {

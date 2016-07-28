@@ -24,8 +24,14 @@
 
 @implementation IntegralMallViewController
 
+- (void)rightAction {
+    [self performSegueWithIdentifier:@"InterMallViewToForRecordView" sender:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupRightNavBarWithimage:@"04icon"];
     
     self.title = @"积分商城";
     page = 1;
@@ -50,24 +56,24 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
 //    self.navigationController.navigationBarHidden = YES;
     
     //积分
     [self.numButton setTitle:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"UserJiFen"]] forState:UIControlStateNormal];
 }
 
-#pragma mark - 返回按键
-- (IBAction)leftButtonClick:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    self.navigationController.navigationBarHidden = NO;
-}
-
-#pragma mark - 兑换记录
-- (IBAction)rightButtonClick:(id)sender {
-    [self performSegueWithIdentifier:@"InterMallViewToForRecordView" sender:nil];
-}
+//#pragma mark - 返回按键
+//- (IBAction)leftButtonClick:(id)sender {
+//    [self.navigationController popViewControllerAnimated:YES];
+//    self.navigationController.navigationBarHidden = NO;
+//}
+//
+//#pragma mark - 兑换记录
+//- (IBAction)rightButtonClick:(id)sender {
+//    [self performSegueWithIdentifier:@"InterMallViewToForRecordView" sender:nil];
+//}
 
 #pragma mark - 我的积分
 - (IBAction)numButtonClick:(id)sender {

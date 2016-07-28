@@ -25,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"积分记录";
+    
     _dataArr = [[NSMutableArray alloc] init];
     
     pointTableView.backgroundColor = [UIColor clearColor];

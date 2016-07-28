@@ -70,7 +70,7 @@
     NSArray *contents = [fileManager subpathsAtPath:caches];
     CGFloat totolCount = 0;
     for (NSString * fileName in contents) {
-        NSLog(@"%@",fileName);
+//        NSLog(@"%@",fileName);
         //拼接当前文件夹的名字
         NSString * path = [caches stringByAppendingPathComponent:fileName];
         //判断当前文件中是否存在该文件
@@ -96,7 +96,7 @@
     NSString *caches = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)lastObject];
     NSArray *contents = [fileManager subpathsAtPath:caches];
     for (NSString * fileName in contents) {
-        NSLog(@"%@",fileName);
+//        NSLog(@"%@",fileName);
         //拼接当前文件夹的名字
         NSString *path = [caches stringByAppendingPathComponent:fileName];
         //判断当前文件中是否存在该文件

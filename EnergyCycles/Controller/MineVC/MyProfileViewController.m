@@ -179,6 +179,7 @@
     }else {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"更新中.."];
+        NSLog(@"%@",[NSString stringWithFormat:@"%@", User_TOKEN]);
         
         [[AppHttpManager shareInstance] getFinishRegisterWithNickname:postDict[@"nickname"]
                                                              Username:postDict[@"username"]
@@ -192,13 +193,13 @@
                                                             PostOrGet:@"get"
                                                               success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
                 [self.navigationController popViewControllerAnimated:YES];
             }else if ([dict[@"Code"] integerValue] == 10000) {
-                [SVProgressHUD showImage:nil status:@"登录失效"];
+                [SVProgressHUD showImage:nil status:@"登录失效" maskType:SVProgressHUDMaskTypeClear];
                 [self.navigationController popToRootViewControllerAnimated:NO];
             }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@",str);
@@ -230,27 +231,49 @@
     cell.tag = 4201 + indexPath.row;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+//    if (indexPath.row == 0) {
+//        cell.rightLabel.text = [self.inforDict[@"nickname"] length]<=0?postDict[@"nickname"]:self.inforDict[@"nickname"];
+//        [postDict setObject:[self.inforDict[@"nickname"] length]<=0?@"":self.inforDict[@"nickname"] forKey:@"nickname"];
+//    }else if (indexPath.row == 1) {
+//        cell.rightLabel.text = [self.inforDict[@"username"] length]<=0?postDict[@"username"]:self.inforDict[@"username"];
+//        [postDict setObject:[self.inforDict[@"username"] length]<=0?@"":self.inforDict[@"username"] forKey:@"username"];
+//    }else if (indexPath.row == 2) {
+//        cell.rightLabel.text = [self.inforDict[@"sex"] length]<=0?postDict[@"sex"]:self.inforDict[@"sex"];
+//        [postDict setObject:[self.inforDict[@"sex"] length]<=0?@"":self.inforDict[@"sex"] forKey:@"sex"];
+//    }else if (indexPath.row == 3) {
+//        cell.rightLabel.text = [self.inforDict[@"birth"] length]<=0?postDict[@"birth"]:self.inforDict[@"birth"];
+//        [postDict setObject:[self.inforDict[@"birth"] length]<=0?@"":self.inforDict[@"birth"] forKey:@"birth"];
+//    }else if (indexPath.row == 4) {
+//        cell.rightLabel.text = [self.inforDict[@"phone"] length]<=0?postDict[@"phoneno"]:self.inforDict[@"phone"];
+//        [postDict setObject:[self.inforDict[@"phone"] length]<=0?@"":self.inforDict[@"phone"] forKey:@"phoneno"];
+//    }else if (indexPath.row == 5) {
+//        cell.rightLabel.text = [self.inforDict[@"email"] length]<=0?postDict[@"email"]:self.inforDict[@"email"];
+//        [postDict setObject:[self.inforDict[@"email"] length]<=0?@"":self.inforDict[@"email"] forKey:@"email"];
+//    }else if (indexPath.row == 6) {
+//        cell.rightLabel.text = [self.inforDict[@"city"] length]<=0?postDict[@"city"]:self.inforDict[@"city"];
+//        [postDict setObject:[self.inforDict[@"city"] length]<=0?@"":self.inforDict[@"city"] forKey:@"city"];
+//    }
     if (indexPath.row == 0) {
-        cell.rightLabel.text = [self.inforDict[@"nickname"] length]<=0?postDict[@"nickname"]:self.inforDict[@"nickname"];
-        [postDict setObject:[self.inforDict[@"nickname"] length]<=0?@"":self.inforDict[@"nickname"] forKey:@"nickname"];
+        cell.rightLabel.text = [self.model.nickname length]<=0?postDict[@"nickname"]:self.model.nickname;
+        [postDict setObject:[self.model.nickname length]<=0?@"":self.model.nickname forKey:@"nickname"];
     }else if (indexPath.row == 1) {
-        cell.rightLabel.text = [self.inforDict[@"username"] length]<=0?postDict[@"username"]:self.inforDict[@"username"];
-        [postDict setObject:[self.inforDict[@"username"] length]<=0?@"":self.inforDict[@"username"] forKey:@"username"];
+        cell.rightLabel.text = [self.model.username length]<=0?postDict[@"username"]:self.model.username;
+        [postDict setObject:[self.model.username length]<=0?@"":self.model.username forKey:@"username"];
     }else if (indexPath.row == 2) {
-        cell.rightLabel.text = [self.inforDict[@"sex"] length]<=0?postDict[@"sex"]:self.inforDict[@"sex"];
-        [postDict setObject:[self.inforDict[@"sex"] length]<=0?@"":self.inforDict[@"sex"] forKey:@"sex"];
+        cell.rightLabel.text = [self.model.sex length]<=0?postDict[@"sex"]:self.model.sex;
+        [postDict setObject:[self.model.sex length]<=0?@"":self.model.sex forKey:@"sex"];
     }else if (indexPath.row == 3) {
-        cell.rightLabel.text = [self.inforDict[@"birth"] length]<=0?postDict[@"birth"]:self.inforDict[@"birth"];
-        [postDict setObject:[self.inforDict[@"birth"] length]<=0?@"":self.inforDict[@"birth"] forKey:@"birth"];
+        cell.rightLabel.text = [self.model.birth length]<=0?postDict[@"birth"]:self.model.birth;
+        [postDict setObject:[self.model.birth length]<=0?@"":self.model.birth forKey:@"birth"];
     }else if (indexPath.row == 4) {
-        cell.rightLabel.text = [self.inforDict[@"phone"] length]<=0?postDict[@"phoneno"]:self.inforDict[@"phone"];
-        [postDict setObject:[self.inforDict[@"phone"] length]<=0?@"":self.inforDict[@"phone"] forKey:@"phoneno"];
+        cell.rightLabel.text = [self.model.phone length]<=0?postDict[@"phoneno"]:self.model.phone;
+        [postDict setObject:[self.model.phone length]<=0?@"":self.model.phone forKey:@"phoneno"];
     }else if (indexPath.row == 5) {
-        cell.rightLabel.text = [self.inforDict[@"email"] length]<=0?postDict[@"email"]:self.inforDict[@"email"];
-        [postDict setObject:[self.inforDict[@"email"] length]<=0?@"":self.inforDict[@"email"] forKey:@"email"];
+        cell.rightLabel.text = [self.model.email length]<=0?postDict[@"email"]:self.model.email;
+        [postDict setObject:[self.model.email length]<=0?@"":self.model.email forKey:@"email"];
     }else if (indexPath.row == 6) {
-        cell.rightLabel.text = [self.inforDict[@"city"] length]<=0?postDict[@"city"]:self.inforDict[@"city"];
-        [postDict setObject:[self.inforDict[@"city"] length]<=0?@"":self.inforDict[@"city"] forKey:@"city"];
+        cell.rightLabel.text = [self.model.city length]<=0?postDict[@"city"]:self.model.city;
+        [postDict setObject:[self.model.city length]<=0?@"":self.model.city forKey:@"city"];
     }
     
     return cell;

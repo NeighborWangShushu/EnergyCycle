@@ -215,7 +215,7 @@
             if ((self.commentArray.count == 0 && self.type == 1) || (self.likeArray.count == 0 && self.type == 2)) {
                 [self.tableView reloadData];
             }
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
     } failure:^(NSString *str) {
         [self endRefresh];
@@ -293,7 +293,7 @@
                 }
             });
         } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
     } failure:^(NSString *str) {
         NSLog(@"%@", str);
@@ -304,6 +304,8 @@
     [super viewDidLoad];
     [self createTableView];
     [self setUpMJRefresh];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.unreadComment.hidden = YES;
     self.unreadLike.hidden = YES;

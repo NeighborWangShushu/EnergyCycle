@@ -26,7 +26,11 @@
     self.nameLabel.text = userModel.nickname;
     
     // 简介
-    self.introLabel.text = userModel.Brief;
+    if (userModel.Brief == NULL || [userModel.Brief isEqualToString:@""]) {
+        self.introLabel.text = @"暂无设置简介";
+    } else {
+        self.introLabel.text = userModel.Brief;
+    }
     
     // 是否关注
     [self.isAttention setImage:[UIImage imageNamed:@"attentionButton"] forState:UIControlStateNormal];
@@ -57,7 +61,11 @@
     self.nameLabel.text = userModel.nickname;
     
     // 简介
-    self.introLabel.text = userModel.Brief;
+    if (userModel.Brief == NULL || [userModel.Brief isEqualToString:@""]) {
+        self.introLabel.text = @"暂无设置简介";
+    } else {
+        self.introLabel.text = userModel.Brief;
+    }
     
     // 是否关注
     if ([userModel.isFriend isEqualToString:@"0"]) {
@@ -91,7 +99,11 @@
     self.nameLabel.text = otherUserModel.nickName;
     
     // 简介
-    self.introLabel.text = otherUserModel.Brief;
+    if (otherUserModel.Brief == NULL || [otherUserModel.Brief isEqualToString:@""]) {
+        self.introLabel.text = @"暂无设置简介";
+    } else {
+        self.introLabel.text = otherUserModel.Brief;
+    }
     
     // 是否关注
     if ([otherUserModel.isHeart isEqualToString:@"1"]) {
@@ -113,11 +125,11 @@
     if (self.attention == YES) {
         [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:2 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userid intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"已取消关注"];
+                [SVProgressHUD showImage:nil status:@"已取消关注" maskType:SVProgressHUDMaskTypeClear];
                 self.attention = NO;
                 [self.isAttention setImage:[UIImage imageNamed:@"addAttentionButton"] forState:UIControlStateNormal];
             }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);
@@ -125,11 +137,11 @@
     } else {
         [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:1 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userid intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"关注成功"];
+                [SVProgressHUD showImage:nil status:@"关注成功" maskType:SVProgressHUDMaskTypeClear];
                 self.attention = YES;
                 [self.isAttention setImage:[UIImage imageNamed:@"attentionButton"] forState:UIControlStateNormal];
             }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);

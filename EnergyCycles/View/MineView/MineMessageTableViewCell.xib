@@ -36,7 +36,7 @@
                         <rect key="frame" x="13" y="80" width="323" height="66.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fMf-iN-4di">
-                                <rect key="frame" x="12" y="8.5" width="50" height="50"/>
+                                <rect key="frame" x="12" y="8" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="M0n-e6-7UW"/>
                                     <constraint firstAttribute="height" constant="50" id="wAD-Sj-kp9"/>
@@ -70,18 +70,28 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dth-Oi-fNZ">
+                        <rect key="frame" x="10" y="156.5" width="329" height="1"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Bbt-9o-DVJ"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Zgy-aA-zDD" firstAttribute="leading" secondItem="I1l-kF-4kc" secondAttribute="trailing" constant="12" id="1hB-nj-vEu"/>
                     <constraint firstItem="Zgy-aA-zDD" firstAttribute="bottom" secondItem="I1l-kF-4kc" secondAttribute="bottom" id="3bj-jM-QqZ"/>
                     <constraint firstItem="LXM-Fi-uUd" firstAttribute="top" secondItem="I1l-kF-4kc" secondAttribute="bottom" constant="12" id="AUb-6V-PQx"/>
+                    <constraint firstAttribute="bottom" secondItem="dth-Oi-fNZ" secondAttribute="bottom" constant="2" id="C5y-xo-Zln"/>
                     <constraint firstItem="LXM-Fi-uUd" firstAttribute="leading" secondItem="I1l-kF-4kc" secondAttribute="leading" id="LbQ-XU-2I2"/>
                     <constraint firstItem="I1l-kF-4kc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="Mwd-OA-uqU"/>
                     <constraint firstItem="aFd-AO-p4U" firstAttribute="top" secondItem="LXM-Fi-uUd" secondAttribute="bottom" constant="12" id="P1d-me-Q1N"/>
                     <constraint firstAttribute="trailing" secondItem="aFd-AO-p4U" secondAttribute="trailing" constant="13" id="SGF-9Q-l5m"/>
                     <constraint firstItem="I1l-kF-4kc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="eAc-Z3-ZjI"/>
+                    <constraint firstItem="dth-Oi-fNZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="fcs-mZ-Cdx"/>
                     <constraint firstAttribute="bottom" secondItem="aFd-AO-p4U" secondAttribute="bottom" constant="13" id="vCF-5h-eXN"/>
                     <constraint firstItem="aFd-AO-p4U" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="xGa-Ay-2Bo"/>
+                    <constraint firstAttribute="trailing" secondItem="dth-Oi-fNZ" secondAttribute="trailing" constant="10" id="y1X-WE-pgp"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

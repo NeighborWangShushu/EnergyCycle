@@ -58,11 +58,11 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
-                        <exclude reference="UJb-i5-nY2"/>
                         <exclude reference="6wX-rH-EBh"/>
-                        <exclude reference="ySh-ky-6fD"/>
                         <exclude reference="IkC-ey-HGM"/>
+                        <exclude reference="UJb-i5-nY2"/>
                         <exclude reference="fLs-Vl-QN6"/>
+                        <exclude reference="ySh-ky-6fD"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

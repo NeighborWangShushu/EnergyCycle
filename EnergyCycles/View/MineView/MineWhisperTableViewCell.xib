@@ -46,7 +46,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ty4-Pj-9nP">
-                        <rect key="frame" x="357" y="46.5" width="8" height="8"/>
+                        <rect key="frame" x="357" y="46" width="8" height="8"/>
                         <color key="backgroundColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="8" id="OBb-WK-h47"/>
@@ -58,9 +58,18 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mIH-UB-Fxz">
+                        <rect key="frame" x="10" y="97.5" width="362" height="1"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="1Wh-Ar-0d1"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="mIH-UB-Fxz" secondAttribute="bottom" constant="2" id="41E-e0-yC6"/>
                     <constraint firstAttribute="trailing" secondItem="Ty4-Pj-9nP" secondAttribute="trailing" constant="17" id="Dmf-gZ-kiv"/>
+                    <constraint firstAttribute="trailing" secondItem="mIH-UB-Fxz" secondAttribute="trailing" constant="10" id="EMS-1a-w1c"/>
                     <constraint firstItem="4gl-aN-RV8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="KVH-PQ-i8I"/>
                     <constraint firstItem="afd-gV-69l" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="MBo-dt-Ex7"/>
                     <constraint firstItem="Ty4-Pj-9nP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="Odf-qg-IP7"/>
@@ -69,6 +78,7 @@
                     <constraint firstItem="vYT-N6-FNj" firstAttribute="top" secondItem="afd-gV-69l" secondAttribute="bottom" constant="8" id="TsM-EB-vv8"/>
                     <constraint firstItem="vYT-N6-FNj" firstAttribute="leading" secondItem="afd-gV-69l" secondAttribute="leading" id="Wxb-re-Thb"/>
                     <constraint firstItem="4gl-aN-RV8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cbd-JM-0Mi"/>
+                    <constraint firstItem="mIH-UB-Fxz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="cie-zU-itW"/>
                     <constraint firstItem="afd-gV-69l" firstAttribute="leading" secondItem="4gl-aN-RV8" secondAttribute="trailing" constant="12" id="vTQ-vW-n3o"/>
                     <constraint firstItem="TTr-ma-R7w" firstAttribute="centerY" secondItem="afd-gV-69l" secondAttribute="centerY" id="wm9-Yg-Drh"/>
                     <constraint firstItem="TTr-ma-R7w" firstAttribute="leading" secondItem="afd-gV-69l" secondAttribute="trailing" constant="8" id="ypa-7F-hiG"/>

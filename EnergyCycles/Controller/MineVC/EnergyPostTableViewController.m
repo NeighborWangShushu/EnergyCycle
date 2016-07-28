@@ -62,24 +62,18 @@
 
 - (void)getDataWithUserId:(NSString *)userId {
     [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:[NSString stringWithFormat:@"%@", User_ID] OtherUserId:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
-            
-            if (self.startPage == 0) {
-                [self.dataArray removeAllObjects];
-            }
-            for (NSDictionary *data in dict[@"Data"]) {
-                ECTimeLineModel *model = [self sortByData:data];
-                [self.dataArray addObject:model];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self endRefresh];
-                [self.tableView reloadData];
-            });
-        } else {
-            [self endRefresh];
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        if (self.startPage == 0) {
+            [self.dataArray removeAllObjects];
         }
+        for (NSDictionary *data in dict[@"Data"]) {
+            ECTimeLineModel *model = [self sortByData:data];
+            [self.dataArray addObject:model];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self endRefresh];
+            [self.tableView reloadData];
+        });
     } failure:^(NSString *str) {
         [self endRefresh];
         NSLog(@"%@", str);
@@ -148,7 +142,7 @@
         self.startPage ++;
         [weakSelf getDataWithUserId:self.userId];
     }];
-    [self.tableView.mj_header beginRefreshing];
+//    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)endRefresh {
@@ -156,6 +150,9 @@
     [self.tableView.mj_footer endRefreshing];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

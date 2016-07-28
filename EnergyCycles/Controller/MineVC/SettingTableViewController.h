@@ -7,7 +7,10 @@
 //
 
 #import "BaseTableViewController.h"
+#import "UserModel.h"
 
 @interface SettingTableViewController : BaseTableViewController
+
+@property (nonatomic, strong) UserModel *model;
 
 @end

@@ -57,13 +57,12 @@
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[NSString stringWithFormat:@"请输入%@",self.showStr]];
     }else {
         if (([self.showStr isEqualToString:@"电话"] || [self.showStr isEqualToString:@"父亲电话"] || [self.showStr isEqualToString:@"母亲电话"]) && ![AppHM isPhoneNum:self.inputTextFiled.text]) {
-            [SVProgressHUD showImage:nil status:@"请输入合法手机号"];
+            [SVProgressHUD showImage:nil status:@"请输入合法手机号" maskType:SVProgressHUDMaskTypeClear];
         }else if ([self.showStr isEqualToString:@"邮箱"] && ![AppHM isEmail:self.inputTextFiled.text]) {
-            [SVProgressHUD showImage:nil status:@"请输入合法邮箱"];
-        }else if([self.showStr isEqualToString:@"姓名"] || [self.showStr isEqualToString:@"昵称"]){
-            [self check];
-        }
-        else{
+            [SVProgressHUD showImage:nil status:@"请输入合法邮箱" maskType:SVProgressHUDMaskTypeClear];
+        }else if(([self.showStr isEqualToString:@"姓名"] || [self.showStr isEqualToString:@"昵称"]) && self.inputTextFiled.text.length > 10){
+            [SVProgressHUD showImage:nil status:@"名字过长，请重新输入" maskType:SVProgressHUDMaskTypeClear];
+        } else {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
             [dict setObject:self.touchIndex forKey:@"index"];
             [dict setObject:self.touchSection forKey:@"section"];
@@ -82,9 +81,7 @@
 
 //检查字符长度 长度不能大于10
 - (void)check {
-    if(self.inputTextFiled.text.length > 10){
-        [SVProgressHUD showImage:nil status:@"名字过长，请重新输入"];
-    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

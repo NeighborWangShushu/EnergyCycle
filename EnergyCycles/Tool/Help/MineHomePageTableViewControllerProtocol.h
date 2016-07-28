@@ -10,7 +10,7 @@
 
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
-#define kHeaderImgHeight 226
+#define kHeaderImgHeight 250
 #define kNavigationHeight 64
 #define kSegmentedHeight 40
 

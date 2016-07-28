@@ -48,6 +48,8 @@
 // 分段控件
 @property (weak, nonatomic) IBOutlet HMSegmentedControl *segControl;
 
+@property (nonatomic, strong) UserModel *model;
+
 // 获取数据
 - (void)getdateDataWithModel:(UserModel *)model userInfoModel:(UserInfoModel *)userInfoModel;
 @end

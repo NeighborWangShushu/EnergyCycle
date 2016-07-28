@@ -511,6 +511,10 @@
 		62A93BD61D361EA200343B63 /* MineHomePageHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */; };
 		62A93BD81D361EBC00343B63 /* MineHomePageHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */; };
 		62A93BDC1D3628B600343B63 /* MineHomePageHeadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A93BDB1D3628B600343B63 /* MineHomePageHeadModel.m */; };
+		62B6661D1D49FACD00660E1D /* MineRecommendedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62B6661B1D49FACD00660E1D /* MineRecommendedTableViewCell.m */; };
+		62B6661E1D49FACD00660E1D /* MineRecommendedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B6661C1D49FACD00660E1D /* MineRecommendedTableViewCell.xib */; };
+		62B666221D49FE7E00660E1D /* RecommendedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62B666211D49FE7E00660E1D /* RecommendedTableViewController.m */; };
+		62B666241D4A178600660E1D /* backgroundImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 62B666231D4A178600660E1D /* backgroundImage.png */; };
 		62C99F331D3797620032E83C /* MineHomePageTableViewControllerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C99F321D3797620032E83C /* MineHomePageTableViewControllerProtocol.m */; };
 		62C99F381D37A77A0032E83C /* EnergyPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C99F371D37A77A0032E83C /* EnergyPostTableViewController.m */; };
 		62C99F3B1D37AA130032E83C /* PKRecordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C99F3A1D37AA130032E83C /* PKRecordTableViewController.m */; };
@@ -2018,6 +2022,12 @@
 		62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineHomePageHeadView.xib; sourceTree = "<group>"; };
 		62A93BDA1D3628B600343B63 /* MineHomePageHeadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageHeadModel.h; sourceTree = "<group>"; };
 		62A93BDB1D3628B600343B63 /* MineHomePageHeadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageHeadModel.m; sourceTree = "<group>"; };
+		62B6661A1D49FACD00660E1D /* MineRecommendedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineRecommendedTableViewCell.h; sourceTree = "<group>"; };
+		62B6661B1D49FACD00660E1D /* MineRecommendedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineRecommendedTableViewCell.m; sourceTree = "<group>"; };
+		62B6661C1D49FACD00660E1D /* MineRecommendedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineRecommendedTableViewCell.xib; sourceTree = "<group>"; };
+		62B666201D49FE7E00660E1D /* RecommendedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendedTableViewController.h; sourceTree = "<group>"; };
+		62B666211D49FE7E00660E1D /* RecommendedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendedTableViewController.m; sourceTree = "<group>"; };
+		62B666231D4A178600660E1D /* backgroundImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundImage.png; sourceTree = "<group>"; };
 		62C99F311D3797620032E83C /* MineHomePageTableViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageTableViewControllerProtocol.h; sourceTree = "<group>"; };
 		62C99F321D3797620032E83C /* MineHomePageTableViewControllerProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageTableViewControllerProtocol.m; sourceTree = "<group>"; };
 		62C99F361D37A77A0032E83C /* EnergyPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnergyPostTableViewController.h; sourceTree = "<group>"; };
@@ -3590,6 +3600,7 @@
 		26D99D371C0C4D7B007AF579 /* MineVC */ = {
 			isa = PBXGroup;
 			children = (
+				62B6661F1D49FE4D00660E1D /* Recommended */,
 				62FE50981D45B5FA0082BD03 /* Message */,
 				62FCE9161D3CC1F300F52E05 /* AttentionAndFans */,
 				627F76F51D38D99700552B96 /* Intro */,
@@ -3792,6 +3803,7 @@
 				D00591701D25454000F91692 /* ec_like@2x.png */,
 				D00591711D25454000F91692 /* ec_msg_highlight@2x.png */,
 				D00591721D25454000F91692 /* ec_msg_normal@2x.png */,
+				62B666231D4A178600660E1D /* backgroundImage.png */,
 				D00591731D25454000F91692 /* ec_search@2x.png */,
 				D00591741D25454000F91692 /* ec_sign@2x.png */,
 				D00591751D25454000F91692 /* location_icon@2x.png */,
@@ -4638,6 +4650,7 @@
 		26D99E901C0C4D7B007AF579 /* MineView */ = {
 			isa = PBXGroup;
 			children = (
+				62B666191D49FAA300660E1D /* MineRecommended */,
 				626D3F091D489A4200724000 /* MineChat */,
 				62FE509C1D45DED60082BD03 /* MineMessage */,
 				622BA6471D40AD6600194984 /* MinePKRecordView */,
@@ -4847,6 +4860,25 @@
 				62A93BDB1D3628B600343B63 /* MineHomePageHeadModel.m */,
 			);
 			name = MineHomePage;
+			sourceTree = "<group>";
+		};
+		62B666191D49FAA300660E1D /* MineRecommended */ = {
+			isa = PBXGroup;
+			children = (
+				62B6661A1D49FACD00660E1D /* MineRecommendedTableViewCell.h */,
+				62B6661B1D49FACD00660E1D /* MineRecommendedTableViewCell.m */,
+				62B6661C1D49FACD00660E1D /* MineRecommendedTableViewCell.xib */,
+			);
+			name = MineRecommended;
+			sourceTree = "<group>";
+		};
+		62B6661F1D49FE4D00660E1D /* Recommended */ = {
+			isa = PBXGroup;
+			children = (
+				62B666201D49FE7E00660E1D /* RecommendedTableViewController.h */,
+				62B666211D49FE7E00660E1D /* RecommendedTableViewController.m */,
+			);
+			name = Recommended;
 			sourceTree = "<group>";
 		};
 		62C99F341D37A6A40032E83C /* EnergyPost */ = {
@@ -6812,6 +6844,7 @@
 				D04B54CC1D23C90D00DC259A /* MLEmoji_ExpressionImage.plist in Resources */,
 				D07EB27C1D18DE6800840AC2 /* Text@2x.png in Resources */,
 				D07EB2951D18DE6800840AC2 /* chatfrom_bg_normal.png in Resources */,
+				62B666241D4A178600660E1D /* backgroundImage.png in Resources */,
 				26D8B26D1C0FEEE900A1DB04 /* 4@3x.png in Resources */,
 				26D8B1F11C0FEEE900A1DB04 /* 04_2@3x.png in Resources */,
 				26D8B2301C0FEEE900A1DB04 /* 21_1@2x.png in Resources */,
@@ -7077,6 +7110,7 @@
 				26D99F231C0C4D7C007AF579 /* EnergyShowOneViewCell.xib in Resources */,
 				DA8AFF591C2A4BF90064B9A7 /* 11xin@3x.png in Resources */,
 				625750E81D33886400E46B2E /* energy@3x.png in Resources */,
+				62B6661E1D49FACD00660E1D /* MineRecommendedTableViewCell.xib in Resources */,
 				DAE034E51C182181007E6DBD /* 7xinzheng_@2x.png in Resources */,
 				26D8B26C1C0FEEE900A1DB04 /* 4@2x.png in Resources */,
 				26D8B1F81C0FEEE900A1DB04 /* 06_2@2x.png in Resources */,
@@ -7487,6 +7521,7 @@
 				DA77F3AB1C476791003CBA4D /* EnergyDetailModel.m in Sources */,
 				DAE033791C181272007E6DBD /* TheAdvOneViewCell.m in Sources */,
 				D04B54D61D23C90D00DC259A /* MLLabel.m in Sources */,
+				62B6661D1D49FACD00660E1D /* MineRecommendedTableViewCell.m in Sources */,
 				26D99EE21C0C4D7C007AF579 /* NSArray+JSONModel.m in Sources */,
 				D07D2EE11D0FE1BB00AF35B1 /* ECLabel.m in Sources */,
 				DA735E191C3B9A3000CE9995 /* OtherReportModel.m in Sources */,
@@ -7785,6 +7820,7 @@
 				DA7CE5541C3E38BF00272952 /* LineChartView.m in Sources */,
 				26D99EEC1C0C4D7C007AF579 /* MJRefreshComponent.m in Sources */,
 				D07E24861D13DB2300854B51 /* UIView+SDExtension.m in Sources */,
+				62B666221D49FE7E00660E1D /* RecommendedTableViewController.m in Sources */,
 				D07EB2841D18DE6800840AC2 /* MessagesViewController.m in Sources */,
 				26E987821C0D933D00C6A7BB /* CustomChooseClassView.m in Sources */,
 				26D99EDA1C0C4D7B007AF579 /* IQUIView+IQKeyboardToolbar.m in Sources */,
