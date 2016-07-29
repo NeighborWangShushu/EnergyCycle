@@ -140,11 +140,10 @@
 #define GetTalkList                @"user/GetTalkList"
 
 //27.获取私信列表
-<<<<<<< HEAD
 #define GetTopOnePeople      @"user/MyMessage_get"
-=======
+
 #define GetTopOnePeople            @"user/GetTopOnePeople"
->>>>>>> origin/2.0-beta-01
+
 
 //28.查询我的积分排名
 #define GetJinfenCount             @"user/GetJinfenCount"
@@ -373,7 +372,7 @@
 //97.修改个人主页背景图片
 #define ChangeBackgroundImg @"/user/App_User_BackgroundImg_Upd"
 
-<<<<<<< HEAD
+
 //98.获取能量圈列表(查看其他人的能量圈)
 #define GetOtherArticleList      @"Article/Article_List"
 
@@ -382,8 +381,8 @@
 
 //100.将消息置为已读
 #define Message_Readed @"/user/Message_Readed"
-=======
 
 
->>>>>>> origin/2.0-beta-01
+
+
 #endif

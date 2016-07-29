@@ -4040,15 +4040,12 @@
 				62724E681D41BBE800E84202 /* more@3x.png */,
 				625750BC1D337F6200E46B2E /* Group.png */,
 				625750BD1D337F6200E46B2E /* Group@3x.png */,
-<<<<<<< HEAD
 				D010F3161D2B988500CA5D7C /* ec_share@2x.png */,
 				D010F3171D2B988500CA5D7C /* ec_share@3x.png */,
 				D00591701D25454000F91692 /* ec_like@2x.png */,
 				D00591711D25454000F91692 /* ec_msg_highlight@2x.png */,
 				D00591721D25454000F91692 /* ec_msg_normal@2x.png */,
 				62B666231D4A178600660E1D /* backgroundImage.png */,
-=======
->>>>>>> origin/2.0-beta-01
 				D00591731D25454000F91692 /* ec_search@2x.png */,
 				D00591741D25454000F91692 /* ec_sign@2x.png */,
 				D00591751D25454000F91692 /* location_icon@2x.png */,
@@ -7316,11 +7313,8 @@
 				D04B54CC1D23C90D00DC259A /* MLEmoji_ExpressionImage.plist in Resources */,
 				D07EB27C1D18DE6800840AC2 /* Text@2x.png in Resources */,
 				D07EB2951D18DE6800840AC2 /* chatfrom_bg_normal.png in Resources */,
-<<<<<<< HEAD
 				62B666241D4A178600660E1D /* backgroundImage.png in Resources */,
-=======
 				D029BC541D378F3E00B20D65 /* ec_add_photo_button@2x.png in Resources */,
->>>>>>> origin/2.0-beta-01
 				26D8B26D1C0FEEE900A1DB04 /* 4@3x.png in Resources */,
 				26D8B1F11C0FEEE900A1DB04 /* 04_2@3x.png in Resources */,
 				26D8B2301C0FEEE900A1DB04 /* 21_1@2x.png in Resources */,
@@ -7887,11 +7881,8 @@
 				DA937D511C44FA7A00F174F6 /* EveryDayPKViewCell.xib in Resources */,
 				DAAEC7171C1FFBF000FA094B /* bg_tou@3x.png in Resources */,
 				DA7675281C280EE100A34D9C /* RecordTableViewCell.xib in Resources */,
-<<<<<<< HEAD
 				626D3F2B1D48E1CF00724000 /* chat_right.png in Resources */,
-=======
 				D029BC4D1D3779D500B20D65 /* post_qq_normal@2x.png in Resources */,
->>>>>>> origin/2.0-beta-01
 				DA677B941C3A6E11004A534E /* QDDT00042.png in Resources */,
 				26D8B1E41C0FEEE900A1DB04 /* 01_2@2x.png in Resources */,
 				D029BC201D3737E000B20D65 /* tabbar_normal_3@2x.png in Resources */,
@@ -7921,11 +7912,8 @@
 				625750ED1D33886400E46B2E /* Group 62@3x.png in Resources */,
 				DAE033741C180D7E007E6DBD /* TheAdvPKCollectionViewCell.xib in Resources */,
 				DA8AFF541C2A4BF90064B9A7 /* 09weixin@2x.png in Resources */,
-<<<<<<< HEAD
 				620720EE1D46FA0C00C4F73D /* Guanzhu@3x.png in Resources */,
-=======
 				D05842301D47296A006859B9 /* ShareSDK.bundle in Resources */,
->>>>>>> origin/2.0-beta-01
 				DAF48DBB1C1E728900D9C136 /* CourseRegTwoViewCell.xib in Resources */,
 				26E987721C0D6C9100C6A7BB /* EnergyPostTwoViewCell.xib in Resources */,
 				625750BB1D337F5600E46B2E /* Oval 362 + Oval 363 + Oval 364@3x.png in Resources */,

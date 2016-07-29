@@ -225,13 +225,14 @@
     // Do any additional setup after loading the view.
 }
 
-<<<<<<< HEAD
+
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     return [super initWithStyle:UITableViewStyleGrouped];
-=======
+}
+    
 - (void)leftAction {
     [self.navigationController popViewControllerAnimated:YES];
->>>>>>> origin/2.0-beta-01
+
 }
 
 - (void)didReceiveMemoryWarning {
