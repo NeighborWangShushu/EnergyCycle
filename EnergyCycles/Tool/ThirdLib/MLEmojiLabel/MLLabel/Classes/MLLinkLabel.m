@@ -367,6 +367,7 @@ static NSArray * kAllRegexps() {
 }
 
 
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
@@ -397,6 +398,7 @@ static NSArray * kAllRegexps() {
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.activeLink) {
+        NSLog(@"%lu----%lu",(unsigned long)self.activeLink.linkRange.location,(unsigned long)self.activeLink.linkRange.length);
         NSString *linkText = [self.textStorage.string substringWithRange:self.activeLink.linkRange];
         
         //告诉外面已经点击了某链接

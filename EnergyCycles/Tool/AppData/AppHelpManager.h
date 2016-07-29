@@ -34,6 +34,8 @@
 - (NSString *)readUserId;
 - (NSString *)readToken;
 - (NSString *)readPhone;
+- (NSString *)readUserName;
+
 
 //获取通讯录权限
 + (void)CheckAddressBookAuthorization:(void (^)(bool isAuthorized))block;

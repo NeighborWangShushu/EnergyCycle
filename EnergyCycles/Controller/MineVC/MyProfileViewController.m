@@ -41,6 +41,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     
     self.title = @"我的资料";
@@ -143,13 +145,13 @@
 //    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
 //}
 
-//#pragma mark - 返回按键
-//- (void)leftAction {
-//    [self.navigationController popViewControllerAnimated:YES];
-//    
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
-//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
-//}
+#pragma mark - 返回按键
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+}
 
 #pragma mark - 修改个人资料按键
 - (void)rightAction {

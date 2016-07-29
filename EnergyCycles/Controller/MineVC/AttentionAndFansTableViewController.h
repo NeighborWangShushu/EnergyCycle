@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseTableViewController.h"
 
-@interface AttentionAndFansTableViewController : UITableViewController
+
+@interface AttentionAndFansTableViewController : BaseTableViewController
 
 // 获取用户的ID
 @property (nonatomic, copy) NSString *userId;

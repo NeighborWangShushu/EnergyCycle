@@ -115,6 +115,7 @@
                     BannerItem * item = [[BannerItem alloc] init];
                     item.pic = [dic objectForKey:@"img"];
                     item.url = [dic objectForKey:@"summary"];
+                    item.name = [dic objectForKey:@"summary"];
                     item.type = [[dic objectForKey:@"studyType"]integerValue];
                     [self.banners addObject:item];
                 }
