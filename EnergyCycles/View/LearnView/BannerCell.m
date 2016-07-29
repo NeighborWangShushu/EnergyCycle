@@ -51,7 +51,7 @@
     [scrollView setClickItemOperationBlock:^(NSInteger index) {
     BannerItem*item = self.items[index];
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"WDTwoScrollViewClick" object:nil userInfo:@{@"url":[NSString stringWithFormat:@"%@",item.url],@"type":[NSNumber numberWithInteger:item.type]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WDTwoScrollViewClick" object:nil userInfo:@{@"url":[NSString stringWithFormat:@"%@",item.url],@"type":[NSNumber numberWithInteger:item.type],@"name":item.name}];
     }];
 
 

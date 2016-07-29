@@ -138,7 +138,7 @@
             [SVProgressHUD showImage:nil status:@"登录失效"];
             [self.navigationController popToRootViewControllerAnimated:NO];
         }else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
         [self endRefresh];
         [brokenTableView reloadData];

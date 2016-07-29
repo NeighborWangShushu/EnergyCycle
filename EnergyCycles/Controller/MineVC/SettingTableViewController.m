@@ -7,6 +7,7 @@
 //
 
 #import "SettingTableViewController.h"
+#import "MyProfileViewController.h"
 
 #import "SettingOneViewCell.h"
 #import "SettingTwoViewCell.h"
@@ -47,9 +48,9 @@
 
 // 每一组的底部高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 3) {
-        return 15.f;
-    }
+//    if (section == 3) {
+//        return 15.f;
+//    }
     return 0;
 }
 
@@ -125,8 +126,12 @@
             [self performSegueWithIdentifier:@"MyProfileViewController" sender:nil];
         }
         if (indexPath.row == 1) { // 账号管理
-            [self performSegueWithIdentifier:@"AMChangePhoneViewController" sender:nil];
-//            [self performSegueWithIdentifier:@"AMBoundPhoneViewController" sender:nil];
+            NSString *phoneNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"];
+            if ([phoneNumber isEqualToString:@""] || phoneNumber == nil) {
+                [self performSegueWithIdentifier:@"AMBoundPhoneViewController" sender:nil];
+            } else {
+                [self performSegueWithIdentifier:@"AMChangePhoneViewController" sender:nil];
+            }
         }
     } else if (indexPath.section == 1) { // 消息推送
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -159,6 +164,13 @@
         [self exit];
     }
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"MyProfileViewController"]) {
+        MyProfileViewController *myVC = segue.destinationViewController;
+        myVC.model = self.model;
+    }
 }
 
 // 退出登录
@@ -201,13 +213,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     self.title = @"设置";
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+//    self.tableView.style = UITableViewStyleGrouped;
+    
     // Do any additional setup after loading the view.
+}
+
+
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    return [super initWithStyle:UITableViewStyleGrouped];
+}
+    
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {

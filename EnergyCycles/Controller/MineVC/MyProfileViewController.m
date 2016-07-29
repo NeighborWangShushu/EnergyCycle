@@ -16,6 +16,7 @@
 
 @interface MyProfileViewController () <UITableViewDelegate,UITableViewDataSource,UIPickerViewDataSource,UIPickerViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate> {
     NSArray *titleArr;
+    NSArray *keyArr;
     NSInteger touchuIndex;
     UIPickerView *onePickerView;
     NSArray *pickerArray;
@@ -41,7 +42,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     
     self.title = @"我的资料";
     titleArr = @[@"昵称",@"姓名",@"性别",@"生日",@"电话",@"邮箱",@"城市"];
@@ -105,6 +108,7 @@
     [postDict setObject:@"请输入手机号" forKey:@"phoneno"];
     [postDict setObject:@"请输入邮箱" forKey:@"email"];
     [postDict setObject:@"请选择城市" forKey:@"city"];
+    keyArr = @[@"nickname", @"username", @"sex", @"birth", @"phoneno", @"email", @"city"];
 }
 
 #pragma mark - 键盘事件
@@ -143,13 +147,13 @@
 //    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
 //}
 
-//#pragma mark - 返回按键
-//- (void)leftAction {
-//    [self.navigationController popViewControllerAnimated:YES];
-//    
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
-//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
-//}
+#pragma mark - 返回按键
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+}
 
 #pragma mark - 修改个人资料按键
 - (void)rightAction {
@@ -179,6 +183,7 @@
     }else {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"更新中.."];
+        NSLog(@"%@",[NSString stringWithFormat:@"%@", User_TOKEN]);
         
         [[AppHttpManager shareInstance] getFinishRegisterWithNickname:postDict[@"nickname"]
                                                              Username:postDict[@"username"]
@@ -192,13 +197,13 @@
                                                             PostOrGet:@"get"
                                                               success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
                 [self.navigationController popViewControllerAnimated:YES];
             }else if ([dict[@"Code"] integerValue] == 10000) {
-                [SVProgressHUD showImage:nil status:@"登录失效"];
+                [SVProgressHUD showImage:nil status:@"登录失效" maskType:SVProgressHUDMaskTypeClear];
                 [self.navigationController popToRootViewControllerAnimated:NO];
             }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@",str);
@@ -230,27 +235,49 @@
     cell.tag = 4201 + indexPath.row;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+//    if (indexPath.row == 0) {
+//        cell.rightLabel.text = [self.inforDict[@"nickname"] length]<=0?postDict[@"nickname"]:self.inforDict[@"nickname"];
+//        [postDict setObject:[self.inforDict[@"nickname"] length]<=0?@"":self.inforDict[@"nickname"] forKey:@"nickname"];
+//    }else if (indexPath.row == 1) {
+//        cell.rightLabel.text = [self.inforDict[@"username"] length]<=0?postDict[@"username"]:self.inforDict[@"username"];
+//        [postDict setObject:[self.inforDict[@"username"] length]<=0?@"":self.inforDict[@"username"] forKey:@"username"];
+//    }else if (indexPath.row == 2) {
+//        cell.rightLabel.text = [self.inforDict[@"sex"] length]<=0?postDict[@"sex"]:self.inforDict[@"sex"];
+//        [postDict setObject:[self.inforDict[@"sex"] length]<=0?@"":self.inforDict[@"sex"] forKey:@"sex"];
+//    }else if (indexPath.row == 3) {
+//        cell.rightLabel.text = [self.inforDict[@"birth"] length]<=0?postDict[@"birth"]:self.inforDict[@"birth"];
+//        [postDict setObject:[self.inforDict[@"birth"] length]<=0?@"":self.inforDict[@"birth"] forKey:@"birth"];
+//    }else if (indexPath.row == 4) {
+//        cell.rightLabel.text = [self.inforDict[@"phone"] length]<=0?postDict[@"phoneno"]:self.inforDict[@"phone"];
+//        [postDict setObject:[self.inforDict[@"phone"] length]<=0?@"":self.inforDict[@"phone"] forKey:@"phoneno"];
+//    }else if (indexPath.row == 5) {
+//        cell.rightLabel.text = [self.inforDict[@"email"] length]<=0?postDict[@"email"]:self.inforDict[@"email"];
+//        [postDict setObject:[self.inforDict[@"email"] length]<=0?@"":self.inforDict[@"email"] forKey:@"email"];
+//    }else if (indexPath.row == 6) {
+//        cell.rightLabel.text = [self.inforDict[@"city"] length]<=0?postDict[@"city"]:self.inforDict[@"city"];
+//        [postDict setObject:[self.inforDict[@"city"] length]<=0?@"":self.inforDict[@"city"] forKey:@"city"];
+//    }
     if (indexPath.row == 0) {
-        cell.rightLabel.text = [self.inforDict[@"nickname"] length]<=0?postDict[@"nickname"]:self.inforDict[@"nickname"];
-        [postDict setObject:[self.inforDict[@"nickname"] length]<=0?@"":self.inforDict[@"nickname"] forKey:@"nickname"];
+        cell.rightLabel.text = [self.model.nickname length]<=0?postDict[@"nickname"]:self.model.nickname;
+        [postDict setObject:[self.model.nickname length]<=0?@"":self.model.nickname forKey:@"nickname"];
     }else if (indexPath.row == 1) {
-        cell.rightLabel.text = [self.inforDict[@"username"] length]<=0?postDict[@"username"]:self.inforDict[@"username"];
-        [postDict setObject:[self.inforDict[@"username"] length]<=0?@"":self.inforDict[@"username"] forKey:@"username"];
+        cell.rightLabel.text = [self.model.username length]<=0?postDict[@"username"]:self.model.username;
+        [postDict setObject:[self.model.username length]<=0?@"":self.model.username forKey:@"username"];
     }else if (indexPath.row == 2) {
-        cell.rightLabel.text = [self.inforDict[@"sex"] length]<=0?postDict[@"sex"]:self.inforDict[@"sex"];
-        [postDict setObject:[self.inforDict[@"sex"] length]<=0?@"":self.inforDict[@"sex"] forKey:@"sex"];
+        cell.rightLabel.text = [self.model.sex length]<=0?postDict[@"sex"]:self.model.sex;
+        [postDict setObject:[self.model.sex length]<=0?@"":self.model.sex forKey:@"sex"];
     }else if (indexPath.row == 3) {
-        cell.rightLabel.text = [self.inforDict[@"birth"] length]<=0?postDict[@"birth"]:self.inforDict[@"birth"];
-        [postDict setObject:[self.inforDict[@"birth"] length]<=0?@"":self.inforDict[@"birth"] forKey:@"birth"];
+        cell.rightLabel.text = [self.model.birth length]<=0?postDict[@"birth"]:self.model.birth;
+        [postDict setObject:[self.model.birth length]<=0?@"":self.model.birth forKey:@"birth"];
     }else if (indexPath.row == 4) {
-        cell.rightLabel.text = [self.inforDict[@"phone"] length]<=0?postDict[@"phoneno"]:self.inforDict[@"phone"];
-        [postDict setObject:[self.inforDict[@"phone"] length]<=0?@"":self.inforDict[@"phone"] forKey:@"phoneno"];
+        cell.rightLabel.text = [self.model.phone length]<=0?postDict[@"phoneno"]:self.model.phone;
+        [postDict setObject:[self.model.phone length]<=0?@"":self.model.phone forKey:@"phoneno"];
     }else if (indexPath.row == 5) {
-        cell.rightLabel.text = [self.inforDict[@"email"] length]<=0?postDict[@"email"]:self.inforDict[@"email"];
-        [postDict setObject:[self.inforDict[@"email"] length]<=0?@"":self.inforDict[@"email"] forKey:@"email"];
+        cell.rightLabel.text = [self.model.email length]<=0?postDict[@"email"]:self.model.email;
+        [postDict setObject:[self.model.email length]<=0?@"":self.model.email forKey:@"email"];
     }else if (indexPath.row == 6) {
-        cell.rightLabel.text = [self.inforDict[@"city"] length]<=0?postDict[@"city"]:self.inforDict[@"city"];
-        [postDict setObject:[self.inforDict[@"city"] length]<=0?@"":self.inforDict[@"city"] forKey:@"city"];
+        cell.rightLabel.text = [self.model.city length]<=0?postDict[@"city"]:self.model.city;
+        [postDict setObject:[self.model.city length]<=0?@"":self.model.city forKey:@"city"];
     }
     
     return cell;
@@ -412,6 +439,7 @@
         changVC.showStr = titleArr[touchuIndex];
         changVC.touchIndex = [NSString stringWithFormat:@"%ld",(long)touchuIndex];
         changVC.touchSection = @"0";
+        changVC.value = postDict[keyArr[touchuIndex]];
     }
 }
 

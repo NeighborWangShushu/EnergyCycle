@@ -25,6 +25,9 @@
 #import "WXApiRequestHandler.h"
 #import "WXApiManager.h"
 #import "Constant.h"
+#import "ECTabbarViewController.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 
 
 @interface LoginViewController () <getQQLoginGetInformationDelegate,WBHttpRequestDelegate,WXApiDelegate> {
@@ -70,6 +73,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"USERID"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"TOKEN"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"PHONE"];
+
 }
 
 #pragma mark - 返回按键响应事件
@@ -77,12 +81,7 @@
     EnetgyCycle.isEnterLoginView = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
     
-    if (EnetgyCycle.energyTabBar.selectedIndex == 3) {
-        EnetgyCycle.energyTabBar.selectedIndex = 0;
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }else {
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma mark - 忘记密码按键响应事件
@@ -189,17 +188,28 @@
     [SVProgressHUD showWithStatus:@"登录中.."];
     
     //设备安装QQ应用,调用QQ应用,否则走网页
-    [[XMShareQQUtil sharedInstance] login];
-    [XMShareQQUtil sharedInstance].delegate = self;
+//    [[XMShareQQUtil sharedInstance] login];
+//    [XMShareQQUtil sharedInstance].delegate = self;
+    [ShareSDK getUserInfo:SSDKPlatformTypeQQ onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+        
+        if (state == SSDKResponseStateSuccess) {
+            NSLog(@"uid=%@",user.uid);
+            NSLog(@"%@",user.credential);
+            NSLog(@"token=%@",user.credential.token);
+            NSLog(@"nickname=%@",user.nickname);
+            NSLog(@"icon=%@",user.icon);
+
+            [self thirdLoginInWithType:1 withOpenId:user.uid withNickName:user.nickname withPhotoUrl:user.icon withSex:@"" withPhone:@""];
+        }else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示信息", nil) message:NSLocalizedString(@"手机未安装相关应用", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil, nil];
+            [alertView show];
+            NSLog(@"%@",error);
+        }
+    }];
+    
     
     //检测设备是否安装QQ,安装获取权限,否则提示未安装相关应用
-//    if ([TencentOAuth iphoneQQInstalled]) {
-//        [[XMShareQQUtil sharedInstance] login];
-//        [XMShareQQUtil sharedInstance].delegate = self;
-//    }else {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示信息", nil) message:NSLocalizedString(@"手机未安装相关应用", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil, nil];
-//        [alertView show];
-//    }
+
 }
 
 #pragma mark - 第三方登录-QQ登录代理方法
@@ -220,16 +230,21 @@
     [SVProgressHUD showWithStatus:@"登录中.."];
     
     //设备安装微博应用,调用微博应用,否则走网页
-    [[XMShareWeiboUtil sharedInstance] weiBoLogin];
-    
-    //检测设备是否安装微博,安装获取权限,否则提示未安装相关应用
-//    if ([WeiboSDK isWeiboAppInstalled]) {
-//        [[XMShareWeiboUtil sharedInstance] weiBoLogin];
-//    }else {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示信息", nil) message:NSLocalizedString(@"手机未安装相关应用", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil, nil];
-//        [alertView show];
-//    }
+    [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+        
+        if (state == SSDKResponseStateSuccess) {
+            NSLog(@"uid=%@",user.uid);
+            NSLog(@"%@",user.credential);
+            NSLog(@"token=%@",user.credential.token);
+            NSLog(@"nickname=%@",user.nickname);
+            [self thirdLoginInWithType:3 withOpenId:user.uid withNickName:user.nickname withPhotoUrl:user.icon withSex:@"" withPhone:@""];
+
+        }else {
+            NSLog(@"%@",error);
+        }
+    }];
 }
+
 
 #pragma mark - 第三方登录-微博登录代理方法---消息中心
 - (void)weiboNotification:(NSNotification *)notification {
@@ -294,10 +309,32 @@
 //        [alertView show];
 //    }
     
-    [WXApiRequestHandler sendAuthRequestScope:kAuthScope
-                                        State:kAuthState
-                                       OpenID:kAuthOpenID
-                             InViewController:self];
+
+//    
+//   BOOL success = [WXApiRequestHandler sendAuthRequestScope:kAuthScope
+//                                        State:kAuthState
+//                                       OpenID:kAuthOpenID
+//                             InViewController:self];
+    
+    
+    [ShareSDK getUserInfo:SSDKPlatformTypeWechat onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+        
+        if (state == SSDKResponseStateSuccess)
+        {
+            
+            NSLog(@"uid=%@",user.uid);
+            NSLog(@"%@",user.credential);
+            NSLog(@"token=%@",user.credential.token);
+            NSLog(@"nickname=%@",user.nickname);
+            [self getUserInfoWithToken:user.credential.token withOpenId:user.uid];
+
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
+    
 }
 
 #pragma mark - 第三方登录-微信登录实现方法
@@ -329,7 +366,7 @@
     code          填写第一步获取的code参数
     grant_type    填authorization_code */
     
-    NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",APP_KEY_WEIXIN,@"eb7c123f1794cd3f173569e5bb6801dc",code];
+    NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",APP_KEY_WEIXIN,APP_SECRECT_WEIXIN,code];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURL *zoneUrl = [NSURL URLWithString:url];
         NSString *zoneStr = [NSString stringWithContentsOfURL:zoneUrl encoding:NSUTF8StringEncoding error:nil];

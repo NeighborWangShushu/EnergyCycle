@@ -10,10 +10,12 @@
 #import "MinePKRecordViewTableViewCell.h"
 #import "MyPkEveryModel.h"
 #import "BrokenLineViewController.h"
+#import "GifHeader.h"
 
 @interface PKRecordTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, assign) int page;
 
 @end
 
@@ -35,21 +37,45 @@
     [self getDataWithUserId:userId];
 }
 
+- (void)setUpMJRefresh {
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    self.tableView.mj_header = [GifHeader headerWithRefreshingBlock:^{
+        [weakSelf getDataWithUserId:self.userId];
+    }];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf getDataWithUserId:self.userId];
+    }];
+//    [self.tableView.mj_header beginRefreshing];
+}
+
+- (void)endRefresh {
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 // 获取数据
 - (void)getDataWithUserId:(NSString *)userId {
     [[AppHttpManager shareInstance] getGetMyPkHistoryProjectWithUserId:[userId intValue] Token:@"" PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            [self.dataArray removeAllObjects];
             for (NSDictionary *dic in dict[@"Data"]) {
                 MyPkEveryModel *model = [[MyPkEveryModel alloc] initWithDictionary:dic error:nil];
                 [self.dataArray addObject:model];
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self endRefresh];
                 [self.tableView reloadData];
             });
-            
+        } else {
+            [self endRefresh];
         }
     } failure:^(NSString *str) {
+        [self endRefresh];
         NSLog(@"%@", str);
     }];
 }
@@ -62,6 +88,7 @@
     
     if (self.isMineTableView) {
         [self getDataWithUserId:self.userId];
+//        [self setUpMJRefresh];
         self.tableView.tableHeaderView = nil;
         self.title = @"PK记录";
         self.navigationController.navigationBar.translucent = NO;
@@ -70,6 +97,7 @@
 //        self.tabBarController.tabBar.hidden = YES;
     }
     
+    [self setUpMJRefresh];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPKData:) name:@"PKRecordTableViewController" object:nil];
     

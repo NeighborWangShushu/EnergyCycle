@@ -20,6 +20,7 @@
 #import "EnergyPostTableViewController.h"
 #import "PKRecordTableViewController.h"
 #import "MyProfileViewController.h"
+#import "ECAvatarManager.h"
 
 @interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -70,7 +71,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    self.navigationController.navigationBar.translucent = NO;
+    
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = nil;
@@ -100,6 +101,7 @@
 
 // 获取关注数,粉丝数等数据
 - (void)getUserInfoModel {
+    
     [[AppHttpManager shareInstance] getGetUserInfoWithUserid:[User_ID == NULL ? 0 : User_ID intValue] OtherUserID:[self.userId intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             UserInfoModel *model = [[UserInfoModel alloc] initWithDictionary:dict[@"Data"][0] error:nil];
@@ -159,7 +161,6 @@
         self.titleLabel.alpha = 0;
         self.titleLabel.hidden = YES;
     }
-    
 }
 
 // 添加列表
@@ -285,6 +286,11 @@
     self.mineView.userInteractionEnabled = NO;
 }
 
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 // 添加更多按钮
 - (void)moreButton {
     UIImage *image = [UIImage imageNamed:@"more"];
@@ -302,9 +308,9 @@
 - (void)attentionButton {
     UIImage *image = [[UIImage alloc] init];
     if ([self.infoModel.IsGuanZhu intValue] == 1) {
-        image = [UIImage imageNamed:@"attentionButton"];
+        image = [UIImage imageNamed:@"Guanzhu"];
     } else {
-        image = [UIImage imageNamed:@"addAttentionButton"];
+        image = [UIImage imageNamed:@"addGuanzhu"];
     }
     UIBarButtonItem *attentionButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickAttentionButton)];
     self.navigationItem.rightBarButtonItem = attentionButton;
@@ -314,11 +320,11 @@
     if ([self.infoModel.IsGuanZhu intValue] == 1) {
         [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:2 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userId intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"已取消关注"];
-                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"addAttentionButton"];
+                [SVProgressHUD showImage:nil status:@"已取消关注" maskType:SVProgressHUDMaskTypeClear];
+                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"addGuanzhu"];
                 [self getUserInfoModel];
             }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);
@@ -326,11 +332,11 @@
     } else {
         [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:1 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userId intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"关注成功"];
-                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"attentionButton"];
+                [SVProgressHUD showImage:nil status:@"关注成功" maskType:SVProgressHUDMaskTypeClear];
+                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"Guanzhu"];
                 [self getUserInfoModel];
             }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);
@@ -342,6 +348,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     self.automaticallyAdjustsScrollViewInsets = NO;
 //    self.navigationController.navigationBar.translucent = YES;
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
@@ -410,7 +418,7 @@
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 [self getUserInfo];
             } else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);
@@ -422,7 +430,7 @@
                 NSString *backgroundImage = dict[@"Data"][0];
                 [self changeBackgoundImage:backgroundImage];
             } else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);
@@ -438,7 +446,7 @@
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self getUserInfo];
         } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
     } failure:^(NSString *str) {
         NSLog(@"%@", str);

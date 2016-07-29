@@ -30,9 +30,14 @@
     return _dataArr;
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     // 设置tableView中cell的线条隐藏
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -71,7 +76,7 @@
             }
             NSLog(@"%ld",self.dataArr.count);
         }else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -91,7 +96,7 @@
                 [self.dataArr addObject:model];
             }
         } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -114,8 +119,9 @@
                 OtherUserModel *model = [[OtherUserModel alloc] initWithDictionary:subDict error:nil];
                 [self.dataArr addObject:model];
             }
+
         } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
                                                           
         dispatch_async(dispatch_get_main_queue(), ^{

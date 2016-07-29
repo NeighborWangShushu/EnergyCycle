@@ -86,13 +86,13 @@
     CGFloat itemH = 0;
     
     //当只有一张图的时候，放大显示
-//    if (_picPathStringsArray.count == 1) {
-//        UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
-//        if (image.size.width) {
-//            itemH = image.size.height / image.size.width * itemW;
-//        }
-//    } else {
-//    }
+    if (_picPathStringsArray.count == 1) {
+        UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
+        if (image.size.width) {
+            itemH = image.size.height / image.size.width * itemW;
+        }
+    } else {
+    }
     
     //保持正方形，固定大小
     itemH = itemW;

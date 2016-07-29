@@ -20,6 +20,8 @@
 #import "PKRecordTableViewController.h"
 #import "leaderboardViewController.h"
 #import "MessageViewController.h"
+#import "SettingTableViewController.h"
+#import "RecommendedTableViewController.h"
 
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -142,7 +144,8 @@
             pkVC.isMineTableView = YES;
             [self.navigationController pushViewController:pkVC animated:YES];
         } else if (indexPath.row == 5) { // 推荐用户
-            
+            RecommendedTableViewController *reVC = [[RecommendedTableViewController alloc] init];
+            [self.navigationController pushViewController:reVC animated:YES];
         }
     } else if (indexPath.section == 2) { // 积分榜
         leaderboardViewController *leadVC = MainStoryBoard(@"leaderboardViewController");
@@ -162,6 +165,9 @@
     } else if([segue.identifier isEqualToString:@"IntroViewController"]){
         IntroViewController *introVC = segue.destinationViewController;
         introVC.introString = self.model.Brief;
+    } else if([segue.identifier isEqualToString:@"SettingTableViewController"]) {
+        SettingTableViewController *setVC = segue.destinationViewController;
+        setVC.model = self.model;
     }
 }
 // 跳转到修改简介页面
@@ -170,6 +176,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
     [self reloadData];
 }
 
@@ -222,7 +232,7 @@
     
     self.title = @"我的";
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
-    
+    self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self getUserInfo];
@@ -269,7 +279,7 @@
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self getUserInfo];
         } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
     } failure:^(NSString *str) {
         NSLog(@"%@", str);

@@ -59,26 +59,26 @@
 
 - (IBAction)changePassword:(id)sender {
     if ([self.originalPasswordField.text length] == 0) {
-        [SVProgressHUD showImage:nil status:@"请输入原密码"];
+        [SVProgressHUD showImage:nil status:@"请输入原密码" maskType:SVProgressHUDMaskTypeClear];
     } else if ([self.passwordField.text length] == 0) {
-        [SVProgressHUD showImage:nil status:@"请输入新密码"];
+        [SVProgressHUD showImage:nil status:@"请输入新密码" maskType:SVProgressHUDMaskTypeClear];
     } else if ([self.passwordField.text length] == 0) {
-        [SVProgressHUD showImage:nil status:@"请输入确认密码"];
+        [SVProgressHUD showImage:nil status:@"请输入确认密码" maskType:SVProgressHUDMaskTypeClear];
     } else if (![[self md5StringForString:self.originalPasswordField.text] isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"PASSWORD"]]) {
-        [SVProgressHUD showImage:nil status:@"密码错误"];
+        [SVProgressHUD showImage:nil status:@"密码错误" maskType:SVProgressHUDMaskTypeClear];
     } else if (![[AppHelpManager sharedInstance] isValidPassword:self.passwordField.text]) {
-        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
+        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成" maskType:SVProgressHUDMaskTypeClear];
     } else if (![self.passwordField.text isEqualToString:self.repeatPasswordField.text]) {
-        [SVProgressHUD showImage:nil status:@"两次输入密码不一致"];
+        [SVProgressHUD showImage:nil status:@"两次输入密码不一致" maskType:SVProgressHUDMaskTypeClear];
     } else {
         [[AppHttpManager shareInstance] changePasswordWithUserid:[User_ID intValue] Token:User_TOKEN Pwd:[self md5StringForString:self.passwordField.text] Phone:[[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"] PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"修改成功"];
+                [SVProgressHUD showImage:nil status:@"修改成功" maskType:SVProgressHUDMaskTypeClear];
                 [[NSUserDefaults standardUserDefaults] setObject:[self md5StringForString:self.passwordField.text] forKey:@"PASSWORD"];
                 [self performSegueWithIdentifier:@"ModelToLoginNavController" sender:nil];
                 [self.navigationController popToRootViewControllerAnimated:YES];
             } else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@",str);

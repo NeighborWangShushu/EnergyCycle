@@ -17,7 +17,6 @@
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 #import <BaiduMapAPI_Search/BMKSearchComponent.h>
-
 #import "OtherUesrViewController.h"
 
 @interface EnergyCycleViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,BMKGeneralDelegate,BMKLocationServiceDelegate,BMKGeneralDelegate,BMKGeoCodeSearchDelegate,BMKMapViewDelegate> {
@@ -190,7 +189,7 @@
                 addRessStr = [NSString stringWithFormat:@"%@%@",itemArr.firstObject,@"区"];
             }
         }
-
+        
         [[NSUserDefaults standardUserDefaults] setObject:addRessStr forKey:@"AddRessStr"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -209,7 +208,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+    [[IQKeyboardManager sharedManager] resignFirstResponder];
+
     _locService.delegate = nil;
     _geocodesearch.delegate = nil;
 }

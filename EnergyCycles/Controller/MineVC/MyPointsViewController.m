@@ -21,9 +21,16 @@
 
 @implementation MyPointsViewController
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 //积分记录
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"积分记录";
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     _dataArr = [[NSMutableArray alloc] init];
     

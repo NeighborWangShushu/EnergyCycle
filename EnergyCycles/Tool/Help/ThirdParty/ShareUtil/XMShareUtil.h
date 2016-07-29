@@ -25,4 +25,8 @@
 @property (nonatomic, strong) NSString *shareUrl;
 
 
+/**
+ *  分享图片Data
+ */
+@property (nonatomic, strong) NSData *shareImgData;
 @end

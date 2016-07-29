@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ECShareCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="同步分享到" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bt-ka-55I">
+                        <rect key="frame" x="16" y="14" width="70" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="bVE-g8-1hm"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsU-xf-vSW">
+                        <rect key="frame" x="209" y="10" width="22" height="25"/>
+                        <state key="normal" image="post_qq_normal.png"/>
+                        <state key="selected" image="post_qq_selected.png"/>
+                        <connections>
+                            <action selector="shareAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VbP-t3-QAW"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIT-Ns-A3v">
+                        <rect key="frame" x="175" y="11" width="26" height="22"/>
+                        <state key="normal" image="post_weibo_normal.png"/>
+                        <state key="selected" image="post_weibo_selected.png"/>
+                        <connections>
+                            <action selector="shareAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XVx-kS-GNj"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ozg-7d-Nti">
+                        <rect key="frame" x="139" y="10.5" width="28" height="24"/>
+                        <state key="normal" image="post_wechat_normal.png"/>
+                        <state key="selected" image="post_wechat_selected.png"/>
+                        <connections>
+                            <action selector="shareAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="eCQ-3b-JdG"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zn-5q-WIX">
+                        <rect key="frame" x="104" y="10" width="27" height="25"/>
+                        <state key="normal" image="post_moments_normal.png"/>
+                        <state key="selected" image="post_moments_selected.png"/>
+                        <connections>
+                            <action selector="shareAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qCS-kE-Q5X"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ozg-7d-Nti" firstAttribute="centerY" secondItem="8zn-5q-WIX" secondAttribute="centerY" id="41T-7A-IVm"/>
+                    <constraint firstItem="EIT-Ns-A3v" firstAttribute="leading" secondItem="Ozg-7d-Nti" secondAttribute="trailing" constant="8" id="7Kw-cJ-Gux"/>
+                    <constraint firstItem="Ozg-7d-Nti" firstAttribute="leading" secondItem="8zn-5q-WIX" secondAttribute="trailing" constant="8" id="Rga-qE-Ko4"/>
+                    <constraint firstItem="dsU-xf-vSW" firstAttribute="leading" secondItem="EIT-Ns-A3v" secondAttribute="trailing" constant="8" id="WOe-Tg-m34"/>
+                    <constraint firstItem="8zn-5q-WIX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="YpV-6N-eah"/>
+                    <constraint firstItem="8zn-5q-WIX" firstAttribute="leading" secondItem="1bt-ka-55I" secondAttribute="trailing" constant="18" id="bLD-na-81n"/>
+                    <constraint firstItem="1bt-ka-55I" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="kNr-6v-azJ"/>
+                    <constraint firstItem="EIT-Ns-A3v" firstAttribute="centerY" secondItem="Ozg-7d-Nti" secondAttribute="centerY" id="qzA-8b-FNd"/>
+                    <constraint firstItem="1bt-ka-55I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="x1b-f7-kVZ"/>
+                    <constraint firstItem="1bt-ka-55I" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="6" id="ydI-IW-DMj"/>
+                    <constraint firstItem="dsU-xf-vSW" firstAttribute="centerY" secondItem="EIT-Ns-A3v" secondAttribute="centerY" id="zuF-Eu-WGI"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="ydI-IW-DMj"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="post_moments_normal.png" width="27" height="25"/>
+        <image name="post_moments_selected.png" width="27" height="25"/>
+        <image name="post_qq_normal.png" width="22" height="25"/>
+        <image name="post_qq_selected.png" width="22" height="25"/>
+        <image name="post_wechat_normal.png" width="28" height="24"/>
+        <image name="post_wechat_selected.png" width="28" height="24"/>
+        <image name="post_weibo_normal.png" width="26" height="22"/>
+        <image name="post_weibo_selected.png" width="26" height="22"/>
+    </resources>
+</document>
