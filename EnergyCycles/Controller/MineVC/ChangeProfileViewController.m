@@ -18,10 +18,11 @@
     [super viewDidLoad];
     
     self.title = self.showStr;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     
     //
 //    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     //
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -43,6 +44,9 @@
         }
     }else if ([self.showStr isEqualToString:@"电话"]) {
         self.inputTextFiled.keyboardType = UIKeyboardTypeNumberPad;
+    }
+    if (![self.value isEqualToString:@""] && self.value != nil) {
+        self.inputTextFiled.text = self.value;
     }
 }
 

@@ -16,6 +16,7 @@
 
 @interface MyProfileViewController () <UITableViewDelegate,UITableViewDataSource,UIPickerViewDataSource,UIPickerViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate> {
     NSArray *titleArr;
+    NSArray *keyArr;
     NSInteger touchuIndex;
     UIPickerView *onePickerView;
     NSArray *pickerArray;
@@ -43,7 +44,7 @@
     
     [self setupLeftNavBarWithimage:@"loginfanhui"];
 
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     
     self.title = @"我的资料";
     titleArr = @[@"昵称",@"姓名",@"性别",@"生日",@"电话",@"邮箱",@"城市"];
@@ -107,6 +108,7 @@
     [postDict setObject:@"请输入手机号" forKey:@"phoneno"];
     [postDict setObject:@"请输入邮箱" forKey:@"email"];
     [postDict setObject:@"请选择城市" forKey:@"city"];
+    keyArr = @[@"nickname", @"username", @"sex", @"birth", @"phoneno", @"email", @"city"];
 }
 
 #pragma mark - 键盘事件
@@ -437,6 +439,7 @@
         changVC.showStr = titleArr[touchuIndex];
         changVC.touchIndex = [NSString stringWithFormat:@"%ld",(long)touchuIndex];
         changVC.touchSection = @"0";
+        changVC.value = postDict[keyArr[touchuIndex]];
     }
 }
 

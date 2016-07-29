@@ -28,10 +28,15 @@
     [self performSegueWithIdentifier:@"InterMallViewToForRecordView" sender:nil];
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setupRightNavBarWithimage:@"04icon"];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     self.title = @"积分商城";
     page = 1;

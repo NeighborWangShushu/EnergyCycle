@@ -34,10 +34,15 @@
     [self setupRightNavBarWithTitle:@"商城"];
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"积分排行榜";
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
 
     //
     [self creatHeadView];
