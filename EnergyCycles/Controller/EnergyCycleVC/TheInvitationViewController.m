@@ -17,6 +17,7 @@
 #import "XMShareQQUtil.h"
 
 #import "OtherUesrViewController.h"
+#import "MineHomePageViewController.h"
 
 #define  FOCUSColor [UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1]
 
@@ -159,9 +160,9 @@
     [cell.focusButton addTarget:self action:@selector(foucusButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     if (_dataArray.count) {
         NSDictionary * dic=_dataArray[indexPath.row];
-        [cell.iconButton sd_setBackgroundImageWithURL:[NSURL URLWithString:dic[@"photoUrl"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
+        [cell.iconButton sd_setBackgroundImageWithURL:[NSURL URLWithString:dic[@"photourl"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
         cell.iconButton.tag = 10001 + indexPath.row;
-        cell.nameLabel.text=dic[@"nickName"];
+        cell.nameLabel.text=dic[@"nickname"];
         
         if ([_stateArray[indexPath.row] intValue]==1) {
             cell.focusButton.selected=YES;
@@ -184,11 +185,12 @@
         
         //跳转到其他人详情
         [cell setIconButtonClick:^(NSInteger cellIndex) {
-            OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
+//            OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
+            MineHomePageViewController*otherUserVC = MainStoryBoard(@"MineHomePageViewController");
             NSDictionary *dic = (NSDictionary *)_dataArray[cellIndex-10001];
-            otherUserVC.otherUserId = dic[@"userId"];
-            otherUserVC.otherName = dic[@"nickName"];
-            otherUserVC.otherPic = dic[@"photoUrl"];
+            otherUserVC.userId = dic[@"use_id"];
+//            otherUserVC.otherName = dic[@"nickname"];
+//            otherUserVC.otherPic = dic[@"photourl"];
             [self.navigationController pushViewController:otherUserVC animated:YES];
         }];
     }
@@ -224,7 +226,6 @@
                 util.shareTitle = shareTitle;
                 util.shareText = shareText;
                 util.shareUrl = shareUrl;
-                
                 [util shareToQQ];
             }else {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示信息", nil) message:NSLocalizedString(@"手机未安装相关应用", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil, nil];

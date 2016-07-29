@@ -96,9 +96,9 @@
 
 #pragma mark - 设置图片
 - (void)settabBarItemImage:(UITabBarItem *)item withTag:(int)tag {
-    UIImage *nImage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar_normal_%d.png",tag+1]];
+    UIImage *nImage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar_pressed_%d.png",tag+1]];
     nImage = [nImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIImage *selectImage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar_pressed_%d.png",tag+1]];
+    UIImage *selectImage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar_normal_%d.png",tag+1]];
     selectImage = [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     [item setImage:[nImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];

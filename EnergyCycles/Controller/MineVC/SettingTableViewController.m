@@ -213,7 +213,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     self.title = @"设置";
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
     
@@ -224,8 +225,14 @@
     // Do any additional setup after loading the view.
 }
 
+
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     return [super initWithStyle:UITableViewStyleGrouped];
+}
+    
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {

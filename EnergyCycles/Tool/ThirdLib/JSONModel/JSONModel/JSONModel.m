@@ -156,7 +156,7 @@ static JSONKeyMapper* globalKeyMapper = nil;
     id objModel = [self initWithData:[string dataUsingEncoding:encoding] error:&initError];
     if (initError && err) *err = initError;
     return objModel;
-
+    
 }
 
 -(id)initWithDictionary:(NSDictionary*)dict error:(NSError**)err

@@ -6,7 +6,7 @@
 
 #import "XMShareQQUtil.h"
 
-@interface XMShareQQUtil () {
+@interface XMShareQQUtil ()<QQApiInterfaceDelegate> {
     TencentOAuth *tencentOAuth;
     NSArray *permissions;
     
@@ -52,6 +52,10 @@
         NSLog(@"Qzone QQApiSendResultCode:%d", sent);
     }
 }
+
+#pragma mark QQ
+
+
 
 #pragma mark - 登录
 - (void)login {
@@ -178,6 +182,7 @@
 //分享回调函数
 - (void)onResp:(QQBaseResp *)resp
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"QQShareSuccess" object:nil];
     if (resp.type == 2) {
         [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
             NSLog(@"%@",dict);
