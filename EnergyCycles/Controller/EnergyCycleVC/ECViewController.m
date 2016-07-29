@@ -281,7 +281,7 @@
             }
             weakSelf.tableView.hidden = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
+                [weakSelf.tableView reloadDataWithExistedHeightCache];
                 [weakSelf.tableView.mj_header endRefreshing];
                 [SVProgressHUD dismiss];
             });
@@ -451,7 +451,7 @@
     
     UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
     leftbutton.frame = CGRectMake(0, 0, 21, 25);
-    [leftbutton setBackgroundImage:[UIImage imageNamed:@"ec_invite"] forState:UIControlStateNormal];
+    [leftbutton setBackgroundImage:[UIImage imageNamed:@"bell-icon"] forState:UIControlStateNormal];
     leftbutton.tag = 1002;
     [leftbutton addTarget:self action:@selector(energyLeftActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftitem = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
@@ -530,9 +530,10 @@
     }
 }
 
-//邀请
+//跳转到消息界面
 - (void)energyLeftActionWithBtn:(id)sender {
-    [self performSegueWithIdentifier:@"EnergyCycleViewToInviteView" sender:nil];
+    
+    [delegate.tabbarController setSelectIndex:3];
 }
 
 - (void)loadNewData {
@@ -565,6 +566,7 @@
                 ECTimeLineModel*model = [self sortByData:data];
                 [weakSelf.newerArray addObject:model];
             }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView.mj_footer endRefreshing];
                 [weakSelf.tableView reloadDataWithExistedHeightCache];

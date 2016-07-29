@@ -31,7 +31,7 @@
  */
 + (ECTabbarViewController *)shareInstance;
 
-- (void)setSelectedIndex:(NSInteger)index;
+- (void)setSelectIndex:(NSInteger)index;
 
 
 

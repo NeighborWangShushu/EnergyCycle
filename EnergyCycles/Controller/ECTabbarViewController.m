@@ -97,7 +97,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setSelectedIndex:(NSInteger)index {
+- (void)setSelectIndex:(NSInteger)index {
     [self touchBtnAtIndex:index];
 }
 
@@ -113,9 +113,9 @@
         return;
     }
     self.selctedIndex = index;
+    [_tabbar setSelectedIndex:index];
     UIView* currentView = [self.view viewWithTag:SELECTED_VIEW_CONTROLLER_TAG];
     [currentView removeFromSuperview];
-    
     
     NSDictionary* data = [_arrayViewcontrollers objectAtIndex:index];
     
@@ -124,12 +124,11 @@
     [self.view insertSubview:viewController.view belowSubview:_tabbar];
     
     [viewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.top.equalTo(self.view.mas_top);
         make.bottom.equalTo(_tabbar.mas_top).with.offset(0);
-
         
     }];
     
