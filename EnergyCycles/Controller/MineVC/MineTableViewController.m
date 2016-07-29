@@ -22,6 +22,7 @@
 #import "MessageViewController.h"
 #import "SettingTableViewController.h"
 #import "RecommendedTableViewController.h"
+#import "AppDelegate.h"
 
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -31,6 +32,7 @@
 
 @property (nonatomic, strong) UIImagePickerController *picker;
 @property (nonatomic, strong) NSData *headImageData;
+@property (nonatomic, strong) AppDelegate *delegate;
 
 @end
 
@@ -120,6 +122,7 @@
 
 // 点击cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.delegate.tabbarController hideTabbar:YES];
     if (indexPath.section == 0) { // 个人主页
         [self performSegueWithIdentifier:@"MineHomePageViewController" sender:nil];
     } else if (indexPath.section == 1) {
@@ -173,6 +176,7 @@
 // 跳转到修改简介页面
 - (void)jumpToIntroViewController {
     [self performSegueWithIdentifier:@"IntroViewController" sender:nil];
+    [self.delegate.tabbarController hideTabbar:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -180,6 +184,8 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    
+    [self.delegate.tabbarController hideTabbar:NO];
     [self reloadData];
 }
 
@@ -230,6 +236,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
     self.title = @"我的";
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -242,7 +250,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"JumpToIntroViewController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeHeadImage) name:@"ChangeHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"reloadData" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToMessageViewController) name:@"PUSHTOMESSAGEVIEWCONTROLLER" object:nil];
     // Do any additional setup after loading the view.
+}
+
+- (void)jumpToMessageViewController {
+    [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
 }
 
 - (void)changeHeadImage {

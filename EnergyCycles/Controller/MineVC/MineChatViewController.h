@@ -6,10 +6,11 @@
 //  Copyright © 2016年 Apple. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface MineChatViewController : UIViewController
+@interface MineChatViewController : BaseViewController
 
 @property (nonatomic, copy) NSString *useredId;
+@property (nonatomic, copy) NSString *chatName;
 
 @end

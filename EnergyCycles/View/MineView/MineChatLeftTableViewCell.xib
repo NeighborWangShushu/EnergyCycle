@@ -21,12 +21,18 @@
                             <constraint firstAttribute="width" constant="40" id="WZb-Rg-75y"/>
                         </constraints>
                         <state key="normal" image="touxiang.png"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LL4-ai-FZB">
-                        <rect key="frame" x="59" y="8" width="405.5" height="105.5"/>
+                        <rect key="frame" x="67" y="8" width="396" height="105.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdlfhsdihfsdhipfhsdoihfoisdhaofhidshofisdhhfosdihsd" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3tb-45-6zZ">
-                        <rect key="frame" x="67" y="16" width="389.5" height="89.5"/>
+                        <rect key="frame" x="80" y="16" width="380" height="89.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -39,7 +45,7 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="3tb-45-6zZ" firstAttribute="leading" secondItem="N1r-N6-ctf" secondAttribute="trailing" constant="10" id="2Fl-1D-g5R"/>
+                    <constraint firstItem="3tb-45-6zZ" firstAttribute="leading" secondItem="N1r-N6-ctf" secondAttribute="trailing" constant="23" id="2Fl-1D-g5R"/>
                     <constraint firstItem="3tb-45-6zZ" firstAttribute="top" secondItem="4FA-Mj-E0I" secondAttribute="top" constant="8" id="6wX-rH-EBh"/>
                     <constraint firstItem="LL4-ai-FZB" firstAttribute="top" secondItem="3tb-45-6zZ" secondAttribute="top" constant="-8" id="CjM-2r-0kq"/>
                     <constraint firstItem="N1r-N6-ctf" firstAttribute="leading" secondItem="4FA-Mj-E0I" secondAttribute="leading" constant="17" id="EGz-GK-hFw"/>
@@ -50,7 +56,7 @@
                     <constraint firstItem="3tb-45-6zZ" firstAttribute="top" secondItem="N1r-N6-ctf" secondAttribute="top" constant="8" id="Sew-KQ-5Ub"/>
                     <constraint firstItem="3tb-45-6zZ" firstAttribute="top" secondItem="N1r-N6-ctf" secondAttribute="top" id="UJb-i5-nY2"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3tb-45-6zZ" secondAttribute="trailing" constant="17" id="cMk-vP-66l"/>
-                    <constraint firstItem="LL4-ai-FZB" firstAttribute="leading" secondItem="3tb-45-6zZ" secondAttribute="leading" constant="-8" id="dqA-tI-OT4"/>
+                    <constraint firstItem="LL4-ai-FZB" firstAttribute="leading" secondItem="3tb-45-6zZ" secondAttribute="leading" constant="-13" id="dqA-tI-OT4"/>
                     <constraint firstAttribute="bottom" secondItem="3tb-45-6zZ" secondAttribute="bottom" constant="8" id="fLs-Vl-QN6"/>
                     <constraint firstAttribute="bottom" secondItem="3tb-45-6zZ" secondAttribute="bottom" constant="16" id="mEq-LN-kZC"/>
                     <constraint firstItem="LL4-ai-FZB" firstAttribute="height" secondItem="3tb-45-6zZ" secondAttribute="height" constant="16" id="s3J-e6-dzk"/>

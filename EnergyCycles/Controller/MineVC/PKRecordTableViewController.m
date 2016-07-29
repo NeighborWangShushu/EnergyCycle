@@ -94,6 +94,8 @@
         self.navigationController.navigationBar.translucent = NO;
         self.tableView.showsVerticalScrollIndicator = NO;
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
+        [self setupLeftNavBarWithimage:@"loginfanhui"];
+
 //        self.tabBarController.tabBar.hidden = YES;
     }
     
@@ -106,6 +108,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -138,7 +144,7 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     MyPkEveryModel *model = self.dataArray[indexPath.row];
-    [cell getDataWithModel:model number:indexPath.row + 1];
+    [cell getDataWithModel:model];
     
     return cell;
 }

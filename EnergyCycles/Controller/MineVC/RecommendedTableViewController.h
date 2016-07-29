@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Apple. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseTableViewController.h"
 
-@interface RecommendedTableViewController : UITableViewController
+@interface RecommendedTableViewController : BaseTableViewController
 
 @end

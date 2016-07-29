@@ -17,11 +17,17 @@
 
 @implementation IWillAdviseViewController
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"我要提建议";
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     postDict = [[NSMutableDictionary alloc] init];
     
 //    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
@@ -64,22 +70,22 @@
 #pragma mark - 提交按键响应事件
 - (void)rightAction {
     if ([postDict[@"contents"] length] <= 0) {
-        [SVProgressHUD showImage:nil status:@"请输入建议内容."];
+        [SVProgressHUD showImage:nil status:@"请输入建议内容." maskType:SVProgressHUDMaskTypeClear];
     } else if ([postDict[@"contents"] length] > 200) {
-        [SVProgressHUD showImage:nil status:@"请将字数限制在200字以内"];
+        [SVProgressHUD showImage:nil status:@"请将字数限制在200字以内" maskType:SVProgressHUDMaskTypeClear];
     } else {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-        [SVProgressHUD showWithStatus:@"提交中.."];
+        [SVProgressHUD showWithStatus:@"提交中.." maskType:SVProgressHUDMaskTypeClear];
         
         [[AppHttpManager shareInstance] getMySuggestionWithUserid:[User_ID intValue] Contents:postDict[@"contents"] PostOrGet:@"get" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"谢谢您的宝贵意见"];
+                [SVProgressHUD showImage:nil status:@"谢谢您的宝贵意见" maskType:SVProgressHUDMaskTypeClear];
                 [self.navigationController popViewControllerAnimated:YES];
             }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
-            [SVProgressHUD showImage:nil status:@"请检查您的网络"];
+            [SVProgressHUD showImage:nil status:@"请检查您的网络" maskType:SVProgressHUDMaskTypeClear];
         }];
     }
 }

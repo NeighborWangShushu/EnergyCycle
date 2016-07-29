@@ -116,6 +116,7 @@
         MessageModel *model = self.messageArray[indexPath.row];
         MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
         chatVC.useredId = model.UserID;
+        chatVC.chatName = model.nickname;
         [self.navigationController pushViewController:chatVC animated:YES];
     }
 }
@@ -150,7 +151,6 @@
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
     }];
-    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)endRefresh {
@@ -300,10 +300,17 @@
     }];
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createTableView];
     [self setUpMJRefresh];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
+    self.title = @"消息";
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     

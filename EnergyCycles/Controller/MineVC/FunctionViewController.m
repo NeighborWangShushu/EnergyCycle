@@ -16,10 +16,15 @@
 
 @implementation FunctionViewController
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"功能介绍";
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     self.string.text = @"暂时无可奉告";
     

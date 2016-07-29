@@ -142,9 +142,6 @@
 //27.获取私信列表
 #define GetTopOnePeople      @"user/MyMessage_get"
 
-#define GetTopOnePeople            @"user/GetTopOnePeople"
-
-
 //28.查询我的积分排名
 #define GetJinfenCount             @"user/GetJinfenCount"
 

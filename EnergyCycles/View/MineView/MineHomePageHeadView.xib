@@ -47,13 +47,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pSd-uu-ZNk">
-                    <rect key="frame" x="142" y="178" width="35.5" height="17"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <rect key="frame" x="143.5" y="179" width="33" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dizhi.png" translatesAutoresizingMaskIntoConstraints="NO" id="k9W-Dd-5Sd">
-                    <rect key="frame" x="125" y="179" width="11" height="16"/>
+                    <rect key="frame" x="126.5" y="178.5" width="11" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="7" id="Zn9-lK-les"/>
                         <constraint firstAttribute="height" constant="10" id="sgd-yf-vYR"/>
@@ -91,7 +91,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advice.png" translatesAutoresizingMaskIntoConstraints="NO" id="cZo-Zv-uic">
-                    <rect key="frame" x="201" y="224.5" width="12" height="14"/>
+                    <rect key="frame" x="201" y="225" width="12" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="1sB-Q9-K6V"/>
                         <constraint firstAttribute="width" constant="9" id="dX6-UY-g16"/>
@@ -119,14 +119,14 @@
                     </variation>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5D-jK-d68">
-                    <rect key="frame" x="188" y="178" width="35.5" height="17"/>
+                    <rect key="frame" x="186.5" y="178.5" width="35.5" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMe-gD-6Kx">
-                    <rect key="frame" x="142" y="178" width="35.5" height="17"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <rect key="frame" x="143" y="178.5" width="33" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>

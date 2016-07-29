@@ -96,11 +96,15 @@
     return newLength <= 19;
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"账号管理";
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     self.originalPasswordField.secureTextEntry = YES;
     self.passwordField.secureTextEntry = YES;
