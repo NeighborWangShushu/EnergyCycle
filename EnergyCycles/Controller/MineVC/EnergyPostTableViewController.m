@@ -16,6 +16,7 @@
 #import "PostingViewController.h"
 #import "CommentUserModel.h"
 #import "Masonry.h"
+#import "GifHeader.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 
@@ -61,19 +62,23 @@
 
 - (void)getDataWithUserId:(NSString *)userId {
     [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:[NSString stringWithFormat:@"%@", User_ID] OtherUserId:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
-            for (NSDictionary *data in dict[@"Data"]) {
-                ECTimeLineModel *model = [self sortByData:data];
-                [self.dataArray addObject:model];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        if (self.startPage == 0) {
+            [self.dataArray removeAllObjects];
         }
+        for (NSDictionary *data in dict[@"Data"]) {
+            ECTimeLineModel *model = [self sortByData:data];
+            [self.dataArray addObject:model];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self endRefresh];
+            if ((self.startPage + 1) * 10 >= self.dataArray.count) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            [self.tableView reloadData];
+        });
     } failure:^(NSString *str) {
+        [self endRefresh];
         NSLog(@"%@", str);
     }];
 }
@@ -130,6 +135,28 @@
     return model;
 }
 
+- (void)setUpMJRefresh {
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    self.tableView.mj_header = [GifHeader headerWithRefreshingBlock:^{
+        self.startPage = 0;
+        [weakSelf getDataWithUserId:self.userId];
+    }];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        self.startPage ++;
+        [weakSelf getDataWithUserId:self.userId];
+    }];
+//    [self.tableView.mj_header beginRefreshing];
+}
+
+- (void)endRefresh {
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -142,8 +169,13 @@
         self.navigationController.navigationBar.translucent = NO;
         self.tableView.showsVerticalScrollIndicator = NO;
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
+        [self setupLeftNavBarWithimage:@"loginfanhui"];
+
 //        self.tabBarController.tabBar.hidden = YES;
+        
     }
+    
+    [self setUpMJRefresh];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getData:) name:@"EnergyPostTableViewController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -158,12 +190,20 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
 
 // cell的数量
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

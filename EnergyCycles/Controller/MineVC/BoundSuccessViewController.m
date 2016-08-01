@@ -21,10 +21,15 @@
     [self.navigationController popToViewController:settingVC animated:YES];
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"账号管理";
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     [self.boundSuccess.text stringByReplacingCharactersInRange:NSMakeRange(6, 11) withString:[[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"]];
     [self.boundSuccess.text stringByReplacingCharactersInRange:NSMakeRange(9, 4) withString:@"****"];

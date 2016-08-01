@@ -20,6 +20,8 @@
 #import "PKRecordTableViewController.h"
 #import "leaderboardViewController.h"
 #import "MessageViewController.h"
+#import "SettingTableViewController.h"
+#import "RecommendedTableViewController.h"
 #import "AppDelegate.h"
 
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -30,6 +32,7 @@
 
 @property (nonatomic, strong) UIImagePickerController *picker;
 @property (nonatomic, strong) NSData *headImageData;
+@property (nonatomic, strong) AppDelegate *delegate;
 
 @end
 
@@ -119,6 +122,7 @@
 
 // 点击cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.delegate.tabbarController hideTabbar:YES];
     if (indexPath.section == 0) { // 个人主页
         [self performSegueWithIdentifier:@"MineHomePageViewController" sender:nil];
     } else if (indexPath.section == 1) {
@@ -143,7 +147,8 @@
             pkVC.isMineTableView = YES;
             [self.navigationController pushViewController:pkVC animated:YES];
         } else if (indexPath.row == 5) { // 推荐用户
-            
+            RecommendedTableViewController *reVC = [[RecommendedTableViewController alloc] init];
+            [self.navigationController pushViewController:reVC animated:YES];
         }
     } else if (indexPath.section == 2) { // 积分榜
         leaderboardViewController *leadVC = MainStoryBoard(@"leaderboardViewController");
@@ -163,11 +168,15 @@
     } else if([segue.identifier isEqualToString:@"IntroViewController"]){
         IntroViewController *introVC = segue.destinationViewController;
         introVC.introString = self.model.Brief;
+    } else if([segue.identifier isEqualToString:@"SettingTableViewController"]) {
+        SettingTableViewController *setVC = segue.destinationViewController;
+        setVC.model = self.model;
     }
 }
 // 跳转到修改简介页面
 - (void)jumpToIntroViewController {
     [self performSegueWithIdentifier:@"IntroViewController" sender:nil];
+    [self.delegate.tabbarController hideTabbar:YES];
 }
 
 - (void)jumpToMessageViewController {
@@ -179,6 +188,8 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    
+    [self.delegate.tabbarController hideTabbar:NO];
     [self reloadData];
 }
 
@@ -233,9 +244,12 @@
         delegate.isPushToMessageView = NO;
         [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
     }
+    
+    self.delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
     self.title = @"我的";
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
-    
+    self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self getUserInfo];
@@ -247,7 +261,12 @@
    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeHeadImage) name:@"ChangeHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"reloadData" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToMessageViewController) name:@"PUSHTOMESSAGEVIEWCONTROLLER" object:nil];
     // Do any additional setup after loading the view.
+}
+
+- (void)jumpToMessageViewController {
+    [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
 }
 
 - (void)changeHeadImage {
@@ -284,7 +303,7 @@
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self getUserInfo];
         } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
     } failure:^(NSString *str) {
         NSLog(@"%@", str);

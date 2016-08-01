@@ -6,9 +6,10 @@
 //  Copyright © 2016年 Apple. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 #import "CustomTextView.h"
-@interface IntroViewController : UIViewController
+
+@interface IntroViewController : BaseViewController
 
 @property (weak, nonatomic) IBOutlet CustomTextView *introTextView;
 

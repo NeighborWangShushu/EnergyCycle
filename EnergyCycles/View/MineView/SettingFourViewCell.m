@@ -12,9 +12,9 @@
 
 - (void)updateDataWithJudge:(BOOL)judge {
     if (judge == NO) {
-        [self.rightSwitch setOn:NO];
+        self.rightLabel.text = @"未开启";
     } else {
-        [self.rightSwitch setOn:YES];
+        self.rightLabel.text = @"已开启";
     }
     self.leftLabel.text = @"消息推送";
 }

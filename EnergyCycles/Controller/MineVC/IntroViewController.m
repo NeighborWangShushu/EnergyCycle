@@ -18,7 +18,9 @@
 
 @implementation IntroViewController
 
-
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,6 +28,8 @@
     self.title = @"简介";
     
     self.automaticallyAdjustsScrollViewInsets = NO;
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     
     [self createTextView];
     [self createChangeButton];

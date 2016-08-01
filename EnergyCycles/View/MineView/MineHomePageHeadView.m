@@ -8,6 +8,7 @@
 
 #import "MineHomePageHeadView.h"
 #import "UIImage+Category.h"
+#import "ECAvatarManager.h"
 
 @implementation MineHomePageHeadView
 
@@ -27,7 +28,11 @@
 }
 
 - (IBAction)changeHeadImage:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"headViewChangeHeadImage" object:nil];
+    if ([self.model.use_id isEqualToString:[NSString stringWithFormat:@"%@", User_ID]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"headViewChangeHeadImage" object:nil];
+    } else {
+        [ECAvatarManager showImage:self.headImage.imageView];
+    }
 }
 
 - (IBAction)jumpToAttentionController:(id)sender {
@@ -43,9 +48,12 @@
 }
 
 - (void)getdateDataWithModel:(UserModel *)model userInfoModel:(UserInfoModel *)userInfoModel {
+    
+    self.model = model;
+    
     // 背景
     if (model.BackgroundImg == NULL) {
-        [self.backgroundImage setImage:[UIImage imageNamed:@"bg"]];
+        [self.backgroundImage setImage:[UIImage imageNamed:@"backgroundImage"]];
     } else {
         [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             if (self.backgroundImage.image.size.height >= 452) {
@@ -123,13 +131,13 @@
         self.introButton.hidden = NO;
         self.leftBackgroundButton.hidden = NO;
         self.rightBackgroundButton.hidden = NO;
-        self.headImage.userInteractionEnabled = YES;
+//        self.headImage.userInteractionEnabled = YES;
     } else {
         self.introImage.hidden = YES;
         self.introButton.hidden = YES;
         self.leftBackgroundButton.hidden = YES;
         self.rightBackgroundButton.hidden = YES;
-        self.headImage.userInteractionEnabled = NO;
+//        self.headImage.userInteractionEnabled = NO;
     }
 }
 

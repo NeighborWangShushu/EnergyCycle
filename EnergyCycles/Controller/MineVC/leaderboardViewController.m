@@ -7,6 +7,7 @@
 //
 
 #import "leaderboardViewController.h"
+#import "IntegralMallViewController.h"
 
 #import "LeaderBoardViewCell.h"
 #import "UserModel.h"
@@ -24,10 +25,24 @@
 
 @implementation leaderboardViewController
 
+- (void)rightAction {
+    IntegralMallViewController *imVC = MainStoryBoard(@"IntegralMallViewController");
+    [self.navigationController pushViewController:imVC animated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self setupRightNavBarWithTitle:@"商城"];
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"积分排行榜";
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
 
     //
     [self creatHeadView];
@@ -83,7 +98,7 @@
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             self.paimingLabel.text = [NSString stringWithFormat:@"第%@名",dict[@"Data"]];
         }else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
     } failure:^(NSString *str) {
         NSLog(@"%@",str);
@@ -125,11 +140,11 @@
             [self endRefresh];
             [leaderBoardTableView reloadData];
         }else if ([dict[@"Code"] integerValue] == 10000) {
-            [SVProgressHUD showImage:nil status:@"登录失效"];
+            [SVProgressHUD showImage:nil status:@"登录失效" maskType:SVProgressHUDMaskTypeClear];
             [self.navigationController popToRootViewControllerAnimated:NO];
         }else {
             [self endRefresh];
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
         
     } failure:^(NSString *str) {

@@ -32,8 +32,14 @@
 
 @implementation BrokenLineViewController
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     _dataArr = [[NSMutableArray alloc] init];
     showType = 1;
@@ -138,7 +144,7 @@
             [SVProgressHUD showImage:nil status:@"登录失效"];
             [self.navigationController popToRootViewControllerAnimated:NO];
         }else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
         [self endRefresh];
         [brokenTableView reloadData];
