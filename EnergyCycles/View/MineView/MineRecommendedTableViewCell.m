@@ -22,13 +22,9 @@
     // 昵称
     self.nameLabel.text = model.nickname;
     
-    // 时间
-    NSString *time = [model.user_registerDate substringToIndex:10];
-    self.timeLabel.text = time;
-    
     // 简介
     if (model.Brief == NULL || [model.Brief isEqualToString:@""]) {
-        self.introLabel.text = @"暂无设置简介";
+        self.introLabel.text = @"暂未设置简介";
     } else {
         self.introLabel.text = model.Brief;
     }

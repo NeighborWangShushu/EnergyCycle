@@ -7,6 +7,7 @@
 //
 
 #import "EnergyPostTableViewController.h"
+#import "MineHomePageViewController.h"
 #import "SDAutoLayout.h"
 #import "ECTimeLineModel.h"
 #import "ECTimeLineCell.h"
@@ -153,8 +154,9 @@
     [self.tableView.mj_footer endRefreshing];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 
 - (void)viewDidLoad {
@@ -467,6 +469,12 @@
     }];
 }
 
+- (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
+    MineHomePageViewController *otherUserVC = MainStoryBoard(@"MineHomePageViewController");
+    otherUserVC.userId = userId;
+    [self.navigationController pushViewController:otherUserVC animated:YES];
+    
+}
 
 /*
 // Override to support conditional editing of the table view.

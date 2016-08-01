@@ -202,7 +202,7 @@
                 
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"VerifyCount"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"VerifyCount"] forKey:@"UserVerifyCount"];
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"jifen"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"jifen"] forKey:@"UserJiFen"];
-                [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0 ][@"studyVal"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"studyVal"] forKey:@"UserStudyValues"];
+                [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"studyVal"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"studyVal"] forKey:@"UserStudyValues"];
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"powerSource"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"powerSource"] forKey:@"UserPowerSource"];
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"nickname"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"nickname"] forKey:@"UserNickName"];
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"photourl"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"photourl"] forKey:@"headpic"];
@@ -235,6 +235,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
@@ -270,17 +272,22 @@
     
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:self.picker animated:YES completion:nil];
+        [self.view.window.rootViewController presentViewController:self.picker animated:YES completion:nil];
     }];
     UIAlertAction *photoAciton = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:self.picker animated:YES completion:nil];
+        [self.view.window.rootViewController presentViewController:self.picker animated:YES completion:nil];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cameraAction];
     [alert addAction:photoAciton];
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [viewController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {

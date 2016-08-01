@@ -27,7 +27,7 @@
     
     // 简介
     if (userModel.Brief == NULL || [userModel.Brief isEqualToString:@""]) {
-        self.introLabel.text = @"暂无设置简介";
+        self.introLabel.text = @"暂未设置简介";
     } else {
         self.introLabel.text = userModel.Brief;
     }
@@ -62,7 +62,7 @@
     
     // 简介
     if (userModel.Brief == NULL || [userModel.Brief isEqualToString:@""]) {
-        self.introLabel.text = @"暂无设置简介";
+        self.introLabel.text = @"暂未设置简介";
     } else {
         self.introLabel.text = userModel.Brief;
     }
@@ -100,7 +100,7 @@
     
     // 简介
     if (otherUserModel.Brief == NULL || [otherUserModel.Brief isEqualToString:@""]) {
-        self.introLabel.text = @"暂无设置简介";
+        self.introLabel.text = @"暂未设置简介";
     } else {
         self.introLabel.text = otherUserModel.Brief;
     }

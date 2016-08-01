@@ -20,8 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *sexImage;
 // 签到
 @property (weak, nonatomic) IBOutlet UILabel *signInLabel;
-// 签到的位置约束
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
 // 地址
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 // 地址图标

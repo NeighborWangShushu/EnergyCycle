@@ -26,11 +26,11 @@
 @property (nonatomic, assign) BOOL unLikeRead;
 
 @property (nonatomic, assign) BOOL unMessageRead;
-
+// 评论
 @property (nonatomic, strong) NSMutableArray *commentArray;
-
+// 点赞
 @property (nonatomic, strong) NSMutableArray *likeArray;
-
+// 私信
 @property (nonatomic, strong) NSMutableArray *messageArray;
 
 @end
@@ -304,6 +304,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createTableView];
@@ -330,7 +334,14 @@
     
     self.tabBarController.tabBar.hidden = YES;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushReloadData) name:@"pushReloadData" object:nil];
+    
     // Do any additional setup after loading the view.
+}
+
+- (void)pushReloadData {
+    [self updateMessageData];
+    NSLog(@"sdaofndsfopsdpofspofpasdofpdspofdsajpofjpodsjfposdjpofjsdpaofjposdjfpodsjpfjspojfposjafpojpodjfpoajpofjaspod");
 }
 
 - (IBAction)commentClick:(id)sender {

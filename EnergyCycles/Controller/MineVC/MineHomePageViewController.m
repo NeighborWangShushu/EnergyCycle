@@ -21,6 +21,7 @@
 #import "PKRecordTableViewController.h"
 #import "MyProfileViewController.h"
 #import "ECAvatarManager.h"
+#import "MineChatViewController.h"
 
 @interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -67,6 +68,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToAttentionController) name:@"jumpToAttentionController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpChatViewController) name:@"jumpChatViewController" object:nil];
+}
+
+- (void)jumpChatViewController {
+    MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
+    chatVC.useredId = self.userId;
+    chatVC.chatName = self.model.nickname;
+    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -395,17 +404,22 @@
     
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:self.picker animated:YES completion:nil];
+        [self.view.window.rootViewController presentViewController:self.picker animated:YES completion:nil];
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:self.picker animated:YES completion:nil];
+        [self.view.window.rootViewController presentViewController:self.picker animated:YES completion:nil];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cameraAction];
     [alert addAction:photoAction];
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [viewController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
