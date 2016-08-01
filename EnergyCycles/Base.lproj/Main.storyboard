@@ -6205,22 +6205,13 @@
         <image name="write_normal.png" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
-        <segue reference="R8s-I5-eNH"/>
-        <segue reference="XSA-PQ-u0b"/>
-        <segue reference="DWR-ZX-Hly"/>
-=======
->>>>>>> wangbin
         <segue reference="PKj-mJ-5kS"/>
         <segue reference="vpn-CB-KIX"/>
         <segue reference="I2i-X2-oaq"/>
         <segue reference="qpV-fR-jXy"/>
         <segue reference="mMa-EG-ekD"/>
-<<<<<<< HEAD
-=======
         <segue reference="XSA-PQ-u0b"/>
         <segue reference="R8s-I5-eNH"/>
         <segue reference="HwS-RU-Cgf"/>
->>>>>>> wangbin
     </inferredMetricsTieBreakers>
 </document>
