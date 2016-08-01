@@ -18,7 +18,7 @@
 #pragma mark - 填充数据
 - (void)updateWithModel:(LearnViewShowModel *)model {
     NSArray *imageArr = [model.img componentsSeparatedByString:@","];
-    [self.showImageView sd_setImageWithURL:[NSURL URLWithString:imageArr.firstObject] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+    [self.showImageView sd_setImageWithURL:[NSURL URLWithString:imageArr.firstObject] placeholderImage:LEARN_PLACEHOLDER];
     self.titleLabel.text = model.title;
     self.typeLabel.text = model.studyType;
     self.typeLabel.layer.masksToBounds=YES;

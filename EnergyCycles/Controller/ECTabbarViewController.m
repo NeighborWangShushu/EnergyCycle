@@ -18,7 +18,9 @@
 #define addHeight 88
 
 
-@interface ECTabbarViewController ()<ECTabbarDelegate>
+@interface ECTabbarViewController ()<ECTabbarDelegate> {
+    UIViewController *viewController;
+}
 
 @property (nonatomic,strong)ECTabbarView*tabbar;
 
@@ -59,9 +61,9 @@
                 make.height.equalTo(@55);
             }];
             [self.tabbar layoutIfNeeded];
+            [viewController.view layoutIfNeeded];
         }];
     }
-   
 }
 
 - (void)viewDidLoad
@@ -119,7 +121,7 @@
     
     NSDictionary* data = [_arrayViewcontrollers objectAtIndex:index];
     
-    UIViewController *viewController = data[@"viewController"];
+    viewController = data[@"viewController"];
     viewController.view.tag = SELECTED_VIEW_CONTROLLER_TAG;
     [self.view insertSubview:viewController.view belowSubview:_tabbar];
     

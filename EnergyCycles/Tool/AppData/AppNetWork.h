@@ -20,7 +20,6 @@
 #define User_PHONE [[AppHelpManager sharedInstance] readPhone]
 #define User_NAME [[AppHelpManager sharedInstance] readUserName]
 
-
 #define MYJYAppId @"1079791492"
 
 #define Html(id) [NSString stringWithFormat:@"%@/html/Study/html/StudyDetail.aspx?Id=%@",INTERFACE_URL,id]
@@ -29,6 +28,16 @@
 
 #define HtmlShare(id,user) [NSString stringWithFormat:@"%@/html/Study/html/StudyDetail.aspx?Id=%@&userId=%@&is_Share=1",INTERFACE_URL,id,user]
 
+
+#define EC_ARTICLE_PLACEHOLDER [UIImage imageNamed:@"ec_article_placeholder"]
+
+#define EC_AVATAR_PLACEHOLDER [UIImage imageNamed:@"ec_avatar_placeholder"]
+
+#define EC_RECOMMEND_PLACEHOLDER [UIImage imageNamed:@"ec_comment_placeholder"]
+
+#define LEARN_BANNER_PLACEHOLDER [UIImage imageNamed:@"learn_banner_placeholder"]
+
+#define LEARN_PLACEHOLDER [UIImage imageNamed:@"learn_placeholder"]
 
 
 //本地-习进

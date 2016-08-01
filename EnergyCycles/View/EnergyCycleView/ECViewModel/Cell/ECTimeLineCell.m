@@ -314,7 +314,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _shouldOpenContentLabel = NO;
     
-    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:nil];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:EC_AVATAR_PLACEHOLDER];
     _nameLable.text = model.name;
     _location.text = model.location;
     _time.text = model.time;

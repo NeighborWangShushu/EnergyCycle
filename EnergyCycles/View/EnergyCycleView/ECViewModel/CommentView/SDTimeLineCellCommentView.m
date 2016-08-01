@@ -132,12 +132,13 @@
     _likeItemsArray = likeItemsArray;
     
     NSTextAttachment *attach = [NSTextAttachment new];
-    attach.image = [UIImage imageNamed:@"ec_like"];
-    attach.bounds = CGRectMake(0, -3, 19, 16);
+    attach.image = [UIImage imageNamed:@"ec_like_small"];
+    attach.bounds = CGRectMake(0, -2, 13, 12);
     NSAttributedString *likeIcon = [NSAttributedString attributedStringWithAttachment:attach];
-    
+    UIColor *highLightColor = [UIColor colorWithRed:244.0/255.0 green:94.0/255.0 blue:94.0/255.0 alpha:1.0];
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:likeIcon];
-    [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@"  "]];
+
+    [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
     for (int i = 0; i < likeItemsArray.count; i++) {
         ECTimeLineCellLikeItemModel *model = likeItemsArray[i];
         if (i > 0) {
@@ -192,7 +193,7 @@
         _likeLabel.sd_resetLayout
         .leftSpaceToView(self, margin)
         .rightSpaceToView(self, margin)
-        .topSpaceToView(lastTopView, 10)
+        .topSpaceToView(lastTopView, 5)
         .autoHeightRatio(0);
         _likeLabel.isAttributedContent = YES;
         
@@ -240,7 +241,7 @@
         
     }
     
-    [self setupAutoHeightWithBottomView:lastTopView bottomMargin:6];
+    [self setupAutoHeightWithBottomView:lastTopView bottomMargin:4];
 }
 
 - (void)setFrame:(CGRect)frame
@@ -256,7 +257,7 @@
     if (model.secondUserName.length) {
         text = [text stringByAppendingString:[NSString stringWithFormat:@"回复%@", model.secondUserName]];
     }
-    UIColor *highLightColor = [UIColor colorWithRed:101.0/255.0 green:187.0/255.0 blue:242.0/255.0 alpha:1.0];
+    UIColor *highLightColor = [UIColor colorWithRed:244.0/255.0 green:94.0/255.0 blue:94.0/255.0 alpha:1.0];
     text = [text stringByAppendingString:[NSString stringWithFormat:@"：%@", model.commentString]];
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
     [attString setAttributes:@{NSLinkAttributeName : model.firstUserId,NSForegroundColorAttributeName:highLightColor} range:[text rangeOfString:model.firstUserName]];
@@ -270,7 +271,7 @@
 {
     NSString *text = model.userName;
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
-    UIColor *highLightColor = [UIColor colorWithRed:101.0/255.0 green:187.0/255.0 blue:242.0/255.0 alpha:1.0];
+    UIColor *highLightColor = [UIColor colorWithRed:244.0/255.0 green:94.0/255.0 blue:94.0/255.0 alpha:1.0];
     [attString setAttributes:@{NSForegroundColorAttributeName : highLightColor, NSLinkAttributeName : model.userId} range:[text rangeOfString:model.userName]];
     
     return attString;

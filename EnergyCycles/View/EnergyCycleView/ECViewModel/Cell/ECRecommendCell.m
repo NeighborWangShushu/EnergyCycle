@@ -46,13 +46,14 @@
     UILabel * title = [UILabel new];
     title.text = @"推荐用户";
     title.textColor = [UIColor colorWithRed:74.0/255.0 green:74.0/255.0 blue:74.0/255.0 alpha:1.0];
-    title.font = [UIFont systemFontOfSize:16];
+    title.font = [UIFont systemFontOfSize:14];
     [self addSubview:title];
     
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    layout.itemSize = CGSizeMake(66, 86);
+    layout.itemSize = CGSizeMake(50, 68);
+    layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 0);
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.collectionView.dataSource = self;

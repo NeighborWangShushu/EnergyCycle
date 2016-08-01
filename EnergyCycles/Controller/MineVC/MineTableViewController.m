@@ -179,9 +179,9 @@
     [self.delegate.tabbarController hideTabbar:YES];
 }
 
-- (void)jumpToMessageViewController {
-    [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
-}
+//- (void)jumpToMessageViewController {
+//    [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
+//}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -257,16 +257,9 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"JumpToIntroViewController" object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToMessageViewController) name:@"PUSHTOMESSAGEVIEWCONTROLLER" object:nil];
-   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeHeadImage) name:@"ChangeHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"reloadData" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToMessageViewController) name:@"PUSHTOMESSAGEVIEWCONTROLLER" object:nil];
     // Do any additional setup after loading the view.
-}
-
-- (void)jumpToMessageViewController {
-    [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
 }
 
 - (void)changeHeadImage {
@@ -287,6 +280,7 @@
         self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [self presentViewController:self.picker animated:YES completion:nil];
     }];
+    
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cameraAction];
     [alert addAction:photoAciton];

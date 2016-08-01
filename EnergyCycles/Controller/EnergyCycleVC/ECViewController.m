@@ -151,6 +151,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidChange:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(inputModeDidChange:) name:UITextInputCurrentInputModeDidChangeNotification object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
     
 }
@@ -234,7 +236,7 @@
         AFHTTPRequestOperation * operation3 = [[AFHTTPRequestOperation alloc] initWithRequest:request3];
         
         NSArray * operations = [AFHTTPRequestOperation batchOfRequestOperations:@[operation1,operation2,operation3] progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-            NSLog(@"%ld",numberOfFinishedOperations);
+            NSLog(@"%ld",(unsigned long)numberOfFinishedOperations);
             
         } completionBlock:^(NSArray * _Nonnull operations) {
             
@@ -321,7 +323,7 @@
             }
             weakSelf.tableView.hidden = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadDataWithExistedHeightCache];
+                [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
                 [SVProgressHUD dismiss];
             });
@@ -455,7 +457,7 @@
     titleLabel = [UILabel new];
     titleLabel.text = selectedModel.name;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont systemFontOfSize:18];
+    titleLabel.font = [UIFont systemFontOfSize:16];
     [navView addSubview:titleLabel];
     
     arrowImg = [UIImageView new];
@@ -488,27 +490,28 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightbutton];
     self.navigationItem.rightBarButtonItems = @[item];
     
-    UIView*leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    UIView*leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 25)];
     UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftbutton.frame = CGRectMake(0, 0, 21, 25);
+    leftbutton.frame = CGRectMake(0, 4, 18, 22);
     [leftbutton setBackgroundImage:[UIImage imageNamed:@"bell-icon"] forState:UIControlStateNormal];
     leftbutton.tag = 1002;
     [leftbutton addTarget:self action:@selector(energyLeftActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
     [leftView addSubview:leftbutton];
     
-        
-    messageCountView                       = [[UIView alloc] initWithFrame:CGRectMake(20, 18, 13, 13)];
+    
+    messageCountView                       = [[UIView alloc] initWithFrame:CGRectMake(15, 2, 13, 13)];
     messageCountView.backgroundColor       = [UIColor whiteColor];
     messageCountView.layer.cornerRadius    = 7.0;
     messageCountView.hidden                = YES;
     [leftView addSubview:messageCountView];
 
-    count                                  = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 10, 10)];
-    count.font                             = [UIFont systemFontOfSize:13];
+    count                                  = [[UILabel alloc] initWithFrame:CGRectMake(1, 2, 12, 10)];
+    count.font                             = [UIFont systemFontOfSize:10];
+    count.center                           = messageCountView.center;
     count.textAlignment                    = NSTextAlignmentCenter;
     count.textColor                        = [UIColor colorWithRed:244.0/255.0 green:94.0/255.0 blue:94.0/255.0 alpha:1.0];
-    count.text                             = [NSString stringWithFormat:@"%ld",messageCount];
-    [messageCountView addSubview:count];
+    count.text                             = [NSString stringWithFormat:@"%ld",(long)messageCount];
+    [leftView addSubview:count];
     
     
     UIBarButtonItem *leftitem              = [[UIBarButtonItem alloc] initWithCustomView:leftView];
@@ -519,12 +522,12 @@
     UITableView * tableView   = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.delegate        = self;
     tableView.dataSource      = self;
+    [tableView setShowsVerticalScrollIndicator:NO];
     tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
     tableView.backgroundColor = [UIColor clearColor];
     [tableView registerClass:[ECTimeLineCell class] forCellReuseIdentifier:@"TestCell2"];
     [tableView registerClass:[ECRecommendCell class] forCellReuseIdentifier:kCommentUserCellId];
     [self.view addSubview:tableView];
-    
     tableView.hidden = YES;
     
     
@@ -888,7 +891,7 @@
         UILabel*title = [UILabel new];
         title.text = pageType == 0?@"精彩推荐":@"关注的人";
         title.textColor = [UIColor colorWithRed:(74 / 255.0) green:(74 / 255.0) blue:(74 / 255.0) alpha:1.0];
-        title.font = [UIFont systemFontOfSize:16];
+        title.font = [UIFont systemFontOfSize:14];
         [view addSubview:title];
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(view.mas_left).with.offset(10);
@@ -901,7 +904,7 @@
         UILabel*title = [UILabel new];
         title.text = @"最新动态";
         title.textColor = [UIColor colorWithRed:(74 / 255.0) green:(74 / 255.0) blue:(74 / 255.0) alpha:1.0];
-        title.font = [UIFont systemFontOfSize:16];
+        title.font = [UIFont systemFontOfSize:14];
         [view addSubview:title];
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(view.mas_left).with.offset(10);
@@ -1092,6 +1095,9 @@
     
 }
 
+- (void)inputModeDidChange:(NSNotification*)notifi {
+    
+}
 
 - (void)gotoCyclePostView:(NSNotification*)notifi {
     
@@ -1100,32 +1106,10 @@
     }else {
         
         PostingViewController * postView = MainStoryBoard(@"ECPostingViewController");
-        
         UIViewController * viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
         [viewController presentViewController:postView animated:YES completion:nil];
-        
-        
-        //        [postView.view mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(self.view.mas_left);
-//            make.right.equalTo(self.view.mas_right);
-//            make.top.equalTo(self.view.mas_bottom);
-//            make.height.equalTo(self.view.mas_height);
-//
-//        }];
-        
-//        [UIView animateWithDuration:0.25 animations:^{
-//            [postView.view mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.left.equalTo(self.view.mas_left);
-//                make.right.equalTo(self.view.mas_right);
-//                make.top.equalTo(self.view.mas_top);
-//                make.bottom.equalTo(self.view.mas_bottom);
-//                
-//            }];
-//            [postView.view layoutIfNeeded];
-//        }];
     }
 }
-
 
 #pragma mark UITextFieldDelegate
 
@@ -1133,11 +1117,9 @@
     
     //发送评论
     [self sendCommend:textField.text index:commentIndex section:commentSection];
-    
     [textField resignFirstResponder];
     return YES;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
