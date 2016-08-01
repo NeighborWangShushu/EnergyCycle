@@ -1149,4 +1149,14 @@
                           success:(void (^)(NSDictionary *dict))success
                           failure:(void (^)(NSString *str))failure;
 
+
+#pragma mark - 99.我的未读消息
+
+- (void)getMyMessageNum:(int)userid
+                        success:(void (^)(NSDictionary *dict))success
+                        failure:(void (^)(NSString *str))failure;
+
+
+
+
 @end

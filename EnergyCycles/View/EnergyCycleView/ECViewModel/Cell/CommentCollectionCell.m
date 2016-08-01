@@ -20,7 +20,7 @@
 
 - (void)showMore {
     [self.icon setImage:[UIImage imageNamed:@"ec_comment_more"]];
-    self.name.text = @"";
+    self.name.text = @"查看更多";
     
 }
 

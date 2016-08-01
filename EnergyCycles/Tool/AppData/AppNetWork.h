@@ -326,7 +326,6 @@
 
 #define ArticleDetailAspx          @"html/Article/ArticleDetail.aspx"
 
-
 //83.获取进阶pk帖子详情h5页面
 #define PostDetailAspx             @"html/PostDetail.aspx"
 
@@ -369,6 +368,7 @@
 //97.修改个人主页背景图片
 #define ChangeBackgroundImg @"/user/App_User_BackgroundImg_Upd"
 
-
+//99. 未读消息
+#define MyMessage @"/user/MyMessageNum_Get"
 
 #endif

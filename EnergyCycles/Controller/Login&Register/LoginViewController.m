@@ -220,6 +220,9 @@
         [alertView show];
     }else {
         //第三方QQ登录成功,通过网络接口,提交数据
+        
+        
+        
         [self thirdLoginInWithType:1 withOpenId:dict[@"openId"] withNickName:dict[@"nickname"] withPhotoUrl:dict[@"headimage"] withSex:@"" withPhone:@""];
     }
 }

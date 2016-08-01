@@ -2613,5 +2613,18 @@ static AFHTTPRequestOperationManager *manager;
                      }];
 }
 
+#pragma mark - 99
+
+- (void)getMyMessageNum:(int)userid success:(void (^)(NSDictionary *))success failure:(void (^)(NSString *))failure {
+    NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"UserID"];
+    
+    [self callInterfaceByUrl:MyMessage PostOrGet:@"get" withDict:dic success:^(NSDictionary *dict) {
+        success(dict);
+    } failure:^(NSString *str) {
+        failure(str);
+    }];
+    
+}
 
 @end

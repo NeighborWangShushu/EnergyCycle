@@ -466,6 +466,8 @@
     [self.navigationController pushViewController:afVC animated:YES];
 }
 
+
+
 - (void)jumpToIntroViewController {
     IntroViewController *introVC = MainStoryBoard(@"IntroViewController");
     introVC.introString = self.model.Brief;

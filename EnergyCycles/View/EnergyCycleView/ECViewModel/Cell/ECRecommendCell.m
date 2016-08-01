@@ -49,13 +49,6 @@
     title.font = [UIFont systemFontOfSize:16];
     [self addSubview:title];
     
-    UIImageView * arrow = [UIImageView new];
-    [arrow setImage:[UIImage imageNamed:@"ec_comment_arrow"]];
-    [self addSubview:arrow];
-    
-    UIButton*arrowButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self addSubview:arrowButton];
-    [arrowButton addTarget:self action:@selector(arrowButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -78,18 +71,6 @@
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(10);
         make.top.equalTo(self.mas_top).with.offset(15);
-    }];
-    
-    [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).with.offset(-10);
-        make.top.equalTo(self.mas_top).with.offset(15);
-    }];
-    
-    [arrowButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).with.offset(-10);
-        make.top.equalTo(self.mas_top).with.offset(15);
-        make.width.equalTo(@40);
-        make.height.equalTo(@30);
     }];
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -38,7 +38,7 @@
     [super viewDidLoad];
     
     UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftbutton.frame = CGRectMake(0, 0, 30, 35);
+    leftbutton.frame = CGRectMake(0, 0, 30, 30);
     [leftbutton setBackgroundImage:[UIImage imageNamed:@"whiteback_normal"] forState:UIControlStateNormal];
     leftbutton.tag = 1002;
     [leftbutton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];

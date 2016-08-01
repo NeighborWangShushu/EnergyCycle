@@ -20,6 +20,7 @@
 #import "PKRecordTableViewController.h"
 #import "leaderboardViewController.h"
 #import "MessageViewController.h"
+#import "AppDelegate.h"
 
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -169,6 +170,10 @@
     [self performSegueWithIdentifier:@"IntroViewController" sender:nil];
 }
 
+- (void)jumpToMessageViewController {
+    [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
@@ -223,7 +228,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    AppDelegate*delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    if (delegate.isPushToMessageView) {
+        delegate.isPushToMessageView = NO;
+        [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
+    }
     self.title = @"我的";
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
     
@@ -234,6 +243,8 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"JumpToIntroViewController" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToMessageViewController) name:@"PUSHTOMESSAGEVIEWCONTROLLER" object:nil];
+   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeHeadImage) name:@"ChangeHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"reloadData" object:nil];
     // Do any additional setup after loading the view.

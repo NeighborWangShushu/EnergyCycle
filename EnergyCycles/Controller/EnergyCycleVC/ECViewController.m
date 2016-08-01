@@ -60,6 +60,12 @@
     NSInteger commentSection;
     ECTimeLineModel * selectedLikeModel;
     
+    NSInteger  messageCount;
+    
+    UIView * messageCountView;
+    
+    //未读数label
+    UILabel * count;
     
     BOOL navIsOpen;
 }
@@ -100,6 +106,11 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self getMessageData];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -112,6 +123,7 @@
     
     // Do any additional setup after loading the view.
 }
+
 
 - (void)initialize {
     
@@ -145,6 +157,34 @@
 
 
 #pragma mark  GET
+
+
+//读取未读消息并显示
+- (void)getMessageData {
+    
+    [[AppHttpManager shareInstance] getMyMessageNum:[_userId intValue] success:^(NSDictionary *dict) {
+        if ([dict objectForKey:@"Data"] && [dict objectForKey:@"Data"] != [NSNull null]) {
+            NSDictionary * dic = dict[@"Data"][0];
+            NSNumber * comment = [dic objectForKey:@"CommentCount"];
+            NSNumber * zan = dic[@"ZanCount"];
+            NSNumber * sixin = dic[@"SixinCount"];
+            messageCount = [comment integerValue] + [zan integerValue] + [sixin integerValue];
+            if (messageCount == 0) {
+                messageCountView.hidden = YES;
+            }else {
+                messageCountView.hidden = NO;
+            }
+            count.text = [NSString stringWithFormat:@"%ld",(long)messageCount];
+            
+        }
+        
+    } failure:^(NSString *str) {
+        
+    }];
+    
+    
+}
+
 
 - (void)getNavData {
     NSArray * all = [ECNavMenuModel findAll];
@@ -448,14 +488,32 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightbutton];
     self.navigationItem.rightBarButtonItems = @[item];
     
-    
+    UIView*leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
     leftbutton.frame = CGRectMake(0, 0, 21, 25);
     [leftbutton setBackgroundImage:[UIImage imageNamed:@"bell-icon"] forState:UIControlStateNormal];
     leftbutton.tag = 1002;
     [leftbutton addTarget:self action:@selector(energyLeftActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftitem = [[UIBarButtonItem alloc] initWithCustomView:leftbutton];
+    [leftView addSubview:leftbutton];
+    
+        
+    messageCountView                       = [[UIView alloc] initWithFrame:CGRectMake(20, 18, 13, 13)];
+    messageCountView.backgroundColor       = [UIColor whiteColor];
+    messageCountView.layer.cornerRadius    = 7.0;
+    messageCountView.hidden                = YES;
+    [leftView addSubview:messageCountView];
+
+    count                                  = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 10, 10)];
+    count.font                             = [UIFont systemFontOfSize:13];
+    count.textAlignment                    = NSTextAlignmentCenter;
+    count.textColor                        = [UIColor colorWithRed:244.0/255.0 green:94.0/255.0 blue:94.0/255.0 alpha:1.0];
+    count.text                             = [NSString stringWithFormat:@"%ld",messageCount];
+    [messageCountView addSubview:count];
+    
+    
+    UIBarButtonItem *leftitem              = [[UIBarButtonItem alloc] initWithCustomView:leftView];
     self.navigationItem.leftBarButtonItems = @[leftitem];
+    
     
     
     UITableView * tableView   = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -468,6 +526,7 @@
     [self.view addSubview:tableView];
     
     tableView.hidden = YES;
+    
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
@@ -532,7 +591,7 @@
 
 //跳转到消息界面
 - (void)energyLeftActionWithBtn:(id)sender {
-    
+    delegate.isPushToMessageView = YES;
     [delegate.tabbarController setSelectIndex:3];
 }
 
@@ -591,7 +650,6 @@
             
         }];
     }
-    
 
 }
 
