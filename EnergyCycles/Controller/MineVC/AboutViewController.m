@@ -93,10 +93,17 @@
     }
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"关于能量圈";
+    self.version.text = @"能量圈1.3";
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     

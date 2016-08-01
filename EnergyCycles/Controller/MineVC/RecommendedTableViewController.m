@@ -43,7 +43,7 @@
 }
 
 - (void)updateData {
-    [[AppHttpManager shareInstance] getGetMyTuiJianListWithUserid:50 PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getGetMyTuiJianListWithUserid:[User_ID intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self.dataArray removeAllObjects];
             for (NSDictionary *data in dict[@"Data"]) {
@@ -65,11 +65,16 @@
     }];
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"推荐用户";
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self updateData];

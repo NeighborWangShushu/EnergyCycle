@@ -84,9 +84,16 @@
     }];
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
+    self.title = self.chatName;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 50;
@@ -101,7 +108,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"MineChatTableViewCell" bundle:nil] forCellReuseIdentifier:NSStringFromClass([MineChatTableViewCell class])];
+//    [self.tableView registerNib:[UINib nibWithNibName:@"MineChatTableViewCell" bundle:nil] forCellReuseIdentifier:NSStringFromClass([MineChatTableViewCell class])];
     [self.view addSubview:self.tableView];
 }
 - (IBAction)sendButton:(id)sender {
@@ -110,7 +117,9 @@
         [[AppHttpManager shareInstance] getAddMessageWithUserid:[User_ID intValue] withUseredId:[self.useredId intValue] content:self.textField.text PostOrGet:@"get" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 self.textField.text = @"";
+                self.sendButton.enabled = NO;
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    self.sendButton.enabled = YES;
                     [self.tableView reloadData];
                 });
             }else {

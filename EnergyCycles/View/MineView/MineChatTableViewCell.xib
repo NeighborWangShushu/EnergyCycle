@@ -21,9 +21,15 @@
                             <constraint firstAttribute="width" constant="40" id="qBq-Ps-ifs"/>
                         </constraints>
                         <state key="normal" image="touxiang.png"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oPP-1y-RZw">
-                        <rect key="frame" x="363" y="8" width="88" height="131.5"/>
+                        <rect key="frame" x="363" y="8" width="93" height="131.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdlfhsdihf" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fD-CY-pmJ">
                         <rect key="frame" x="371" y="16" width="72" height="115.5"/>
@@ -45,7 +51,7 @@
                     <constraint firstItem="9fD-CY-pmJ" firstAttribute="top" secondItem="0Ku-bx-qzk" secondAttribute="top" constant="8" id="LLi-R1-I0j"/>
                     <constraint firstAttribute="bottom" secondItem="9fD-CY-pmJ" secondAttribute="bottom" constant="16" id="OJA-ju-ktL"/>
                     <constraint firstItem="oPP-1y-RZw" firstAttribute="height" secondItem="9fD-CY-pmJ" secondAttribute="height" constant="16" id="SOE-GR-Xfl"/>
-                    <constraint firstItem="oPP-1y-RZw" firstAttribute="width" secondItem="9fD-CY-pmJ" secondAttribute="width" constant="16" id="UB3-tN-Uf3"/>
+                    <constraint firstItem="oPP-1y-RZw" firstAttribute="width" secondItem="9fD-CY-pmJ" secondAttribute="width" constant="21" id="UB3-tN-Uf3"/>
                     <constraint firstItem="oPP-1y-RZw" firstAttribute="leading" secondItem="9fD-CY-pmJ" secondAttribute="leading" constant="-8" id="ep4-vo-hJa"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0Ku-bx-qzk" secondAttribute="bottom" constant="8" id="g5u-mU-Rd8"/>
                     <constraint firstItem="9fD-CY-pmJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="jZ9-C9-6M5"/>

@@ -3879,6 +3879,7 @@
                     <navigationItem key="navigationItem" id="lWK-vc-SMi"/>
                     <connections>
                         <outlet property="tableView" destination="5Rx-gA-efe" id="JDQ-HA-YsD"/>
+                        <outlet property="version" destination="qpj-ax-pwN" id="MlZ-vi-Wmt"/>
                         <segue destination="ICV-yW-tKH" kind="push" identifier="FunctionViewController" id="vAI-01-EsE"/>
                     </connections>
                 </viewController>
@@ -6092,6 +6093,87 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vCr-eV-ULC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-10.5" y="2.5"/>
+        </scene>
+        <!--Mine Chat View Controller-->
+        <scene sceneID="BbQ-a9-uDC">
+            <objects>
+                <viewController storyboardIdentifier="MineChatViewController" id="kgE-Li-YI7" customClass="MineChatViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FHY-n5-rEY"/>
+                        <viewControllerLayoutGuide type="bottom" id="xUD-01-2ac"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="peG-Kl-3We">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hZQ-sG-nsH">
+                                <rect key="frame" x="0.0" y="20" width="600" height="540"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7d-Be-2TY">
+                                <rect key="frame" x="0.0" y="560" width="600" height="40"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gor-li-N7C">
+                                        <rect key="frame" x="8" y="5" width="526" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6YC-q4-Af2">
+                                        <rect key="frame" x="542" y="5" width="50" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="KD6-89-a2F"/>
+                                        </constraints>
+                                        <state key="normal" title="发送"/>
+                                        <connections>
+                                            <action selector="sendButton:" destination="kgE-Li-YI7" eventType="touchUpInside" id="jmQ-M7-Ja8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="6YC-q4-Af2" firstAttribute="centerY" secondItem="Y7d-Be-2TY" secondAttribute="centerY" id="2Ac-hv-BgU"/>
+                                    <constraint firstAttribute="trailing" secondItem="6YC-q4-Af2" secondAttribute="trailing" constant="8" id="8hl-QI-n6s"/>
+                                    <constraint firstItem="gor-li-N7C" firstAttribute="centerY" secondItem="Y7d-Be-2TY" secondAttribute="centerY" id="Adk-me-Q37"/>
+                                    <constraint firstItem="gor-li-N7C" firstAttribute="top" secondItem="Y7d-Be-2TY" secondAttribute="top" constant="3" id="G0d-JG-7FZ"/>
+                                    <constraint firstItem="gor-li-N7C" firstAttribute="leading" secondItem="Y7d-Be-2TY" secondAttribute="leading" constant="8" id="Y2S-uZ-bc4"/>
+                                    <constraint firstItem="6YC-q4-Af2" firstAttribute="leading" secondItem="gor-li-N7C" secondAttribute="trailing" constant="8" id="iAy-Wf-r6s"/>
+                                    <constraint firstAttribute="bottom" secondItem="gor-li-N7C" secondAttribute="bottom" constant="3" id="nLI-Wz-n6w"/>
+                                    <constraint firstAttribute="height" constant="40" id="stz-MM-GYF"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="nLI-Wz-n6w"/>
+                                        <exclude reference="G0d-JG-7FZ"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Y7d-Be-2TY" secondAttribute="trailing" id="33M-3y-iaA"/>
+                            <constraint firstItem="hZQ-sG-nsH" firstAttribute="top" secondItem="FHY-n5-rEY" secondAttribute="bottom" id="GbP-Dw-FFN"/>
+                            <constraint firstItem="xUD-01-2ac" firstAttribute="top" secondItem="Y7d-Be-2TY" secondAttribute="bottom" id="NVR-J1-AhD"/>
+                            <constraint firstItem="Y7d-Be-2TY" firstAttribute="top" secondItem="hZQ-sG-nsH" secondAttribute="bottom" id="PuB-82-61i"/>
+                            <constraint firstItem="hZQ-sG-nsH" firstAttribute="leading" secondItem="peG-Kl-3We" secondAttribute="leading" id="UXN-KK-lhP"/>
+                            <constraint firstItem="xUD-01-2ac" firstAttribute="top" secondItem="Y7d-Be-2TY" secondAttribute="bottom" id="krd-9I-TaF"/>
+                            <constraint firstItem="Y7d-Be-2TY" firstAttribute="leading" secondItem="peG-Kl-3We" secondAttribute="leading" id="mGu-NS-GyO"/>
+                            <constraint firstAttribute="trailing" secondItem="hZQ-sG-nsH" secondAttribute="trailing" id="q3d-fa-pvd"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="krd-9I-TaF"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="sendButton" destination="6YC-q4-Af2" id="oKA-fL-fxQ"/>
+                        <outlet property="tableView" destination="hZQ-sG-nsH" id="jff-bp-b6I"/>
+                        <outlet property="textField" destination="gor-li-N7C" id="cL2-sU-GUm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jFp-96-0mM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5" y="4696"/>
         </scene>
     </scenes>
     <resources>

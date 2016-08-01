@@ -32,8 +32,14 @@
 
 @implementation BrokenLineViewController
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     _dataArr = [[NSMutableArray alloc] init];
     showType = 1;

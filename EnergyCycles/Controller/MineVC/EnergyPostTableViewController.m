@@ -72,6 +72,9 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self endRefresh];
+            if ((self.startPage + 1) * 10 >= self.dataArray.count) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
             [self.tableView reloadData];
         });
     } failure:^(NSString *str) {
@@ -166,7 +169,10 @@
         self.navigationController.navigationBar.translucent = NO;
         self.tableView.showsVerticalScrollIndicator = NO;
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
+        [self setupLeftNavBarWithimage:@"loginfanhui"];
+
 //        self.tabBarController.tabBar.hidden = YES;
+        
     }
     
     [self setUpMJRefresh];
@@ -184,12 +190,20 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
 
 // cell的数量
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

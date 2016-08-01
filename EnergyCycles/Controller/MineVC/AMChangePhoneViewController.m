@@ -32,9 +32,14 @@
     [self performSegueWithIdentifier:@"ChangePasswordViewController" sender:nil];
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     self.navigationItem.title = @"账号管理";
     NSString *addCipher = [[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"];
     self.phoneNumberLabel.text = [addCipher stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];

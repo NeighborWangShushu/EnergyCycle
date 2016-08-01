@@ -10,4 +10,6 @@
 
 @interface AboutViewController : BaseViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *version;
+
 @end

@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Apple. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseTableViewController.h"
 
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -30,7 +30,7 @@
 
 @end
 
-@interface MineHomePageTableViewControllerProtocol : UITableViewController
+@interface MineHomePageTableViewControllerProtocol : BaseTableViewController
 
 @property (nonatomic, weak) id<TabelViewScrollingProtocol> delegate;
 
