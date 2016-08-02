@@ -75,6 +75,7 @@
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
+//                [self.tableView setContentOffset:CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX)];
             });
         } else {
             [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
@@ -101,6 +102,7 @@
     [self createTableView];
     [self createTextField];
     [self updateData];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -120,7 +122,7 @@
                 self.sendButton.enabled = NO;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.sendButton.enabled = YES;
-                    [self.tableView reloadData];
+                    [self updateData];
                 });
             }else {
 //            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];

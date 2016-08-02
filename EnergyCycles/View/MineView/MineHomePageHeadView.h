@@ -29,10 +29,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 // 地址图标
 @property (weak, nonatomic) IBOutlet UIImageView *addressImage;
-// 签到
-@property (weak, nonatomic) IBOutlet UILabel *signLabel;
-// 签到(没有地址数据时显示)
-@property (weak, nonatomic) IBOutlet UILabel *signTwoLabel;
 // 关注
 @property (weak, nonatomic) IBOutlet UIButton *attentionButton;
 // 粉丝

@@ -48,7 +48,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBc-Gk-pWO">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBc-Gk-pWO">
                                 <rect key="frame" x="70" y="23" width="241" height="19.5"/>
                                 <string key="text">asdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoia</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
