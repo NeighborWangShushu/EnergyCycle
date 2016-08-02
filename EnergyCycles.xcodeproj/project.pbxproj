@@ -714,6 +714,7 @@
 		D07804B61D4EF40B001C432B /* learn_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07804B11D4EF40B001C432B /* learn_placeholder@2x.png */; };
 		D07804B91D4F0616001C432B /* ec_like_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07804B71D4F0616001C432B /* ec_like_small@2x.png */; };
 		D07804BA1D4F0616001C432B /* ec_like_small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07804B81D4F0616001C432B /* ec_like_small@3x.png */; };
+		D07804BE1D504357001C432B /* KeyboardToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D07804BD1D504357001C432B /* KeyboardToolBar.m */; };
 		D07D2EAD1D0FA0C700AF35B1 /* ScrollTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07D2EAC1D0FA0C700AF35B1 /* ScrollTagView.m */; };
 		D07D2EB21D0FC3DF00AF35B1 /* TagItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07D2EB11D0FC3DF00AF35B1 /* TagItemView.m */; };
 		D07D2ED41D0FD6CC00AF35B1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D07D2EBA1D0FD6CC00AF35B1 /* Info.plist */; };
@@ -2395,6 +2396,8 @@
 		D07804B11D4EF40B001C432B /* learn_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "learn_placeholder@2x.png"; sourceTree = "<group>"; };
 		D07804B71D4F0616001C432B /* ec_like_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ec_like_small@2x.png"; sourceTree = "<group>"; };
 		D07804B81D4F0616001C432B /* ec_like_small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ec_like_small@3x.png"; sourceTree = "<group>"; };
+		D07804BC1D504357001C432B /* KeyboardToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardToolBar.h; sourceTree = "<group>"; };
+		D07804BD1D504357001C432B /* KeyboardToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardToolBar.m; sourceTree = "<group>"; };
 		D07D2EAB1D0FA0C700AF35B1 /* ScrollTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollTagView.h; sourceTree = "<group>"; };
 		D07D2EAC1D0FA0C700AF35B1 /* ScrollTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollTagView.m; sourceTree = "<group>"; };
 		D07D2EB01D0FC3DF00AF35B1 /* TagItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagItemView.h; sourceTree = "<group>"; };
@@ -4491,6 +4494,7 @@
 		26D99DAD1C0C4D7B007AF579 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				D07804BB1D504357001C432B /* KeyboardToolBar */,
 				D05842021D47296A006859B9 /* ShareSDK */,
 				D08352501D2F92950094AC2E /* JSONKit */,
 				D083522E1D2F909E0094AC2E /* MJExtension */,
@@ -5725,6 +5729,15 @@
 				D07804B11D4EF40B001C432B /* learn_placeholder@2x.png */,
 			);
 			path = placeholder;
+			sourceTree = "<group>";
+		};
+		D07804BB1D504357001C432B /* KeyboardToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				D07804BC1D504357001C432B /* KeyboardToolBar.h */,
+				D07804BD1D504357001C432B /* KeyboardToolBar.m */,
+			);
+			path = KeyboardToolBar;
 			sourceTree = "<group>";
 		};
 		D07D2EAA1D0FA07000AF35B1 /* ScrollTagView */ = {
@@ -8369,6 +8382,7 @@
 				DA9124251C28E2310018DBAF /* DrawCashViewController.m in Sources */,
 				26D99EA91C0C4D7B007AF579 /* UIImage+Extension.m in Sources */,
 				62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */,
+				D07804BE1D504357001C432B /* KeyboardToolBar.m in Sources */,
 				26D99ECF1C0C4D7B007AF579 /* IQUITextFieldView+Additions.m in Sources */,
 				DA7CE5551C3E38BF00272952 /* NSDate+Additions.m in Sources */,
 				26D99ECB1C0C4D7B007AF579 /* AFURLRequestSerialization.m in Sources */,
