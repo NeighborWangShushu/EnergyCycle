@@ -446,7 +446,6 @@
     
 }
 
-
 - (void)setup {
     
     UIView*navView=[[UIView alloc] initWithFrame:CGRectMake(200, 10, 150, 50)];
