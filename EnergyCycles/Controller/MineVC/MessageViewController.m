@@ -339,9 +339,15 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+//    [self messageClick:self.messageButton];
+    self.unreadMessage.hidden = YES;
+    self.unMessageRead = NO;
+    [self updateMessageData];
+}
+
 - (void)pushReloadData {
     [self updateMessageData];
-    NSLog(@"sdaofndsfopsdpofspofpasdofpdspofdsajpofjpodsjfposdjpofjsdpaofjposdjfpodsjpfjspojfposjafpojpodjfpoajpofjaspod");
 }
 
 - (IBAction)commentClick:(id)sender {
@@ -377,7 +383,9 @@
     [self.likeButton setTitleColor:[UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:0.8] forState:UIControlStateNormal];
     [self.messageButton setTitleColor:[UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:0.8] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
-    self.underLine.frame = CGRectMake(button.frame.origin.x, self.underLine.frame.origin.y, self.underLine.frame.size.width, self.underLine.frame.size.height);
+    [UIView animateWithDuration:0.5 animations:^{
+        self.underLine.frame = CGRectMake(button.frame.origin.x, self.underLine.frame.origin.y, self.underLine.frame.size.width, self.underLine.frame.size.height);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

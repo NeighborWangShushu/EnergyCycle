@@ -49,7 +49,7 @@
                             <constraint firstAttribute="height" constant="9" id="nll-Bm-uZP"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="D898AFD3-8B2B-4E75-B533-BBECA40238D1" translatesAutoresizingMaskIntoConstraints="NO" id="KIH-Wr-gma">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3B97D27F-E082-46DB-88ED-91BAE79A564C" translatesAutoresizingMaskIntoConstraints="NO" id="KIH-Wr-gma">
                         <rect key="frame" x="154" y="23" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="CGo-2A-9Yd"/>
@@ -93,6 +93,7 @@
                     <constraint firstItem="XeU-2a-uFk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="Lz6-2x-tEz"/>
                     <constraint firstItem="KRw-hs-pTk" firstAttribute="leading" secondItem="XeU-2a-uFk" secondAttribute="trailing" constant="14" id="N4b-7W-7ue"/>
                     <constraint firstItem="SOz-pd-ZOc" firstAttribute="leading" secondItem="RDS-LH-vvz" secondAttribute="leading" id="QiV-cH-lTh"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="o9Q-V8-cxG" secondAttribute="trailing" constant="40" id="Sft-22-zkf"/>
                     <constraint firstItem="RDS-LH-vvz" firstAttribute="top" secondItem="ypa-wy-jay" secondAttribute="bottom" constant="15" id="V41-Wt-HFD"/>
                     <constraint firstItem="pp5-Vj-8PB" firstAttribute="leading" secondItem="KRw-hs-pTk" secondAttribute="leading" id="Vrm-Ke-zF1"/>
                     <constraint firstItem="lkx-5Q-qGY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WeE-mC-oon"/>
@@ -118,7 +119,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="D898AFD3-8B2B-4E75-B533-BBECA40238D1" width="24" height="24">
+        <image name="3B97D27F-E082-46DB-88ED-91BAE79A564C" width="24" height="24">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

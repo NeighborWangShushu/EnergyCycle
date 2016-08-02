@@ -46,9 +46,6 @@
 - (IBAction)jumpToIntroViewController:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToIntroViewController" object:nil];
 }
-- (IBAction)jumpChatViewController:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpChatViewController" object:nil];
-}
 
 - (void)getdateDataWithModel:(UserModel *)model userInfoModel:(UserInfoModel *)userInfoModel {
     

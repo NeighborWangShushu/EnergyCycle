@@ -186,7 +186,8 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
     
     [self.delegate.tabbarController hideTabbar:NO];
-    [self reloadData];
+    [self getUserInfo];
+    [self getUserInfoModel];
 }
 
 // 获取用户信息
@@ -245,8 +246,8 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    [self getUserInfo];
-    [self getUserInfoModel];
+//    [self getUserInfo];
+//    [self getUserInfoModel];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"JumpToIntroViewController" object:nil];

@@ -16,7 +16,7 @@
     if (section == 1) {
         if (index == 0) {
             self.leftImage.image = [UIImage imageNamed:@"energy"];
-            self.leftLabel.text = @"能量圈";
+            self.leftLabel.text = @"能量贴";
             self.rightLabel.text = userInfoModel.NLQCount;
             [self lineView];
         } else if (index == 1) {

@@ -256,12 +256,12 @@ AppDelegate *EnetgyCycle = nil;
 //        self.isHaveJPush = YES;
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"isAppGetJPush" object:dict];
 //    }
-    if ([apsDictionary[@"type"] isEqualToString:@"3"]) {
+    NSString *type = [NSString stringWithFormat:@"%@", apsDictionary[@"type"]];
+    if ([type isEqualToString:@"3"]) {
         // 私信推送
         [[NSNotificationCenter defaultCenter] postNotificationName:@"pushReloadData" object:nil];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
-//    NSLog(@"失啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊");
 }
 
 #pragma mark - 判断点击icon

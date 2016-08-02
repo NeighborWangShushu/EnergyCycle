@@ -68,14 +68,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToAttentionController) name:@"jumpToAttentionController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpChatViewController) name:@"jumpChatViewController" object:nil];
-}
-
-- (void)jumpChatViewController {
-    MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
-    chatVC.useredId = self.userId;
-    chatVC.chatName = self.model.nickname;
-    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -321,8 +313,26 @@
     } else {
         image = [UIImage imageNamed:@"addGuanzhu"];
     }
-    UIBarButtonItem *attentionButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickAttentionButton)];
-    self.navigationItem.rightBarButtonItem = attentionButton;
+    UIButton *attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    attentionButton.frame = CGRectMake(30, 0, 49, 20);
+    [attentionButton setImage:image forState:UIControlStateNormal];
+    [attentionButton addTarget:self action:@selector(clickAttentionButton) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *attentionBarButton = [[UIBarButtonItem alloc] initWithCustomView:attentionButton];
+    UIButton *chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    chatButton.frame = CGRectMake(20, 0, 49, 20);
+    [chatButton setImage:[UIImage imageNamed:@"message.png"] forState:UIControlStateNormal];
+    [chatButton addTarget:self action:@selector(jumpChatViewController) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *chatBarButton = [[UIBarButtonItem alloc] initWithCustomView:chatButton];
+    self.navigationItem.rightBarButtonItems = @[attentionBarButton, chatBarButton];
+//    self.navigationItem.rightBarButtonItem = chatButton;
+//    self.navigationItem.rightBarButtonItem = attentionButton;
+}
+
+- (void)jumpChatViewController {
+    MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
+    chatVC.useredId = self.userId;
+    chatVC.chatName = self.model.nickname;
+    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (void)clickAttentionButton {

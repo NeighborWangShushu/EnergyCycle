@@ -422,6 +422,8 @@
 		622BA6511D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622BA64F1D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib */; };
 		622BA6541D40E71A00194984 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 622BA6531D40E71A00194984 /* UserInfoModel.m */; };
 		6237739A1D3735E900B99BEF /* UIImage+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 623773991D3735E900B99BEF /* UIImage+Category.m */; };
+		6247093C1D5045EE00FA94C4 /* message.png in Resources */ = {isa = PBXBuildFile; fileRef = 6247093A1D5045EE00FA94C4 /* message.png */; };
+		6247093D1D5045EE00FA94C4 /* message@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6247093B1D5045EE00FA94C4 /* message@3x.png */; };
 		625750A61D33493600E46B2E /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625750A51D33493600E46B2E /* MineTableViewController.m */; };
 		625750AE1D334A4300E46B2E /* MineHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625750AC1D334A4300E46B2E /* MineHeadTableViewCell.m */; };
 		625750AF1D334A4300E46B2E /* MineHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 625750AD1D334A4300E46B2E /* MineHeadTableViewCell.xib */; };
@@ -1991,6 +1993,8 @@
 		622BA6531D40E71A00194984 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		623773981D3735E900B99BEF /* UIImage+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Category.h"; sourceTree = "<group>"; };
 		623773991D3735E900B99BEF /* UIImage+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Category.m"; sourceTree = "<group>"; };
+		6247093A1D5045EE00FA94C4 /* message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = message.png; sourceTree = "<group>"; };
+		6247093B1D5045EE00FA94C4 /* message@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message@3x.png"; sourceTree = "<group>"; };
 		625750A41D33493600E46B2E /* MineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewController.h; sourceTree = "<group>"; };
 		625750A51D33493600E46B2E /* MineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableViewController.m; sourceTree = "<group>"; };
 		625750AB1D334A4300E46B2E /* MineHeadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHeadTableViewCell.h; sourceTree = "<group>"; };
@@ -4040,11 +4044,6 @@
 				62724E681D41BBE800E84202 /* more@3x.png */,
 				625750BC1D337F6200E46B2E /* Group.png */,
 				625750BD1D337F6200E46B2E /* Group@3x.png */,
-				D010F3161D2B988500CA5D7C /* ec_share@2x.png */,
-				D010F3171D2B988500CA5D7C /* ec_share@3x.png */,
-				D00591701D25454000F91692 /* ec_like@2x.png */,
-				D00591711D25454000F91692 /* ec_msg_highlight@2x.png */,
-				D00591721D25454000F91692 /* ec_msg_normal@2x.png */,
 				62B666231D4A178600660E1D /* backgroundImage.png */,
 				D00591731D25454000F91692 /* ec_search@2x.png */,
 				D00591741D25454000F91692 /* ec_sign@2x.png */,
@@ -4178,6 +4177,8 @@
 		26D99D4E1C0C4D7B007AF579 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				6247093A1D5045EE00FA94C4 /* message.png */,
+				6247093B1D5045EE00FA94C4 /* message@3x.png */,
 				620720E71D46FA0C00C4F73D /* addGuanzhu.png */,
 				620720E81D46FA0C00C4F73D /* addGuanzhu@3x.png */,
 				620720E91D46FA0C00C4F73D /* Guanzhu.png */,
@@ -7061,7 +7062,7 @@
 				TargetAttributes = {
 					2609B0051C02DD2A0006BC02 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = V39449673K;
+						DevelopmentTeam = 9GXKKC9FN5;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -7668,6 +7669,7 @@
 				26D8B13F1C0FE81900A1DB04 /* zan_normal@2x.png in Resources */,
 				D029BC151D372DED00B20D65 /* ec_center_button@2x.png in Resources */,
 				D07EB2711D18DE6800840AC2 /* messageBubbleGray.png in Resources */,
+				6247093C1D5045EE00FA94C4 /* message.png in Resources */,
 				DAE034DC1C182181007E6DBD /* 40jindutiao_@3x.png in Resources */,
 				DA7675111C27F39900A34D9C /* 09tianjia@3x.png in Resources */,
 				D07E24161D112DB900854B51 /* RadioCell.xib in Resources */,
@@ -7849,6 +7851,7 @@
 				DA677B8D1C3A6E11004A534E /* QDDT00035.png in Resources */,
 				26E987D11C0DAE4000C6A7BB /* +user_normal@3x.png in Resources */,
 				D05B9CEB1D34887300A88A10 /* nav_menu_bg@2x.png in Resources */,
+				6247093D1D5045EE00FA94C4 /* message@3x.png in Resources */,
 				D029BC251D3737E000B20D65 /* tabbar_pressed_4@2x.png in Resources */,
 				DA7675121C27F39900A34D9C /* 10xiugai@2x.png in Resources */,
 				26D8B2581C0FEEE900A1DB04 /* 31_1@2x.png in Resources */,
@@ -8595,7 +8598,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "83bd3699-abf4-4e26-bc90-f78b2eee1e1c";
+				PROVISIONING_PROFILE = "fcda7d82-1e51-435e-b851-61068826a9d7";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -8607,8 +8610,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8647,7 +8650,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "83bd3699-abf4-4e26-bc90-f78b2eee1e1c";
+				PROVISIONING_PROFILE = "fcda7d82-1e51-435e-b851-61068826a9d7";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";

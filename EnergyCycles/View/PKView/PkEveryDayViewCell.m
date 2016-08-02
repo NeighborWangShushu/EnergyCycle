@@ -11,6 +11,7 @@
 #include "EveryPKTableViewCell.h"
 #import "EveryDayPKViewCell.h"
 #import "GifHeader.h"
+#import "UserModel.h"
 
 @interface PkEveryDayViewCell () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate> {
     int page;
@@ -25,6 +26,8 @@
     
     UIView *subHeadView;
 }
+
+@property (nonatomic, strong) UserModel *model;
 
 @end
 
@@ -44,8 +47,9 @@
     pkEveryDayTableView.delegate = self;
     pkEveryDayTableView.showsVerticalScrollIndicator = NO;
     
+    [self getUserInfo];
     //
-    [self setUpMJRefresh];
+//    [self setUpMJRefresh];
     
     //上面显示
     UIView *upBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, Screen_width, 40)];
@@ -108,6 +112,25 @@
     [pkEveryDayTableView.mj_header endRefreshing];
     [pkEveryDayTableView.mj_footer endRefreshing];
 }
+
+- (void)getUserInfo {
+    [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:[NSString stringWithFormat:@"%@", User_ID] PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            if ([dict[@"Data"] count]) {
+                for (NSDictionary *subDict in dict[@"Data"]) {
+                    self.model = [[UserModel alloc] initWithDictionary:subDict error:nil];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self setUpMJRefresh];
+                });
+            }
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
+}
+
+
 //加载网络数据
 - (void)loadDataWithIndexWithProjectId:(NSInteger)projectId Page:(int)pages {
     [[AppHttpManager shareInstance] getGetReportListWithUserid:User_ID Token:User_TOKEN projectId:[NSString stringWithFormat:@"%ld",(long)projectId] pageInex:pages pageSize:15 PostOrGet:@"get" success:^(NSDictionary *dict) {
@@ -129,12 +152,21 @@
                 if (_dataArr.count > 1) {
                     EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[1];
                     [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
-                    [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+                    } else {
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
+                    }
+                    
                     subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的首页",model.nickname];
                 }else {
                     EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[0];
                     [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
-                    [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+                    } else {
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
+                    }
                     subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的首页",model.nickname];
                 }
             }else if ([dict[@"Code"] integerValue] == 1000) {
