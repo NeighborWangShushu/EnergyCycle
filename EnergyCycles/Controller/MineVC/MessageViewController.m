@@ -26,11 +26,11 @@
 @property (nonatomic, assign) BOOL unLikeRead;
 
 @property (nonatomic, assign) BOOL unMessageRead;
-
+// 评论
 @property (nonatomic, strong) NSMutableArray *commentArray;
-
+// 点赞
 @property (nonatomic, strong) NSMutableArray *likeArray;
-
+// 私信
 @property (nonatomic, strong) NSMutableArray *messageArray;
 
 @end
@@ -304,6 +304,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createTableView];
@@ -330,7 +334,20 @@
     
     self.tabBarController.tabBar.hidden = YES;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushReloadData) name:@"pushReloadData" object:nil];
+    
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+//    [self messageClick:self.messageButton];
+    self.unreadMessage.hidden = YES;
+    self.unMessageRead = NO;
+    [self updateMessageData];
+}
+
+- (void)pushReloadData {
+    [self updateMessageData];
 }
 
 - (IBAction)commentClick:(id)sender {
@@ -366,7 +383,9 @@
     [self.likeButton setTitleColor:[UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:0.8] forState:UIControlStateNormal];
     [self.messageButton setTitleColor:[UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:0.8] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
-    self.underLine.frame = CGRectMake(button.frame.origin.x, self.underLine.frame.origin.y, self.underLine.frame.size.width, self.underLine.frame.size.height);
+    [UIView animateWithDuration:0.5 animations:^{
+        self.underLine.frame = CGRectMake(button.frame.origin.x, self.underLine.frame.origin.y, self.underLine.frame.size.width, self.underLine.frame.size.height);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -18,6 +18,7 @@
 #import "GuidePageViewController.h"
 #import "XMShareQQUtil.h"
 #import "ShareSDKManager.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 
 @interface AppDelegate () <WeiboSDKDelegate,WXApiDelegate,QQApiInterfaceDelegate,UIAlertViewDelegate>
@@ -242,18 +243,24 @@ AppDelegate *EnetgyCycle = nil;
     
     NSDictionary *apsDictionary = (NSDictionary *)userInfo;
     
-    if (apsDictionary) {
-        [application setApplicationIconBadgeNumber:0];
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        
-        if ([apsDictionary[@"type"] isKindOfClass:[NSNull class]] || [apsDictionary[@"type"] isEqual:[NSNull null]] || apsDictionary[@"type"] == nil) {
-            [dict setObject:@"1" forKey:@"type"];
-        }else {
-            [dict setObject:apsDictionary[@"type"] forKey:@"type"];
-        }
-        
-        self.isHaveJPush = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"isAppGetJPush" object:dict];
+//    if (apsDictionary) {
+//        [application setApplicationIconBadgeNumber:0];
+//        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+//        
+//        if ([apsDictionary[@"type"] isKindOfClass:[NSNull class]] || [apsDictionary[@"type"] isEqual:[NSNull null]] || apsDictionary[@"type"] == nil) {
+//            [dict setObject:@"1" forKey:@"type"];
+//        }else {
+//            [dict setObject:apsDictionary[@"type"] forKey:@"type"];
+//        }
+//        
+//        self.isHaveJPush = YES;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"isAppGetJPush" object:dict];
+//    }
+    NSString *type = [NSString stringWithFormat:@"%@", apsDictionary[@"type"]];
+    if ([type isEqualToString:@"3"]) {
+        // 私信推送
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"pushReloadData" object:nil];
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
 }
 

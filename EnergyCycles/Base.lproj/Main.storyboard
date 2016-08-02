@@ -6142,8 +6142,8 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="nLI-Wz-n6w"/>
                                         <exclude reference="G0d-JG-7FZ"/>
+                                        <exclude reference="nLI-Wz-n6w"/>
                                     </mask>
                                 </variation>
                             </view>

@@ -7,6 +7,7 @@
 //
 
 #import "EnergyPostTableViewController.h"
+#import "MineHomePageViewController.h"
 #import "SDAutoLayout.h"
 #import "ECTimeLineModel.h"
 #import "ECTimeLineCell.h"
@@ -153,8 +154,9 @@
     [self.tableView.mj_footer endRefreshing];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [IQKeyboardManager sharedManager].enable = YES;
 }
 
 - (void)viewDidLoad {
@@ -165,7 +167,7 @@
     if (self.isMineTableView) {
         [self getDataWithUserId:self.userId];
         self.tableView.tableHeaderView = nil;
-        self.title = @"能量圈";
+        self.title = @"能量贴";
         self.navigationController.navigationBar.translucent = NO;
         self.tableView.showsVerticalScrollIndicator = NO;
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
@@ -176,6 +178,8 @@
     }
     
     [self setUpMJRefresh];
+    
+    [IQKeyboardManager sharedManager].enable = NO;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getData:) name:@"EnergyPostTableViewController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -467,6 +471,12 @@
     }];
 }
 
+- (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
+    MineHomePageViewController *otherUserVC = MainStoryBoard(@"MineHomePageViewController");
+    otherUserVC.userId = userId;
+    [self.navigationController pushViewController:otherUserVC animated:YES];
+    
+}
 
 /*
 // Override to support conditional editing of the table view.

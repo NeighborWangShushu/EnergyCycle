@@ -14,22 +14,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="energy.png" translatesAutoresizingMaskIntoConstraints="NO" id="7Ri-ly-NxP">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="energy.png" translatesAutoresizingMaskIntoConstraints="NO" id="7Ri-ly-NxP">
                         <rect key="frame" x="17" y="4" width="42" height="42"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="Dn1-U1-qlZ"/>
-                            <constraint firstAttribute="width" constant="21" id="VYN-hc-a0c"/>
-                            <constraint firstAttribute="height" constant="21" id="fUP-uV-TAd"/>
-                            <constraint firstAttribute="width" constant="21" id="zEq-Be-RJa"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Dn1-U1-qlZ"/>
-                                <exclude reference="VYN-hc-a0c"/>
-                                <exclude reference="fUP-uV-TAd"/>
-                                <exclude reference="zEq-Be-RJa"/>
-                            </mask>
-                        </variation>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTP-iE-IxP">
                         <rect key="frame" x="50" y="15" width="39.5" height="19.5"/>

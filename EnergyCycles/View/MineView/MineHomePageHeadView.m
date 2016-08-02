@@ -89,28 +89,12 @@
     if ([model.city isEqualToString:@""] || model.city == NULL) {
         self.addressImage.hidden = YES;
         self.addressLabel.hidden = YES;
-        self.signLabel.hidden = YES;
-        self.signTwoLabel.hidden = NO;
-        // 无地址无签到
-        if ([userInfoModel.AS_CONTINUONS integerValue] <= 0) {
-            self.constraint.constant = 12;
-            self.signTwoLabel.hidden = YES;
-        } else { // 无地址有签到
-            self.signLabel.text = [NSString stringWithFormat:@"连续签到%ld天",[userInfoModel.AS_CONTINUONS integerValue]];
-            self.signTwoLabel.text = self.signLabel.text;
-            self.constraint.constant = 39;
-        }
+        self.constraint.constant = 12;
     } else {
         self.addressLabel.text = model.city;
-        // 有地址无签到
-        if ([userInfoModel.AS_CONTINUONS integerValue] <= 0) {
-            self.signLabel.hidden = YES;
-            self.signTwoLabel.hidden = YES;
-        } else { // 有地址有签到
-            self.signLabel.hidden = NO;
-            self.signTwoLabel.hidden = YES;
-            self.signLabel.text = [NSString stringWithFormat:@"连续签到%ld天",[userInfoModel.AS_CONTINUONS integerValue]];
-        }
+        self.addressImage.hidden = NO;
+        self.addressLabel.hidden = NO;
+        self.constraint.constant = 39;
     }
     
     // 关注

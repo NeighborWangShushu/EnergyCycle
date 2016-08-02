@@ -201,6 +201,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"isUnLoginSetAPService" object:nil];
         EnetgyCycle.energyTabBar.selectedIndex = 0;
         [self.tableView reloadData];
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:exitAction];

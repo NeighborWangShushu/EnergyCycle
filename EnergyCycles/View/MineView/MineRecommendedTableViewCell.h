@@ -15,8 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headImage;
 // 昵称
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-// 时间
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 // 简介
 @property (weak, nonatomic) IBOutlet UILabel *introLabel;
 
