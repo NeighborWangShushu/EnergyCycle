@@ -517,7 +517,11 @@
     // 选中后的文本样式
     self.segControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:242/ 255.0 green:77/255.0 blue:77/255.0 alpha:1], NSFontAttributeName:[UIFont systemFontOfSize:14]};
     // 初始位置
-    self.segControl.selectedSegmentIndex = 0;
+    if (self.isPK) {
+        self.segControl.selectedSegmentIndex = 1;
+    } else {
+        self.segControl.selectedSegmentIndex = 0;
+    }
     // 边界样式
     self.segControl.borderType = HMSegmentedControlBorderTypeBottom;
     // 边界颜色
