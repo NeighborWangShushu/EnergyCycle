@@ -17,7 +17,8 @@
     self.nameLabel.text = model.nickname;
     
     // 时间
-    self.timeLabel.text = model.NotifyTime;
+    NSString *time = [model.NotifyTime substringToIndex:10];
+    self.timeLabel.text = time;
     
     // 消息
     self.messageLabel.text = model.NotifyContent;

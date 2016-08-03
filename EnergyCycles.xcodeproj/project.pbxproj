@@ -411,10 +411,10 @@
 		26E987ED1C0DAE4000C6A7BB /* whiteback_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987C91C0DAE4000C6A7BB /* whiteback_normal@3x.png */; };
 		26E987EE1C0DAE4000C6A7BB /* whiteback_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */; };
 		26E987EF1C0DAE4000C6A7BB /* whiteback_pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */; };
-		620720EB1D46FA0C00C4F73D /* addGuanzhu.png in Resources */ = {isa = PBXBuildFile; fileRef = 620720E71D46FA0C00C4F73D /* addGuanzhu.png */; };
-		620720EC1D46FA0C00C4F73D /* addGuanzhu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 620720E81D46FA0C00C4F73D /* addGuanzhu@3x.png */; };
-		620720ED1D46FA0C00C4F73D /* Guanzhu.png in Resources */ = {isa = PBXBuildFile; fileRef = 620720E91D46FA0C00C4F73D /* Guanzhu.png */; };
-		620720EE1D46FA0C00C4F73D /* Guanzhu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 620720EA1D46FA0C00C4F73D /* Guanzhu@3x.png */; };
+		620720EB1D46FA0C00C4F73D /* Guanzhu.png in Resources */ = {isa = PBXBuildFile; fileRef = 620720E71D46FA0C00C4F73D /* Guanzhu.png */; };
+		620720EC1D46FA0C00C4F73D /* Guanzhu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 620720E81D46FA0C00C4F73D /* Guanzhu@3x.png */; };
+		620720ED1D46FA0C00C4F73D /* addGuanzhu.png in Resources */ = {isa = PBXBuildFile; fileRef = 620720E91D46FA0C00C4F73D /* addGuanzhu.png */; };
+		620720EE1D46FA0C00C4F73D /* addGuanzhu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 620720EA1D46FA0C00C4F73D /* addGuanzhu@3x.png */; };
 		620720F21D46FD0B00C4F73D /* MineWhisperTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 620720F01D46FD0B00C4F73D /* MineWhisperTableViewCell.m */; };
 		620720F31D46FD0B00C4F73D /* MineWhisperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620720F11D46FD0B00C4F73D /* MineWhisperTableViewCell.xib */; };
 		620720F61D472AD700C4F73D /* GetMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 620720F51D472AD700C4F73D /* GetMessageModel.m */; };
@@ -1977,10 +1977,10 @@
 		26E987C91C0DAE4000C6A7BB /* whiteback_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_normal@3x.png"; sourceTree = "<group>"; };
 		26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@2x.png"; sourceTree = "<group>"; };
 		26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@3x.png"; sourceTree = "<group>"; };
-		620720E71D46FA0C00C4F73D /* addGuanzhu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addGuanzhu.png; sourceTree = "<group>"; };
-		620720E81D46FA0C00C4F73D /* addGuanzhu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addGuanzhu@3x.png"; sourceTree = "<group>"; };
-		620720E91D46FA0C00C4F73D /* Guanzhu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Guanzhu.png; sourceTree = "<group>"; };
-		620720EA1D46FA0C00C4F73D /* Guanzhu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Guanzhu@3x.png"; sourceTree = "<group>"; };
+		620720E71D46FA0C00C4F73D /* Guanzhu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Guanzhu.png; sourceTree = "<group>"; };
+		620720E81D46FA0C00C4F73D /* Guanzhu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Guanzhu@3x.png"; sourceTree = "<group>"; };
+		620720E91D46FA0C00C4F73D /* addGuanzhu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addGuanzhu.png; sourceTree = "<group>"; };
+		620720EA1D46FA0C00C4F73D /* addGuanzhu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addGuanzhu@3x.png"; sourceTree = "<group>"; };
 		620720EF1D46FD0B00C4F73D /* MineWhisperTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineWhisperTableViewCell.h; sourceTree = "<group>"; };
 		620720F01D46FD0B00C4F73D /* MineWhisperTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineWhisperTableViewCell.m; sourceTree = "<group>"; };
 		620720F11D46FD0B00C4F73D /* MineWhisperTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineWhisperTableViewCell.xib; sourceTree = "<group>"; };
@@ -4179,10 +4179,10 @@
 			children = (
 				6247093A1D5045EE00FA94C4 /* message.png */,
 				6247093B1D5045EE00FA94C4 /* message@3x.png */,
-				620720E71D46FA0C00C4F73D /* addGuanzhu.png */,
-				620720E81D46FA0C00C4F73D /* addGuanzhu@3x.png */,
-				620720E91D46FA0C00C4F73D /* Guanzhu.png */,
-				620720EA1D46FA0C00C4F73D /* Guanzhu@3x.png */,
+				620720E71D46FA0C00C4F73D /* Guanzhu.png */,
+				620720E81D46FA0C00C4F73D /* Guanzhu@3x.png */,
+				620720E91D46FA0C00C4F73D /* addGuanzhu.png */,
+				620720EA1D46FA0C00C4F73D /* addGuanzhu@3x.png */,
 				62FCE90B1D3CB2A500F52E05 /* addAttention.png */,
 				62FCE90C1D3CB2A500F52E05 /* addAttention@3x.png */,
 				62FCE90D1D3CB2A500F52E05 /* attention.png */,
@@ -7322,7 +7322,7 @@
 				26E987E51C0DAE4000C6A7BB /* Rectangle @3x.png in Resources */,
 				26D99F1B1C0C4D7C007AF579 /* SVProgressHUD.bundle in Resources */,
 				D07EB2921D18DE6800840AC2 /* chat_send_message.png in Resources */,
-				620720ED1D46FA0C00C4F73D /* Guanzhu.png in Resources */,
+				620720ED1D46FA0C00C4F73D /* addGuanzhu.png in Resources */,
 				DA677B761C3A6E11004A534E /* QDDT00012.png in Resources */,
 				D07EB26A1D18DE6800840AC2 /* input-bar@2x.png in Resources */,
 				DA735E1E1C3BB90700CE9995 /* hring@3x.png in Resources */,
@@ -7642,7 +7642,7 @@
 				D07EB2991D18DE6800840AC2 /* 1.jpeg in Resources */,
 				26D8B2571C0FEEE900A1DB04 /* 30_2@3x.png in Resources */,
 				D07EB1C91D17849E00840AC2 /* RecipeCollectionHeaderView.xib in Resources */,
-				620720EC1D46FA0C00C4F73D /* addGuanzhu@3x.png in Resources */,
+				620720EC1D46FA0C00C4F73D /* Guanzhu@3x.png in Resources */,
 				D04B54FA1D23D64600DC259A /* icon1.jpg in Resources */,
 				26D8B1F61C0FEEE900A1DB04 /* 06_1@2x.png in Resources */,
 				DA8AFF501C2A4BF90064B9A7 /* 07tongxun@2x.png in Resources */,
@@ -7873,7 +7873,7 @@
 				D04B54D81D23C90D00DC259A /* LICENSE in Resources */,
 				DAE035441C1831FC007E6DBD /* right@3x.png in Resources */,
 				26D99EF81C0C4D7C007AF579 /* MJRefresh.bundle in Resources */,
-				620720EB1D46FA0C00C4F73D /* addGuanzhu.png in Resources */,
+				620720EB1D46FA0C00C4F73D /* Guanzhu.png in Resources */,
 				DA68D5AB1C96984B0073E0F6 /* fenxiang_blue@3x.png in Resources */,
 				26D8B2701C0FEEE900A1DB04 /* 6@2x.png in Resources */,
 				D005916F1D253FDF00F91692 /* fox@2x.png in Resources */,
@@ -7915,7 +7915,7 @@
 				625750ED1D33886400E46B2E /* Group 62@3x.png in Resources */,
 				DAE033741C180D7E007E6DBD /* TheAdvPKCollectionViewCell.xib in Resources */,
 				DA8AFF541C2A4BF90064B9A7 /* 09weixin@2x.png in Resources */,
-				620720EE1D46FA0C00C4F73D /* Guanzhu@3x.png in Resources */,
+				620720EE1D46FA0C00C4F73D /* addGuanzhu@3x.png in Resources */,
 				D05842301D47296A006859B9 /* ShareSDK.bundle in Resources */,
 				DAF48DBB1C1E728900D9C136 /* CourseRegTwoViewCell.xib in Resources */,
 				26E987721C0D6C9100C6A7BB /* EnergyPostTwoViewCell.xib in Resources */,

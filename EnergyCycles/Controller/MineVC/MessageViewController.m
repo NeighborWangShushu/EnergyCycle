@@ -12,6 +12,7 @@
 #import "GifHeader.h"
 #import "MessageModel.h"
 #import "MineChatViewController.h"
+#import "ChatViewController.h"
 
 @interface MessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -114,9 +115,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.type == 3) {
         MessageModel *model = self.messageArray[indexPath.row];
-        MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
-        chatVC.useredId = model.UserID;
-        chatVC.chatName = model.nickname;
+//        MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
+//        chatVC.useredId = model.UserID;
+//        chatVC.chatName = model.nickname;
+//        [self.navigationController pushViewController:chatVC animated:YES];
+        ChatViewController *chatVC = MainStoryBoard(@"ChatViewVCID");
+        chatVC.otherName = model.nickname;
+        chatVC.otherID = model.UserID;
+//        chatVC.otherPic = self.otherPic;
+        
         [self.navigationController pushViewController:chatVC animated:YES];
     }
 }
