@@ -99,7 +99,6 @@
     _waitingView = waiting;
     [self addSubview:waiting];
     
-    
     __weak SDBrowserImageView *imageViewWeak = self;
     
     [self sd_setImageWithURL:url placeholderImage:placeholder options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
