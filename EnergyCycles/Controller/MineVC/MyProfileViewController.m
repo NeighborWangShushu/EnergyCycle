@@ -210,7 +210,7 @@
                                                             PostOrGet:@"get"
                                                               success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeNone];
                 [self.navigationController popViewControllerAnimated:YES];
             }else if ([dict[@"Code"] integerValue] == 10000) {
                 [SVProgressHUD showImage:nil status:@"登录失效" maskType:SVProgressHUDMaskTypeClear];
@@ -283,6 +283,9 @@
         cell.rightLabel.text = [self.model.birth length]<=0?postDict[@"birth"]:self.model.birth;
         [postDict setObject:[self.model.birth length]<=0?@"":self.model.birth forKey:@"birth"];
     }else if (indexPath.row == 4) {
+        cell.userInteractionEnabled = NO;
+        cell.constraint.constant = 17;
+        cell.rightImage.hidden = YES;
         cell.rightLabel.text = [self.model.phone length]<=0?postDict[@"phoneno"]:self.model.phone;
         [postDict setObject:[self.model.phone length]<=0?@"":self.model.phone forKey:@"phoneno"];
     }else if (indexPath.row == 5) {
@@ -308,6 +311,7 @@
     self.chooseLabel.textAlignment = NSTextAlignmentCenter;
     self.chooseLabel.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:231/255.0 alpha:1];
     self.chooseLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
+    self.chooseLabel.hidden = YES;
     [self.view addSubview:self.chooseLabel];
     self.rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     self.rightButton.frame = CGRectMake(Screen_width - 100, Screen_Height - 180 - 94, 100, 30);
