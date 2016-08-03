@@ -491,7 +491,7 @@
 - (void)shareByIndex:(NSInteger)index {
     
     NSString * title = energyPostViewCell.informationTextView.text;
-    NSString* share_url = [NSString stringWithFormat:@"%@%@?aid=%@",INTERFACE_URL,ArticleDetailAspx,[NSString stringWithFormat:@"%ld",(long)postIndex]];
+    NSString* share_url = [NSString stringWithFormat:@"%@%@?aid=%@&is_Share=1",INTERFACE_URL,ArticleDetailAspx,[NSString stringWithFormat:@"%ld",(long)postIndex]];
     
     switch (index) {
         case 0:
