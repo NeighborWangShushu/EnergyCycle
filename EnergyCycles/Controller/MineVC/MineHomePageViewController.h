@@ -12,4 +12,6 @@
 
 @property (nonatomic, copy) NSString *userId;
 
+@property (nonatomic, assign) BOOL isPK;
+
 @end
