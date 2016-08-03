@@ -46,7 +46,6 @@ AppDelegate *EnetgyCycle = nil;
 //    
     [ShareSDKManager shareInstance];
      
-     
      NSString *isEnterGuidePage = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsEnterGuidePage"];
     if (!isEnterGuidePage) {
         [self creatGuidePageView];

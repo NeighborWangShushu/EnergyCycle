@@ -277,14 +277,22 @@ static BOOL isShowAll = NO;
     
     //其他用户汇报
     [cell setOtherCellTouch:^(EveryDPKPMModel *model) {
-        pushModel  = model;
-        [self performSegueWithIdentifier:@"EveryDayPKViewToOtherUserReportView" sender:nil];
+        MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+        mineVC.userId = model.userId;
+        mineVC.isPK = YES;
+        [self.navigationController pushViewController:mineVC animated:YES];
+//        pushModel  = model;
+//        [self performSegueWithIdentifier:@"EveryDayPKViewToOtherUserReportView" sender:nil];
     }];
     
     //跳转到当前用户的PK
     [cell setJumpToMineEveryDayPK:^{
-        OtherUesrViewController *otherUserVC = MainStoryBoard(@"MineEveryDayPKVCID");
-        [self.navigationController pushViewController:otherUserVC animated:YES];
+        
+        MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+        mineVC.userId = [NSString stringWithFormat:@"%@", User_ID];
+        [self.navigationController pushViewController:mineVC animated:YES];
+//        OtherUesrViewController *otherUserVC = MainStoryBoard(@"MineEveryDayPKVCID");
+//        [self.navigationController pushViewController:otherUserVC animated:YES];
     }];
     
     return cell;
