@@ -109,6 +109,7 @@
     NSString *informationStr = [data[@"artContent"] stringByRemovingPercentEncoding];
     informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
     informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+    model.UserID = [NSString stringWithFormat:@"%@", data[@"userId"]];
     model.msgContent = informationStr;
     model.location = data[@"address"];
     model.time = data[@"createTime"];
@@ -469,6 +470,29 @@
         
         
     }];
+}
+
+- (void)didDelete:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认删除这条能量贴" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[AppHttpManager shareInstance] getDeleteArticleWithuserId:[model.UserID intValue] Token:User_TOKEN AType:1 AId:[model.ID intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [SVProgressHUD showImage:nil status:@"删除成功"];
+                [self.dataArray removeObject:model];
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 
 - (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
