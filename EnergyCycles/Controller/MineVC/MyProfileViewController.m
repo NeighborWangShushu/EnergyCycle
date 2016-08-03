@@ -308,6 +308,7 @@
     self.chooseLabel.textAlignment = NSTextAlignmentCenter;
     self.chooseLabel.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:231/255.0 alpha:1];
     self.chooseLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
+    self.chooseLabel.hidden = YES;
     [self.view addSubview:self.chooseLabel];
     self.rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     self.rightButton.frame = CGRectMake(Screen_width - 100, Screen_Height - 180 - 94, 100, 30);
