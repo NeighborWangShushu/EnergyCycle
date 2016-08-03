@@ -290,6 +290,7 @@ static BOOL isShowAll = NO;
         
         MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
         mineVC.userId = [NSString stringWithFormat:@"%@", User_ID];
+        mineVC.isPK = YES;
         [self.navigationController pushViewController:mineVC animated:YES];
 //        OtherUesrViewController *otherUserVC = MainStoryBoard(@"MineEveryDayPKVCID");
 //        [self.navigationController pushViewController:otherUserVC animated:YES];
