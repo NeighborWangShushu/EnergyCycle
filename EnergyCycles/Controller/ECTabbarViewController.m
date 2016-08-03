@@ -50,7 +50,8 @@
                 make.bottom.equalTo(self.view.mas_bottom).with.offset(65);
                 make.height.equalTo(@43);
             }];
-            [viewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+
+            [viewController.view mas_updateConstraints:^(MASConstraintMaker *make) {
                 
                 make.left.equalTo(self.view.mas_left);
                 make.right.equalTo(self.view.mas_right);
@@ -58,8 +59,8 @@
                 make.bottom.equalTo(_tabbar.mas_top).with.offset(-10);
                 
             }];
-            
             [self.tabbar layoutIfNeeded];
+            [viewController.view layoutIfNeeded];
         }];
     }else {
         [UIView animateWithDuration:0.25 animations:^{

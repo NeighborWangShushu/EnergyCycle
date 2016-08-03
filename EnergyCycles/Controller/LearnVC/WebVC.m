@@ -87,9 +87,7 @@
         NSLog(@"%@",img_id);
         [[UIImageView new] sd_setImageWithURL:[NSURL URLWithString:img_id] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
-
         }];
-        
     }
 }
 
