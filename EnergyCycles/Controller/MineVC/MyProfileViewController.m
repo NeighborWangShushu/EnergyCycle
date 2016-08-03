@@ -116,7 +116,7 @@
     [postDict setObject:@"请输入姓名" forKey:@"username"];
     [postDict setObject:@"请选择性别" forKey:@"sex"];
     [postDict setObject:@"请选择生日" forKey:@"birth"];
-    [postDict setObject:@"请输入手机号" forKey:@"phoneno"];
+    [postDict setObject:@"未设置手机号" forKey:@"phoneno"];
     [postDict setObject:@"请输入邮箱" forKey:@"email"];
     [postDict setObject:@"请选择城市" forKey:@"city"];
     keyArr = @[@"nickname", @"username", @"sex", @"birth", @"phoneno", @"email", @"city"];
