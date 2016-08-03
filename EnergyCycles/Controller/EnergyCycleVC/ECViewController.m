@@ -103,12 +103,14 @@
     [self transformImg:0];
     [self.navMenuView removeFromSuperview];
     self.navMenuView = nil;
+    [IQKeyboardManager sharedManager].enable = YES;
     
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self getMessageData];
+    [IQKeyboardManager sharedManager].enable = NO;
 }
 
 
