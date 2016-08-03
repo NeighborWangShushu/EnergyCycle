@@ -32,10 +32,14 @@
     self.nameLabel.text = model.nickname;
     
     // 时间
-    self.timeLabel.text = model.MessageTime;
+    NSString *time = [model.MessageTime substringToIndex:10];
+    self.timeLabel.text = time;
     
     // 内容
-    self.contentLabel.text = model.MessageContent;
+    NSString *commentText = [model.MessageContent stringByRemovingPercentEncoding];
+    commentText = [commentText stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
+    commentText = [commentText stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+    self.contentLabel.text = commentText;
     
 }
 

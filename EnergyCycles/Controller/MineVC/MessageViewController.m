@@ -12,6 +12,7 @@
 #import "GifHeader.h"
 #import "MessageModel.h"
 #import "MineChatViewController.h"
+#import "ChatViewController.h"
 
 @interface MessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -114,9 +115,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.type == 3) {
         MessageModel *model = self.messageArray[indexPath.row];
-        MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
-        chatVC.useredId = model.UserID;
-        chatVC.chatName = model.nickname;
+//        MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
+//        chatVC.useredId = model.UserID;
+//        chatVC.chatName = model.nickname;
+//        [self.navigationController pushViewController:chatVC animated:YES];
+        ChatViewController *chatVC = MainStoryBoard(@"ChatViewVCID");
+        chatVC.otherName = model.nickname;
+        chatVC.otherID = model.UserID;
+//        chatVC.otherPic = self.otherPic;
+        
         [self.navigationController pushViewController:chatVC animated:YES];
     }
 }
@@ -383,7 +390,7 @@
     [self.likeButton setTitleColor:[UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:0.8] forState:UIControlStateNormal];
     [self.messageButton setTitleColor:[UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:0.8] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.1 animations:^{
         self.underLine.frame = CGRectMake(button.frame.origin.x, self.underLine.frame.origin.y, self.underLine.frame.size.width, self.underLine.frame.size.height);
     }];
 }
