@@ -13,12 +13,15 @@
 #import "PKHomeModel.h"
 #import "WDTwoScrollView.h"
 #import "PostingViewController.h"
+#import "AppDelegate.h"
 
 @interface PKViewController () <UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
     UICollectionView *showCollectionView;
     
     NSMutableArray *_homeCollecctionArr;
 }
+
+@property (nonatomic, strong) AppDelegate *delegate;
 
 @end
 
@@ -30,12 +33,15 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
     
+    [self.delegate.tabbarController hideTabbar:NO];
     //获取collectionView网络数据
     [self getPKHeadCollectionViewData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     _homeCollecctionArr = [[NSMutableArray alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
@@ -179,11 +185,13 @@
 - (void)cellButtonClick:(UIButton *)button {
     if (button.tag == 2002) {//每日PK
         if (User_TOKEN.length > 0) {
+            [self.delegate.tabbarController hideTabbar:YES];
             [self performSegueWithIdentifier:@"PKViewToEveryDayPKview" sender:nil];
         }else {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
         }
     }else {//进阶PK
+        [self.delegate.tabbarController hideTabbar:YES];
         [self performSegueWithIdentifier:@"PKViewToTheAdvPKView" sender:nil];
     }
 }

@@ -37,6 +37,9 @@
     [super viewDidLoad];
     
     self.title = @"进阶PK";
+    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
     _changPage=0;
     _btnArr = [[NSMutableArray alloc] init];
     _dataArr=[NSMutableArray array];
@@ -59,6 +62,10 @@
     self.theAdvPKCollectionView.scrollEnabled = NO;
     
     [self getTheAdvTabList];
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

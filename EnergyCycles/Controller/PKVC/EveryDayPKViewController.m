@@ -17,6 +17,7 @@
 #import "OtherUesrViewController.h"
 #import "OtherUserReportViewController.h"
 #import "MineEveryDayPKViewController.h"
+#import "MineHomePageViewController.h"
 
 @interface EveryDayPKViewController ()  <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
     UIView *headLineView;
@@ -47,9 +48,14 @@ static BOOL isShowAll = NO;
     _headDataArr = [[NSMutableArray alloc] init];
     
     [self setupRightNavBarWithimage:@"35pen_.png"];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     [self creatHeadCollectionView];
     
     [self getHeadCollectionViewData];
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -259,11 +265,14 @@ static BOOL isShowAll = NO;
     
     //其他用户信息
     [cell setHeadButtonTouchu:^(EveryDPKPMModel *model) {
-        OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
-        otherUserVC.otherUserId = model.userId;
-        otherUserVC.otherName = model.nickname;
-        otherUserVC.otherPic = model.photourl;
-        [self.navigationController pushViewController:otherUserVC animated:YES];
+//        OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
+//        otherUserVC.otherUserId = model.userId;
+//        otherUserVC.otherName = model.nickname;
+//        otherUserVC.otherPic = model.photourl;
+//        [self.navigationController pushViewController:otherUserVC animated:YES];
+        MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+        mineVC.userId = model.userId;
+        [self.navigationController pushViewController:mineVC animated:YES];
     }];
     
     //其他用户汇报
