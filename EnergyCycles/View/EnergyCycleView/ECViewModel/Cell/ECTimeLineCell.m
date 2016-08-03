@@ -348,7 +348,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     }
     _picContainerView.sd_layout.topSpaceToView(_moreButton, picContainerTopMargin);
     
-    UIView *bottomView;
+//    UIView *bottomView;
     
     if (!model.picNamesArray.count && !model.commentItemsArray.count && !model.likeItemsArray.count) {
         _commentView.fixedWidth = @0; // 如果没有评论或者点赞，设置commentview的固定宽度为0（设置了fixedWidth的控件将不再在自动布局过程中调整宽度）
@@ -363,14 +363,14 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         _commentView.fixedHeight = @0; // 如果没有评论或者点赞，设置commentview的固定高度为0（设置了fixedHeight的控件将不再在自动布局过程中调整高度）
         _commentView.sd_layout.topSpaceToView(_picContainerView, 0);
         _bottomView.sd_layout.topSpaceToView(_picContainerView, 10);
-        bottomView = _picContainerView;
+//        bottomView = _picContainerView;
     }
     else {
         _commentView.fixedHeight = nil; // 取消固定宽度约束
         _commentView.fixedWidth = nil; // 取消固定高度约束
         _commentView.sd_layout.topSpaceToView(_picContainerView, 10);
         _bottomView.sd_layout.topSpaceToView(_commentView, 10);
-        bottomView = _commentView;
+//        bottomView = _commentView;
     }
     
     _bottomView.model = model;

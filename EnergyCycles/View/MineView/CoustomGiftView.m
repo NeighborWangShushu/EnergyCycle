@@ -18,7 +18,8 @@
 @implementation CoustomGiftView
 
 - (instancetype)initWithFrame:(CGRect)frame withNickName:(NSString *)nickName {
-    if (self == [super initWithFrame:frame]) {
+    self = [super initWithFrame:frame];
+    if (self) {
         myNickName = nickName;
         [self showUI];
     }

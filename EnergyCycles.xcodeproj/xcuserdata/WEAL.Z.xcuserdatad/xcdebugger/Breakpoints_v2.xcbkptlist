@@ -354,11 +354,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
-            timestampString = "491290182.584295"
+            timestampString = "491900842.735283"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "-initialize"
             landmarkType = "5">
          </BreakpointContent>
@@ -488,6 +488,22 @@
             startingLineNumber = "86"
             endingLineNumber = "86"
             landmarkName = "-userContentController:didReceiveScriptMessage:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/Controller/ECTabbarViewController.m"
+            timestampString = "491897714.828061"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "-hideTabbar:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

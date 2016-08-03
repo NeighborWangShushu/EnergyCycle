@@ -23,7 +23,8 @@
 @implementation LearnCustomChooseClassView
 
 - (instancetype)initWithFrame:(CGRect)frame WithType:(NSInteger)type {
-    if (self == [super initWithFrame:frame]) {
+    self = [super initWithFrame:frame];
+    if (self) {
         showType = type;
         [self showUI];
     }

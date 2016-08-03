@@ -48,6 +48,9 @@
 //测试环境
 #define INTERFACE_URL @"http://192.168.2.13:8888/"
 
+//测试公网环境
+//#define INTERFACE_URL @"http://120.26.218.68:8888/"
+
 //正式环境
 //#define INTERFACE_URL @"http://120.26.218.68:8038"  
 

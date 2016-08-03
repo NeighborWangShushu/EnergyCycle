@@ -48,8 +48,17 @@
                 make.left.equalTo(self.view.mas_left);
                 make.right.equalTo(self.view.mas_right);
                 make.bottom.equalTo(self.view.mas_bottom).with.offset(65);
-                make.height.equalTo(@55);
+                make.height.equalTo(@43);
             }];
+            [viewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(self.view.mas_left);
+                make.right.equalTo(self.view.mas_right);
+                make.top.equalTo(self.view.mas_top);
+                make.bottom.equalTo(_tabbar.mas_top).with.offset(-10);
+                
+            }];
+            
             [self.tabbar layoutIfNeeded];
         }];
     }else {
@@ -58,8 +67,10 @@
                 make.left.equalTo(self.view.mas_left);
                 make.right.equalTo(self.view.mas_right);
                 make.bottom.equalTo(self.view.mas_bottom).with.offset(0);
-                make.height.equalTo(@55);
+                make.height.equalTo(@43);
             }];
+            
+            
             [self.tabbar layoutIfNeeded];
             [viewController.view layoutIfNeeded];
         }];
@@ -86,7 +97,7 @@
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.bottom.equalTo(self.view.mas_bottom);
-        make.height.equalTo(@55);
+        make.height.equalTo(@40);
     }];
     
     _arrayViewcontrollers = [self getViewcontrollers];
