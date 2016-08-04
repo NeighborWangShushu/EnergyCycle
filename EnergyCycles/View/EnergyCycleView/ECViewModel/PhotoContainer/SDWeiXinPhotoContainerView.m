@@ -92,6 +92,7 @@
             itemH = image.size.height / image.size.width * itemW;
         }
     } else {
+        
     }
     
     //保持正方形，固定大小
