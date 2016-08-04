@@ -508,6 +508,12 @@
 		62EDB8041D34D0B000D6F772 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */; };
 		62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8081D34D3CF00D6F772 /* AboutViewController.m */; };
 		62EDB80C1D34E51300D6F772 /* FunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB80B1D34E51300D6F772 /* FunctionViewController.m */; };
+		62F60E7C1D5311C000EE7E9B /* chartBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E7A1D5311C000EE7E9B /* chartBg.png */; };
+		62F60E7D1D5311C000EE7E9B /* chartBg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E7B1D5311C000EE7E9B /* chartBg@3x.png */; };
+		62F60E821D532B3000EE7E9B /* addPraise.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E7E1D532B3000EE7E9B /* addPraise.png */; };
+		62F60E831D532B3000EE7E9B /* addPraise@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E7F1D532B3000EE7E9B /* addPraise@3x.png */; };
+		62F60E841D532B3000EE7E9B /* praise.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E801D532B3000EE7E9B /* praise.png */; };
+		62F60E851D532B3000EE7E9B /* praise@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E811D532B3000EE7E9B /* praise@3x.png */; };
 		62FCE9091D3CAFB900F52E05 /* AttentionAndFansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62FCE9071D3CAFB900F52E05 /* AttentionAndFansTableViewCell.m */; };
 		62FCE90A1D3CAFB900F52E05 /* AttentionAndFansTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62FCE9081D3CAFB900F52E05 /* AttentionAndFansTableViewCell.xib */; };
 		62FCE90F1D3CB2A500F52E05 /* addAttention.png in Resources */ = {isa = PBXBuildFile; fileRef = 62FCE90B1D3CB2A500F52E05 /* addAttention.png */; };
@@ -2124,6 +2130,12 @@
 		62EDB8081D34D3CF00D6F772 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		62EDB80A1D34E51300D6F772 /* FunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionViewController.h; sourceTree = "<group>"; };
 		62EDB80B1D34E51300D6F772 /* FunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunctionViewController.m; sourceTree = "<group>"; };
+		62F60E7A1D5311C000EE7E9B /* chartBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chartBg.png; path = ../chartBg.png; sourceTree = "<group>"; };
+		62F60E7B1D5311C000EE7E9B /* chartBg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chartBg@3x.png"; path = "../chartBg@3x.png"; sourceTree = "<group>"; };
+		62F60E7E1D532B3000EE7E9B /* addPraise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addPraise.png; sourceTree = "<group>"; };
+		62F60E7F1D532B3000EE7E9B /* addPraise@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addPraise@3x.png"; sourceTree = "<group>"; };
+		62F60E801D532B3000EE7E9B /* praise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = praise.png; sourceTree = "<group>"; };
+		62F60E811D532B3000EE7E9B /* praise@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "praise@3x.png"; sourceTree = "<group>"; };
 		62FCE9061D3CAFB900F52E05 /* AttentionAndFansTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionAndFansTableViewCell.h; sourceTree = "<group>"; };
 		62FCE9071D3CAFB900F52E05 /* AttentionAndFansTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionAndFansTableViewCell.m; sourceTree = "<group>"; };
 		62FCE9081D3CAFB900F52E05 /* AttentionAndFansTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttentionAndFansTableViewCell.xib; sourceTree = "<group>"; };
@@ -4236,6 +4248,12 @@
 		26D99D4F1C0C4D7B007AF579 /* PK */ = {
 			isa = PBXGroup;
 			children = (
+				62F60E7E1D532B3000EE7E9B /* addPraise.png */,
+				62F60E7F1D532B3000EE7E9B /* addPraise@3x.png */,
+				62F60E801D532B3000EE7E9B /* praise.png */,
+				62F60E811D532B3000EE7E9B /* praise@3x.png */,
+				62F60E7A1D5311C000EE7E9B /* chartBg.png */,
+				62F60E7B1D5311C000EE7E9B /* chartBg@3x.png */,
 				DA82CCFB1C3D066900C6D8EA /* cellbg@3x.png */,
 				DA82CCFC1C3D066900C6D8EA /* cellbg@2x.png */,
 				DA735E1A1C3BB90700CE9995 /* hring@3x.png */,
@@ -7328,6 +7346,7 @@
 				D029BC5D1D37BB0500B20D65 /* ec_msg_highlight@2x.png in Resources */,
 				DA5D7D661CA23C5300FF5378 /* OtherUserShowViewCell.xib in Resources */,
 				DA3190DD1C22A54D00972F63 /* loginbeijing@2x.png in Resources */,
+				62F60E851D532B3000EE7E9B /* praise@3x.png in Resources */,
 				DAE034E61C182181007E6DBD /* 7xinzheng_@3x.png in Resources */,
 				DA8AFF531C2A4BF90064B9A7 /* 08QQ@3x.png in Resources */,
 				DAE035011C182181007E6DBD /* NO1_@2x.png in Resources */,
@@ -7335,6 +7354,7 @@
 				DA76750B1C27F39900A34D9C /* 06beijing01@3x.png in Resources */,
 				DAE035031C182181007E6DBD /* NO2_@2x.png in Resources */,
 				DAE035061C182181007E6DBD /* NO3_@3x.png in Resources */,
+				62F60E7D1D5311C000EE7E9B /* chartBg@3x.png in Resources */,
 				D07EB2611D18DE6800840AC2 /* face.png in Resources */,
 				DA9A954B1C23ABEE00FBE107 /* ziliao@2x.png in Resources */,
 				62FCE9121D3CB2A500F52E05 /* attention@3x.png in Resources */,
@@ -7473,6 +7493,7 @@
 				DA9A95361C23ABEE00FBE107 /* jifen@3x.png in Resources */,
 				26D26FC81C1173C0008511A9 /* top-white@2x.png in Resources */,
 				DA9A23391C43B2850012265D /* fenxiang_@3x.png in Resources */,
+				62F60E7C1D5311C000EE7E9B /* chartBg.png in Resources */,
 				DAAEC6E31C1FBD1B00FA094B /* SearchResultTableViewCell.xib in Resources */,
 				DAE1A46D1C1954DC006FE119 /* SelectProjectCollectionViewCell.xib in Resources */,
 				26D8B1EB1C0FEEE900A1DB04 /* 03_1@3x.png in Resources */,
@@ -7599,6 +7620,7 @@
 				DA9A95241C23ABEE00FBE107 /* dizhi@3x.png in Resources */,
 				D07EB2671D18DE6800840AC2 /* icon_avatar_default_big1x copy.png in Resources */,
 				DAE1A4771C196415006FE119 /* ReportThrTableViewCell.xib in Resources */,
+				62F60E841D532B3000EE7E9B /* praise.png in Resources */,
 				DA9A95341C23ABEE00FBE107 /* jifen1@3x.png in Resources */,
 				26D8B1F01C0FEEE900A1DB04 /* 04_2@2x.png in Resources */,
 				D029BC301D37571E00B20D65 /* tabbar_normal_3@3x.png in Resources */,
@@ -7625,6 +7647,7 @@
 				DA9A95231C23ABEE00FBE107 /* dizhi@2x.png in Resources */,
 				26D8B2231C0FEEE900A1DB04 /* 17_2@3x.png in Resources */,
 				26D8B23D1C0FEEE900A1DB04 /* 24_1@3x.png in Resources */,
+				62F60E831D532B3000EE7E9B /* addPraise@3x.png in Resources */,
 				DAE1A4581C191017006FE119 /* EveryPKTableViewCell.xib in Resources */,
 				26D8B2431C0FEEE900A1DB04 /* 25_2@3x.png in Resources */,
 				DA82CCFE1C3D066900C6D8EA /* cellbg@2x.png in Resources */,
@@ -7781,6 +7804,7 @@
 				D07EB1E31D18D45500840AC2 /* pause@2x.png in Resources */,
 				26E987EE1C0DAE4000C6A7BB /* whiteback_pressed@2x.png in Resources */,
 				26D8B2171C0FEEE900A1DB04 /* 14_2@3x.png in Resources */,
+				62F60E821D532B3000EE7E9B /* addPraise.png in Resources */,
 				DA7674D91C27C97C00A34D9C /* SocialCollectionViewCell.xib in Resources */,
 				DA677B731C3A6E11004A534E /* QDDT00009.png in Resources */,
 				D029BC391D3771C300B20D65 /* ec_post_add_button@3x.png in Resources */,

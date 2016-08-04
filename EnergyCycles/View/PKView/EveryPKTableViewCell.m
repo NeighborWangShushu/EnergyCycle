@@ -43,11 +43,14 @@
     
     //
     if ([model.haslike integerValue] == 0) {
-        [self.rightButton setBackgroundImage:[UIImage imageNamed:@"39xin01_.png"] forState:UIControlStateNormal];
+        [self.rightButton setBackgroundImage:[UIImage imageNamed:@"addPraise.png"] forState:UIControlStateNormal];
     }else {
-        [self.rightButton setBackgroundImage:[UIImage imageNamed:@"32xin02_.png"] forState:UIControlStateNormal];
+        [self.rightButton setBackgroundImage:[UIImage imageNamed:@"praise.png"] forState:UIControlStateNormal];
     }
     self.rightButton.tag = 30001+index;
+    
+    self.rightLabel.text = model.Goods;
+    
 }
 
 - (IBAction)rightButtonClick:(UIButton *)sender {

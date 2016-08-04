@@ -434,10 +434,10 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    self.headImageData = UIImageJPEGRepresentation(image, 0.01);
-    [self.picker dismissViewControllerAnimated:YES completion:nil];
     
     if (self.isHeadImage) { // 上传头像
+        self.headImageData = UIImageJPEGRepresentation(image, 0.01);
+        [self.picker dismissViewControllerAnimated:YES completion:nil];
         [[AppHttpManager shareInstance] postAddImgWithPhoneNo:self.model.use_id Img:self.headImageData PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 [self getUserInfo];
@@ -448,6 +448,8 @@
             NSLog(@"%@", str);
         }];
     } else { // 上传背景图片
+        self.headImageData = UIImageJPEGRepresentation(image, 0.1);
+        [self.picker dismissViewControllerAnimated:YES completion:nil];
         [[AppHttpManager shareInstance] postPostFileWithImageData:self.headImageData PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
 //                NSLog(@"%@", dict[@"Data"]);

@@ -21,6 +21,6 @@
 @property (nonatomic, strong) NSString<Optional> *pkImg;
 @property (nonatomic, strong) NSString<Optional> *unit;
 @property (nonatomic, strong) NSString<Optional> *haslike;
-
+@property (nonatomic, strong) NSString<Optional> *Goods;
 
 @end

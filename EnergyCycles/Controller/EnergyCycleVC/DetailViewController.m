@@ -83,6 +83,9 @@ enum
         self.title = @"进阶PK详情";
     }
     
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
+    
     detailTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
     detailTabelView.showsVerticalScrollIndicator = NO;
     detailTabelView.backgroundColor = [UIColor whiteColor];
@@ -122,6 +125,10 @@ enum
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

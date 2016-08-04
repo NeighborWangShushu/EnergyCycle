@@ -12,6 +12,7 @@
 #import "EveryDayPKViewCell.h"
 #import "GifHeader.h"
 #import "UserModel.h"
+#import "UIImage+Category.h"
 
 @interface PkEveryDayViewCell () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate> {
     int page;
@@ -225,9 +226,26 @@
         if (_dataArr.count) {
             EveryDPKPMModel *model = _dataArr[indexPath.row];
             
+            cell.rightImage.tag = 30001 + indexPath.row;
+
+            [cell setZanButton:^(NSInteger cellTouchIndex) {
+                EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[cellTouchIndex+1];
+                [self touchZanWithModel:model withIndex:cellTouchIndex];
+            }];
+            
             cell.paimingLabel.text = model.orderNum;
             cell.nameLabel.text = model.nickname;
             cell.classLabel.text = [NSString stringWithFormat:@"%@%@",model.repItemNum,model.unit];
+            if ([model.Goods isEqualToString:@""] || model.Goods == 0) {
+                cell.rightLabel.text = 0;
+            }
+            cell.rightLabel.text = model.Goods;
+            if ([model.haslike intValue] == 1) {
+                [cell.rightImage setBackgroundImage:[UIImage imageNamed:@"praise.png"] forState:UIControlStateNormal];
+            } else {
+                [cell.rightImage setBackgroundImage:[UIImage imageNamed:@"addPraise.png"] forState:UIControlStateNormal];
+            }
+            cell.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.8];
         }
 
         return cell;
@@ -239,7 +257,12 @@
         cell = [[NSBundle mainBundle] loadNibNamed:@"EveryPKTableViewCell" owner:self options:nil].lastObject;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.pkEveryBackImageView.image = [UIImage imageNamed:@"cellbg.png"];
+//    cell.pkEveryBackImageView.image = [UIImage imageNamed:@"cellbg.png"];
+    cell.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.8];
+//    UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.8] size:CGSizeMake(Screen_width, 70)];
+//    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+//    cell.imageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
+//    cell.imageView.clipsToBounds = YES;
     
     cell.headButton.tag = 2001 + indexPath.row;
     [cell.headButton addTarget:self action:@selector(headButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -251,6 +274,8 @@
     }];
     
     cell.lingProgressView.progress = 0.0;
+    cell.lingProgressView.trackTintColor = [UIColor clearColor];
+    cell.lingProgressView.tintColor = [UIColor colorWithRed:219/255.0 green:122/255.0 blue:140/255.0 alpha:1];
     static float progress = 0;
     if (_dataArr.count) {
         EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[indexPath.row];

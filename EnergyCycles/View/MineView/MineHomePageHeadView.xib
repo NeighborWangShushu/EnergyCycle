@@ -52,8 +52,8 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dizhi.png" translatesAutoresizingMaskIntoConstraints="NO" id="k9W-Dd-5Sd">
-                    <rect key="frame" x="126" y="178" width="11" height="16"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dizhi.png" translatesAutoresizingMaskIntoConstraints="NO" id="k9W-Dd-5Sd">
+                    <rect key="frame" x="126" y="179" width="11" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="7" id="Zn9-lK-les"/>
                         <constraint firstAttribute="height" constant="10" id="sgd-yf-vYR"/>
@@ -72,7 +72,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHH-2y-UNx">
-                    <rect key="frame" x="20" y="194" width="128" height="29"/>
+                    <rect key="frame" x="20" y="194" width="128.5" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -81,8 +81,8 @@
                         <action selector="jumpToAttentionController:" destination="ibT-XF-nB3" eventType="touchUpInside" id="VQF-VD-E8Z"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="简介：暂无" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ii-fW-4r6">
-                    <rect key="frame" x="125" y="222" width="70" height="20"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="简介：暂无一二三四五六七八九十一二三" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ii-fW-4r6">
+                    <rect key="frame" x="34" y="222" width="252" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="nTU-ea-qNy"/>
                     </constraints>
@@ -91,7 +91,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="advice.png" translatesAutoresizingMaskIntoConstraints="NO" id="cZo-Zv-uic">
-                    <rect key="frame" x="201" y="225" width="12" height="14"/>
+                    <rect key="frame" x="292" y="225" width="12" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="1sB-Q9-K6V"/>
                         <constraint firstAttribute="width" constant="9" id="dX6-UY-g16"/>
@@ -125,13 +125,13 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UY9-i1-ZXp">
-                    <rect key="frame" x="20" y="72" width="92" height="107"/>
+                    <rect key="frame" x="20" y="72" width="92.5" height="107"/>
                     <connections>
                         <action selector="changBackgroundImage:" destination="ibT-XF-nB3" eventType="touchUpInside" id="1QR-35-THy"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E32-u9-hrb">
-                    <rect key="frame" x="207" y="72" width="93" height="107"/>
+                    <rect key="frame" x="207" y="72" width="92.5" height="107"/>
                     <connections>
                         <action selector="changBackgroundImage:" destination="ibT-XF-nB3" eventType="touchUpInside" id="yXN-vw-eEr"/>
                     </connections>
@@ -180,6 +180,7 @@
                 <constraint firstItem="Hqh-2s-8E6" firstAttribute="top" secondItem="ehw-bt-Ua0" secondAttribute="bottom" id="gDq-j7-gct"/>
                 <constraint firstItem="Hqh-2s-8E6" firstAttribute="leading" secondItem="ibT-XF-nB3" secondAttribute="leading" id="hxh-TF-tZK"/>
                 <constraint firstAttribute="trailing" secondItem="Hqh-2s-8E6" secondAttribute="trailing" id="i2W-gO-6fy"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cZo-Zv-uic" secondAttribute="trailing" constant="15" id="lKj-Xe-W88"/>
                 <constraint firstItem="E32-u9-hrb" firstAttribute="leading" secondItem="UYn-XY-rUx" secondAttribute="trailing" constant="10" id="m2J-7h-rIF"/>
                 <constraint firstItem="k9W-Dd-5Sd" firstAttribute="centerY" secondItem="pSd-uu-ZNk" secondAttribute="centerY" id="nIm-bq-SLq"/>
                 <constraint firstItem="Arw-qJ-nlk" firstAttribute="leading" secondItem="BHH-2y-UNx" secondAttribute="trailing" constant="10" id="oyj-MN-H2x"/>

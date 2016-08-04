@@ -148,9 +148,10 @@
 }
 
 - (void)shareClientToQQZone:(ShareModel *)model block:(result)result {
+    
     NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKEnableUseClientShare];
-    [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQZone];
+    [shareParams SSDKSetupQQParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQZone];
     
     [self share:SSDKPlatformSubTypeQZone params:shareParams block:^(SSDKResponseState state) {
         result(state);
