@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *jiluLabel;
 //
 @property (weak, nonatomic) IBOutlet UIProgressView *lingProgressView;
+//赞总数
+@property (weak, nonatomic) IBOutlet UILabel *rightLabel;
 //赞
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 - (IBAction)rightButtonClick:(UIButton *)sender;

@@ -58,6 +58,7 @@
     
     //
     self.brokenSegmentedControl.selectedSegmentIndex = 0;
+    self.brokenSegmentedControl.tintColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
     [self setUpMJRefresh];
 }
 
@@ -348,7 +349,8 @@
     
     //
     UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 4, Screen_width-20, 184)];
-    backImageView.image = [UIImage imageNamed:@"minebeijing.png"];
+//    backImageView.image = [UIImage imageNamed:@"minebeijing.png"];
+    backImageView.image = [UIImage imageNamed:@"chartBg.png"];
     [brokenLineBackView addSubview:backImageView];
     
     //

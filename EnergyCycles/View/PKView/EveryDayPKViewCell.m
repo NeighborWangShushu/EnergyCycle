@@ -19,4 +19,10 @@
 }
 
 
+- (IBAction)clickRightButton:(UIButton *)sender {
+    if (_zanButton) {
+        _zanButton(sender.tag - 30002);
+    }
+}
+
 @end
