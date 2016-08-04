@@ -58,7 +58,6 @@
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 
-
 #define CCTalk @"http://www.cctalk.com/org/525/?from=singlemessage&isappinstalled=0"
 
 //1.发送短信验证码

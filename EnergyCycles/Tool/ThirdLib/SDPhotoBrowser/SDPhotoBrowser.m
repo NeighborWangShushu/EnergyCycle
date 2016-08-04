@@ -68,7 +68,7 @@
     indexLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     indexLabel.layer.cornerRadius = indexLabel.bounds.size.height * 0.5;
     indexLabel.clipsToBounds = YES;
-    if (self.imageCount > 1) {
+    if (self.imageCount > 0) {
         indexLabel.text = [NSString stringWithFormat:@"1/%ld", (long)self.imageCount];
     }
     _indexLabel = indexLabel;

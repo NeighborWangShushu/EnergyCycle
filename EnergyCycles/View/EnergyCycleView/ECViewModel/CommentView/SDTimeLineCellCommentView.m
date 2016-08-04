@@ -135,7 +135,6 @@
     attach.image = [UIImage imageNamed:@"ec_like_small"];
     attach.bounds = CGRectMake(0, -2, 13, 12);
     NSAttributedString *likeIcon = [NSAttributedString attributedStringWithAttachment:attach];
-    UIColor *highLightColor = [UIColor colorWithRed:244.0/255.0 green:94.0/255.0 blue:94.0/255.0 alpha:1.0];
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:likeIcon];
 
     [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
@@ -257,7 +256,7 @@
     if (model.secondUserName.length) {
         text = [text stringByAppendingString:[NSString stringWithFormat:@"回复%@", model.secondUserName]];
     }
-    UIColor *highLightColor = [UIColor colorWithRed:244.0/255.0 green:94.0/255.0 blue:94.0/255.0 alpha:1.0];
+    UIColor *highLightColor = TimeLineCellHighlightedColor;
     text = [text stringByAppendingString:[NSString stringWithFormat:@"：%@", model.commentString]];
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
     [attString setAttributes:@{NSLinkAttributeName : model.firstUserId,NSForegroundColorAttributeName:highLightColor} range:[text rangeOfString:model.firstUserName]];
@@ -271,7 +270,7 @@
 {
     NSString *text = model.userName;
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
-    UIColor *highLightColor = [UIColor colorWithRed:244.0/255.0 green:94.0/255.0 blue:94.0/255.0 alpha:1.0];
+    UIColor *highLightColor = TimeLineCellHighlightedColor;
     [attString setAttributes:@{NSForegroundColorAttributeName : highLightColor, NSLinkAttributeName : model.userId} range:[text rangeOfString:model.userName]];
     
     return attString;

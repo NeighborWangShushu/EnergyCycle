@@ -175,7 +175,6 @@
 - (UIImage *)handleImage:(UIImage *)originalImage withSize:(CGSize)size
 {
     CGSize originalsize = [originalImage size];
-    NSLog(@"改变前图片的宽度为%f,图片的高度为%f",originalsize.width,originalsize.height);
     
     //原图长宽均小于标准长宽的，不作处理返回原图
     if (originalsize.width<size.width && originalsize.height<size.height)
