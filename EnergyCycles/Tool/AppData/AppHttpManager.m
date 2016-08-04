@@ -1423,6 +1423,7 @@ static AFHTTPRequestOperationManager *manager;
                                          PId:(int)PId
                                      Content:(NSString *)Content
                                   CommUserId:(int)CommUserId
+                                        type:(NSString *)type
                                        token:(NSString *)token
                                    PostOrGet:(NSString *)postOrGetType
                                      success:(void (^)(NSDictionary *dict))success
@@ -1433,6 +1434,7 @@ static AFHTTPRequestOperationManager *manager;
     [dic setObject:Content forKey:@"content"];
     [dic setObject:[NSNumber numberWithInt:CommUserId] forKey:@"commUserId"];
     [dic setObject:token forKey:@"token"];
+    [dic setObject:type forKey:@"type"];
     
     [self callInterfaceByUrl:AddCommentOfArticle
                    PostOrGet:postOrGetType

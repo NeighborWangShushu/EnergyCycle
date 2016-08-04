@@ -587,10 +587,12 @@
 //string Content   //评论内容
 //int CommUserId  //评论人id
 //string token  //评论人的token
+//string type   //评论类型，1 在首页能量圈  0 在我的能量圈
 - (void)postAddCommentOfArticleWithArticleId:(int)ArticleId
                                          PId:(int)PId
                                      Content:(NSString *)Content
                                   CommUserId:(int)CommUserId
+                                        type:(NSString*)type
                                        token:(NSString *)token
                                    PostOrGet:(NSString *)postOrGetType
                                      success:(void (^)(NSDictionary *dict))success

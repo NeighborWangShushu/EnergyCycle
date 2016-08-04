@@ -50,9 +50,8 @@
                 make.bottom.equalTo(self.view.mas_bottom).with.offset(65);
                 make.height.equalTo(@43);
             }];
-
+            
             [viewController.view mas_updateConstraints:^(MASConstraintMaker *make) {
-                
                 make.left.equalTo(self.view.mas_left);
                 make.right.equalTo(self.view.mas_right);
                 make.top.equalTo(self.view.mas_top);
@@ -71,7 +70,6 @@
                 make.height.equalTo(@43);
             }];
             
-            
             [self.tabbar layoutIfNeeded];
             [viewController.view layoutIfNeeded];
         }];
@@ -81,9 +79,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     AppDelegate*delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     delegate.tabbarController = self;
-    
     
     self.selctedIndex = -1;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabBarConToLoginView:) name:@"AllVCNotificationTabBarConToLoginView" object:nil];

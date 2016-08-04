@@ -267,7 +267,7 @@
 
             for (NSDictionary * data in dict2[@"Data"]) {
                 CommentUserModel*model = [CommentUserModel new];
-                model.name = data[@"nickname"];
+                model.name = data[@"nickName"];
                 model.url = data[@"photourl"];
                 model.ID = [data[@"use_id"] integerValue];
                 model.isHeart = [data[@"isHeart"] boolValue];
@@ -679,7 +679,7 @@
     }
     __weak typeof(self) weakSelf = self;
     
-    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] type:@"1" token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
         NSDictionary*data = dict[@"Data"];
         ECTimeLineModel*model = [self sortByData:data];
         NSIndexPath*indexPath = [NSIndexPath indexPathForRow:index inSection:section];
@@ -730,7 +730,7 @@
 }
 
 - (void)didClickMoreCommendUser {
-
+    [delegate.tabbarController hideTabbar:YES];
     [self performSegueWithIdentifier:@"EnergyCycleViewToInviteView" sender:nil];
     
 }
