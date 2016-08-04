@@ -22,6 +22,7 @@
 #import "MyProfileViewController.h"
 #import "ECAvatarManager.h"
 #import "MineChatViewController.h"
+#import "ChatViewController.h"
 
 @interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -329,10 +330,14 @@
 }
 
 - (void)jumpChatViewController {
-    MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
-    chatVC.useredId = self.userId;
-    chatVC.chatName = self.model.nickname;
+    ChatViewController *chatVC = MainStoryBoard(@"ChatViewVCID");
+    chatVC.otherName = self.model.nickname;
+    chatVC.otherID = self.userId;
     [self.navigationController pushViewController:chatVC animated:YES];
+//    MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
+//    chatVC.useredId = self.userId;
+//    chatVC.chatName = self.model.nickname;
+//    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (void)clickAttentionButton {
