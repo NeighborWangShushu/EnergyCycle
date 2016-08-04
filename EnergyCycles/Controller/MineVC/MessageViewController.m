@@ -13,6 +13,7 @@
 #import "MessageModel.h"
 #import "MineChatViewController.h"
 #import "ChatViewController.h"
+#import "WebVC.h"
 
 @interface MessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -113,17 +114,23 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.type == 3) {
+    if (self.type == 1) {
+        GetMessageModel *model = self.commentArray[indexPath.row];
+        WebVC *webVC = MainStoryBoard(@"WebVC");
+        webVC.titleName = @"动态详情";
+        webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,model.A_ID,[NSString stringWithFormat:@"%@",User_ID]];
+        [self.navigationController pushViewController:webVC animated:YES];
+    } else if (self.type == 2) {
+        GetMessageModel *model = self.likeArray[indexPath.row];
+        WebVC *webVC = MainStoryBoard(@"WebVC");
+        webVC.titleName = @"动态详情";
+        webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,model.A_ID,[NSString stringWithFormat:@"%@",User_ID]];
+        [self.navigationController pushViewController:webVC animated:YES];
+    } else if (self.type == 3) {
         MessageModel *model = self.messageArray[indexPath.row];
-//        MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
-//        chatVC.useredId = model.UserID;
-//        chatVC.chatName = model.nickname;
-//        [self.navigationController pushViewController:chatVC animated:YES];
         ChatViewController *chatVC = MainStoryBoard(@"ChatViewVCID");
         chatVC.otherName = model.nickname;
         chatVC.otherID = model.UserID;
-//        chatVC.otherPic = self.otherPic;
-        
         [self.navigationController pushViewController:chatVC animated:YES];
     }
 }

@@ -18,6 +18,7 @@
 #import "CommentUserModel.h"
 #import "Masonry.h"
 #import "GifHeader.h"
+#import "WebVC.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 
@@ -274,6 +275,14 @@
     cell.model = self.dataArray[indexPath.row];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ECTimeLineModel *model = self.dataArray[indexPath.row];
+    WebVC *webVC = MainStoryBoard(@"WebVC");
+    webVC.titleName = @"动态详情";
+    webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,model.ID,[NSString stringWithFormat:@"%@",User_ID]];
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 #pragma mark - 分享
