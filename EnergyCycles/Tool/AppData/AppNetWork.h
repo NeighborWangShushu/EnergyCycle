@@ -139,7 +139,7 @@
 #define GetTalkList                @"user/GetTalkList"
 
 //27.获取私信列表
-#define GetTopOnePeople      @"user/MyMessage_get"
+#define GetTopOnePeople            @"user/MyMessage_get"
 
 //28.查询我的积分排名
 #define GetJinfenCount             @"user/GetJinfenCount"
@@ -345,38 +345,38 @@
 #define DeleteArticle              @"Member/DeleteArticle/"
 
 //90.获取用户关注/粉丝列表
-#define GetFriendsList      @"Member/GetFriendsList/"
+#define GetFriendsList             @"Member/GetFriendsList/"
 
 //91.分享成功获得积分
-#define Share      @"Member/Share/"
+#define Share                      @"Member/Share/"
 
 //92.更换、绑定手机号
-#define ChangePhoneNumber @"user/User_Phone_Upd"
+#define ChangePhoneNumber          @"user/User_Phone_Upd"
 
 //93.更换手机号时发送验证码
-#define GetVerificationCode @"user/ChangePhoneNoSendCode"
+#define GetVerificationCode        @"user/ChangePhoneNoSendCode"
 
 //94.修改密码
-#define ChangePassword @"user/User_Pwd_Upd"
+#define ChangePassword             @"user/User_Pwd_Upd"
 
 //95.修改个人简介
-#define ChangeBrief @"/user/App_User_Brief_Upd"
+#define ChangeBrief                @"/user/App_User_Brief_Upd"
 
 //96.获取用户粉丝/关注/能连贴等数量
-#define UserInfo_Get @"/user/UserInfo_Get"
+#define UserInfo_Get               @"/user/UserInfo_Get"
 
 //97.修改个人主页背景图片
-#define ChangeBackgroundImg @"/user/App_User_BackgroundImg_Upd"
+#define ChangeBackgroundImg        @"/user/App_User_BackgroundImg_Upd"
 
 
 //98.获取能量圈列表(查看其他人的能量圈)
-#define GetOtherArticleList      @"Article/Article_List"
+#define GetOtherArticleList        @"Article/Article_List"
 
 //99.获取用户点赞/评论消息
-#define Message_Get @"/user/Message_Get"
+#define Message_Get                @"/user/Message_Get"
 
 //100.将消息置为已读
-#define Message_Readed @"/user/Message_Readed"
+#define Message_Readed             @"/user/Message_Readed"
 
 
 

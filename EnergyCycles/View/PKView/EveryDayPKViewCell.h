@@ -10,6 +10,8 @@
 
 @interface EveryDayPKViewCell : UITableViewCell
 
+@property (nonatomic, strong) void(^zanButton)(NSInteger index);
+
 //
 @property (weak, nonatomic) IBOutlet UILabel *paimingLabel;
 
@@ -19,6 +21,10 @@
 //
 @property (weak, nonatomic) IBOutlet UILabel *classLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *rightLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *rightImage;
+
+- (IBAction)clickRightButton:(UIButton *)sender;
 
 @end
