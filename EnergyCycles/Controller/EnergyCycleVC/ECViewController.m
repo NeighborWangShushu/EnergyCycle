@@ -113,7 +113,6 @@
     [IQKeyboardManager sharedManager].enable = NO;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initialize];
@@ -207,6 +206,7 @@
         ECNavMenuModel*model2 = [ECNavMenuModel new];
         model2.name = @"关注的人";
         
+        selectedModel = model1;
         [model1 save];
         [model2 save];
         [self.menuDataArray addObject:model1];
@@ -216,6 +216,7 @@
 
 - (void)getData:(BOOL)isloading {
     __weak typeof(self) weakSelf = self;
+    _userId = [[NSString stringWithFormat:@"%@",User_ID] isEqualToString:@""]?@"0":User_ID;
 
     if (pageType == 0) {
         //能量圈
