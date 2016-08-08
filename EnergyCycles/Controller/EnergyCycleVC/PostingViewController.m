@@ -186,11 +186,33 @@
 
 #pragma mark - 提交按键响应事件
 - (void)rightAction {
+    if (![_selectImgArrayLocal count]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"不配图没有积分哦，确认发帖？" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"发布" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self submit];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:alert completion:nil];
+        }];
+        [alert addAction:sureAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }else {
+        [self submit];
+    }
+}
+
+- (void)submit {
     NSString * title=[postDict valueForKey:@"title"];
     NSString * context=[postDict valueForKey:@"content"];
     NSLog(@"title:%@----context:%@",title,context);
     if (context == nil ||[context isEqualToString:@""]) {
         [SVProgressHUD showImage:nil status:@"内容不能为空"];
+        return;
+    }
+    if (context.length < 30) {
+        [SVProgressHUD showImage:nil status:@"30字以上才能发表哦~"];
         return;
     }
     if ([User_TOKEN length] > 0) {
@@ -207,6 +229,7 @@
     }else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
     }
+
 }
 
 -(void)getURLContext {

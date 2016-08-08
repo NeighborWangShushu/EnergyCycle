@@ -143,7 +143,7 @@
     _userId = [[NSString stringWithFormat:@"%@",User_ID] isEqualToString:@""]?@"0":User_ID;
     [self getNavData];
     
-    if ([selectedModel.name isEqualToString:@"能量圈"] || !selectedModel) {
+    if ([selectedModel.name isEqualToString:@"能量帖"] || !selectedModel) {
         pageType = 0;
     }else {
         pageType = 1;
@@ -200,7 +200,7 @@
         }
     }else {
         ECNavMenuModel*model1 = [ECNavMenuModel new];
-        model1.name = @"能量圈";
+        model1.name = @"能量帖";
         model1.isSelected = YES;
         
         ECNavMenuModel*model2 = [ECNavMenuModel new];
@@ -989,7 +989,6 @@
         return 1;
     }
 }
-
 
 #pragma mark - 分享
 - (void)share:(ECTimeLineModel*)model {

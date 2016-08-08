@@ -192,10 +192,19 @@
     [self.delegate.tabbarController hideTabbar:NO];
     [self getUserInfo];
     [self getUserInfoModel];
+    
+    
 }
 
 // 获取用户信息
 - (void)getUserInfo {
+    
+    AppDelegate*delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    if (delegate.isPushToMessageView) {
+        delegate.isPushToMessageView = NO;
+        [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
+    }
+    
     [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             
@@ -240,11 +249,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    AppDelegate*delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    if (delegate.isPushToMessageView) {
-        delegate.isPushToMessageView = NO;
-        [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
-    }
     
 //    self.automaticallyAdjustsScrollViewInsets = NO;
     

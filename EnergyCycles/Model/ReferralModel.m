@@ -128,7 +128,7 @@
                              
                              @{@"pic":@"fox",@"url":@"http://stream.eudic.net/en_fox.mp3?agent=%2feusoft_ting_en_iphone%2f6.2.2%2fDB6B1191-8DC3-4859-AB43-B7A6FA95411F_mac_02%3a00%3a00%3a00%3a00%3a00%2f&token=QYN+eyJ0b2tlbiI6IiIsInVzZXJpZCI6IiIsInVybHNpZ24iOiJJRlhlUStoYXQ1RXJwc09STWFoT2tpNjgxdDA9In0%3d&stamp=636016934789934311"},
                              
-                             @{@"pic":@"npr",@"url":@"http://stream.eudic.net/en_cnn.mp3?agent=%2feusoft_ting_en_iphone%2f6.2.2%2fDB6B1191-8DC3-4859-AB43-B7A6FA95411F_mac_02%3a00%3a00%3a00%3a00%3a00%2f&token=QYN+eyJ0b2tlbiI6IiIsInVzZXJpZCI6IiIsInVybHNpZ24iOiJSeTM5UDZkOXBSdnkvSk8ySFFqbGQ1bjhTVVU9In0%3d&stamp=636016921048138325"},
+                             @{@"pic":@"npr",@"url":@"http://nprdmp-live01-mp3.akacast.akamaistream.net/7/998/364916/v1/npr.akacast.akamaistream.net/nprdmp_live01_mp3"},
                              
                              @{@"pic":@"australia",@"url":@"http://live-radio02.mediahubaustralia.com/PBW/aac/;?agent=%2feusoft_ting_en_iphone%2f6.2.2%2fDB6B1191-8DC3-4859-AB43-B7A6FA95411F_mac_02%3a00%3a00%3a00%3a00%3a00%2f&token=QYN+eyJ0b2tlbiI6IiIsInVzZXJpZCI6IiIsInVybHNpZ24iOiJ6TkJaa256QVdKczVMVThOK09jbTM3OEN4ZWM9In0%3d&stamp=636016916682598631"},
                              
