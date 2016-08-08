@@ -15,7 +15,7 @@
  */
 
 
-- (long long)fileSizeAtPath:(NSString *)path;
+- (CGFloat)fileSizeAtPath:(NSString *)path;
 
 - (CGFloat)folderSizeAtPath:(NSString *)path;
 

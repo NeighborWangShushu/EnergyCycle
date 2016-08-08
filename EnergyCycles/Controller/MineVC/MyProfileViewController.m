@@ -210,7 +210,7 @@
                                                             PostOrGet:@"get"
                                                               success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeNone];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
                 [self.navigationController popViewControllerAnimated:YES];
             }else if ([dict[@"Code"] integerValue] == 10000) {
                 [SVProgressHUD showImage:nil status:@"登录失效" maskType:SVProgressHUDMaskTypeClear];

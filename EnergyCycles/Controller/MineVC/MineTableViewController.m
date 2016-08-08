@@ -13,6 +13,7 @@
 #import "UserModel.h"
 #import "UserInfoModel.h"
 #import "MineHeadTableViewCell.h"
+#import "MineHeadViewTableViewCell.h"
 #import "MineTableViewCell.h"
 
 #import "AttentionAndFansTableViewController.h"
@@ -24,7 +25,10 @@
 #import "RecommendedTableViewController.h"
 #import "AppDelegate.h"
 
-@interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+    BOOL isCheck;
+
+}
 
 @property (nonatomic, strong) NSMutableDictionary *userInfoDict;
 @property (nonatomic, strong) UserModel *model;
@@ -71,7 +75,7 @@
 // 每一行的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 105.f;
+        return 286.f;
     }
     return 50.f;
 }
@@ -98,15 +102,24 @@
 // 每行的内容
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        static NSString *mineHeadTableViewCell = @"mineHeadTableViewCell";
-        MineHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mineHeadTableViewCell];
+//        static NSString *mineHeadTableViewCell = @"mineHeadTableViewCell";
+//        MineHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mineHeadTableViewCell];
+//        
+//        if (cell == nil) {
+//            cell = [[NSBundle mainBundle] loadNibNamed:@"MineHeadTableViewCell" owner:self options:nil].lastObject;
+//        }
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        [cell updateDataWithModel:self.model infoModel:self.infoModel];
+        
+        static NSString *mineHeadViewTableViewCell = @"mineHeadViewTableViewCell";
+        MineHeadViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mineHeadViewTableViewCell];
         
         if (cell == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:@"MineHeadTableViewCell" owner:self options:nil].lastObject;
+            cell = [[NSBundle mainBundle] loadNibNamed:@"MineHeadViewTableViewCell" owner:self options:nil].lastObject;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell updateDataWithModel:self.model infoModel:self.infoModel];
-
+        [cell updateDataWithModel:self.model];
+        
         return cell;
     } else {
         static NSString *mineTableViewCell = @"mineTableViewCell";
@@ -184,11 +197,32 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
-    
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [self.delegate.tabbarController hideTabbar:NO];
     [self getUserInfo];
     [self getUserInfoModel];
+    
+    self.tableView.scrollsToTop = YES;
 }
+
+//- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+//    scrollView.scrollsToTop = YES;
+//}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y < 0) {
+        [scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+    }
+
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+}
+
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+//}
 
 // 获取用户信息
 - (void)getUserInfo {

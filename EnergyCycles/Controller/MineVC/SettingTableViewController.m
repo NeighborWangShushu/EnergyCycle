@@ -109,7 +109,6 @@
                 cell = [[NSBundle mainBundle] loadNibNamed:@"SettingThreeViewCell" owner:self options:nil].lastObject;
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
             [cell updateDataWithData:[CacheManager getCachesSizeCount]]; // 获取缓存大小
             NSLog(@"%f",[CacheManager getCachesSizeCount]);
             
