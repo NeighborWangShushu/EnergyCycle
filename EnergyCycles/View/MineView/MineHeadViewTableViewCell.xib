@@ -22,6 +22,9 @@
                         <state key="normal" title="能量帖">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="jumpToEnergyPostTableViewController:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Oay-Rr-9Mz"/>
+                        </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="energyPost.png" translatesAutoresizingMaskIntoConstraints="NO" id="fOK-f1-pMb">
                         <rect key="frame" x="33" y="230" width="29" height="22"/>
@@ -147,6 +150,9 @@
                         <state key="normal" title="每日PK">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="jumpToToDayPKTableViewController:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LeF-R8-GWh"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a30-LL-eHN">
                         <rect key="frame" x="189" y="220" width="95" height="65.5"/>
@@ -155,6 +161,9 @@
                         <state key="normal" title="进阶PK">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="jumpToMineAdvPKViewController:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="BsA-9c-JYl"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMp-7M-DKk">
                         <rect key="frame" x="284" y="220" width="94.5" height="65.5"/>
@@ -163,6 +172,9 @@
                         <state key="normal" title="推荐">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="jumpToRecommendedTableViewController:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ing-t0-FsZ"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

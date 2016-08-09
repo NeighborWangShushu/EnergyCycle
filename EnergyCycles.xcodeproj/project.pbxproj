@@ -507,6 +507,10 @@
 		62C99F331D3797620032E83C /* MineHomePageTableViewControllerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C99F321D3797620032E83C /* MineHomePageTableViewControllerProtocol.m */; };
 		62C99F381D37A77A0032E83C /* EnergyPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C99F371D37A77A0032E83C /* EnergyPostTableViewController.m */; };
 		62C99F3B1D37AA130032E83C /* PKRecordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C99F3A1D37AA130032E83C /* PKRecordTableViewController.m */; };
+		62D35ABE1D59A859009E84C4 /* give.png in Resources */ = {isa = PBXBuildFile; fileRef = 62D35ABC1D59A859009E84C4 /* give.png */; };
+		62D35ABF1D59A859009E84C4 /* give@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62D35ABD1D59A859009E84C4 /* give@3x.png */; };
+		62D35AC21D59B392009E84C4 /* FriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D35AC11D59B392009E84C4 /* FriendViewController.m */; };
+		62D35AC51D59CD9A009E84C4 /* PKGatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D35AC41D59CD9A009E84C4 /* PKGatherViewController.m */; };
 		62DDA0851D5854A0005C2CEB /* MineHeadViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DDA0831D5854A0005C2CEB /* MineHeadViewTableViewCell.m */; };
 		62DDA0861D5854A0005C2CEB /* MineHeadViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62DDA0841D5854A0005C2CEB /* MineHeadViewTableViewCell.xib */; };
 		62DDA0911D585707005C2CEB /* advancePK.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DDA0871D585707005C2CEB /* advancePK.png */; };
@@ -2133,6 +2137,12 @@
 		62C99F371D37A77A0032E83C /* EnergyPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnergyPostTableViewController.m; sourceTree = "<group>"; };
 		62C99F391D37AA130032E83C /* PKRecordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRecordTableViewController.h; sourceTree = "<group>"; };
 		62C99F3A1D37AA130032E83C /* PKRecordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKRecordTableViewController.m; sourceTree = "<group>"; };
+		62D35ABC1D59A859009E84C4 /* give.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = give.png; sourceTree = "<group>"; };
+		62D35ABD1D59A859009E84C4 /* give@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "give@3x.png"; sourceTree = "<group>"; };
+		62D35AC01D59B392009E84C4 /* FriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendViewController.h; sourceTree = "<group>"; };
+		62D35AC11D59B392009E84C4 /* FriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendViewController.m; sourceTree = "<group>"; };
+		62D35AC31D59CD9A009E84C4 /* PKGatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKGatherViewController.h; sourceTree = "<group>"; };
+		62D35AC41D59CD9A009E84C4 /* PKGatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKGatherViewController.m; sourceTree = "<group>"; };
 		62DDA0821D5854A0005C2CEB /* MineHeadViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHeadViewTableViewCell.h; sourceTree = "<group>"; };
 		62DDA0831D5854A0005C2CEB /* MineHeadViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHeadViewTableViewCell.m; sourceTree = "<group>"; };
 		62DDA0841D5854A0005C2CEB /* MineHeadViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineHeadViewTableViewCell.xib; sourceTree = "<group>"; };
@@ -4223,6 +4233,8 @@
 		26D99D4E1C0C4D7B007AF579 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				62D35ABC1D59A859009E84C4 /* give.png */,
+				62D35ABD1D59A859009E84C4 /* give@3x.png */,
 				62DDA0871D585707005C2CEB /* advancePK.png */,
 				62DDA0881D585707005C2CEB /* advancePK@3x.png */,
 				62DDA0891D585707005C2CEB /* integral.png */,
@@ -5129,6 +5141,8 @@
 			children = (
 				625A17601D5494F700F12A4B /* ToDayPKTableViewController.h */,
 				625A17611D5494F700F12A4B /* ToDayPKTableViewController.m */,
+				62D35AC31D59CD9A009E84C4 /* PKGatherViewController.h */,
+				62D35AC41D59CD9A009E84C4 /* PKGatherViewController.m */,
 			);
 			name = ToDayPK;
 			sourceTree = "<group>";
@@ -5310,6 +5324,8 @@
 			children = (
 				62FCE9131D3CC1D300F52E05 /* AttentionAndFansTableViewController.h */,
 				62FCE9141D3CC1D300F52E05 /* AttentionAndFansTableViewController.m */,
+				62D35AC01D59B392009E84C4 /* FriendViewController.h */,
+				62D35AC11D59B392009E84C4 /* FriendViewController.m */,
 			);
 			name = AttentionAndFans;
 			sourceTree = "<group>";
@@ -7333,6 +7349,7 @@
 				D029BC4A1D3779D500B20D65 /* post_moments_normal@3x.png in Resources */,
 				D077C59A1D1D613C00303A90 /* 13_03.png in Resources */,
 				D07EB27D1D18DE6800840AC2 /* 默认avator.png in Resources */,
+				62D35ABE1D59A859009E84C4 /* give.png in Resources */,
 				D029BC511D3779D500B20D65 /* post_weibo_normal@2x.png in Resources */,
 				D04B54FD1D23D64600DC259A /* icon4.jpg in Resources */,
 				625750EA1D33886400E46B2E /* Group 5@3x.png in Resources */,
@@ -7476,6 +7493,7 @@
 				D077C5AC1D1D613C00303A90 /* 31_03.png in Resources */,
 				DA9A95441C23ABEE00FBE107 /* shenqing@3x.png in Resources */,
 				D077C5B11D1D613C00303A90 /* 36_03.png in Resources */,
+				62D35ABF1D59A859009E84C4 /* give@3x.png in Resources */,
 				DA677B711C3A6E11004A534E /* QDDT00007.png in Resources */,
 				26D8B2041C0FEEE900A1DB04 /* 10_1@2x.png in Resources */,
 				D04B54FF1D23D64600DC259A /* pic1.jpg in Resources */,
@@ -8250,6 +8268,7 @@
 				D07D2EB21D0FC3DF00AF35B1 /* TagItemView.m in Sources */,
 				DA4459F61C2173290069415D /* InvitationOneViewCell.m in Sources */,
 				DA7CE5521C3E38BF00272952 /* InfoView.m in Sources */,
+				62D35AC51D59CD9A009E84C4 /* PKGatherViewController.m in Sources */,
 				DA7674D11C27B0AA00A34D9C /* NewsCollectionViewCell.m in Sources */,
 				D08352171D2D0AE10094AC2E /* ECRecommendCell.m in Sources */,
 				D029BC3D1D3777C500B20D65 /* ECShareCell.m in Sources */,
@@ -8410,6 +8429,7 @@
 				26E9872D1C0D2D9900C6A7BB /* PostingViewController.m in Sources */,
 				DA77FC1A1C46236900B4E5FC /* RecommentModel.m in Sources */,
 				DA9124441C292A350018DBAF /* AddressTwoTableViewCell.m in Sources */,
+				62D35AC21D59B392009E84C4 /* FriendViewController.m in Sources */,
 				26E9877B1C0D7E2800C6A7BB /* ChooseClassificationViewCell.m in Sources */,
 				26CB28CF1C116B090065083D /* PingLunViewCell.m in Sources */,
 				D04B54C91D23C90D00DC259A /* LEETheme.m in Sources */,

@@ -31,11 +31,17 @@
 
 @implementation MineAdvPKViewController
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = [NSString stringWithFormat:@"%@的进阶PK",self.showTitle];
     EnetgyCycle.energyTabBar.tabBar.translucent = NO;
+    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     _dataArr = [[NSMutableArray alloc] init];
     

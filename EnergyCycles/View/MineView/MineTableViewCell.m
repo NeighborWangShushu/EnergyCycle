@@ -54,7 +54,7 @@
             self.rightLabel.alpha = 0.8;
             [self lineView];
         } else if (index == 1) {
-            self.leftImage.image = [UIImage imageNamed:@"Group 4"];
+            self.leftImage.image = [UIImage imageNamed:@"ziliao"];
             self.leftLabel.text = @"我的资料";
             self.rightLabel.text = @"修改";
             [self lineView];

@@ -51,8 +51,29 @@
     
 }
 
+// 修改头像
 - (IBAction)changeHeadImage:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeHeadImage" object:nil];
+}
+
+// 能量帖
+- (IBAction)jumpToEnergyPostTableViewController:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToEnergyPostTableViewController" object:nil];
+}
+
+// 每日PK
+- (IBAction)jumpToToDayPKTableViewController:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToToDayPKTableViewController" object:nil];
+}
+
+// 进阶PK
+- (IBAction)jumpToMineAdvPKViewController:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToMineAdvPKViewController" object:nil];
+}
+
+// 推荐
+- (IBAction)jumpToRecommendedTableViewController:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToRecommendedTableViewController" object:nil];
 }
 
 - (void)awakeFromNib {

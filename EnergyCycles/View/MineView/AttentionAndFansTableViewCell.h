@@ -24,6 +24,10 @@
 @property (nonatomic, copy) NSString *userid;
 // 是否关注
 @property (nonatomic, assign) BOOL attention;
+// 是否为好友
+@property (nonatomic, assign) BOOL isFriends;
+// 好友名
+@property (nonatomic, copy) NSString *friendName;
 
 // 关注的数据
 - (void)getdateAttentionDataWithUserModel:(UserModel *)userModel;
@@ -31,5 +35,7 @@
 - (void)getdateFansDataWithUserModel:(UserModel *)userModel;
 // 其他用户的关注与粉丝的数据
 - (void)getdateDataWithOtherUserModel:(OtherUserModel *)otherUserModel;
+// 好友的数据
+- (void)getdateFriendsDataWithUserModel:(UserModel *)userModel;
 
 @end

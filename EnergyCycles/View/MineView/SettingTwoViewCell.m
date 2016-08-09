@@ -12,13 +12,13 @@
 
 - (void)updateDataWithSection:(NSInteger)section index:(NSInteger)index {
     if (section == 0) {
-        if (index == 0) {
-            self.leftLabel.text = @"个人资料";
-            [self lineView];
-        } else if (index == 1) {
+//        if (index == 0) {
+//            self.leftLabel.text = @"个人资料";
+//            [self lineView];
+//        } else if (index == 1) {
             self.leftLabel.text = @"账号管理";
-            [self lineView];
-        }
+//            [self lineView];
+//        }
     }
     if (section == 2) {
         if (index == 1) {
