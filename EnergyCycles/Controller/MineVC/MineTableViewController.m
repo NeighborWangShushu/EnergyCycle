@@ -248,10 +248,6 @@
     [self.delegate.tabbarController hideTabbar:YES];
 }
 
-//- (void)jumpToMessageViewController {
-//    [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
-//}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
@@ -262,9 +258,6 @@
     [self getUserInfo];
     [self getUserInfoModel];
     
-<<<<<<< HEAD
-    
-=======
     self.tableView.scrollsToTop = YES;
 }
 
@@ -285,18 +278,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
->>>>>>> wangbin
 }
 
 // 获取用户信息
 - (void)getUserInfo {
-    
-    AppDelegate*delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    if (delegate.isPushToMessageView) {
-        delegate.isPushToMessageView = NO;
-        [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
-    }
-    
     [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             
@@ -361,11 +346,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"JumpToIntroViewController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeHeadImage) name:@"ChangeHeadImage" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"reloadData" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToMessageViewController) name:@"PUSHTOMESSAGEVIEWCONTROLLER" object:nil];
     // Do any additional setup after loading the view.
 }
 
-<<<<<<< HEAD
-=======
 // 能量帖
 - (void)jumpToEnergyPostTableViewController {
     EnergyPostTableViewController *enVC = [[EnergyPostTableViewController alloc] init];
@@ -400,7 +384,6 @@
     [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
 }
 
->>>>>>> wangbin
 - (void)changeHeadImage {
     
     if (!self.picker) {
@@ -419,7 +402,6 @@
         self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [self.view.window.rootViewController presentViewController:self.picker animated:YES completion:nil];
     }];
-    
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cameraAction];
     [alert addAction:photoAciton];
