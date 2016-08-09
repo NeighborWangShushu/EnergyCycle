@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="ibT-XF-nB3" customClass="MineHomePageHeadView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="290"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ehw-bt-Ua0">
@@ -105,19 +105,6 @@
                         </mask>
                     </variation>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hqh-2s-8E6" customClass="HMSegmentedControl">
-                    <rect key="frame" x="0.0" y="250" width="320" height="40"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="Xe4-ZD-C6Z"/>
-                        <constraint firstAttribute="height" constant="40" id="p2A-xW-NpR"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="Xe4-ZD-C6Z"/>
-                        </mask>
-                    </variation>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVY-fm-nkH">
                     <rect key="frame" x="20" y="222" width="280" height="28"/>
                     <connections>
@@ -146,6 +133,18 @@
                         <action selector="jumpToFansController:" destination="ibT-XF-nB3" eventType="touchUpInside" id="jh2-Ug-0oC"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hqh-2s-8E6" customClass="HMSegmentedControl">
+                    <rect key="frame" x="0.0" y="250" width="320" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="Xe4-ZD-C6Z"/>
+                        <constraint firstAttribute="height" constant="40" id="p2A-xW-NpR"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Xe4-ZD-C6Z"/>
+                        </mask>
+                    </variation>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -160,6 +159,7 @@
                 <constraint firstItem="ehw-bt-Ua0" firstAttribute="top" secondItem="ibT-XF-nB3" secondAttribute="top" constant="-250" id="8Xa-Wp-uIm"/>
                 <constraint firstItem="UYn-XY-rUx" firstAttribute="leading" secondItem="UY9-i1-ZXp" secondAttribute="trailing" constant="10" id="Afe-HV-3ZR"/>
                 <constraint firstItem="BHH-2y-UNx" firstAttribute="top" secondItem="UY9-i1-ZXp" secondAttribute="bottom" constant="15" id="EsM-Lg-LdM"/>
+                <constraint firstAttribute="bottom" secondItem="Hqh-2s-8E6" secondAttribute="bottom" id="HTp-ec-wgL"/>
                 <constraint firstItem="Arw-qJ-nlk" firstAttribute="centerX" secondItem="ibT-XF-nB3" secondAttribute="centerX" id="HWL-Vt-luS"/>
                 <constraint firstItem="Arw-qJ-nlk" firstAttribute="top" secondItem="AHR-TL-hMf" secondAttribute="bottom" constant="29" id="Hqk-2S-V0J"/>
                 <constraint firstItem="cYH-wt-X7G" firstAttribute="centerY" secondItem="Arw-qJ-nlk" secondAttribute="centerY" id="KSb-md-y5k"/>
@@ -197,6 +197,7 @@
                 <outlet property="addressLabel" destination="pSd-uu-ZNk" id="heP-7S-xt8"/>
                 <outlet property="attentionButton" destination="BHH-2y-UNx" id="ElQ-rL-aPI"/>
                 <outlet property="backgroundImage" destination="ehw-bt-Ua0" id="tXR-5b-0fU"/>
+                <outlet property="backgroundImageHeight" destination="kYU-nm-eG1" id="Rh0-ne-5RA"/>
                 <outlet property="constraint" destination="Hqk-2S-V0J" id="VrS-XG-AuK"/>
                 <outlet property="fansButton" destination="cYH-wt-X7G" id="QbI-uJ-vv3"/>
                 <outlet property="headImage" destination="UYn-XY-rUx" id="1sq-mH-0tf"/>
@@ -209,7 +210,7 @@
                 <outlet property="segControl" destination="Hqh-2s-8E6" id="2QZ-zl-ZwM"/>
                 <outlet property="sexImage" destination="b0h-wD-U8f" id="OZO-uI-uNu"/>
             </connections>
-            <point key="canvasLocation" x="483" y="281"/>
+            <point key="canvasLocation" x="577" y="565"/>
         </view>
     </objects>
     <resources>

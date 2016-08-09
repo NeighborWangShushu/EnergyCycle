@@ -19,6 +19,7 @@
 #import "AttentionAndFansTableViewController.h"
 #import "EnergyPostTableViewController.h"
 #import "PKRecordTableViewController.h"
+#import "ToDayPKTableViewController.h"
 #import "MyProfileViewController.h"
 #import "ECAvatarManager.h"
 #import "MineChatViewController.h"
@@ -62,6 +63,7 @@
     [self getUserInfoModel];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PKRecordTableViewController" object:self userInfo:@{@"userId" : self.userId}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ToDayTableViewController" object:self userInfo:@{@"userId" : self.userId}];
     // 通知中心
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mineHomePageReloadView) name:@"mineHomePageReloadView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headViewChangeHeadImage) name:@"headViewChangeHeadImage" object:nil];
@@ -74,9 +76,11 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.translucent = NO;
-    UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
-    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = nil;
+//    UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
+//    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = nil;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -136,17 +140,19 @@
         rect.origin.y = kNavigationHeight - kHeaderImgHeight;
         self.mineView.frame = rect;
     } else {
-        if (![self.mineView.superview isEqual:tableView]) {
-            for (UIView *view in tableView.subviews) {
-                if ([view isKindOfClass:[UIImageView class]]) {
-                    [tableView insertSubview:self.mineView belowSubview:view];
-                    break;
-                }
-            }
-        }
+        [self.view insertSubview:self.mineView belowSubview:self.navigationController.navigationBar];
+        
+//        if (offsetY < 0) {
+////            CGFloat scale = (kHeaderImgHeight - kNavigationHeight) / offsetY;
+//            self.mineView.backgroundImage.frame = CGRectMake(self.mineView.backgroundImage.frame.origin.x, self.mineView.backgroundImage.frame.origin.y, self.mineView.backgroundImage.frame.size.width / (- offsetY * 0.5), self.mineView.backgroundImage.frame.size.height / (- offsetY * 0.5));
+////            self.mineView.backgroundImageHeight.constant = 250 - offsetY;
+//        }
+        
         CGRect rect = self.mineView.frame;
-        rect.origin.y = 0;
+        rect.origin.y = - offsetY;
+        NSLog(@"y = %f",rect.origin.y);
         self.mineView.frame = rect;
+
     }
     
     if (offsetY > 0) {
@@ -172,11 +178,15 @@
     energyVC.delegate = self;
     PKRecordTableViewController *pkVC = [[PKRecordTableViewController alloc] init];
     pkVC.tableView.showsVerticalScrollIndicator = NO;
+//    pkVC.tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     pkVC.delegate = self;
-    
+//    ToDayPKTab
+    ToDayPKTableViewController *toDayVC = [[ToDayPKTableViewController alloc] init];
+    toDayVC.tableView.showsVerticalScrollIndicator = NO;
+    toDayVC.delegate = self;
     [self addChildViewController:energyVC];
     [self addChildViewController:pkVC];
-    
+    [self addChildViewController:toDayVC];
 }
 
 // 添加头视图
@@ -219,12 +229,7 @@
     [self.view insertSubview:newVC.view belowSubview:self.navigationController.navigationBar];
     if (offsetY <= kHeaderImgHeight - kNavigationHeight) {
         [newVC.view addSubview:self.mineView];
-        for (UIView *view in newVC.view.subviews) {
-            if ([view isKindOfClass:[UIImageView class]]) {
-                [newVC.view insertSubview:self.mineView belowSubview:view];
-                break;
-            }
-        }
+        
         CGRect rect = self.mineView.frame;
         rect.origin.y = 0;
         self.mineView.frame = rect;
@@ -506,11 +511,11 @@
 
 // 创建分段控件
 - (void)createSegmentControl {
-    self.segControl.sectionTitles = @[@"能量贴                    ",@"PK记录                    "];
+    self.segControl.sectionTitles = @[@"能量贴          ",@"PK记录          ",@"今日PK          "];
     // 横线的高度
     self.segControl.selectionIndicatorHeight = 2.0f;
     // 背景颜色
-    self.segControl.backgroundColor = [UIColor clearColor];
+    self.segControl.backgroundColor = [UIColor whiteColor];
     // 横线的颜色
     self.segControl.selectionIndicatorColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
     // 横线在底部出现
@@ -523,7 +528,7 @@
     self.segControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:242/ 255.0 green:77/255.0 blue:77/255.0 alpha:1], NSFontAttributeName:[UIFont systemFontOfSize:14]};
     // 初始位置
     if (self.isPK) {
-        self.segControl.selectedSegmentIndex = 1;
+        self.segControl.selectedSegmentIndex = 2;
     } else {
         self.segControl.selectedSegmentIndex = 0;
     }
