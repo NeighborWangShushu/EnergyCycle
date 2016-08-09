@@ -25,6 +25,7 @@
 
 @implementation leaderboardViewController
 
+<<<<<<< HEAD
 - (void)rightAction {
     IntegralMallViewController *imVC = MainStoryBoard(@"IntegralMallViewController");
     [self.navigationController pushViewController:imVC animated:YES];
@@ -34,6 +35,16 @@
     [super viewWillAppear:animated];
     [self setupRightNavBarWithTitle:@"商城"];
 }
+=======
+//- (void)rightAction {
+//    IntegralMallViewController *imVC = MainStoryBoard(@"IntegralMallViewController");
+//    [self.navigationController pushViewController:imVC animated:YES];
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated {
+//    [self setupRightNavBarWithTitle:@"商城"];
+//}
+>>>>>>> wangbin
 
 - (void)leftAction {
     [self.navigationController popViewControllerAnimated:YES];

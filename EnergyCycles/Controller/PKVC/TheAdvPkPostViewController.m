@@ -51,12 +51,12 @@
     pkPostTableView.showsVerticalScrollIndicator = NO;
     pkPostTableView.backgroundColor = [UIColor clearColor];
     
-    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     rightButton.frame = CGRectMake(0, 0, 35, 30);
     [rightButton setTitle:@"提交" forState:UIControlStateNormal];
-    [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
@@ -102,8 +102,10 @@
     [super viewWillAppear:animated];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
 }
 
 #pragma mark - 提交按键响应事件
@@ -453,7 +455,8 @@
         }
         //资源类型为照相机
         picker.sourceType = sourceType;
-        [self presentViewController:picker animated:YES completion:nil];
+//        [self presentViewController:picker animated:YES completion:nil];
+        [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
     }else {
         NSLog(@"该设备无摄像头");
     }
@@ -478,7 +481,8 @@
             return YES;
         }
     }];
-    [self presentViewController:picker animated:YES completion:nil];
+//    [self presentViewController:picker animated:YES completion:nil];
+    [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
     
 }
 

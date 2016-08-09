@@ -10,13 +10,13 @@
 
 @implementation CacheManager
 
-- (long long)fileSizeAtPath:(NSString *)path {
+- (CGFloat)fileSizeAtPath:(NSString *)path {
     // 创建NSFileManager对象来对文件进行管理
     NSFileManager *fileManager = [NSFileManager defaultManager];
     // 判断获取到的路径是否正确,如果不正确就直接返回大小为0
     if ([fileManager fileExistsAtPath:path]) {
         // NSFileManager对象根据路径获取文件的属性,从而得到文件的大小
-        long long size = [fileManager attributesOfItemAtPath:path error:nil].fileSize;
+        CGFloat size = [fileManager attributesOfItemAtPath:path error:nil].fileSize;
         return size;
     }
     return 0;
@@ -24,15 +24,12 @@
 
 - (CGFloat)folderSizeAtPath:(NSString *)path {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
-    cachePath = [cachePath stringByAppendingPathComponent:path];
-    long long folderSize = 0;
-    if ([fileManager fileExistsAtPath:cachePath]) {
-        NSArray *childerFiles = [fileManager subpathsAtPath:cachePath];
+    CGFloat folderSize = 0;
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles = [fileManager subpathsAtPath:path];
         for (NSString *fileName in childerFiles) {
-            NSString *fileAbsolutePath = [cachePath stringByAppendingPathComponent:fileName];
-            long long size = [self fileSizeAtPath:fileAbsolutePath];
-            folderSize += size;
+            NSString *fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
+            folderSize += [self fileSizeAtPath:fileAbsolutePath];
         }
         
         // SDWebImage
@@ -43,14 +40,12 @@
 }
 
 - (void)clearCache:(NSString *)path {
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
-    cachePath = [cachePath stringByAppendingPathComponent:path];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:cachePath]) {
-        NSArray *childerFiles = [fileManager subpathsAtPath:cachePath];
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles = [fileManager subpathsAtPath:path];
         for (NSString *fileName in childerFiles) {
-            NSString *fileAbsolutePath = [cachePath stringByAppendingPathComponent:fileName];
+            NSString *fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
             [fileManager removeItemAtPath:fileAbsolutePath error:nil];
         }
     }
@@ -65,25 +60,9 @@
  */
 
 + (CGFloat)getCachesSizeCount {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *caches = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-    NSArray *contents = [fileManager subpathsAtPath:caches];
-    CGFloat totolCount = 0;
-    for (NSString * fileName in contents) {
-//        NSLog(@"%@",fileName);
-        //拼接当前文件夹的名字
-        NSString * path = [caches stringByAppendingPathComponent:fileName];
-        //判断当前文件中是否存在该文件
-        if ([fileManager fileExistsAtPath:path ]) {
-            //计算当前的文件夹的大小
-            CGFloat size = [[fileManager attributesOfItemAtPath:path error:nil][NSFileSize] floatValue];
-            //累加
-            totolCount += size;
-        }
-    }
-    // SDWebImage的缓存
-    totolCount += [[SDImageCache sharedImageCache] getSize];
-    return totolCount/1024.0/1024.0;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths lastObject];
+    return [[CacheManager alloc] folderSizeAtPath:path];
 }
 
 /**
@@ -92,19 +71,9 @@
  
  */
 + (void)cleadDisk {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *caches = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)lastObject];
-    NSArray *contents = [fileManager subpathsAtPath:caches];
-    for (NSString * fileName in contents) {
-//        NSLog(@"%@",fileName);
-        //拼接当前文件夹的名字
-        NSString *path = [caches stringByAppendingPathComponent:fileName];
-        //判断当前文件中是否存在该文件
-        if ([fileManager fileExistsAtPath:path ]) {
-            [fileManager removeItemAtPath:path error:nil];
-        }
-    }
-    [[SDImageCache sharedImageCache] clearDisk];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths lastObject];
+    [[CacheManager alloc] clearCache:path];
 }
 
 @end

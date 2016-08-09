@@ -39,10 +39,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView *introImage;
 // 简介按钮
 @property (weak, nonatomic) IBOutlet UIButton *introButton;
-// 约束
+// 内部控件约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
 // 分段控件
 @property (weak, nonatomic) IBOutlet HMSegmentedControl *segControl;
+// 下拉动效约束
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundImageHeight;
 
 @property (nonatomic, strong) UserModel *model;
 

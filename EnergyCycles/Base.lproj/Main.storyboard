@@ -2495,13 +2495,13 @@
         <scene sceneID="Mzx-Sn-Y99">
             <objects>
                 <tableViewController id="6KS-XE-o5U" customClass="MineTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ePY-Jh-EQ9">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="ePY-Jh-EQ9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zfr-Mk-bGQ">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="113.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zfr-Mk-bGQ" id="F4M-Q6-4mp">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -4565,10 +4565,10 @@
                         <viewControllerLayoutGuide type="bottom" id="kay-XS-Q08"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="FmF-0m-7xf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="yZj-75-x2L">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="yZj-75-x2L">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -4604,10 +4604,10 @@
                         <viewControllerLayoutGuide type="bottom" id="r18-DH-598"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7k2-8T-jWE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0AA-1G-iHr">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0AA-1G-iHr">
                                 <rect key="frame" x="0.0" y="74" width="375" height="55"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学员姓名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSt-Iu-2Mg">
@@ -4619,7 +4619,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fU5-d6-wiI">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fU5-d6-wiI">
                                         <rect key="frame" x="85" y="8" width="240" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="lVV-ad-7Vb"/>
@@ -4628,7 +4628,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNg-Bd-l22">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNg-Bd-l22">
                                         <rect key="frame" x="333" y="0.0" width="40" height="55"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="LFf-OE-9Uo"/>
@@ -5387,10 +5387,10 @@
                         <viewControllerLayoutGuide type="bottom" id="F5T-JE-n61"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="B3R-f4-k49">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9Tl-Fm-kGL" customClass="CustomTextView">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9Tl-Fm-kGL" customClass="CustomTextView">
                                 <rect key="frame" x="12" y="74" width="351" height="150"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -6205,6 +6205,7 @@
         <image name="write_normal.png" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
+<<<<<<< HEAD
         <segue reference="HwS-RU-Cgf"/>
         <segue reference="mMa-EG-ekD"/>
         <segue reference="I2i-X2-oaq"/>
@@ -6213,5 +6214,15 @@
         <segue reference="PKj-mJ-5kS"/>
         <segue reference="R8s-I5-eNH"/>
         <segue reference="XSA-PQ-u0b"/>
+=======
+        <segue reference="vpn-CB-KIX"/>
+        <segue reference="PKj-mJ-5kS"/>
+        <segue reference="Jyv-eP-V7z"/>
+        <segue reference="axj-NJ-TGV"/>
+        <segue reference="HwS-RU-Cgf"/>
+        <segue reference="mMa-EG-ekD"/>
+        <segue reference="R8s-I5-eNH"/>
+        <segue reference="ZMB-6O-NCg"/>
+>>>>>>> wangbin
     </inferredMetricsTieBreakers>
 </document>

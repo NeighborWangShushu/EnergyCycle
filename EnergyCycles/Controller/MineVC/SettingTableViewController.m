@@ -24,12 +24,12 @@
 
 // 分组数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 3;
 }
 
 // 每一组的行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0 || section == 2) {
+    if (section == 2) {
         return 3;
     } else {
         return 1;
@@ -109,7 +109,6 @@
                 cell = [[NSBundle mainBundle] loadNibNamed:@"SettingThreeViewCell" owner:self options:nil].lastObject;
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
             [cell updateDataWithData:[CacheManager getCachesSizeCount]]; // 获取缓存大小
             NSLog(@"%f",[CacheManager getCachesSizeCount]);
             
@@ -130,10 +129,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) { // 个人资料
-            [self performSegueWithIdentifier:@"MyProfileViewController" sender:nil];
-        }
-        if (indexPath.row == 1) { // 账号管理
+//        if (indexPath.row == 0) { // 个人资料
+//            [self performSegueWithIdentifier:@"MyProfileViewController" sender:nil];
+//        }
+        if (indexPath.row == 0) { // 账号管理
             NSString *phoneNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"];
             if ([phoneNumber isEqualToString:@""] || phoneNumber == nil) {
                 [self performSegueWithIdentifier:@"AMBoundPhoneViewController" sender:nil];
@@ -151,9 +150,10 @@
         } else if (indexPath.row == 2) { // 关于
             [self performSegueWithIdentifier:@"AboutViewController" sender:nil];
         }
-    } else { // 确认退出
-        [self exit];
     }
+//    } else { // 确认退出
+//        [self exit];
+//    }
     
 }
 
@@ -167,18 +167,13 @@
 // 获取应用通知开关状态
 - (BOOL)isAllowedNotification
 {
-    if
-        ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {// system is iOS8 +
-            UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
-            if
-                (UIUserNotificationTypeNone != setting.types) {
-                    return YES;
-                }
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) { // system is iOS8 +
+        UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
+        if (UIUserNotificationTypeNone != setting.types) {
+            return YES;
         }
-    else
-    {// iOS7
+    } else { // iOS7
         UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-        
         if(UIRemoteNotificationTypeNone != type)
             return YES;
     }
