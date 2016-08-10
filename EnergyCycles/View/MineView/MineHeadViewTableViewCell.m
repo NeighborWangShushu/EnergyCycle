@@ -39,11 +39,12 @@
     }
     
     // 积分
-    self.integralLabel.text = model.jifen;
+    self.integralLabel.text = [NSString stringWithFormat:@"%@积分", model.jifen];
     
     // 地址
     if ([model.city isEqualToString:@""] || model.city == nil) {
         self.addressImage.hidden = YES;
+        self.addressLabel.text = @"";
     } else {
         self.addressImage.hidden = NO;
         self.addressLabel.text = model.city;

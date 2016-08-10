@@ -377,7 +377,11 @@
             }
             
             [_dataArr replaceObjectAtIndex:index withObject:subModel];
-            [pkEveryDayTableView reloadData];
+//            [pkEveryDayTableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+//                [pkEveryDayTableView reloadData];
+                [self loadDataWithIndexWithProjectId:[myModel.PKId integerValue] Page:page];
+            });
         }else {
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }

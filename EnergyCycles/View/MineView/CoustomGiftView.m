@@ -60,7 +60,8 @@
     [backView addSubview:titleLabel];
     
     inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(28, 103, Screen_width-40-56, 39)];
-    inputTextField.placeholder = @"  填写赠送积分";
+    inputTextField.placeholder = @"填写赠送积分";
+    inputTextField.textAlignment = NSTextAlignmentCenter;
     inputTextField.layer.borderWidth = 1.f;
     inputTextField.layer.borderColor = [[UIColor blackColor] colorWithAlphaComponent:0.15].CGColor;
     inputTextField.keyboardType = UIKeyboardTypeNumberPad;

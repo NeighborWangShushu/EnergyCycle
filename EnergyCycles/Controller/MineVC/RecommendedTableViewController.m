@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
+@property (nonatomic, assign) BOOL noData;
+
 @end
 
 @implementation RecommendedTableViewController
@@ -100,7 +102,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataArray count];
+    if ([self.dataArray count] == 0) {
+        self.noData = YES;
+        return 1;
+    } else {
+        self.noData = NO;
+        return [self.dataArray count];
+    }
+//    return [self.dataArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -115,6 +124,12 @@
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"MineRecommendedTableViewCell" owner:self options:nil].lastObject;
     }
+    
+    if (self.noData) {
+        [cell noData];
+        return cell;
+    }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     RecommentModel *model = self.dataArray[indexPath.row];
     [cell updateDataWithModel:model];

@@ -33,7 +33,7 @@
 
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     BOOL isCheck;
-
+    
 }
 
 @property (nonatomic, strong) NSMutableDictionary *userInfoDict;
@@ -74,9 +74,9 @@
 
 // 每一组的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    if (section == 0) {
-//        return 0;
-//    }
+    //    if (section == 0) {
+    //        return 0;
+    //    }
     return 0.01f;
 }
 
@@ -110,14 +110,14 @@
 // 每行的内容
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-//        static NSString *mineHeadTableViewCell = @"mineHeadTableViewCell";
-//        MineHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mineHeadTableViewCell];
-//        
-//        if (cell == nil) {
-//            cell = [[NSBundle mainBundle] loadNibNamed:@"MineHeadTableViewCell" owner:self options:nil].lastObject;
-//        }
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        [cell updateDataWithModel:self.model infoModel:self.infoModel];
+        //        static NSString *mineHeadTableViewCell = @"mineHeadTableViewCell";
+        //        MineHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mineHeadTableViewCell];
+        //
+        //        if (cell == nil) {
+        //            cell = [[NSBundle mainBundle] loadNibNamed:@"MineHeadTableViewCell" owner:self options:nil].lastObject;
+        //        }
+        //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        //        [cell updateDataWithModel:self.model infoModel:self.infoModel];
         
         static NSString *mineHeadViewTableViewCell = @"mineHeadViewTableViewCell";
         MineHeadViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mineHeadViewTableViewCell];
@@ -148,10 +148,10 @@
         [self performSegueWithIdentifier:@"MineHomePageViewController" sender:nil];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) { // 能量圈
-//            EnergyPostTableViewController *enVC = [[EnergyPostTableViewController alloc] init];
-//            enVC.userId = self.model.use_id;
-//            enVC.isMineTableView = YES;
-//            [self.navigationController pushViewController:enVC animated:YES];
+            //            EnergyPostTableViewController *enVC = [[EnergyPostTableViewController alloc] init];
+            //            enVC.userId = self.model.use_id;
+            //            enVC.isMineTableView = YES;
+            //            [self.navigationController pushViewController:enVC animated:YES];
         } else if (indexPath.row == 1) { // 我的资料
             [self.delegate.tabbarController hideTabbar:YES];
             MyProfileViewController *myVC = MainStoryBoard(@"MyProfileViewController");
@@ -175,15 +175,15 @@
             [self.delegate.tabbarController hideTabbar:YES];
             [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
         }
-//        } else if (indexPath.row == 4) { // PK记录
-//            PKRecordTableViewController *pkVC = [[PKRecordTableViewController alloc] init];
-//            pkVC.userId = self.model.use_id;
-//            pkVC.isMineTableView = YES;
-//            [self.navigationController pushViewController:pkVC animated:YES];
-//        } else if (indexPath.row == 5) { // 推荐用户
-//            RecommendedTableViewController *reVC = [[RecommendedTableViewController alloc] init];
-//            [self.navigationController pushViewController:reVC animated:YES];
-//        }
+        //        } else if (indexPath.row == 4) { // PK记录
+        //            PKRecordTableViewController *pkVC = [[PKRecordTableViewController alloc] init];
+        //            pkVC.userId = self.model.use_id;
+        //            pkVC.isMineTableView = YES;
+        //            [self.navigationController pushViewController:pkVC animated:YES];
+        //        } else if (indexPath.row == 5) { // 推荐用户
+        //            RecommendedTableViewController *reVC = [[RecommendedTableViewController alloc] init];
+        //            [self.navigationController pushViewController:reVC animated:YES];
+        //        }
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) { // 积分榜
             [self.delegate.tabbarController hideTabbar:YES];
@@ -218,10 +218,11 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"isUnLoginSetAPService" object:nil];
-        EnetgyCycle.energyTabBar.selectedIndex = 0;
-//        [self.tableView reloadData];
+        //        EnetgyCycle.energyTabBar.selectedIndex = 0;
+        [EnetgyCycle.tabbarController setSelectIndex:0];
+        //        [self.tableView reloadData];
         
-//        [self.navigationController popToRootViewControllerAnimated:YES];
+        //        [self.navigationController popToRootViewControllerAnimated:YES];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:exitAction];
@@ -269,12 +270,15 @@
     }
 }
 
+//- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+//    scrollView.scrollsToTop = YES;
+//}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < 0) {
         [scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
     }
-
+    
 }
 
 //- (void)viewDidDisappear:(BOOL)animated {
@@ -303,7 +307,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"nickname"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"nickname"] forKey:@"UserNickName"];
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"photourl"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"photourl"] forKey:@"headpic"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-            
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
                 });
@@ -332,7 +336,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.automaticallyAdjustsScrollViewInsets = NO;
+    //    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
@@ -340,8 +344,8 @@
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    [self getUserInfo];
-//    [self getUserInfoModel];
+    //    [self getUserInfo];
+    //    [self getUserInfoModel];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToEnergyPostTableViewController) name:@"jumpToEnergyPostTableViewController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToToDayPKTableViewController) name:@"jumpToToDayPKTableViewController" object:nil];
@@ -365,8 +369,8 @@
 
 // 每日PK
 - (void)jumpToToDayPKTableViewController {
-//    MineEveryDayPKViewController *everyVC = MainStoryBoard(@"MineEveryDayPKVCID");
-//    [self.navigationController pushViewController:everyVC animated:YES];
+    //    MineEveryDayPKViewController *everyVC = MainStoryBoard(@"MineEveryDayPKVCID");
+    //    [self.navigationController pushViewController:everyVC animated:YES];
     PKGatherViewController *pkVC = [[PKGatherViewController alloc] init];
     [self.navigationController pushViewController:pkVC animated:YES];
 }
@@ -395,6 +399,7 @@
         self.picker = [[UIImagePickerController alloc] init];
         self.picker.delegate = self;
         self.picker.allowsEditing = YES;
+        self.picker.navigationBar.tintColor = [UIColor whiteColor];
     }
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -447,13 +452,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

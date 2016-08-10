@@ -418,6 +418,7 @@
         self.picker = [[UIImagePickerController alloc] init];
         self.picker.delegate = self;
         self.picker.allowsEditing = YES;
+        self.picker.navigationBar.tintColor = [UIColor whiteColor];
     }
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
