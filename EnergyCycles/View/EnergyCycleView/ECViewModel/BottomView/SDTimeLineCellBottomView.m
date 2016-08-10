@@ -130,12 +130,12 @@
 
 - (void)setModel:(ECTimeLineModel *)model {
     _model = model;
-    icon = model.liked?[UIImage imageNamed:@"ec_like_selected"]:[UIImage imageNamed:@"ec_like"];
+    icon = model.liked?[UIImage imageNamed:@"ec_like_selected"]:[UIImage imageNamed:@"ec_like_normal"];
     [button setImage:icon forState:UIControlStateNormal];
 }
 
 - (void)setup {
-    UIImage *highlight = nil;
+    
     NSString * title;
     
     
