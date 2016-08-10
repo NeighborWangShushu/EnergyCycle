@@ -520,7 +520,7 @@
 
 // 创建分段控件
 - (void)createSegmentControl {
-    self.segControl.sectionTitles = @[@"能量贴          ",@"PK记录          ",@"今日PK          "];
+    self.segControl.sectionTitles = @[@"能量帖          ",@"PK记录          ",@"今日PK          "];
     // 横线的高度
     self.segControl.selectionIndicatorHeight = 2.0f;
     // 背景颜色

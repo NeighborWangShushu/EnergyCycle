@@ -170,7 +170,7 @@
     if (self.isMineTableView) {
         [self getDataWithUserId:self.userId];
         self.tableView.tableHeaderView = nil;
-        self.title = @"能量贴";
+        self.title = @"能量帖";
         self.navigationController.navigationBar.translucent = NO;
         self.tableView.showsVerticalScrollIndicator = NO;
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
