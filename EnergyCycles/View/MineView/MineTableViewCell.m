@@ -77,8 +77,10 @@
             self.leftImage.image = [UIImage imageNamed:@"mail-icon"];
             self.leftLabel.text = @"消息";
             self.rightLabel.text = userInfoModel.MsgCount;
-            if (userInfoModel.MsgCount == 0) {
-                self.rightLabel.textColor = [UIColor redColor];
+            if ([userInfoModel.MsgCount isEqualToString:@"0"] || userInfoModel.MsgCount == nil) {
+                self.rightLabel.textColor = [UIColor colorWithRed:155/255.0 green:155/255.0 blue:155/255.0 alpha:0.8];
+            } else {
+                self.rightLabel.textColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
             }
         }
     } else if (section == 2) {
