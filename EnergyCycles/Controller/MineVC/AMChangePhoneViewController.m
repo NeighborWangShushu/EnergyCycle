@@ -21,7 +21,7 @@
 @implementation AMChangePhoneViewController
 
 - (void)viewWillAppear:(BOOL)animated {
-    
+    [super viewWillAppear:animated];
 }
 
 - (IBAction)changePhone:(id)sender {

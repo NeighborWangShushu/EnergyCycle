@@ -38,7 +38,7 @@
     [super viewDidLoad];
     
     UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftbutton.frame = CGRectMake(0, 0, 30, 35);
+    leftbutton.frame = CGRectMake(0, 0, 30, 30);
     [leftbutton setBackgroundImage:[UIImage imageNamed:@"whiteback_normal"] forState:UIControlStateNormal];
     leftbutton.tag = 1002;
     [leftbutton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
@@ -53,6 +53,8 @@
     
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     [config.userContentController addScriptMessageHandler:self name:@"UserID"];
+    [config.userContentController addScriptMessageHandler:self name:@"SaveImg"];
+
     
     WKWebView * webview = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
     webview.backgroundColor = [UIColor redColor];
@@ -80,6 +82,12 @@
         MineHomePageViewController *home = MainStoryBoard(@"MineHomePageViewController");
         home.userId = user_id;
         [self.navigationController pushViewController:home animated:YES];
+    }else if ([message.name isEqualToString:@"SaveImg"]) {
+        NSString*img_id = (NSString*)[message.body objectForKey:@"body"];
+        NSLog(@"%@",img_id);
+        [[UIImageView new] sd_setImageWithURL:[NSURL URLWithString:img_id] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+        }];
     }
 }
 
@@ -97,6 +105,14 @@
 
 - (void)back:(UIButton*)button {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    
+    if (!error) {
+        [SVProgressHUD showImage:nil status:@"保存成功"];
+    }
 }
 
 

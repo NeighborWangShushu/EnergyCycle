@@ -284,8 +284,7 @@ AppDelegate *EnetgyCycle = nil;
         [[AppHttpManager shareInstance] getIsHasSignWithUserId:[User_ID intValue] Token:User_TOKEN PostOrGet:@"get" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 if ([dict[@"Data"] integerValue] == 0) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"今天还没有签到" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-                    [alertView show];
+                    [SVProgressHUD showImage:nil status:@"今日您还未签到!"];
                 }
             }
         } failure:^(NSString *str) {

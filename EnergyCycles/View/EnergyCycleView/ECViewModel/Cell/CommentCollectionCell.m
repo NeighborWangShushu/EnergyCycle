@@ -20,15 +20,15 @@
 
 - (void)showMore {
     [self.icon setImage:[UIImage imageNamed:@"ec_comment_more"]];
-    self.name.text = @"";
+    self.name.text = @"查看更多";
     
 }
 
 - (void)setModel:(CommentUserModel *)model {
     _model = model;
     self.icon.layer.masksToBounds = YES;
-    self.icon.layer.cornerRadius = self.icon.frame.size.width/2;
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:model.url] placeholderImage:nil];
+    self.icon.layer.cornerRadius = 25;
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:model.url] placeholderImage:EC_RECOMMEND_PLACEHOLDER];
     self.name.text = model.name;
     self.name.adjustsFontSizeToFitWidth = YES;
     

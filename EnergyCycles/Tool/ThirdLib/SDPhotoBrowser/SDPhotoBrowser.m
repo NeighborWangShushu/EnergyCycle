@@ -27,6 +27,7 @@
 {
     UIScrollView *_scrollView;
     BOOL _hasShowedFistView;
+    BOOL _isShowHighQualityImage;
     UILabel *_indexLabel;
     UIButton *_saveButton;
     UIActivityIndicatorView *_indicatorView;
@@ -37,6 +38,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _isShowHighQualityImage = YES;
         self.backgroundColor = SDPhotoBrowserBackgrounColor;
     }
     return self;
@@ -66,7 +68,7 @@
     indexLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     indexLabel.layer.cornerRadius = indexLabel.bounds.size.height * 0.5;
     indexLabel.clipsToBounds = YES;
-    if (self.imageCount > 1) {
+    if (self.imageCount > 0) {
         indexLabel.text = [NSString stringWithFormat:@"1/%ld", (long)self.imageCount];
     }
     _indexLabel = indexLabel;
@@ -158,11 +160,13 @@
 {
     SDBrowserImageView *imageView = _scrollView.subviews[index];
     self.currentImageIndex = index;
-    if (imageView.hasLoadedImage) return;
+    if (imageView.hasLoadedImage)return;
     if ([self highQualityImageURLForIndex:index]) {
-        [imageView setImageWithURL:[self highQualityImageURLForIndex:index] placeholderImage:[self placeholderImageForIndex:index]];
+        [imageView setImageWithURL:[self highQualityImageURLForIndex:index]  placeholderImage:[self placeholderImageForIndex:index]];
+ 
     } else {
         imageView.image = [self placeholderImageForIndex:index];
+        
     }
     imageView.hasLoadedImage = YES;
 }
@@ -171,7 +175,7 @@
 {
     _scrollView.hidden = YES;
     _willDisappear = YES;
-    
+    _isShowHighQualityImage = NO;
     SDBrowserImageView *currentImageView = (SDBrowserImageView *)recognizer.view;
     NSInteger currentIndex = currentImageView.tag;
     

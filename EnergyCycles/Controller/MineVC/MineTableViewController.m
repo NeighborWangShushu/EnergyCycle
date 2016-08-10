@@ -261,9 +261,14 @@
     self.tableView.scrollsToTop = YES;
 }
 
-//- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-//    scrollView.scrollsToTop = YES;
-//}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.delegate.isPushToMessageView) {
+        self.delegate.isPushToMessageView = NO;
+        [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
+    }
+}
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < 0) {

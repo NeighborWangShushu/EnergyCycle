@@ -59,7 +59,7 @@
     [self.comment1Button setTitle:model.commentNum forState:UIControlStateNormal];
     
     //视频
-    [self.videoImage sd_setImageWithURL:[NSURL URLWithString:model.videoFirstImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+    [self.videoImage sd_setImageWithURL:[NSURL URLWithString:model.videoFirstImg] placeholderImage:LEARN_PLACEHOLDER];
     self.videoTitle.text = [model.artTitle stringByRemovingPercentEncoding];
     self.videoContent.text = model.videoTitle;
     self.videoFrom.text = model.videoUrl;

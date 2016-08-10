@@ -8,6 +8,7 @@
 
 #import "PKGatherViewController.h"
 #import "HMSegmentedControl.h"
+#import "BrokenLineViewController.h"
 
 #import "ToDayPKTableViewCell.h"
 #import "MinePKRecordViewTableViewCell.h"
@@ -73,7 +74,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.toDayArr) {
+    if (self.isToDay) {
         static NSString *toDayPKTableViewCell = @"toDayPKTableViewCell";
         ToDayPKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:toDayPKTableViewCell];
         
@@ -102,6 +103,20 @@
         
         return cell;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    BrokenLineViewController *blVC = MainStoryBoard(@"BrokenLineViewController");
+    if (self.isToDay) {
+        OtherReportModel *model = self.toDayArr[indexPath.row];
+        //        blVC.projectID = model.repItemId;
+        blVC.showStr = model.RI_Name;
+    } else {
+        MyPkEveryModel *model = self.pkRecordArr[indexPath.row];
+        blVC.projectID = model.pId;
+        blVC.showStr = model.name;
+    }
+    [self.navigationController pushViewController:blVC animated:YES];
 }
 
 - (void)getToDayPKData {
@@ -156,15 +171,37 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    [self getToDayPKData];
-    
-    [self segmentedControlChangedValue:self.segControl];
+    [self getToDayPKData];
+    self.title = @"每日PK";
+
+//    [self segmentedControlChangedValue:self.segControl];
     
     // Do any additional setup after loading the view.
 }
 
 - (void)rightAction {
-
+    NSString *contentStr = @"";
+    for (NSInteger i=0; i<self.toDayArr.count; i++) {
+        OtherReportModel *model = (OtherReportModel *)self.toDayArr[i];
+        
+        if (i == self.toDayArr.count-1) {
+            contentStr = [NSString stringWithFormat:@"%@%@%@%@",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
+        }else {
+            contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
+        }
+    }
+    NSString *shareStr = [NSString stringWithFormat:@"我今天%@，加入能量圈，和我一起PK吧！",contentStr];
+    shareView = [[XMShareView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height)];
+    shareView.alpha = 0.0;
+    shareView.shareTitle = shareStr;
+    shareView.shareText = @"";
+    NSString * share_url = @"";
+    share_url = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%@",MYJYAppId];
+    shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
+    [[UIApplication sharedApplication].keyWindow addSubview:shareView];
+    [UIView animateWithDuration:0.25 animations:^{
+        shareView.alpha = 1.0;
+    }];
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl*)sender {

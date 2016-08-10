@@ -162,7 +162,7 @@
         NSDictionary * dic=_dataArray[indexPath.row];
         [cell.iconButton sd_setBackgroundImageWithURL:[NSURL URLWithString:dic[@"photourl"]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
         cell.iconButton.tag = 10001 + indexPath.row;
-        cell.nameLabel.text=dic[@"nickname"];
+        cell.nameLabel.text=dic[@"nickName"];
         
         if ([_stateArray[indexPath.row] intValue]==1) {
             cell.focusButton.selected=YES;

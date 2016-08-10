@@ -20,7 +20,6 @@
 #define User_PHONE [[AppHelpManager sharedInstance] readPhone]
 #define User_NAME [[AppHelpManager sharedInstance] readUserName]
 
-
 #define MYJYAppId @"1079791492"
 
 #define Html(id) [NSString stringWithFormat:@"%@/html/Study/html/StudyDetail.aspx?Id=%@",INTERFACE_URL,id]
@@ -30,6 +29,16 @@
 #define HtmlShare(id,user) [NSString stringWithFormat:@"%@/html/Study/html/StudyDetail.aspx?Id=%@&userId=%@&is_Share=1",INTERFACE_URL,id,user]
 
 
+#define EC_ARTICLE_PLACEHOLDER [UIImage imageNamed:@"ec_article_placeholder"]
+
+#define EC_AVATAR_PLACEHOLDER [UIImage imageNamed:@"ec_avatar_placeholder"]
+
+#define EC_RECOMMEND_PLACEHOLDER [UIImage imageNamed:@"ec_comment_placeholder"]
+
+#define LEARN_BANNER_PLACEHOLDER [UIImage imageNamed:@"learn_banner_placeholder"]
+
+#define LEARN_PLACEHOLDER [UIImage imageNamed:@"learn_placeholder"]
+
 
 //本地-习进
 //#define INTERFACE_URL @"http://10.40.200.170:8082"
@@ -37,7 +46,10 @@
 //#define INTERFACE_URL @"http://10.40.200.186:8089/"
 
 //测试环境
-#define INTERFACE_URL @"http://192.168.2.13:8888/"
+//#define INTERFACE_URL @"http://192.168.2.13:8888/"
+
+//测试公网环境
+#define INTERFACE_URL @"http://120.26.218.68:8888/"
 
 //正式环境
 //#define INTERFACE_URL @"http://120.26.218.68:8038"  
@@ -325,7 +337,6 @@
 
 #define ArticleDetailAspx          @"html/Article/ArticleDetail.aspx"
 
-
 //83.获取进阶pk帖子详情h5页面
 #define PostDetailAspx             @"html/PostDetail.aspx"
 
@@ -369,6 +380,7 @@
 #define ChangeBackgroundImg        @"/user/App_User_BackgroundImg_Upd"
 
 
+
 //98.获取能量圈列表(查看其他人的能量圈)
 #define GetOtherArticleList        @"Article/Article_List"
 
@@ -378,6 +390,8 @@
 //100.将消息置为已读
 #define Message_Readed             @"/user/Message_Readed"
 
+//101. 未读消息
+#define MyMessage @"/user/MyMessageNum_Get"
 
 
 

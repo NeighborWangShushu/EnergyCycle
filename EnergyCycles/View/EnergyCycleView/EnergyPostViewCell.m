@@ -18,7 +18,7 @@
 @implementation EnergyPostViewCell
 
 - (void)awakeFromNib {
-    self.informationTextView.placehoder = @"说点什么吧...";
+    self.informationTextView.placehoder = @"说点什么吧... \r正文字数不得少于30字";
 
     
     
