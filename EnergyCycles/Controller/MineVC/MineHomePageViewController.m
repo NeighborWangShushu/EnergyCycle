@@ -71,6 +71,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToAttentionController) name:@"jumpToAttentionController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HomePageViewControllerReloadData) name:@"HomePageViewControllerReloadData" object:nil];
+}
+
+- (void)HomePageViewControllerReloadData {
+    [self getUserInfo];
+    [self getUserInfoModel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -150,7 +156,7 @@
         
         CGRect rect = self.mineView.frame;
         rect.origin.y = - offsetY;
-        NSLog(@"y = %f",rect.origin.y);
+//        NSLog(@"y = %f",rect.origin.y);
         self.mineView.frame = rect;
 
     }
@@ -514,7 +520,7 @@
 
 // 创建分段控件
 - (void)createSegmentControl {
-    self.segControl.sectionTitles = @[@"能量贴          ",@"PK记录          ",@"今日PK          "];
+    self.segControl.sectionTitles = @[@"能量帖          ",@"PK记录          ",@"今日PK          "];
     // 横线的高度
     self.segControl.selectionIndicatorHeight = 2.0f;
     // 背景颜色

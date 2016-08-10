@@ -366,6 +366,7 @@
 
 // 能量帖
 - (void)jumpToEnergyPostTableViewController {
+    [self.delegate.tabbarController hideTabbar:YES];
     EnergyPostTableViewController *enVC = [[EnergyPostTableViewController alloc] init];
     enVC.userId = self.model.use_id;
     enVC.isMineTableView = YES;
@@ -374,6 +375,7 @@
 
 // 每日PK
 - (void)jumpToToDayPKTableViewController {
+    [self.delegate.tabbarController hideTabbar:YES];
     //    MineEveryDayPKViewController *everyVC = MainStoryBoard(@"MineEveryDayPKVCID");
     //    [self.navigationController pushViewController:everyVC animated:YES];
     PKGatherViewController *pkVC = [[PKGatherViewController alloc] init];
@@ -382,6 +384,7 @@
 
 // 进阶PK
 - (void)jumpToMineAdvPKViewController {
+    [self.delegate.tabbarController hideTabbar:YES];
     MineAdvPKViewController *advVC = MainStoryBoard(@"MineAdvPKVCID");
     advVC.showTitle = @"我";
     advVC.showUserID = User_ID;
@@ -390,6 +393,7 @@
 
 // 推荐
 - (void)jumpToRecommendedTableViewController {
+    [self.delegate.tabbarController hideTabbar:YES];
     RecommendedTableViewController *reVC = [[RecommendedTableViewController alloc] init];
     [self.navigationController pushViewController:reVC animated:YES];
 }
