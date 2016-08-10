@@ -79,9 +79,10 @@
     [[AppHttpManager shareInstance] getMessageReadedWithType:3 Userid:[User_ID intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             NSLog(@"置为已读");
-        } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
+//        } else {
+//            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
+//        }
     } failure:^(NSString *str) {
         NSLog(@"%@", str);
     }];
