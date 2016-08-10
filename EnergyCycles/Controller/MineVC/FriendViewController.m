@@ -11,7 +11,7 @@
 
 #import "MineHomePageViewController.h"
 
-@interface FriendViewController ()
+@interface FriendViewController ()<UIAlertViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
 
@@ -58,6 +58,52 @@
     
     [self getData];
     // Do any additional setup after loading the view.
+}
+
+// 可以编辑
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewRowAction *likeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"备注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        UserModel *model = self.dataArr[indexPath.row];
+        [self addNoteName:model];
+        // 实现相关的逻辑代码
+        // ...
+        // 在最后希望cell可以自动回到默认状态，所以需要退出编辑模式
+        tableView.editing = NO;
+        // 不需要主动退出编辑模式，更新view的操作完成后就会自动退出编辑模式
+//        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+    }];
+    
+    return @[likeAction];
+}
+
+- (void)addNoteName:(UserModel *)model {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"添加备注名" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入要添加的备注名";
+    }];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *textField = alert.textFields.firstObject;
+        [[AppHttpManager shareInstance] getAddNoteNameWithuserId:[User_ID intValue] Token:User_TOKEN OuId:[model.use_id intValue] NoteName:textField.text PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [SVProgressHUD showImage:nil status:@"操作成功"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self getData];
+                });
+            }else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source

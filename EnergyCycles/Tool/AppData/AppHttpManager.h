@@ -1187,5 +1187,13 @@
                 success:(void (^)(NSDictionary *dict))success
                 failure:(void (^)(NSString *str))failure;
 
+#pragma mark - 102.获取通知列表
+
+- (void)getAPPNotifyWithUserid:(int)userid
+                     Pageindex:(int)pageindex
+                      Pagesize:(int)pagesize
+                     PostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure;
 
 @end
