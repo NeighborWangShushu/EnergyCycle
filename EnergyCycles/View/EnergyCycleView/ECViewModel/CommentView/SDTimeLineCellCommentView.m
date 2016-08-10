@@ -108,6 +108,7 @@
         label.linkTextAttributes = @{NSForegroundColorAttributeName : highLightColor};
         label.allowLineBreakInsideLinks = YES;
         label.beforeAddLinkBlock = nil;
+        label.dataDetectorTypes = MLDataDetectorTypeURL;
         label.lee_theme
         .LeeAddTextColor(DAY , [UIColor blackColor])
         .LeeAddTextColor(NIGHT , [UIColor grayColor]);
