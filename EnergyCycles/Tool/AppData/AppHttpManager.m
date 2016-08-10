@@ -1423,6 +1423,7 @@ static AFHTTPRequestOperationManager *manager;
                                          PId:(int)PId
                                      Content:(NSString *)Content
                                   CommUserId:(int)CommUserId
+                                        type:(NSString *)type
                                        token:(NSString *)token
                                    PostOrGet:(NSString *)postOrGetType
                                      success:(void (^)(NSDictionary *dict))success
@@ -1433,6 +1434,7 @@ static AFHTTPRequestOperationManager *manager;
     [dic setObject:Content forKey:@"content"];
     [dic setObject:[NSNumber numberWithInt:CommUserId] forKey:@"commUserId"];
     [dic setObject:token forKey:@"token"];
+    [dic setObject:type forKey:@"type"];
     
     [self callInterfaceByUrl:AddCommentOfArticle
                    PostOrGet:postOrGetType
@@ -2613,6 +2615,7 @@ static AFHTTPRequestOperationManager *manager;
                      }];
 }
 
+
 #pragma mark - 99.获取用户点赞/评论消息
 //请求参数:
 //Type      int 1.评论 2.赞
@@ -2664,6 +2667,22 @@ static AFHTTPRequestOperationManager *manager;
                     } failure:^(NSString *dict) {
                         failure(dict);
                     }];
+
 }
+
+
+#pragma mark - 101 获取未读消息数量
+
+- (void)getMyMessageNum:(int)userid success:(void (^)(NSDictionary *))success failure:(void (^)(NSString *))failure {
+    NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"UserID"];
+    
+    [self callInterfaceByUrl:MyMessage PostOrGet:@"get" withDict:dic success:^(NSDictionary *dict) {
+        success(dict);
+    } failure:^(NSString *str) {
+        failure(str);
+    }];
+}
+
 
 @end

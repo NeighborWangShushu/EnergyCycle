@@ -157,6 +157,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [IQKeyboardManager sharedManager].enable = YES;
 }
@@ -461,7 +462,7 @@
     
     __weak typeof(self) weakSelf = self;
     
-    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] type:@"0" token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
         NSDictionary*data = dict[@"Data"];
         ECTimeLineModel*model = [self sortByData:data];
         NSIndexPath*indexPath = [NSIndexPath indexPathForRow:index inSection:section];

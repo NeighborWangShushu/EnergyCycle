@@ -319,6 +319,7 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -355,6 +356,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 //    [self messageClick:self.messageButton];
+    [super viewWillAppear:animated];
     self.unreadMessage.hidden = YES;
     self.unMessageRead = NO;
     [self updateMessageData];

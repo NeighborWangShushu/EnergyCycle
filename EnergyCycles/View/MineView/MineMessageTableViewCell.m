@@ -14,6 +14,7 @@
     
 //    NSLog(@"sdfasdfsdf%@",model);
     // 用户名
+    
     self.nameLabel.text = model.nickname;
     
     // 时间

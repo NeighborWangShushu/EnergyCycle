@@ -587,10 +587,12 @@
 //string Content   //评论内容
 //int CommUserId  //评论人id
 //string token  //评论人的token
+//string type   //评论类型，1 在首页能量圈  0 在我的能量圈
 - (void)postAddCommentOfArticleWithArticleId:(int)ArticleId
                                          PId:(int)PId
                                      Content:(NSString *)Content
                                   CommUserId:(int)CommUserId
+                                        type:(NSString*)type
                                        token:(NSString *)token
                                    PostOrGet:(NSString *)postOrGetType
                                      success:(void (^)(NSDictionary *dict))success
@@ -1149,6 +1151,11 @@
                           success:(void (^)(NSDictionary *dict))success
                           failure:(void (^)(NSString *str))failure;
 
+
+
+
+
+
 #pragma mark - 99.获取用户点赞/评论消息
 //请求参数:
 //Type      int 1.评论 2.赞
@@ -1172,6 +1179,13 @@
                        PostOrGet:(NSString *)postOrGetType
                          success:(void (^)(NSDictionary *dict))success
                          failure:(void (^)(NSString *str))failure;
+
+
+#pragma mark - 101.我的未读消息
+
+- (void)getMyMessageNum:(int)userid
+                success:(void (^)(NSDictionary *dict))success
+                failure:(void (^)(NSString *str))failure;
 
 
 @end

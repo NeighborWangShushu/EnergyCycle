@@ -73,7 +73,7 @@
         CGFloat imageViewH = self.bounds.size.width * (imageSize.height / imageSize.width);
 
         _scrollImageView.bounds = CGRectMake(0, 0, _scroll.frame.size.width, imageViewH);
-        _scrollImageView.center = CGPointMake(_scroll.frame.size.width * 0.5, _scrollImageView.frame.size.height * 0.5);
+        _scrollImageView.center = CGPointMake(_scroll.frame.size.width * 0.5, _scroll.frame.size.height * 0.5);
         _scroll.contentSize = CGSizeMake(0, _scrollImageView.bounds.size.height);
         
     } else {
@@ -99,13 +99,16 @@
     _waitingView = waiting;
     [self addSubview:waiting];
     
-    
     __weak SDBrowserImageView *imageViewWeak = self;
-
+    
     [self sd_setImageWithURL:url placeholderImage:placeholder options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
         imageViewWeak.progress = (CGFloat)receivedSize / expectedSize;
         
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [UIView animateWithDuration:1.0 animations:^{
+            
+        }];
+        
         [imageViewWeak removeWaitingView];
         
         

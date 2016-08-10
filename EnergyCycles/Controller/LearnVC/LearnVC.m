@@ -61,6 +61,8 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     [super viewWillAppear:animated];
+    
+    
 }
 
 - (void)initliaize {
@@ -70,7 +72,7 @@
     self.otherTags = [NSMutableArray array];
     self.pageTags  = [NSMutableArray array];
     delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-
+    delegate.audioPlayIndex = -1;
     [self getPageData];
     [self getMyTag];
     
