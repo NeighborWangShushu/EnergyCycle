@@ -164,9 +164,7 @@
     [IQKeyboardManager sharedManager].enable = YES;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
+- (void)viewWillAppear:(BOOL)animated {
     self.startPage = 0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (self.isMineTableView) {
@@ -177,10 +175,14 @@
         self.tableView.showsVerticalScrollIndicator = NO;
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
         [self setupLeftNavBarWithimage:@"loginfanhui"];
-
-//        self.tabBarController.tabBar.hidden = YES;
+        
+        //        self.tabBarController.tabBar.hidden = YES;
         
     }
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
     [self setUpMJRefresh];
     
@@ -216,12 +218,14 @@
 
 // cell的数量
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
     if ([self.dataArray count] == 0) {
         self.noData = YES;
         return 1;
     } else {
         self.noData = NO;
         return [self.dataArray count];
+
     }
 //    return [self.dataArray count];
 }
@@ -231,6 +235,9 @@
     if (self.noData) {
         return 55;
     }
+//    if ([self.dataArray count] == 0) {
+//        return 0;
+//    }
     id model = self.dataArray[indexPath.row];
     CGFloat height = [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[ECTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
     return height;
@@ -269,6 +276,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.noData) {
         UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.userInteractionEnabled = NO;
         cell.textLabel.text = @"该用户暂未发表能量贴";
         cell.textLabel.font = [UIFont systemFontOfSize:16];
         cell.textLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
@@ -511,7 +519,15 @@
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 [SVProgressHUD showImage:nil status:@"删除成功"];
                 [self.dataArray removeObject:model];
-                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                if (!self.dataArray.count) {
+                    self.noData = YES;
+                }
+//                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView reloadData];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.tableView reloadData];
+//                });
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"HomePageViewControllerReloadData" object:nil];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);

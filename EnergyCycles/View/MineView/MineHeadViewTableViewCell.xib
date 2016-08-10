@@ -83,7 +83,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cM9-Uw-MYx">
-                                <rect key="frame" x="171" y="184" width="33" height="16"/>
+                                <rect key="frame" x="176" y="184" width="33" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -102,7 +102,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="integral.png" translatesAutoresizingMaskIntoConstraints="NO" id="EjZ-xN-qMT">
-                                <rect key="frame" x="154" y="186" width="11" height="11"/>
+                                <rect key="frame" x="159" y="186" width="11" height="11"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="11" id="ace-Kp-4hY"/>
                                     <constraint firstAttribute="height" constant="11" id="bxz-dl-a5C"/>
@@ -128,7 +128,7 @@
                             <constraint firstItem="T5m-W4-g5r" firstAttribute="top" secondItem="bQt-2G-J15" secondAttribute="top" id="b9b-CG-vDZ"/>
                             <constraint firstItem="jx0-Cp-zKZ" firstAttribute="leading" secondItem="go1-Uh-DQb" secondAttribute="trailing" constant="6" id="fLR-GR-pIe"/>
                             <constraint firstAttribute="height" constant="240" id="fNQ-iz-LY9"/>
-                            <constraint firstItem="cM9-Uw-MYx" firstAttribute="centerX" secondItem="T5m-W4-g5r" secondAttribute="centerX" id="hkb-rF-GwE"/>
+                            <constraint firstItem="cM9-Uw-MYx" firstAttribute="centerX" secondItem="T5m-W4-g5r" secondAttribute="centerX" constant="5" id="hkb-rF-GwE"/>
                             <constraint firstItem="Eqz-I5-R7v" firstAttribute="leading" secondItem="Zg5-sm-aKi" secondAttribute="trailing" constant="6" id="jVm-Ww-DBI"/>
                             <constraint firstAttribute="bottom" secondItem="T5m-W4-g5r" secondAttribute="bottom" id="k2A-iW-Ude"/>
                             <constraint firstItem="Lhp-TX-cAQ" firstAttribute="top" secondItem="bQt-2G-J15" secondAttribute="top" constant="66" id="lj0-8A-tNR"/>

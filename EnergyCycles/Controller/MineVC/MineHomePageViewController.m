@@ -71,6 +71,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToAttentionController) name:@"jumpToAttentionController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HomePageViewControllerReloadData) name:@"HomePageViewControllerReloadData" object:nil];
+}
+
+- (void)HomePageViewControllerReloadData {
+    [self getUserInfo];
+    [self getUserInfoModel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -150,7 +156,7 @@
         
         CGRect rect = self.mineView.frame;
         rect.origin.y = - offsetY;
-        NSLog(@"y = %f",rect.origin.y);
+//        NSLog(@"y = %f",rect.origin.y);
         self.mineView.frame = rect;
 
     }
