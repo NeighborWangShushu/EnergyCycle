@@ -8,6 +8,7 @@
 
 #import "PKGatherViewController.h"
 #import "HMSegmentedControl.h"
+#import "BrokenLineViewController.h"
 
 #import "ToDayPKTableViewCell.h"
 #import "MinePKRecordViewTableViewCell.h"
@@ -73,7 +74,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.toDayArr) {
+    if (self.isToDay) {
         static NSString *toDayPKTableViewCell = @"toDayPKTableViewCell";
         ToDayPKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:toDayPKTableViewCell];
         
@@ -104,10 +105,25 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    BrokenLineViewController *blVC = MainStoryBoard(@"BrokenLineViewController");
+    if (self.isToDay) {
+        OtherReportModel *model = self.toDayArr[indexPath.row];
+        blVC.projectID = model.repItemId;
+        blVC.showStr = model.RI_Name;
+    } else {
+        MyPkEveryModel *model = self.pkRecordArr[indexPath.row];
+        blVC.projectID = model.pId;
+        blVC.showStr = model.name;
+    }
+    [self.navigationController pushViewController:blVC animated:YES];
+}
+
 - (void)getToDayPKData {
     [[AppHttpManager shareInstance] getGetReportByUserWithUserid:[User_ID intValue] Token:User_TOKEN OUserId:[User_ID intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self.toDayArr removeAllObjects];
+            NSLog(@"%@", User_ID);
             for (NSDictionary *dic in dict[@"Data"][@"reportItemInfo"]) {
                 OtherReportModel *model = [[OtherReportModel alloc] initWithDictionary:dic error:nil];
                 [self.toDayArr addObject:model];

@@ -218,7 +218,8 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"isUnLoginSetAPService" object:nil];
-        EnetgyCycle.energyTabBar.selectedIndex = 0;
+//        EnetgyCycle.energyTabBar.selectedIndex = 0;
+        [EnetgyCycle.energyTabBar setSelectedIndex:0];
 //        [self.tableView reloadData];
         
 //        [self.navigationController popToRootViewControllerAnimated:YES];
