@@ -192,8 +192,8 @@
         UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"发布" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self submit];
         }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self dismissViewControllerAnimated:alert completion:nil];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"我要配图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
         }];
         [alert addAction:sureAction];
         [alert addAction:cancelAction];
@@ -685,17 +685,20 @@
 -(void)LocalPhoto{
     NSInteger count = 0;
     NSLog(@"_selectImgArray %ld",(long)_selectImgArray.count);
+    
     if (_selectImgArray != nil && _selectImgArray.count > 0) {
         count =_selectImgArray.count;
     }
     
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
-    picker.navigationBar.tintColor=[UIColor redColor];
+    picker.navigationBar.tintColor=[UIColor whiteColor];
     picker.navigationBar.translucent = NO;
+    [picker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     picker.maximumNumberOfSelection = 9-count;
     picker.assetsFilter = [ALAssetsFilter allPhotos];
     picker.showEmptyGroups=NO;
     picker.delegate=self;
+    [picker.navigationBar setBarTintColor:[UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0]];
     picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         if ([[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
             NSTimeInterval duration = [[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyDuration] doubleValue];
