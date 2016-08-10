@@ -27,6 +27,8 @@
 
 @property (nonatomic, assign) BOOL isToDay;
 
+@property (nonatomic, assign) BOOL noData;
+
 @end
 
 @implementation PKGatherViewController
@@ -53,9 +55,21 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.isToDay) {
-        return [self.toDayArr count];
+        if ([self.toDayArr count] == 0) {
+            self.noData = YES;
+            return 1;
+        } else {
+            self.noData = NO;
+            return [self.toDayArr count];
+        }
     } else {
-        return [self.pkRecordArr count];
+        if ([self.pkRecordArr count] == 0) {
+            self.noData = YES;
+            return 1;
+        } else {
+            self.noData = NO;
+            return [self.pkRecordArr count];
+        }
     }
 }
 
@@ -82,6 +96,11 @@
             cell = [[NSBundle mainBundle] loadNibNamed:@"ToDayPKTableViewCell" owner:self options:nil].lastObject;
         }
         
+        if (self.noData) {
+            [cell noData];
+            return cell;
+        }
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         // Configure the cell...
         OtherReportModel *model = self.toDayArr[indexPath.row];
@@ -96,6 +115,11 @@
             cell = [[NSBundle mainBundle] loadNibNamed:@"MinePKRecordViewTableViewCell" owner:self options:nil].lastObject;
         }
         
+        if (self.noData) {
+            [cell noData];
+            return cell;
+        }
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         MyPkEveryModel *model = self.pkRecordArr[indexPath.row];
@@ -106,21 +130,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BrokenLineViewController *blVC = MainStoryBoard(@"BrokenLineViewController");
     if (self.isToDay) {
-        OtherReportModel *model = self.toDayArr[indexPath.row];
-<<<<<<< HEAD
-        blVC.projectID = model.repItemId;
-=======
-        //        blVC.projectID = model.repItemId;
->>>>>>> 3b309a1f801afb73f62143ce0656894971a08882
-        blVC.showStr = model.RI_Name;
+        return;
     } else {
+        BrokenLineViewController *blVC = MainStoryBoard(@"BrokenLineViewController");
         MyPkEveryModel *model = self.pkRecordArr[indexPath.row];
         blVC.projectID = model.pId;
         blVC.showStr = model.name;
+        [self.navigationController pushViewController:blVC animated:YES];
     }
-    [self.navigationController pushViewController:blVC animated:YES];
 }
 
 - (void)getToDayPKData {

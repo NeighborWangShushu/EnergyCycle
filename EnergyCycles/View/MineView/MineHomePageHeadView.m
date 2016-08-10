@@ -56,12 +56,12 @@
         [self.backgroundImage setImage:[UIImage imageNamed:@"backgroundImage"]];
     } else {
         [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            if (self.backgroundImage.image.size.height >= 452) {
-                self.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
-            }
-            if (self.backgroundImage.image.size.width >= 375) {
+//            if (self.backgroundImage.image.size.height >= 452) {
+//                self.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
+//            }
+//            if (self.backgroundImage.image.size.width >= 375) {
                 self.backgroundImage.contentMode = UIViewContentModeScaleAspectFill;
-            }
+//            }
         }];
     }
     
