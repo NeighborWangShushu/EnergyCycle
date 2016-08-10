@@ -30,7 +30,7 @@
 #pragma mark ----- ScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
-    NSLog(@"%f",offsetY);
+//    NSLog(@"%f",offsetY);
     if ([self.delegate respondsToSelector:@selector(tableViewScroll:offsetY:)]) {
         [self.delegate tableViewScroll:self.tableView offsetY:offsetY];
     }
