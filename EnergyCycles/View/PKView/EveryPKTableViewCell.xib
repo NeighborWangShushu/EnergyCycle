@@ -123,8 +123,8 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
-                        <exclude reference="M2e-9e-kXR"/>
                         <exclude reference="9lM-ff-qcI"/>
+                        <exclude reference="M2e-9e-kXR"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

@@ -29,6 +29,13 @@
     
 }
 
+- (void)noData {
+    self.textLabel.text = @"该用户暂无PK记录";
+    self.textLabel.font = [UIFont systemFontOfSize:16];
+    self.textLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
+    self.textLabel.textAlignment = NSTextAlignmentCenter;
+}
+
 - (void)lineView {
     UIView *line = [[UIView alloc] init];
     line.frame = CGRectMake(self.frame.origin.x + 12, self.frame.size.height - 1, self.frame.size.width + 50, 1);

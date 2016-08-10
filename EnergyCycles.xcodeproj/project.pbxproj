@@ -504,6 +504,8 @@
 		62B6661E1D49FACD00660E1D /* MineRecommendedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B6661C1D49FACD00660E1D /* MineRecommendedTableViewCell.xib */; };
 		62B666221D49FE7E00660E1D /* RecommendedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62B666211D49FE7E00660E1D /* RecommendedTableViewController.m */; };
 		62B666241D4A178600660E1D /* backgroundImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 62B666231D4A178600660E1D /* backgroundImage.png */; };
+		62BE735A1D5AFB5E00A83766 /* HeadLineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BE73581D5AFB5E00A83766 /* HeadLineTableViewCell.m */; };
+		62BE735B1D5AFB5E00A83766 /* HeadLineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62BE73591D5AFB5E00A83766 /* HeadLineTableViewCell.xib */; };
 		62C99F331D3797620032E83C /* MineHomePageTableViewControllerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C99F321D3797620032E83C /* MineHomePageTableViewControllerProtocol.m */; };
 		62C99F381D37A77A0032E83C /* EnergyPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C99F371D37A77A0032E83C /* EnergyPostTableViewController.m */; };
 		62C99F3B1D37AA130032E83C /* PKRecordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C99F3A1D37AA130032E83C /* PKRecordTableViewController.m */; };
@@ -2141,6 +2143,9 @@
 		62B666201D49FE7E00660E1D /* RecommendedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendedTableViewController.h; sourceTree = "<group>"; };
 		62B666211D49FE7E00660E1D /* RecommendedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendedTableViewController.m; sourceTree = "<group>"; };
 		62B666231D4A178600660E1D /* backgroundImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundImage.png; sourceTree = "<group>"; };
+		62BE73571D5AFB5E00A83766 /* HeadLineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadLineTableViewCell.h; sourceTree = "<group>"; };
+		62BE73581D5AFB5E00A83766 /* HeadLineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadLineTableViewCell.m; sourceTree = "<group>"; };
+		62BE73591D5AFB5E00A83766 /* HeadLineTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadLineTableViewCell.xib; sourceTree = "<group>"; };
 		62C99F311D3797620032E83C /* MineHomePageTableViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageTableViewControllerProtocol.h; sourceTree = "<group>"; };
 		62C99F321D3797620032E83C /* MineHomePageTableViewControllerProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageTableViewControllerProtocol.m; sourceTree = "<group>"; };
 		62C99F361D37A77A0032E83C /* EnergyPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnergyPostTableViewController.h; sourceTree = "<group>"; };
@@ -7063,6 +7068,9 @@
 				26E987831C0D94DB00C6A7BB /* CustomTableViewCell.h */,
 				26E987841C0D94DB00C6A7BB /* CustomTableViewCell.m */,
 				26E987851C0D94DB00C6A7BB /* CustomTableViewCell.xib */,
+				62BE73571D5AFB5E00A83766 /* HeadLineTableViewCell.h */,
+				62BE73581D5AFB5E00A83766 /* HeadLineTableViewCell.m */,
+				62BE73591D5AFB5E00A83766 /* HeadLineTableViewCell.xib */,
 			);
 			name = TheAdvPKView;
 			sourceTree = "<group>";
@@ -7893,6 +7901,7 @@
 				DAE034E71C182181007E6DBD /* cai02_@2x.png in Resources */,
 				D029BC381D3771C300B20D65 /* ec_post_add_button@2x.png in Resources */,
 				26D8B26E1C0FEEE900A1DB04 /* 5@2x.png in Resources */,
+				62BE735B1D5AFB5E00A83766 /* HeadLineTableViewCell.xib in Resources */,
 				DAE034DA1C182181007E6DBD /* 39xin01_@3x.png in Resources */,
 				62724E6E1D42225900E84202 /* addAttentionButton.png in Resources */,
 				DAE034EE1C182181007E6DBD /* 35pen_@3x.png in Resources */,
@@ -8591,6 +8600,7 @@
 				D044E6231D07F49E00CD24DF /* ECAvatarManager.m in Sources */,
 				26D99E961C0C4D7B007AF579 /* LearnNavController.m in Sources */,
 				D04B54791D23C75700DC259A /* SDTimeLineTableHeaderView.m in Sources */,
+				62BE735A1D5AFB5E00A83766 /* HeadLineTableViewCell.m in Sources */,
 				DAAEC6F31C1FE7E300FA094B /* MySocialCircleViewController.m in Sources */,
 				26D99E931C0C4D7B007AF579 /* DetailViewController.m in Sources */,
 				D07E24431D129BA900854B51 /* OtherPageView.m in Sources */,

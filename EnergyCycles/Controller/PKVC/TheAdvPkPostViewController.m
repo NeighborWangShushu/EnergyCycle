@@ -13,6 +13,7 @@
 #import "EnergyPostOneViewCell.h"
 #import "EnergyPostCollectionViewCell.h"
 #import "EnergyPostTwoViewCell.h"
+#import "HeadLineTableViewCell.h"
 #import "ZYQAssetPickerController.h"
 #import "CustomChooseClassView.h"
 
@@ -52,6 +53,8 @@
     pkPostTableView.backgroundColor = [UIColor clearColor];
     
     [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
+    self.title = @"进阶PK汇报";
     
     rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     rightButton.frame = CGRectMake(0, 0, 35, 30);
@@ -204,15 +207,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         return 50.f;
-    }else if (indexPath.row == 1) {
+    } else if (indexPath.row == 1) {
+        return 30.f;
+    } else if (indexPath.row == 2) {
         return 308.f;
-    }else if (indexPath.row == 2) {
+    }else if (indexPath.row == 3) {
         return 120.f;
     }
     
@@ -227,7 +232,15 @@
          cell.titleLabel.text=postDict[@"fenleiText"];
        }
         return cell;
-    }else if (indexPath.row == 1) {
+    } else if (indexPath.row == 1) {
+        HeadLineTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"HeadLineTableViewCell" owner:self options:nil].lastObject;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell.textField addTarget:self action:@selector(textFieldValueChange:) forControlEvents:UIControlEventEditingChanged];
+        cell.textField.text = postDict[@"title"];
+        
+        return cell;
+    } else if (indexPath.row == 2) {
         EnergyPostViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"EnergyPostViewCell" owner:self options:nil].lastObject;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -239,7 +252,7 @@
         cell.informationTextView.delegate = self;
         
         return cell;
-    }else if (indexPath.row == 2) {
+    }else if (indexPath.row == 3) {
         EnergyPostOneViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"EnergyPostOneViewCell" owner:self options:nil].lastObject;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];

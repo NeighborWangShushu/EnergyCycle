@@ -41,6 +41,8 @@
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
+@property (nonatomic, assign) BOOL noData;
+
 @end
 
 @implementation EnergyPostTableViewController
@@ -214,11 +216,21 @@
 
 // cell的数量
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataArray count];
+    if ([self.dataArray count] == 0) {
+        self.noData = YES;
+        return 1;
+    } else {
+        self.noData = NO;
+        return [self.dataArray count];
+    }
+//    return [self.dataArray count];
 }
 
 // cell高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.noData) {
+        return 55;
+    }
     id model = self.dataArray[indexPath.row];
     CGFloat height = [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[ECTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
     return height;
@@ -255,27 +267,36 @@
 
 // cell的内容
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
-    cell.indexPath = indexPath;
-    __weak typeof(self) weakSelf = self;
-    if (!cell.moreButtonClickedBlock) {
-        [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
-            ECTimeLineModel *model = weakSelf.dataArray[indexPath.row];
-            model.isOpening = !model.isOpening;
-            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        }];
-        cell.delegate = self;
+    if (self.noData) {
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.textLabel.text = @"该用户暂未发表能量贴";
+        cell.textLabel.font = [UIFont systemFontOfSize:16];
+        cell.textLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        return cell;
+    } else {
+        ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
+        cell.indexPath = indexPath;
+        __weak typeof(self) weakSelf = self;
+        if (!cell.moreButtonClickedBlock) {
+            [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
+                ECTimeLineModel *model = weakSelf.dataArray[indexPath.row];
+                model.isOpening = !model.isOpening;
+                [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }];
+            cell.delegate = self;
+        }
+        
+        ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
+        
+        [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
+        
+        ///////////////////////////////////////////////////////////////////////
+        
+        cell.model = self.dataArray[indexPath.row];
+        
+        return cell;
     }
-    
-    ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
-    
-    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
-    
-    ///////////////////////////////////////////////////////////////////////
-    
-    cell.model = self.dataArray[indexPath.row];
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

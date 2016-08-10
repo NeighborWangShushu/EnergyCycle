@@ -22,4 +22,6 @@
 
 - (void)updateDataWithModel:(OtherReportModel *)model;
 
+- (void)noData;
+
 @end

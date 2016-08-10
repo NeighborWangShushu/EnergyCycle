@@ -20,4 +20,6 @@
 
 - (void)updateDataWithModel:(RecommentModel *)model;
 
+- (void)noData;
+
 @end

@@ -13,6 +13,7 @@
 @interface ToDayPKTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, assign) BOOL noData;
 
 @end
 
@@ -76,7 +77,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataArray count];
+    if ([self.dataArray count] == 0) {
+        self.noData = YES;
+        return 1;
+    } else {
+        self.noData = NO;
+        return  [self.dataArray count];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -84,29 +91,35 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *toDayPKTableViewCell = @"toDayPKTableViewCell";
-    ToDayPKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:toDayPKTableViewCell];
-    
-    if (cell == nil) {
-        cell = [[NSBundle mainBundle] loadNibNamed:@"ToDayPKTableViewCell" owner:self options:nil].lastObject;
-    }
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    OtherReportModel *model = self.dataArray[indexPath.row];
-    [cell updateDataWithModel:model];
-    
-    // Configure the cell...
-    
-    return cell;
+        static NSString *toDayPKTableViewCell = @"toDayPKTableViewCell";
+        ToDayPKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:toDayPKTableViewCell];
+        
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"ToDayPKTableViewCell" owner:self options:nil].lastObject;
+        }
+        
+        if (self.noData) {
+            [cell noData];
+            return cell;
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        OtherReportModel *model = self.dataArray[indexPath.row];
+        [cell updateDataWithModel:model];
+        
+        // Configure the cell...
+        
+        return cell;
+//    }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BrokenLineViewController *blVC = MainStoryBoard(@"BrokenLineViewController");
-    OtherReportModel *model = self.dataArray[indexPath.row];
-    blVC.projectID = model.repItemId;
-    blVC.showStr = model.RI_Name;
-    [self.navigationController pushViewController:blVC animated:YES];
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    BrokenLineViewController *blVC = MainStoryBoard(@"BrokenLineViewController");
+//    OtherReportModel *model = self.dataArray[indexPath.row];
+//    blVC.projectID = model.repItemId;
+//    blVC.showStr = model.RI_Name;
+//    [self.navigationController pushViewController:blVC animated:YES];
+//}
 
 /*
 // Override to support conditional editing of the table view.
