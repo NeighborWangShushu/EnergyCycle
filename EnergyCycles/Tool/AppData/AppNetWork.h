@@ -46,10 +46,10 @@
 //#define INTERFACE_URL @"http://10.40.200.186:8089/"
 
 //测试环境
-//#define INTERFACE_URL @"http://192.168.2.13:8888/"
+#define INTERFACE_URL @"http://192.168.2.13:8888/"
 
 //测试公网环境
-#define INTERFACE_URL @"http://120.26.218.68:8888/"
+//#define INTERFACE_URL @"http://120.26.218.68:8888/"
 
 //正式环境
 //#define INTERFACE_URL @"http://120.26.218.68:8038"  
@@ -391,8 +391,10 @@
 #define Message_Readed             @"/user/Message_Readed"
 
 //101. 未读消息
-#define MyMessage @"/user/MyMessageNum_Get"
+#define MyMessage                  @"/user/MyMessageNum_Get"
 
+//102. 获取通知列表
+#define APP_Notify_Get             @"user/APP_Notify_Get"
 
 
 #endif
