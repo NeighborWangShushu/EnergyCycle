@@ -43,10 +43,10 @@
     
     // 地址
     if ([model.city isEqualToString:@""] || model.city == nil) {
-        self.addressImage.hidden = YES;
-        self.addressLabel.text = @"";
+//        self.addressImage.hidden = YES;
+        self.addressLabel.text = @"暂无";
     } else {
-        self.addressImage.hidden = NO;
+//        self.addressImage.hidden = NO;
         self.addressLabel.text = model.city;
     }
     

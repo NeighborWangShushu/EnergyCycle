@@ -18,6 +18,7 @@
 
 #import "AttentionAndFansTableViewController.h"
 #import "MyProfileViewController.h"
+#import "InformTableViewController.h"
 #import "IntegralMallViewController.h"
 #import "EnergyPostTableViewController.h"
 #import "MineEveryDayPKViewController.h"
@@ -64,7 +65,7 @@
 // 每一组的行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 1) {
-        return 6;
+        return 7;
     } else if (section == 2) {
         return 2;
     } else {
@@ -174,6 +175,10 @@
         } else if (indexPath.row == 5) { // 消息
             [self.delegate.tabbarController hideTabbar:YES];
             [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
+        } else if (indexPath.row == 6) { // 通知
+            [self.delegate.tabbarController hideTabbar:YES];
+            InformTableViewController *informVC = [[InformTableViewController alloc] init];
+            [self.navigationController pushViewController:informVC animated:YES];
         }
         //        } else if (indexPath.row == 4) { // PK记录
         //            PKRecordTableViewController *pkVC = [[PKRecordTableViewController alloc] init];

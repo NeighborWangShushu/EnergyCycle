@@ -2684,5 +2684,28 @@ static AFHTTPRequestOperationManager *manager;
     }];
 }
 
+#pragma mark - 102.获取通知列表
+
+- (void)getAPPNotifyWithUserid:(int)userid
+                     Pageindex:(int)pageindex
+                      Pagesize:(int)pagesize
+                     PostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:[NSNumber numberWithInt:pageindex] forKey:@"pageindex"];
+    [dic setObject:[NSNumber numberWithInt:pagesize] forKey:@"pagesize"];
+    
+    [self callInterfaceByUrl:APP_Notify_Get
+                   PostOrGet:@"get"
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+    
+}
 
 @end

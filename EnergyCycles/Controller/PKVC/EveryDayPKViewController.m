@@ -51,7 +51,7 @@ static BOOL isShowAll = NO;
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     [self creatHeadCollectionView];
     
-    [self getHeadCollectionViewData];
+    
 }
 
 - (void)leftAction {
@@ -64,6 +64,8 @@ static BOOL isShowAll = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    
+    [self getHeadCollectionViewData];
 }
 
 #pragma mark - 获取头 分类 网络数据

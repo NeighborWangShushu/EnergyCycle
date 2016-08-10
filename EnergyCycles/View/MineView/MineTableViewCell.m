@@ -82,6 +82,16 @@
             } else {
                 self.rightLabel.textColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
             }
+            [self lineView];
+        } else if (index == 6) {
+            self.leftImage.image = [UIImage imageNamed:@"inform"];
+            self.leftLabel.text = @"通知";
+            self.rightLabel.text = userInfoModel.NotifyCount;
+            if ([userInfoModel.NotifyCount isEqualToString:@"0"] || userInfoModel.NotifyCount == nil) {
+                self.rightLabel.textColor = [UIColor colorWithRed:155/255.0 green:155/255.0 blue:155/255.0 alpha:0.8];
+            } else {
+                self.rightLabel.textColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+            }
         }
     } else if (section == 2) {
         if (index == 0) {
