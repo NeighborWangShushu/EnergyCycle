@@ -15,7 +15,11 @@
 #import "ChatViewController.h"
 #import "WebVC.h"
 
-@interface MessageViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MessageViewController ()<UITableViewDelegate,UITableViewDataSource> {
+    BOOL noCommentData;
+    BOOL noLikeData;
+    BOOL noMessageData;
+}
 
 @property (nonatomic, assign) int commentPage;
 
@@ -70,10 +74,25 @@
 // 行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.type == 1) {
+        if (!self.commentArray.count) {
+            noCommentData = YES;
+            return 1;
+        }
+        noCommentData = NO;
         return self.commentArray.count;
     } else if (self.type == 2) {
+        if (!self.likeArray.count) {
+            noLikeData = YES;
+            return 1;
+        }
+        noLikeData = NO;
         return self.likeArray.count;
     } else if (self.type == 3) {
+        if (!self.messageArray.count) {
+            noMessageData = YES;
+            return 1;
+        }
+        noMessageData = NO;
         return self.messageArray.count;
     }
     return 0;
@@ -87,6 +106,12 @@
         if (cell == nil) {
             cell = [[NSBundle mainBundle] loadNibNamed:@"MineWhisperTableViewCell" owner:self options:nil].lastObject;
         }
+        
+        if (noMessageData) {
+            [cell noData];
+            return cell;
+        }
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         MessageModel *model = [[MessageModel alloc] init];
         model = self.messageArray[indexPath.row];
@@ -100,6 +125,12 @@
         if (cell == nil) {
             cell = [[NSBundle mainBundle] loadNibNamed:@"MineMessageTableViewCell" owner:self options:nil].lastObject;
         }
+        
+        if ((noCommentData && self.type == 1) || (noLikeData && self.type == 2)) {
+            [cell noData];
+            return cell;
+        }
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         GetMessageModel *model = [[GetMessageModel alloc] init];
         if (self.type == 1) {
@@ -175,13 +206,12 @@
 - (void)updateDataWithPage:(int)page {
     [[AppHttpManager shareInstance] getMessageGetWithType:self.type Userid:[User_ID intValue] PageIndex:page PageSize:10 PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            
             if (self.commentPage == 0) {
                 [self.commentArray removeAllObjects];
             } else if (self.likePage == 0) {
                 [self.likeArray removeAllObjects];
             }
-            
+
             for (NSDictionary *data in dict[@"Data"]) {
                 GetMessageModel *model = [[GetMessageModel alloc] initWithDictionary:data error:nil];
                 if (self.type == 1) {
@@ -199,12 +229,16 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self endRefresh];
                 GetMessageModel *model = [[GetMessageModel alloc] init];
+<<<<<<< HEAD
                 if (!self.commentArray.count) {
                     return;
                 }
                 if (self.type == 1) {
+=======
+                if (self.type == 1 && !noCommentData) {
+>>>>>>> wangbin
                     model = self.commentArray[0];
-                } else {
+                } else if (self.type == 2 && !noLikeData) {
                     model = self.likeArray[0];
                 }
                 if ((page + 1) * 10 >= [model.RowCounts intValue]) {
@@ -220,6 +254,7 @@
             });
         } else {
             [self endRefresh];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             GetMessageModel *model = [[GetMessageModel alloc] init];
             if (!self.commentArray.count) {
                 return;
@@ -235,7 +270,6 @@
             if ((self.commentArray.count == 0 && self.type == 1) || (self.likeArray.count == 0 && self.type == 2)) {
                 [self.tableView reloadData];
             }
-            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
     } failure:^(NSString *str) {
         [self endRefresh];

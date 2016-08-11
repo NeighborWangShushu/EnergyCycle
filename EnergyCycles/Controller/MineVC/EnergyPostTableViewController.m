@@ -76,7 +76,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self endRefresh];
-            if ((self.startPage + 1) * 10 >= self.dataArray.count) {
+            if ((self.startPage + 1) * 10 > self.dataArray.count) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
             [self.tableView reloadData];
@@ -88,20 +88,20 @@
 }
 
 
-- (void)loadNewData {
-    self.startPage = 0;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
-}
+//- (void)loadNewData {
+//    self.startPage = 0;
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
+//}
 
-- (void)loadMoreData {
-    self.startPage ++;
-    if (self.startPage >= self.maxPage) {
-        self.startPage = self.maxPage;
-        [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        return;
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
-}
+//- (void)loadMoreData {
+//    self.startPage ++;
+//    if (self.startPage >= self.maxPage) {
+//        self.startPage = self.maxPage;
+//        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//        return;
+//    }
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
+//}
 
 // 数据转模型
 - (ECTimeLineModel *)sortByData:(NSDictionary *)data {
@@ -147,6 +147,9 @@
         [weakSelf getDataWithUserId:self.userId];
     }];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        if ((self.startPage + 1) * 10 > self.dataArray.count) {
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
         self.startPage ++;
         [weakSelf getDataWithUserId:self.userId];
     }];
@@ -164,7 +167,11 @@
     [IQKeyboardManager sharedManager].enable = YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self setUpMJRefresh];
+    
     self.startPage = 0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (self.isMineTableView) {
@@ -175,16 +182,10 @@
         self.tableView.showsVerticalScrollIndicator = NO;
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
         [self setupLeftNavBarWithimage:@"loginfanhui"];
-        
+        [self.tableView.mj_header beginRefreshing];
         //        self.tabBarController.tabBar.hidden = YES;
         
     }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self setUpMJRefresh];
     
     [IQKeyboardManager sharedManager].enable = NO;
 
