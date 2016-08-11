@@ -28,6 +28,8 @@
 #import "Appdelegate.h"
 #import "ShareModel.h"
 #import "ShareSDKManager.h"
+#import "SCLAlertView.h"
+#import "SCLAlertViewStyleKit.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
@@ -46,6 +48,8 @@
     NSInteger maxPageSize; //总页数
     NSInteger maxAttentionPageSize; //关注的人总页数
     UITextField*text;
+    
+    NSString * code; //验证码
     
     ECNavMenuModel*selectedModel;
     ECTimeLineModel * commendModel;
@@ -111,7 +115,137 @@
     [super viewDidAppear:animated];
     [self getMessageData];
     [IQKeyboardManager sharedManager].enable = NO;
+    if (User_TOKEN.length > 0) {
+        [self checkPhone];
+    }
+    
 }
+
+
+/**
+ *  检查是否绑定手机号
+ */
+
+- (void)checkPhone {
+    
+    [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            if ([(NSArray*)dict[@"Data"]count] > 0) {
+                NSDictionary *dic = dict[@"Data"][0];
+                if (dic) {
+                    if ([dic objectForKey:@"phone"] == [NSNull null]) {
+                        NSLog(@"绑定");
+                        [self showAlert];
+                    }
+                }
+            }
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@",str);
+    }];
+    
+}
+
+- (void)showAlert {
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    [alert setCustomViewColor:[UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0]];
+//    [alert setIconTintColor:[UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0]];
+    //Using Selector
+    
+    //手机号码
+    UITextField*textf = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
+    textf.font = [UIFont systemFontOfSize:14];
+    textf.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 5, 0)];
+    textf.leftViewMode = UITextFieldViewModeAlways;
+    textf.layer.borderColor = [UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0].CGColor;
+    textf.layer.borderWidth = 1.0;
+    textf.placeholder = @"请输入手机号码";
+    
+    //验证码
+    UITextField*textv = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
+    textv.font = [UIFont systemFontOfSize:14];
+    textv.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 5, 0)];
+    textv.leftViewMode = UITextFieldViewModeAlways;
+    textv.layer.borderColor = [UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0].CGColor;
+    textv.layer.borderWidth = 1.0;
+    textv.placeholder = @"请输入验证码";
+    
+    
+    [alert addCustomTextField:textf];
+    [alert addCustomTextField:textv];
+    
+    [alert addButton:@"获取验证码" validationBlock:^BOOL{
+        if ([[AppHelpManager sharedInstance] isPhoneNum:textf.text]) {
+            [self getVertyCode:textf.text];
+        }else {
+            [SVProgressHUD showImage:nil status:@"请输入正确的手机号码"];
+        }
+        return NO;
+    } actionBlock:^{
+        
+    }];
+    
+    //Using Block
+    [alert addButton:@"确定" validationBlock:^BOOL {
+        if (code != textv.text) {
+            [SVProgressHUD showImage:nil status:@"验证码错误"];
+            return NO;
+        }
+        
+        [self bindPhoneNumber:textf.text];
+        return YES;
+    } actionBlock:^(void) {
+        NSLog(@"Second button tapped");
+    
+        
+    }];
+    
+    [alert showSuccess:self title:@"温馨提示" subTitle:@"根据工信部相关规定，APP应用必须进行用户实名认证。请绑定自己的手机号码，谢谢配合!" closeButtonTitle:nil duration:0.0f];
+}
+
+- (void)bindPhoneNumber:(NSString*)phone {
+    [[AppHttpManager shareInstance] changePhoneNumberWithUserid:[User_ID intValue] Token:User_TOKEN Phone:phone PostOrGet:@"post" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            
+        } else {
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@",str);
+    }];
+
+}
+
+
+- (void)vertyButton:(UIButton*)button {
+    
+}
+
+
+/**
+ *  获取验证码
+ */
+
+
+- (void)getVertyCode:(NSString*)phone {
+    
+    [[AppHttpManager shareInstance] getVerificationCodeWithPhoneNo:phone Type:2 PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
+            NSLog(@"验证码：%@",dict);
+            code = dict[@"Data"];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }else {
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@",str);
+        [SVProgressHUD showImage:nil status:str];
+    }];
+
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -668,6 +802,19 @@
     [[IQKeyboardManager sharedManager] resignFirstResponder];
 }
 
+- (BOOL)isContainBlank:(NSString*)str
+{
+    NSRange range = [str rangeOfString:@" "];
+    if (range.location != NSNotFound) {
+        return YES;
+    }
+    return NO;
+}
+
+
+
+
+
 /**
  *  发送评论接口
  *
@@ -676,7 +823,7 @@
 
 - (void)sendCommend:(NSString*)message index:(NSInteger)index section:(NSInteger)section {
     
-    if ([message isEqualToString:@""]) {
+    if ([[AppHelpManager sharedInstance]isBlankString:message]) {
         [SVProgressHUD showImage:nil status:@"发送内容不能为空"];
         return;
     }

@@ -451,7 +451,7 @@
     __weak __typeof(self)weakSelf = self;
     
     ShareModel*model = [[ShareModel alloc] init];
-    model.title = title;
+    model.title = @"我刚刚在能量圈分享了好东西，快来看看吧";
     model.content = @"";
     model.shareUrl = url;
     [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {

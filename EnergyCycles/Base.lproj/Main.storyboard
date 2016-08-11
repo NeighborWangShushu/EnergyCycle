@@ -483,9 +483,9 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="gLX-SA-yeR"/>
                                                     <exclude reference="nKn-Ia-IKr"/>
                                                     <exclude reference="z0q-oN-u1f"/>
+                                                    <exclude reference="gLX-SA-yeR"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -5111,7 +5111,7 @@
                                     <action selector="rigisterButtonClick:" destination="VDB-Br-TMw" eventType="touchUpInside" id="4ix-z1-C5j"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(向推荐人索取,输入后立获100积分)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BhX-KZ-qdh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(向推荐人索取,输入后立获50积分)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BhX-KZ-qdh">
                                 <rect key="frame" x="82" y="399" width="259" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="4zS-Zs-Z7j"/>
@@ -5171,15 +5171,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="能量源" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M0k-yo-Job">
-                                <rect key="frame" x="35" y="387" width="300" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="zGR-UT-XxA"/>
-                                </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFf-2d-B4y">
                                 <rect key="frame" x="302" y="268" width="40" height="40"/>
                                 <constraints>
@@ -5206,6 +5197,15 @@
                                 <rect key="frame" x="35" y="88" width="300" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="meK-3D-P43"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="能量源" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M0k-yo-Job">
+                                <rect key="frame" x="35" y="387" width="300" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="zGR-UT-XxA"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>

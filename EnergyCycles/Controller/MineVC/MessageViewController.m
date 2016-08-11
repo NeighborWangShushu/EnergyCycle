@@ -229,14 +229,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self endRefresh];
                 GetMessageModel *model = [[GetMessageModel alloc] init];
-<<<<<<< HEAD
-                if (!self.commentArray.count) {
-                    return;
-                }
-                if (self.type == 1) {
-=======
                 if (self.type == 1 && !noCommentData) {
->>>>>>> wangbin
                     model = self.commentArray[0];
                 } else if (self.type == 2 && !noLikeData) {
                     model = self.likeArray[0];
@@ -256,9 +249,6 @@
             [self endRefresh];
             [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             GetMessageModel *model = [[GetMessageModel alloc] init];
-            if (!self.commentArray.count) {
-                return;
-            }
             if (self.type == 1) {
                 model = self.commentArray[0];
             } else {

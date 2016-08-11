@@ -156,8 +156,11 @@
 
 #pragma mark - 第三方登录-调用接口
 - (void)thirdLoginInWithType:(int)type withOpenId:(NSString *)openId withNickName:(NSString *)nickName withPhotoUrl:(NSString *)photoUrl withSex:(NSString *)sex withPhone:(NSString *)phone {
+    
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
     [SVProgressHUD showWithStatus:@"登录中.."];
+    
+    
     
     [[AppHttpManager shareInstance] getOtherLoginWithLoginType:type OpenId:openId NickName:nickName PhotoUrl:photoUrl Sex:sex Phone:phone PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
@@ -198,7 +201,7 @@
             NSLog(@"token=%@",user.credential.token);
             NSLog(@"nickname=%@",user.nickname);
             NSLog(@"icon=%@",user.icon);
-
+            
             [self thirdLoginInWithType:1 withOpenId:user.uid withNickName:user.nickname withPhotoUrl:user.icon withSex:@"" withPhone:@""];
         }else {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示信息", nil) message:NSLocalizedString(@"手机未安装相关应用", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil, nil];
@@ -424,6 +427,11 @@
             }
         });
     });
+}
+
+//如果是第三方登录就绑定手机号
+- (void)gotoBindPhone {
+    
 }
 
 #pragma mark - Navigation传值

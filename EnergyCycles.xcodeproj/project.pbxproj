@@ -941,6 +941,14 @@
 		D0BEF3131D20DAEA00F1985C /* ECViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF3121D20DAEA00F1985C /* ECViewController.m */; };
 		D0BEF32D1D22A01600F1985C /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF32A1D22A01600F1985C /* UITableView+SDAutoTableViewCellHeight.m */; };
 		D0BEF32E1D22A01600F1985C /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF32C1D22A01600F1985C /* UIView+SDAutoLayout.m */; };
+		D0C97B991D5C8E9F00B62219 /* SCLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B891D5C8E9F00B62219 /* SCLAlertView.m */; };
+		D0C97B9A1D5C8E9F00B62219 /* SCLAlertViewResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B8B1D5C8E9F00B62219 /* SCLAlertViewResponder.m */; };
+		D0C97B9B1D5C8E9F00B62219 /* SCLAlertViewStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B8D1D5C8E9F00B62219 /* SCLAlertViewStyleKit.m */; };
+		D0C97B9C1D5C8E9F00B62219 /* SCLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B8F1D5C8E9F00B62219 /* SCLButton.m */; };
+		D0C97B9D1D5C8E9F00B62219 /* SCLSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B921D5C8E9F00B62219 /* SCLSwitchView.m */; };
+		D0C97B9E1D5C8E9F00B62219 /* SCLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B941D5C8E9F00B62219 /* SCLTextView.m */; };
+		D0C97B9F1D5C8E9F00B62219 /* SCLTimerDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B961D5C8E9F00B62219 /* SCLTimerDisplay.m */; };
+		D0C97BA01D5C8E9F00B62219 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B981D5C8E9F00B62219 /* UIImage+ImageEffects.m */; };
 		DA14E7991C225D390040104A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA14E7981C225D380040104A /* CoreFoundation.framework */; };
 		DA14E7A21C22638F0040104A /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = DA14E7A01C22638F0040104A /* pinyin.c */; };
 		DA1E1B131C30CBA7007DFC48 /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1E1B121C30CBA7007DFC48 /* libPushSDK-1.8.8.a */; };
@@ -2776,6 +2784,23 @@
 		D0BEF32A1D22A01600F1985C /* UITableView+SDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
 		D0BEF32B1D22A01600F1985C /* UIView+SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDAutoLayout.h"; sourceTree = "<group>"; };
 		D0BEF32C1D22A01600F1985C /* UIView+SDAutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDAutoLayout.m"; sourceTree = "<group>"; };
+		D0C97B881D5C8E9F00B62219 /* SCLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLAlertView.h; sourceTree = "<group>"; };
+		D0C97B891D5C8E9F00B62219 /* SCLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLAlertView.m; sourceTree = "<group>"; };
+		D0C97B8A1D5C8E9F00B62219 /* SCLAlertViewResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLAlertViewResponder.h; sourceTree = "<group>"; };
+		D0C97B8B1D5C8E9F00B62219 /* SCLAlertViewResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLAlertViewResponder.m; sourceTree = "<group>"; };
+		D0C97B8C1D5C8E9F00B62219 /* SCLAlertViewStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLAlertViewStyleKit.h; sourceTree = "<group>"; };
+		D0C97B8D1D5C8E9F00B62219 /* SCLAlertViewStyleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLAlertViewStyleKit.m; sourceTree = "<group>"; };
+		D0C97B8E1D5C8E9F00B62219 /* SCLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLButton.h; sourceTree = "<group>"; };
+		D0C97B8F1D5C8E9F00B62219 /* SCLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLButton.m; sourceTree = "<group>"; };
+		D0C97B901D5C8E9F00B62219 /* SCLMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLMacros.h; sourceTree = "<group>"; };
+		D0C97B911D5C8E9F00B62219 /* SCLSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLSwitchView.h; sourceTree = "<group>"; };
+		D0C97B921D5C8E9F00B62219 /* SCLSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLSwitchView.m; sourceTree = "<group>"; };
+		D0C97B931D5C8E9F00B62219 /* SCLTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLTextView.h; sourceTree = "<group>"; };
+		D0C97B941D5C8E9F00B62219 /* SCLTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLTextView.m; sourceTree = "<group>"; };
+		D0C97B951D5C8E9F00B62219 /* SCLTimerDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLTimerDisplay.h; sourceTree = "<group>"; };
+		D0C97B961D5C8E9F00B62219 /* SCLTimerDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLTimerDisplay.m; sourceTree = "<group>"; };
+		D0C97B971D5C8E9F00B62219 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		D0C97B981D5C8E9F00B62219 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		DA14E7981C225D380040104A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		DA14E7A01C22638F0040104A /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
 		DA14E7A11C22638F0040104A /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
@@ -4611,6 +4636,7 @@
 		26D99DAD1C0C4D7B007AF579 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				D0C97B871D5C8E9F00B62219 /* SCLAlertView */,
 				D05842021D47296A006859B9 /* ShareSDK */,
 				D08352501D2F92950094AC2E /* JSONKit */,
 				D083522E1D2F909E0094AC2E /* MJExtension */,
@@ -6358,6 +6384,30 @@
 				D0BEF32C1D22A01600F1985C /* UIView+SDAutoLayout.m */,
 			);
 			path = SDAutoLayout;
+			sourceTree = "<group>";
+		};
+		D0C97B871D5C8E9F00B62219 /* SCLAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				D0C97B881D5C8E9F00B62219 /* SCLAlertView.h */,
+				D0C97B891D5C8E9F00B62219 /* SCLAlertView.m */,
+				D0C97B8A1D5C8E9F00B62219 /* SCLAlertViewResponder.h */,
+				D0C97B8B1D5C8E9F00B62219 /* SCLAlertViewResponder.m */,
+				D0C97B8C1D5C8E9F00B62219 /* SCLAlertViewStyleKit.h */,
+				D0C97B8D1D5C8E9F00B62219 /* SCLAlertViewStyleKit.m */,
+				D0C97B8E1D5C8E9F00B62219 /* SCLButton.h */,
+				D0C97B8F1D5C8E9F00B62219 /* SCLButton.m */,
+				D0C97B901D5C8E9F00B62219 /* SCLMacros.h */,
+				D0C97B911D5C8E9F00B62219 /* SCLSwitchView.h */,
+				D0C97B921D5C8E9F00B62219 /* SCLSwitchView.m */,
+				D0C97B931D5C8E9F00B62219 /* SCLTextView.h */,
+				D0C97B941D5C8E9F00B62219 /* SCLTextView.m */,
+				D0C97B951D5C8E9F00B62219 /* SCLTimerDisplay.h */,
+				D0C97B961D5C8E9F00B62219 /* SCLTimerDisplay.m */,
+				D0C97B971D5C8E9F00B62219 /* UIImage+ImageEffects.h */,
+				D0C97B981D5C8E9F00B62219 /* UIImage+ImageEffects.m */,
+			);
+			path = SCLAlertView;
 			sourceTree = "<group>";
 		};
 		DA2AE47D1C2D29E400F2F182 /* GuidePage */ = {
@@ -8191,6 +8241,7 @@
 				26D99EC61C0C4D7B007AF579 /* AFHTTPRequestOperationManager.m in Sources */,
 				DA82CD011C3D0FBD00C6D8EA /* LearnTabModel.m in Sources */,
 				26D99EC91C0C4D7B007AF579 /* AFSecurityPolicy.m in Sources */,
+				D0C97B9E1D5C8E9F00B62219 /* SCLTextView.m in Sources */,
 				26E987541C0D49CB00C6A7BB /* SignInOneCollectionViewCell.m in Sources */,
 				D029BC131D365F3500B20D65 /* ECTabbarViewController.m in Sources */,
 				26D99EC11C0C4D7B007AF579 /* XMShareWeiboUtil.m in Sources */,
@@ -8220,6 +8271,7 @@
 				DA7674CC1C27A68600A34D9C /* NewsTwoViewCell.m in Sources */,
 				D04B547C1D23C75700DC259A /* SDTimeLineRefreshFooter.m in Sources */,
 				DA77FC201C4652A600B4E5FC /* ActiveDetailViewController.m in Sources */,
+				D0C97B9A1D5C8E9F00B62219 /* SCLAlertViewResponder.m in Sources */,
 				26D99EBB1C0C4D7B007AF579 /* WXApiManager.m in Sources */,
 				D07E24391D12769E00854B51 /* BannerCell.m in Sources */,
 				DA9124291C28F3570018DBAF /* LeaderBoardViewCell.m in Sources */,
@@ -8249,6 +8301,7 @@
 				26D99EA41C0C4D7B007AF579 /* BaseView.m in Sources */,
 				D04B54DE1D23C90D00DC259A /* SDRefreshView.m in Sources */,
 				DA4459BF1C2114C70069415D /* ForgetPassWordViewController.m in Sources */,
+				D0C97B991D5C8E9F00B62219 /* SCLAlertView.m in Sources */,
 				D07EB29B1D18DE6800840AC2 /* JiaoLiuListModel.m in Sources */,
 				626D3F161D48A43A00724000 /* MineChatViewController.m in Sources */,
 				62BE73681D5B236800A83766 /* InformTableViewController.m in Sources */,
@@ -8400,6 +8453,7 @@
 				26D99F181C0C4D7C007AF579 /* UIImageView+WebCache.m in Sources */,
 				D083524F1D2F909E0094AC2E /* NSString+MJExtension.m in Sources */,
 				DAAEC70E1C1FED4C00FA094B /* MineTwoViewCell.m in Sources */,
+				D0C97BA01D5C8E9F00B62219 /* UIImage+ImageEffects.m in Sources */,
 				625902231D2BC34200F3F13C /* CacheManager.m in Sources */,
 				62EDB8031D34D0B000D6F772 /* AboutTableViewCell.m in Sources */,
 				D07EB29C1D18DE6800840AC2 /* UUAVAudioPlayer.m in Sources */,
@@ -8433,6 +8487,7 @@
 				DA14E7A21C22638F0040104A /* pinyin.c in Sources */,
 				DA4459FB1C21733D0069415D /* InvitationTwoViewCell.m in Sources */,
 				DA4459C91C2136310069415D /* MineAdvPKViewController.m in Sources */,
+				D0C97B9C1D5C8E9F00B62219 /* SCLButton.m in Sources */,
 				26D99F151C0C4D7C007AF579 /* UIImage+MultiFormat.m in Sources */,
 				26D99F201C0C4D7C007AF579 /* EnergyShowBackCollectionCell.m in Sources */,
 				D04B54E31D23CBBC00DC259A /* ECTimeLineCell.m in Sources */,
@@ -8468,6 +8523,7 @@
 				D0BEF32E1D22A01600F1985C /* UIView+SDAutoLayout.m in Sources */,
 				26D99EBD1C0C4D7B007AF579 /* WXApiResponseHandler.m in Sources */,
 				D083524E1D2F909E0094AC2E /* NSObject+MJProperty.m in Sources */,
+				D0C97B9F1D5C8E9F00B62219 /* SCLTimerDisplay.m in Sources */,
 				DAAEC6D11C1FB0C400FA094B /* CourseChooseTableViewCell.m in Sources */,
 				620720F61D472AD700C4F73D /* GetMessageModel.m in Sources */,
 				D07E240A1D111AC600854B51 /* HealthModel.m in Sources */,
@@ -8664,6 +8720,8 @@
 				62FCE9151D3CC1D300F52E05 /* AttentionAndFansTableViewController.m in Sources */,
 				DA7D19CD1C5AF84600FFB337 /* XHImageViewer.m in Sources */,
 				D07E24621D13907300854B51 /* AFSoundManager.m in Sources */,
+				D0C97B9D1D5C8E9F00B62219 /* SCLSwitchView.m in Sources */,
+				D0C97B9B1D5C8E9F00B62219 /* SCLAlertViewStyleKit.m in Sources */,
 				D07E24811D13DB2300854B51 /* TAAnimatedDotView.m in Sources */,
 				E1CB03DB1CC090010042857B /* SignInRuslutViewCell.m in Sources */,
 				26D99EF71C0C4D7C007AF579 /* MJRefreshStateHeader.m in Sources */,
