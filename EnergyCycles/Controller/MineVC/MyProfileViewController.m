@@ -13,6 +13,7 @@
 #import "UserModel.h"
 
 #import "CityDataManager.h"
+#import "IntroViewController.h"
 
 @interface MyProfileViewController () <UITableViewDelegate,UITableViewDataSource,UIPickerViewDataSource,UIPickerViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate> {
     NSArray *titleArr;
@@ -54,7 +55,7 @@
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     
     self.title = @"我的资料";
-    titleArr = @[@"昵称",@"姓名",@"性别",@"生日",@"电话",@"邮箱",@"城市"];
+    titleArr = @[@"昵称",@"姓名",@"性别",@"生日",@"电话",@"邮箱",@"城市",@"简介"];
     pickerArray = @[@"男",@"女"];
     touchuIndex = 0;
     postDict = [[NSMutableDictionary alloc] init];
@@ -76,7 +77,7 @@
     self.navigationItem.rightBarButtonItem = item;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeProfileDict:) name:@"isChangeProfileDict" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(introUpdate:) name:@"MyProfileIntroUpdate" object:nil];
     oneSelect = 0;
     twoSelect = 0;
     thrSelect = 0;
@@ -119,7 +120,8 @@
     [postDict setObject:@"未设置手机号" forKey:@"phoneno"];
     [postDict setObject:@"请输入邮箱" forKey:@"email"];
     [postDict setObject:@"请选择城市" forKey:@"city"];
-    keyArr = @[@"nickname", @"username", @"sex", @"birth", @"phoneno", @"email", @"city"];
+    [postDict setObject:@"暂无简介" forKey:@"Brief"];
+    keyArr = @[@"nickname", @"username", @"sex", @"birth", @"phoneno", @"email", @"city", @"Brief"];
     
     [self createButton];
 }
@@ -151,6 +153,14 @@
     }else if ([getDict[@"index"] isEqualToString:@"6"]) {
         [postDict setObject:getDict[@"text"] forKey:@"city"];
     }
+}
+
+- (void)introUpdate:(NSNotification *)notification {
+    NSDictionary *dic = [notification object];
+    MyProfileViewCell *cell = (MyProfileViewCell *)[self.view viewWithTag:4201+7];
+    cell.rightLabel.text = dic[@"Brief"];
+    
+    [postDict setObject:dic[@"Brief"] forKey:@"Brief"];
 }
 
 //- (void)viewWillAppear:(BOOL)animated {
@@ -210,17 +220,27 @@
                                                             PostOrGet:@"get"
                                                               success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
                 [self.navigationController popViewControllerAnimated:YES];
             }else if ([dict[@"Code"] integerValue] == 10000) {
-                [SVProgressHUD showImage:nil status:@"登录失效" maskType:SVProgressHUDMaskTypeClear];
+                [SVProgressHUD showImage:nil status:@"登录失效"];
                 [self.navigationController popToRootViewControllerAnimated:NO];
             }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@",str);
             [SVProgressHUD dismiss];
+        }];
+        
+        [[AppHttpManager shareInstance] changeBriefWithUserid:[User_ID intValue] Token:User_TOKEN Brief:postDict[@"Brief"] PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                NSLog(@"修改成功");
+            } else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@",str);
         }];
     }
 }
@@ -231,7 +251,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -274,8 +294,8 @@
         cell.rightLabel.text = [self.model.nickname length]<=0?postDict[@"nickname"]:self.model.nickname;
         [postDict setObject:[self.model.nickname length]<=0?@"":self.model.nickname forKey:@"nickname"];
     }else if (indexPath.row == 1) {
-        cell.rightLabel.text = [self.model.username length]<=0?postDict[@"username"]:self.model.username;
-        [postDict setObject:[self.model.username length]<=0?@"":self.model.username forKey:@"username"];
+        cell.rightLabel.text = [self.model.userName length]<=0?postDict[@"username"]:self.model.userName;
+        [postDict setObject:[self.model.userName length]<=0?@"":self.model.userName forKey:@"username"];
     }else if (indexPath.row == 2) {
         cell.rightLabel.text = [self.model.sex length]<=0?postDict[@"sex"]:self.model.sex;
         [postDict setObject:[self.model.sex length]<=0?@"":self.model.sex forKey:@"sex"];
@@ -294,6 +314,9 @@
     }else if (indexPath.row == 6) {
         cell.rightLabel.text = [self.model.city length]<=0?postDict[@"city"]:self.model.city;
         [postDict setObject:[self.model.city length]<=0?@"":self.model.city forKey:@"city"];
+    }else if (indexPath.row == 7) {
+        cell.rightLabel.text = [self.model.Brief length]<=0?postDict[@"Brief"]:self.model.Brief;
+        [postDict setObject:[self.model.Brief length]<=0?@"":self.model.Brief forKey:@"Brief"];
     }
     
     return cell;
@@ -442,7 +465,12 @@
             [self addTargetWithNum:1];
             [self.view addSubview:onePickerView];
         }
-    }else {
+    } else if (indexPath.row == 7) {
+        IntroViewController *introVC = MainStoryBoard(@"IntroViewController");
+        introVC.introString = self.model.Brief;
+        introVC.isMyProfile = YES;
+        [self.navigationController pushViewController:introVC animated:YES];
+    } else {
         [self performSegueWithIdentifier:@"MyProfieViewToChangeProfireViuew" sender:nil];
     }
 }
