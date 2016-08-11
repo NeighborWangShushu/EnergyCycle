@@ -199,6 +199,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self endRefresh];
                 GetMessageModel *model = [[GetMessageModel alloc] init];
+                if (!self.commentArray.count) {
+                    return;
+                }
                 if (self.type == 1) {
                     model = self.commentArray[0];
                 } else {
@@ -218,6 +221,9 @@
         } else {
             [self endRefresh];
             GetMessageModel *model = [[GetMessageModel alloc] init];
+            if (!self.commentArray.count) {
+                return;
+            }
             if (self.type == 1) {
                 model = self.commentArray[0];
             } else {
