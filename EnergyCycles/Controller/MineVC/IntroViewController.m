@@ -76,7 +76,6 @@
     } else {
         [self.navigationController popViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"MyProfileIntroUpdate" object:@{@"Brief" : self.updateIntroString}];
-        
     }
 }
 
