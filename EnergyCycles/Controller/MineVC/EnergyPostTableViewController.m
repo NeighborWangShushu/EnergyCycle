@@ -76,7 +76,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self endRefresh];
-            if ((self.startPage + 1) * 10 >= self.dataArray.count) {
+            if ((self.startPage + 1) * 10 > self.dataArray.count) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
             [self.tableView reloadData];
@@ -147,6 +147,9 @@
         [weakSelf getDataWithUserId:self.userId];
     }];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        if ((self.startPage + 1) * 10 > self.dataArray.count) {
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
         self.startPage ++;
         [weakSelf getDataWithUserId:self.userId];
     }];
