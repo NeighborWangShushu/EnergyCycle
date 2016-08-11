@@ -31,9 +31,10 @@
             NSString *fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
             folderSize += [self fileSizeAtPath:fileAbsolutePath];
         }
-        
+//        NSLog(@"系统缓存%f",folderSize);
         // SDWebImage
-        folderSize += [[SDImageCache sharedImageCache] getSize];
+        folderSize = [[SDImageCache sharedImageCache] getSize];
+//        NSLog(@"缓存大小%f",folderSize);
         return folderSize/1024.0/1024.0;
     }
     return 0;
@@ -71,9 +72,10 @@
  
  */
 + (void)cleadDisk {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    NSString *path = [paths lastObject];
-    [[CacheManager alloc] clearCache:path];
+    [[SDImageCache sharedImageCache] cleanDisk];
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+//    NSString *path = [paths lastObject];
+//    [[CacheManager alloc] clearCache:path];
 }
 
 @end

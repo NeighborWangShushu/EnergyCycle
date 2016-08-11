@@ -43,6 +43,6 @@
 //获取第一帧图片
 + (UIImage*)thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;
 
-
+- (BOOL)isBlankString:(NSString *)string;
 
 @end
