@@ -130,7 +130,10 @@
     for (NSDictionary * comment in data[@"commentList"]) {
         ECTimeLineCellCommentItemModel*commentModel = [ECTimeLineCellCommentItemModel new];
         commentModel.firstUserName = comment[@"commNickName"];
-        commentModel.commentString = comment[@"commContent"];
+        NSString *informationStr = [comment[@"commContent"] stringByRemovingPercentEncoding];
+        informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
+        informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+        commentModel.commentString = informationStr;
         commentModel.firstUserId = comment[@"commUserId"];
         [commentArr addObject:commentModel];
     }
@@ -182,8 +185,7 @@
         self.tableView.showsVerticalScrollIndicator = NO;
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
         [self setupLeftNavBarWithimage:@"loginfanhui"];
-        [self.tableView.mj_header beginRefreshing];
-        //        self.tabBarController.tabBar.hidden = YES;
+//        self.tabBarController.tabBar.hidden = YES;
         
     }
     
@@ -476,7 +478,11 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     //发送评论
     NSLog(@"%@",textField.text);
-    [self sendCommend:textField.text index:commentIndex section:commentSection];
+    if ([[AppHelpManager sharedInstance] isBlankString:textField.text]) {
+        [SVProgressHUD showImage:nil status:@"评论内容不能为空"];
+    } else {
+        [self sendCommend:textField.text index:commentIndex section:commentSection];
+    }
     
     [textField resignFirstResponder];
     return YES;
