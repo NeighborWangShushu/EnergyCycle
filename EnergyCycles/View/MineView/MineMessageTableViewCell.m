@@ -41,6 +41,14 @@
     
 }
 
+- (void)noData {
+    self.userInteractionEnabled = NO;
+    self.textLabel.text = @"暂无数据";
+    self.textLabel.font = [UIFont systemFontOfSize:16];
+    self.textLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
+    self.textLabel.textAlignment = NSTextAlignmentCenter;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

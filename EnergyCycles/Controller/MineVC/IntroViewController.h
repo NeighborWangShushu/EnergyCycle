@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet CustomTextView *introTextView;
 
 @property (nonatomic, copy) NSString *introString;
+@property (nonatomic, assign) BOOL isMyProfile;
 
 @end

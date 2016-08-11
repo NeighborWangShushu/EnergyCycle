@@ -26,4 +26,6 @@
 
 - (void)updateDataWithModel:(MessageModel *)model;
 
+- (void)noData;
+
 @end

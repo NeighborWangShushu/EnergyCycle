@@ -154,21 +154,32 @@
                     EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[1];
 //                    [self getUserInfo:model.userId];
                     [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
-                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
-                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+//                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
+//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+//                    } else {
+//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
+//                    }
+                    if ([model.BackgroundImg isEqualToString:@""] || model.BackgroundImg == nil) {
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
                     } else {
-                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg]];
                     }
+
                     
                     subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的首页",model.nickname];
                 }else {
                     EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[0];
 //                    [self getUserInfo:model.userId];
                     [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
-                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
-                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+//                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
+//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+//                    } else {
+//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
+//                    }
+                    if ([model.BackgroundImg isEqualToString:@""] || model.BackgroundImg == nil) {
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
                     } else {
-                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg]];
                     }
                     subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的首页",model.nickname];
                 }

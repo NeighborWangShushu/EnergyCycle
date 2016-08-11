@@ -60,10 +60,23 @@
     [self.changeButton setTitle:@"修改" forState:UIControlStateNormal];
     [self.changeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.changeButton setTintColor:[UIColor whiteColor]];
-    [self.changeButton addTarget:self action:@selector(changeAction) forControlEvents:UIControlEventTouchUpInside];
+    if (self.isMyProfile) {
+        [self.changeButton addTarget:self action:@selector(updateIntro) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [self.changeButton addTarget:self action:@selector(changeAction) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.changeButton];
     self.navigationItem.rightBarButtonItem = item;
+}
+
+- (void)updateIntro {
+    if (self.updateIntroString.length > 15) {
+        [SVProgressHUD showImage:nil status:@"请将字数限制在15字以内" maskType:SVProgressHUDMaskTypeClear];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MyProfileIntroUpdate" object:@{@"Brief" : self.updateIntroString}];
+    }
 }
 
 // 点击修改触发的方法
@@ -83,7 +96,8 @@
                 [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
-            [SVProgressHUD showImage:nil status:@"请检查您的网络" maskType:SVProgressHUDMaskTypeClear];
+//            [SVProgressHUD showImage:nil status:@"请检查您的网络" maskType:SVProgressHUDMaskTypeClear];
+            NSLog(@"%@",str);
         }];
     }
 }

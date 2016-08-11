@@ -256,8 +256,10 @@ AppDelegate *EnetgyCycle = nil;
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"isAppGetJPush" object:dict];
 //    }
     NSString *type = [NSString stringWithFormat:@"%@", apsDictionary[@"type"]];
-    if ([type isEqualToString:@"3"]) {
-        // 私信推送
+    if ([type isEqualToString:@"1"] || [type isEqualToString:@"2"] || [type isEqualToString:@"3"]) {
+        // 通知推送 type = 1
+        // 活动推送 type = 2
+        // 私信推送 type = 3
         [[NSNotificationCenter defaultCenter] postNotificationName:@"pushReloadData" object:nil];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
