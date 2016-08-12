@@ -311,6 +311,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"powerSource"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"powerSource"] forKey:@"UserPowerSource"];
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"nickname"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"nickname"] forKey:@"UserNickName"];
                 [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"photourl"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"photourl"] forKey:@"headpic"];
+                [[NSUserDefaults standardUserDefaults] setObject:[dict[@"Data"][0][@"phone"] isKindOfClass:[NSNull class]]?@"":dict[@"Data"][0][@"phone"] forKey:@"PHONE"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
