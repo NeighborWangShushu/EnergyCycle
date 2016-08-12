@@ -10,6 +10,7 @@
 
 #import "MyProfileViewCell.h"
 #import "ChangeProfileViewController.h"
+#import "VerificationPhoneViewController.h"
 #import "UserModel.h"
 
 #import "CityDataManager.h"
@@ -77,6 +78,7 @@
     self.navigationItem.rightBarButtonItem = item;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeProfileDict:) name:@"isChangeProfileDict" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(phoneNumberChange:) name:@"PhoneNumberChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(introUpdate:) name:@"MyProfileIntroUpdate" object:nil];
     oneSelect = 0;
     twoSelect = 0;
@@ -153,6 +155,14 @@
     }else if ([getDict[@"index"] isEqualToString:@"6"]) {
         [postDict setObject:getDict[@"text"] forKey:@"city"];
     }
+}
+
+- (void)phoneNumberChange:(NSNotification *)notification {
+    NSDictionary *dic = [notification object];
+    MyProfileViewCell *cell = (MyProfileViewCell *)[self.view viewWithTag:4201+4];
+    cell.rightLabel.text = dic[@"phoneNumber"];
+    
+    [postDict setObject:dic[@"phoneNumber"] forKey:@"phoneno"];
 }
 
 - (void)introUpdate:(NSNotification *)notification {
@@ -242,6 +252,16 @@
         } failure:^(NSString *str) {
             NSLog(@"%@",str);
         }];
+        
+        [[AppHttpManager shareInstance] updateAppUserTelUpdWithUserid:[User_ID intValue] Tel:postDict[@"phoneno"] PostOrGet:@"get" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                NSLog(@"手机修改成功");
+            } else {
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@",str);
+        }];
     }
 }
 
@@ -294,8 +314,8 @@
         cell.rightLabel.text = [self.model.nickname length]<=0?postDict[@"nickname"]:self.model.nickname;
         [postDict setObject:[self.model.nickname length]<=0?@"":self.model.nickname forKey:@"nickname"];
     }else if (indexPath.row == 1) {
-        cell.rightLabel.text = [self.model.userName length]<=0?postDict[@"username"]:self.model.userName;
-        [postDict setObject:[self.model.userName length]<=0?@"":self.model.userName forKey:@"username"];
+        cell.rightLabel.text = [self.model.username length]<=0?postDict[@"username"]:self.model.username;
+        [postDict setObject:[self.model.username length]<=0?@"":self.model.username forKey:@"username"];
     }else if (indexPath.row == 2) {
         cell.rightLabel.text = [self.model.sex length]<=0?postDict[@"sex"]:self.model.sex;
         [postDict setObject:[self.model.sex length]<=0?@"":self.model.sex forKey:@"sex"];
@@ -303,11 +323,12 @@
         cell.rightLabel.text = [self.model.birth length]<=0?postDict[@"birth"]:self.model.birth;
         [postDict setObject:[self.model.birth length]<=0?@"":self.model.birth forKey:@"birth"];
     }else if (indexPath.row == 4) {
-        cell.userInteractionEnabled = NO;
-        cell.constraint.constant = 17;
-        cell.rightImage.hidden = YES;
         NSString *string = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginType"]];
         if ([string isEqualToString:@"0"]) {
+            cell.userInteractionEnabled = NO;
+            cell.constraint.constant = 17;
+            cell.rightImage.hidden = YES;
+            NSString *string = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginType"]];
             cell.rightLabel.text = [self.model.phone length]<=0?postDict[@"phoneno"]:self.model.phone;
             [postDict setObject:[self.model.phone length]<=0?@"":self.model.phone forKey:@"phoneno"];
         } else {
@@ -477,6 +498,10 @@
         introVC.introString = self.model.Brief;
         introVC.isMyProfile = YES;
         [self.navigationController pushViewController:introVC animated:YES];
+    } else if (indexPath.row == 4) {
+        VerificationPhoneViewController *verVC = MainStoryBoard(@"VerificationPhoneViewController");
+        verVC.isOtherLogin = YES;
+        [self.navigationController pushViewController:verVC animated:YES];
     } else {
         [self performSegueWithIdentifier:@"MyProfieViewToChangeProfireViuew" sender:nil];
     }

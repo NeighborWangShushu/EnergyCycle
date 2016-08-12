@@ -396,5 +396,10 @@
 //102. 获取通知列表
 #define APP_Notify_Get             @"user/APP_Notify_Get"
 
+//103.修改个人资料中的手机号发送验证码
+#define GetTelCode                 @"/user/GetTelCode"
+
+//104. 修改个人资料中的手机号
+#define AppUserTelUpdate           @"/user/AppUser_Tel_Upd"
 
 #endif

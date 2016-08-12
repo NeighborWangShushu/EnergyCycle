@@ -3606,7 +3606,7 @@
         <!--Verification Phone View Controller-->
         <scene sceneID="4q8-eM-4kE">
             <objects>
-                <viewController id="M9f-MD-zNM" customClass="VerificationPhoneViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VerificationPhoneViewController" id="M9f-MD-zNM" customClass="VerificationPhoneViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lzy-LF-scB"/>
                         <viewControllerLayoutGuide type="bottom" id="T1n-18-dIM"/>

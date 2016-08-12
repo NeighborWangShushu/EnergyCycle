@@ -1196,4 +1196,22 @@
                        success:(void (^)(NSDictionary *dict))success
                        failure:(void (^)(NSString *str))failure;
 
+#pragma mark - 103.修改个人资料中的手机号发送验证码
+//输入参数：UserID   int
+//输入参数：Tel      string
+- (void)getTelCodeWithUserid:(int)userid
+                         Tel:(NSString *)tel
+                   PostOrGet:(NSString *)postOrGetType
+                     success:(void (^)(NSDictionary *dict))success
+                     failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 104.修改个人资料中的手机号
+//输入参数：UserID   int
+//输入参数：Tel      string    //手机号
+- (void)updateAppUserTelUpdWithUserid:(int)userid
+                                  Tel:(NSString *)tel
+                            PostOrGet:(NSString *)postOrGetType
+                              success:(void (^)(NSDictionary *dict))success
+                              failure:(void (^)(NSString *str))failure;
+
 @end
