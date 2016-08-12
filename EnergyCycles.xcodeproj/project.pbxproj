@@ -949,6 +949,7 @@
 		D0C97B9E1D5C8E9F00B62219 /* SCLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B941D5C8E9F00B62219 /* SCLTextView.m */; };
 		D0C97B9F1D5C8E9F00B62219 /* SCLTimerDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B961D5C8E9F00B62219 /* SCLTimerDisplay.m */; };
 		D0C97BA01D5C8E9F00B62219 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B981D5C8E9F00B62219 /* UIImage+ImageEffects.m */; };
+		D0C97BA31D5D6EB700B62219 /* UIButton+JKCountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97BA21D5D6EB700B62219 /* UIButton+JKCountDown.m */; };
 		DA14E7991C225D390040104A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA14E7981C225D380040104A /* CoreFoundation.framework */; };
 		DA14E7A21C22638F0040104A /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = DA14E7A01C22638F0040104A /* pinyin.c */; };
 		DA1E1B131C30CBA7007DFC48 /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1E1B121C30CBA7007DFC48 /* libPushSDK-1.8.8.a */; };
@@ -2801,6 +2802,8 @@
 		D0C97B961D5C8E9F00B62219 /* SCLTimerDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLTimerDisplay.m; sourceTree = "<group>"; };
 		D0C97B971D5C8E9F00B62219 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		D0C97B981D5C8E9F00B62219 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		D0C97BA11D5D6EB700B62219 /* UIButton+JKCountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+JKCountDown.h"; sourceTree = "<group>"; };
+		D0C97BA21D5D6EB700B62219 /* UIButton+JKCountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+JKCountDown.m"; sourceTree = "<group>"; };
 		DA14E7981C225D380040104A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		DA14E7A01C22638F0040104A /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
 		DA14E7A11C22638F0040104A /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
@@ -4467,6 +4470,8 @@
 		26D99D611C0C4D7B007AF579 /* Help */ = {
 			isa = PBXGroup;
 			children = (
+				D0C97BA11D5D6EB700B62219 /* UIButton+JKCountDown.h */,
+				D0C97BA21D5D6EB700B62219 /* UIButton+JKCountDown.m */,
 				D07EB1ED1D18DE6800840AC2 /* HelpChat */,
 				D07E248B1D13F04000854B51 /* RACollectionViewReorderableTripletLayout */,
 				D07E24701D13DB2300854B51 /* SDCycleScrollView */,
@@ -8462,6 +8467,7 @@
 				26D99ED01C0C4D7B007AF579 /* IQUIView+Hierarchy.m in Sources */,
 				26D99F091C0C4D7C007AF579 /* SBJsonWriter.m in Sources */,
 				DAC4D0BC1C4C95AA00BCC979 /* FMDatabasePool.m in Sources */,
+				D0C97BA31D5D6EB700B62219 /* UIButton+JKCountDown.m in Sources */,
 				D08352121D2CFD8A0094AC2E /* ECMenuCell.m in Sources */,
 				D07E24611D13907300854B51 /* AFAudioRouter.m in Sources */,
 				26D99E9A1C0C4D7B007AF579 /* MineNavController.m in Sources */,

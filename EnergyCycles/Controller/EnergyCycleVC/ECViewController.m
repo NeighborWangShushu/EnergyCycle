@@ -30,6 +30,7 @@
 #import "ShareSDKManager.h"
 #import "SCLAlertView.h"
 #import "SCLAlertViewStyleKit.h"
+#import "UIButton+JKCountDown.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
@@ -70,6 +71,8 @@
     
     //未读数label
     UILabel * count;
+    
+    UITextField*textf;
     
     BOOL navIsOpen;
 }
@@ -118,7 +121,6 @@
     if (User_TOKEN.length > 0) {
         [self checkPhone];
     }
-    
 }
 
 
@@ -147,13 +149,16 @@
 }
 
 - (void)showAlert {
+    
+    [IQKeyboardManager sharedManager].enable = YES;
+    
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     [alert setCustomViewColor:[UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0]];
 //    [alert setIconTintColor:[UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0]];
     //Using Selector
     
     //手机号码
-    UITextField*textf = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
+    textf = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
     textf.font = [UIFont systemFontOfSize:14];
     textf.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 5, 0)];
     textf.leftViewMode = UITextFieldViewModeAlways;
@@ -161,46 +166,60 @@
     textf.layer.borderWidth = 1.0;
     textf.placeholder = @"请输入手机号码";
     
+    UIView*vertyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
+    
     //验证码
-    UITextField*textv = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
+    UITextField*textv = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 125, 30)];
     textv.font = [UIFont systemFontOfSize:14];
     textv.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 5, 0)];
     textv.leftViewMode = UITextFieldViewModeAlways;
+    textv.layer.cornerRadius = 2.0;
     textv.layer.borderColor = [UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0].CGColor;
     textv.layer.borderWidth = 1.0;
     textv.placeholder = @"请输入验证码";
+    [vertyView addSubview:textv];
     
+    UIButton*vertyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [vertyButton addTarget:self action:@selector(vertyAction:) forControlEvents:UIControlEventTouchUpInside];
+    [vertyButton setFrame:CGRectMake(135, 0, 80, 30)];
+    [vertyButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    [vertyButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [vertyButton.layer setCornerRadius:5.0];
+    [vertyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [vertyButton setBackgroundColor:[UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0]];
+    [vertyView addSubview:vertyButton];
     
     [alert addCustomTextField:textf];
-    [alert addCustomTextField:textv];
+    [alert addCustomView:vertyView];
     
-    [alert addButton:@"获取验证码" validationBlock:^BOOL{
-        if ([[AppHelpManager sharedInstance] isPhoneNum:textf.text]) {
-            [self getVertyCode:textf.text];
-        }else {
-            [SVProgressHUD showImage:nil status:@"请输入正确的手机号码"];
-        }
-        return NO;
-    } actionBlock:^{
-        
-    }];
+   
     
     //Using Block
     [alert addButton:@"确定" validationBlock:^BOOL {
-        if (code != textv.text) {
+        NSLog(@"%@",textv.text);
+        if (![code isEqualToString:textv.text]) {
             [SVProgressHUD showImage:nil status:@"验证码错误"];
             return NO;
         }
-        
+        [IQKeyboardManager sharedManager].enable = NO;
         [self bindPhoneNumber:textf.text];
         return YES;
     } actionBlock:^(void) {
         NSLog(@"Second button tapped");
-    
         
     }];
     
     [alert showSuccess:self title:@"温馨提示" subTitle:@"根据工信部相关规定，APP应用必须进行用户实名认证。请绑定自己的手机号码，谢谢配合!" closeButtonTitle:nil duration:0.0f];
+}
+
+- (void)vertyAction:(UIButton*)button {
+    NSLog(@"获取验证码");
+    if ([[AppHelpManager sharedInstance] isPhoneNum:textf.text]) {
+        [self getVertyCode:textf.text];
+        [button jk_startTime:30 title:@"获取验证码" waitTittle:@"s"];
+    }else {
+        [SVProgressHUD showImage:nil status:@"请输入正确的手机号码"];
+    }
 }
 
 - (void)bindPhoneNumber:(NSString*)phone {
@@ -216,12 +235,6 @@
     }];
 
 }
-
-
-- (void)vertyButton:(UIButton*)button {
-    
-}
-
 
 /**
  *  获取验证码

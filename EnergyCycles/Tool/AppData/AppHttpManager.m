@@ -49,7 +49,7 @@ static AFHTTPRequestOperationManager *manager;
              if (error) {
                  failure(error);
              }
-             [SVProgressHUD showImage:nil status:@"请检查网络"];
+             
          }];
 }
 
@@ -80,7 +80,7 @@ static AFHTTPRequestOperationManager *manager;
               if (failure) {
                   failure(error);
               }
-              [SVProgressHUD showImage:nil status:@"请检查网络"];
+              
           }];
 }
 

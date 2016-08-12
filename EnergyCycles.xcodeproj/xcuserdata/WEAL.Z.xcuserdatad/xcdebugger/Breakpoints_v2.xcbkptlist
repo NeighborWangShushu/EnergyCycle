@@ -546,16 +546,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
-            timestampString = "492613566.443832"
+            timestampString = "492663869.198131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
-<<<<<<< HEAD
+            startingLineNumber = "435"
+            endingLineNumber = "435"
             landmarkName = "-getData:"
-=======
-            landmarkName = "-toolBar"
->>>>>>> wangbin
             landmarkType = "5">
             <Locations>
                <Location
@@ -598,16 +594,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
-            timestampString = "492613566.443832"
+            timestampString = "492663869.198131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "508"
-            endingLineNumber = "508"
-<<<<<<< HEAD
+            startingLineNumber = "521"
+            endingLineNumber = "521"
             landmarkName = "-sortByData:"
-=======
-            landmarkName = "-setup"
->>>>>>> wangbin
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -618,16 +610,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
-            timestampString = "492613566.443832"
+            timestampString = "492663869.198131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "506"
-            endingLineNumber = "506"
-<<<<<<< HEAD
+            startingLineNumber = "519"
+            endingLineNumber = "519"
             landmarkName = "-sortByData:"
-=======
-            landmarkName = "-setup"
->>>>>>> wangbin
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -644,6 +632,22 @@
             startingLineNumber = "227"
             endingLineNumber = "227"
             landmarkName = "-getGetInfoByUseridWithUserid:PostOrGet:success:failure:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
+            timestampString = "492663869.198131"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "-showAlert"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
