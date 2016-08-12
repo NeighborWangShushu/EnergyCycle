@@ -104,14 +104,12 @@
 - (void)getAttentionInfo {
     [[AppHttpManager shareInstance] getMyHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            
             [self.dataArr removeAllObjects];
             
             for (NSDictionary *subDict in dict[@"Data"]) {
                 UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
                 [self.dataArr addObject:model];
             }
-//            NSLog(@"%ld",self.dataArr.count);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self endRefresh];
                 [self.tableView reloadData];

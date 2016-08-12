@@ -35,6 +35,11 @@
     }
 }
 
+- (void)isOtherLogin {
+    self.leftLabel.text = @"";
+    self.rightImage.hidden = YES;
+}
+
 - (void)lineView {
     UIView *line = [[UIView alloc] init];
     line.frame = CGRectMake(self.frame.origin.x + 31, self.frame.size.height - 1, Screen_width - 50, 1);
