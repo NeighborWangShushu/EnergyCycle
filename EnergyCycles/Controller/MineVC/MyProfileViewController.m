@@ -306,8 +306,15 @@
         cell.userInteractionEnabled = NO;
         cell.constraint.constant = 17;
         cell.rightImage.hidden = YES;
-        cell.rightLabel.text = [self.model.phone length]<=0?postDict[@"phoneno"]:self.model.phone;
-        [postDict setObject:[self.model.phone length]<=0?@"":self.model.phone forKey:@"phoneno"];
+        NSString *string = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginType"]];
+        if ([string isEqualToString:@"0"]) {
+            cell.rightLabel.text = [self.model.phone length]<=0?postDict[@"phoneno"]:self.model.phone;
+            [postDict setObject:[self.model.phone length]<=0?@"":self.model.phone forKey:@"phoneno"];
+        } else {
+            cell.rightLabel.text = [self.model.Tel length]<=0?postDict[@"phoneno"]:self.model.phone;
+            [postDict setObject:[self.model.Tel length]<=0?@"":self.model.Tel forKey:@"phoneno"];
+        }
+        
     }else if (indexPath.row == 5) {
         cell.rightLabel.text = [self.model.email length]<=0?postDict[@"email"]:self.model.email;
         [postDict setObject:[self.model.email length]<=0?@"":self.model.email forKey:@"email"];

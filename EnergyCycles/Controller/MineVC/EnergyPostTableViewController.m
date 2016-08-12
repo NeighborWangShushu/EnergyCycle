@@ -66,6 +66,7 @@
 
 - (void)getDataWithUserId:(NSString *)userId {
     [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:[NSString stringWithFormat:@"%@", User_ID] OtherUserId:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
+        [SVProgressHUD showWithStatus:@""];
         if (self.startPage == 0) {
             [self.dataArray removeAllObjects];
         }
@@ -80,6 +81,7 @@
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
             [self.tableView reloadData];
+            [SVProgressHUD dismiss];
         });
     } failure:^(NSString *str) {
         [self endRefresh];

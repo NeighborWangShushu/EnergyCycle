@@ -16,7 +16,9 @@
 
 #import "CacheManager.h"
 
-@interface SettingTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
+@interface SettingTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
+    BOOL isPhoneLogin;
+}
 
 @end
 
@@ -43,6 +45,11 @@
 
 // 每一行的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!isPhoneLogin) {
+        if (indexPath.section == 0) {
+            return 0;
+        }
+    }
     return 50.f;
 }
 
@@ -120,6 +127,10 @@
     SettingTwoViewCell *cell = [tableView dequeueReusableCellWithIdentifier:twoViewCell];
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"SettingTwoViewCell" owner:self options:nil].lastObject;
+    }
+    if (!isPhoneLogin && indexPath.section == 0) {
+        [cell isOtherLogin];
+        return cell;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell updateDataWithSection:indexPath.section index:indexPath.row];
@@ -218,6 +229,16 @@
     [alert addAction:exitAction];
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSString *string = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginType"]];
+//    string
+    if ([string isEqualToString:@"0"]) {
+        isPhoneLogin = YES;
+    } else {
+        isPhoneLogin = NO;
+    }
 }
 
 - (void)viewDidLoad {
