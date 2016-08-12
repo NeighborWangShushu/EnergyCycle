@@ -551,11 +551,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "425"
             endingLineNumber = "425"
-<<<<<<< HEAD
             landmarkName = "-getData:"
-=======
             landmarkName = "-toolBar"
->>>>>>> wangbin
             landmarkType = "5">
             <Locations>
                <Location
