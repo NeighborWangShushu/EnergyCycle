@@ -17,4 +17,6 @@
 // 添加数据
 - (void)updateDataWithSection:(NSInteger)section index:(NSInteger)index;
 
+- (void)isOtherLogin;
+
 @end
