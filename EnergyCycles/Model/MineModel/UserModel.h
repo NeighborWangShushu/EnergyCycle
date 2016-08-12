@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSString<Optional> *userguid;
 @property (nonatomic, strong) NSString<Optional> *token;
 @property (nonatomic, strong) NSString<Optional> *nickname;
-@property (nonatomic, strong) NSString<Optional> *userName;
+@property (nonatomic, strong) NSString<Optional> *username;
 @property (nonatomic, strong) NSString<Optional> *sex;
 @property (nonatomic, strong) NSString<Optional> *phone;
 @property (nonatomic, strong) NSString<Optional> *email;
