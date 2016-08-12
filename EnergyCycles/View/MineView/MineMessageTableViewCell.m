@@ -22,7 +22,10 @@
     self.timeLabel.text = time;
     
     // 消息
-    self.messageLabel.text = model.NotifyContent;
+    NSString *messageText = [model.NotifyContent stringByRemovingPercentEncoding];
+    messageText = [messageText stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
+    messageText = [messageText stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+    self.messageLabel.text = messageText;
     
     // 能量圈第一张图片
     if ([model.FirstImg isEqualToString:@""] || model.FirstImg == nil) {
