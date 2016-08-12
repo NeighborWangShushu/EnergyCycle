@@ -950,6 +950,9 @@
 		D0C97B9F1D5C8E9F00B62219 /* SCLTimerDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B961D5C8E9F00B62219 /* SCLTimerDisplay.m */; };
 		D0C97BA01D5C8E9F00B62219 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97B981D5C8E9F00B62219 /* UIImage+ImageEffects.m */; };
 		D0C97BA31D5D6EB700B62219 /* UIButton+JKCountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97BA21D5D6EB700B62219 /* UIButton+JKCountDown.m */; };
+		D0C97BA61D5DA85C00B62219 /* DateAlertModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97BA51D5DA85C00B62219 /* DateAlertModel.m */; };
+		D0C97BA91D5DB04200B62219 /* NSDate+JKReporting.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97BA81D5DB04200B62219 /* NSDate+JKReporting.m */; };
+		D0C97BAC1D5DB26800B62219 /* NSDate+JKUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97BAB1D5DB26800B62219 /* NSDate+JKUtilities.m */; };
 		DA14E7991C225D390040104A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA14E7981C225D380040104A /* CoreFoundation.framework */; };
 		DA14E7A21C22638F0040104A /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = DA14E7A01C22638F0040104A /* pinyin.c */; };
 		DA1E1B131C30CBA7007DFC48 /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1E1B121C30CBA7007DFC48 /* libPushSDK-1.8.8.a */; };
@@ -2804,6 +2807,12 @@
 		D0C97B981D5C8E9F00B62219 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		D0C97BA11D5D6EB700B62219 /* UIButton+JKCountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+JKCountDown.h"; sourceTree = "<group>"; };
 		D0C97BA21D5D6EB700B62219 /* UIButton+JKCountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+JKCountDown.m"; sourceTree = "<group>"; };
+		D0C97BA41D5DA85C00B62219 /* DateAlertModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateAlertModel.h; sourceTree = "<group>"; };
+		D0C97BA51D5DA85C00B62219 /* DateAlertModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateAlertModel.m; sourceTree = "<group>"; };
+		D0C97BA71D5DB04200B62219 /* NSDate+JKReporting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+JKReporting.h"; sourceTree = "<group>"; };
+		D0C97BA81D5DB04200B62219 /* NSDate+JKReporting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+JKReporting.m"; sourceTree = "<group>"; };
+		D0C97BAA1D5DB26800B62219 /* NSDate+JKUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+JKUtilities.h"; sourceTree = "<group>"; };
+		D0C97BAB1D5DB26800B62219 /* NSDate+JKUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+JKUtilities.m"; sourceTree = "<group>"; };
 		DA14E7981C225D380040104A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		DA14E7A01C22638F0040104A /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
 		DA14E7A11C22638F0040104A /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
@@ -4064,6 +4073,8 @@
 				D04B54E81D23CF5800DC259A /* ECTimeLineCellLikeItemModel.m */,
 				D05B9CF61D34C74F00A88A10 /* ECNavMenuModel.h */,
 				D05B9CF71D34C74F00A88A10 /* ECNavMenuModel.m */,
+				D0C97BA41D5DA85C00B62219 /* DateAlertModel.h */,
+				D0C97BA51D5DA85C00B62219 /* DateAlertModel.m */,
 			);
 			path = EnergyCycleModel;
 			sourceTree = "<group>";
@@ -4470,6 +4481,10 @@
 		26D99D611C0C4D7B007AF579 /* Help */ = {
 			isa = PBXGroup;
 			children = (
+				D0C97BAA1D5DB26800B62219 /* NSDate+JKUtilities.h */,
+				D0C97BAB1D5DB26800B62219 /* NSDate+JKUtilities.m */,
+				D0C97BA71D5DB04200B62219 /* NSDate+JKReporting.h */,
+				D0C97BA81D5DB04200B62219 /* NSDate+JKReporting.m */,
 				D0C97BA11D5D6EB700B62219 /* UIButton+JKCountDown.h */,
 				D0C97BA21D5D6EB700B62219 /* UIButton+JKCountDown.m */,
 				D07EB1ED1D18DE6800840AC2 /* HelpChat */,
@@ -8266,6 +8281,7 @@
 				26E987331C0D307500C6A7BB /* SignInRulesViewController.m in Sources */,
 				DAC4D0BE1C4C95AA00BCC979 /* FMResultSet.m in Sources */,
 				26D99E9C1C0C4D7B007AF579 /* PKNavController.m in Sources */,
+				D0C97BA91D5DB04200B62219 /* NSDate+JKReporting.m in Sources */,
 				DAAEC7001C1FE8A200FA094B /* IntegralMallViewController.m in Sources */,
 				D07E23F71D11178C00854B51 /* ReferralPageView.m in Sources */,
 				DA8AFF6C1C2A97740064B9A7 /* MineRecViewCell.m in Sources */,
@@ -8418,6 +8434,7 @@
 				DA82CCFA1C3CF1F600C6D8EA /* WDTwoScrollView.m in Sources */,
 				6237739A1D3735E900B99BEF /* UIImage+Category.m in Sources */,
 				6259022A1D2CFADC00F3F13C /* AMBoundPhoneViewController.m in Sources */,
+				D0C97BA61D5DA85C00B62219 /* DateAlertModel.m in Sources */,
 				D07EB2601D18DE6800840AC2 /* FacialView.m in Sources */,
 				26D99EC01C0C4D7B007AF579 /* XMShareWechatUtil.m in Sources */,
 				DA8AFF671C2A65260064B9A7 /* MineEveryTwoViewCell.m in Sources */,
@@ -8550,6 +8567,7 @@
 				26E987481C0D386A00C6A7BB /* OtherUserReportViewController.m in Sources */,
 				62EDB80C1D34E51300D6F772 /* FunctionViewController.m in Sources */,
 				26D99EFC1C0C4D7C007AF579 /* UIView+MJExtension.m in Sources */,
+				D0C97BAC1D5DB26800B62219 /* NSDate+JKUtilities.m in Sources */,
 				DA39A69C1C3E64AF0045E224 /* NSDate+Category.m in Sources */,
 				DA7AC8D21C3FBF1B00CD97EE /* JiFenHistoryModel.m in Sources */,
 				D07EB1D81D17EA6900840AC2 /* JKDBModel.m in Sources */,

@@ -396,7 +396,6 @@
 
 - (void)shareToWechatTimeline:(NSString*)url title:(NSString*)title {
     
-    
     __weak __typeof(self)weakSelf = self;
 
     ShareModel*model = [[ShareModel alloc] init];
