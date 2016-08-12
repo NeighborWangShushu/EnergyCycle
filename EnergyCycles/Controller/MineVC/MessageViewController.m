@@ -208,7 +208,8 @@
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             if (self.commentPage == 0) {
                 [self.commentArray removeAllObjects];
-            } else if (self.likePage == 0) {
+            }
+            if (self.likePage == 0) {
                 [self.likeArray removeAllObjects];
             }
 
@@ -249,9 +250,9 @@
             [self endRefresh];
             [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             GetMessageModel *model = [[GetMessageModel alloc] init];
-            if (self.type == 1) {
+            if (self.type == 1 && !noCommentData) {
                 model = self.commentArray[0];
-            } else {
+            } else if (self.type == 2 && !noLikeData) {
                 model = self.likeArray[0];
             }
             if ((page + 1) * 10 >= [model.RowCounts intValue]) {
@@ -277,7 +278,6 @@
                 if ([model.NotifyIsRead isEqualToString:@"0"] || model.NotifyIsRead == nil) {
                     self.unLikeRead = YES;
                 }
-                [self.likeArray addObject:model];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self endRefresh];
@@ -370,6 +370,10 @@
     self.commentPage = 0;
     self.likePage = 0;
     self.messagePage = 0;
+    
+    noCommentData = YES;
+    noLikeData = YES;
+    noMessageData = YES;
     
 //    [self updateDataWithType:1];
     [self updateDataWithType:2];
