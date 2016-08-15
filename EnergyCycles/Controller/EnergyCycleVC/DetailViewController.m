@@ -83,6 +83,9 @@ enum
         self.title = @"进阶PK详情";
     }
     
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
+    
     detailTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
     detailTabelView.showsVerticalScrollIndicator = NO;
     detailTabelView.backgroundColor = [UIColor whiteColor];
@@ -122,6 +125,10 @@ enum
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -718,7 +725,7 @@ enum
 #pragma mark - 能量圈评论
 - (void)commentWithContentWithDict:(NSDictionary *)getDict {
     EnergyDetailModel *model = (EnergyDetailModel *)_allArr[0];
-    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[model.artId intValue] PId:[getDict[@"type"] intValue] Content:getDict[@"content"] CommUserId:[User_ID intValue] token:User_TOKEN PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[model.artId intValue] PId:[getDict[@"type"] intValue] Content:getDict[@"content"] CommUserId:[User_ID intValue] type:@"1" token:User_TOKEN PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self getEnergyDetailDataWithArticleID:self.showDetailId];
             

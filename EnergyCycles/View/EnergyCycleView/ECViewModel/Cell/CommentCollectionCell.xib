@@ -30,6 +30,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="FJU-Lk-NkO"/>
+                                <exclude reference="TZT-PE-bCe"/>
                             </mask>
                         </variation>
                     </imageView>
@@ -43,6 +44,7 @@
                 <constraint firstItem="Org-bV-Pik" firstAttribute="top" secondItem="Gj3-jQ-PCW" secondAttribute="bottom" constant="5" id="GNR-Q4-yUh"/>
                 <constraint firstAttribute="trailing" secondItem="Org-bV-Pik" secondAttribute="trailing" id="OBI-CK-SXS"/>
                 <constraint firstItem="Org-bV-Pik" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="SOh-10-xyc"/>
+                <constraint firstItem="Gj3-jQ-PCW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="XlQ-L0-WdS"/>
                 <constraint firstItem="Gj3-jQ-PCW" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ZT4-do-9em"/>
                 <constraint firstAttribute="trailing" secondItem="Gj3-jQ-PCW" secondAttribute="trailing" id="aVl-bq-aCp"/>
                 <constraint firstItem="Org-bV-Pik" firstAttribute="top" secondItem="Gj3-jQ-PCW" secondAttribute="bottom" constant="2" id="t0g-o3-Gqh"/>

@@ -19,7 +19,11 @@
 #import "AttentionAndFansTableViewController.h"
 #import "EnergyPostTableViewController.h"
 #import "PKRecordTableViewController.h"
+#import "ToDayPKTableViewController.h"
 #import "MyProfileViewController.h"
+#import "ECAvatarManager.h"
+#import "MineChatViewController.h"
+#import "ChatViewController.h"
 
 @interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -59,6 +63,7 @@
     [self getUserInfoModel];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PKRecordTableViewController" object:self userInfo:@{@"userId" : self.userId}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ToDayTableViewController" object:self userInfo:@{@"userId" : self.userId}];
     // 通知中心
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mineHomePageReloadView) name:@"mineHomePageReloadView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headViewChangeHeadImage) name:@"headViewChangeHeadImage" object:nil];
@@ -66,14 +71,22 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToAttentionController) name:@"jumpToAttentionController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HomePageViewControllerReloadData) name:@"HomePageViewControllerReloadData" object:nil];
+}
+
+- (void)HomePageViewControllerReloadData {
+    [self getUserInfo];
+    [self getUserInfoModel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
-    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = nil;
+    self.navigationController.navigationBar.translucent = NO;
+//    UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
+//    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = nil;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -133,17 +146,19 @@
         rect.origin.y = kNavigationHeight - kHeaderImgHeight;
         self.mineView.frame = rect;
     } else {
-        if (![self.mineView.superview isEqual:tableView]) {
-            for (UIView *view in tableView.subviews) {
-                if ([view isKindOfClass:[UIImageView class]]) {
-                    [tableView insertSubview:self.mineView belowSubview:view];
-                    break;
-                }
-            }
-        }
+        [self.view insertSubview:self.mineView belowSubview:self.navigationController.navigationBar];
+        
+//        if (offsetY < 0) {
+////            CGFloat scale = (kHeaderImgHeight - kNavigationHeight) / offsetY;
+//            self.mineView.backgroundImage.frame = CGRectMake(self.mineView.backgroundImage.frame.origin.x, self.mineView.backgroundImage.frame.origin.y, self.mineView.backgroundImage.frame.size.width / (- offsetY * 0.5), self.mineView.backgroundImage.frame.size.height / (- offsetY * 0.5));
+////            self.mineView.backgroundImageHeight.constant = 250 - offsetY;
+//        }
+        
         CGRect rect = self.mineView.frame;
-        rect.origin.y = 0;
+        rect.origin.y = - offsetY;
+//        NSLog(@"y = %f",rect.origin.y);
         self.mineView.frame = rect;
+
     }
     
     if (offsetY > 0) {
@@ -169,11 +184,15 @@
     energyVC.delegate = self;
     PKRecordTableViewController *pkVC = [[PKRecordTableViewController alloc] init];
     pkVC.tableView.showsVerticalScrollIndicator = NO;
+//    pkVC.tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     pkVC.delegate = self;
-    
+//    ToDayPKTab
+    ToDayPKTableViewController *toDayVC = [[ToDayPKTableViewController alloc] init];
+    toDayVC.tableView.showsVerticalScrollIndicator = NO;
+    toDayVC.delegate = self;
     [self addChildViewController:energyVC];
     [self addChildViewController:pkVC];
-    
+    [self addChildViewController:toDayVC];
 }
 
 // 添加头视图
@@ -216,12 +235,7 @@
     [self.view insertSubview:newVC.view belowSubview:self.navigationController.navigationBar];
     if (offsetY <= kHeaderImgHeight - kNavigationHeight) {
         [newVC.view addSubview:self.mineView];
-        for (UIView *view in newVC.view.subviews) {
-            if ([view isKindOfClass:[UIImageView class]]) {
-                [newVC.view insertSubview:self.mineView belowSubview:view];
-                break;
-            }
-        }
+        
         CGRect rect = self.mineView.frame;
         rect.origin.y = 0;
         self.mineView.frame = rect;
@@ -307,23 +321,45 @@
 - (void)attentionButton {
     UIImage *image = [[UIImage alloc] init];
     if ([self.infoModel.IsGuanZhu intValue] == 1) {
-        image = [UIImage imageNamed:@"attentionButton"];
+        image = [UIImage imageNamed:@"Guanzhu"];
     } else {
-        image = [UIImage imageNamed:@"addAttentionButton"];
+        image = [UIImage imageNamed:@"addGuanzhu"];
     }
-    UIBarButtonItem *attentionButton = [[UIBarButtonItem alloc] initWithImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(clickAttentionButton)];
-    self.navigationItem.rightBarButtonItem = attentionButton;
+    UIButton *attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    attentionButton.frame = CGRectMake(30, 0, 49, 20);
+    [attentionButton setImage:image forState:UIControlStateNormal];
+    [attentionButton addTarget:self action:@selector(clickAttentionButton) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *attentionBarButton = [[UIBarButtonItem alloc] initWithCustomView:attentionButton];
+    UIButton *chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    chatButton.frame = CGRectMake(20, 0, 49, 20);
+    [chatButton setImage:[UIImage imageNamed:@"message.png"] forState:UIControlStateNormal];
+    [chatButton addTarget:self action:@selector(jumpChatViewController) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *chatBarButton = [[UIBarButtonItem alloc] initWithCustomView:chatButton];
+    self.navigationItem.rightBarButtonItems = @[attentionBarButton, chatBarButton];
+//    self.navigationItem.rightBarButtonItem = chatButton;
+//    self.navigationItem.rightBarButtonItem = attentionButton;
+}
+
+- (void)jumpChatViewController {
+    ChatViewController *chatVC = MainStoryBoard(@"ChatViewVCID");
+    chatVC.otherName = self.model.nickname;
+    chatVC.otherID = self.userId;
+    [self.navigationController pushViewController:chatVC animated:YES];
+//    MineChatViewController *chatVC = MainStoryBoard(@"MineChatViewController");
+//    chatVC.useredId = self.userId;
+//    chatVC.chatName = self.model.nickname;
+//    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (void)clickAttentionButton {
     if ([self.infoModel.IsGuanZhu intValue] == 1) {
         [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:2 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userId intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"已取消关注"];
-                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"addAttentionButton"];
+                [SVProgressHUD showImage:nil status:@"已取消关注" maskType:SVProgressHUDMaskTypeClear];
+                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"addGuanzhu"];
                 [self getUserInfoModel];
             }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);
@@ -331,11 +367,11 @@
     } else {
         [[AppHttpManager shareInstance] getAddOrCancelFriendWithType:1 UserId:[User_ID intValue] Token:User_TOKEN OUserId:[self.userId intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"关注成功"];
-                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"attentionButton"];
+                [SVProgressHUD showImage:nil status:@"关注成功" maskType:SVProgressHUDMaskTypeClear];
+                self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"Guanzhu"];
                 [self getUserInfoModel];
             }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);
@@ -388,17 +424,18 @@
         self.picker = [[UIImagePickerController alloc] init];
         self.picker.delegate = self;
         self.picker.allowsEditing = YES;
+        self.picker.navigationBar.tintColor = [UIColor whiteColor];
     }
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:self.picker animated:YES completion:nil];
+        [self.view.window.rootViewController presentViewController:self.picker animated:YES completion:nil];
     }];
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:self.picker animated:YES completion:nil];
+        [self.view.window.rootViewController presentViewController:self.picker animated:YES completion:nil];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cameraAction];
@@ -407,29 +444,36 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [viewController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    self.headImageData = UIImageJPEGRepresentation(image, 0.01);
-    [self.picker dismissViewControllerAnimated:YES completion:nil];
     
     if (self.isHeadImage) { // 上传头像
+        self.headImageData = UIImageJPEGRepresentation(image, 0.01);
+        [self.picker dismissViewControllerAnimated:YES completion:nil];
         [[AppHttpManager shareInstance] postAddImgWithPhoneNo:self.model.use_id Img:self.headImageData PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 [self getUserInfo];
             } else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);
         }];
     } else { // 上传背景图片
+        self.headImageData = UIImageJPEGRepresentation(image, 0.1);
+        [self.picker dismissViewControllerAnimated:YES completion:nil];
         [[AppHttpManager shareInstance] postPostFileWithImageData:self.headImageData PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
 //                NSLog(@"%@", dict[@"Data"]);
                 NSString *backgroundImage = dict[@"Data"][0];
                 [self changeBackgoundImage:backgroundImage];
             } else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
             }
         } failure:^(NSString *str) {
             NSLog(@"%@", str);
@@ -445,7 +489,7 @@
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self getUserInfo];
         } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
     } failure:^(NSString *str) {
         NSLog(@"%@", str);
@@ -466,6 +510,8 @@
     [self.navigationController pushViewController:afVC animated:YES];
 }
 
+
+
 - (void)jumpToIntroViewController {
     IntroViewController *introVC = MainStoryBoard(@"IntroViewController");
     introVC.introString = self.model.Brief;
@@ -474,11 +520,11 @@
 
 // 创建分段控件
 - (void)createSegmentControl {
-    self.segControl.sectionTitles = @[@"能量贴                    ",@"PK记录                    "];
+    self.segControl.sectionTitles = @[@"能量帖          ",@"PK记录          ",@"今日PK          "];
     // 横线的高度
     self.segControl.selectionIndicatorHeight = 2.0f;
     // 背景颜色
-    self.segControl.backgroundColor = [UIColor clearColor];
+    self.segControl.backgroundColor = [UIColor whiteColor];
     // 横线的颜色
     self.segControl.selectionIndicatorColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
     // 横线在底部出现
@@ -490,7 +536,11 @@
     // 选中后的文本样式
     self.segControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:242/ 255.0 green:77/255.0 blue:77/255.0 alpha:1], NSFontAttributeName:[UIFont systemFontOfSize:14]};
     // 初始位置
-    self.segControl.selectedSegmentIndex = 0;
+    if (self.isPK) {
+        self.segControl.selectedSegmentIndex = 2;
+    } else {
+        self.segControl.selectedSegmentIndex = 0;
+    }
     // 边界样式
     self.segControl.borderType = HMSegmentedControlBorderTypeBottom;
     // 边界颜色

@@ -108,7 +108,7 @@
                 [SVProgressHUD showImage:nil status:@"修改成功"];
                 [[NSUserDefaults standardUserDefaults] setObject:self.phoneNumberField.text forKey:@"PHONE"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangePhoneNumber" object:self userInfo:@{@"phone":self.phoneNumberField.text,@"text":@"您已成功绑定手机号"}];
-                UIViewController *amVC = [self.navigationController.viewControllers objectAtIndex:1];
+                UIViewController *amVC = [self.navigationController.viewControllers objectAtIndex:2];
                 [self.navigationController popToViewController:amVC animated:YES];
             } else {
                 [SVProgressHUD showImage:nil status:@"修改失败"];
@@ -129,11 +129,16 @@
     return newLength <= 19;
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"账号管理";
-    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     self.timeCount = timeNumber;
     self.enabled = NO;
     

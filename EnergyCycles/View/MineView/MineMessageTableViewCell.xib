@@ -8,10 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="111" id="KGk-i7-Jjw" customClass="MineMessageTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="349" height="150"/>
+            <rect key="frame" x="0.0" y="0.0" width="349" height="160"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="349" height="149.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="349" height="159.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I1l-kF-4kc">
@@ -33,23 +33,24 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFd-AO-p4U">
-                        <rect key="frame" x="13" y="80" width="323" height="56"/>
+                        <rect key="frame" x="13" y="80" width="323" height="66.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fMf-iN-4di">
-                                <rect key="frame" x="12" y="10" width="35" height="35"/>
+                                <rect key="frame" x="12" y="8" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="35" id="M0n-e6-7UW"/>
-                                    <constraint firstAttribute="height" constant="35" id="wAD-Sj-kp9"/>
+                                    <constraint firstAttribute="width" constant="50" id="M0n-e6-7UW"/>
+                                    <constraint firstAttribute="height" constant="50" id="wAD-Sj-kp9"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="17.5"/>
+                                        <integer key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBc-Gk-pWO">
-                                <rect key="frame" x="59" y="18" width="252" height="19.5"/>
-                                <string key="text">asdofnhoidshfoihdsaoifhoiasdofnhoidshfoihdsaoifhoiasdofnhoidshfoihdsaoifhoiasdofnhoidshfoihdsaoifhoiasdofnhoidshfoihdsaoifhoiasdofnhoidshfoihdsaoifhoi</string>
+                                <rect key="frame" x="70" y="23" width="241" height="19.5"/>
+                                <string key="text">asdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoiaasdofnhoidshfoihdsaoifhoia</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -59,7 +60,7 @@
                         <constraints>
                             <constraint firstItem="fMf-iN-4di" firstAttribute="leading" secondItem="aFd-AO-p4U" secondAttribute="leading" constant="12" id="E52-bV-c9i"/>
                             <constraint firstItem="fMf-iN-4di" firstAttribute="centerY" secondItem="aFd-AO-p4U" secondAttribute="centerY" id="asM-KU-PGd"/>
-                            <constraint firstItem="qBc-Gk-pWO" firstAttribute="leading" secondItem="aFd-AO-p4U" secondAttribute="leading" constant="59" id="gkr-Am-L2H"/>
+                            <constraint firstItem="qBc-Gk-pWO" firstAttribute="leading" secondItem="aFd-AO-p4U" secondAttribute="leading" constant="70" id="gkr-Am-L2H"/>
                             <constraint firstAttribute="trailing" secondItem="qBc-Gk-pWO" secondAttribute="trailing" constant="12" id="oSP-jo-aOo"/>
                             <constraint firstItem="qBc-Gk-pWO" firstAttribute="centerY" secondItem="aFd-AO-p4U" secondAttribute="centerY" id="sob-qN-T01"/>
                         </constraints>
@@ -69,18 +70,28 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dth-Oi-fNZ">
+                        <rect key="frame" x="10" y="156.5" width="329" height="1"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Bbt-9o-DVJ"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Zgy-aA-zDD" firstAttribute="leading" secondItem="I1l-kF-4kc" secondAttribute="trailing" constant="12" id="1hB-nj-vEu"/>
                     <constraint firstItem="Zgy-aA-zDD" firstAttribute="bottom" secondItem="I1l-kF-4kc" secondAttribute="bottom" id="3bj-jM-QqZ"/>
                     <constraint firstItem="LXM-Fi-uUd" firstAttribute="top" secondItem="I1l-kF-4kc" secondAttribute="bottom" constant="12" id="AUb-6V-PQx"/>
+                    <constraint firstAttribute="bottom" secondItem="dth-Oi-fNZ" secondAttribute="bottom" constant="2" id="C5y-xo-Zln"/>
                     <constraint firstItem="LXM-Fi-uUd" firstAttribute="leading" secondItem="I1l-kF-4kc" secondAttribute="leading" id="LbQ-XU-2I2"/>
                     <constraint firstItem="I1l-kF-4kc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="Mwd-OA-uqU"/>
                     <constraint firstItem="aFd-AO-p4U" firstAttribute="top" secondItem="LXM-Fi-uUd" secondAttribute="bottom" constant="12" id="P1d-me-Q1N"/>
                     <constraint firstAttribute="trailing" secondItem="aFd-AO-p4U" secondAttribute="trailing" constant="13" id="SGF-9Q-l5m"/>
                     <constraint firstItem="I1l-kF-4kc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="eAc-Z3-ZjI"/>
+                    <constraint firstItem="dth-Oi-fNZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="fcs-mZ-Cdx"/>
                     <constraint firstAttribute="bottom" secondItem="aFd-AO-p4U" secondAttribute="bottom" constant="13" id="vCF-5h-eXN"/>
                     <constraint firstItem="aFd-AO-p4U" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="xGa-Ay-2Bo"/>
+                    <constraint firstAttribute="trailing" secondItem="dth-Oi-fNZ" secondAttribute="trailing" constant="10" id="y1X-WE-pgp"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

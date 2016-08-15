@@ -13,6 +13,7 @@
 #import "EnergyPostOneViewCell.h"
 #import "EnergyPostCollectionViewCell.h"
 #import "EnergyPostTwoViewCell.h"
+#import "HeadLineTableViewCell.h"
 #import "ZYQAssetPickerController.h"
 #import "CustomChooseClassView.h"
 
@@ -51,12 +52,14 @@
     pkPostTableView.showsVerticalScrollIndicator = NO;
     pkPostTableView.backgroundColor = [UIColor clearColor];
     
-    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
+    self.title = @"进阶PK汇报";
     
     rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     rightButton.frame = CGRectMake(0, 0, 35, 30);
     [rightButton setTitle:@"提交" forState:UIControlStateNormal];
-    [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
@@ -102,8 +105,10 @@
     [super viewWillAppear:animated];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
 }
 
 #pragma mark - 提交按键响应事件
@@ -164,7 +169,7 @@
             }
         }else {
             // 网络出错
-            [SVProgressHUD showImage:nil status:@"请检查网络"];
+            
         }
     } failure:^(NSString *str) {
         NSLog(@"错误：%@",str);
@@ -190,7 +195,7 @@
         [[AppHttpManager  shareInstance] getAddPostWithPostTypeId:[postTypeId intValue] Title:title Content:context videoUrl:videoUrl userId:[User_ID intValue] token:User_TOKEN postPic:_dataArr PostOrGet:@"post" success:^(NSDictionary *dict) {
             [self creatSuccessShareView];
         } failure:^(NSString *str) {
-            [SVProgressHUD showImage:nil status:@"请检查网络"];
+            
             NSLog(@"%@",str);
         }];
     }
@@ -202,15 +207,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         return 50.f;
-    }else if (indexPath.row == 1) {
+    } else if (indexPath.row == 1) {
+        return 30.f;
+    } else if (indexPath.row == 2) {
         return 308.f;
-    }else if (indexPath.row == 2) {
+    }else if (indexPath.row == 3) {
         return 120.f;
     }
     
@@ -225,7 +232,15 @@
          cell.titleLabel.text=postDict[@"fenleiText"];
        }
         return cell;
-    }else if (indexPath.row == 1) {
+    } else if (indexPath.row == 1) {
+        HeadLineTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"HeadLineTableViewCell" owner:self options:nil].lastObject;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell.textField addTarget:self action:@selector(textFieldValueChange:) forControlEvents:UIControlEventEditingChanged];
+        cell.textField.text = postDict[@"title"];
+        
+        return cell;
+    } else if (indexPath.row == 2) {
         EnergyPostViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"EnergyPostViewCell" owner:self options:nil].lastObject;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -237,7 +252,7 @@
         cell.informationTextView.delegate = self;
         
         return cell;
-    }else if (indexPath.row == 2) {
+    }else if (indexPath.row == 3) {
         EnergyPostOneViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"EnergyPostOneViewCell" owner:self options:nil].lastObject;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -453,7 +468,8 @@
         }
         //资源类型为照相机
         picker.sourceType = sourceType;
-        [self presentViewController:picker animated:YES completion:nil];
+//        [self presentViewController:picker animated:YES completion:nil];
+        [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
     }else {
         NSLog(@"该设备无摄像头");
     }
@@ -478,7 +494,8 @@
             return YES;
         }
     }];
-    [self presentViewController:picker animated:YES completion:nil];
+//    [self presentViewController:picker animated:YES completion:nil];
+    [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
     
 }
 

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface MoreVC : UIViewController
+@interface MoreVC : BaseViewController
 
 @property (nonatomic,copy)NSString *name;
 @end

@@ -12,13 +12,13 @@
 
 - (void)updateDataWithSection:(NSInteger)section index:(NSInteger)index {
     if (section == 0) {
-        if (index == 0) {
-            self.leftLabel.text = @"个人资料";
-            [self lineView];
-        } else if (index == 1) {
+//        if (index == 0) {
+//            self.leftLabel.text = @"个人资料";
+//            [self lineView];
+//        } else if (index == 1) {
             self.leftLabel.text = @"账号管理";
-            [self lineView];
-        }
+//            [self lineView];
+//        }
     }
     if (section == 2) {
         if (index == 1) {
@@ -35,9 +35,14 @@
     }
 }
 
+- (void)isOtherLogin {
+    self.leftLabel.text = @"";
+    self.rightImage.hidden = YES;
+}
+
 - (void)lineView {
     UIView *line = [[UIView alloc] init];
-    line.frame = CGRectMake(self.frame.origin.x + 31, self.frame.size.height - 1, self.frame.size.width + 50, 1);
+    line.frame = CGRectMake(self.frame.origin.x + 31, self.frame.size.height - 1, Screen_width - 50, 1);
     line.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.2];
     [self.contentView addSubview:line];
 }

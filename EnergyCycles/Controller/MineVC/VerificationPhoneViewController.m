@@ -73,23 +73,44 @@
 
 // 获取验证码
 - (void)getVerificationCodeMethod {
-    [[AppHttpManager shareInstance] getVerificationCodeWithPhoneNo:self.phoneNumberField.text Type:2 PostOrGet:@"get" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
-            self.code = dict[@"Data"];
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
-        } else {
-            self.enabled = NO;
-            [self.getCode setTitle:@"获取验证码" forState:UIControlStateNormal];
-            [self.getCode setTitleColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8] forState:UIControlStateNormal];
-            self.getCode.userInteractionEnabled = YES;
-            self.timeCount = timeNumber;
-            [self.timer invalidate];
-            
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
-        }
-    } failure:^(NSString *str) {
-        NSLog(@"%@",str);
-    }];
+    if (self.isOtherLogin) {
+        [[AppHttpManager shareInstance] getTelCodeWithUserid:[User_ID intValue] Tel:self.phoneNumberField.text PostOrGet:@"get" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
+                self.code = dict[@"Data"];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            } else {
+                self.enabled = NO;
+                [self.getCode setTitle:@"获取验证码" forState:UIControlStateNormal];
+                [self.getCode setTitleColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8] forState:UIControlStateNormal];
+                self.getCode.userInteractionEnabled = YES;
+                self.timeCount = timeNumber;
+                [self.timer invalidate];
+                
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    } else {
+        [[AppHttpManager shareInstance] getVerificationCodeWithPhoneNo:self.phoneNumberField.text Type:2 PostOrGet:@"get" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
+                self.code = dict[@"Data"];
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            } else {
+                self.enabled = NO;
+                [self.getCode setTitle:@"获取验证码" forState:UIControlStateNormal];
+                [self.getCode setTitleColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8] forState:UIControlStateNormal];
+                self.getCode.userInteractionEnabled = YES;
+                self.timeCount = timeNumber;
+                [self.timer invalidate];
+                
+                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@",str);
+        }];
+    }
+
 }
 
 - (IBAction)verificationPhone:(id)sender {
@@ -102,16 +123,21 @@
     } else if (self.code != self.verificationCode.text) {
         [SVProgressHUD showImage:nil status:@"验证码错误"];
     } else {
-        [[AppHttpManager shareInstance] changePhoneNumberWithUserid:[User_ID intValue] Token:User_TOKEN Phone:self.phoneNumberField.text PostOrGet:@"post" success:^(NSDictionary *dict) {
-            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
-                [self performSegueWithIdentifier:@"InputPasswordViewController" sender:nil];
-            } else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
-            }
-        } failure:^(NSString *str) {
-            NSLog(@"%@",str);
-        }];
+        if (self.isOtherLogin) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PhoneNumberChange" object:@{@"phoneNumber" : self.phoneNumberField.text}];
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [[AppHttpManager shareInstance] changePhoneNumberWithUserid:[User_ID intValue] Token:User_TOKEN Phone:self.phoneNumberField.text PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                    [self performSegueWithIdentifier:@"InputPasswordViewController" sender:nil];
+                } else {
+                    [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@",str);
+            }];
+        }
     }
 }
 
@@ -133,11 +159,16 @@
     return newLength <= 19;
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"账号管理";
-    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     self.timeCount = timeNumber;
     self.enabled = NO;
     

@@ -7,6 +7,7 @@
 //
 
 #import "EnergyPostTableViewController.h"
+#import "MineHomePageViewController.h"
 #import "SDAutoLayout.h"
 #import "ECTimeLineModel.h"
 #import "ECTimeLineCell.h"
@@ -16,6 +17,8 @@
 #import "PostingViewController.h"
 #import "CommentUserModel.h"
 #import "Masonry.h"
+#import "GifHeader.h"
+#import "WebVC.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 
@@ -37,6 +40,8 @@
 @property (nonatomic, assign) NSInteger maxPage;
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
+
+@property (nonatomic, assign) BOOL noData;
 
 @end
 
@@ -61,38 +66,42 @@
 
 - (void)getDataWithUserId:(NSString *)userId {
     [[AppHttpManager shareInstance] getGetArticleListWithType:@"0" Userid:[NSString stringWithFormat:@"%@", User_ID] OtherUserId:userId Token:@"" PageIndex:[NSString stringWithFormat:@"%ld", self.startPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
-            for (NSDictionary *data in dict[@"Data"]) {
-                ECTimeLineModel *model = [self sortByData:data];
-                [self.dataArray addObject:model];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        if (self.startPage == 0) {
+            [self.dataArray removeAllObjects];
         }
+        for (NSDictionary *data in dict[@"Data"]) {
+            ECTimeLineModel *model = [self sortByData:data];
+            [self.dataArray addObject:model];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self endRefresh];
+            if ((self.startPage + 1) * 10 > self.dataArray.count) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            [self.tableView reloadData];
+        });
     } failure:^(NSString *str) {
+        [self endRefresh];
         NSLog(@"%@", str);
     }];
 }
 
 
-- (void)loadNewData {
-    self.startPage = 0;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
-}
+//- (void)loadNewData {
+//    self.startPage = 0;
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
+//}
 
-- (void)loadMoreData {
-    self.startPage ++;
-    if (self.startPage >= self.maxPage) {
-        self.startPage = self.maxPage;
-        [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        return;
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
-}
+//- (void)loadMoreData {
+//    self.startPage ++;
+//    if (self.startPage >= self.maxPage) {
+//        self.startPage = self.maxPage;
+//        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//        return;
+//    }
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyPostTableViewController" object:self userInfo:@{@"userId" : self.userId}];
+//}
 
 // 数据转模型
 - (ECTimeLineModel *)sortByData:(NSDictionary *)data {
@@ -103,6 +112,7 @@
     NSString *informationStr = [data[@"artContent"] stringByRemovingPercentEncoding];
     informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
     informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+    model.UserID = [NSString stringWithFormat:@"%@", data[@"userId"]];
     model.msgContent = informationStr;
     model.location = data[@"address"];
     model.time = data[@"createTime"];
@@ -120,7 +130,10 @@
     for (NSDictionary * comment in data[@"commentList"]) {
         ECTimeLineCellCommentItemModel*commentModel = [ECTimeLineCellCommentItemModel new];
         commentModel.firstUserName = comment[@"commNickName"];
-        commentModel.commentString = comment[@"commContent"];
+        NSString *informationStr = [comment[@"commContent"] stringByRemovingPercentEncoding];
+        informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
+        informationStr = [informationStr stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+        commentModel.commentString = informationStr;
         commentModel.firstUserId = comment[@"commUserId"];
         [commentArr addObject:commentModel];
     }
@@ -130,20 +143,53 @@
     return model;
 }
 
+- (void)setUpMJRefresh {
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    self.tableView.mj_header = [GifHeader headerWithRefreshingBlock:^{
+        self.startPage = 0;
+        [weakSelf getDataWithUserId:self.userId];
+    }];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        if ((self.startPage + 1) * 10 > self.dataArray.count) {
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+        self.startPage ++;
+        [weakSelf getDataWithUserId:self.userId];
+    }];
+//    [self.tableView.mj_header beginRefreshing];
+}
+
+- (void)endRefresh {
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [IQKeyboardManager sharedManager].enable = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setUpMJRefresh];
     
     self.startPage = 0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (self.isMineTableView) {
         [self getDataWithUserId:self.userId];
         self.tableView.tableHeaderView = nil;
-        self.title = @"能量圈";
+        self.title = @"能量帖";
         self.navigationController.navigationBar.translucent = NO;
         self.tableView.showsVerticalScrollIndicator = NO;
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
+        [self setupLeftNavBarWithimage:@"loginfanhui"];
 //        self.tabBarController.tabBar.hidden = YES;
+        
     }
+    
+    [IQKeyboardManager sharedManager].enable = NO;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getData:) name:@"EnergyPostTableViewController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -158,6 +204,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -165,13 +215,32 @@
 
 #pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
 // cell的数量
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataArray count];
+
+    if ([self.dataArray count] == 0) {
+        self.noData = YES;
+        return 1;
+    } else {
+        self.noData = NO;
+        return [self.dataArray count];
+
+    }
+//    return [self.dataArray count];
 }
 
 // cell高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.noData) {
+        return 55;
+    }
+//    if ([self.dataArray count] == 0) {
+//        return 0;
+//    }
     id model = self.dataArray[indexPath.row];
     CGFloat height = [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[ECTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
     return height;
@@ -208,27 +277,45 @@
 
 // cell的内容
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
-    cell.indexPath = indexPath;
-    __weak typeof(self) weakSelf = self;
-    if (!cell.moreButtonClickedBlock) {
-        [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
-            ECTimeLineModel *model = weakSelf.dataArray[indexPath.row];
-            model.isOpening = !model.isOpening;
-            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        }];
-        cell.delegate = self;
+    if (self.noData) {
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.userInteractionEnabled = NO;
+        cell.textLabel.text = @"该用户暂未发表能量贴";
+        cell.textLabel.font = [UIFont systemFontOfSize:16];
+        cell.textLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        return cell;
+    } else {
+        ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
+        cell.indexPath = indexPath;
+        __weak typeof(self) weakSelf = self;
+        if (!cell.moreButtonClickedBlock) {
+            [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
+                ECTimeLineModel *model = weakSelf.dataArray[indexPath.row];
+                model.isOpening = !model.isOpening;
+                [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }];
+            cell.delegate = self;
+        }
+        
+        ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
+        
+        [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
+        
+        ///////////////////////////////////////////////////////////////////////
+        
+        cell.model = self.dataArray[indexPath.row];
+        
+        return cell;
     }
-    
-    ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
-    
-    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
-    
-    ///////////////////////////////////////////////////////////////////////
-    
-    cell.model = self.dataArray[indexPath.row];
-    
-    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ECTimeLineModel *model = self.dataArray[indexPath.row];
+    WebVC *webVC = MainStoryBoard(@"WebVC");
+    webVC.titleName = @"动态详情";
+    webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,model.ID,[NSString stringWithFormat:@"%@",User_ID]];
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 #pragma mark - 分享
@@ -391,7 +478,11 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     //发送评论
     NSLog(@"%@",textField.text);
-    [self sendCommend:textField.text index:commentIndex section:commentSection];
+    if ([[AppHelpManager sharedInstance] isBlankString:textField.text]) {
+        [SVProgressHUD showImage:nil status:@"评论内容不能为空"];
+    } else {
+        [self sendCommend:textField.text index:commentIndex section:commentSection];
+    }
     
     [textField resignFirstResponder];
     return YES;
@@ -407,7 +498,7 @@
     
     __weak typeof(self) weakSelf = self;
     
-    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[commendModel.ID intValue] PId:0 Content:message CommUserId:[User_ID intValue] type:@"0" token:[NSString stringWithFormat:@"%@",User_TOKEN] PostOrGet:@"post" success:^(NSDictionary *dict) {
         NSDictionary*data = dict[@"Data"];
         ECTimeLineModel*model = [self sortByData:data];
         NSIndexPath*indexPath = [NSIndexPath indexPathForRow:index inSection:section];
@@ -427,6 +518,43 @@
     }];
 }
 
+- (void)didDelete:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认删除这条能量贴" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[AppHttpManager shareInstance] getDeleteArticleWithuserId:[model.UserID intValue] Token:User_TOKEN AType:1 AId:[model.ID intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [SVProgressHUD showImage:nil status:@"删除成功"];
+                [self.dataArray removeObject:model];
+                if (!self.dataArray.count) {
+                    self.noData = YES;
+                }
+//                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView reloadData];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.tableView reloadData];
+//                });
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"HomePageViewControllerReloadData" object:nil];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
+- (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
+    MineHomePageViewController *otherUserVC = MainStoryBoard(@"MineHomePageViewController");
+    otherUserVC.userId = userId;
+    [self.navigationController pushViewController:otherUserVC animated:YES];
+    
+}
 
 /*
 // Override to support conditional editing of the table view.

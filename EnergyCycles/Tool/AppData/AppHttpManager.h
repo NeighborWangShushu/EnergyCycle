@@ -587,10 +587,12 @@
 //string Content   //评论内容
 //int CommUserId  //评论人id
 //string token  //评论人的token
+//string type   //评论类型，1 在首页能量圈  0 在我的能量圈
 - (void)postAddCommentOfArticleWithArticleId:(int)ArticleId
                                          PId:(int)PId
                                      Content:(NSString *)Content
                                   CommUserId:(int)CommUserId
+                                        type:(NSString*)type
                                        token:(NSString *)token
                                    PostOrGet:(NSString *)postOrGetType
                                      success:(void (^)(NSDictionary *dict))success
@@ -1148,5 +1150,68 @@
                         PostOrGet:(NSString *)postOrGetType
                           success:(void (^)(NSDictionary *dict))success
                           failure:(void (^)(NSString *str))failure;
+
+
+
+
+
+
+#pragma mark - 99.获取用户点赞/评论消息
+//请求参数:
+//Type      int 1.评论 2.赞
+//UserID    int 用户ID
+//PageIndex int 页码
+//PageSize  int 每页显示数
+- (void)getMessageGetWithType:(int)type
+                       Userid:(int)userid
+                    PageIndex:(int)pageIndex
+                     PageSize:(int)pageSize
+                    PostOrGet:(NSString *)postOrGetType
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 100.将消息置为已读
+//请求参数
+//Type      int 1.评论 2.赞
+//UserID    int 用户ID
+- (void)getMessageReadedWithType:(int)type
+                          Userid:(int)userid
+                       PostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure;
+
+
+#pragma mark - 101.我的未读消息
+
+- (void)getMyMessageNum:(int)userid
+                success:(void (^)(NSDictionary *dict))success
+                failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 102.获取通知列表
+
+- (void)getAPPNotifyWithUserid:(int)userid
+                     Pageindex:(int)pageindex
+                      Pagesize:(int)pagesize
+                     PostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 103.修改个人资料中的手机号发送验证码
+//输入参数：UserID   int
+//输入参数：Tel      string
+- (void)getTelCodeWithUserid:(int)userid
+                         Tel:(NSString *)tel
+                   PostOrGet:(NSString *)postOrGetType
+                     success:(void (^)(NSDictionary *dict))success
+                     failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 104.修改个人资料中的手机号
+//输入参数：UserID   int
+//输入参数：Tel      string    //手机号
+- (void)updateAppUserTelUpdWithUserid:(int)userid
+                                  Tel:(NSString *)tel
+                            PostOrGet:(NSString *)postOrGetType
+                              success:(void (^)(NSDictionary *dict))success
+                              failure:(void (^)(NSString *str))failure;
 
 @end

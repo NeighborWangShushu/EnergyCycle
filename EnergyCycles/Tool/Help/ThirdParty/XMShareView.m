@@ -223,8 +223,8 @@ static const NSInteger numbersOfItemInLine = 4;
 
 - (void)shareToWeibo {
     ShareModel*model = [[ShareModel alloc] init];
-    model.title = self.shareTitle;
-    model.content = self.shareText;
+    model.title = @"我刚刚在能量圈分享了好东西，快来看看吧";
+    model.content = self.shareTitle;
     model.shareUrl = self.shareUrl;
     [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {
         

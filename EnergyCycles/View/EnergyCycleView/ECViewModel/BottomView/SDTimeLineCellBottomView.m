@@ -130,18 +130,18 @@
 
 - (void)setModel:(ECTimeLineModel *)model {
     _model = model;
-    icon = model.liked?[UIImage imageNamed:@"ec_like_selected"]:[UIImage imageNamed:@"ec_like"];
+    icon = model.liked?[UIImage imageNamed:@"ec_like_selected"]:[UIImage imageNamed:@"ec_like_normal"];
     [button setImage:icon forState:UIControlStateNormal];
 }
 
 - (void)setup {
-    UIImage *highlight = nil;
+    
     NSString * title;
     
     
     switch (self.type) {
         case SDAdditionalActionViewTypeLike: {
-            icon = self.model.isLiked?[UIImage imageNamed:@"ec_like_selected"]:[UIImage imageNamed:@"ec_like"];
+            icon = self.model.isLiked?[UIImage imageNamed:@"ec_like_selected"]:[UIImage imageNamed:@"ec_like_normal"];
             title = @"赞";
         }
            
@@ -164,7 +164,7 @@
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateHighlighted];
     [button setTitleColor:[UIColor colorWithRed:74.0/255.0 green:74.0/255.0 blue:74.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [button addTarget:self action:@selector(addtionAction:) forControlEvents:UIControlEventTouchUpInside];
     [button setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
     [self sd_addSubviews:@[button]];

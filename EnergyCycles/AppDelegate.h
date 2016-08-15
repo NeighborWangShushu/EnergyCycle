@@ -34,6 +34,9 @@
 //是否在消息界面
 @property (nonatomic, assign) BOOL isAtInformationView;
 
+//是否跳转消息界面
+@property (nonatomic, assign) BOOL isPushToMessageView;
+
 //音频播放index
 @property (nonatomic) NSInteger audioPlayIndex;
 

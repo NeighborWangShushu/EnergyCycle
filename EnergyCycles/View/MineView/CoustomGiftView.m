@@ -18,7 +18,8 @@
 @implementation CoustomGiftView
 
 - (instancetype)initWithFrame:(CGRect)frame withNickName:(NSString *)nickName {
-    if (self == [super initWithFrame:frame]) {
+    self = [super initWithFrame:frame];
+    if (self) {
         myNickName = nickName;
         [self showUI];
     }
@@ -37,12 +38,12 @@
     [self addSubview:backView];
     
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width-40, 45)];
-    headView.backgroundColor = [UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1];
+    headView.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
     [backView addSubview:headView];
     
     UILabel *headLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, Screen_width-40, 45)];
     headLabel.text = [NSString stringWithFormat:@"赠送积分给%@",myNickName];
-    headLabel.font = [UIFont systemFontOfSize:19];
+    headLabel.font = [UIFont systemFontOfSize:17];
     headLabel.textColor = [UIColor whiteColor];
     headLabel.textAlignment = NSTextAlignmentCenter;
     [headView addSubview:headLabel];
@@ -54,12 +55,13 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(109*Screen_width/375+20, 62, Screen_width-40-109*Screen_width/375+20, 22)];
     titleLabel.text = [NSString stringWithFormat:@"我的积分%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"UserJiFen"]];
     titleLabel.font = [UIFont systemFontOfSize:16];
-    titleLabel.textColor = [UIColor colorWithRed:81/255.0 green:171/255.0 blue:2451/255.0 alpha:1];
+    titleLabel.textColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
     titleLabel.textAlignment = NSTextAlignmentLeft;
     [backView addSubview:titleLabel];
     
     inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(28, 103, Screen_width-40-56, 39)];
-    inputTextField.placeholder = @"  填写赠送积分";
+    inputTextField.placeholder = @"填写赠送积分";
+    inputTextField.textAlignment = NSTextAlignmentCenter;
     inputTextField.layer.borderWidth = 1.f;
     inputTextField.layer.borderColor = [[UIColor blackColor] colorWithAlphaComponent:0.15].CGColor;
     inputTextField.keyboardType = UIKeyboardTypeNumberPad;
@@ -74,7 +76,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         button.frame = CGRectMake((Screen_width-40)/2 * i, 176, (Screen_width-40)/2, 43);
         [button setTitle:titleArr[i] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:17];
         
         if (i == 0) {

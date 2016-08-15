@@ -18,6 +18,7 @@
 #import "GuidePageViewController.h"
 #import "XMShareQQUtil.h"
 #import "ShareSDKManager.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 
 @interface AppDelegate () <WeiboSDKDelegate,WXApiDelegate,QQApiInterfaceDelegate,UIAlertViewDelegate>
@@ -44,7 +45,6 @@ AppDelegate *EnetgyCycle = nil;
 //    [XMShareQQUtil sharedInstance];
 //    
     [ShareSDKManager shareInstance];
-     
      
      NSString *isEnterGuidePage = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsEnterGuidePage"];
     if (!isEnterGuidePage) {
@@ -242,18 +242,26 @@ AppDelegate *EnetgyCycle = nil;
     
     NSDictionary *apsDictionary = (NSDictionary *)userInfo;
     
-    if (apsDictionary) {
-        [application setApplicationIconBadgeNumber:0];
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        
-        if ([apsDictionary[@"type"] isKindOfClass:[NSNull class]] || [apsDictionary[@"type"] isEqual:[NSNull null]] || apsDictionary[@"type"] == nil) {
-            [dict setObject:@"1" forKey:@"type"];
-        }else {
-            [dict setObject:apsDictionary[@"type"] forKey:@"type"];
-        }
-        
-        self.isHaveJPush = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"isAppGetJPush" object:dict];
+//    if (apsDictionary) {
+//        [application setApplicationIconBadgeNumber:0];
+//        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+//        
+//        if ([apsDictionary[@"type"] isKindOfClass:[NSNull class]] || [apsDictionary[@"type"] isEqual:[NSNull null]] || apsDictionary[@"type"] == nil) {
+//            [dict setObject:@"1" forKey:@"type"];
+//        }else {
+//            [dict setObject:apsDictionary[@"type"] forKey:@"type"];
+//        }
+//        
+//        self.isHaveJPush = YES;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"isAppGetJPush" object:dict];
+//    }
+    NSString *type = [NSString stringWithFormat:@"%@", apsDictionary[@"type"]];
+    if ([type isEqualToString:@"1"] || [type isEqualToString:@"2"] || [type isEqualToString:@"3"]) {
+        // 通知推送 type = 1
+        // 活动推送 type = 2
+        // 私信推送 type = 3
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"pushReloadData" object:nil];
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
 }
 
@@ -278,8 +286,7 @@ AppDelegate *EnetgyCycle = nil;
         [[AppHttpManager shareInstance] getIsHasSignWithUserId:[User_ID intValue] Token:User_TOKEN PostOrGet:@"get" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 if ([dict[@"Data"] integerValue] == 0) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"今天还没有签到" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-                    [alertView show];
+                    [SVProgressHUD showImage:nil status:@"今日您还未签到!"];
                 }
             }
         } failure:^(NSString *str) {

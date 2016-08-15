@@ -16,7 +16,7 @@
 
 #define Global_mainBackgroundColor SDColor(248, 248, 248, 1)
 
-#define TimeLineCellHighlightedColor [UIColor colorWithRed:92/255.0 green:140/255.0 blue:193/255.0 alpha:1.0]
+#define TimeLineCellHighlightedColor [UIColor colorWithRed:67.0/255.0 green:120.0/255.0 blue:190.0/255.0 alpha:1.0]
 
 #define DAY @"day"
 

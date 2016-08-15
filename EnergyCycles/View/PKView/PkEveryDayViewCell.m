@@ -11,6 +11,8 @@
 #include "EveryPKTableViewCell.h"
 #import "EveryDayPKViewCell.h"
 #import "GifHeader.h"
+#import "UserModel.h"
+#import "UIImage+Category.h"
 
 @interface PkEveryDayViewCell () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate> {
     int page;
@@ -25,6 +27,8 @@
     
     UIView *subHeadView;
 }
+
+@property (nonatomic, strong) UserModel *model;
 
 @end
 
@@ -44,8 +48,9 @@
     pkEveryDayTableView.delegate = self;
     pkEveryDayTableView.showsVerticalScrollIndicator = NO;
     
+    [self getUserInfo];
     //
-    [self setUpMJRefresh];
+//    [self setUpMJRefresh];
     
     //上面显示
     UIView *upBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, Screen_width, 40)];
@@ -108,6 +113,25 @@
     [pkEveryDayTableView.mj_header endRefreshing];
     [pkEveryDayTableView.mj_footer endRefreshing];
 }
+
+- (void)getUserInfo {
+    [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:[NSString stringWithFormat:@"%@", User_ID] PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            if ([dict[@"Data"] count]) {
+                for (NSDictionary *subDict in dict[@"Data"]) {
+                    self.model = [[UserModel alloc] initWithDictionary:subDict error:nil];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self setUpMJRefresh];
+                });
+            }
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
+}
+
+
 //加载网络数据
 - (void)loadDataWithIndexWithProjectId:(NSInteger)projectId Page:(int)pages {
     [[AppHttpManager shareInstance] getGetReportListWithUserid:User_ID Token:User_TOKEN projectId:[NSString stringWithFormat:@"%ld",(long)projectId] pageInex:pages pageSize:15 PostOrGet:@"get" success:^(NSDictionary *dict) {
@@ -128,13 +152,35 @@
                 
                 if (_dataArr.count > 1) {
                     EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[1];
+//                    [self getUserInfo:model.userId];
                     [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
-                    [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+//                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
+//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+//                    } else {
+//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
+//                    }
+                    if ([model.BackgroundImg isEqualToString:@""] || model.BackgroundImg == nil) {
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+                    } else {
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg]];
+                    }
+
+                    
                     subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的首页",model.nickname];
                 }else {
                     EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[0];
+//                    [self getUserInfo:model.userId];
                     [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
-                    [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+//                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
+//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+//                    } else {
+//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
+//                    }
+                    if ([model.BackgroundImg isEqualToString:@""] || model.BackgroundImg == nil) {
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+                    } else {
+                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg]];
+                    }
                     subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的首页",model.nickname];
                 }
             }else if ([dict[@"Code"] integerValue] == 1000) {
@@ -193,9 +239,26 @@
         if (_dataArr.count) {
             EveryDPKPMModel *model = _dataArr[indexPath.row];
             
+            cell.rightImage.tag = 30001 + indexPath.row;
+
+            [cell setZanButton:^(NSInteger cellTouchIndex) {
+                EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[cellTouchIndex+1];
+                [self touchZanWithModel:model withIndex:cellTouchIndex];
+            }];
+            
             cell.paimingLabel.text = model.orderNum;
             cell.nameLabel.text = model.nickname;
             cell.classLabel.text = [NSString stringWithFormat:@"%@%@",model.repItemNum,model.unit];
+            if ([model.Goods isEqualToString:@""] || model.Goods == 0) {
+                cell.rightLabel.text = 0;
+            }
+            cell.rightLabel.text = model.Goods;
+            if ([model.haslike intValue] == 1) {
+                [cell.rightImage setBackgroundImage:[UIImage imageNamed:@"praise.png"] forState:UIControlStateNormal];
+            } else {
+                [cell.rightImage setBackgroundImage:[UIImage imageNamed:@"addPraise.png"] forState:UIControlStateNormal];
+            }
+            cell.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.8];
         }
 
         return cell;
@@ -207,7 +270,12 @@
         cell = [[NSBundle mainBundle] loadNibNamed:@"EveryPKTableViewCell" owner:self options:nil].lastObject;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.pkEveryBackImageView.image = [UIImage imageNamed:@"cellbg.png"];
+//    cell.pkEveryBackImageView.image = [UIImage imageNamed:@"cellbg.png"];
+    cell.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.8];
+//    UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.8] size:CGSizeMake(Screen_width, 70)];
+//    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+//    cell.imageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
+//    cell.imageView.clipsToBounds = YES;
     
     cell.headButton.tag = 2001 + indexPath.row;
     [cell.headButton addTarget:self action:@selector(headButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -219,6 +287,8 @@
     }];
     
     cell.lingProgressView.progress = 0.0;
+    cell.lingProgressView.trackTintColor = [UIColor clearColor];
+    cell.lingProgressView.tintColor = [UIColor colorWithRed:219/255.0 green:122/255.0 blue:140/255.0 alpha:1];
     static float progress = 0;
     if (_dataArr.count) {
         EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[indexPath.row];
@@ -320,7 +390,11 @@
             }
             
             [_dataArr replaceObjectAtIndex:index withObject:subModel];
-            [pkEveryDayTableView reloadData];
+//            [pkEveryDayTableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+//                [pkEveryDayTableView reloadData];
+                [self loadDataWithIndexWithProjectId:[myModel.PKId integerValue] Page:page];
+            });
         }else {
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }

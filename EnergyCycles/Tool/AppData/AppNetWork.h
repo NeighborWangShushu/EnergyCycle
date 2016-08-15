@@ -20,7 +20,6 @@
 #define User_PHONE [[AppHelpManager sharedInstance] readPhone]
 #define User_NAME [[AppHelpManager sharedInstance] readUserName]
 
-
 #define MYJYAppId @"1079791492"
 
 #define Html(id) [NSString stringWithFormat:@"%@/html/Study/html/StudyDetail.aspx?Id=%@",INTERFACE_URL,id]
@@ -30,6 +29,16 @@
 #define HtmlShare(id,user) [NSString stringWithFormat:@"%@/html/Study/html/StudyDetail.aspx?Id=%@&userId=%@&is_Share=1",INTERFACE_URL,id,user]
 
 
+#define EC_ARTICLE_PLACEHOLDER [UIImage imageNamed:@"ec_article_placeholder"]
+
+#define EC_AVATAR_PLACEHOLDER [UIImage imageNamed:@"ec_avatar_placeholder"]
+
+#define EC_RECOMMEND_PLACEHOLDER [UIImage imageNamed:@"ec_comment_placeholder"]
+
+#define LEARN_BANNER_PLACEHOLDER [UIImage imageNamed:@"learn_banner_placeholder"]
+
+#define LEARN_PLACEHOLDER [UIImage imageNamed:@"learn_placeholder"]
+
 
 //本地-习进
 //#define INTERFACE_URL @"http://10.40.200.170:8082"
@@ -37,14 +46,16 @@
 //#define INTERFACE_URL @"http://10.40.200.186:8089/"
 
 //测试环境
-#define INTERFACE_URL @"http://192.168.2.13:8888/"
+//#define INTERFACE_URL @"http://192.168.2.13:8888/"
+
+//测试公网环境
+//#define INTERFACE_URL @"http://120.26.218.68:8888/"
 
 //正式环境
-//#define INTERFACE_URL @"http://120.26.218.68:8038"  
-
-//阿里云
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
+//阿里云
+#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 
 #define CCTalk @"http://www.cctalk.com/org/525/?from=singlemessage&isappinstalled=0"
@@ -140,7 +151,7 @@
 #define GetTalkList                @"user/GetTalkList"
 
 //27.获取私信列表
-#define GetTopOnePeople            @"user/GetTopOnePeople"
+#define GetTopOnePeople            @"user/MyMessage_get"
 
 //28.查询我的积分排名
 #define GetJinfenCount             @"user/GetJinfenCount"
@@ -326,7 +337,6 @@
 
 #define ArticleDetailAspx          @"html/Article/ArticleDetail.aspx"
 
-
 //83.获取进阶pk帖子详情h5页面
 #define PostDetailAspx             @"html/PostDetail.aspx"
 
@@ -346,29 +356,50 @@
 #define DeleteArticle              @"Member/DeleteArticle/"
 
 //90.获取用户关注/粉丝列表
-#define GetFriendsList      @"Member/GetFriendsList/"
+#define GetFriendsList             @"Member/GetFriendsList/"
 
 //91.分享成功获得积分
-#define Share      @"Member/Share/"
+#define Share                      @"Member/Share/"
 
 //92.更换、绑定手机号
-#define ChangePhoneNumber @"user/User_Phone_Upd"
+#define ChangePhoneNumber          @"user/User_Phone_Upd"
 
 //93.更换手机号时发送验证码
-#define GetVerificationCode @"user/ChangePhoneNoSendCode"
+#define GetVerificationCode        @"user/ChangePhoneNoSendCode"
 
 //94.修改密码
-#define ChangePassword @"user/User_Pwd_Upd"
+#define ChangePassword             @"user/User_Pwd_Upd"
 
 //95.修改个人简介
-#define ChangeBrief @"/user/App_User_Brief_Upd"
+#define ChangeBrief                @"/user/App_User_Brief_Upd"
 
 //96.获取用户粉丝/关注/能连贴等数量
-#define UserInfo_Get @"/user/UserInfo_Get"
+#define UserInfo_Get               @"/user/UserInfo_Get"
 
 //97.修改个人主页背景图片
-#define ChangeBackgroundImg @"/user/App_User_BackgroundImg_Upd"
+#define ChangeBackgroundImg        @"/user/App_User_BackgroundImg_Upd"
 
 
+
+//98.获取能量圈列表(查看其他人的能量圈)
+#define GetOtherArticleList        @"Article/Article_List"
+
+//99.获取用户点赞/评论消息
+#define Message_Get                @"/user/Message_Get"
+
+//100.将消息置为已读
+#define Message_Readed             @"/user/Message_Readed"
+
+//101. 未读消息
+#define MyMessage                  @"/user/MyMessageNum_Get"
+
+//102. 获取通知列表
+#define APP_Notify_Get             @"user/APP_Notify_Get"
+
+//103.修改个人资料中的手机号发送验证码
+#define GetTelCode                 @"/user/GetTelCode"
+
+//104. 修改个人资料中的手机号
+#define AppUserTelUpdate           @"/user/AppUser_Tel_Upd"
 
 #endif

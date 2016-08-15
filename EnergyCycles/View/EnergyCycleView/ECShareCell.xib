@@ -24,16 +24,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsU-xf-vSW">
-                        <rect key="frame" x="209" y="10" width="22" height="25"/>
-                        <state key="normal" image="post_qq_normal.png"/>
-                        <state key="selected" image="post_qq_selected.png"/>
-                        <connections>
-                            <action selector="shareAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VbP-t3-QAW"/>
-                        </connections>
-                    </button>
                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIT-Ns-A3v">
-                        <rect key="frame" x="175" y="11" width="26" height="22"/>
+                        <rect key="frame" x="179" y="11" width="26" height="22"/>
                         <state key="normal" image="post_weibo_normal.png"/>
                         <state key="selected" image="post_weibo_selected.png"/>
                         <connections>
@@ -41,7 +33,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ozg-7d-Nti">
-                        <rect key="frame" x="139" y="10.5" width="28" height="24"/>
+                        <rect key="frame" x="141" y="10" width="28" height="24"/>
                         <state key="normal" image="post_wechat_normal.png"/>
                         <state key="selected" image="post_wechat_selected.png"/>
                         <connections>
@@ -56,12 +48,20 @@
                             <action selector="shareAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qCS-kE-Q5X"/>
                         </connections>
                     </button>
+                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsU-xf-vSW">
+                        <rect key="frame" x="215" y="10" width="22" height="25"/>
+                        <state key="normal" image="post_qq_normal.png"/>
+                        <state key="selected" image="post_qq_selected.png"/>
+                        <connections>
+                            <action selector="shareAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VbP-t3-QAW"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ozg-7d-Nti" firstAttribute="centerY" secondItem="8zn-5q-WIX" secondAttribute="centerY" id="41T-7A-IVm"/>
-                    <constraint firstItem="EIT-Ns-A3v" firstAttribute="leading" secondItem="Ozg-7d-Nti" secondAttribute="trailing" constant="8" id="7Kw-cJ-Gux"/>
-                    <constraint firstItem="Ozg-7d-Nti" firstAttribute="leading" secondItem="8zn-5q-WIX" secondAttribute="trailing" constant="8" id="Rga-qE-Ko4"/>
-                    <constraint firstItem="dsU-xf-vSW" firstAttribute="leading" secondItem="EIT-Ns-A3v" secondAttribute="trailing" constant="8" id="WOe-Tg-m34"/>
+                    <constraint firstItem="EIT-Ns-A3v" firstAttribute="leading" secondItem="Ozg-7d-Nti" secondAttribute="trailing" constant="10" id="7Kw-cJ-Gux"/>
+                    <constraint firstItem="Ozg-7d-Nti" firstAttribute="leading" secondItem="8zn-5q-WIX" secondAttribute="trailing" constant="10" id="Rga-qE-Ko4"/>
+                    <constraint firstItem="dsU-xf-vSW" firstAttribute="leading" secondItem="EIT-Ns-A3v" secondAttribute="trailing" constant="10" id="WOe-Tg-m34"/>
                     <constraint firstItem="8zn-5q-WIX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="YpV-6N-eah"/>
                     <constraint firstItem="8zn-5q-WIX" firstAttribute="leading" secondItem="1bt-ka-55I" secondAttribute="trailing" constant="18" id="bLD-na-81n"/>
                     <constraint firstItem="1bt-ka-55I" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="kNr-6v-azJ"/>

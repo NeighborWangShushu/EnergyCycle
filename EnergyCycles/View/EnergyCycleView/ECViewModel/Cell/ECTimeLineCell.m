@@ -24,7 +24,7 @@
 
 #import "UIImageView+WebCache.h"
 
-const CGFloat contentLabelFontSize2 = 13;
+const CGFloat contentLabelFontSize2 = 14;
 CGFloat maxContentLabelHeight2 = 0; // 根据具体font而定
 
 NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLineCellOperationButtonClickedNotification";
@@ -52,7 +52,6 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     SDTimeLineCellOperationMenu *_operationMenu;
     SDTimeLineCellBottomView * _bottomView;
     UIView * _marginView;
-    
     
 }
 
@@ -94,7 +93,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     
     _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+    [_deleteButton setImage:[UIImage imageNamed:@"trash-icon"] forState:UIControlStateNormal];
     [_deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
     _deleteButton.hidden = YES;
     
@@ -206,7 +205,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _deleteButton.sd_layout
     .rightSpaceToView(contentView,10)
-    .topSpaceToView(contentView,20);
+    .topSpaceToView(contentView,10)
+    .widthIs(20)
+    .heightIs(20);
     
     _locaIcon.sd_layout
     .leftSpaceToView(_iconView,margin)
@@ -279,7 +280,6 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     if ([self.delegate respondsToSelector:@selector(didDelete:atIndexPath:)]) {
         [self.delegate didDelete:self.model atIndexPath:self.indexPath];
     }
-    
 }
 
 - (void)configTheme{
@@ -305,6 +305,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     if ([model.UserID isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
         _deleteButton.hidden = NO;
+    }else {
+        _deleteButton.hidden = YES;
     }
     
     _commentView.frame = CGRectZero;
@@ -312,7 +314,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _shouldOpenContentLabel = NO;
     
-    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:nil];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:EC_AVATAR_PLACEHOLDER];
     _nameLable.text = model.name;
     _location.text = model.location;
     _time.text = model.time;
@@ -346,7 +348,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     }
     _picContainerView.sd_layout.topSpaceToView(_moreButton, picContainerTopMargin);
     
-    UIView *bottomView;
+//    UIView *bottomView;
     
     if (!model.picNamesArray.count && !model.commentItemsArray.count && !model.likeItemsArray.count) {
         _commentView.fixedWidth = @0; // 如果没有评论或者点赞，设置commentview的固定宽度为0（设置了fixedWidth的控件将不再在自动布局过程中调整宽度）
@@ -360,20 +362,18 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         _commentView.fixedWidth = @0; // 如果没有评论或者点赞，设置commentview的固定宽度为0（设置了fixedWidth的控件将不再在自动布局过程中调整宽度）
         _commentView.fixedHeight = @0; // 如果没有评论或者点赞，设置commentview的固定高度为0（设置了fixedHeight的控件将不再在自动布局过程中调整高度）
         _commentView.sd_layout.topSpaceToView(_picContainerView, 0);
-        _bottomView.sd_layout.topSpaceToView(_commentView, 10);
-        bottomView = _picContainerView;
+        _bottomView.sd_layout.topSpaceToView(_picContainerView, 10);
+//        bottomView = _picContainerView;
     }
     else {
         _commentView.fixedHeight = nil; // 取消固定宽度约束
         _commentView.fixedWidth = nil; // 取消固定高度约束
         _commentView.sd_layout.topSpaceToView(_picContainerView, 10);
         _bottomView.sd_layout.topSpaceToView(_commentView, 10);
-        bottomView = _commentView;
+//        bottomView = _commentView;
     }
     
-//    _bottomView.model = model;
-    NSLog(@"%@:%@",model.msgContent, _picContainerView.fixedHeight);
-    NSLog(@"_marginView:%f----%f",_commentView.frame.size.height,_bottomView.frame.origin.y);
+    _bottomView.model = model;
     
     [self setupAutoHeightWithBottomView:_bottomView bottomMargin:10];
     

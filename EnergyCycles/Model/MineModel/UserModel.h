@@ -69,5 +69,8 @@
 @property (nonatomic, strong) NSString<Optional> *Brief;
 // 背景图片
 @property (nonatomic, strong) NSString<Optional> *BackgroundImg;
-
+// 第三方电话
+@property (nonatomic, strong) NSString<Optional> *Tel;
+// 登录方式
+@property (nonatomic, strong) NSString<Optional> *LoginType;
 @end

@@ -186,11 +186,33 @@
 
 #pragma mark - 提交按键响应事件
 - (void)rightAction {
+    if (![_selectImgArrayLocal count]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"不配图没有积分哦，确认发帖？" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"发布" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self submit];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"我要配图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:sureAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }else {
+        [self submit];
+    }
+}
+
+- (void)submit {
     NSString * title=[postDict valueForKey:@"title"];
     NSString * context=[postDict valueForKey:@"content"];
     NSLog(@"title:%@----context:%@",title,context);
     if (context == nil ||[context isEqualToString:@""]) {
         [SVProgressHUD showImage:nil status:@"内容不能为空"];
+        return;
+    }
+    if (context.length < 30) {
+        [SVProgressHUD showImage:nil status:@"30字以上才能发表哦~"];
         return;
     }
     if ([User_TOKEN length] > 0) {
@@ -207,6 +229,7 @@
     }else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
     }
+
 }
 
 -(void)getURLContext {
@@ -270,7 +293,7 @@
             }
         }else {
             // 网络出错
-            [SVProgressHUD showImage:nil status:@"请检查网络"];
+            
         }
     } failure:^(NSString *str) {
         NSLog(@"错误：%@",str);
@@ -373,7 +396,6 @@
 
 - (void)shareToWechatTimeline:(NSString*)url title:(NSString*)title {
     
-    
     __weak __typeof(self)weakSelf = self;
 
     ShareModel*model = [[ShareModel alloc] init];
@@ -428,7 +450,7 @@
     __weak __typeof(self)weakSelf = self;
     
     ShareModel*model = [[ShareModel alloc] init];
-    model.title = title;
+    model.title = @"我刚刚在能量圈分享了好东西，快来看看吧";
     model.content = @"";
     model.shareUrl = url;
     [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {
@@ -491,7 +513,7 @@
 - (void)shareByIndex:(NSInteger)index {
     
     NSString * title = energyPostViewCell.informationTextView.text;
-    NSString* share_url = [NSString stringWithFormat:@"%@%@?aid=%@",INTERFACE_URL,ArticleDetailAspx,[NSString stringWithFormat:@"%ld",(long)postIndex]];
+    NSString* share_url = [NSString stringWithFormat:@"%@%@?aid=%@&is_Share=1",INTERFACE_URL,ArticleDetailAspx,[NSString stringWithFormat:@"%ld",(long)postIndex]];
     
     switch (index) {
         case 0:
@@ -662,17 +684,20 @@
 -(void)LocalPhoto{
     NSInteger count = 0;
     NSLog(@"_selectImgArray %ld",(long)_selectImgArray.count);
+    
     if (_selectImgArray != nil && _selectImgArray.count > 0) {
         count =_selectImgArray.count;
     }
     
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
-    picker.navigationBar.tintColor=[UIColor redColor];
+    picker.navigationBar.tintColor=[UIColor whiteColor];
     picker.navigationBar.translucent = NO;
+    [picker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     picker.maximumNumberOfSelection = 9-count;
     picker.assetsFilter = [ALAssetsFilter allPhotos];
     picker.showEmptyGroups=NO;
     picker.delegate=self;
+    [picker.navigationBar setBarTintColor:[UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0]];
     picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         if ([[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
             NSTimeInterval duration = [[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyDuration] doubleValue];

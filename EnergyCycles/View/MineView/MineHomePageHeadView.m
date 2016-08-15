@@ -8,6 +8,7 @@
 
 #import "MineHomePageHeadView.h"
 #import "UIImage+Category.h"
+#import "ECAvatarManager.h"
 
 @implementation MineHomePageHeadView
 
@@ -27,7 +28,11 @@
 }
 
 - (IBAction)changeHeadImage:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"headViewChangeHeadImage" object:nil];
+    if ([self.model.use_id isEqualToString:[NSString stringWithFormat:@"%@", User_ID]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"headViewChangeHeadImage" object:nil];
+    } else {
+        [ECAvatarManager showImage:self.headImage.imageView];
+    }
 }
 
 - (IBAction)jumpToAttentionController:(id)sender {
@@ -43,19 +48,24 @@
 }
 
 - (void)getdateDataWithModel:(UserModel *)model userInfoModel:(UserInfoModel *)userInfoModel {
+    
+    self.model = model;
+    
     // 背景
     if (model.BackgroundImg == NULL) {
-        [self.backgroundImage setImage:[UIImage imageNamed:@"bg"]];
+        [self.backgroundImage setImage:[UIImage imageNamed:@"backgroundImage"]];
     } else {
         [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            if (self.backgroundImage.image.size.height >= 452) {
-                self.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
-            }
-            if (self.backgroundImage.image.size.width >= 375) {
+//            if (self.backgroundImage.image.size.height >= 452) {
+//                self.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
+//            }
+//            if (self.backgroundImage.image.size.width >= 375) {
                 self.backgroundImage.contentMode = UIViewContentModeScaleAspectFill;
-            }
+//            }
         }];
     }
+    
+//    self.backgroundImage
     
     // 头像
     if (model.photourl == NULL) {
@@ -81,28 +91,12 @@
     if ([model.city isEqualToString:@""] || model.city == NULL) {
         self.addressImage.hidden = YES;
         self.addressLabel.hidden = YES;
-        self.signLabel.hidden = YES;
-        self.signTwoLabel.hidden = NO;
-        // 无地址无签到
-        if ([userInfoModel.AS_CONTINUONS integerValue] <= 0) {
-            self.constraint.constant = 12;
-            self.signTwoLabel.hidden = YES;
-        } else { // 无地址有签到
-            self.signLabel.text = [NSString stringWithFormat:@"连续签到%ld天",[userInfoModel.AS_CONTINUONS integerValue]];
-            self.signTwoLabel.text = self.signLabel.text;
-            self.constraint.constant = 39;
-        }
+        self.constraint.constant = 12;
     } else {
         self.addressLabel.text = model.city;
-        // 有地址无签到
-        if ([userInfoModel.AS_CONTINUONS integerValue] <= 0) {
-            self.signLabel.hidden = YES;
-            self.signTwoLabel.hidden = YES;
-        } else { // 有地址有签到
-            self.signLabel.hidden = NO;
-            self.signTwoLabel.hidden = YES;
-            self.signLabel.text = [NSString stringWithFormat:@"连续签到%ld天",[userInfoModel.AS_CONTINUONS integerValue]];
-        }
+        self.addressImage.hidden = NO;
+        self.addressLabel.hidden = NO;
+        self.constraint.constant = 39;
     }
     
     // 关注
@@ -123,13 +117,13 @@
         self.introButton.hidden = NO;
         self.leftBackgroundButton.hidden = NO;
         self.rightBackgroundButton.hidden = NO;
-        self.headImage.userInteractionEnabled = YES;
+//        self.headImage.userInteractionEnabled = YES;
     } else {
         self.introImage.hidden = YES;
         self.introButton.hidden = YES;
         self.leftBackgroundButton.hidden = YES;
         self.rightBackgroundButton.hidden = YES;
-        self.headImage.userInteractionEnabled = NO;
+//        self.headImage.userInteractionEnabled = NO;
     }
 }
 

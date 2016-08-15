@@ -28,6 +28,9 @@
 //密码格式
 - (BOOL)isValidPassword:(NSString *)password;
 
+
+- (BOOL)isBlankString:(NSString *)string;
+
 //写入mid、token
 - (void)writeNSUserDefaultWithMid:(NSString *)mid withToken:(NSString *)token;
 //读取userid、token
@@ -43,6 +46,6 @@
 //获取第一帧图片
 + (UIImage*)thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;
 
-
+- (BOOL)isBlankString:(NSString *)string;
 
 @end

@@ -10,10 +10,7 @@
 
 @implementation MinePKRecordViewTableViewCell
 
-- (void)getDataWithModel:(MyPkEveryModel *)model number:(NSInteger)number {
-    
-    // 序号
-    self.numberLabel.text = [NSString stringWithFormat:@"%ld",number];
+- (void)getDataWithModel:(MyPkEveryModel *)model {
     
     // 图片
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:model.picUrl]];
@@ -26,10 +23,18 @@
     
     // 最近一次记录的时间
     NSString *time = [model.RI_DATE substringToIndex:10];
-    self.timeLabel.text = [NSString stringWithFormat:@"最近%@", time];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@", time];
     
     [self lineView];
     
+}
+
+- (void)noData {
+    self.userInteractionEnabled = NO;
+    self.textLabel.text = @"该用户暂无PK记录";
+    self.textLabel.font = [UIFont systemFontOfSize:16];
+    self.textLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
+    self.textLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 - (void)lineView {

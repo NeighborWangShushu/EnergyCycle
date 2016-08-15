@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,12 +11,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="g79-Il-hdK">
                         <rect key="frame" x="12" y="12" width="25" height="25"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="25" id="d9C-rS-Gnu"/>
                             <constraint firstAttribute="height" constant="25" id="ra4-xP-mLh"/>
@@ -24,7 +23,6 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eq-u9-cfG">
                         <rect key="frame" x="37" y="15" width="40" height="20"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="qmZ-d5-OhU"/>
                         </constraints>
@@ -34,12 +32,10 @@
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="支持优酷、土豆等MP4格式的外链url" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xue-SG-0mY">
                         <rect key="frame" x="76" y="10" width="230" height="30"/>
-                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Xue-SG-0mY" secondAttribute="trailing" constant="14" id="5LE-tJ-2vu"/>
                     <constraint firstItem="9eq-u9-cfG" firstAttribute="leading" secondItem="g79-Il-hdK" secondAttribute="trailing" id="AbC-4T-ylz"/>
@@ -52,7 +48,6 @@
                     <constraint firstItem="Xue-SG-0mY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="r3d-HT-09R"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="videoURlTextFiled" destination="Xue-SG-0mY" id="ihE-M6-XTP"/>
             </connections>

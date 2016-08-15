@@ -14,8 +14,8 @@
     [super prepare];
     
     NSMutableArray *idleImages = [NSMutableArray array];
-    for (NSUInteger i = 1; i<=40; i++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld_03", i]];
+    for (NSUInteger i = 0; i<40; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"2_0%ld", i]];
         [idleImages addObject:image];
     }
     [self setImages:idleImages duration:1.0 forState:MJRefreshStatePulling];

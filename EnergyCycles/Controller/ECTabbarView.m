@@ -11,6 +11,9 @@
 
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : 0)
 
+#define iPhone6P ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1080, 1920), [[UIScreen mainScreen] currentMode].size) : 0)
+
+
 
 @interface ECTabbarView ()
 {
@@ -50,20 +53,20 @@
 -(void)layoutBtn
 {
     _button_1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_button_1 setImage:[UIImage imageNamed:@"tabbar_normal_1"] forState:UIControlStateNormal];
-    [_button_1 setImage:[UIImage imageNamed:@"tabbar_pressed_1"] forState:UIControlStateDisabled];
-    [_button_1 setImage:[UIImage imageNamed:@"tabbar_pressed_1"] forState:UIControlStateSelected];
-    [_button_1 setImage:[UIImage imageNamed:@"tabbar_normal_1"] forState:UIControlStateHighlighted];
+    [_button_1 setBackgroundImage:[UIImage imageNamed:@"tabbar_normal_1"] forState:UIControlStateNormal];
+    [_button_1 setBackgroundImage:[UIImage imageNamed:@"tabbar_pressed_1"] forState:UIControlStateDisabled];
+    [_button_1 setBackgroundImage:[UIImage imageNamed:@"tabbar_pressed_1"] forState:UIControlStateSelected];
+    [_button_1 setBackgroundImage:[UIImage imageNamed:@"tabbar_normal_1"] forState:UIControlStateHighlighted];
     [_button_1 setTag:0];
     [_button_1 setSelected:YES];
     [_button_1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_button_1 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
     _button_2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_button_2 setImage:[UIImage imageNamed:@"tabbar_normal_2"] forState:UIControlStateNormal];
-    [_button_2 setImage:[UIImage imageNamed:@"tabbar_pressed_2"] forState:UIControlStateSelected];
-    [_button_2 setImage:[UIImage imageNamed:@"tabbar_normal_2"] forState:UIControlStateHighlighted];
-    [_button_4 setImage:[UIImage imageNamed:@"tabbar_pressed_2"] forState:UIControlStateDisabled];
+    [_button_2 setBackgroundImage:[UIImage imageNamed:@"tabbar_normal_2"] forState:UIControlStateNormal];
+    [_button_2 setBackgroundImage:[UIImage imageNamed:@"tabbar_pressed_2"] forState:UIControlStateSelected];
+    [_button_2 setBackgroundImage:[UIImage imageNamed:@"tabbar_normal_2"] forState:UIControlStateHighlighted];
+    [_button_4 setBackgroundImage:[UIImage imageNamed:@"tabbar_pressed_2"] forState:UIControlStateDisabled];
     [_button_2 setTag:1];
     [_button_2 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -74,18 +77,18 @@
     [_button_center addTarget:self action:@selector(centerAction) forControlEvents:UIControlEventTouchUpInside];
     
     _button_3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_button_3 setImage:[UIImage imageNamed:@"tabbar_normal_3"] forState:UIControlStateNormal];
-    [_button_3 setImage:[UIImage imageNamed:@"tabbar_pressed_3"] forState:UIControlStateSelected];
-    [_button_3 setImage:[UIImage imageNamed:@"tabbar_normal_3"] forState:UIControlStateHighlighted];
-    [_button_4 setImage:[UIImage imageNamed:@"tabbar_pressed_3"] forState:UIControlStateDisabled];
+    [_button_3 setBackgroundImage:[UIImage imageNamed:@"tabbar_normal_3"] forState:UIControlStateNormal];
+    [_button_3 setBackgroundImage:[UIImage imageNamed:@"tabbar_pressed_3"] forState:UIControlStateSelected];
+    [_button_3 setBackgroundImage:[UIImage imageNamed:@"tabbar_normal_3"] forState:UIControlStateHighlighted];
+    [_button_4 setBackgroundImage:[UIImage imageNamed:@"tabbar_pressed_3"] forState:UIControlStateDisabled];
     [_button_3 setTag:2];
     [_button_3 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
     _button_4 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_button_4 setImage:[UIImage imageNamed:@"tabbar_normal_4"] forState:UIControlStateNormal];
-    [_button_4 setImage:[UIImage imageNamed:@"tabbar_pressed_4"] forState:UIControlStateSelected];
-    [_button_4 setImage:[UIImage imageNamed:@"tabbar_normal_4"] forState:UIControlStateHighlighted];
-    [_button_4 setImage:[UIImage imageNamed:@"tabbar_pressed_4"] forState:UIControlStateDisabled];
+    [_button_4 setBackgroundImage:[UIImage imageNamed:@"tabbar_normal_4"] forState:UIControlStateNormal];
+    [_button_4 setBackgroundImage:[UIImage imageNamed:@"tabbar_pressed_4"] forState:UIControlStateSelected];
+    [_button_4 setBackgroundImage:[UIImage imageNamed:@"tabbar_normal_4"] forState:UIControlStateHighlighted];
+    [_button_4 setBackgroundImage:[UIImage imageNamed:@"tabbar_pressed_4"] forState:UIControlStateDisabled];
     [_button_4 setTag:3];
     [_button_4 addTarget:self action:@selector(btn1Click:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -98,31 +101,39 @@
     CGFloat height = 0.0;
     if (iPhone5) {
         height = 43;
-    }else {
+    }else if (iPhone6P) {
+        height = 55;
+    }
+    else {
         height = 49;
     }
     
     [_button_1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.bottom.equalTo(self.mas_bottom);
-        make.width.equalTo(@(Screen_width/5));
+        make.width.equalTo(_button_2.mas_width).with.offset(0);
         make.height.equalTo(@(height));
     }];
     
     [_button_2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_button_1.mas_right);
         make.bottom.equalTo(self.mas_bottom);
-        make.width.equalTo(@(Screen_width/5));
+        make.width.equalTo(_button_3.mas_width).with.offset(0);
+        make.right.equalTo(_button_center.mas_left).with.offset(0);
         make.height.equalTo(@(height));
     }];
     
     [_button_center mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_button_2.mas_right);
+        make.left.equalTo(_button_2.mas_right).with.offset(0);
         make.bottom.equalTo(self.mas_bottom);
-        make.width.equalTo(@(Screen_width/5));
+        make.width.equalTo(_button_1.mas_width);
+        make.right.equalTo(_button_3.mas_left).with.offset(0);
         if (iPhone5) {
             make.height.equalTo(@60);
-        }else {
+        }else if(iPhone6P) {
+            make.height.equalTo(@70);
+        }
+        else{
             make.height.equalTo(@68);
         }
     }];
@@ -130,7 +141,7 @@
     [_button_3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_button_center.mas_right);
         make.bottom.equalTo(self.mas_bottom);
-        make.width.equalTo(@(Screen_width/5));
+        make.width.equalTo(_button_4.mas_width);
         make.height.equalTo(@(height));
     }];
     
@@ -139,6 +150,7 @@
         make.bottom.equalTo(self.mas_bottom);
         make.right.equalTo(self.mas_right);
         make.height.equalTo(@(height));
+        make.width.equalTo(_button_1.mas_width).offset(0);
     }];
     
     lastButton = _button_1;

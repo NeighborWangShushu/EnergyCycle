@@ -15,5 +15,5 @@
 
 @property (nonatomic,strong)CommentUserModel*model;
 
-
+- (void)showMore;
 @end

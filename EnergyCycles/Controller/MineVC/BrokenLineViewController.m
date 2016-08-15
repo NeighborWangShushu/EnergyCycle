@@ -32,8 +32,14 @@
 
 @implementation BrokenLineViewController
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     _dataArr = [[NSMutableArray alloc] init];
     showType = 1;
@@ -52,6 +58,7 @@
     
     //
     self.brokenSegmentedControl.selectedSegmentIndex = 0;
+    self.brokenSegmentedControl.tintColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
     [self setUpMJRefresh];
 }
 
@@ -138,7 +145,7 @@
             [SVProgressHUD showImage:nil status:@"登录失效"];
             [self.navigationController popToRootViewControllerAnimated:NO];
         }else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
         [self endRefresh];
         [brokenTableView reloadData];
@@ -342,7 +349,8 @@
     
     //
     UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 4, Screen_width-20, 184)];
-    backImageView.image = [UIImage imageNamed:@"minebeijing.png"];
+//    backImageView.image = [UIImage imageNamed:@"minebeijing.png"];
+    backImageView.image = [UIImage imageNamed:@"chartBg.png"];
     [brokenLineBackView addSubview:backImageView];
     
     //

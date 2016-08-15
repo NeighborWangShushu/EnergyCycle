@@ -7,12 +7,13 @@
 //
 
 #import "AttentionAndFansTableViewController.h"
+#import "MineHomePageViewController.h"
+
 #import "AttentionAndFansTableViewCell.h"
 
 #import "UserModel.h"
 #import "OtherUserModel.h"
-
-#import "MineHomePageViewController.h"
+#import "GifHeader.h"
 
 @interface AttentionAndFansTableViewController ()
 
@@ -34,13 +35,34 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self setupLeftNavBarWithimage:@"loginfanhui"];
+- (void)setUpMJRefresh {
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    self.tableView.mj_header = [GifHeader headerWithRefreshingBlock:^{
+        // 设置标题与加载数据
+        if (self.userId == NULL || [self.userId isEqualToString:[NSString stringWithFormat:@"%@", User_ID]]) {
+            if (self.type == 1) {
+                self.title = @"我的关注";
+                [weakSelf getAttentionInfo];
+            } else if (self.type == 2) {
+                self.title = @"我的粉丝";
+                [weakSelf getFansInfo];
+            }
+        } else {
+            if (self.type == 1) {
+                self.title = @"他的关注";
+            } else {
+                self.title = @"他的粉丝";
+            }
+            [weakSelf getUserIdAttentionOrFansInfo];
+        }
+    }];
+}
 
-    // 设置tableView中cell的线条隐藏
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+- (void)endRefresh {
+    [self.tableView.mj_header endRefreshing];
+}
+
+- (void)judge {
     // 设置标题与加载数据
     if (self.userId == NULL || [self.userId isEqualToString:[NSString stringWithFormat:@"%@", User_ID]]) {
         if (self.type == 1) {
@@ -58,6 +80,18 @@
         }
         [self getUserIdAttentionOrFansInfo];
     }
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
+    // 设置tableView中cell的线条隐藏
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self judge];
+    
+    [self setUpMJRefresh];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -70,19 +104,22 @@
 - (void)getAttentionInfo {
     [[AppHttpManager shareInstance] getMyHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            [self.dataArr removeAllObjects];
+            
             for (NSDictionary *subDict in dict[@"Data"]) {
                 UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
                 [self.dataArr addObject:model];
             }
-            NSLog(@"%ld",self.dataArr.count);
-        }else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self endRefresh];
+                [self.tableView reloadData];
+            });
+        } else {
+            [self endRefresh];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
     } failure:^(NSString *str) {
+        [self endRefresh];
         NSLog(@"%@", str);
     }];
 }
@@ -91,18 +128,26 @@
 - (void)getFansInfo {
     [[AppHttpManager shareInstance] getHeartMeWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            
+            [self.dataArr removeAllObjects];
+            
             for (NSDictionary *subDict in dict[@"Data"]) {
                 UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
                 [self.dataArr addObject:model];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self endRefresh];
+                    [self.tableView reloadData];
+                });
             }
         } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [self endRefresh];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
+
     } failure:^(NSString *str) {
+        [self endRefresh];
         NSLog(@"%@", str);
     }];
 }
@@ -115,18 +160,24 @@
                                                     PostOrGet:@"get"
                                                       success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            
+            [self.dataArr removeAllObjects];
+            
             for (NSDictionary *subDict in dict[@"Data"]) {
                 OtherUserModel *model = [[OtherUserModel alloc] initWithDictionary:subDict error:nil];
                 [self.dataArr addObject:model];
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self endRefresh];
+                [self.tableView reloadData];
+            });
         } else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [self endRefresh];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
                                                           
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
     } failure:^(NSString *str) {
+        [self endRefresh];
         NSLog(@"%@",str);
     }];
 }
@@ -147,7 +198,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 92.f;
+    return 80.f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

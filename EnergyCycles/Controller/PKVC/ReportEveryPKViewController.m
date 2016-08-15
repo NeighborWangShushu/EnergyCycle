@@ -87,12 +87,13 @@
     reportTableView.tableFooterView = tableHeadView;
     
     //左按键
-    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     //右按键
     rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     rightButton.frame = CGRectMake(0, 0, 35, 30);
     [rightButton setTitle:@"提交" forState:UIControlStateNormal];
-    [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+    //    [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
@@ -109,7 +110,7 @@
         model.myId = subDict[@"myId"];
         model.picUrl = subDict[@"picUrl"];
         model.name = subDict[@"name"];
-
+        
         [_xianmuArr addObject:model];
     }
     
@@ -132,9 +133,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+    //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
+    //    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
 }
 
 #pragma mark - 返回按键
@@ -166,34 +169,34 @@
 - (void)back {
     [self.navigationController popViewControllerAnimated:YES];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
 }
 
 #pragma mark - 提交按键响应事件
 - (void)rightAction {
-//    if (subPostDict.count != _xianmuArr.count) {
-//        [SVProgressHUD showImage:nil status:@"要填写完整哟~"];
-//    }
-//    else {
-//        for (NSString *value in subPostDict.allValues) {
-//            if ([value floatValue] == 0.00) {
-//                [SVProgressHUD showImage:nil status:@"汇报的项目要填写且不能是0哦~"];
-//                return;
-//            }
-//        }
-//        
-//        if(_selectImgArrayLocal.count){
-//            NSData * data = UIImageJPEGRepresentation(_selectImgArrayLocal[0], 0.05);
-//            [self submitImage:data];
-//        }else {
-//            [self getURLContext];
-//        }
-//    }
-//    if (subPostDict.count != _xianmuArr.count) {
-//        [SVProgressHUD showImage:nil status:@"要填写完整哟~"];
-//    }
+    //    if (subPostDict.count != _xianmuArr.count) {
+    //        [SVProgressHUD showImage:nil status:@"要填写完整哟~"];
+    //    }
+    //    else {
+    //        for (NSString *value in subPostDict.allValues) {
+    //            if ([value floatValue] == 0.00) {
+    //                [SVProgressHUD showImage:nil status:@"汇报的项目要填写且不能是0哦~"];
+    //                return;
+    //            }
+    //        }
+    //
+    //        if(_selectImgArrayLocal.count){
+    //            NSData * data = UIImageJPEGRepresentation(_selectImgArrayLocal[0], 0.05);
+    //            [self submitImage:data];
+    //        }else {
+    //            [self getURLContext];
+    //        }
+    //    }
+    //    if (subPostDict.count != _xianmuArr.count) {
+    //        [SVProgressHUD showImage:nil status:@"要填写完整哟~"];
+    //    }
     if (subPostDict.count <= 0) {
         [SVProgressHUD showImage:nil status:@"请填写汇报内容"];
     }
@@ -210,7 +213,7 @@
     }else {
         [self getURLContext];
     }
-
+    
 }
 
 - (void)getURLContext {
@@ -293,7 +296,7 @@
     shareView.shareTitle = shareStr;
     shareView.shareText = @"";
     shareView.shareUrl = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%@",MYJYAppId];
-
+    
     
     [[UIApplication sharedApplication].keyWindow addSubview:shareView];
     
@@ -304,10 +307,10 @@
 
 //实现消息中心方法
 - (void)removeShareView:(NSNotification *)notification {
-//    NSInteger index = [[[notification object] objectForKey:@"index"] integerValue];
-//    if (index == 1) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
+    //    NSInteger index = [[[notification object] objectForKey:@"index"] integerValue];
+    //    if (index == 1) {
+    //        [self.navigationController popViewControllerAnimated:YES];
+    //    }
     [self.navigationController popViewControllerAnimated:YES];
     [shareView removeFromSuperview];
 }
@@ -332,7 +335,7 @@
             }
         }else {
             // 网络出错
-            [SVProgressHUD showImage:nil status:@"请检查网络"];
+            
         }
     } failure:^(NSString *str) {
         NSLog(@"错误：%@",str);
@@ -399,7 +402,7 @@
             PKSelectedModel *model = (PKSelectedModel *)_xianmuArr[indexPath.row];
             cell.titleLabel.text = model.name;
             cell.danweiLabel.text = model.unit;
-//            cell.inputTextField.text = @"0";
+            //            cell.inputTextField.text = @"0";
         }
         cell.inputTextField.tag = 2311+indexPath.row;
         [cell.inputTextField addTarget:self action:@selector(cellInputTextFieldChange:) forControlEvents:UIControlEventEditingChanged];
@@ -462,7 +465,7 @@
 }
 
 #pragma mark -
-- (void)cellInputTextFieldChange:(UITextField *)textField {    
+- (void)cellInputTextFieldChange:(UITextField *)textField {
     PKSelectedModel *model = (PKSelectedModel *)_xianmuArr[textField.tag-2311];
     
     CGFloat textFloatValue = [textField.text floatValue];
@@ -644,7 +647,8 @@
         }
         //资源类型为照相机
         picker.sourceType = sourceType;
-        [self presentViewController:picker animated:YES completion:nil];
+        //        [self presentViewController:picker animated:YES completion:nil];
+        [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
     }else {
         NSLog(@"该设备无摄像头");
     }
@@ -657,6 +661,9 @@
     }
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
     picker.navigationBar.tintColor=[UIColor whiteColor];
+    picker.navigationBar.translucent = NO;
+    [picker.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [picker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
     picker.maximumNumberOfSelection = 9-count;
     picker.assetsFilter = [ALAssetsFilter allPhotos];
     picker.showEmptyGroups = NO;
@@ -669,7 +676,9 @@
             return YES;
         }
     }];
-    [self presentViewController:picker animated:YES completion:nil];
+    //    [self presentViewController:picker animated:YES completion:nil];
+    [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
+    
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {

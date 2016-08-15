@@ -22,8 +22,14 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"账号管理";
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
     
     // Do any additional setup after loading the view.
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

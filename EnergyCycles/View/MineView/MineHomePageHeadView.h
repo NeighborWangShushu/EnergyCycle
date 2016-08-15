@@ -29,10 +29,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 // 地址图标
 @property (weak, nonatomic) IBOutlet UIImageView *addressImage;
-// 签到
-@property (weak, nonatomic) IBOutlet UILabel *signLabel;
-// 签到(没有地址数据时显示)
-@property (weak, nonatomic) IBOutlet UILabel *signTwoLabel;
 // 关注
 @property (weak, nonatomic) IBOutlet UIButton *attentionButton;
 // 粉丝
@@ -43,10 +39,14 @@
 @property (weak, nonatomic) IBOutlet UIImageView *introImage;
 // 简介按钮
 @property (weak, nonatomic) IBOutlet UIButton *introButton;
-// 约束
+// 内部控件约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
 // 分段控件
 @property (weak, nonatomic) IBOutlet HMSegmentedControl *segControl;
+// 下拉动效约束
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *backgroundImageHeight;
+
+@property (nonatomic, strong) UserModel *model;
 
 // 获取数据
 - (void)getdateDataWithModel:(UserModel *)model userInfoModel:(UserInfoModel *)userInfoModel;

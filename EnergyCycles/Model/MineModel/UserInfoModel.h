@@ -20,5 +20,7 @@
 @property (nonatomic, strong) NSString<Optional> *Brief;
 @property (nonatomic, strong) NSString<Optional> *MsgCount;
 @property (nonatomic, strong) NSString<Optional> *AS_CONTINUONS;
+@property (nonatomic, strong) NSString<Optional> *PowerSource;
+@property (nonatomic, strong) NSString<Optional> *NotifyCount;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GetMessageModel.h"
 
 @interface MineMessageTableViewCell : UITableViewCell
 
@@ -23,6 +24,8 @@
 // 约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
 
-//- (void)updataDataWithModel:()
+- (void)updateDataWithModel:(GetMessageModel *)model;
+
+- (void)noData;
 
 @end

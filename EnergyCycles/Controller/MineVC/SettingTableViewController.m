@@ -7,6 +7,7 @@
 //
 
 #import "SettingTableViewController.h"
+#import "MyProfileViewController.h"
 
 #import "SettingOneViewCell.h"
 #import "SettingTwoViewCell.h"
@@ -15,7 +16,9 @@
 
 #import "CacheManager.h"
 
-@interface SettingTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
+@interface SettingTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
+    BOOL isPhoneLogin;
+}
 
 @end
 
@@ -23,47 +26,62 @@
 
 // 分组数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 3;
 }
 
 // 每一组的行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0 || section == 2) {
+    if (section == 2) {
         return 3;
     } else {
         return 1;
     }
 }
 
-// 每一组的高度
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 14.f;
-}
+//// 每一组的高度
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 14.f;
+//}
 
 // 每一行的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!isPhoneLogin) {
+        if (indexPath.section == 0) {
+            return 0;
+        }
+    }
     return 50.f;
 }
 
 // 每一组的底部高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 3) {
-        return 15.f;
+    if (section == 1) {
+        return 44.f;
     }
-    return 0;
+    return 14.f;
 }
 
-// 设置分区头的View
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
-    return view;
-}
+//// 设置分区头的View
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    UIView *view = [[UIView alloc] init];
+//    view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
+//    return view;
+//}
 
 // 设置分区尾的View
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
+    if (section == 1) {
+        UILabel *label = [[UILabel alloc] init];
+        label.frame = CGRectMake(31, 2, Screen_width - 50, 30);
+        label.numberOfLines = 0;
+        label.font = [UIFont boldSystemFontOfSize:12];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:0.6];
+        label.text = @"要开启或关闭能量圈的推送通知,请在iPhone的“设置”-“通知”中找到“能量圈”进行设置";
+        [view addSubview:label];
+    }
     return view;
 }
 
@@ -88,9 +106,7 @@
             cell = [[NSBundle mainBundle] loadNibNamed:@"SettingFourViewCell" owner:self options:nil].lastObject;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        NSLog(@"%@",[[UIApplication sharedApplication] isRegisteredForRemoteNotifications]?@"yes":@"no");
-        [cell updateDataWithJudge:[[UIApplication sharedApplication] isRegisteredForRemoteNotifications]]; // 获取推送通知开关状态
-        
+        [cell updateDataWithJudge:[self isAllowedNotification]]; // 获取推送通知开关状态
         return cell;
     } else if (indexPath.section == 2) { // 清楚缓存
         if (indexPath.row == 0) {
@@ -100,7 +116,6 @@
                 cell = [[NSBundle mainBundle] loadNibNamed:@"SettingThreeViewCell" owner:self options:nil].lastObject;
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
             [cell updateDataWithData:[CacheManager getCachesSizeCount]]; // 获取缓存大小
             NSLog(@"%f",[CacheManager getCachesSizeCount]);
             
@@ -113,6 +128,10 @@
     if (cell == nil) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"SettingTwoViewCell" owner:self options:nil].lastObject;
     }
+    if (!isPhoneLogin && indexPath.section == 0) {
+        [cell isOtherLogin];
+        return cell;
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell updateDataWithSection:indexPath.section index:indexPath.row];
     
@@ -121,44 +140,55 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) { // 个人资料
-            [self performSegueWithIdentifier:@"MyProfileViewController" sender:nil];
-        }
-        if (indexPath.row == 1) { // 账号管理
-            [self performSegueWithIdentifier:@"AMChangePhoneViewController" sender:nil];
-//            [self performSegueWithIdentifier:@"AMBoundPhoneViewController" sender:nil];
+//        if (indexPath.row == 0) { // 个人资料
+//            [self performSegueWithIdentifier:@"MyProfileViewController" sender:nil];
+//        }
+        if (indexPath.row == 0) { // 账号管理
+            NSString *phoneNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"PHONE"];
+            if ([phoneNumber isEqualToString:@""] || phoneNumber == nil) {
+                [self performSegueWithIdentifier:@"AMBoundPhoneViewController" sender:nil];
+            } else {
+                [self performSegueWithIdentifier:@"AMChangePhoneViewController" sender:nil];
+            }
         }
     } else if (indexPath.section == 1) { // 消息推送
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            if ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications] == NO) {
-                UIUserNotificationSettings *setting = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge categories:nil];
-                [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
-                [[UIApplication sharedApplication] registerForRemoteNotifications];
-            } else {
-                [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-            }
-            NSLog(@"Notification");
-            [self.tableView reloadData];
-        } else {
-            if ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] == 0) {
-                [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-            } else {
-                [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-            }
-            
-        }
-    } else if (indexPath.section == 2) { // 意见反馈
-        if (indexPath.row == 0) {
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"prefs:root=NOTIFICATIONS_ID&&path=%@",[[NSBundle mainBundle] bundleIdentifier]]]];
+    } else if (indexPath.section == 2) {
+        if (indexPath.row == 0) { // 清除缓存
             [self clearDisk];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 1) { // 意见反馈
             [self performSegueWithIdentifier:@"IWillAdviseViewController" sender:nil];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 2) { // 关于
             [self performSegueWithIdentifier:@"AboutViewController" sender:nil];
         }
-    } else { // 确认退出
-        [self exit];
     }
+//    } else { // 确认退出
+//        [self exit];
+//    }
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"MyProfileViewController"]) {
+        MyProfileViewController *myVC = segue.destinationViewController;
+        myVC.model = self.model;
+    }
+}
+
+// 获取应用通知开关状态
+- (BOOL)isAllowedNotification
+{
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) { // system is iOS8 +
+        UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
+        if (UIUserNotificationTypeNone != setting.types) {
+            return YES;
+        }
+    } else { // iOS7
+        UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        if(UIRemoteNotificationTypeNone != type)
+            return YES;
+    }
+    return NO;
 }
 
 // 退出登录
@@ -177,6 +207,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"isUnLoginSetAPService" object:nil];
         EnetgyCycle.energyTabBar.selectedIndex = 0;
         [self.tableView reloadData];
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:exitAction];
@@ -199,6 +231,16 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    NSString *string = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginType"]];
+//    string
+    if ([string isEqualToString:@"0"]) {
+        isPhoneLogin = YES;
+    } else {
+        isPhoneLogin = NO;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupLeftNavBarWithimage:@"loginfanhui"];
@@ -207,12 +249,25 @@
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableView = [UITableView alloc]
+    
+//    self.tableView.style = UITableViewStyleGrouped;
     
     // Do any additional setup after loading the view.
 }
 
+
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+    
 - (void)leftAction {
     [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {

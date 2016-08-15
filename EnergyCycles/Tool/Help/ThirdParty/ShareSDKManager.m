@@ -40,7 +40,8 @@
 
 
 - (instancetype)init {
-    if (self == [super init]) {
+    self = [super init];
+    if (self) {
         [self initialize];
     }
     return self;
@@ -147,9 +148,10 @@
 }
 
 - (void)shareClientToQQZone:(ShareModel *)model block:(result)result {
+    
     NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKEnableUseClientShare];
-    [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQZone];
+    [shareParams SSDKSetupQQParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQZone];
     
     [self share:SSDKPlatformSubTypeQZone params:shareParams block:^(SSDKResponseState state) {
         result(state);
@@ -163,14 +165,19 @@
         case SSDKPlatformSubTypeWechatSession:
         {
             [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                if (state == SSDKResponseStateSuccess) {
+                    [self getScoreByShareSuccess];
+                }
                 result(state);
-                
             }];
         }
             break;
         case SSDKPlatformSubTypeWechatTimeline:
         {
             [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                if (state == SSDKResponseStateSuccess) {
+                    [self getScoreByShareSuccess];
+                }
                 result(state);
                 
             }];
@@ -179,6 +186,9 @@
         case SSDKPlatformTypeSinaWeibo:
         {
             [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                if (state == SSDKResponseStateSuccess) {
+                    [self getScoreByShareSuccess];
+                }
                 result(state);
                 NSLog(@"%@",error);
             }];
@@ -187,6 +197,9 @@
         case SSDKPlatformSubTypeQQFriend:
         {
             [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                if (state == SSDKResponseStateSuccess) {
+                    [self getScoreByShareSuccess];
+                }
                 result(state);
                 
             }];
@@ -205,7 +218,14 @@
         default:
             break;
     }
-    
+}
+
+- (void)getScoreByShareSuccess {
+    [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:3 PostOrGet:@"post" success:^(NSDictionary *dict) {
+        NSLog(@"%@",dict);
+    } failure:^(NSString *str) {
+        
+    }];
 }
 
 @end

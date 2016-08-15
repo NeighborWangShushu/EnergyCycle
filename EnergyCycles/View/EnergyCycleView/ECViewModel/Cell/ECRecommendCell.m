@@ -46,20 +46,14 @@
     UILabel * title = [UILabel new];
     title.text = @"推荐用户";
     title.textColor = [UIColor colorWithRed:74.0/255.0 green:74.0/255.0 blue:74.0/255.0 alpha:1.0];
-    title.font = [UIFont systemFontOfSize:18];
+    title.font = [UIFont systemFontOfSize:14];
     [self addSubview:title];
     
-    UIImageView * arrow = [UIImageView new];
-    [arrow setImage:[UIImage imageNamed:@"ec_comment_arrow"]];
-    [self addSubview:arrow];
-    
-    UIButton*arrowButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self addSubview:arrowButton];
-    [arrowButton addTarget:self action:@selector(arrowButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    layout.itemSize = CGSizeMake(66, 86);
+    layout.itemSize = CGSizeMake(50, 68);
+    layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 0);
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.collectionView.dataSource = self;
@@ -77,19 +71,7 @@
     
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(10);
-        make.top.equalTo(self.mas_top).with.offset(10);
-    }];
-    
-    [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).with.offset(-10);
-        make.top.equalTo(self.mas_top).with.offset(10);
-    }];
-    
-    [arrowButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).with.offset(-10);
-        make.top.equalTo(self.mas_top).with.offset(10);
-        make.width.equalTo(@40);
-        make.height.equalTo(@30);
+        make.top.equalTo(self.mas_top).with.offset(15);
     }];
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -116,15 +98,19 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.datas.count;
+    return self.datas.count + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * cellID = @"CommentCellID";
     CommentCollectionCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
-    CommentUserModel * model = [self.datas objectAtIndex:indexPath.row];
-    cell.model = model;
+    if (indexPath.row == [self.datas count]) {
+        [cell showMore];
+    }else {
+        CommentUserModel * model = [self.datas objectAtIndex:indexPath.row];
+        cell.model = model;
+    }
     return cell;
 }
 
@@ -139,10 +125,18 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    CommentUserModel * model = [self.datas objectAtIndex:indexPath.row];
-    if ([self.delegate respondsToSelector:@selector(didClickCommendUser:userId:userName:)]) {
-        [self.delegate didClickCommendUser:self userId:[NSString stringWithFormat:@"%ld",model.ID] userName:model.name];
+    if (indexPath.row != self.datas.count) {
+        CommentUserModel * model = [self.datas objectAtIndex:indexPath.row];
+        if ([self.delegate respondsToSelector:@selector(didClickCommendUser:userId:userName:)]) {
+            [self.delegate didClickCommendUser:self userId:[NSString stringWithFormat:@"%ld",model.ID] userName:model.name];
+        }
+    }else {
+        if ([self.delegate respondsToSelector:@selector(didClickMoreCommendUser)]) {
+            [self.delegate didClickMoreCommendUser];
+        }
+        
     }
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

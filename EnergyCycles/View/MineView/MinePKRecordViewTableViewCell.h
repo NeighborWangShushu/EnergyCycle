@@ -11,8 +11,6 @@
 
 @interface MinePKRecordViewTableViewCell : UITableViewCell
 
-// 序号
-@property (weak, nonatomic) IBOutlet UILabel *numberLabel;
 // 头像
 @property (weak, nonatomic) IBOutlet UIImageView *headImage;
 // 项目名称
@@ -22,6 +20,8 @@
 // 最近一次记录的时间
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
-- (void)getDataWithModel:(MyPkEveryModel *)model number:(NSInteger)number;
+- (void)getDataWithModel:(MyPkEveryModel *)model;
+
+- (void)noData;
 
 @end
