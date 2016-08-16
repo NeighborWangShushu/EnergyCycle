@@ -328,7 +328,6 @@
             cell.userInteractionEnabled = NO;
             cell.constraint.constant = 17;
             cell.rightImage.hidden = YES;
-            NSString *string = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginType"]];
             cell.rightLabel.text = [self.model.phone length]<=0?postDict[@"phoneno"]:self.model.phone;
             [postDict setObject:[self.model.phone length]<=0?@"":self.model.phone forKey:@"phoneno"];
         } else {

@@ -11,6 +11,8 @@
 #import "ReportOneTableViewCell.h"
 #import "ReportTwoTableViewCell.h"
 #import "ReportThrTableViewCell.h"
+#import "ReportPostingTableViewCell.h"
+#import "ReportShareTableViewCell.h"
 
 #import "ReportOneCollectionViewCell.h"
 #import "EnergyPostCollectionViewCell.h"
@@ -39,6 +41,12 @@
     XMTwoShareView *shareView;
     
     UIAlertView *delAlertView;
+    
+    BOOL onPost;
+    BOOL onQQ;
+    BOOL onWecha;
+    BOOL onMoments;
+    BOOL onWeibo;
 }
 
 @end
@@ -64,19 +72,19 @@
     reportTableView.showsVerticalScrollIndicator = NO;
     
     //尾视图
-    UIView *tableHeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 60)];
+    UIView *tableHeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 80)];
     UIImageView *leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 27, 22, 22)];
-    leftImageView.image = [UIImage imageNamed:@"42bangzhu_.png"];
+    leftImageView.image = [UIImage imageNamed:@"help.png"];
     [tableHeadView addSubview:leftImageView];
     
-    UILabel *biaozhuLabel = [[UILabel alloc] initWithFrame:CGRectMake(12+22+5, 21, Screen_width-12-22-5, 35)];
+    UILabel *biaozhuLabel = [[UILabel alloc] initWithFrame:CGRectMake(12+22+5, 11, Screen_width-12-22-5-12, 55)];
     biaozhuLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
-    biaozhuLabel.numberOfLines = 2;
+    biaozhuLabel.numberOfLines = 3;
     biaozhuLabel.font = [UIFont systemFontOfSize:14];
     [tableHeadView addSubview:biaozhuLabel];
     
-    NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请确认汇报真实数据，否则积分将被清零\n如有阅读汇报，请上传书籍封面"];
-    NSRange range1 = [[hintString string]rangeOfString:@"请确认汇报真实数据，否则积分将被清零"];
+    NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请确认汇报当日真实数据(非累计数据),否则积分清零\n如有阅读汇报，请上传书籍封面"];
+    NSRange range1 = [[hintString string]rangeOfString:@"请确认汇报当日真实数据(非累计数据),否则积分清零"];
     [hintString addAttribute:NSForegroundColorAttributeName value:[[UIColor blackColor] colorWithAlphaComponent:0.4] range:range1];
     
     NSRange range2 = [[hintString string]rangeOfString:@"如有阅读汇报，请上传书籍封面"];
@@ -114,8 +122,60 @@
         [_xianmuArr addObject:model];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePost:) name:@"ReportPostSwitch" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQQ:) name:@"ReportQQSwitch" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWecha:) name:@"ReportWechaSwitch" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMoments:) name:@"ReportMomentsSwitch" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWeibo:) name:@"ReportWeiboSwitch" object:nil];
+
+    
     //增加消息中心,移除分享界面
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeShareView:) name:@"NotificationRemoveShareView" object:nil];
+}
+
+- (void)updatePost:(NSNotification *)notification {
+    NSString *string = notification.object;
+    if ([string isEqualToString:@"YES"]) {
+        onPost = YES;
+    } else if ([string isEqualToString:@"NO"]) {
+        onPost = NO;
+    }
+}
+
+- (void)updateQQ:(NSNotification *)notification {
+    NSString *string = notification.object;
+    if ([string isEqualToString:@"YES"]) {
+        onQQ = YES;
+    } else if ([string isEqualToString:@"NO"]) {
+        onQQ = NO;
+    }
+}
+
+- (void)updateWecha:(NSNotification *)notification {
+    NSString *string = notification.object;
+    if ([string isEqualToString:@"YES"]) {
+        onWecha = YES;
+    } else if ([string isEqualToString:@"NO"]) {
+        onWecha = NO;
+    }
+}
+
+- (void)updateMoments:(NSNotification *)notification {
+    NSString *string = notification.object;
+    if ([string isEqualToString:@"YES"]) {
+        onMoments = YES;
+    } else if ([string isEqualToString:@"NO"]) {
+        onMoments = NO;
+    }
+}
+
+- (void)updateWeibo:(NSNotification *)notification {
+    NSString *string = notification.object;
+    if ([string isEqualToString:@"YES"]) {
+        onWeibo = YES;
+    } else if ([string isEqualToString:@"NO"]) {
+        onWeibo = NO;
+    }
 }
 
 #pragma mark - 增加监听,选中提交的种类
@@ -345,7 +405,7 @@
 
 #pragma mark -
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -360,6 +420,8 @@
         return 120.f;
     }else if (indexPath.section == 1) {
         return 50.f;
+    }else if (indexPath.section == 3 || indexPath.section == 4) {
+        return 45.f;
     }
     return 100.f;
 }
@@ -408,32 +470,55 @@
         [cell.inputTextField addTarget:self action:@selector(cellInputTextFieldChange:) forControlEvents:UIControlEventEditingChanged];
         
         return cell;
+    } else if (indexPath.section == 2) {
+        static NSString *ReportThrTableViewCellId = @"ReportThrTableViewCellId";
+        ReportThrTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReportThrTableViewCellId];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"ReportThrTableViewCell" owner:self options:nil].lastObject;
+        }
+        
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        layout.minimumInteritemSpacing = 10.f;
+        layout.minimumLineSpacing = 10.f;
+        cell.showImageCollectionView.collectionViewLayout = layout;
+        cell.showImageCollectionView.backgroundColor = [UIColor clearColor];
+        [cell.showImageCollectionView registerNib:[UINib nibWithNibName:@"EnergyPostCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"EnergyPostCollectionViewCellId"];
+        cell.showImageCollectionView.tag = 2302;
+        cell.showImageCollectionView.dataSource = self;
+        cell.showImageCollectionView.delegate = self;
+        
+        cell.showImageCollectionView.showsHorizontalScrollIndicator = NO;
+        cell.showImageCollectionView.showsVerticalScrollIndicator = NO;
+        
+        return cell;
+    } else if (indexPath.section == 3) {
+        static NSString *reportPostingTableViewCell = @"reportPostingTableViewCell";
+        ReportPostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reportPostingTableViewCell];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"ReportPostingTableViewCell" owner:self options:nil].lastObject;
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell updateData];
+        return cell;
+    } else if (indexPath.section == 4) {
+        static NSString *reportShareTableViewCell = @"reportShareTableViewCell";
+        ReportShareTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reportShareTableViewCell];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"ReportShareTableViewCell" owner:self options:nil].lastObject;
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell updateData];
+        return cell;
     }
+    return nil;
     
-    static NSString *ReportThrTableViewCellId = @"ReportThrTableViewCellId";
-    ReportThrTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReportThrTableViewCellId];
-    if (cell == nil) {
-        cell = [[NSBundle mainBundle] loadNibNamed:@"ReportThrTableViewCell" owner:self options:nil].lastObject;
-    }
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    layout.minimumInteritemSpacing = 10.f;
-    layout.minimumLineSpacing = 10.f;
-    cell.showImageCollectionView.collectionViewLayout = layout;
-    cell.showImageCollectionView.backgroundColor = [UIColor clearColor];
-    [cell.showImageCollectionView registerNib:[UINib nibWithNibName:@"EnergyPostCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"EnergyPostCollectionViewCellId"];
-    cell.showImageCollectionView.tag = 2302;
-    cell.showImageCollectionView.dataSource = self;
-    cell.showImageCollectionView.delegate = self;
-    
-    cell.showImageCollectionView.showsHorizontalScrollIndicator = NO;
-    cell.showImageCollectionView.showsVerticalScrollIndicator = NO;
-    
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 3 || section == 4) {
+        return 20.f;
+    }
     return 40.f;
 }
 
@@ -446,13 +531,15 @@
     if (section == 0) {
         label.text = @"项目";
     }else if (section == 1) {
-        label.text = @"记录";
+        label.text = @"今日共完成";
     }else {
         label.text = @"添加照片";
     }
     [headView addSubview:label];
     
-    
+    if (section == 3 || section == 4) {
+        return nil;
+    }
     return headView;
 }
 

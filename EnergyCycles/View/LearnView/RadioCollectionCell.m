@@ -53,7 +53,8 @@
 }
 
 - (void)setPic:(NSString *)pic {
-    [self.img setImage:[UIImage imageNamed:pic]];
+    [self.img sd_setImageWithURL:[NSURL URLWithString:pic]];
+//    [self.img setImage:[UIImage imageNamed:pic]];
 }
 
 - (void)setup {
