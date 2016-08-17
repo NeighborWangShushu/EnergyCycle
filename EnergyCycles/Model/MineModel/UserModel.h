@@ -10,10 +10,15 @@
 
 @interface UserModel : JSONModel
 
+@property (nonatomic,strong) NSString <Optional>*portrait;
 @property (nonatomic, strong) NSString<Optional> *use_id;
 @property (nonatomic, strong) NSString<Optional> *userguid;
 @property (nonatomic, strong) NSString<Optional> *token;
 @property (nonatomic, strong) NSString<Optional> *nickname;
+@property (nonatomic, strong) NSString<Ignore> *pinyin;
+@property (strong,nonatomic) NSString<Optional> *isSelected;
+
+
 @property (nonatomic, strong) NSString<Optional> *username;
 @property (nonatomic, strong) NSString<Optional> *sex;
 @property (nonatomic, strong) NSString<Optional> *phone;
@@ -25,6 +30,7 @@
 @property (nonatomic, strong) NSString<Optional> *pwd;
 @property (nonatomic, strong) NSString<Optional> *powerSource;
 @property (nonatomic, strong) NSString<Optional> *poweredSource;
+
 
 @property (nonatomic, strong) NSString<Optional> *oldName;
 @property (nonatomic, strong) NSString<Optional> *oldSex;

@@ -1261,7 +1261,9 @@
         
         PostingViewController * postView = MainStoryBoard(@"ECPostingViewController");
         UIViewController * viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        [viewController presentViewController:postView animated:YES completion:nil];
+        UINavigationController*nav = [[UINavigationController alloc] initWithRootViewController:postView];
+        nav.navigationBar.hidden = YES;
+        [viewController presentViewController:nav animated:YES completion:nil];
     }
 }
 

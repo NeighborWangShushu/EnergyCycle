@@ -49,13 +49,13 @@
 //#define INTERFACE_URL @"http://192.168.2.13:8888/"
 
 //测试公网环境
-//#define INTERFACE_URL @"http://120.26.218.68:8888/"
+#define INTERFACE_URL @"http://120.26.218.68:8888/"
 
 //正式环境
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 //阿里云
-#define INTERFACE_URL @"http://120.26.218.68:8038/"
+//#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 
 #define CCTalk @"http://www.cctalk.com/org/525/?from=singlemessage&isappinstalled=0"
