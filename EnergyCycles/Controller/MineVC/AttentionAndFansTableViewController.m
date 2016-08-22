@@ -239,6 +239,56 @@
     [self.navigationController pushViewController:mineVC animated:YES];
 }
 
+// 可以编辑
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewRowAction *likeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"备注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        UserModel *model = self.dataArr[indexPath.row];
+        [self addNoteName:model];
+        // 实现相关的逻辑代码
+        // ...
+        // 在最后希望cell可以自动回到默认状态，所以需要退出编辑模式
+        tableView.editing = NO;
+        // 不需要主动退出编辑模式，更新view的操作完成后就会自动退出编辑模式
+        //        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+    }];
+    
+    return @[likeAction];
+}
+
+- (void)addNoteName:(UserModel *)model {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"添加备注名" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入要添加的备注名";
+    }];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *textField = alert.textFields.firstObject;
+        if ([textField.text isEqualToString:@""] || textField.text == nil) {
+            [SVProgressHUD showImage:nil status:@"备注名不能为空" maskType:SVProgressHUDMaskTypeClear];
+        } else {
+            [[AppHttpManager shareInstance] getAddNoteNameWithuserId:[User_ID intValue] Token:User_TOKEN OuId:[model.use_id intValue] NoteName:textField.text PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    [SVProgressHUD showImage:nil status:@"操作成功" maskType:SVProgressHUDMaskTypeClear];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self judge];
+                    });
+                }else {
+                    [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@", str);
+            }];
+        }
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 /*
 // Override to support conditional editing of the table view.

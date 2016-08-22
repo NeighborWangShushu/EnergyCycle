@@ -34,7 +34,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYo-Ms-wQe">
-                        <rect key="frame" x="231" y="24.5" width="70" height="31"/>
+                        <rect key="frame" x="231" y="24" width="70" height="31"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="36" id="4WQ-H3-bTY"/>
                             <constraint firstAttribute="width" constant="70" id="Xh0-6s-0Aw"/>
@@ -66,16 +66,26 @@
                             </mask>
                         </variation>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSL-Bh-vbs">
+                        <rect key="frame" x="17" y="77.5" width="303" height="1"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="F9v-Gg-c5a"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Zk6-Wg-vl9" firstAttribute="leading" secondItem="HNE-Hw-bDA" secondAttribute="trailing" constant="10" id="1vu-Qp-wtg"/>
                     <constraint firstItem="HNE-Hw-bDA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="1vz-O5-MNf"/>
+                    <constraint firstItem="pSL-Bh-vbs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" id="A3X-MR-9sL"/>
                     <constraint firstItem="JYo-Ms-wQe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AN1-rJ-8EP"/>
                     <constraint firstItem="JYo-Ms-wQe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OKJ-DP-55X" secondAttribute="trailing" constant="8" id="DRU-sR-3Kh"/>
+                    <constraint firstAttribute="trailing" secondItem="pSL-Bh-vbs" secondAttribute="trailing" id="GAI-25-uCQ"/>
                     <constraint firstItem="OKJ-DP-55X" firstAttribute="leading" secondItem="Zk6-Wg-vl9" secondAttribute="leading" id="JVP-fR-IdS"/>
                     <constraint firstItem="OKJ-DP-55X" firstAttribute="top" secondItem="Zk6-Wg-vl9" secondAttribute="bottom" constant="10" id="O41-pA-fhP"/>
                     <constraint firstItem="Zk6-Wg-vl9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="awD-DO-qDK"/>
                     <constraint firstItem="HNE-Hw-bDA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="kKb-jb-kM1"/>
+                    <constraint firstAttribute="bottom" secondItem="pSL-Bh-vbs" secondAttribute="bottom" constant="1" id="lLl-X3-Mwd"/>
                     <constraint firstItem="Zk6-Wg-vl9" firstAttribute="top" secondItem="HNE-Hw-bDA" secondAttribute="top" id="xJl-an-ln6"/>
                     <constraint firstAttribute="trailing" secondItem="JYo-Ms-wQe" secondAttribute="trailing" constant="19" id="xve-a6-pw1"/>
                 </constraints>
@@ -95,6 +105,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="addAttentionButton.png" width="140" height="62"/>
+        <image name="addAttentionButton.png" width="70" height="31"/>
     </resources>
 </document>

@@ -87,7 +87,7 @@
 
 #pragma mark - UITableView协议方法
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -99,7 +99,29 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    
+    PKHomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PKHomeViewCelliD"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     if (indexPath.section == 0) {
+        cell.titleLabel.text = @"每日PK";
+        cell.titleLabel.textColor = [UIColor whiteColor];
+        cell.downBackImageView.image = [UIImage imageNamed:@"meirix.png"];
+    }else {
+        cell.titleLabel.text = @"进阶PK";
+        cell.downBackImageView.image = [UIImage imageNamed:@"placepic.png"];
+        cell.downBackImageView.image = [UIImage imageNamed:@"jinjiex.png"];
+    }
+    
+    cell.touchuButton.tag = 2001 + indexPath.section;
+    [cell.touchuButton addTarget:self action:@selector(cellButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    return cell;
+}
+
+- (void)shuffling {
+//    if (indexPath.section == 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.backgroundColor = [UIColor whiteColor];
         
@@ -123,42 +145,24 @@
             
             [cell addSubview:twoScrollView];
         }
-//        UICollectionViewFlowLayout *showBackLayout = [[UICollectionViewFlowLayout alloc] init];
-//        [showBackLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-//        showBackLayout.minimumInteritemSpacing = 15.f;
-//        showBackLayout.minimumLineSpacing = 15.f;
-//        
-//        showCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 170) collectionViewLayout:showBackLayout];
-//        showCollectionView.dataSource = self;
-//        showCollectionView.delegate = self;
-//        showCollectionView.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:240/255.0 alpha:1];
-//        [showCollectionView registerNib:[UINib nibWithNibName:@"PkHomeCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PkHomeCollectionViewCellId"];
-//        
-//        showCollectionView.showsHorizontalScrollIndicator = NO;
-//        showCollectionView.bounces = YES;
-//        showCollectionView.pagingEnabled = NO;
-//        [cell addSubview:showCollectionView];
+        //        UICollectionViewFlowLayout *showBackLayout = [[UICollectionViewFlowLayout alloc] init];
+        //        [showBackLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        //        showBackLayout.minimumInteritemSpacing = 15.f;
+        //        showBackLayout.minimumLineSpacing = 15.f;
+        //
+        //        showCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 170) collectionViewLayout:showBackLayout];
+        //        showCollectionView.dataSource = self;
+        //        showCollectionView.delegate = self;
+        //        showCollectionView.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:240/255.0 alpha:1];
+        //        [showCollectionView registerNib:[UINib nibWithNibName:@"PkHomeCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"PkHomeCollectionViewCellId"];
+        //
+        //        showCollectionView.showsHorizontalScrollIndicator = NO;
+        //        showCollectionView.bounces = YES;
+        //        showCollectionView.pagingEnabled = NO;
+        //        [cell addSubview:showCollectionView];
         
-        return cell;
-    } 
-    
-    PKHomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PKHomeViewCelliD"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    if (indexPath.section == 1) {
-        cell.titleLabel.text = @"每日PK";
-        cell.titleLabel.textColor = [UIColor whiteColor];
-        cell.downBackImageView.image = [UIImage imageNamed:@"meirix.png"];
-    }else {
-        cell.titleLabel.text = @"进阶PK";
-        cell.downBackImageView.image = [UIImage imageNamed:@"placepic.png"];
-        cell.downBackImageView.image = [UIImage imageNamed:@"jinjiex.png"];
-    }
-    
-    cell.touchuButton.tag = 2001 + indexPath.section;
-    [cell.touchuButton addTarget:self action:@selector(cellButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    return cell;
+//        return cell;
+//    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -183,7 +187,7 @@
 
 #pragma mark - button点击事件
 - (void)cellButtonClick:(UIButton *)button {
-    if (button.tag == 2002) {//每日PK
+    if (button.tag == 2001) {//每日PK
         if (User_TOKEN.length > 0) {
             [self.delegate.tabbarController hideTabbar:YES];
             [self performSegueWithIdentifier:@"PKViewToEveryDayPKview" sender:nil];

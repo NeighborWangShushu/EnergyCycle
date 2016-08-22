@@ -11,5 +11,6 @@
 @interface VerificationPhoneViewController : BaseViewController
 
 @property (nonatomic, assign) BOOL isOtherLogin;
+@property (nonatomic, assign) BOOL havePhone;
 
 @end
