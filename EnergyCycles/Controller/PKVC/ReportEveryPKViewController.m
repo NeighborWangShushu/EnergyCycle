@@ -25,6 +25,9 @@
 #import "XHImageViewer.h"
 #import "UIImageView+XHURLDownload.h"
 
+#import "ShareModel.h"
+#import "ShareSDKManager.h"
+
 @interface ReportEveryPKViewController () <UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ZYQAssetPickerControllerDelegate,XHImageViewerDelegate> {
     UIButton *rightButton;
     UICollectionView *oneCellCollectionView;
@@ -42,6 +45,8 @@
     
     UIAlertView *delAlertView;
     
+    NSMutableArray *sharesArray;
+    
     BOOL onPost;
     BOOL onQQ;
     BOOL onWecha;
@@ -57,6 +62,8 @@
     [super viewDidLoad];
     
     self.title = @"汇报";
+    
+    sharesArray = [[NSMutableArray alloc] init];
     
     _imageUrlArr = [[NSMutableArray alloc] init];
     postDict = [[NSMutableDictionary alloc] init];
@@ -83,7 +90,7 @@
     biaozhuLabel.font = [UIFont systemFontOfSize:14];
     [tableHeadView addSubview:biaozhuLabel];
     
-    NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请确认汇报当日真实数据(非累计数据),否则积分清零\n如有阅读汇报，请上传书籍封面"];
+    NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请确认汇报当日数据（非累计数据），否则积分清零\n如有阅读汇报，请上传书籍封面"];
     NSRange range1 = [[hintString string]rangeOfString:@"请确认汇报当日真实数据(非累计数据),否则积分清零"];
     [hintString addAttribute:NSForegroundColorAttributeName value:[[UIColor blackColor] colorWithAlphaComponent:0.4] range:range1];
     
@@ -146,8 +153,10 @@
     NSString *string = notification.object;
     if ([string isEqualToString:@"YES"]) {
         onQQ = YES;
+        [sharesArray addObject:@"0"];
     } else if ([string isEqualToString:@"NO"]) {
         onQQ = NO;
+        [sharesArray removeObject:@"0"];
     }
 }
 
@@ -155,8 +164,10 @@
     NSString *string = notification.object;
     if ([string isEqualToString:@"YES"]) {
         onWecha = YES;
+        [sharesArray addObject:@"1"];
     } else if ([string isEqualToString:@"NO"]) {
         onWecha = NO;
+        [sharesArray removeObject:@"1"];
     }
 }
 
@@ -164,8 +175,10 @@
     NSString *string = notification.object;
     if ([string isEqualToString:@"YES"]) {
         onMoments = YES;
+        [sharesArray addObject:@"2"];
     } else if ([string isEqualToString:@"NO"]) {
         onMoments = NO;
+        [sharesArray removeObject:@"2"];
     }
 }
 
@@ -173,8 +186,10 @@
     NSString *string = notification.object;
     if ([string isEqualToString:@"YES"]) {
         onWeibo = YES;
+        [sharesArray addObject:@"3"];
     } else if ([string isEqualToString:@"NO"]) {
         onWeibo = NO;
+        [sharesArray removeObject:@"3"];
     }
 }
 
@@ -298,10 +313,34 @@
             [reportSubArr addObject:jsonStr];
         }
         
+        if (onPost) {
+            NSString *shareStr = @"";
+            NSString *contentStr = @"";
+            for (NSInteger i=0; i<_xianmuArr.count; i++) {
+                PKSelectedModel *model = (PKSelectedModel *)_xianmuArr[i];
+                NSString *numStr = [subPostDict objectForKey:model.myId];
+                
+                if (i == _xianmuArr.count-1) {
+                    contentStr = [NSString stringWithFormat:@"%@%@%@%@",contentStr,model.name,numStr,model.unit];
+                }else {
+                    contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.name,numStr,model.unit];
+                }
+            }
+            shareStr = [NSString stringWithFormat:@"我刚才完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
+            NSLog(@"%@", shareStr);
+            [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:shareStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:_imageUrlArr PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    NSLog(@"能量帖发布成功!");
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@",str);
+            }];
+        }
+        
         [[AppHttpManager shareInstance] getAddReportWithUserid:User_ID Token:User_TOKEN ReportList:reportSubArr ImageList:_imageUrlArr PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [self creatSuccessShareView];
-                
+//                [self creatSuccessShareView];
+                [self share:sharesArray];
                 //
                 NSMutableDictionary *choDict = [[NSMutableDictionary alloc] init];
                 for (NSInteger i=0; i<_xianmuArr.count; i++) {
@@ -318,6 +357,8 @@
                 NSData *jsonData = [NSKeyedArchiver archivedDataWithRootObject:choDict];
                 [[NSUserDefaults standardUserDefaults] setObject:jsonData forKey:@"chooseDict"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                
             }else if ([dict[@"Code"] integerValue] == 10000) {
                 [SVProgressHUD showImage:nil status:@"登录失效"];
                 [self.navigationController popToRootViewControllerAnimated:NO];
@@ -328,6 +369,199 @@
             NSLog(@"汇报失败 %@",str);
             [SVProgressHUD dismiss];
         }];
+    }
+}
+
+- (void)share:(NSMutableArray*)items {
+    
+    [SVProgressHUD showWithStatus:@""];
+    if ([items count]) {
+        NSNumber*num = items[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+}
+
+- (void)shareByIndex:(NSInteger)index {
+    
+//    NSString * title = energyPostViewCell.informationTextView.text;
+//    NSString* share_url = [NSString stringWithFormat:@"%@%@?aid=%@&is_Share=1",INTERFACE_URL,ArticleDetailAspx,[NSString stringWithFormat:@"%ld",(long)postIndex]];
+    NSString *title = @"快来下载能量圈吧";
+    NSString *share_url = @"https://itunes.apple.com/cn/app/neng-liang-quan/id1079791492?mt=8";
+    switch (index) {
+        case 0:
+            [self shareToQQ:share_url title:title];
+            break;
+        case 1:
+            [self shareToWechatTimeline:share_url title:title];
+            break;
+        case 2:
+            [self shareToWechatSession:share_url title:title];
+            break;
+        case 3:
+            [self shareToWeibo:share_url title:title];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)shareCancel {
+    
+    [SVProgressHUD dismiss];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+- (void)shareToWechatTimeline:(NSString*)url title:(NSString*)title {
+    
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = title;
+    model.content = @"";
+    model.shareUrl = url;
+    [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf wechatTimeLineShareSuccess];
+            }
+                break;
+            case SSDKResponseStateCancel:
+                [weakSelf shareCancel];
+                break;
+                
+            default:
+                break;
+        }
+    }];
+}
+
+- (void)wechatTimeLineShareSuccess {
+    
+    [sharesArray removeObjectAtIndex:0];
+    if ([sharesArray count]) {
+        NSNumber*num = sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+    
+}
+
+- (void)shareToWechatSession:(NSString*)url title:(NSString*)title {
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = title;
+    model.content = @"";
+    model.shareUrl = url;
+    [[ShareSDKManager shareInstance] shareClientToWeixinSession:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf wechatSessionShareSuccess];
+            }
+                break;
+            case SSDKResponseStateCancel:
+                [weakSelf shareCancel];
+                
+                break;
+                
+            default:
+                break;
+        }
+    }];
+}
+
+- (void)wechatSessionShareSuccess {
+    
+    [sharesArray removeObjectAtIndex:0];
+    if ([sharesArray count]) {
+        NSNumber*num = sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+    
+}
+
+- (void)shareToWeibo:(NSString*)url title:(NSString*)title {
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = title;
+    model.content = @"";
+    model.shareUrl = url;
+    [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf weiboShareSuccess];
+            }
+                break;
+            case SSDKResponseStateCancel:
+                [weakSelf shareCancel];
+                break;
+                
+            default:
+                break;
+        }
+    }];
+    
+}
+
+- (void)weiboShareSuccess {
+    [sharesArray removeObjectAtIndex:0];
+    if ([sharesArray count]) {
+        NSNumber*num = sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+}
+
+- (void)shareToQQ:(NSString*)url title:(NSString*)title {
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = title;
+    model.content = @"";
+    model.shareUrl = url;
+    [[ShareSDKManager shareInstance] shareClientToQQSession:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf QQShareSuccess];
+            }
+                break;
+            case SSDKResponseStateCancel:
+                [weakSelf shareCancel];
+                
+                break;
+                
+            default:
+                break;
+        }
+    }];
+    
+}
+
+- (void)QQShareSuccess {
+    [sharesArray removeObjectAtIndex:0];
+    if ([sharesArray count]) {
+        NSNumber*num = sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
     }
 }
 

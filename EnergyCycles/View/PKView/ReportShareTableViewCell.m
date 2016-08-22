@@ -28,7 +28,7 @@
         [self.wechatButton setImage:[UIImage imageNamed:@"onWechat"] forState:UIControlStateNormal];
         self.onWechat = YES;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReportWechaSwitch" object:self.onQQ ? @"YES" : @"NO"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReportWechaSwitch" object:self.onWechat ? @"YES" : @"NO"];
 }
 
 - (IBAction)momentsAction:(id)sender {
@@ -39,7 +39,7 @@
         [self.momentsButton setImage:[UIImage imageNamed:@"onMoments"] forState:UIControlStateNormal];
         self.onMoments = YES;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReportMomentsSwitch" object:self.onQQ ? @"YES" : @"NO"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReportMomentsSwitch" object:self.onMoments ? @"YES" : @"NO"];
 }
 
 - (IBAction)weiboAction:(id)sender {
@@ -50,7 +50,7 @@
         [self.weiboButton setImage:[UIImage imageNamed:@"onWeibo"] forState:UIControlStateNormal];
         self.onWeibo = YES;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReportWeiboSwitch" object:self.onQQ ? @"YES" : @"NO"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReportWeiboSwitch" object:self.onWeibo ? @"YES" : @"NO"];
 }
 
 - (void)updateData {

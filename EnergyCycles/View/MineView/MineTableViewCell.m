@@ -20,7 +20,7 @@
 //            self.rightLabel.text = userInfoModel.NLQCount;
 //            [self lineView];
 //        } else if (index == 1) {
-//            self.leftImage.image = [UIImage imageNamed:@"attention"];
+//            self.leftImage.image = [UIImage imageNamed:@"MineAttention"];
 //            self.leftLabel.text = @"关注";
 //            self.rightLabel.text = userInfoModel.GuanZhuCount;
 //            [self lineView];
@@ -64,7 +64,7 @@
             self.rightLabel.text = @"好友";
             [self lineView];
         } else if (index == 3) {
-            self.leftImage.image = [UIImage imageNamed:@"attention"];
+            self.leftImage.image = [UIImage imageNamed:@"MineAttention"];
             self.leftLabel.text = @"关注";
             self.rightLabel.text = userInfoModel.GuanZhuCount;
             [self lineView];
