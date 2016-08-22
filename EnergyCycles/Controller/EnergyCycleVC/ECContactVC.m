@@ -31,7 +31,7 @@
 @property (nonatomic,strong)NSMutableArray * searchResultArr;
 
 @property (nonatomic,strong) ECContactSearchBar *searchBar;//搜索框
-@property(strong, nonatomic) UISearchController *searchController;
+@property(strong, nonatomic) UISearchDisplayController *searchController;
 
 
 @property (nonatomic,strong)NSMutableArray * contacts;
@@ -104,25 +104,23 @@
     self.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.tableView];
     
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:self];
-    self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = false;
+    
+    _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
+    [_searchBar sizeToFit];
+    _searchBar.delegate = self;
+    _searchBar.hasCentredPlaceholder = NO;
+    [_searchBar setPlaceholder:@"搜索"];
+    [_searchBar setContentMode:UIViewContentModeLeft];
+    [_searchBar.layer setBorderWidth:0.5];
+    [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
+    [_searchBar setDelegate:self];
+    [_searchBar setKeyboardType:UIKeyboardTypeDefault];
+    self.tableView.tableHeaderView = self.searchBar;
+    
+    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     self.searchController.searchBar.delegate = self;
     [self.searchController.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchController.searchBar;
-    
-    
-//    _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
-//    [_searchBar sizeToFit];
-//    _searchBar.delegate = self;
-//    _searchBar.hasCentredPlaceholder = NO;
-//    [_searchBar setPlaceholder:@"搜索"];
-//    [_searchBar setContentMode:UIViewContentModeLeft];
-//    [_searchBar.layer setBorderWidth:0.5];
-//    [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
-//    [_searchBar setDelegate:self];
-//    [_searchBar setKeyboardType:UIKeyboardTypeDefault];
-//    self.tableView.tableHeaderView = self.searchBar;
     
     
     [nav mas_makeConstraints:^(MASConstraintMaker *make) {

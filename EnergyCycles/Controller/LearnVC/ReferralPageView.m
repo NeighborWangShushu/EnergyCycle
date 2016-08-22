@@ -88,12 +88,6 @@
 - (void)loadNewData {
     [[AppHttpManager shareInstance] getAppRadioListPostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-<<<<<<< HEAD
-            [self setData:dict];
-            [self.tableView.mj_header endRefreshing];
-            
-        }else {
-=======
             _radioData = dict;
             [[AppHttpManager shareInstance] getSearchWithTypes:self.postType withContent:self.type PostOrGet:@"get" success:^(NSDictionary *dict) {
                 if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
@@ -106,7 +100,6 @@
                 NSLog(@"%@",str);
             }];
         } else {
->>>>>>> wangbin
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
     } failure:^(NSString *str) {
@@ -121,6 +114,7 @@
 
 #pragma mark OtherCellDelegate 
 - (void)otherCellView:(OtherCell *)cell didSelectedItem:(HealthModel *)model {
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referralSelected:) name:@"ReferralSelected" object:nil];
     
     NSMutableDictionary * postData = [NSMutableDictionary dictionary];
     [postData setObject:[NSString stringWithFormat:@"%ld",model.ID] forKey:@"id"];
@@ -155,6 +149,7 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString * BANNERCELL = @"BANNERCELL";
     static NSString * RADIOCELL = @"RADIOCELL";
+//    static NSString * CCTALKCell = @"CCTALKCell";
     static NSString * OTHERCELL = @"OTHERCELL";
     
     if (indexPath.section == 0) {

@@ -168,8 +168,9 @@
 #pragma mark ECPAlertWhoCellDelegate 
 
 - (void)didSelected {
-    
-    [self presentViewController:[[ECContactVC alloc] init] animated:YES completion:nil];
+    UINavigationController*nav = [[UINavigationController alloc] initWithRootViewController:[[ECContactVC alloc] init]];
+    nav.navigationBar.hidden = YES;
+//    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - 返回按键
