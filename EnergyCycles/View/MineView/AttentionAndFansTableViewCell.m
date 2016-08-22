@@ -225,10 +225,10 @@
 }
 
 - (void)lineView {
-    UIView *line = [[UIView alloc] init];
-    line.frame = CGRectMake(self.frame.origin.x + 17, self.frame.size.height - 1, self.frame.size.width + 50, 1);
-    line.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.2];
-    [self.contentView addSubview:line];
+//    UIView *line = [[UIView alloc] init];
+//    line.frame = CGRectMake(self.frame.origin.x + 17, self.frame.size.height - 1, self.frame.size.width + 38, 1);
+//    line.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.2];
+//    [self.contentView addSubview:line];
 }
 
 - (void)awakeFromNib {

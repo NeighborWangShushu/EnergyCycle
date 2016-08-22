@@ -72,7 +72,8 @@
  
  */
 + (void)cleadDisk {
-    [[SDImageCache sharedImageCache] cleanDisk];
+//    [[SDImageCache sharedImageCache] cleanDisk];
+    [[SDImageCache sharedImageCache] clearDisk];
 //    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
 //    NSString *path = [paths lastObject];
 //    [[CacheManager alloc] clearCache:path];

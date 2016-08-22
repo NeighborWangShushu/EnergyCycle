@@ -1213,5 +1213,10 @@
                             PostOrGet:(NSString *)postOrGetType
                               success:(void (^)(NSDictionary *dict))success
                               failure:(void (^)(NSString *str))failure;
+#pragma mark - 电台列表
+// 输入参数:无
+- (void)getAppRadioListPostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure;
 
 @end

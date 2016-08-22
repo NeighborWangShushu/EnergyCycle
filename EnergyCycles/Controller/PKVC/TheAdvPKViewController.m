@@ -16,6 +16,7 @@
 #import "TheAdvMainModel.h"
 
 #import "OtherUesrViewController.h"
+#import "MineHomePageViewController.h"
 
 @interface TheAdvPKViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
     UIView *headLineView;
@@ -175,11 +176,14 @@
     
     //其他人信息
     [cell setJumpToOtherInformation:^(TheAdvMainModel *model) {
-        OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
-        otherUserVC.otherUserId = model.userId;
-        otherUserVC.otherName = model.nickName;
-        otherUserVC.otherPic = model.photoUrl;
-        [self.navigationController pushViewController:otherUserVC animated:YES];
+        MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+        mineVC.userId = model.userId;
+        [self.navigationController pushViewController:mineVC animated:YES];
+//        OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
+//        otherUserVC.otherUserId = model.userId;
+//        otherUserVC.otherName = model.nickName;
+//        otherUserVC.otherPic = model.photoUrl;
+//        [self.navigationController pushViewController:otherUserVC animated:YES];
     }];
     
     if (_tabArr.count) {

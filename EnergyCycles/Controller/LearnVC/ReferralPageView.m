@@ -38,7 +38,7 @@
 
 - (void)setData:(NSDictionary *)data {
     _data = data;
-    ReferralModel*model = [[ReferralModel alloc] initWithReferral:data];
+    ReferralModel*model = [[ReferralModel alloc] initWithReferral:data radioData:_radioData];
     self.model = model;
     [banners removeAllObjects];
     for (BannerItem*item in self.model.banners) {
@@ -86,17 +86,33 @@
 
 //下拉刷新
 - (void)loadNewData {
-    [[AppHttpManager shareInstance] getSearchWithTypes:self.postType withContent:self.type PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getAppRadioListPostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+<<<<<<< HEAD
             [self setData:dict];
             [self.tableView.mj_header endRefreshing];
             
         }else {
+=======
+            _radioData = dict;
+            [[AppHttpManager shareInstance] getSearchWithTypes:self.postType withContent:self.type PostOrGet:@"get" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    [self setData:dict];
+                    [self.tableView.mj_header endRefreshing];
+                }else {
+                    [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@",str);
+            }];
+        } else {
+>>>>>>> wangbin
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
     } failure:^(NSString *str) {
-        NSLog(@"%@",str);
+        NSLog(@"%@", str);
     }];
+    
 }
 
 #pragma mark UITableViewDelegate

@@ -271,6 +271,7 @@
     [super viewDidAppear:animated];
     if (self.delegate.isPushToMessageView) {
         self.delegate.isPushToMessageView = NO;
+        [self.delegate.tabbarController hideTabbar:YES];
         [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
     }
 }
@@ -302,6 +303,7 @@
             if ([dict[@"Data"] count]) {
                 for (NSDictionary *subDict in dict[@"Data"]) {
                     UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
+                    
                     self.model = model;
                 }
                 
