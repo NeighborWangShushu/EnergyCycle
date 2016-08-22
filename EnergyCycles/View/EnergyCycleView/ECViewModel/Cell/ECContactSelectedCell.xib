@@ -22,17 +22,32 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <view hidden="YES" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="htC-AV-bBE">
+                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="ZgG-Oq-s5C" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="0lu-fE-kbE"/>
                 <constraint firstItem="ZgG-Oq-s5C" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3zM-Ug-mXF"/>
+                <constraint firstItem="htC-AV-bBE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="9f3-qk-ixB"/>
                 <constraint firstAttribute="bottom" secondItem="ZgG-Oq-s5C" secondAttribute="bottom" id="K0A-N7-eOJ"/>
                 <constraint firstAttribute="trailing" secondItem="ZgG-Oq-s5C" secondAttribute="trailing" id="LLW-FG-Ahc"/>
+                <constraint firstAttribute="bottom" secondItem="htC-AV-bBE" secondAttribute="bottom" id="Zjh-BB-YJl"/>
+                <constraint firstItem="htC-AV-bBE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="dNn-D4-EQT"/>
+                <constraint firstAttribute="trailing" secondItem="htC-AV-bBE" secondAttribute="trailing" id="ua7-mV-f5I"/>
             </constraints>
             <connections>
                 <outlet property="avatar" destination="ZgG-Oq-s5C" id="oel-kP-bbH"/>
+                <outlet property="dimmingView" destination="htC-AV-bBE" id="tHJ-ju-GGg"/>
             </connections>
         </collectionViewCell>
     </objects>

@@ -751,6 +751,8 @@
 		D05B9CF41D3496AA00A88A10 /* ec_menu_selected_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B9CF21D3496AA00A88A10 /* ec_menu_selected_dot@2x.png */; };
 		D05B9CF51D3496AA00A88A10 /* ec_menu_selected_dot@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05B9CF31D3496AA00A88A10 /* ec_menu_selected_dot@3x.png */; };
 		D05B9CF81D34C74F00A88A10 /* ECNavMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D05B9CF71D34C74F00A88A10 /* ECNavMenuModel.m */; };
+		D06215D21D6ADA6100D3845E /* UITextField+WJ.m in Sources */ = {isa = PBXBuildFile; fileRef = D06215D11D6ADA6100D3845E /* UITextField+WJ.m */; };
+		D06215D51D6AFE0C00D3845E /* ECSearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06215D41D6AFE0C00D3845E /* ECSearchDisplayController.m */; };
 		D066C1821D49AF14009F1208 /* trash-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D066C1811D49AF14009F1208 /* trash-icon@3x.png */; };
 		D066C1841D49AF29009F1208 /* trash-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D066C1831D49AF29009F1208 /* trash-icon@2x.png */; };
 		D066C1871D4A0BFF009F1208 /* ec_comment_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D066C1851D4A0BFF009F1208 /* ec_comment_more@2x.png */; };
@@ -2536,6 +2538,10 @@
 		D05B9CF31D3496AA00A88A10 /* ec_menu_selected_dot@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ec_menu_selected_dot@3x.png"; sourceTree = "<group>"; };
 		D05B9CF61D34C74F00A88A10 /* ECNavMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECNavMenuModel.h; sourceTree = "<group>"; };
 		D05B9CF71D34C74F00A88A10 /* ECNavMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECNavMenuModel.m; sourceTree = "<group>"; };
+		D06215D01D6ADA6100D3845E /* UITextField+WJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+WJ.h"; sourceTree = "<group>"; };
+		D06215D11D6ADA6100D3845E /* UITextField+WJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+WJ.m"; sourceTree = "<group>"; };
+		D06215D31D6AFE0C00D3845E /* ECSearchDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSearchDisplayController.h; sourceTree = "<group>"; };
+		D06215D41D6AFE0C00D3845E /* ECSearchDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSearchDisplayController.m; sourceTree = "<group>"; };
 		D066C1811D49AF14009F1208 /* trash-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash-icon@3x.png"; sourceTree = "<group>"; };
 		D066C1831D49AF29009F1208 /* trash-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash-icon@2x.png"; sourceTree = "<group>"; };
 		D066C1851D4A0BFF009F1208 /* ec_comment_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ec_comment_more@2x.png"; sourceTree = "<group>"; };
@@ -3987,6 +3993,8 @@
 				D05A95991D61AD500063AD41 /* ECContactVC.h */,
 				D05A959A1D61AD500063AD41 /* ECContactVC.m */,
 				D05A959B1D61AD500063AD41 /* ECContactVC.xib */,
+				D06215D31D6AFE0C00D3845E /* ECSearchDisplayController.h */,
+				D06215D41D6AFE0C00D3845E /* ECSearchDisplayController.m */,
 			);
 			path = EnergyCycleVC;
 			sourceTree = "<group>";
@@ -4561,6 +4569,8 @@
 		26D99D611C0C4D7B007AF579 /* Help */ = {
 			isa = PBXGroup;
 			children = (
+				D06215D01D6ADA6100D3845E /* UITextField+WJ.h */,
+				D06215D11D6ADA6100D3845E /* UITextField+WJ.m */,
 				D05A95A61D61EB890063AD41 /* NSString+Utils.h */,
 				D05A95A71D61EB890063AD41 /* NSString+Utils.m */,
 				D0C97BAA1D5DB26800B62219 /* NSDate+JKUtilities.h */,
@@ -8516,6 +8526,7 @@
 				D04B547C1D23C75700DC259A /* SDTimeLineRefreshFooter.m in Sources */,
 				DA77FC201C4652A600B4E5FC /* ActiveDetailViewController.m in Sources */,
 				D0C97B9A1D5C8E9F00B62219 /* SCLAlertViewResponder.m in Sources */,
+				D06215D21D6ADA6100D3845E /* UITextField+WJ.m in Sources */,
 				26D99EBB1C0C4D7B007AF579 /* WXApiManager.m in Sources */,
 				D07E24391D12769E00854B51 /* BannerCell.m in Sources */,
 				DA9124291C28F3570018DBAF /* LeaderBoardViewCell.m in Sources */,
@@ -8830,6 +8841,7 @@
 				DAF48DB51C1E726F00D9C136 /* CourseRrgOneViewCell.m in Sources */,
 				62FCE9091D3CAFB900F52E05 /* AttentionAndFansTableViewCell.m in Sources */,
 				26D26FE71C118FFF008511A9 /* LearnOneViewCell.m in Sources */,
+				D06215D51D6AFE0C00D3845E /* ECSearchDisplayController.m in Sources */,
 				DAF48DBA1C1E728900D9C136 /* CourseRegTwoViewCell.m in Sources */,
 				26E9877F1C0D85F300C6A7BB /* PKHomeViewCell.m in Sources */,
 				26D99ECC1C0C4D7B007AF579 /* AFURLResponseSerialization.m in Sources */,

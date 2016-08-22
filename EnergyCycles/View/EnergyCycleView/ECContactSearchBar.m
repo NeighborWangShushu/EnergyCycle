@@ -11,8 +11,9 @@
 #import "ECContactSelectedCell.h"
 #import "UserModel.h"
 #import "UIImageView+WebCache.h"
+#import "UITextField+WJ.h"
 
-@interface ECContactSearchBar ()<UICollectionViewDelegate,UICollectionViewDataSource> {
+@interface ECContactSearchBar ()<UICollectionViewDelegate,UICollectionViewDataSource,WJTextFieldDelegate> {
     UITextField * searchField;
 }
 
@@ -72,13 +73,15 @@
     [self.collectionView registerClass:[ECContactSelectedCell class] forCellWithReuseIdentifier:@"CommentCellID"];
     self.collectionView.allowsMultipleSelection = NO;//默认为NO,是否可以多选
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
+
     
 }
 
 // ------------------------------------------------------------------------------------------
 #pragma mark - Methods
 // ------------------------------------------------------------------------------------------
+
 - (void)setHasCentredPlaceholder:(BOOL)hasCentredPlaceholder
 {
     _hasCentredPlaceholder = hasCentredPlaceholder;
@@ -93,7 +96,6 @@
         [invocation setArgument:&_hasCentredPlaceholder atIndex:2];
         [invocation invoke];
     }
-    
 }
 
 - (void)setDatas:(NSMutableArray *)datas {
@@ -134,6 +136,55 @@
 }
 
 
+- (void)textFieldDidChange:(NSNotification *)notification {
+    
+    [self unSelectedItems];
+
+    
+}
+- (void)unSelectedItems {
+    __weak typeof(self) weakSelf = self;
+    [self.datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UserModel*model = weakSelf.datas[idx];
+        model.readyToDelete = @"";
+        [weakSelf.collectionView reloadData];
+    }];
+
+}
+
+
+- (void)readyToDeleteItem {
+    [self.collectionView reloadData];
+}
+
+- (void)deleteItem {
+    UserModel*model = [self.datas lastObject];
+    model.isSelected = @"";
+    [self.datas removeLastObject];
+    self.collectionView.frame = CGRectMake(0, 0, MIN(_datas.count, 6)*40 , 44);
+    
+    [self.collectionView reloadData];
+    if ([self.edelegate respondsToSelector:@selector(contactSearchBar:model:isClear:)]) {
+        [self.edelegate contactSearchBar:self model:model isClear:!self.datas.count];
+    }
+}
+
+#pragma mark WJTextFieldDelegate
+
+- (void)textFieldDidDeleteBackward:(UITextField *)textField {
+    if (textField.text.length == 0) {
+        UserModel*model = [self.datas lastObject];
+        if ([model.readyToDelete isEqualToString:@""]) {
+            model.readyToDelete = @"readyToDelete";
+            [self readyToDeleteItem];
+        }else {
+            model.readyToDelete = @"";
+            [self deleteItem];
+        }
+    }
+}
+
+
 #pragma mark UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -149,6 +200,7 @@
     static NSString * cellID = @"CommentCellID";
     ECContactSelectedCell*cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
     UserModel*model = self.datas[indexPath.row];
+    cell.model = model;
     [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"touxiang"]];
     
     return cell;

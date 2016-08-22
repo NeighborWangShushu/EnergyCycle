@@ -17,6 +17,8 @@
 @property (nonatomic, strong) NSString<Optional> *nickname;
 @property (nonatomic, strong) NSString<Ignore> *pinyin;
 @property (strong,nonatomic) NSString<Optional> *isSelected;
+@property (strong,nonatomic) NSString<Optional> *readyToDelete;
+
 
 
 @property (nonatomic, strong) NSString<Optional> *username;
