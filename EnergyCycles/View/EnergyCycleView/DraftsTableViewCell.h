@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DraftsModel.h"
 
-@interface DraftTableViewCell : UITableViewCell
+@interface DraftsTableViewCell : UITableViewCell
 
 // 最后修改时间
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -22,6 +22,6 @@
 // 约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
 
-- (void)getDraftsData:(DraftsModel *)model;
+- (void)getDraftsData:(DraftsModel *)model indexPath:(NSIndexPath *)indexPath;
 
 @end

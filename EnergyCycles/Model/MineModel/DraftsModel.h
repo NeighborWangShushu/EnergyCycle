@@ -12,6 +12,6 @@
 
 @property (nonatomic, copy) NSString *context;
 @property (nonatomic, copy) NSString *time;
-@property (nonatomic, strong) NSArray *imageArr;
+@property (nonatomic, copy) NSString *imgLocalURL;
 
 @end

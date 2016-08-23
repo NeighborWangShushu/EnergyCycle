@@ -214,7 +214,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (User_ID.length > 0) {
+        if (User_TOKEN.length > 0) {
             [self.delegate.tabbarController hideTabbar:YES];
             PKGatherViewController *pkVC = [[PKGatherViewController alloc] init];
             [self.navigationController pushViewController:pkVC animated:YES];

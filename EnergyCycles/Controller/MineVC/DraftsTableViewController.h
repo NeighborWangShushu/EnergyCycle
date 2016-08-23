@@ -9,8 +9,10 @@
 #import "BaseTableViewController.h"
 #import "DraftsModel.h"
 
-@interface DraftTableViewController : BaseTableViewController
+@interface DraftsTableViewController : BaseTableViewController
 
-//@property (nonatomic, strong) DraftModel *model;
+@property (nonatomic, strong) DraftsModel *model;
+
+
 
 @end
