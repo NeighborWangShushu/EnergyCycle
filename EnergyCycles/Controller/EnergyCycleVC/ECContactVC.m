@@ -64,10 +64,14 @@
 #pragma mark NavigationBatAction
 
 - (void)leftAction:(UIButton*)sender {
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)rightAction:(UIButton*)sender {
+    NSLog(@"selected:%@",self.selectedDatas);
+    if ([self.delegate respondsToSelector:@selector(didSelectedItems:)]) {
+        [self.delegate didSelectedItems:self.selectedDatas];
+    }
     
 }
 

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ECContactVCDelegate <NSObject>
+
+- (void)didSelectedItems:(NSMutableArray*)items;
+
+@end
+
 @interface ECContactVC : UIViewController
+
+@property (nonatomic,assign)id<ECContactVCDelegate>delegate;
 
 @end
