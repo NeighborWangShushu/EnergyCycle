@@ -4243,15 +4243,12 @@
 				D04B54E81D23CF5800DC259A /* ECTimeLineCellLikeItemModel.m */,
 				D05B9CF61D34C74F00A88A10 /* ECNavMenuModel.h */,
 				D05B9CF71D34C74F00A88A10 /* ECNavMenuModel.m */,
-<<<<<<< HEAD
 				620996181D6714C800606023 /* DraftsModel.h */,
 				620996191D6714C800606023 /* DraftsModel.m */,
-=======
 				D0C97BA41D5DA85C00B62219 /* DateAlertModel.h */,
 				D0C97BA51D5DA85C00B62219 /* DateAlertModel.m */,
 				D05A95A31D61E57A0063AD41 /* ContactModel.h */,
 				D05A95A41D61E57A0063AD41 /* ContactModel.m */,
->>>>>>> 2.0-beta-01
 			);
 			path = EnergyCycleModel;
 			sourceTree = "<group>";
@@ -5386,17 +5383,14 @@
 				D029BC3A1D3777C500B20D65 /* ECShareCell.h */,
 				D029BC3B1D3777C500B20D65 /* ECShareCell.m */,
 				D029BC3C1D3777C500B20D65 /* ECShareCell.xib */,
-<<<<<<< HEAD
 				62367E151D6ACA3B00272505 /* DraftsTableViewCell.h */,
 				62367E161D6ACA3B00272505 /* DraftsTableViewCell.m */,
 				62367E171D6ACA3B00272505 /* DraftsTableViewCell.xib */,
-=======
 				D05A95941D619A8A0063AD41 /* ECPAlertWhoCell.h */,
 				D05A95951D619A8A0063AD41 /* ECPAlertWhoCell.m */,
 				D05A95961D619A8A0063AD41 /* ECPAlertWhoCell.xib */,
 				D05A95B31D62C3DC0063AD41 /* ECContactSearchBar.h */,
 				D05A95B41D62C3DC0063AD41 /* ECContactSearchBar.m */,
->>>>>>> 2.0-beta-01
 			);
 			name = EnergyPostView;
 			sourceTree = "<group>";

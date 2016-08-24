@@ -13,9 +13,8 @@
 @property (nonatomic, copy) NSString *context;
 @property (nonatomic, copy) NSString *time;
 @property (nonatomic, copy) NSString *imgLocalURL;
-<<<<<<< HEAD
-=======
+
 @property (nonatomic, copy) NSString *contacts;
->>>>>>> 2.0-beta-01
+
 
 @end

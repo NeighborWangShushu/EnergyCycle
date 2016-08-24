@@ -100,11 +100,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weiboShareSuccess) name:@"weiboShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(QQShareSuccess) name:@"QQShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareCancel) name:@"shareCancel" object:nil];
-<<<<<<< HEAD
-    
-    
-=======
->>>>>>> 2.0-beta-01
+
     
 }
 
@@ -154,10 +150,7 @@
         make.right.equalTo(self.view.mas_right).with.offset(0);
         make.top.equalTo(self.view.mas_top).with.offset(74);
         make.height.equalTo(@100);
-<<<<<<< HEAD
-        
-=======
->>>>>>> 2.0-beta-01
+
     }];
     
     CGFloat height = 45 + (70*([_selectImgArrayLocal count]+1)/5);
@@ -186,7 +179,7 @@
     }];
     
     if (_model) {
-        energyPostViewCell.informationTextView.text = _model.text;
+        energyPostViewCell.informationTextView.text = _model.context;
         NSString*documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)firstObject];
         NSString*newFielPath = [documentsPath stringByAppendingPathComponent:_model.imgLocalURL];
         NSArray *content = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@.plist",newFielPath]];
@@ -258,7 +251,7 @@
         _model = model;
     }
 
-        _model.text = energyPostViewCell.informationTextView.text;
+        _model.context = energyPostViewCell.informationTextView.text;
         _model.time = [[NSDate date] jk_stringWithFormat:@"YYYY-MM-dd"];
         NSMutableArray * keys = [NSMutableArray array];
         for (int i = 0; i < _selectImgArrayLocal.count; i++) {
