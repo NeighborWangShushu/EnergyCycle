@@ -187,7 +187,7 @@
 //        viderUrl = [postDict valueForKey:@"videoUrl"];
 //    }
     
-    [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:_imgArr PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:_imgArr Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [SVProgressHUD showImage:nil status:@"发布成功"];
             [self dismissViewControllerAnimated:YES completion:nil];
