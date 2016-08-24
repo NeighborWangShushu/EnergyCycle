@@ -92,6 +92,11 @@
             } else {
                 self.rightLabel.textColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
             }
+            [self lineView];
+        } else if (index == 7) {
+            self.leftImage.image = [UIImage imageNamed:@"inbox-icon"];
+            self.leftLabel.text = @"草稿箱";
+            self.rightLabel.hidden = YES;
         }
     } else if (section == 2) {
         if (index == 0) {
