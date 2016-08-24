@@ -10,6 +10,7 @@
 #import "DraftsTableViewCell.h"
 #import "PostingViewController.h"
 #import "SDImageCache.h"
+#import "SVProgressHUD+GetScore.h"
 
 @interface DraftsTableViewController () {
     NSMutableArray *_selectImgArrayLocal;
@@ -176,7 +177,8 @@
         [SVProgressHUD showImage:nil status:@"内容不能为空"];
         return;
     }
-    
+//    [SVProgressHUD getScore_1];
+
     [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:_imgArr PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [SVProgressHUD showImage:nil status:@"发布成功"];
