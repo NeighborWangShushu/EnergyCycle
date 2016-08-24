@@ -24,13 +24,14 @@
     
     self.timeLabel.text = model.time;
     
-    if (model.imgLocalURL == nil|| [model.imgLocalURL isEqualToString:@""]) {
+    NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [file stringByAppendingPathComponent:model.imgLocalURL];
+    filePath = [filePath stringByAppendingString:@".plist"];
+    NSMutableArray *array = [[NSMutableArray alloc] initWithContentsOfFile:filePath];
+    if (array.count <= 0) {
         self.constraint.constant = 12;
         self.headImage.hidden = YES;
     } else {
-        NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *filePath = [file stringByAppendingPathComponent:model.imgLocalURL];
-        NSMutableArray *array = [[NSMutableArray alloc] initWithContentsOfFile:filePath];
         NSString *string = array[0];
         NSURL *url = [NSURL URLWithString:string];
         [self.headImage sd_setImageWithURL:url];

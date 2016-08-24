@@ -13,7 +13,11 @@
     
 }
 
+<<<<<<< HEAD
 
+=======
+@property (nonatomic, strong) DraftsModel *model;
+>>>>>>> wangbin
 
 - (instancetype)initWithModel:(DraftsModel*)model;
 

@@ -53,6 +53,10 @@
 
 @property (nonatomic,strong)UICollectionView * collectionView;
 
+<<<<<<< HEAD
+=======
+//@property (nonatomic,strong)DraftsModel * model;
+>>>>>>> wangbin
 
 @property (nonatomic,strong)NSMutableArray * contacts;
 @property (nonatomic,strong)NSMutableArray * contactIds;
