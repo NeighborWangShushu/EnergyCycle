@@ -348,7 +348,6 @@
 		26D99F231C0C4D7C007AF579 /* EnergyShowOneViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26D99E8B1C0C4D7B007AF579 /* EnergyShowOneViewCell.xib */; };
 		26D99F241C0C4D7C007AF579 /* EnergyShowTwoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D99E8D1C0C4D7B007AF579 /* EnergyShowTwoViewCell.m */; };
 		26D99F251C0C4D7C007AF579 /* EnergyShowTwoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26D99E8E1C0C4D7B007AF579 /* EnergyShowTwoViewCell.xib */; };
-		26E9872D1C0D2D9900C6A7BB /* PostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E9872C1C0D2D9900C6A7BB /* PostingViewController.m */; };
 		26E987301C0D305B00C6A7BB /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E9872F1C0D305B00C6A7BB /* SignInViewController.m */; };
 		26E987331C0D307500C6A7BB /* SignInRulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E987321C0D307500C6A7BB /* SignInRulesViewController.m */; };
 		26E987361C0D309300C6A7BB /* TheInvitationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E987351C0D309300C6A7BB /* TheInvitationViewController.m */; };
@@ -571,6 +570,7 @@
 		62DDA0981D585707005C2CEB /* recommended@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DDA08E1D585707005C2CEB /* recommended@3x.png */; };
 		62DDA0991D585707005C2CEB /* toDayPK@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DDA08F1D585707005C2CEB /* toDayPK@2x.png */; };
 		62DDA09A1D585707005C2CEB /* toDayPK@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DDA0901D585707005C2CEB /* toDayPK@3x.png */; };
+		62E31A301D6D86C000F1D7C5 /* PostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62E31A2F1D6D86C000F1D7C5 /* PostingViewController.m */; };
 		62EDB8031D34D0B000D6F772 /* AboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */; };
 		62EDB8041D34D0B000D6F772 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */; };
 		62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8081D34D3CF00D6F772 /* AboutViewController.m */; };
@@ -1977,8 +1977,6 @@
 		26D99E8C1C0C4D7B007AF579 /* EnergyShowTwoViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnergyShowTwoViewCell.h; sourceTree = "<group>"; };
 		26D99E8D1C0C4D7B007AF579 /* EnergyShowTwoViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnergyShowTwoViewCell.m; sourceTree = "<group>"; };
 		26D99E8E1C0C4D7B007AF579 /* EnergyShowTwoViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnergyShowTwoViewCell.xib; sourceTree = "<group>"; };
-		26E9872B1C0D2D9900C6A7BB /* PostingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingViewController.h; sourceTree = "<group>"; };
-		26E9872C1C0D2D9900C6A7BB /* PostingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingViewController.m; sourceTree = "<group>"; };
 		26E9872E1C0D305B00C6A7BB /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		26E9872F1C0D305B00C6A7BB /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		26E987311C0D307500C6A7BB /* SignInRulesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInRulesViewController.h; sourceTree = "<group>"; };
@@ -2274,6 +2272,8 @@
 		62DDA08E1D585707005C2CEB /* recommended@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recommended@3x.png"; sourceTree = "<group>"; };
 		62DDA08F1D585707005C2CEB /* toDayPK@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toDayPK@2x.png"; sourceTree = "<group>"; };
 		62DDA0901D585707005C2CEB /* toDayPK@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toDayPK@3x.png"; sourceTree = "<group>"; };
+		62E31A2E1D6D86C000F1D7C5 /* PostingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingViewController.h; sourceTree = "<group>"; };
+		62E31A2F1D6D86C000F1D7C5 /* PostingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingViewController.m; sourceTree = "<group>"; };
 		62EDB8001D34D0B000D6F772 /* AboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewCell.h; sourceTree = "<group>"; };
 		62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewCell.m; sourceTree = "<group>"; };
 		62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutTableViewCell.xib; sourceTree = "<group>"; };
@@ -3946,8 +3946,8 @@
 				26D99D2C1C0C4D7B007AF579 /* EnergyCycleViewController.m */,
 				26D99D271C0C4D7B007AF579 /* DetailViewController.h */,
 				26D99D281C0C4D7B007AF579 /* DetailViewController.m */,
-				26E9872B1C0D2D9900C6A7BB /* PostingViewController.h */,
-				26E9872C1C0D2D9900C6A7BB /* PostingViewController.m */,
+				62E31A2E1D6D86C000F1D7C5 /* PostingViewController.h */,
+				62E31A2F1D6D86C000F1D7C5 /* PostingViewController.m */,
 				26E9872E1C0D305B00C6A7BB /* SignInViewController.h */,
 				26E9872F1C0D305B00C6A7BB /* SignInViewController.m */,
 				26E987311C0D307500C6A7BB /* SignInRulesViewController.h */,
@@ -8704,6 +8704,7 @@
 				D04B54CE1D23C90D00DC259A /* NSAttributedString+MLLabel.m in Sources */,
 				26D99E951C0C4D7B007AF579 /* EnergyCycleViewController.m in Sources */,
 				26E987451C0D384100C6A7BB /* SelectTheProjectViewController.m in Sources */,
+				62E31A301D6D86C000F1D7C5 /* PostingViewController.m in Sources */,
 				26D99F001C0C4D7C007AF579 /* SBJsonStreamParser.m in Sources */,
 				D08352481D2F909E0094AC2E /* MJProperty.m in Sources */,
 				26D99EF41C0C4D7C007AF579 /* MJRefreshBackStateFooter.m in Sources */,
@@ -8719,7 +8720,6 @@
 				DA7CE5571C3E38BF00272952 /* NSArray+FPAdditions.m in Sources */,
 				625750C61D33830700E46B2E /* MineTableViewCell.m in Sources */,
 				D07EB1DE1D17EB0F00840AC2 /* CategoryModel.m in Sources */,
-				26E9872D1C0D2D9900C6A7BB /* PostingViewController.m in Sources */,
 				DA77FC1A1C46236900B4E5FC /* RecommentModel.m in Sources */,
 				DA9124441C292A350018DBAF /* AddressTwoTableViewCell.m in Sources */,
 				62D35AC21D59B392009E84C4 /* FriendViewController.m in Sources */,
