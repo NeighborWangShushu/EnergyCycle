@@ -629,7 +629,7 @@
             }
         }else {
             // 网络出错
-            [SVProgressHUD showImage:nil status:@"请检查网络"];
+            
         }
     } failure:^(NSString *str) {
         NSLog(@"错误：%@",str);

@@ -165,14 +165,19 @@
         case SSDKPlatformSubTypeWechatSession:
         {
             [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                if (state == SSDKResponseStateSuccess) {
+                    [self getScoreByShareSuccess];
+                }
                 result(state);
-                
             }];
         }
             break;
         case SSDKPlatformSubTypeWechatTimeline:
         {
             [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                if (state == SSDKResponseStateSuccess) {
+                    [self getScoreByShareSuccess];
+                }
                 result(state);
                 
             }];
@@ -181,6 +186,9 @@
         case SSDKPlatformTypeSinaWeibo:
         {
             [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                if (state == SSDKResponseStateSuccess) {
+                    [self getScoreByShareSuccess];
+                }
                 result(state);
                 NSLog(@"%@",error);
             }];
@@ -189,6 +197,9 @@
         case SSDKPlatformSubTypeQQFriend:
         {
             [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                if (state == SSDKResponseStateSuccess) {
+                    [self getScoreByShareSuccess];
+                }
                 result(state);
                 
             }];
@@ -207,7 +218,14 @@
         default:
             break;
     }
-    
+}
+
+- (void)getScoreByShareSuccess {
+    [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:3 PostOrGet:@"post" success:^(NSDictionary *dict) {
+        NSLog(@"%@",dict);
+    } failure:^(NSString *str) {
+        
+    }];
 }
 
 @end

@@ -28,6 +28,12 @@
 #import "Appdelegate.h"
 #import "ShareModel.h"
 #import "ShareSDKManager.h"
+#import "SCLAlertView.h"
+#import "SCLAlertViewStyleKit.h"
+#import "UIButton+JKCountDown.h"
+#import "DateAlertModel.h"
+#import "NSDate+JKReporting.h"
+#import "NSDate+JKUtilities.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
@@ -46,6 +52,8 @@
     NSInteger maxPageSize; //总页数
     NSInteger maxAttentionPageSize; //关注的人总页数
     UITextField*text;
+    
+    NSString * code; //验证码
     
     ECNavMenuModel*selectedModel;
     ECTimeLineModel * commendModel;
@@ -66,6 +74,8 @@
     
     //未读数label
     UILabel * count;
+    
+    UITextField*textf;
     
     BOOL navIsOpen;
 }
@@ -111,7 +121,135 @@
     [super viewDidAppear:animated];
     [self getMessageData];
     [IQKeyboardManager sharedManager].enable = NO;
+    if (User_TOKEN.length > 0) {
+        [self checkPhone];
+    }
 }
+
+
+/**
+ *  检查是否绑定手机号
+ */
+
+- (void)checkPhone {
+    
+    [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            if ([(NSArray*)dict[@"Data"]count] > 0) {
+                NSDictionary *dic = dict[@"Data"][0];
+                if (dic) {
+                    if ([dic objectForKey:@"phone"] == [NSNull null]) {
+                        NSLog(@"绑定");
+                        [self showAlert];
+                    }
+                }
+            }
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@",str);
+    }];
+}
+
+- (void)showAlert {
+//    // 获取沙盒主目录路径
+//    NSString *homeDir = NSHomeDirectory();
+//    // 获取Documents目录路径
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *docDir = [paths objectAtIndex:0];
+    
+    DateAlertModel*model = [DateAlertModel findByPK:1];
+    if (!model) {
+        NSTimeZone *zone = [NSTimeZone defaultTimeZone];//获得当前应用程序默认的时区
+        NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];//以秒为单位返回当前应用程序与世界标准时间（格林威尼时间）的时差
+        NSDate *localeDate = [[NSDate date] dateByAddingTimeInterval:interval];
+        
+        model = [[DateAlertModel alloc] init];
+        model.last_alert_date = interval;
+        model.is_alert = NO;
+        [model save];
+    }
+    else {
+        NSTimeZone *zone = [NSTimeZone defaultTimeZone];//获得当前应用程序默认的时区
+        NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];//以秒为单位返回当前应用程序与世界标准时间（格林威尼时间）的时差
+        NSDate*nextDate = [NSDate jk_oneDayAfter:[[NSDate date]dateByAddingTimeInterval:model.last_alert_date]];
+        if ([[NSDate date] jk_isLaterThanDate:nextDate]) {
+            //如果当前时间晚于下次需要提醒的时间提醒
+            model.is_alert = NO;
+            model.last_alert_date = interval;
+            [model saveOrUpdate];
+        }
+    }
+    
+    
+    if (!model.is_alert) {
+        SCLAlertView *alert = [[SCLAlertView alloc] init];
+        [alert setCustomViewColor:[UIColor colorWithRed:242.0/255.0 green:77.0/255.0 blue:77.0/255.0 alpha:1.0]];
+        
+        //Using Block
+        [alert addButton:@"确定" validationBlock:^BOOL {
+            return YES;
+        } actionBlock:^(void) {
+            NSLog(@"Second button tapped");
+            
+        }];
+        
+        [alert showSuccess:self title:@"温馨提示" subTitle:@"根据工信部相关规定，APP应用必须进行用户实名认证。系统检测到您使用的是第三方登录，请您尽快到“我的\"模块\"->\"我的资料\"栏目中设置您的手机号，完成实名认证，谢谢配合！" closeButtonTitle:nil duration:0.0f];
+        model.is_alert = YES;
+        NSTimeZone *zone = [NSTimeZone defaultTimeZone];//获得当前应用程序默认的时区
+        NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];//以秒为单位返回当前应用程序与世界标准时间（格林威尼时间）的时差
+        model.last_alert_date = interval;
+        [model saveOrUpdate];
+    }
+    
+}
+
+- (void)vertyAction:(UIButton*)button {
+    NSLog(@"获取验证码");
+    if ([[AppHelpManager sharedInstance] isPhoneNum:textf.text]) {
+        [self getVertyCode:textf.text];
+        [button jk_startTime:30 title:@"获取验证码" waitTittle:@"s"];
+    }else {
+        [SVProgressHUD showImage:nil status:@"请输入正确的手机号码"];
+    }
+}
+
+- (void)bindPhoneNumber:(NSString*)phone {
+    [[AppHttpManager shareInstance] changePhoneNumberWithUserid:[User_ID intValue] Token:User_TOKEN Phone:phone PostOrGet:@"post" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            
+        } else {
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@",str);
+    }];
+
+}
+
+/**
+ *  获取验证码
+ */
+
+
+- (void)getVertyCode:(NSString*)phone {
+    
+    [[AppHttpManager shareInstance] getVerificationCodeWithPhoneNo:phone Type:2 PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1)  {
+            NSLog(@"验证码：%@",dict);
+            code = dict[@"Data"];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }else {
+            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@",str);
+        [SVProgressHUD showImage:nil status:str];
+    }];
+
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -668,6 +806,19 @@
     [[IQKeyboardManager sharedManager] resignFirstResponder];
 }
 
+- (BOOL)isContainBlank:(NSString*)str
+{
+    NSRange range = [str rangeOfString:@" "];
+    if (range.location != NSNotFound) {
+        return YES;
+    }
+    return NO;
+}
+
+
+
+
+
 /**
  *  发送评论接口
  *
@@ -676,7 +827,7 @@
 
 - (void)sendCommend:(NSString*)message index:(NSInteger)index section:(NSInteger)section {
     
-    if ([message isEqualToString:@""]) {
+    if ([[AppHelpManager sharedInstance]isBlankString:message]) {
         [SVProgressHUD showImage:nil status:@"发送内容不能为空"];
         return;
     }
@@ -1110,7 +1261,9 @@
         
         PostingViewController * postView = MainStoryBoard(@"ECPostingViewController");
         UIViewController * viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        [viewController presentViewController:postView animated:YES completion:nil];
+        UINavigationController*nav = [[UINavigationController alloc] initWithRootViewController:postView];
+        nav.navigationBar.hidden = YES;
+        [viewController presentViewController:nav animated:YES completion:nil];
     }
 }
 

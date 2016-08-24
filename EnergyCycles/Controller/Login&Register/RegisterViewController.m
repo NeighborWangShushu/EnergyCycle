@@ -66,7 +66,7 @@
 #pragma mark -
 - (void)eneryChanedTextField:(UITextField *)textField {
     if (textField.text.length <=0) {
-        self.showLabel.text = @"(向推荐人索取,输入后立获100积分)";
+        self.showLabel.text = @"(向推荐人索取,输入后立获50积分)";
     }else {
         self.showLabel.text = nil;
     }
@@ -85,7 +85,7 @@
     }else if ([self.againPassWordTextField.text length] <= 0) {
         [SVProgressHUD showImage:nil status:@"请输入确认密码"];
     }else if (![[AppHelpManager sharedInstance] isValidPassword:self.onePassWordTextField.text]) {
-        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
+        [SVProgressHUD showImage:nil status:@"密码由6到16位数字和字母组成"];
     }else if (![self.onePassWordTextField.text isEqualToString:self.againPassWordTextField.text]) {
         [SVProgressHUD showImage:nil status:@"两次输入密码不一致"];
     }else {

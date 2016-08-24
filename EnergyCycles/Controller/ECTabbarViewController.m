@@ -133,6 +133,7 @@
     
     viewController = data[@"viewController"];
     viewController.view.tag = SELECTED_VIEW_CONTROLLER_TAG;
+    
     [self.view insertSubview:viewController.view belowSubview:_tabbar];
     
     [viewController.view mas_makeConstraints:^(MASConstraintMaker *make) {

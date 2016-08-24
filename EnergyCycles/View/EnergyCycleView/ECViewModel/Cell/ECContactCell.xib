@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ECContactCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ida-Do-ScX">
+                        <rect key="frame" x="39" y="2" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="9fl-Gq-qia"/>
+                            <constraint firstAttribute="width" constant="40" id="Yxx-xe-BeT"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3YI-TC-3EH">
+                        <rect key="frame" x="87" y="13.5" width="37.5" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="37.5" id="Ind-1v-0ho"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Ind-1v-0ho"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ec_contact_unselected.png" translatesAutoresizingMaskIntoConstraints="NO" id="CYr-Jv-rPk">
+                        <rect key="frame" x="8" y="11" width="23" height="23"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="3YI-TC-3EH" firstAttribute="centerY" secondItem="ida-Do-ScX" secondAttribute="centerY" id="23a-gb-R5A"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="CYr-Jv-rPk" secondAttribute="leading" id="6K3-mH-2Jq"/>
+                    <constraint firstItem="CYr-Jv-rPk" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LHq-YN-BFU"/>
+                    <constraint firstItem="ida-Do-ScX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="31" id="U7n-Rf-WUQ"/>
+                    <constraint firstItem="ida-Do-ScX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nPB-aq-iXL"/>
+                    <constraint firstItem="3YI-TC-3EH" firstAttribute="leading" secondItem="ida-Do-ScX" secondAttribute="trailing" constant="8" id="pCl-FP-k8Q"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avatar" destination="ida-Do-ScX" id="hbr-Qa-QIa"/>
+                <outlet property="name" destination="3YI-TC-3EH" id="uhW-Mz-iDk"/>
+                <outlet property="selectedImg" destination="CYr-Jv-rPk" id="vLn-p7-oM4"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ec_contact_unselected.png" width="23" height="23"/>
+    </resources>
+</document>

@@ -7,7 +7,21 @@
 //
 
 #import "UserModel.h"
+#import "NSString+Utils.h"
 
 @implementation UserModel
+
+- (void)setNickname:(NSString<Optional> *)name{
+    if (name) {
+        _nickname=name;
+        _pinyin=_nickname.pinyin;
+    }
+}
+
+- (instancetype)initWithDic:(NSDictionary *)dic{
+    NSError *error = nil;
+    self =  [self initWithDictionary:dic error:&error];
+    return self;
+}
 
 @end

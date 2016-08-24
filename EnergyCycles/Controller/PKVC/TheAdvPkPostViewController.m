@@ -169,7 +169,7 @@
             }
         }else {
             // 网络出错
-            [SVProgressHUD showImage:nil status:@"请检查网络"];
+            
         }
     } failure:^(NSString *str) {
         NSLog(@"错误：%@",str);
@@ -195,7 +195,7 @@
         [[AppHttpManager  shareInstance] getAddPostWithPostTypeId:[postTypeId intValue] Title:title Content:context videoUrl:videoUrl userId:[User_ID intValue] token:User_TOKEN postPic:_dataArr PostOrGet:@"post" success:^(NSDictionary *dict) {
             [self creatSuccessShareView];
         } failure:^(NSString *str) {
-            [SVProgressHUD showImage:nil status:@"请检查网络"];
+            
             NSLog(@"%@",str);
         }];
     }

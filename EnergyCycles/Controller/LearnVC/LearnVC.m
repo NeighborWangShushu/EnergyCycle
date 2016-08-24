@@ -605,6 +605,13 @@
     return [self viewControllerAtIndex:index];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self.pageController.view setFrame:CGRectMake(0, 64, self.view.frame.size.width, Screen_Height - 64 - 50)];
+
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
