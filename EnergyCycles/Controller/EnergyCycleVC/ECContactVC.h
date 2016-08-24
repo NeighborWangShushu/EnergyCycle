@@ -10,7 +10,7 @@
 
 @protocol ECContactVCDelegate <NSObject>
 
-- (void)didSelectedItems:(NSMutableArray*)items;
+- (void)didSelectedContacts:(NSMutableArray*)items;
 
 @end
 

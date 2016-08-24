@@ -89,18 +89,22 @@
     }];
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField *textField = alert.textFields.firstObject;
-        [[AppHttpManager shareInstance] getAddNoteNameWithuserId:[User_ID intValue] Token:User_TOKEN OuId:[model.use_id intValue] NoteName:textField.text PostOrGet:@"post" success:^(NSDictionary *dict) {
-            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"操作成功"];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self getData];
-                });
-            }else {
-                [SVProgressHUD showImage:nil status:dict[@"Msg"]];
-            }
-        } failure:^(NSString *str) {
-            NSLog(@"%@", str);
-        }];
+        if ([textField.text isEqualToString:@""] || textField.text == nil) {
+            [SVProgressHUD showImage:nil status:@"备注名不能为空" maskType:SVProgressHUDMaskTypeClear];
+        } else {
+            [[AppHttpManager shareInstance] getAddNoteNameWithuserId:[User_ID intValue] Token:User_TOKEN OuId:[model.use_id intValue] NoteName:textField.text PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    [SVProgressHUD showImage:nil status:@"操作成功" maskType:SVProgressHUDMaskTypeClear];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self getData];
+                    });
+                }else {
+                    [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@", str);
+            }];
+        }
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];

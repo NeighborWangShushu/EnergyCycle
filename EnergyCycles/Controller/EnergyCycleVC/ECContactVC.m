@@ -15,6 +15,7 @@
 #import "UIImageView+WebCache.h"
 #import "ECContactSearchBar.h"
 #import "ECSearchDisplayController.h"
+#import "ChineseString.h"
 
 #define kContactCellId @"kContactCellId"
 
@@ -69,11 +70,12 @@
 
 - (void)rightAction:(UIButton*)sender {
     NSLog(@"selected:%@",self.selectedDatas);
-    if ([self.delegate respondsToSelector:@selector(didSelectedItems:)]) {
-        [self.delegate didSelectedItems:self.selectedDatas];
+    if ([self.delegate respondsToSelector:@selector(didSelectedContacts:)]) {
+        [self.delegate didSelectedContacts:self.selectedDatas];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
-    
 }
+
 
 
 - (void)initialize {
@@ -108,8 +110,8 @@
 
 - (void)filterData {
     
-    self.rowDatas = [self getFriendListDataBy:self.contacts];
-    self.sectionDatas = [self getFriendListSectionBy:[self.rowDatas copy]];
+    self.sectionDatas = [ChineseString IndexArray:self.contacts];
+    self.rowDatas = [ChineseString LetterSortArray:self.contacts];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
@@ -154,7 +156,7 @@
     self.searchController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
     [self.searchController.searchBar sizeToFit];
     
-
+    
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
@@ -220,7 +222,6 @@
     }
     return ans;
 }
-
 
 
 - (NSMutableArray *)getFriendListSectionBy:(NSMutableArray *)array{
@@ -426,6 +427,7 @@
     }else {
         model = self.rowDatas[indexPath.section][indexPath.row];
     }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.name.text = model.nickname;
     cell.model = model;
@@ -445,7 +447,7 @@
         [label setBackgroundColor:[UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1]];
     }
     if (_sectionDatas.count > 0) {
-        [label setText:[NSString stringWithFormat:@"  %@",_sectionDatas[section+1]]];
+        [label setText:[NSString stringWithFormat:@"  %@",_sectionDatas[section]]];
     }
     return label;
 }
@@ -475,14 +477,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

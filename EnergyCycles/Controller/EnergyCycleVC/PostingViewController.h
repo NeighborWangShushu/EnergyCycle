@@ -7,10 +7,13 @@
 //
 
 #import "BaseViewController.h"
+#import "DraftsModel.h"
 
 @interface PostingViewController : BaseViewController {
     
 }
+
+- (instancetype)initWithModel:(DraftsModel*)model;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)push:(id)sender;

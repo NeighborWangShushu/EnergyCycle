@@ -2752,4 +2752,19 @@ static AFHTTPRequestOperationManager *manager;
                      }];
 }
 
+#pragma mark - 电台列表
+// 输入参数:无
+- (void)getAppRadioListPostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure {
+    [self callInterfaceByUrl:AppRadioList
+                   PostOrGet:@"get"
+                    withDict:nil
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
 @end
