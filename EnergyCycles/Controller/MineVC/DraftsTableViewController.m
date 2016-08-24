@@ -8,6 +8,9 @@
 
 #import "DraftsTableViewController.h"
 #import "DraftsTableViewCell.h"
+#import "PostingViewController.h"
+#import "SDImageCache.h"
+#import "SVProgressHUD+GetScore.h"
 
 @interface DraftsTableViewController () {
     NSMutableArray *_selectImgArrayLocal;
@@ -30,13 +33,6 @@
     return _dataArr;
 }
 
-//- (NSMutableArray *)imgArr {
-//    if (!_imgArr) {
-//        self.imgArr = [[NSMutableArray alloc] init];
-//    }
-//    return _imgArr;
-//}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -56,6 +52,12 @@
     DraftsModel *model = self.dataArr[indexPath.row];
     [cell getDraftsData:model indexPath:indexPath];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    PostingViewController *postVC = MainStoryBoard(@"ECPostingViewController");
+    postVC.model = self.dataArr[indexPath.row];
+    [self.view.window.rootViewController presentViewController:postVC animated:YES completion:nil];
 }
 
 - (void)updateData {
@@ -87,10 +89,6 @@
 
 - (void)leftAction {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)rightAction {
-    
 }
 
 - (void)republish:(NSNotification *)notification {
@@ -179,14 +177,8 @@
         [SVProgressHUD showImage:nil status:@"内容不能为空"];
         return;
     }
- 
-//    NSString *viderUrl = @"";
-//    if (![postDict valueForKey:@"videoUrl"]) {
-//        viderUrl = @"";
-//    }else {
-//        viderUrl = [postDict valueForKey:@"videoUrl"];
-//    }
-    
+//    [SVProgressHUD getScore_1];
+
     [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:_imgArr PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [SVProgressHUD showImage:nil status:@"发布成功"];
@@ -194,6 +186,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
 //                [self.tableView deleteRowsAtIndexPaths:@[self.index] withRowAnimation:UITableViewRowAnimationFade];
                 DraftsModel *model = self.dataArr[self.index.row];
+                [self removePlist:model.imgLocalURL];
                 [model deleteObject];
                 [self.dataArr removeObjectAtIndex:self.index.row];
                 [self.tableView reloadData];
@@ -253,9 +246,23 @@
     [tableView beginUpdates];
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     DraftsModel *model = self.dataArr[indexPath.row];
+    [self removePlist:model.imgLocalURL];
     [model deleteObject];
     [self.dataArr removeObjectAtIndex:indexPath.row];
     [tableView endUpdates];
+}
+
+- (void)removePlist:(NSString *)plist {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [file stringByAppendingPathComponent:plist];
+    filePath = [filePath stringByAppendingString:@".plist"];
+    NSMutableArray *array = [[NSMutableArray alloc] initWithContentsOfFile:filePath];
+    for (NSString *image in array) {
+        [[SDImageCache sharedImageCache] removeImageForKey:image];
+    }
+    [manager removeItemAtPath:filePath error:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {

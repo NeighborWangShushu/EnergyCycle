@@ -13,6 +13,8 @@
     
 }
 
+@property (nonatomic, strong) DraftsModel *model;
+
 - (instancetype)initWithModel:(DraftsModel*)model;
 
 - (IBAction)cancel:(id)sender;

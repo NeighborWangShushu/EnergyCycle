@@ -53,7 +53,7 @@
 
 @property (nonatomic,strong)UICollectionView * collectionView;
 
-@property (nonatomic,strong)DraftsModel * model;
+//@property (nonatomic,strong)DraftsModel * model;
 
 @property (nonatomic,strong)NSMutableArray * contacts;
 
