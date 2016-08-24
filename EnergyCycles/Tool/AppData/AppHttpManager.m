@@ -2752,7 +2752,7 @@ static AFHTTPRequestOperationManager *manager;
                      }];
 }
 
-#pragma mark - 电台列表
+#pragma mark - 105.电台列表
 // 输入参数:无
 - (void)getAppRadioListPostOrGet:(NSString *)postOrGetType
                          success:(void (^)(NSDictionary *dict))success
@@ -2764,6 +2764,25 @@ static AFHTTPRequestOperationManager *manager;
                          success(dict);
                      } failure:^(NSString *dict) {
                          failure(dict);
+                     }];
+}
+
+#pragma mark - 106.获取用户每日PK统计
+// 输入参数:UserID      int // 用户ID
+- (void)getPkStatisticsWithUserid:(int)userid
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    
+    [self callInterfaceByUrl:PkStatistics
+                   PostOrGet:@"get"
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
                      }];
 }
 

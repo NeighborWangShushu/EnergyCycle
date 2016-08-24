@@ -407,4 +407,7 @@
 //105.电台列表
 #define AppRadioList               @"/Study/APP_Radio_LIst"
 
+//106.获取用户每日PK统计
+#define PkStatistics               @"/pk/PK_Statistics_Get"
+
 #endif

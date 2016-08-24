@@ -10,9 +10,11 @@
 
 @interface DraftsModel : JKDBModel
 
-@property (nonatomic, copy) NSString *text;
+@property (nonatomic, copy) NSString *context;
 @property (nonatomic, copy) NSString *time;
 @property (nonatomic, copy) NSString *imgLocalURL;
+
 @property (nonatomic, copy) NSString *contacts;
+
 
 @end

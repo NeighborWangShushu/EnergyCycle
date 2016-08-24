@@ -63,7 +63,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     
     [self initialize];
     [self setup];
@@ -100,6 +100,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weiboShareSuccess) name:@"weiboShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(QQShareSuccess) name:@"QQShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareCancel) name:@"shareCancel" object:nil];
+
     
 }
 
@@ -144,11 +145,12 @@
     [self.view addSubview:alertWhoView];
     
     [energyPostViewCell mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.left.equalTo(self.view.mas_left).with.offset(0);
         make.right.equalTo(self.view.mas_right).with.offset(0);
         make.top.equalTo(self.view.mas_top).with.offset(74);
         make.height.equalTo(@100);
+
     }];
     
     CGFloat height = 45 + (70*([_selectImgArrayLocal count]+1)/5);
@@ -177,7 +179,7 @@
     }];
     
     if (_model) {
-        energyPostViewCell.informationTextView.text = _model.text;
+        energyPostViewCell.informationTextView.text = _model.context;
         NSString*documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)firstObject];
         NSString*newFielPath = [documentsPath stringByAppendingPathComponent:_model.imgLocalURL];
         NSArray *content = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@.plist",newFielPath]];
@@ -249,7 +251,7 @@
         _model = model;
     }
 
-        _model.text = energyPostViewCell.informationTextView.text;
+        _model.context = energyPostViewCell.informationTextView.text;
         _model.time = [[NSDate date] jk_stringWithFormat:@"YYYY-MM-dd"];
         NSMutableArray * keys = [NSMutableArray array];
         for (int i = 0; i < _selectImgArrayLocal.count; i++) {
@@ -334,7 +336,7 @@
     }else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
     }
-
+    
 }
 
 -(void)getURLContext {
@@ -392,7 +394,7 @@
                     NSLog(@"_tempIndex:%ld",(long)_tempIndex);
                     [self submitImage:data];
                 }else{
-                 // 提交数据
+                    // 提交数据
                     [self getURLContext];
                 }
             }
@@ -490,7 +492,7 @@
 }
 
 
-#pragma mark Share 
+#pragma mark Share
 
 - (void)shareCancel {
     
@@ -502,7 +504,7 @@
 - (void)shareToWechatTimeline:(NSString*)url title:(NSString*)title {
     
     __weak __typeof(self)weakSelf = self;
-
+    
     ShareModel*model = [[ShareModel alloc] init];
     model.title = title;
     model.content = @"";
@@ -527,7 +529,7 @@
 - (void)shareToWechatSession:(NSString*)url title:(NSString*)title {
     
     __weak __typeof(self)weakSelf = self;
-
+    
     ShareModel*model = [[ShareModel alloc] init];
     model.title = title;
     model.content = @"";
@@ -541,7 +543,7 @@
                 break;
             case SSDKResponseStateCancel:
                 [weakSelf shareCancel];
-
+                
                 break;
                 
             default:
@@ -573,7 +575,7 @@
                 break;
         }
     }];
-
+    
     
 }
 
@@ -601,7 +603,7 @@
                 break;
         }
     }];
-
+    
 }
 
 
@@ -709,7 +711,7 @@
 
 - (void)didChooseShareItems:(NSMutableArray *)items {
     
-//    NSString * context=[postDict valueForKey:@"content"];
+    //    NSString * context=[postDict valueForKey:@"content"];
     _sharesArray = items;
     
 }
@@ -759,7 +761,7 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
-         // 选择拍照
+        // 选择拍照
         [self takePhoto:UIImagePickerControllerSourceTypeCamera];
     }else if(buttonIndex==0){
         // 获取本地图片

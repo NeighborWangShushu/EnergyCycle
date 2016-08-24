@@ -10,15 +10,18 @@
 
 #import "PKHomeViewCell.h"
 #import "PkHomeCollectionViewCell.h"
+#import "PkSummaryTableViewCell.h"
 #import "PKHomeModel.h"
 #import "WDTwoScrollView.h"
 #import "PostingViewController.h"
+#import "PKGatherViewController.h"
 #import "AppDelegate.h"
 
 @interface PKViewController () <UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
     UICollectionView *showCollectionView;
     
     NSMutableArray *_homeCollecctionArr;
+    PkSummaryModel *model;
 }
 
 @property (nonatomic, strong) AppDelegate *delegate;
@@ -36,10 +39,13 @@
     [self.delegate.tabbarController hideTabbar:NO];
     //获取collectionView网络数据
     [self getPKHeadCollectionViewData];
+    [self getPkSummaryData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    [self getPkSummaryData];
     
     self.delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
@@ -85,9 +91,27 @@
     }];
 }
 
+- (void)getPkSummaryData {
+    [[AppHttpManager shareInstance] getPkStatisticsWithUserid:[User_ID intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"IsSuccess"] integerValue] == 1 && [dict[@"Code"] integerValue] == 200) {
+            for (NSDictionary *data in dict[@"Data"]) {
+                model = [[PkSummaryModel alloc] initWithDictionary:data error:nil];
+            }
+            NSLog(@"%@", dict[@"Data"]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [pkHomeTableView reloadData];
+            });
+        } else {
+            NSLog(@"error");
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
+}
+
 #pragma mark - UITableView协议方法
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -95,16 +119,28 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 150.f;
+    }
     return 180.f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    if (indexPath.section == 0) {
+        PkSummaryTableViewCell *summaryCell = [tableView dequeueReusableCellWithIdentifier:@"PkSummaryCell"];
+        if (summaryCell == nil) {
+            summaryCell = [[NSBundle mainBundle] loadNibNamed:@"PkSummaryTableViewCell" owner:self options:nil].lastObject;
+        }
+        summaryCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [summaryCell getDataWithModel:model];
+        return summaryCell;
+    }
     
     PKHomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PKHomeViewCelliD"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 1) {
         cell.titleLabel.text = @"每日PK";
         cell.titleLabel.textColor = [UIColor whiteColor];
         cell.downBackImageView.image = [UIImage imageNamed:@"meirix.png"];
@@ -176,7 +212,24 @@
     return 10.f;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        if (User_TOKEN.length > 0) {
+            [self.delegate.tabbarController hideTabbar:YES];
+            PKGatherViewController *pkVC = [[PKGatherViewController alloc] init];
+            [self.navigationController pushViewController:pkVC animated:YES];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+        }
+    }
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 10)];
+        view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:245/255.0 alpha:1];
+        return view;
+    }
     if (section == 1) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 10)];
         view.backgroundColor = [UIColor whiteColor];
@@ -187,7 +240,7 @@
 
 #pragma mark - button点击事件
 - (void)cellButtonClick:(UIButton *)button {
-    if (button.tag == 2001) {//每日PK
+    if (button.tag == 2002) {//每日PK
         if (User_TOKEN.length > 0) {
             [self.delegate.tabbarController hideTabbar:YES];
             [self performSegueWithIdentifier:@"PKViewToEveryDayPKview" sender:nil];
