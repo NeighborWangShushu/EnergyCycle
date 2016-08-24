@@ -182,6 +182,7 @@
             InformTableViewController *informVC = [[InformTableViewController alloc] init];
             [self.navigationController pushViewController:informVC animated:YES];
         } else if (indexPath.row == 7) { // 草稿箱
+            [self.delegate.tabbarController hideTabbar:YES];
             DraftsTableViewController *draftsVC = [[DraftsTableViewController alloc] init];
             [self.navigationController pushViewController:draftsVC animated:YES];
         }
