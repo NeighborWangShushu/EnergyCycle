@@ -21,7 +21,7 @@
 #import "XMShareWeiboUtil.h"
 
 #import "SBJson.h"
-
+#import "SLALertManager.h"
 #import "WXApiRequestHandler.h"
 #import "WXApiManager.h"
 #import "Constant.h"
@@ -160,29 +160,81 @@
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
     [SVProgressHUD showWithStatus:@"登录中.."];
     
-    
-    
-    [[AppHttpManager shareInstance] getOtherLoginWithLoginType:type OpenId:openId NickName:nickName PhotoUrl:photoUrl Sex:sex Phone:phone PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] IsFirstLoginWithLoginType:type openId:openId PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            NSDictionary *subDict = (NSDictionary *)dict[@"Data"][0];
-            [[NSUserDefaults standardUserDefaults] setObject:subDict[@"use_id"] forKey:@"USERID"];
-            [[NSUserDefaults standardUserDefaults] setObject:subDict[@"token"] forKey:@"TOKEN"];
-            [[NSUserDefaults standardUserDefaults] setObject:nickName forKey:@"UserNickName"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            [SVProgressHUD dismiss];
-            
-            EnetgyCycle.isEnterLoginView = NO;
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"isSetAPService" object:nil];
-            [self dismissViewControllerAnimated:NO completion:nil];
-        }else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+
+            NSLog(@"%@",dict);
+            NSInteger isFirst = [dict[@"Data"] integerValue];
+            [[AppHttpManager shareInstance] getOtherLoginWithLoginType:type OpenId:openId NickName:nickName PhotoUrl:photoUrl Sex:sex Phone:phone PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    NSDictionary *subDict = (NSDictionary *)dict[@"Data"][0];
+                    [[NSUserDefaults standardUserDefaults] setObject:subDict[@"use_id"] forKey:@"USERID"];
+                    [[NSUserDefaults standardUserDefaults] setObject:subDict[@"token"] forKey:@"TOKEN"];
+                    [[NSUserDefaults standardUserDefaults] setObject:nickName forKey:@"UserNickName"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    [SVProgressHUD dismiss];
+                    if (isFirst) {
+                        [self isFirstLoginWithUserID:[subDict[@"use_id"] intValue] Token:subDict[@"token"]];
+                    } else {
+                        EnetgyCycle.isEnterLoginView = NO;
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"isSetAPService" object:nil];
+                        
+                        [self dismissViewControllerAnimated:NO completion:nil];
+                    }
+                    
+                }else {
+                    [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@",str);
+                [SVProgressHUD dismiss];
+            }];
         }
     } failure:^(NSString *str) {
-        NSLog(@"%@",str);
-        [SVProgressHUD dismiss];
+        NSLog(@"%@", str);
     }];
+    
+    
+}
+
+- (void)isFirstLoginWithUserID:(int)userid Token:(NSString *)token {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"添加能量源" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入要添加的能量源";
+    }];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *textField = alert.textFields.firstObject;
+        if ([textField.text isEqualToString:@""] || textField.text == nil) {
+            [SVProgressHUD showImage:nil status:@"能量源不能为空" maskType:SVProgressHUDMaskTypeClear];
+        } else {
+            [[AppHttpManager shareInstance] getPowerSourceRelevanceWithUserID:userid Token:token PowerSource:textField.text PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    [[SLALertManager shareManager] showAlert:SLScroeTypeFifty];
+//                    [SVProgressHUD showImage:nil status:@"能量源添加成功" maskType:SVProgressHUDMaskTypeClear];
+                    EnetgyCycle.isEnterLoginView = NO;
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"isSetAPService" object:nil];
+                    
+                    [self dismissViewControllerAnimated:NO completion:nil];
+                } else {
+                    [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@", str);
+            }];
+        }
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        EnetgyCycle.isEnterLoginView = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"isSetAPService" object:nil];
+        
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+
 }
 
 #pragma mark - 第三方登录-QQ登录

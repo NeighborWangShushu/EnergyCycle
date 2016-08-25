@@ -581,11 +581,6 @@
 		62E31A611D6DB0BC00F1D7C5 /* score_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A4D1D6DB0BC00F1D7C5 /* score_4@2x.png */; };
 		62E31A631D6DB0BC00F1D7C5 /* score_50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A4F1D6DB0BC00F1D7C5 /* score_50@2x.png */; };
 		62E31A651D6DB0BC00F1D7C5 /* score_6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A511D6DB0BC00F1D7C5 /* score_6@2x.png */; };
-<<<<<<< HEAD
-		62E31A661D6DB0BC00F1D7C5 /* score_6@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A521D6DB0BC00F1D7C5 /* score_6@3x.png */; };
-=======
-		62E31A691D6DBEAF00F1D7C5 /* GetScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 62E31A681D6DBEAF00F1D7C5 /* GetScore.m */; };
->>>>>>> 468469de22f6eaab47235f31ee086fb7660e6f2b
 		62EDB8031D34D0B000D6F772 /* AboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */; };
 		62EDB8041D34D0B000D6F772 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */; };
 		62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8081D34D3CF00D6F772 /* AboutViewController.m */; };
@@ -2351,12 +2346,6 @@
 		62E31A4D1D6DB0BC00F1D7C5 /* score_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_4@2x.png"; sourceTree = "<group>"; };
 		62E31A4F1D6DB0BC00F1D7C5 /* score_50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_50@2x.png"; sourceTree = "<group>"; };
 		62E31A511D6DB0BC00F1D7C5 /* score_6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_6@2x.png"; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		62E31A521D6DB0BC00F1D7C5 /* score_6@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_6@3x.png"; sourceTree = "<group>"; };
-=======
-		62E31A671D6DBEAF00F1D7C5 /* GetScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetScore.h; sourceTree = "<group>"; };
-		62E31A681D6DBEAF00F1D7C5 /* GetScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetScore.m; sourceTree = "<group>"; };
->>>>>>> 468469de22f6eaab47235f31ee086fb7660e6f2b
 		62EDB8001D34D0B000D6F772 /* AboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewCell.h; sourceTree = "<group>"; };
 		62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewCell.m; sourceTree = "<group>"; };
 		62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutTableViewCell.xib; sourceTree = "<group>"; };
@@ -4745,15 +4734,8 @@
 				623773991D3735E900B99BEF /* UIImage+Category.m */,
 				62C99F311D3797620032E83C /* MineHomePageTableViewControllerProtocol.h */,
 				62C99F321D3797620032E83C /* MineHomePageTableViewControllerProtocol.m */,
-<<<<<<< HEAD
-=======
-				62E31A3B1D6DAEE900F1D7C5 /* SVProgressHUD+GetScore.h */,
-				62E31A3C1D6DAEE900F1D7C5 /* SVProgressHUD+GetScore.m */,
-				62E31A671D6DBEAF00F1D7C5 /* GetScore.h */,
-				62E31A681D6DBEAF00F1D7C5 /* GetScore.m */,
 				D06215DD1D6E891A00D3845E /* SLALertManager.h */,
 				D06215DE1D6E891A00D3845E /* SLALertManager.m */,
->>>>>>> 468469de22f6eaab47235f31ee086fb7660e6f2b
 			);
 			path = Help;
 			sourceTree = "<group>";
