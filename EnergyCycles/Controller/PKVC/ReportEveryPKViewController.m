@@ -328,7 +328,7 @@
             }
             shareStr = [NSString stringWithFormat:@"我刚才完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
             NSLog(@"%@", shareStr);
-            [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:shareStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:_imageUrlArr PostOrGet:@"post" success:^(NSDictionary *dict) {
+            [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:shareStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:_imageUrlArr Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
                 if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                     NSLog(@"能量帖发布成功!");
                 }

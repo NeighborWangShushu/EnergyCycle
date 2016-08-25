@@ -34,7 +34,7 @@
 #import "SDImageCache.h"
 #import "UserModel.h"
 
-@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,EnergyPostViewCellDelegate,ECShareCellDelegate,SDPhotoBrowserDelegate,SDPhotoBrowserDelegate,EnergyPostCollectionViewCellDelegate,ECPAlertWhoCellDelegate,ECContactVCDelegate> {
+@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,EnergyPostViewCellDelegate,ECShareCellDelegate,SDPhotoBrowserDelegate,SDPhotoBrowserDelegate,EnergyPostCollectionViewCellDelegate,ECPAlertWhoCellDelegate,ECContactVCDelegate,UIActionSheetDelegate> {
     NSMutableDictionary *postDict;
     NSMutableArray *_dataArr;
     NSMutableArray *_selectImgArray;
@@ -53,9 +53,9 @@
 
 @property (nonatomic,strong)UICollectionView * collectionView;
 
-//@property (nonatomic,strong)DraftsModel * model;
-
 @property (nonatomic,strong)NSMutableArray * contacts;
+@property (nonatomic,strong)NSMutableArray * contactIds;
+
 
 @end
 
@@ -90,6 +90,7 @@
     _selectImgArrayLocal = [[NSMutableArray alloc] initWithCapacity:1];
     _contacts = [NSMutableArray array];
     _sharesArray = [NSMutableArray array];
+    _contactIds = [NSMutableArray array];
     self.title = @"发帖";
     postDict = [[NSMutableDictionary alloc] init];
     _dataArr = [[NSMutableArray alloc] init];
@@ -184,9 +185,12 @@
         NSString*newFielPath = [documentsPath stringByAppendingPathComponent:_model.imgLocalURL];
         NSArray *content = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@.plist",newFielPath]];
         // 获取model 进行赋值
-        
-//       UIImage*img = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:content[0]];
-        
+        for (NSString*imgpath in content) {
+            UIImage*img = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imgpath];
+            [_selectImgArrayLocal addObject:img];
+            [_selectImgArray addObject:img];
+        }
+        [self.collectionView reloadData];
     }
     
 }
@@ -215,12 +219,27 @@
     
 }
 
+
+
 #pragma mark - 返回按键
 - (void)leftAction {
     
     if ([postDict count] > 0 || _selectImgArrayLocal.count!=0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"保存草稿?" delegate:self cancelButtonTitle:@"不保存" otherButtonTitles:@"保存", nil];
-        [alertView show];
+        
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                      initWithTitle:@"保存草稿"
+                                      delegate:self
+                                      cancelButtonTitle:@"取消"
+                                      destructiveButtonTitle:@"不保存"
+                                      otherButtonTitles:@"保存",nil];
+        actionSheet.tag = 999;
+        actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        [actionSheet showInView:self.view];
+        
+        
+        
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"保存草稿?" delegate:self cancelButtonTitle:@"不保存" otherButtonTitles:@"保存", nil];
+//        [alertView show];
     }else {
         [self back];
     }
@@ -255,7 +274,7 @@
         _model.time = [[NSDate date] jk_stringWithFormat:@"YYYY-MM-dd"];
         NSMutableArray * keys = [NSMutableArray array];
         for (int i = 0; i < _selectImgArrayLocal.count; i++) {
-            NSString*key = [[NSDate date] jk_stringWithFormat:@"YYYYMMddHHmmss"];
+            NSString*key = [NSString stringWithFormat:@"%@_%d",[[NSDate date] jk_stringWithFormat:@"YYYYMMddHHmmssSSS"],i];
             UIImage*img = _selectImgArrayLocal[i];
             if (img) {
                 [[SDImageCache sharedImageCache] storeImage:img forKey:key toDisk:YES];
@@ -271,7 +290,7 @@
             NSLog(@"%@",contact);
             _model.contacts = contact;
         }
-    
+        
         NSString*filePath = [[NSDate date] jk_stringWithFormat:@"YYYYMMddHHmmss"];
         //获取路径对象
         NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
@@ -359,7 +378,12 @@
         viderUrl = [postDict valueForKey:@"videoUrl"];
     }
     
-    [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:viderUrl UserId:[User_ID intValue] token:User_TOKEN List:_dataArr PostOrGet:@"post" success:^(NSDictionary *dict) {
+    NSMutableArray * contactIds = [NSMutableArray array];
+    for (UserModel*model in self.contacts) {
+        [contactIds addObject:[NSNumber numberWithInteger:[model.use_id integerValue]]];
+    }
+    
+    [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:viderUrl UserId:[User_ID intValue] token:User_TOKEN List:_dataArr Location:@"" UserList:contactIds PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [SVProgressHUD showImage:nil status:@"发布成功"];
             postIndex = [[dict objectForKey:@"Data"] integerValue];
@@ -372,11 +396,12 @@
             [_dataArr removeAllObjects];
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
+
     } failure:^(NSString *str) {
-        NSLog(@"发布失败 %@",str);
         [SVProgressHUD dismiss];
         [_dataArr removeAllObjects];
     }];
+    
 }
 
 
@@ -760,12 +785,24 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex==1) {
-        // 选择拍照
-        [self takePhoto:UIImagePickerControllerSourceTypeCamera];
-    }else if(buttonIndex==0){
-        // 获取本地图片
-        [self LocalPhoto];
+    if (actionSheet.tag == 999) {
+        if (buttonIndex == 1) {
+            [self saveModel];
+            [self back];
+        }else if(buttonIndex == 0){
+            [self back];
+        }
+        
+    }
+    else {
+        if (buttonIndex==1) {
+            // 选择拍照
+            [self takePhoto:UIImagePickerControllerSourceTypeCamera];
+        }else if(buttonIndex==0){
+            // 获取本地图片
+            [self LocalPhoto];
+        }
+
     }
 }
 
