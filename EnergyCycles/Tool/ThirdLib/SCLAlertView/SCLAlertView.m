@@ -239,7 +239,7 @@ SCLTimerDisplay *buttonTimer;
     _contentView.backgroundColor = [UIColor whiteColor];
     _contentView.layer.cornerRadius = 5.0f;
     _contentView.layer.masksToBounds = YES;
-    _contentView.layer.borderWidth = 0.5f;
+    _contentView.layer.borderWidth = 0.0f;
     [_contentView addSubview:_viewText];    
 
     CGRect position = [self.contentView convertRect:self.labelTitle.frame toView:self.view];
@@ -399,6 +399,7 @@ SCLTimerDisplay *buttonTimer;
     
     // Adjust corner radius, if a value has been passed
     _contentView.layer.cornerRadius = self.cornerRadius ? self.cornerRadius : 5.0f;
+    
 }
 
 #pragma mark - UIViewController

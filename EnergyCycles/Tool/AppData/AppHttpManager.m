@@ -1460,6 +1460,8 @@ static AFHTTPRequestOperationManager *manager;
                          UserId:(int)UserId
                           token:(NSString *)token
                            List:(NSArray *)list
+                       Location:(NSString *)location
+                       UserList:(NSArray *)userlist
                       PostOrGet:(NSString *)postOrGetType
                         success:(void (^)(NSDictionary *dict))success
                         failure:(void (^)(NSString *str))failure {
@@ -1470,6 +1472,9 @@ static AFHTTPRequestOperationManager *manager;
     [dic setObject:[NSNumber numberWithInt:UserId] forKey:@"userId"];
     [dic setObject:token forKey:@"token"];
     [dic setObject:[NSArray arrayWithArray:list] forKey:@"articlePic"];
+    [dic setObject:location forKey:@"Location"];
+    [dic setObject:[NSArray arrayWithArray:userlist] forKey:@"UserList"];
+
     
     [self callInterfaceByUrl:AddArticle
                    PostOrGet:postOrGetType

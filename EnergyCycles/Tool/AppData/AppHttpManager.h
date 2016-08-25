@@ -612,6 +612,8 @@
                          UserId:(int)UserId
                           token:(NSString *)token
                            List:(NSArray *)list
+                       Location:(NSString*)location
+                       UserList:(NSArray*)userlist
                       PostOrGet:(NSString *)postOrGetType
                         success:(void (^)(NSDictionary *dict))success
                         failure:(void (^)(NSString *str))failure;
