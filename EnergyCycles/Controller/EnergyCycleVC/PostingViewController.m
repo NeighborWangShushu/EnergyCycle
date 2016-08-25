@@ -53,11 +53,6 @@
 
 @property (nonatomic,strong)UICollectionView * collectionView;
 
-<<<<<<< HEAD
-=======
-//@property (nonatomic,strong)DraftsModel * model;
->>>>>>> wangbin
-
 @property (nonatomic,strong)NSMutableArray * contacts;
 @property (nonatomic,strong)NSMutableArray * contactIds;
 
@@ -111,8 +106,6 @@
 }
 
 - (void)setup {
-    
-    _model = [DraftsModel findAll][0];
     
     [self setupLeftNavBarWithimage:@"blackback_normal.png"];
     
@@ -385,7 +378,12 @@
         viderUrl = [postDict valueForKey:@"videoUrl"];
     }
     
-    [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:viderUrl UserId:[User_ID intValue] token:User_TOKEN List:_dataArr Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
+    NSMutableArray * contactIds = [NSMutableArray array];
+    for (UserModel*model in self.contacts) {
+        [contactIds addObject:[NSNumber numberWithInteger:[model.use_id integerValue]]];
+    }
+    
+    [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:viderUrl UserId:[User_ID intValue] token:User_TOKEN List:_dataArr Location:@"" UserList:contactIds PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [SVProgressHUD showImage:nil status:@"发布成功"];
             postIndex = [[dict objectForKey:@"Data"] integerValue];
@@ -400,7 +398,6 @@
         }
 
     } failure:^(NSString *str) {
-        NSLog(@"发布失败 %@",str);
         [SVProgressHUD dismiss];
         [_dataArr removeAllObjects];
     }];
