@@ -1535,22 +1535,24 @@ static AFHTTPRequestOperationManager *manager;
                    PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict) {
-                         NSInteger integral = [dict[@"Data"] integerValue];
-                         switch (integral) {
-                             case 10:
-                                 [[SLALertManager shareManager] showAlert:SLScroeTypeTen];
-                                 break;
-                             case 20:
-                                 [[SLALertManager shareManager] showAlert:SLScroeTypeTwenty];
-                                 break;
-                             case 30:
-                                 [[SLALertManager shareManager] showAlert:SLScroeTypeThirty];
-                                 break;
-                             case 40:
-                                 [[SLALertManager shareManager] showAlert:SLScroeTypeForty];
-                                 break;
-                             default:
-                                 break;
+                         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                             NSInteger integral = [dict[@"Data"] integerValue];
+                             switch (integral) {
+                                 case 10:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeTen];
+                                     break;
+                                 case 20:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeTwenty];
+                                     break;
+                                 case 30:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeThirty];
+                                     break;
+                                 case 40:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeForty];
+                                     break;
+                                 default:
+                                     break;
+                             }
                          }
                          success(dict);
                      } failure:^(NSString *dict) {
@@ -2431,10 +2433,10 @@ static AFHTTPRequestOperationManager *manager;
                    PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict) {
-                         if (dict&&([dict[@"Code"] intValue] == 200)) {
-                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示信息" message:@"获取积分成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                             [alertView show];
-                         }
+//                         if (dict&&([dict[@"Code"] intValue] == 200)) {
+//                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示信息" message:@"获取积分成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                             [alertView show];
+//                         }
                          success(dict);
                      } failure:^(NSString *dict) {
                          failure(dict);
