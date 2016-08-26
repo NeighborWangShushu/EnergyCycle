@@ -98,10 +98,12 @@
     [postDict setObject:model.context forKey:@"content"];
     NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filePath = [file stringByAppendingPathComponent:model.imgLocalURL];
+    filePath = [filePath stringByAppendingString:@".plist"];
     NSMutableArray *array = [[NSMutableArray alloc] initWithContentsOfFile:filePath];
     for (int i = 0; i < array.count; i ++) {
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:array[i]]]];
-        [_selectImgArrayLocal addObject:image];
+        [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:array[i]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            [_selectImgArrayLocal addObject:image];
+        }];
     }
     [self submit];
 }
@@ -208,15 +210,19 @@
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self updateData];
+    [self.tableView reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self updateData];
     self.title = @"草稿箱";
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     postDict = [[NSMutableDictionary alloc] init];
     _imgArr = [[NSMutableArray alloc] init];
+    _selectImgArrayLocal = [[NSMutableArray alloc] init];
     
     self.editButtonItem.title = @"编辑";
     self.editButtonItem.tintColor = [UIColor whiteColor];
