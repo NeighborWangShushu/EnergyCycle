@@ -31,7 +31,6 @@
         
         self.searchBarStyle = UISearchBarStyleProminent;
         self.translucent = NO;
-        
         [self setup];
         
     }
@@ -41,6 +40,7 @@
 
 - (void)layoutSubviews {
     
+    self.tintColor = [UIColor redColor];
     NSInteger index = [self indexOfSearchTextfieldInSubviews];
     NSInteger backgroungIndex = [self indexOfSearchBackgroundInSubviews];
     if (index) {

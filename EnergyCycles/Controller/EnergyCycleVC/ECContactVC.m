@@ -54,7 +54,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
 }
@@ -118,7 +117,7 @@
 - (void)setSelectedDatas:(NSMutableArray *)selectedDatas {
     _selectedDatas = selectedDatas;
     [self getData];
-
+    
 }
 
 
@@ -132,7 +131,7 @@
     self.tableView.sectionIndexColor = [UIColor lightGrayColor];
     self.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.tableView];
-    
+
     
     _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
     [_searchBar sizeToFit];
@@ -140,25 +139,29 @@
     _searchBar.edelegate = self;
     _searchBar.hasCentredPlaceholder = NO;
     _searchBar.backgroundColor = [UIColor whiteColor];
-    _searchBar.tintColor = [UIColor whiteColor];
     [_searchBar setPlaceholder:@"搜索"];
+    
     [_searchBar setContentMode:UIViewContentModeLeft];
     [_searchBar.layer setBorderWidth:0.5];
     [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
+    
     self.tableView.tableHeaderView = self.searchBar;
     _searchBar.datas = self.selectedDatas;
-
+//    self.extendedLayoutIncludesOpaqueBars = YES;
     
     self.searchController = [[ECSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     self.searchController.searchResultsDataSource = self;
     self.searchController.searchResultsDelegate = self;
+    self.searchController.displaysSearchBarInNavigationBar = NO;
     self.searchController.delegate = self;
     self.searchController.searchContentsController.view.backgroundColor = [UIColor whiteColor];
     self.searchController.searchResultsTableView.tableFooterView = [UIView new];
     self.searchController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
     [self.searchController.searchBar sizeToFit];
+    _searchController.searchResultsTableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 2.0f, 0.0f);
+
     
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -314,11 +317,20 @@
     UIView *topView = controller.searchBar.subviews[0];
     controller.searchResultsTableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
     
+    CGRect frame = controller.searchBar.frame;
+    frame.origin.y = -20;
+    controller.searchBar.frame = frame;
+
+    
     for (UIView *v in topView.subviews) {
         if ([v isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
             [v removeFromSuperview];
         }
     }
+}
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
+    
 }
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
@@ -377,6 +389,7 @@
     [_searchResultArr removeAllObjects];
     [_searchResultArr addObjectsFromArray:tempResults];
 }
+
 
 #pragma mark UITableViewDelegate
 
