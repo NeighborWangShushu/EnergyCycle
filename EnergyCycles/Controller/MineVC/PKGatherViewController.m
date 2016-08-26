@@ -195,7 +195,6 @@
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self getToDayPKData];
-    self.title = @"每日PK";
 
 //    [self segmentedControlChangedValue:self.segControl];
     
@@ -258,7 +257,13 @@
     // 选中后的文本样式
     self.segControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:242/ 255.0 green:77/255.0 blue:77/255.0 alpha:1], NSFontAttributeName:[UIFont systemFontOfSize:14]};
     // 初始位置
-    self.segControl.selectedSegmentIndex = 0;
+    if (_isHistory) {
+        self.segControl.selectedSegmentIndex = 1;
+        self.title = @"历史记录";
+    } else {
+        self.segControl.selectedSegmentIndex = 0;
+        self.title = @"每日PK";
+    }
     // 边界样式
     self.segControl.borderType = HMSegmentedControlBorderTypeBottom;
     // 边界颜色

@@ -217,6 +217,7 @@
         if (User_TOKEN.length > 0) {
             [self.delegate.tabbarController hideTabbar:YES];
             PKGatherViewController *pkVC = [[PKGatherViewController alloc] init];
+            pkVC.isHistory = YES;
             [self.navigationController pushViewController:pkVC animated:YES];
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
