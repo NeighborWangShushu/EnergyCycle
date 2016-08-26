@@ -27,6 +27,7 @@
 
 #import "ShareModel.h"
 #import "ShareSDKManager.h"
+#import "SLALertManager.h"
 
 @interface ReportEveryPKViewController () <UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ZYQAssetPickerControllerDelegate,XHImageViewerDelegate> {
     UIButton *rightButton;
@@ -52,6 +53,9 @@
     BOOL onWecha;
     BOOL onMoments;
     BOOL onWeibo;
+    
+    BOOL isImage;
+    BOOL isShare;
 }
 
 @end
@@ -337,11 +341,32 @@
             }];
         }
         
+        if(_imageUrlArr.count) {
+            isImage = YES;
+        }
+        
         [[AppHttpManager shareInstance] getAddReportWithUserid:User_ID Token:User_TOKEN ReportList:reportSubArr ImageList:_imageUrlArr PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
 //                [self creatSuccessShareView];
                 [self share:sharesArray];
                 //
+                
+                if (isShare) {
+                    [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
+                        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                            if (isImage && isShare) {
+                                [[SLALertManager shareManager] showAlert:SLScroeTypeSix];
+                            } else {
+                                [[SLALertManager shareManager] showAlert:SLScroeTypeThree];
+                            }
+                        }
+                    } failure:^(NSString *str) {
+                        NSLog(@"%@", str);
+                    }];
+                } else if (isImage) {
+                    [[SLALertManager shareManager] showAlert:SLScroeTypeThree];
+                }
+                
                 NSMutableDictionary *choDict = [[NSMutableDictionary alloc] init];
                 for (NSInteger i=0; i<_xianmuArr.count; i++) {
                     NSMutableDictionary *subDict = [[NSMutableDictionary alloc] init];
@@ -443,7 +468,7 @@
 }
 
 - (void)wechatTimeLineShareSuccess {
-    
+    isShare = YES;
     [sharesArray removeObjectAtIndex:0];
     if ([sharesArray count]) {
         NSNumber*num = sharesArray[0];
@@ -481,7 +506,7 @@
 }
 
 - (void)wechatSessionShareSuccess {
-    
+    isShare = YES;
     [sharesArray removeObjectAtIndex:0];
     if ([sharesArray count]) {
         NSNumber*num = sharesArray[0];
@@ -519,6 +544,7 @@
 }
 
 - (void)weiboShareSuccess {
+    isShare = YES;
     [sharesArray removeObjectAtIndex:0];
     if ([sharesArray count]) {
         NSNumber*num = sharesArray[0];
@@ -556,6 +582,7 @@
 }
 
 - (void)QQShareSuccess {
+    isShare = YES;
     [sharesArray removeObjectAtIndex:0];
     if ([sharesArray count]) {
         NSNumber*num = sharesArray[0];

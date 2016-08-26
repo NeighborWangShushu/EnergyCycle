@@ -258,9 +258,6 @@
     [self setup];
     [self getData:YES];
     
-    
-    [[SLALertManager shareManager] showAlert:SLScroeTypeOne];
-    
     // Do any additional setup after loading the view.
 }
 

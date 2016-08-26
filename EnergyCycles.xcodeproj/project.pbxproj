@@ -571,7 +571,6 @@
 		62DDA0991D585707005C2CEB /* toDayPK@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DDA08F1D585707005C2CEB /* toDayPK@2x.png */; };
 		62DDA09A1D585707005C2CEB /* toDayPK@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DDA0901D585707005C2CEB /* toDayPK@3x.png */; };
 		62E31A301D6D86C000F1D7C5 /* PostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62E31A2F1D6D86C000F1D7C5 /* PostingViewController.m */; };
-		62E31A3D1D6DAEE900F1D7C5 /* SVProgressHUD+GetScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 62E31A3C1D6DAEE900F1D7C5 /* SVProgressHUD+GetScore.m */; };
 		62E31A531D6DB0BC00F1D7C5 /* score_10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A3F1D6DB0BC00F1D7C5 /* score_10@2x.png */; };
 		62E31A551D6DB0BC00F1D7C5 /* score_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A411D6DB0BC00F1D7C5 /* score_1@2x.png */; };
 		62E31A571D6DB0BC00F1D7C5 /* score_20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A431D6DB0BC00F1D7C5 /* score_20@2x.png */; };
@@ -582,7 +581,6 @@
 		62E31A611D6DB0BC00F1D7C5 /* score_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A4D1D6DB0BC00F1D7C5 /* score_4@2x.png */; };
 		62E31A631D6DB0BC00F1D7C5 /* score_50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A4F1D6DB0BC00F1D7C5 /* score_50@2x.png */; };
 		62E31A651D6DB0BC00F1D7C5 /* score_6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A511D6DB0BC00F1D7C5 /* score_6@2x.png */; };
-		62E31A691D6DBEAF00F1D7C5 /* GetScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 62E31A681D6DBEAF00F1D7C5 /* GetScore.m */; };
 		62EDB8031D34D0B000D6F772 /* AboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */; };
 		62EDB8041D34D0B000D6F772 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */; };
 		62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8081D34D3CF00D6F772 /* AboutViewController.m */; };
@@ -2338,8 +2336,6 @@
 		62DDA0901D585707005C2CEB /* toDayPK@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toDayPK@3x.png"; sourceTree = "<group>"; };
 		62E31A2E1D6D86C000F1D7C5 /* PostingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingViewController.h; sourceTree = "<group>"; };
 		62E31A2F1D6D86C000F1D7C5 /* PostingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingViewController.m; sourceTree = "<group>"; };
-		62E31A3B1D6DAEE900F1D7C5 /* SVProgressHUD+GetScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+GetScore.h"; sourceTree = "<group>"; };
-		62E31A3C1D6DAEE900F1D7C5 /* SVProgressHUD+GetScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+GetScore.m"; sourceTree = "<group>"; };
 		62E31A3F1D6DB0BC00F1D7C5 /* score_10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_10@2x.png"; sourceTree = "<group>"; };
 		62E31A411D6DB0BC00F1D7C5 /* score_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_1@2x.png"; sourceTree = "<group>"; };
 		62E31A431D6DB0BC00F1D7C5 /* score_20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_20@2x.png"; sourceTree = "<group>"; };
@@ -2350,8 +2346,6 @@
 		62E31A4D1D6DB0BC00F1D7C5 /* score_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_4@2x.png"; sourceTree = "<group>"; };
 		62E31A4F1D6DB0BC00F1D7C5 /* score_50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_50@2x.png"; sourceTree = "<group>"; };
 		62E31A511D6DB0BC00F1D7C5 /* score_6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_6@2x.png"; sourceTree = "<group>"; };
-		62E31A671D6DBEAF00F1D7C5 /* GetScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetScore.h; sourceTree = "<group>"; };
-		62E31A681D6DBEAF00F1D7C5 /* GetScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetScore.m; sourceTree = "<group>"; };
 		62EDB8001D34D0B000D6F772 /* AboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewCell.h; sourceTree = "<group>"; };
 		62EDB8011D34D0B000D6F772 /* AboutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewCell.m; sourceTree = "<group>"; };
 		62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutTableViewCell.xib; sourceTree = "<group>"; };
@@ -4740,10 +4734,6 @@
 				623773991D3735E900B99BEF /* UIImage+Category.m */,
 				62C99F311D3797620032E83C /* MineHomePageTableViewControllerProtocol.h */,
 				62C99F321D3797620032E83C /* MineHomePageTableViewControllerProtocol.m */,
-				62E31A3B1D6DAEE900F1D7C5 /* SVProgressHUD+GetScore.h */,
-				62E31A3C1D6DAEE900F1D7C5 /* SVProgressHUD+GetScore.m */,
-				62E31A671D6DBEAF00F1D7C5 /* GetScore.h */,
-				62E31A681D6DBEAF00F1D7C5 /* GetScore.m */,
 				D06215DD1D6E891A00D3845E /* SLALertManager.h */,
 				D06215DE1D6E891A00D3845E /* SLALertManager.m */,
 			);
@@ -9096,7 +9086,6 @@
 				D083524D1D2F909E0094AC2E /* NSObject+MJKeyValue.m in Sources */,
 				D07D2ED91D0FD6CC00AF35B1 /* MASViewAttribute.m in Sources */,
 				26D99E941C0C4D7B007AF579 /* EnergyCycleNavController.m in Sources */,
-				62E31A3D1D6DAEE900F1D7C5 /* SVProgressHUD+GetScore.m in Sources */,
 				D07EB2A01D18DE6800840AC2 /* UUMessageCell.m in Sources */,
 				DAAEC7091C1FED3C00FA094B /* MineOneViewCell.m in Sources */,
 				DAF48DB51C1E726F00D9C136 /* CourseRrgOneViewCell.m in Sources */,
@@ -9164,7 +9153,6 @@
 				26D99E921C0C4D7B007AF579 /* AppTabBarController.m in Sources */,
 				26E987361C0D309300C6A7BB /* TheInvitationViewController.m in Sources */,
 				62367E281D6AE3B800272505 /* PkSummaryModel.m in Sources */,
-				62E31A691D6DBEAF00F1D7C5 /* GetScore.m in Sources */,
 				D07EB2A31D18DE6800840AC2 /* UUProgressHUD.m in Sources */,
 				DA7AC8C91C3F9ED000CD97EE /* InformationModel.m in Sources */,
 				DAAEC7131C1FF58800FA094B /* NewDetailViewController.m in Sources */,

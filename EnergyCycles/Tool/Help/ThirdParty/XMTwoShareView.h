@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, SHARE_ITEM){
 @property (nonatomic, strong) NSData *imageData;
 @property (nonatomic, strong) NSString *imageUrl;
 
+@property (nonatomic, assign) BOOL isImage;
 
 @end
 
