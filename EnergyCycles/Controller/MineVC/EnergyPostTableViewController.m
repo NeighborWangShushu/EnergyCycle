@@ -550,10 +550,10 @@
 }
 
 - (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
+    
     MineHomePageViewController *otherUserVC = MainStoryBoard(@"MineHomePageViewController");
     otherUserVC.userId = userId;
     [self.navigationController pushViewController:otherUserVC animated:YES];
-    
 }
 
 /*
