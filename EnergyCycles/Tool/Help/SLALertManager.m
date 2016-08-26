@@ -29,6 +29,7 @@
     SCLAlertView*alertView = [[SCLAlertView alloc] initWithNewWindow];
     [alertView setHideAnimationType:SlideOutToCenter];
     [alertView setShowAnimationType:SlideInFromCenter];
+    alertView.backgroundType = Transparent;
     [alertView removeTopCircle];
     [alertView setBackgroundViewColor:[UIColor clearColor]];
     alertView.shouldDismissOnTapOutside = YES;

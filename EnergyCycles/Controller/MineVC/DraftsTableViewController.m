@@ -10,7 +10,6 @@
 #import "DraftsTableViewCell.h"
 #import "PostingViewController.h"
 #import "SDImageCache.h"
-#import "SVProgressHUD+GetScore.h"
 
 @interface DraftsTableViewController () {
     NSMutableArray *_selectImgArrayLocal;
