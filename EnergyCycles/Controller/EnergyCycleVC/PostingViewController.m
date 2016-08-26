@@ -33,6 +33,7 @@
 #import "NSDate+JKUtilities.h"
 #import "SDImageCache.h"
 #import "UserModel.h"
+#import "SLALertManager.h"
 
 @interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,EnergyPostViewCellDelegate,ECShareCellDelegate,SDPhotoBrowserDelegate,SDPhotoBrowserDelegate,EnergyPostCollectionViewCellDelegate,ECPAlertWhoCellDelegate,ECContactVCDelegate,UIActionSheetDelegate> {
     NSMutableDictionary *postDict;
@@ -47,6 +48,11 @@
     
     EnergyPostViewCell * energyPostViewCell;
     NSInteger postIndex;
+    NSInteger postNumToday;
+    
+    BOOL isShare;
+    BOOL isSubmitImg;
+
 }
 
 @property (nonatomic,strong)NSArray * pics;
@@ -55,7 +61,7 @@
 
 @property (nonatomic,strong)NSMutableArray * contacts;
 @property (nonatomic,strong)NSMutableArray * contactIds;
-
+@property (nonatomic,strong)ECPAlertWhoCell*alertWhoView;
 
 @end
 
@@ -101,7 +107,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weiboShareSuccess) name:@"weiboShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(QQShareSuccess) name:@"QQShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareCancel) name:@"shareCancel" object:nil];
-
     
 }
 
@@ -140,10 +145,10 @@
     shareView.delegate = self;
     [self.view addSubview:shareView];
     
-    ECPAlertWhoCell*alertWhoView = [[[NSBundle mainBundle] loadNibNamed:@"ECPAlertWhoCell" owner:self options:nil] lastObject];
-    alertWhoView.text.text = @"提醒谁看";
-    alertWhoView.delegate = self;
-    [self.view addSubview:alertWhoView];
+    self.alertWhoView = [[[NSBundle mainBundle] loadNibNamed:@"ECPAlertWhoCell" owner:self options:nil] lastObject];
+    self.alertWhoView.text.text = @"提醒谁看";
+    self.alertWhoView.delegate = self;
+    [self.view addSubview:self.alertWhoView];
     
     [energyPostViewCell mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -170,17 +175,18 @@
         make.height.equalTo(@50);
     }];
     
-    [alertWhoView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.alertWhoView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.view.mas_left).with.offset(0);
         make.right.equalTo(self.view.mas_right).with.offset(0);
         make.top.equalTo(shareView.mas_bottom);
-        make.height.equalTo(@40);
         
     }];
     
     if (_model) {
         energyPostViewCell.informationTextView.text = _model.context;
+        [postDict setObject:_model.context forKey:@"title"];
+        
         NSString*documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)firstObject];
         NSString*newFielPath = [documentsPath stringByAppendingPathComponent:_model.imgLocalURL];
         NSArray *content = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@.plist",newFielPath]];
@@ -192,8 +198,8 @@
         }
         [self.collectionView reloadData];
     }
-    
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -209,6 +215,7 @@
     
     ECContactVC*vc = [[ECContactVC alloc] init];
     vc.delegate = self;
+    vc.selectedDatas = self.contacts;
     UINavigationController*nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -216,9 +223,9 @@
 - (void)didSelectedContacts:(NSMutableArray *)items {
     
     _contacts = items;
-    
-}
+    self.alertWhoView.datas = _contacts;
 
+}
 
 
 #pragma mark - 返回按键
@@ -303,7 +310,15 @@
 }
 
 - (void)back {
-    
+    if (isShare && isSubmitImg) {
+        if (postNumToday <= 5) {
+            [[SLALertManager shareManager] showAlert:SLScroeTypeSix];
+        }
+    }else if (isShare || isSubmitImg) {
+        if (postNumToday <= 5) {
+            [[SLALertManager shareManager] showAlert:SLScroeTypeThree];
+        }
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
@@ -325,6 +340,7 @@
         [alert addAction:cancelAction];
         [self presentViewController:alert animated:YES completion:nil];
     }else {
+        
         [self submit];
     }
 }
@@ -387,10 +403,14 @@
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [SVProgressHUD showImage:nil status:@"发布成功"];
             postIndex = [[dict objectForKey:@"Data"] integerValue];
+            //当天发布能量贴次数
+            postNumToday = [[dict objectForKey:@"ArticleCount"] integerValue];
+            
+            
             if ([_sharesArray count]) {
                 [self share:_sharesArray];
             }else {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self back];
             }
         }else {
             [_dataArr removeAllObjects];
@@ -406,6 +426,8 @@
 
 
 -(void)submitImage:(NSData*)imageData {
+    
+    isSubmitImg = YES;
     
     [[AppHttpManager shareInstance] postPostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
@@ -467,6 +489,7 @@
         NSNumber*num = _sharesArray[0];
         [self shareByIndex:[num integerValue]];
     }else {
+        
         [self shareCancel];
     }
 }
@@ -506,13 +529,27 @@
 }
 
 - (void)shareNext {
-    
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
+    [self postShareScore];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
         [self shareByIndex:[num integerValue]];
     }else {
         [self shareCancel];
+    }
+}
+
+- (void)postShareScore {
+    if (_sharesArray.count == 0) {
+        [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:3 PostOrGet:@"post" success:^(NSDictionary *dict) {
+            
+            
+            
+        } failure:^(NSString *str) {
+            
+        }];
+        
     }
 }
 
@@ -664,6 +701,8 @@
         default:
             break;
     }
+    
+    
 }
 
 

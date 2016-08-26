@@ -26,7 +26,6 @@
 @property (nonatomic,strong)NSMutableArray * datas;
 @property (nonatomic,strong)NSMutableArray * sectionDatas;
 
-@property (nonatomic,strong)NSMutableArray * selectedDatas;
 
 @property (nonatomic,strong)NSMutableArray * rowDatas;
 
@@ -48,7 +47,6 @@
     [super viewDidLoad];
     [self initialize];
     [self setup];
-    [self getData];
     
     // Do any additional setup after loading the view from its nib.
     
@@ -102,7 +100,6 @@
     self.sectionDatas = [NSMutableArray array];
     self.contacts = [NSMutableArray array];
     self.datas = [NSMutableArray array];
-    self.selectedDatas = [NSMutableArray array];
     self.searchResultArr=[NSMutableArray array];
 
     
@@ -116,6 +113,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
+}
+
+- (void)setSelectedDatas:(NSMutableArray *)selectedDatas {
+    _selectedDatas = selectedDatas;
+    [self getData];
+
 }
 
 
@@ -145,7 +148,8 @@
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
     self.tableView.tableHeaderView = self.searchBar;
-    
+    _searchBar.datas = self.selectedDatas;
+
     
     self.searchController = [[ECSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     self.searchController.searchResultsDataSource = self;
@@ -241,6 +245,7 @@
 
 - (void)getData {
     
+    __weak __typeof(self)weakSelf = self;
     [[AppHttpManager shareInstance] getBothHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
@@ -248,6 +253,7 @@
                 UserModel *model = [[UserModel alloc] initWithDictionary:dic error:nil];
                 model.isSelected = @"";
                 model.readyToDelete = @"";
+                [weakSelf filterSelectedData:model];
                 [self.contacts addObject:model];
             }
             [self filterData];
@@ -257,6 +263,15 @@
         NSLog(@"%@", str);
     }];
 
+}
+
+- (void)filterSelectedData:(UserModel*)model {
+    for (UserModel*selectedItem in self.selectedDatas) {
+        if ([selectedItem.use_id isEqualToString:model.use_id]) {
+            model.isSelected = @"isSelected";
+        }
+    }
+    
 }
 
 #pragma mark searchBar delegate
@@ -366,17 +381,21 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.selectedDatas.count == 10) {
+        [SVProgressHUD showImage:nil status:@"最多选择10人"];
+        return;
+    }
     
     UserModel*model = nil;
     if (isSearching) {
         model = self.searchResultArr[indexPath.row];
     }else {
         model = self.rowDatas[indexPath.section][indexPath.row];
-
     }
+    
     if ([model.isSelected isEqualToString:@"isSelected"]) {
         model.isSelected = @"";
-        [self.selectedDatas removeObject:model];
+        [self.selectedDatas removeObjectAtIndex:indexPath.row];
     }else {
         model.isSelected = @"isSelected";
         [self.selectedDatas addObject:model];

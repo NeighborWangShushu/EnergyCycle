@@ -45,7 +45,7 @@
     NSInteger backgroungIndex = [self indexOfSearchBackgroundInSubviews];
     if (index) {
         searchField = (UITextField*)((UIView*)self.subviews[0]).subviews[index];
-        searchField.frame = CGRectMake(5, 5, self.frame.size.width - 10, self.frame.size.height - 10);
+        searchField.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
         searchField.textColor = [UIColor lightGrayColor];
         UIView*background = (UIView*)((UIView*)self.subviews[0]).subviews[backgroungIndex];
         [background removeFromSuperview];
@@ -101,6 +101,7 @@
 - (void)setDatas:(NSMutableArray *)datas {
     _datas = datas;
     self.collectionView.frame = CGRectMake(0, 0, MIN(_datas.count, 6)*40 , 44);
+    NSLog(@"%f",self.collectionView.frame.origin.y);
     [self.collectionView reloadData];
 }
 

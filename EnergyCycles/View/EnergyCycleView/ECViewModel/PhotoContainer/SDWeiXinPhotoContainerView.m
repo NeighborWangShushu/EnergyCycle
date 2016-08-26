@@ -195,11 +195,11 @@
         
         if (heightRate>widthRate)
         {
-            imageRef = CGImageCreateWithImageInRect([originalImage CGImage], CGRectMake(0, originalsize.height/2-size.height*rate/2, originalsize.width, size.height*rate));//获取图片整体部分
+            imageRef = CGImageCreateWithImageInRect([originalImage CGImage], CGRectMake(originalsize.width/2-size.width/2, originalsize.height/2-size.height/2, originalsize.width, size.height*rate));//获取图片整体部分
         }
         else
         {
-            imageRef = CGImageCreateWithImageInRect([originalImage CGImage], CGRectMake(originalsize.width/2-size.width*rate/2, 0, size.width*rate, originalsize.height));//获取图片整体部分
+            imageRef = CGImageCreateWithImageInRect([originalImage CGImage], CGRectMake(originalsize.width/2-size.width/2, originalsize.height/2-size.height/2, size.width*rate, originalsize.height));//获取图片整体部分
         }
         UIGraphicsBeginImageContext(size);//指定要绘画图片的大小
         CGContextRef con = UIGraphicsGetCurrentContext();
