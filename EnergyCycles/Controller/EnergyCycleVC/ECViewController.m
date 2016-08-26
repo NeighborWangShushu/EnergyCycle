@@ -34,7 +34,6 @@
 #import "DateAlertModel.h"
 #import "NSDate+JKReporting.h"
 #import "NSDate+JKUtilities.h"
-#import "SLALertManager.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
@@ -258,8 +257,6 @@
     [self setup];
     [self getData:YES];
     
-    
-    [[SLALertManager shareManager] showAlert:SLScroeTypeOne];
     
     // Do any additional setup after loading the view.
 }
