@@ -10,4 +10,6 @@
 
 @interface PKGatherViewController : BaseTableViewController
 
+@property (nonatomic, assign) BOOL isHistory;
+
 @end

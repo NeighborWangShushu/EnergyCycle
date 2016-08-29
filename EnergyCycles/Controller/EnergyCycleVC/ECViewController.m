@@ -34,7 +34,6 @@
 #import "DateAlertModel.h"
 #import "NSDate+JKReporting.h"
 #import "NSDate+JKUtilities.h"
-#import "SLALertManager.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
@@ -258,6 +257,10 @@
     [self setup];
     [self getData:YES];
     
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 99196dedf047681570c73d4ea2a3605c31e28391
     // Do any additional setup after loading the view.
 }
 
