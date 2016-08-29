@@ -16,6 +16,7 @@
 #import "TheAdvMainModel.h"
 
 #import "OtherUesrViewController.h"
+#import "WebVC.h"
 #import "MineHomePageViewController.h"
 
 @interface TheAdvPKViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
@@ -171,7 +172,11 @@
     [cell setTheAdvPKCollectionView:^(TheAdvMainModel *model,NSInteger cellTouchIndex) {
         mainTouchModel = model;
         cellIndex = cellTouchIndex;
-        [self performSegueWithIdentifier:@"TheAdvPKViewToDetailView" sender:nil];
+        WebVC *webVC = MainStoryBoard(@"WebVC");
+        webVC.titleName = @"动态详情";
+       NSString *loadStr = [NSString stringWithFormat:@"%@/%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,mainTouchModel.postId,User_ID];
+        webVC.url = loadStr;
+        [self.navigationController pushViewController:webVC animated:YES];
     }];
     
     //其他人信息
@@ -197,6 +202,10 @@
 #pragma mark - 返回这个UICollectionView是否可以被选择
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+  
 }
 
 #pragma mark - UIScrollView实现协议
