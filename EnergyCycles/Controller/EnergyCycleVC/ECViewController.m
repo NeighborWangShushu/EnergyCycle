@@ -34,7 +34,6 @@
 #import "DateAlertModel.h"
 #import "NSDate+JKReporting.h"
 #import "NSDate+JKUtilities.h"
-#import "SLALertManager.h"
 
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"

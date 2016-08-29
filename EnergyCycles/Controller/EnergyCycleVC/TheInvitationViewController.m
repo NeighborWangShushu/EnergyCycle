@@ -44,15 +44,22 @@
     invitationTableView.showsVerticalScrollIndicator = NO;
     
     //
-    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+
     
     if ([User_TOKEN length] > 0 && !isSearch) {
         [self getDataList];
@@ -190,9 +197,9 @@
         
         //跳转到其他人详情
         [cell setIconButtonClick:^(NSInteger cellIndex) {
-//            OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
             MineHomePageViewController*otherUserVC = MainStoryBoard(@"MineHomePageViewController");
             NSDictionary *dic = (NSDictionary *)_dataArray[cellIndex-10001];
+
             if (isSearch) {
                 otherUserVC.userId = dic[@"userId"];
             }else {
@@ -200,6 +207,8 @@
             }
 //            otherUserVC.otherName = dic[@"nickname"];
 //            otherUserVC.otherPic = dic[@"photourl"];
+
+
             [self.navigationController pushViewController:otherUserVC animated:YES];
         }];
     }
