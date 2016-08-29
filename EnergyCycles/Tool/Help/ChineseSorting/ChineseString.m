@@ -22,6 +22,7 @@
     
     for (NSString* object in tempArray)
     {
+        NSLog(@"pinyin=%@",((UserModel*)object).pinyin);
         NSString *pinyin = [((UserModel*)object).pinyin substringToIndex:1];
         //不同
         if(![tempString isEqualToString:pinyin])
@@ -43,7 +44,6 @@
     NSString *tempString;
     //拼音分组
     for (UserModel* object in tempArray) {
-        
         NSString *pinyin = [((UserModel*)object).pinyin substringToIndex:1];
         NSString *string = ((UserModel*)object).nickname;
         //不同

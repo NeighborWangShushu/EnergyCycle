@@ -18,9 +18,9 @@
     [super setActive:visible animated:animated];
     [self.searchContentsController.navigationController setNavigationBarHidden:NO animated:NO];
     if (visible) {
-        [self.searchBar becomeFirstResponder];
+//        [self.searchBar becomeFirstResponder];
     } else {
-        [self.searchBar resignFirstResponder];
+//        [self.searchBar resignFirstResponder];
     }
     
     //move the dimming part down

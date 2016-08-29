@@ -100,7 +100,7 @@
     self.contacts = [NSMutableArray array];
     self.datas = [NSMutableArray array];
     self.searchResultArr=[NSMutableArray array];
-
+    
     
 }
 
@@ -162,7 +162,6 @@
     [self.searchController.searchBar sizeToFit];
     _searchController.searchResultsTableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 2.0f, 0.0f);
 
-    
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
@@ -317,11 +316,6 @@
     UIView *topView = controller.searchBar.subviews[0];
     controller.searchResultsTableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
     
-    CGRect frame = controller.searchBar.frame;
-    frame.origin.y = -20;
-    controller.searchBar.frame = frame;
-
-    
     for (UIView *v in topView.subviews) {
         if ([v isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
             [v removeFromSuperview];
@@ -332,6 +326,7 @@
 - (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
     
 }
+
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
@@ -455,15 +450,20 @@
     }
     UserModel*model = nil;
     if (isSearching) {
-       model = self.searchResultArr[indexPath.row];
+        NSLog(@"%@",self.searchResultArr);
+        if (self.searchResultArr.count) {
+            model = self.searchResultArr[indexPath.row];
+        }
     }else {
-        model = self.rowDatas[indexPath.section][indexPath.row];
+        if (self.rowDatas.count) {
+            model = self.rowDatas[indexPath.section][indexPath.row];
+        }
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.name.text = model.nickname;
     cell.model = model;
-    [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
+    [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
     return cell;
     
 }
@@ -478,7 +478,7 @@
         [label setTextColor:[UIColor grayColor]];
         [label setBackgroundColor:[UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1]];
     }
-    if (_sectionDatas.count > 0) {
+    if (_sectionDatas.count > 0 && !isSearching) {
         [label setText:[NSString stringWithFormat:@"  %@",_sectionDatas[section]]];
     }
     return label;
