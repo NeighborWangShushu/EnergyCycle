@@ -1190,6 +1190,7 @@
             if ([model.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
                 NSLog(@"删除了点赞人%@",model.userName);
                 [likes removeObject:model];
+                break;
             }
         }
         
