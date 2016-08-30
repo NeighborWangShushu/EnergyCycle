@@ -52,13 +52,9 @@
 //#define INTERFACE_URL @"http://120.26.218.68:8888/"
 
 //正式环境
-<<<<<<< HEAD
-//#define INTERFACE_URL @"http://120.26.218.68:8038/"
-=======
 
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
->>>>>>> 2.0-beta-01
 
 //阿里云
 #define INTERFACE_URL @"http://120.26.218.68:8038/"

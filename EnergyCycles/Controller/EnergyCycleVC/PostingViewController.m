@@ -212,16 +212,14 @@
 #pragma mark ECPAlertWhoCellDelegate 
 
 - (void)didSelected {
-<<<<<<< HEAD
+
     UINavigationController*nav = [[UINavigationController alloc] initWithRootViewController:[[ECContactVC alloc] init]];
     nav.navigationBar.hidden = YES;
 //    [self presentViewController:nav animated:YES completion:nil];
-=======
     
     ECContactVC*vc = [[ECContactVC alloc] init];
     vc.delegate = self;
     vc.selectedDatas = self.contacts;
-    UINavigationController*nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }
 
@@ -230,7 +228,7 @@
     _contacts = items;
     self.alertWhoView.datas = _contacts;
 
->>>>>>> 2.0-beta-01
+
 }
 
 
