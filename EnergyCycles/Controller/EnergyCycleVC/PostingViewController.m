@@ -213,13 +213,12 @@
 
 - (void)didSelected {
 
-    UINavigationController*nav = [[UINavigationController alloc] initWithRootViewController:[[ECContactVC alloc] init]];
-    nav.navigationBar.hidden = YES;
 //    [self presentViewController:nav animated:YES completion:nil];
     
     ECContactVC*vc = [[ECContactVC alloc] init];
     vc.delegate = self;
     vc.selectedDatas = self.contacts;
+    UINavigationController*nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }
 
