@@ -29,9 +29,13 @@
 #import "ShareSDKManager.h"
 #import "ECPAlertWhoCell.h"
 #import "ECContactVC.h"
+#import "DraftsModel.h"
+#import "NSDate+JKUtilities.h"
+#import "SDImageCache.h"
+#import "UserModel.h"
+#import "SLALertManager.h"
 
-
-@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,EnergyPostViewCellDelegate,ECShareCellDelegate,SDPhotoBrowserDelegate,SDPhotoBrowserDelegate,EnergyPostCollectionViewCellDelegate,ECPAlertWhoCellDelegate> {
+@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,EnergyPostViewCellDelegate,ECShareCellDelegate,SDPhotoBrowserDelegate,SDPhotoBrowserDelegate,EnergyPostCollectionViewCellDelegate,ECPAlertWhoCellDelegate,ECContactVCDelegate,UIActionSheetDelegate> {
     NSMutableDictionary *postDict;
     NSMutableArray *_dataArr;
     NSMutableArray *_selectImgArray;
@@ -44,11 +48,20 @@
     
     EnergyPostViewCell * energyPostViewCell;
     NSInteger postIndex;
+    NSInteger postNumToday;
+    
+    BOOL isShare;
+    BOOL isSubmitImg;
+
 }
 
 @property (nonatomic,strong)NSArray * pics;
 
 @property (nonatomic,strong)UICollectionView * collectionView;
+
+@property (nonatomic,strong)NSMutableArray * contacts;
+@property (nonatomic,strong)NSMutableArray * contactIds;
+@property (nonatomic,strong)ECPAlertWhoCell*alertWhoView;
 
 @end
 
@@ -56,17 +69,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     
     [self initialize];
     [self setup];
     
 }
 
+- (instancetype)initWithModel:(DraftsModel *)model {
+    self = [super init];
+    if (self) {
+        _model = model;
+        [self configModel];
+    }
+    return self;
+}
+
+- (void)configModel {
+    
+    
+}
+
 - (void)initialize {
+    
     _selectImgArray = [[NSMutableArray alloc] initWithCapacity:1];
     _selectImgArrayLocal = [[NSMutableArray alloc] initWithCapacity:1];
+    _contacts = [NSMutableArray array];
     _sharesArray = [NSMutableArray array];
+    _contactIds = [NSMutableArray array];
     self.title = @"发帖";
     postDict = [[NSMutableDictionary alloc] init];
     _dataArr = [[NSMutableArray alloc] init];
@@ -111,18 +141,17 @@
     self.collectionView.dataSource = self;
     [self.view addSubview:self.collectionView];
     
-    
     ECShareCell * shareView = [[[NSBundle mainBundle] loadNibNamed:@"ECShareCell" owner:self options:nil] lastObject];
     shareView.delegate = self;
     [self.view addSubview:shareView];
     
-    ECPAlertWhoCell*alertWhoView = [[[NSBundle mainBundle] loadNibNamed:@"ECPAlertWhoCell" owner:self options:nil] lastObject];
-    alertWhoView.text.text = @"提醒谁看";
-    alertWhoView.delegate = self;
-    [self.view addSubview:alertWhoView];
+    self.alertWhoView = [[[NSBundle mainBundle] loadNibNamed:@"ECPAlertWhoCell" owner:self options:nil] lastObject];
+    self.alertWhoView.text.text = @"提醒谁看";
+    self.alertWhoView.delegate = self;
+    [self.view addSubview:self.alertWhoView];
     
     [energyPostViewCell mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.left.equalTo(self.view.mas_left).with.offset(0);
         make.right.equalTo(self.view.mas_right).with.offset(0);
         make.top.equalTo(self.view.mas_top).with.offset(74);
@@ -146,16 +175,31 @@
         make.height.equalTo(@50);
     }];
     
-    [alertWhoView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.alertWhoView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(self.view.mas_left).with.offset(0);
         make.right.equalTo(self.view.mas_right).with.offset(0);
         make.top.equalTo(shareView.mas_bottom);
-        make.height.equalTo(@40);
         
     }];
     
+    if (_model) {
+        energyPostViewCell.informationTextView.text = _model.context;
+        [postDict setObject:_model.context forKey:@"content"];
+        
+        NSString*documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)firstObject];
+        NSString*newFielPath = [documentsPath stringByAppendingPathComponent:_model.imgLocalURL];
+        NSArray *content = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@.plist",newFielPath]];
+        // 获取model 进行赋值
+        for (NSString*imgpath in content) {
+            UIImage*img = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imgpath];
+            [_selectImgArrayLocal addObject:img];
+            [_selectImgArray addObject:img];
+        }
+        [self.collectionView reloadData];
+    }
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -168,16 +212,47 @@
 #pragma mark ECPAlertWhoCellDelegate 
 
 - (void)didSelected {
+<<<<<<< HEAD
     UINavigationController*nav = [[UINavigationController alloc] initWithRootViewController:[[ECContactVC alloc] init]];
     nav.navigationBar.hidden = YES;
 //    [self presentViewController:nav animated:YES completion:nil];
+=======
+    
+    ECContactVC*vc = [[ECContactVC alloc] init];
+    vc.delegate = self;
+    vc.selectedDatas = self.contacts;
+    UINavigationController*nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
+
+- (void)didSelectedContacts:(NSMutableArray *)items {
+    
+    _contacts = items;
+    self.alertWhoView.datas = _contacts;
+
+>>>>>>> 2.0-beta-01
+}
+
 
 #pragma mark - 返回按键
 - (void)leftAction {
+    
     if ([postDict count] > 0 || _selectImgArrayLocal.count!=0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认返回吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView show];
+        
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                      initWithTitle:@"保存草稿"
+                                      delegate:self
+                                      cancelButtonTitle:@"取消"
+                                      destructiveButtonTitle:@"不保存"
+                                      otherButtonTitles:@"保存",nil];
+        actionSheet.tag = 999;
+        actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        [actionSheet showInView:self.view];
+        
+        
+        
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"保存草稿?" delegate:self cancelButtonTitle:@"不保存" otherButtonTitles:@"保存", nil];
+//        [alertView show];
     }else {
         [self back];
     }
@@ -192,14 +267,65 @@
         }
     }else {
         if (buttonIndex == 1) {
+            [self saveModel];
+            [self back];
+        }else {
             [self back];
         }
     }
 }
 
+#pragma mark 存储草稿
+
+- (void)saveModel {
+    if (!_model) {
+        DraftsModel*model = [[DraftsModel alloc] init];
+        _model = model;
+    }
+
+        _model.context = energyPostViewCell.informationTextView.text;
+        _model.time = [[NSDate date] jk_stringWithFormat:@"YYYY-MM-dd"];
+        NSMutableArray * keys = [NSMutableArray array];
+        for (int i = 0; i < _selectImgArrayLocal.count; i++) {
+            NSString*key = [NSString stringWithFormat:@"%@_%d",[[NSDate date] jk_stringWithFormat:@"YYYYMMddHHmmssSSS"],i];
+            UIImage*img = _selectImgArrayLocal[i];
+            if (img) {
+                [[SDImageCache sharedImageCache] storeImage:img forKey:key toDisk:YES];
+            }
+            [keys addObject:key];
+        }
+    
+        if (self.contacts.count) {
+            NSString * contact = @"";
+            for (UserModel*c in self.contacts) {
+                contact = [contact stringByAppendingString:[NSString stringWithFormat:@"%@,",c.use_id]];
+            }
+            NSLog(@"%@",contact);
+            _model.contacts = contact;
+        }
+        
+        NSString*filePath = [[NSDate date] jk_stringWithFormat:@"YYYYMMddHHmmss"];
+        //获取路径对象
+        NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        //获取完整路径
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",filePath]];
+        [keys writeToFile:plistPath atomically:YES];
+        _model.imgLocalURL = filePath;
+        [_model saveOrUpdate];
+}
 
 - (void)back {
     
+    if (isShare && isSubmitImg) {
+        if (postNumToday <= 5) {
+            [[SLALertManager shareManager] showAlert:SLScroeTypeSix];
+        }
+    }else if (isShare || isSubmitImg) {
+        if (postNumToday <= 5) {
+            [[SLALertManager shareManager] showAlert:SLScroeTypeThree];
+        }
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
@@ -221,6 +347,7 @@
         [alert addAction:cancelAction];
         [self presentViewController:alert animated:YES completion:nil];
     }else {
+        
         [self submit];
     }
 }
@@ -251,7 +378,7 @@
     }else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
     }
-
+    
 }
 
 -(void)getURLContext {
@@ -274,24 +401,34 @@
         viderUrl = [postDict valueForKey:@"videoUrl"];
     }
     
-    [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:viderUrl UserId:[User_ID intValue] token:User_TOKEN List:_dataArr PostOrGet:@"post" success:^(NSDictionary *dict) {
+    NSMutableArray * contactIds = [NSMutableArray array];
+    for (UserModel*model in self.contacts) {
+        [contactIds addObject:[NSNumber numberWithInteger:[model.use_id integerValue]]];
+    }
+    
+    [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:viderUrl UserId:[User_ID intValue] token:User_TOKEN List:_dataArr Location:@"" UserList:contactIds PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [SVProgressHUD showImage:nil status:@"发布成功"];
-            postIndex = [[dict objectForKey:@"Data"] integerValue];
+            
+            postIndex = [[[dict objectForKey:@"Data"][0] objectForKey:@"ArtID"] integerValue];
+            //当天发布能量贴次数
+            postNumToday = [[[dict objectForKey:@"Data"][0] objectForKey:@"ArticleCount"] integerValue];
+            
             if ([_sharesArray count]) {
                 [self share:_sharesArray];
             }else {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self back];
             }
         }else {
             [_dataArr removeAllObjects];
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
+
     } failure:^(NSString *str) {
-        NSLog(@"发布失败 %@",str);
         [SVProgressHUD dismiss];
         [_dataArr removeAllObjects];
     }];
+    
 }
 
 
@@ -300,6 +437,7 @@
     [[AppHttpManager shareInstance] postPostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             _tempIndex++;
+            isSubmitImg = YES;
             NSString * imgURL=[dict[@"Data"] firstObject];
             [_dataArr addObject:imgURL];
             NSLog(@"selectImgArrayLocal:%lu",(unsigned long)[_selectImgArrayLocal count]);
@@ -309,7 +447,7 @@
                     NSLog(@"_tempIndex:%ld",(long)_tempIndex);
                     [self submitImage:data];
                 }else{
-                 // 提交数据
+                    // 提交数据
                     [self getURLContext];
                 }
             }
@@ -352,17 +490,19 @@
 #pragma mark ShareSuccess
 
 - (void)QQShareSuccess {
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
         [self shareByIndex:[num integerValue]];
     }else {
+        
         [self shareCancel];
     }
 }
 
 - (void)wechatSessionShareSuccess {
-    
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -374,7 +514,7 @@
 }
 
 - (void)wechatTimeLineShareSuccess {
-    
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -386,6 +526,7 @@
 }
 
 - (void)weiboShareSuccess {
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -396,8 +537,9 @@
 }
 
 - (void)shareNext {
-    
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
+    [self postShareScore];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
         [self shareByIndex:[num integerValue]];
@@ -406,20 +548,33 @@
     }
 }
 
+- (void)postShareScore {
+    if (_sharesArray.count == 0) {
+        [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:3 PostOrGet:@"post" success:^(NSDictionary *dict) {
+            
+            
+            
+        } failure:^(NSString *str) {
+            
+        }];
+        
+    }
+}
 
-#pragma mark Share 
+
+#pragma mark Share
 
 - (void)shareCancel {
     
     [SVProgressHUD dismiss];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self back];
     
 }
 
 - (void)shareToWechatTimeline:(NSString*)url title:(NSString*)title {
     
     __weak __typeof(self)weakSelf = self;
-
+    
     ShareModel*model = [[ShareModel alloc] init];
     model.title = title;
     model.content = @"";
@@ -444,7 +599,7 @@
 - (void)shareToWechatSession:(NSString*)url title:(NSString*)title {
     
     __weak __typeof(self)weakSelf = self;
-
+    
     ShareModel*model = [[ShareModel alloc] init];
     model.title = title;
     model.content = @"";
@@ -458,7 +613,7 @@
                 break;
             case SSDKResponseStateCancel:
                 [weakSelf shareCancel];
-
+                
                 break;
                 
             default:
@@ -490,7 +645,7 @@
                 break;
         }
     }];
-
+    
     
 }
 
@@ -518,7 +673,7 @@
                 break;
         }
     }];
-
+    
 }
 
 
@@ -554,6 +709,8 @@
         default:
             break;
     }
+    
+    
 }
 
 
@@ -626,7 +783,7 @@
 
 - (void)didChooseShareItems:(NSMutableArray *)items {
     
-//    NSString * context=[postDict valueForKey:@"content"];
+    //    NSString * context=[postDict valueForKey:@"content"];
     _sharesArray = items;
     
 }
@@ -675,12 +832,24 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex==1) {
-         // 选择拍照
-        [self takePhoto:UIImagePickerControllerSourceTypeCamera];
-    }else if(buttonIndex==0){
-        // 获取本地图片
-        [self LocalPhoto];
+    if (actionSheet.tag == 999) {
+        if (buttonIndex == 1) {
+            [self saveModel];
+            [self back];
+        }else if(buttonIndex == 0){
+            [self back];
+        }
+        
+    }
+    else {
+        if (buttonIndex==1) {
+            // 选择拍照
+            [self takePhoto:UIImagePickerControllerSourceTypeCamera];
+        }else if(buttonIndex==0){
+            // 获取本地图片
+            [self LocalPhoto];
+        }
+
     }
 }
 

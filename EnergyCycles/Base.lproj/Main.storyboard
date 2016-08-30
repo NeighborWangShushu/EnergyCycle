@@ -942,7 +942,6 @@
                         <outlet property="theAdvPostButton" destination="0T9-ew-LZa" id="UF9-8P-tGJ"/>
                         <segue destination="hPo-X0-zz0" kind="show" identifier="PKViewToTheAdvPKPostView" id="lWv-06-75d"/>
                         <segue destination="VKG-7e-lHV" kind="show" identifier="TheAdvPKViewToThePrizeView" id="dsP-t6-xLg"/>
-                        <segue destination="Ujn-li-TvK" kind="show" identifier="TheAdvPKViewToDetailView" id="ZMB-6O-NCg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GKb-EY-ROv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -6220,13 +6219,12 @@
         <image name="write_normal.png" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="axj-NJ-TGV"/>
         <segue reference="Jyv-eP-V7z"/>
+        <segue reference="axj-NJ-TGV"/>
         <segue reference="HwS-RU-Cgf"/>
         <segue reference="mMa-EG-ekD"/>
-        <segue reference="ZMB-6O-NCg"/>
-        <segue reference="R8s-I5-eNH"/>
-        <segue reference="vpn-CB-KIX"/>
         <segue reference="K0f-pe-vys"/>
+        <segue reference="vpn-CB-KIX"/>
+        <segue reference="R8s-I5-eNH"/>
     </inferredMetricsTieBreakers>
 </document>

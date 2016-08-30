@@ -14,6 +14,8 @@
 @interface ECPAlertWhoCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *text;
+
+@property (nonatomic,strong) NSMutableArray * datas;
 - (IBAction)alertAction:(id)sender;
 
 @property (nonatomic,assign)id<ECPAlertWhoCellDelegate>delegate;

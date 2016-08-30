@@ -11,8 +11,9 @@
 #import "ECContactSelectedCell.h"
 #import "UserModel.h"
 #import "UIImageView+WebCache.h"
+#import "UITextField+WJ.h"
 
-@interface ECContactSearchBar ()<UICollectionViewDelegate,UICollectionViewDataSource> {
+@interface ECContactSearchBar ()<UICollectionViewDelegate,UICollectionViewDataSource,WJTextFieldDelegate> {
     UITextField * searchField;
 }
 
@@ -30,7 +31,6 @@
         
         self.searchBarStyle = UISearchBarStyleProminent;
         self.translucent = NO;
-        
         [self setup];
         
     }
@@ -40,11 +40,12 @@
 
 - (void)layoutSubviews {
     
+    self.tintColor = [UIColor redColor];
     NSInteger index = [self indexOfSearchTextfieldInSubviews];
     NSInteger backgroungIndex = [self indexOfSearchBackgroundInSubviews];
     if (index) {
         searchField = (UITextField*)((UIView*)self.subviews[0]).subviews[index];
-        searchField.frame = CGRectMake(5, 5, self.frame.size.width - 10, self.frame.size.height - 10);
+        searchField.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
         searchField.textColor = [UIColor lightGrayColor];
         UIView*background = (UIView*)((UIView*)self.subviews[0]).subviews[backgroungIndex];
         [background removeFromSuperview];
@@ -72,13 +73,15 @@
     [self.collectionView registerClass:[ECContactSelectedCell class] forCellWithReuseIdentifier:@"CommentCellID"];
     self.collectionView.allowsMultipleSelection = NO;//默认为NO,是否可以多选
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
+
     
 }
 
 // ------------------------------------------------------------------------------------------
 #pragma mark - Methods
 // ------------------------------------------------------------------------------------------
+
 - (void)setHasCentredPlaceholder:(BOOL)hasCentredPlaceholder
 {
     _hasCentredPlaceholder = hasCentredPlaceholder;
@@ -93,12 +96,12 @@
         [invocation setArgument:&_hasCentredPlaceholder atIndex:2];
         [invocation invoke];
     }
-    
 }
 
 - (void)setDatas:(NSMutableArray *)datas {
     _datas = datas;
     self.collectionView.frame = CGRectMake(0, 0, MIN(_datas.count, 6)*40 , 44);
+    NSLog(@"%f",self.collectionView.frame.origin.y);
     [self.collectionView reloadData];
 }
 
@@ -134,6 +137,55 @@
 }
 
 
+- (void)textFieldDidChange:(NSNotification *)notification {
+    
+    [self unSelectedItems];
+
+    
+}
+- (void)unSelectedItems {
+    __weak typeof(self) weakSelf = self;
+    [self.datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UserModel*model = weakSelf.datas[idx];
+        model.readyToDelete = @"";
+        [weakSelf.collectionView reloadData];
+    }];
+
+}
+
+
+- (void)readyToDeleteItem {
+    [self.collectionView reloadData];
+}
+
+- (void)deleteItem {
+    UserModel*model = [self.datas lastObject];
+    model.isSelected = @"";
+    [self.datas removeLastObject];
+    self.collectionView.frame = CGRectMake(0, 0, MIN(_datas.count, 6)*40 , 44);
+    
+    [self.collectionView reloadData];
+    if ([self.edelegate respondsToSelector:@selector(contactSearchBar:model:isClear:)]) {
+        [self.edelegate contactSearchBar:self model:model isClear:!self.datas.count];
+    }
+}
+
+#pragma mark WJTextFieldDelegate
+
+- (void)textFieldDidDeleteBackward:(UITextField *)textField {
+    if (textField.text.length == 0) {
+        UserModel*model = [self.datas lastObject];
+        if ([model.readyToDelete isEqualToString:@""]) {
+            model.readyToDelete = @"readyToDelete";
+            [self readyToDeleteItem];
+        }else {
+            model.readyToDelete = @"";
+            [self deleteItem];
+        }
+    }
+}
+
+
 #pragma mark UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -149,7 +201,8 @@
     static NSString * cellID = @"CommentCellID";
     ECContactSelectedCell*cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
     UserModel*model = self.datas[indexPath.row];
-    [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"touxiang"]];
+    cell.model = model;
+    [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang"]];
     
     return cell;
 }

@@ -4,6 +4,7 @@
 //
 
 #import "AppHttpManager.h"
+#import "SLALertManager.h"
 
 static AFHTTPRequestOperationManager *manager;
 
@@ -1460,6 +1461,8 @@ static AFHTTPRequestOperationManager *manager;
                          UserId:(int)UserId
                           token:(NSString *)token
                            List:(NSArray *)list
+                       Location:(NSString *)location
+                       UserList:(NSArray *)userlist
                       PostOrGet:(NSString *)postOrGetType
                         success:(void (^)(NSDictionary *dict))success
                         failure:(void (^)(NSString *str))failure {
@@ -1470,6 +1473,9 @@ static AFHTTPRequestOperationManager *manager;
     [dic setObject:[NSNumber numberWithInt:UserId] forKey:@"userId"];
     [dic setObject:token forKey:@"token"];
     [dic setObject:[NSArray arrayWithArray:list] forKey:@"articlePic"];
+    [dic setObject:location forKey:@"Location"];
+    [dic setObject:[NSArray arrayWithArray:userlist] forKey:@"UserList"];
+
     
     [self callInterfaceByUrl:AddArticle
                    PostOrGet:postOrGetType
@@ -1529,6 +1535,25 @@ static AFHTTPRequestOperationManager *manager;
                    PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict) {
+                         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                             NSInteger integral = [dict[@"Data"] integerValue];
+                             switch (integral) {
+                                 case 10:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeTen];
+                                     break;
+                                 case 20:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeTwenty];
+                                     break;
+                                 case 30:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeThirty];
+                                     break;
+                                 case 40:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeForty];
+                                     break;
+                                 default:
+                                     break;
+                             }
+                         }
                          success(dict);
                      } failure:^(NSString *dict) {
                          failure(dict);
@@ -2408,10 +2433,10 @@ static AFHTTPRequestOperationManager *manager;
                    PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict) {
-                         if (dict&&([dict[@"Code"] intValue] == 200)) {
-                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示信息" message:@"获取积分成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                             [alertView show];
-                         }
+//                         if (dict&&([dict[@"Code"] intValue] == 200)) {
+//                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示信息" message:@"获取积分成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                             [alertView show];
+//                         }
                          success(dict);
                      } failure:^(NSString *dict) {
                          failure(dict);
@@ -2698,7 +2723,7 @@ static AFHTTPRequestOperationManager *manager;
     [dic setObject:[NSNumber numberWithInt:pagesize] forKey:@"pagesize"];
     
     [self callInterfaceByUrl:APP_Notify_Get
-                   PostOrGet:@"get"
+                   PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict) {
                          success(dict);
@@ -2721,7 +2746,7 @@ static AFHTTPRequestOperationManager *manager;
     [dic setObject:tel forKey:@"tel"];
     
     [self callInterfaceByUrl:GetTelCode
-                   PostOrGet:@"get"
+                   PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict) {
                          success(dict);
@@ -2743,7 +2768,7 @@ static AFHTTPRequestOperationManager *manager;
     [dic setObject:tel forKey:@"tel"];
     
     [self callInterfaceByUrl:AppUserTelUpdate
-                   PostOrGet:@"get"
+                   PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict) {
                          success(dict);
@@ -2752,13 +2777,13 @@ static AFHTTPRequestOperationManager *manager;
                      }];
 }
 
-#pragma mark - 电台列表
+#pragma mark - 105.电台列表
 // 输入参数:无
 - (void)getAppRadioListPostOrGet:(NSString *)postOrGetType
                          success:(void (^)(NSDictionary *dict))success
                          failure:(void (^)(NSString *str))failure {
     [self callInterfaceByUrl:AppRadioList
-                   PostOrGet:@"get"
+                   PostOrGet:postOrGetType
                     withDict:nil
                      success:^(NSDictionary *dict) {
                          success(dict);
@@ -2766,5 +2791,71 @@ static AFHTTPRequestOperationManager *manager;
                          failure(dict);
                      }];
 }
+
+#pragma mark - 106.获取用户每日PK统计
+// 输入参数:UserID      int // 用户ID
+- (void)getPkStatisticsWithUserid:(int)userid
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    
+    [self callInterfaceByUrl:PkStatistics
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+}
+
+#pragma mark - 107.监测第三方是否第一次登录
+// 输入参数:loginType   int // 登录类型
+// 输入参数:openId      string // 登录ID
+- (void)IsFirstLoginWithLoginType:(int)loginType
+                           openId:(NSString *)openId
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:loginType] forKey:@"loginType"];
+    [dic setObject:openId forKey:@"openId"];
+    
+    [self callInterfaceByUrl:IsFirstLogin
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+}
+
+#pragma mark - 108.为第三方用户添加能量源
+// 输入参数:UserID      int // 用户ID
+// 输入参数:powerSource string // 能量源
+- (void)getPowerSourceRelevanceWithUserID:(int)userid
+                                    Token:(NSString *)token
+                              PowerSource:(NSString *)powerSource
+                                PostOrGet:(NSString *)postOrGetType
+                                  success:(void (^)(NSDictionary *dict))success
+                                  failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:powerSource forKey:@"powerSource"];
+    
+    [self callInterfaceByUrl:PowerSourceRelevance
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+}
+
 
 @end

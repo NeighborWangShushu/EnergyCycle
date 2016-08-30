@@ -246,7 +246,7 @@
         NSLog(@"%@",str);
         [SVProgressHUD showImage:nil status:str];
     }];
-
+    
 }
 
 
@@ -254,11 +254,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initialize];
-
     [self setup];
-    
     [self getData:YES];
-    
     
     // Do any additional setup after loading the view.
 }
@@ -1193,6 +1190,7 @@
             if ([model.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
                 NSLog(@"删除了点赞人%@",model.userName);
                 [likes removeObject:model];
+                break;
             }
         }
         

@@ -29,4 +29,14 @@
     return self;
 }
 
+- (void)setModel:(UserModel *)model {
+    _model = model;
+    if ([model.readyToDelete isEqualToString:@"readyToDelete"]) {
+        self.dimmingView.hidden = NO;
+    }else {
+        self.dimmingView.hidden = YES;
+    }
+}
+
+
 @end

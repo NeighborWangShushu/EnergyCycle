@@ -14,17 +14,18 @@
 #import "ContactModel.h"
 #import "UIImageView+WebCache.h"
 #import "ECContactSearchBar.h"
+#import "ECSearchDisplayController.h"
+#import "ChineseString.h"
 
 #define kContactCellId @"kContactCellId"
 
 
-@interface ECContactVC ()<UITableViewDelegate,UITableViewDataSource,UISearchDisplayDelegate,UISearchBarDelegate,UISearchResultsUpdating> {
+@interface ECContactVC ()<UITableViewDelegate,UITableViewDataSource,UISearchDisplayDelegate,UISearchBarDelegate,ECContactSearchBarDelegate> {
     BOOL isSearching;
 }
 @property (nonatomic,strong)NSMutableArray * datas;
 @property (nonatomic,strong)NSMutableArray * sectionDatas;
 
-@property (nonatomic,strong)NSMutableArray * selectedDatas;
 
 @property (nonatomic,strong)NSMutableArray * rowDatas;
 
@@ -44,56 +45,83 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self initialize];
     [self setup];
-    [self getData];
     
     // Do any additional setup after loading the view from its nib.
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
+}
+
+
+#pragma mark NavigationBatAction
+
+- (void)leftAction:(UIButton*)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)rightAction:(UIButton*)sender {
+    NSLog(@"selected:%@",self.selectedDatas);
+    if ([self.delegate respondsToSelector:@selector(didSelectedContacts:)]) {
+        [self.delegate didSelectedContacts:self.selectedDatas];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+
+
 - (void)initialize {
+    
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
+    label.text = @"提醒谁看";
+    [label setFont:[UIFont systemFontOfSize:18]];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    [label sizeToFit];
+    self.navigationItem.titleView = label;
+    
+    UIBarButtonItem*leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftAction:)];
+    leftItem.tintColor = [UIColor whiteColor];
+    [leftItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItems = @[leftItem];
+
+    UIBarButtonItem*rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction:)];
+    rightItem.tintColor = [UIColor whiteColor];
+    [rightItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItems = @[rightItem];
+    
+    
     self.sectionDatas = [NSMutableArray array];
     self.contacts = [NSMutableArray array];
     self.datas = [NSMutableArray array];
-    self.selectedDatas = [NSMutableArray array];
     self.searchResultArr=[NSMutableArray array];
-
+    
     
 }
 
 - (void)filterData {
     
-    self.rowDatas = [self getFriendListDataBy:self.contacts];
-    self.sectionDatas = [self getFriendListSectionBy:[self.rowDatas copy]];
+    self.sectionDatas = [ChineseString IndexArray:self.contacts];
+    self.rowDatas = [ChineseString LetterSortArray:self.contacts];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
 }
 
+- (void)setSelectedDatas:(NSMutableArray *)selectedDatas {
+    _selectedDatas = selectedDatas;
+    [self getData];
+    
+}
+
 
 - (void)setup {
-    
-    UIView * nav = [UIView new];
-    nav.backgroundColor = [UIColor colorWithRed:244.0/255.0 green:94.0/255.0 blue:94.0/255.0 alpha:1.0];
-    [self.view addSubview:nav];
-    
-    UIButton * cancel = [UIButton buttonWithType:UIButtonTypeSystem];
-    [cancel.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [cancel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [cancel setTitle:@"取消" forState:UIControlStateNormal];
-    [nav addSubview:cancel];
-    
-    UIButton * sure = [UIButton buttonWithType:UIButtonTypeSystem];
-    [sure.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [sure setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [sure setTitle:@"确定" forState:UIControlStateNormal];
-    [nav addSubview:sure];
-    
-
-    
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -103,18 +131,28 @@
     self.tableView.sectionIndexColor = [UIColor lightGrayColor];
     self.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.tableView];
+
     
+<<<<<<< HEAD
     
     _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
     [_searchBar sizeToFit];
     _searchBar.delegate = self;
     _searchBar.hasCentredPlaceholder = NO;
+=======
+    _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
+    _searchBar.delegate = self;
+    _searchBar.edelegate = self;
+    _searchBar.hasCentredPlaceholder = NO;
+    _searchBar.backgroundColor = [UIColor whiteColor];
+>>>>>>> 2.0-beta-01
     [_searchBar setPlaceholder:@"搜索"];
     [_searchBar setContentMode:UIViewContentModeLeft];
     [_searchBar.layer setBorderWidth:0.5];
     [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
+<<<<<<< HEAD
     self.tableView.tableHeaderView = self.searchBar;
     
     self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
@@ -124,26 +162,36 @@
     
     
     [nav mas_makeConstraints:^(MASConstraintMaker *make) {
+=======
+    [_searchBar sizeToFit];
+    _searchBar.datas = self.selectedDatas;
+    [self.view addSubview:self.searchBar];
+    
+    self.searchController = [[ECSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+    self.searchController.searchResultsDataSource = self;
+    self.searchController.searchResultsDelegate = self;
+    self.searchController.displaysSearchBarInNavigationBar = NO;
+    self.searchController.delegate = self;
+    self.searchController.searchContentsController.view.backgroundColor = [UIColor whiteColor];
+    self.searchController.searchResultsTableView.tableFooterView = [UIView new];
+    self.searchController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
+    [self.searchController.searchBar sizeToFit];
+    _searchController.searchResultsTableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 2.0f, 0.0f);
+
+    
+    [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
+>>>>>>> 2.0-beta-01
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.top.equalTo(self.view.mas_top);
-        make.height.equalTo(@60);
-    }];
-    
-    [cancel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(nav.mas_left).with.offset(20);
-        make.centerY.equalTo(nav.mas_centerY).with.offset(10);
-    }];
-    
-    [sure mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(nav.mas_right).with.offset(-20);
-        make.centerY.equalTo(nav.mas_centerY).with.offset(10);
+        make.height.equalTo(@44);
+        
     }];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(nav.mas_bottom);
+        make.top.equalTo(self.searchBar.mas_bottom);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
 }
@@ -207,7 +255,6 @@
 }
 
 
-
 - (NSMutableArray *)getFriendListSectionBy:(NSMutableArray *)array{
     NSMutableArray *section = [[NSMutableArray alloc] init];
     [section addObject:UITableViewIndexSearch];
@@ -225,15 +272,19 @@
 
 - (void)getData {
     
+    __weak __typeof(self)weakSelf = self;
     [[AppHttpManager shareInstance] getBothHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             for (NSDictionary *dic in dict[@"Data"]) {
                 UserModel *model = [[UserModel alloc] initWithDictionary:dic error:nil];
+                model.isSelected = @"";
+                model.readyToDelete = @"";
+                [weakSelf filterSelectedData:model];
                 [self.contacts addObject:model];
             }
             [self filterData];
-
+            
         }
     } failure:^(NSString *str) {
         NSLog(@"%@", str);
@@ -241,7 +292,25 @@
 
 }
 
+- (void)filterSelectedData:(UserModel*)model {
+    for (UserModel*selectedItem in self.selectedDatas) {
+        if ([selectedItem.use_id isEqualToString:model.use_id]) {
+            model.isSelected = @"isSelected";
+        }
+    }
+    
+}
+
 #pragma mark searchBar delegate
+
+- (void)contactSearchBar:(ECContactSearchBar *)searchBar model:(UserModel *)model isClear:(BOOL)isClear {
+    
+    [self.tableView reloadData];
+    if (isClear) {
+        isSearching = NO;
+    }
+}
+
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     isSearching = YES;
@@ -253,6 +322,7 @@
     [self.tableView reloadData];
 }
 
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     if (!isSearching) {
         isSearching = YES;
@@ -262,29 +332,91 @@
 }
 
 
-#pragma mark UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UserModel*model = self.rowDatas[indexPath.section][indexPath.row];
-    if (model.isSelected) {
-        model.isSelected = nil;
-        [self.selectedDatas removeObject:model];
-    }else {
-        model.isSelected = @"selected";
-        [self.selectedDatas addObject:model];
-    }
-    ECContactCell*cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.model = model;
-    _searchBar.datas = self.selectedDatas;
-    
-}
 
 #pragma mark SearchController Delegate
 
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSString * searchString = searchController.searchBar.text;
-    [self filterContentForSearchText:searchString scope:[searchController.searchBar scopeButtonTitles][searchController.searchBar.selectedScopeButtonIndex]];
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    
+    [_searchBar setShowsCancelButton:YES animated:NO];
+    UIView *topView = controller.searchBar.subviews[0];
+    controller.searchResultsTableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
+   
+    
+    for (UIView *v in topView.subviews) {
+        if ([v isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
+            [v removeFromSuperview];
+        }
+    }
+}
+
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
+    
+    for (UIView *subview in controller.searchContentsController.view.subviews) {
+        
+        if ([subview isKindOfClass:NSClassFromString(@"UISearchDisplayControllerContainerView")])
+        {
+            UIView*searchView = subview.subviews[1];
+            for (UIView*v in searchView.subviews) {
+                if ([v isKindOfClass:NSClassFromString(@"ECContactSearchBar")]) {
+                    NSLog(@"%f",v.frame.origin.y);
+                    CGRect frame = v.frame;
+                    NSLog(@"%f---%f",frame.origin.y,frame.size.height);
+                    frame.origin.y = -20;
+                    v.frame = frame;
+                }
+            }
+        }
+    }
+
+}
+
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
+    
+
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    isSearching = NO;
+    [self.tableView reloadData];
+    
+    
+    
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView {
+    
+    for (UIView *subview in tableView.subviews)
+    {
+        if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewWrapperView"])
+        {
+            subview.frame = CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height);
+        }
+    }
+}
+
+- (void) keyboardWillHide {
+    
+   
+    
+}
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller {
+    
+    isSearching = NO;
+    [self.tableView reloadData];
+
+}
+
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:[[self.searchDisplayController.searchBar scopeButtonTitles]objectAtIndex:searchOption]];
+    return YES;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles]  objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    return YES;
 }
 
 
@@ -300,14 +432,42 @@
         
         NSRange foundRange = [storeString rangeOfString:searchText options:searchOptions range:storeRange];
         if (foundRange.length) {
-            NSDictionary *dic=@{@"name":storeString};
-            UserModel*newmodel = [[UserModel alloc] initWithDictionary:dic error:nil];
-            [tempResults addObject:newmodel];
+            
+            [tempResults addObject:self.contacts[i]];
         }
     }
     
     [_searchResultArr removeAllObjects];
     [_searchResultArr addObjectsFromArray:tempResults];
+}
+
+
+#pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.selectedDatas.count == 10) {
+        [SVProgressHUD showImage:nil status:@"最多选择10人"];
+        return;
+    }
+    
+    UserModel*model = nil;
+    if (isSearching) {
+        model = self.searchResultArr[indexPath.row];
+    }else {
+        model = self.rowDatas[indexPath.section][indexPath.row];
+    }
+    
+    if ([model.isSelected isEqualToString:@"isSelected"]) {
+        model.isSelected = @"";
+        [self.selectedDatas removeObject:model];
+    }else {
+        model.isSelected = @"isSelected";
+        [self.selectedDatas addObject:model];
+    }
+    ECContactCell*cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.model = model;
+    _searchBar.datas = self.selectedDatas;
+    
 }
 
 
@@ -326,11 +486,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     return 50;
 }
 
+
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
+    if (isSearching) {
+        return 0.1;
+    }
     return 22.0;
 }
 
@@ -342,14 +506,20 @@
     }
     UserModel*model = nil;
     if (isSearching) {
-       model = self.searchResultArr[indexPath.row];
+        NSLog(@"%@",self.searchResultArr);
+        if (self.searchResultArr.count) {
+            model = self.searchResultArr[indexPath.row];
+        }
     }else {
-        model = self.rowDatas[indexPath.section][indexPath.row];
+        if (self.rowDatas.count) {
+            model = self.rowDatas[indexPath.section][indexPath.row];
+        }
     }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.name.text = model.nickname;
     cell.model = model;
-    [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
+    [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
     return cell;
     
 }
@@ -364,8 +534,8 @@
         [label setTextColor:[UIColor grayColor]];
         [label setBackgroundColor:[UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1]];
     }
-    if (_sectionDatas.count > 0) {
-        [label setText:[NSString stringWithFormat:@"  %@",_sectionDatas[section+1]]];
+    if (_sectionDatas.count > 0 && !isSearching) {
+        [label setText:[NSString stringWithFormat:@"  %@",_sectionDatas[section]]];
     }
     return label;
 }
@@ -395,14 +565,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

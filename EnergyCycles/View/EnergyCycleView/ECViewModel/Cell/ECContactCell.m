@@ -23,7 +23,7 @@
 
 - (void)setModel:(UserModel *)model {
     _model = model;
-    if (model.isSelected) {
+    if ([model.isSelected isEqualToString:@"isSelected"]) {
         [self.selectedImg setImage:[UIImage imageNamed:@"ec_contact_selected"]];
     }else {
         [self.selectedImg setImage:[UIImage imageNamed:@"ec_contact_unselected"]];

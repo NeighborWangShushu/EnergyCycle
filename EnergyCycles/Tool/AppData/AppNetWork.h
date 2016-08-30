@@ -49,13 +49,19 @@
 //#define INTERFACE_URL @"http://192.168.2.13:8888/"
 
 //测试公网环境
-#define INTERFACE_URL @"http://120.26.218.68:8888/"
+//#define INTERFACE_URL @"http://120.26.218.68:8888/"
 
 //正式环境
+<<<<<<< HEAD
+//#define INTERFACE_URL @"http://120.26.218.68:8038/"
+=======
+
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
+>>>>>>> 2.0-beta-01
+
 //阿里云
-//#define INTERFACE_URL @"http://120.26.218.68:8038/"
+#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 
 #define CCTalk @"http://www.cctalk.com/org/525/?from=singlemessage&isappinstalled=0"
@@ -404,5 +410,14 @@
 
 //105.电台列表
 #define AppRadioList               @"/Study/APP_Radio_LIst"
+
+//106.获取用户每日PK统计
+#define PkStatistics               @"/pk/PK_Statistics_Get"
+
+//107.监测第三方是否是第一次登录
+#define IsFirstLogin               @"other/IsFirstLogin"
+
+//108.为第三方用户添加能量源
+#define PowerSourceRelevance       @"other/PowerSourceRelevance"
 
 #endif

@@ -214,9 +214,9 @@
         </view>
     </objects>
     <resources>
-        <image name="advice.png" width="24" height="28"/>
+        <image name="advice.png" width="12" height="14"/>
         <image name="dizhi.png" width="11" height="16"/>
-        <image name="man.png" width="24" height="24"/>
+        <image name="man.png" width="12" height="12"/>
         <image name="touxiang.png" width="40" height="40"/>
     </resources>
 </document>

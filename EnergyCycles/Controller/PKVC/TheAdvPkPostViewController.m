@@ -34,6 +34,8 @@
     
     XMTwoShareView *shareView;
     UIAlertView *delAlertView;
+    
+    BOOL isImage;
 }
 
 @end
@@ -134,6 +136,7 @@
     shareView.shareTitle = [postDict[@"title"] stringByRemovingPercentEncoding];
     shareView.shareText = [postDict[@"information"] stringByRemovingPercentEncoding];
     shareView.shareUrl = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%@",MYJYAppId];
+    shareView.isImage = isImage;
     
     [[UIApplication sharedApplication].keyWindow addSubview:shareView];
     
@@ -192,6 +195,12 @@
     }else if (title == nil || context == nil) {
         [SVProgressHUD showImage:nil status:@"内容或标题不能为空"];
     }else {
+        if (_dataArr.count) {
+            isImage = YES;
+        } else {
+            isImage = NO;
+        }
+        
         [[AppHttpManager  shareInstance] getAddPostWithPostTypeId:[postTypeId intValue] Title:title Content:context videoUrl:videoUrl userId:[User_ID intValue] token:User_TOKEN postPic:_dataArr PostOrGet:@"post" success:^(NSDictionary *dict) {
             [self creatSuccessShareView];
         } failure:^(NSString *str) {
