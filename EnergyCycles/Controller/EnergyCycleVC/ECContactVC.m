@@ -134,19 +134,19 @@
 
     
     _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
-    [_searchBar sizeToFit];
     _searchBar.delegate = self;
     _searchBar.edelegate = self;
     _searchBar.hasCentredPlaceholder = NO;
     _searchBar.backgroundColor = [UIColor whiteColor];
     [_searchBar setPlaceholder:@"搜索"];
-    
+
     [_searchBar setContentMode:UIViewContentModeLeft];
     [_searchBar.layer setBorderWidth:0.5];
     [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
-    
+    [_searchBar sizeToFit];
+
     self.tableView.tableHeaderView = self.searchBar;
     _searchBar.datas = self.selectedDatas;
 //    self.extendedLayoutIncludesOpaqueBars = YES;
@@ -315,6 +315,7 @@
     [_searchBar setShowsCancelButton:YES animated:NO];
     UIView *topView = controller.searchBar.subviews[0];
     controller.searchResultsTableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
+   
     
     for (UIView *v in topView.subviews) {
         if ([v isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
@@ -323,8 +324,26 @@
     }
 }
 
+
 - (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
     
+    for (UIView *subview in controller.searchContentsController.view.subviews) {
+        
+        if ([subview isKindOfClass:NSClassFromString(@"UISearchDisplayControllerContainerView")])
+        {
+            UIView*searchView = subview.subviews[1];
+            for (UIView*v in searchView.subviews) {
+                if ([v isKindOfClass:NSClassFromString(@"ECContactSearchBar")]) {
+                    NSLog(@"%f",v.frame.origin.y);
+                    CGRect frame = v.frame;
+                    NSLog(@"%f---%f",frame.origin.y,frame.size.height);
+                    frame.origin.y = -20;
+                    v.frame = frame;
+                }
+            }
+        }
+    }
+
 }
 
 
@@ -332,11 +351,18 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     isSearching = NO;
     [self.tableView reloadData];
-
+    
 }
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView {
     
+    for (UIView *subview in tableView.subviews)
+    {
+        if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewWrapperView"])
+        {
+            subview.frame = CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height);
+        }
+    }
 }
 
 - (void) keyboardWillHide {
@@ -403,7 +429,7 @@
     
     if ([model.isSelected isEqualToString:@"isSelected"]) {
         model.isSelected = @"";
-        [self.selectedDatas removeObjectAtIndex:indexPath.row];
+        [self.selectedDatas removeObject:model];
     }else {
         model.isSelected = @"isSelected";
         [self.selectedDatas addObject:model];

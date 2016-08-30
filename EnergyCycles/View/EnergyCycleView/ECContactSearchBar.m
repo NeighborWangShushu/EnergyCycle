@@ -202,7 +202,7 @@
     ECContactSelectedCell*cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
     UserModel*model = self.datas[indexPath.row];
     cell.model = model;
-    [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"touxiang"]];
+    [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang"]];
     
     return cell;
 }
