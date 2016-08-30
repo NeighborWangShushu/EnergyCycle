@@ -174,17 +174,16 @@
     [cell setTheAdvPKCollectionView:^(TheAdvMainModel *model,NSInteger cellTouchIndex) {
         mainTouchModel = model;
         cellIndex = cellTouchIndex;
-<<<<<<< HEAD
-        WebVC *webVC = MainStoryBoard(@"WebVC");
-        webVC.titleName = @"动态详情";
-       NSString *loadStr = [NSString stringWithFormat:@"%@/%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,mainTouchModel.postId,User_ID];
-        webVC.url = loadStr;
-=======
+
+//        WebVC *webVC = MainStoryBoard(@"WebVC");
+//        webVC.titleName = @"动态详情";
+//       NSString *loadStr = [NSString stringWithFormat:@"%@/%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,mainTouchModel.postId,User_ID];
+//        webVC.url = loadStr;
+//=======
 //        [self performSegueWithIdentifier:@"TheAdvPKViewToDetailView" sender:nil];
         WebVC *webVC = MainStoryBoard(@"WebVC");
         webVC.titleName = @"进阶PK详情";
         webVC.url = [NSString stringWithFormat:@"%@%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,model.postId,[NSString stringWithFormat:@"%@",model.userId]];
->>>>>>> wangbin
         [self.navigationController pushViewController:webVC animated:YES];
     }];
     

@@ -23,12 +23,25 @@
 //        [self.searchBar resignFirstResponder];
     }
     
+    
     //move the dimming part down
     for (UIView *subview in self.searchContentsController.view.subviews) {
-        //NSLog(@"%@", NSStringFromClass([subview class]));
+
         if ([subview isKindOfClass:NSClassFromString(@"UISearchDisplayControllerContainerView")])
         {
-            
+//            if (!visible) {
+//                UIView*searchView = subview.subviews[1];
+//                for (UIView*v in searchView.subviews) {
+//                    if ([v isKindOfClass:NSClassFromString(@"ECContactSearchBar")]) {
+//                        NSLog(@"%f",v.frame.origin.y);
+//                        CGRect frame = v.frame;
+//                        NSLog(@"%f---%f",frame.origin.y,frame.size.height);
+//                        frame.origin.y = 0;
+//                        v.frame = frame;
+//                    }
+//                }
+//            }
+        
             UIView*view = subview.subviews[2];
             for (UIView*v in view.subviews) {
                 if ([v isKindOfClass:NSClassFromString(@"_UISearchDisplayControllerDimmingView")]) {

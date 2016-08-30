@@ -484,6 +484,7 @@
 #pragma mark ShareSuccess
 
 - (void)QQShareSuccess {
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -495,7 +496,7 @@
 }
 
 - (void)wechatSessionShareSuccess {
-    
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -507,7 +508,7 @@
 }
 
 - (void)wechatTimeLineShareSuccess {
-    
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -519,6 +520,7 @@
 }
 
 - (void)weiboShareSuccess {
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -559,7 +561,7 @@
 - (void)shareCancel {
     
     [SVProgressHUD dismiss];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self back];
     
 }
 

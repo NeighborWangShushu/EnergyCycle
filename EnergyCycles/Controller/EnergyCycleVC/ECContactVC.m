@@ -139,17 +139,14 @@
     _searchBar.hasCentredPlaceholder = NO;
     _searchBar.backgroundColor = [UIColor whiteColor];
     [_searchBar setPlaceholder:@"搜索"];
-
     [_searchBar setContentMode:UIViewContentModeLeft];
     [_searchBar.layer setBorderWidth:0.5];
     [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
     [_searchBar sizeToFit];
-
-    self.tableView.tableHeaderView = self.searchBar;
     _searchBar.datas = self.selectedDatas;
-//    self.extendedLayoutIncludesOpaqueBars = YES;
+    [self.view addSubview:self.searchBar];
     
     self.searchController = [[ECSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     self.searchController.searchResultsDataSource = self;
@@ -163,10 +160,18 @@
     _searchController.searchResultsTableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 2.0f, 0.0f);
 
     
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.top.equalTo(self.view.mas_top);
+        make.height.equalTo(@44);
+        
+    }];
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.top.equalTo(self.searchBar.mas_bottom);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
 }
@@ -348,9 +353,14 @@
 
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
+    
+
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     isSearching = NO;
     [self.tableView reloadData];
+    
+    
     
 }
 
@@ -367,7 +377,7 @@
 
 - (void) keyboardWillHide {
     
- 
+   
     
 }
 
