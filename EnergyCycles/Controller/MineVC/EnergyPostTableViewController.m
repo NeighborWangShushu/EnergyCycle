@@ -242,6 +242,7 @@
 //        return 0;
 //    }
     id model = self.dataArray[indexPath.row];
+    NSLog(@"%ld",indexPath.row);
     CGFloat height = [self.tableView cellHeightForIndexPath:indexPath model:model keyPath:@"model" cellClass:[ECTimeLineCell class] contentViewWidth:[self cellContentViewWith]];
     return height;
 }

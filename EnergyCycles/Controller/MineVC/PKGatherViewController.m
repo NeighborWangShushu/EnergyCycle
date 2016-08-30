@@ -189,12 +189,17 @@
     
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     [self setupRightNavBarWithTitle:@"分享"];
-    self.isToDay = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self getToDayPKData];
+    if (_isHistory) {
+        self.isToDay = NO;
+        [self getPkRecordData];
+    } else {
+        self.isToDay = YES;
+        [self getToDayPKData];
+    }
 
 //    [self segmentedControlChangedValue:self.segControl];
     
