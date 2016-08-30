@@ -34,7 +34,7 @@
     [alertView setBackgroundViewColor:[UIColor clearColor]];
     alertView.shouldDismissOnTapOutside = YES;
     UIImageView*img = [[UIImageView alloc] initWithImage:contentImg];
-    [img setFrame:CGRectMake(0, 0, 182, 176)];
+    [img setFrame:CGRectMake(10, 0, 182, 176)];
     [alertView addCustomView:img];
     [alertView showTitle:@"" subTitle:@"" style:Custom closeButtonTitle:@"" duration:2.0];
 }

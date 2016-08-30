@@ -185,7 +185,7 @@
     
     if (_model) {
         energyPostViewCell.informationTextView.text = _model.context;
-        [postDict setObject:_model.context forKey:@"title"];
+        [postDict setObject:_model.context forKey:@"content"];
         
         NSString*documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)firstObject];
         NSString*newFielPath = [documentsPath stringByAppendingPathComponent:_model.imgLocalURL];
@@ -310,6 +310,7 @@
 }
 
 - (void)back {
+    
     if (isShare && isSubmitImg) {
         if (postNumToday <= 5) {
             [[SLALertManager shareManager] showAlert:SLScroeTypeSix];
@@ -402,10 +403,10 @@
     [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:context VideoUrl:viderUrl UserId:[User_ID intValue] token:User_TOKEN List:_dataArr Location:@"" UserList:contactIds PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [SVProgressHUD showImage:nil status:@"发布成功"];
-            postIndex = [[dict objectForKey:@"Data"] integerValue];
-            //当天发布能量贴次数
-            postNumToday = [[dict objectForKey:@"ArticleCount"] integerValue];
             
+            postIndex = [[[dict objectForKey:@"Data"][0] objectForKey:@"ArtID"] integerValue];
+            //当天发布能量贴次数
+            postNumToday = [[[dict objectForKey:@"Data"][0] objectForKey:@"ArticleCount"] integerValue];
             
             if ([_sharesArray count]) {
                 [self share:_sharesArray];
@@ -427,11 +428,10 @@
 
 -(void)submitImage:(NSData*)imageData {
     
-    isSubmitImg = YES;
-    
     [[AppHttpManager shareInstance] postPostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             _tempIndex++;
+            isSubmitImg = YES;
             NSString * imgURL=[dict[@"Data"] firstObject];
             [_dataArr addObject:imgURL];
             NSLog(@"selectImgArrayLocal:%lu",(unsigned long)[_selectImgArrayLocal count]);
@@ -484,6 +484,7 @@
 #pragma mark ShareSuccess
 
 - (void)QQShareSuccess {
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -495,7 +496,7 @@
 }
 
 - (void)wechatSessionShareSuccess {
-    
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -507,7 +508,7 @@
 }
 
 - (void)wechatTimeLineShareSuccess {
-    
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -519,6 +520,7 @@
 }
 
 - (void)weiboShareSuccess {
+    isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
     if ([_sharesArray count]) {
         NSNumber*num = _sharesArray[0];
@@ -559,7 +561,7 @@
 - (void)shareCancel {
     
     [SVProgressHUD dismiss];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self back];
     
 }
 

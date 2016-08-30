@@ -54,7 +54,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
 }
@@ -101,7 +100,7 @@
     self.contacts = [NSMutableArray array];
     self.datas = [NSMutableArray array];
     self.searchResultArr=[NSMutableArray array];
-
+    
     
 }
 
@@ -118,7 +117,7 @@
 - (void)setSelectedDatas:(NSMutableArray *)selectedDatas {
     _selectedDatas = selectedDatas;
     [self getData];
-
+    
 }
 
 
@@ -132,39 +131,47 @@
     self.tableView.sectionIndexColor = [UIColor lightGrayColor];
     self.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.tableView];
-    
+
     
     _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
-    [_searchBar sizeToFit];
     _searchBar.delegate = self;
     _searchBar.edelegate = self;
     _searchBar.hasCentredPlaceholder = NO;
     _searchBar.backgroundColor = [UIColor whiteColor];
-    _searchBar.tintColor = [UIColor whiteColor];
     [_searchBar setPlaceholder:@"搜索"];
     [_searchBar setContentMode:UIViewContentModeLeft];
     [_searchBar.layer setBorderWidth:0.5];
     [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
-    self.tableView.tableHeaderView = self.searchBar;
+    [_searchBar sizeToFit];
     _searchBar.datas = self.selectedDatas;
-
+    [self.view addSubview:self.searchBar];
     
     self.searchController = [[ECSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     self.searchController.searchResultsDataSource = self;
     self.searchController.searchResultsDelegate = self;
+    self.searchController.displaysSearchBarInNavigationBar = NO;
     self.searchController.delegate = self;
     self.searchController.searchContentsController.view.backgroundColor = [UIColor whiteColor];
     self.searchController.searchResultsTableView.tableFooterView = [UIView new];
     self.searchController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
     [self.searchController.searchBar sizeToFit];
+    _searchController.searchResultsTableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 2.0f, 0.0f);
+
     
+    [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.top.equalTo(self.view.mas_top);
+        make.height.equalTo(@44);
+        
+    }];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(self.view.mas_top);
+        make.top.equalTo(self.searchBar.mas_bottom);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
 }
@@ -313,6 +320,7 @@
     [_searchBar setShowsCancelButton:YES animated:NO];
     UIView *topView = controller.searchBar.subviews[0];
     controller.searchResultsTableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
+   
     
     for (UIView *v in topView.subviews) {
         if ([v isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
@@ -321,20 +329,55 @@
     }
 }
 
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
+    
+    for (UIView *subview in controller.searchContentsController.view.subviews) {
+        
+        if ([subview isKindOfClass:NSClassFromString(@"UISearchDisplayControllerContainerView")])
+        {
+            UIView*searchView = subview.subviews[1];
+            for (UIView*v in searchView.subviews) {
+                if ([v isKindOfClass:NSClassFromString(@"ECContactSearchBar")]) {
+                    NSLog(@"%f",v.frame.origin.y);
+                    CGRect frame = v.frame;
+                    NSLog(@"%f---%f",frame.origin.y,frame.size.height);
+                    frame.origin.y = -20;
+                    v.frame = frame;
+                }
+            }
+        }
+    }
+
+}
+
+
 - (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
+    
+
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     isSearching = NO;
     [self.tableView reloadData];
-
+    
+    
+    
 }
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView {
     
+    for (UIView *subview in tableView.subviews)
+    {
+        if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewWrapperView"])
+        {
+            subview.frame = CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height);
+        }
+    }
 }
 
 - (void) keyboardWillHide {
     
- 
+   
     
 }
 
@@ -378,6 +421,7 @@
     [_searchResultArr addObjectsFromArray:tempResults];
 }
 
+
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -395,7 +439,7 @@
     
     if ([model.isSelected isEqualToString:@"isSelected"]) {
         model.isSelected = @"";
-        [self.selectedDatas removeObjectAtIndex:indexPath.row];
+        [self.selectedDatas removeObject:model];
     }else {
         model.isSelected = @"isSelected";
         [self.selectedDatas addObject:model];
@@ -442,15 +486,20 @@
     }
     UserModel*model = nil;
     if (isSearching) {
-       model = self.searchResultArr[indexPath.row];
+        NSLog(@"%@",self.searchResultArr);
+        if (self.searchResultArr.count) {
+            model = self.searchResultArr[indexPath.row];
+        }
     }else {
-        model = self.rowDatas[indexPath.section][indexPath.row];
+        if (self.rowDatas.count) {
+            model = self.rowDatas[indexPath.section][indexPath.row];
+        }
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.name.text = model.nickname;
     cell.model = model;
-    [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
+    [cell.avatar sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
     return cell;
     
 }
@@ -465,7 +514,7 @@
         [label setTextColor:[UIColor grayColor]];
         [label setBackgroundColor:[UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1]];
     }
-    if (_sectionDatas.count > 0) {
+    if (_sectionDatas.count > 0 && !isSearching) {
         [label setText:[NSString stringWithFormat:@"  %@",_sectionDatas[section]]];
     }
     return label;
