@@ -16,6 +16,8 @@
 
 @property (nonatomic,strong)NSDictionary * data;
 
+@property (nonatomic,strong)NSDictionary *radioData;
+
 @property (nonatomic,strong)ReferralModel * model;
 
 @property (nonatomic,copy)NSString * type;

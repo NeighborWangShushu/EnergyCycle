@@ -30,6 +30,8 @@
 #import "FriendViewController.h"
 #import "MineAdvPKViewController.h"
 #import "RecommendedTableViewController.h"
+#import "DraftsTableViewController.h"
+
 #import "AppDelegate.h"
 
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
@@ -65,7 +67,7 @@
 // 每一组的行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 1) {
-        return 7;
+        return 8;
     } else if (section == 2) {
         return 2;
     } else {
@@ -179,6 +181,10 @@
             [self.delegate.tabbarController hideTabbar:YES];
             InformTableViewController *informVC = [[InformTableViewController alloc] init];
             [self.navigationController pushViewController:informVC animated:YES];
+        } else if (indexPath.row == 7) { // 草稿箱
+            [self.delegate.tabbarController hideTabbar:YES];
+            DraftsTableViewController *draftsVC = [[DraftsTableViewController alloc] init];
+            [self.navigationController pushViewController:draftsVC animated:YES];
         }
         //        } else if (indexPath.row == 4) { // PK记录
         //            PKRecordTableViewController *pkVC = [[PKRecordTableViewController alloc] init];
@@ -271,6 +277,7 @@
     [super viewDidAppear:animated];
     if (self.delegate.isPushToMessageView) {
         self.delegate.isPushToMessageView = NO;
+        [self.delegate.tabbarController hideTabbar:YES];
         [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
     }
 }
@@ -302,6 +309,7 @@
             if ([dict[@"Data"] count]) {
                 for (NSDictionary *subDict in dict[@"Data"]) {
                     UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
+                    
                     self.model = model;
                 }
                 

@@ -22,7 +22,7 @@
 
 
 // 推荐
-- (id)initWithReferral:(NSDictionary *)data;
+- (id)initWithReferral:(NSDictionary *)data radioData:(NSDictionary *)radioData;
 
 //热门
 - (id)initWithHot:(NSDictionary *)data;

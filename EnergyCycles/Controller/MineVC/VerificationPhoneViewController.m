@@ -15,6 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
 
+@property (weak, nonatomic) IBOutlet UILabel *hint;
+
 @property (weak, nonatomic) IBOutlet UITextField *verificationCode;
 
 @property (weak, nonatomic) IBOutlet UIButton *getCode;
@@ -120,7 +122,7 @@
         [SVProgressHUD showImage:nil status:@"请输入合法的手机号"];
     } else if ([self.verificationCode.text length] == 0) {
         [SVProgressHUD showImage:nil status:@"请输入验证码"];
-    } else if (self.code != self.verificationCode.text) {
+    } else if (![self.code isEqualToString:self.verificationCode.text]) {
         [SVProgressHUD showImage:nil status:@"验证码错误"];
     } else {
         if (self.isOtherLogin) {
@@ -167,8 +169,14 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"账号管理";
+    if (self.isOtherLogin) {
+        self.navigationItem.title = @"更改手机号";
+    }
+    if (self.havePhone) {
+        self.hint.text = @"请输入新的绑定手机号";
+    }
     [self setupLeftNavBarWithimage:@"loginfanhui"];
-
+    
     self.timeCount = timeNumber;
     self.enabled = NO;
     

@@ -328,11 +328,10 @@
             cell.userInteractionEnabled = NO;
             cell.constraint.constant = 17;
             cell.rightImage.hidden = YES;
-            NSString *string = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginType"]];
             cell.rightLabel.text = [self.model.phone length]<=0?postDict[@"phoneno"]:self.model.phone;
             [postDict setObject:[self.model.phone length]<=0?@"":self.model.phone forKey:@"phoneno"];
         } else {
-            cell.rightLabel.text = [self.model.Tel length]<=0?postDict[@"phoneno"]:self.model.phone;
+            cell.rightLabel.text = [self.model.Tel length]<=0?postDict[@"phoneno"]:self.model.Tel;
             [postDict setObject:[self.model.Tel length]<=0?@"":self.model.Tel forKey:@"phoneno"];
         }
         
@@ -501,6 +500,9 @@
     } else if (indexPath.row == 4) {
         VerificationPhoneViewController *verVC = MainStoryBoard(@"VerificationPhoneViewController");
         verVC.isOtherLogin = YES;
+        if (self.model.Tel) {
+            verVC.havePhone = YES;
+        }
         [self.navigationController pushViewController:verVC animated:YES];
     } else {
         [self performSegueWithIdentifier:@"MyProfieViewToChangeProfireViuew" sender:nil];

@@ -52,7 +52,9 @@
 //#define INTERFACE_URL @"http://120.26.218.68:8888/"
 
 //正式环境
+
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"
+
 
 //阿里云
 #define INTERFACE_URL @"http://120.26.218.68:8038/"
@@ -401,5 +403,17 @@
 
 //104. 修改个人资料中的手机号
 #define AppUserTelUpdate           @"/user/AppUser_Tel_Upd"
+
+//105.电台列表
+#define AppRadioList               @"/Study/APP_Radio_LIst"
+
+//106.获取用户每日PK统计
+#define PkStatistics               @"/pk/PK_Statistics_Get"
+
+//107.监测第三方是否是第一次登录
+#define IsFirstLogin               @"other/IsFirstLogin"
+
+//108.为第三方用户添加能量源
+#define PowerSourceRelevance       @"other/PowerSourceRelevance"
 
 #endif

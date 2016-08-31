@@ -20,12 +20,12 @@
 //            self.rightLabel.text = userInfoModel.NLQCount;
 //            [self lineView];
 //        } else if (index == 1) {
-//            self.leftImage.image = [UIImage imageNamed:@"Group 7"];
+//            self.leftImage.image = [UIImage imageNamed:@"MineAttention"];
 //            self.leftLabel.text = @"关注";
 //            self.rightLabel.text = userInfoModel.GuanZhuCount;
 //            [self lineView];
 //        } else if (index == 2) {
-//            self.leftImage.image = [UIImage imageNamed:@"Group 6"];
+//            self.leftImage.image = [UIImage imageNamed:@"fans"];
 //            self.leftLabel.text = @"粉丝";
 //            self.rightLabel.text = userInfoModel.FenSiCount;
 //            [self lineView];
@@ -35,7 +35,7 @@
 //            self.rightLabel.text = userInfoModel.MsgCount;
 //            [self lineView];
 //        } else if (index == 4) {
-//            self.leftImage.image = [UIImage imageNamed:@"Group 5"];
+//            self.leftImage.image = [UIImage imageNamed:@"circle"];
 //            self.leftLabel.text = @"PK记录";
 //            self.rightLabel.text = @"";
 //            [self lineView];
@@ -59,17 +59,17 @@
             self.rightLabel.text = @"修改";
             [self lineView];
         } else if (index == 2) {
-            self.leftImage.image = [UIImage imageNamed:@"Group 5"];
+            self.leftImage.image = [UIImage imageNamed:@"circle"];
             self.leftLabel.text = @"我的社交圈";
             self.rightLabel.text = @"好友";
             [self lineView];
         } else if (index == 3) {
-            self.leftImage.image = [UIImage imageNamed:@"Group 7"];
+            self.leftImage.image = [UIImage imageNamed:@"MineAttention"];
             self.leftLabel.text = @"关注";
             self.rightLabel.text = userInfoModel.GuanZhuCount;
             [self lineView];
         } else if (index == 4) {
-            self.leftImage.image = [UIImage imageNamed:@"Group 6"];
+            self.leftImage.image = [UIImage imageNamed:@"fans"];
             self.leftLabel.text = @"粉丝";
             self.rightLabel.text = userInfoModel.FenSiCount;
             [self lineView];
@@ -92,6 +92,11 @@
             } else {
                 self.rightLabel.textColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
             }
+            [self lineView];
+        } else if (index == 7) {
+            self.leftImage.image = [UIImage imageNamed:@"inbox-icon"];
+            self.leftLabel.text = @"草稿箱";
+            self.rightLabel.hidden = YES;
         }
     } else if (section == 2) {
         if (index == 0) {
@@ -106,7 +111,7 @@
         }
         
     } else if (section == 3) {
-        self.leftImage.image = [UIImage imageNamed:@"Group 62"];
+        self.leftImage.image = [UIImage imageNamed:@"set"];
         self.leftLabel.text = @"设置";
         self.rightLabel.text = @"";
     } else if (section == 4) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -56,14 +56,24 @@
                             <action selector="shareAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VbP-t3-QAW"/>
                         </connections>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZ8-I6-nZg">
+                        <rect key="frame" x="16" y="42" width="304" height="1"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="YfU-dY-jgW"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ozg-7d-Nti" firstAttribute="centerY" secondItem="8zn-5q-WIX" secondAttribute="centerY" id="41T-7A-IVm"/>
                     <constraint firstItem="EIT-Ns-A3v" firstAttribute="leading" secondItem="Ozg-7d-Nti" secondAttribute="trailing" constant="10" id="7Kw-cJ-Gux"/>
+                    <constraint firstItem="FZ8-I6-nZg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="9N6-LT-Q0w"/>
                     <constraint firstItem="Ozg-7d-Nti" firstAttribute="leading" secondItem="8zn-5q-WIX" secondAttribute="trailing" constant="10" id="Rga-qE-Ko4"/>
                     <constraint firstItem="dsU-xf-vSW" firstAttribute="leading" secondItem="EIT-Ns-A3v" secondAttribute="trailing" constant="10" id="WOe-Tg-m34"/>
                     <constraint firstItem="8zn-5q-WIX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="YpV-6N-eah"/>
                     <constraint firstItem="8zn-5q-WIX" firstAttribute="leading" secondItem="1bt-ka-55I" secondAttribute="trailing" constant="18" id="bLD-na-81n"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="FZ8-I6-nZg" secondAttribute="trailing" constant="-8" id="csR-0e-3Et"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="FZ8-I6-nZg" secondAttribute="bottom" constant="-7.5" id="g1P-0b-76Z"/>
                     <constraint firstItem="1bt-ka-55I" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="kNr-6v-azJ"/>
                     <constraint firstItem="EIT-Ns-A3v" firstAttribute="centerY" secondItem="Ozg-7d-Nti" secondAttribute="centerY" id="qzA-8b-FNd"/>
                     <constraint firstItem="1bt-ka-55I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="x1b-f7-kVZ"/>

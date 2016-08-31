@@ -612,6 +612,8 @@
                          UserId:(int)UserId
                           token:(NSString *)token
                            List:(NSArray *)list
+                       Location:(NSString*)location
+                       UserList:(NSArray*)userlist
                       PostOrGet:(NSString *)postOrGetType
                         success:(void (^)(NSDictionary *dict))success
                         failure:(void (^)(NSString *str))failure;
@@ -1213,5 +1215,36 @@
                             PostOrGet:(NSString *)postOrGetType
                               success:(void (^)(NSDictionary *dict))success
                               failure:(void (^)(NSString *str))failure;
+#pragma mark - 105.电台列表
+// 输入参数:无
+- (void)getAppRadioListPostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 106.获取用户每日PK统计
+// 输入参数:UserID      int // 用户ID
+- (void)getPkStatisticsWithUserid:(int)userid
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 107.监测第三方是否第一次登录
+// 输入参数:loginType   int // 登录类型
+// 输入参数:openId      string // 登录ID
+- (void)IsFirstLoginWithLoginType:(int)loginType
+                           openId:(NSString *)openId
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 108.为第三方用户添加能量源
+// 输入参数:UserID      int // 用户ID
+// 输入参数:powerSource string // 能量源
+- (void)getPowerSourceRelevanceWithUserID:(int)userid
+                                    Token:(NSString *)token
+                              PowerSource:(NSString *)powerSource
+                                PostOrGet:(NSString *)postOrGetType
+                                  success:(void (^)(NSDictionary *dict))success
+                                  failure:(void (^)(NSString *str))failure;
 
 @end
