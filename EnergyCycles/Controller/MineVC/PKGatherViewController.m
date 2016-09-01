@@ -17,6 +17,8 @@
 
 @interface PKGatherViewController () <UITableViewDelegate, UITableViewDataSource> {
     XMShareView *shareView;
+    UIBarButtonItem *shareBarButton;
+    UIBarButtonItem *postBarButton;
 }
 
 @property (nonatomic, strong) NSMutableArray *toDayArr;
@@ -188,16 +190,19 @@
     [self createSegmentControl];
     
     [self setupLeftNavBarWithimage:@"loginfanhui"];
-    [self setupRightNavBarWithTitle:@"分享"];
+    [self createRightButton];
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (_isHistory) {
         self.isToDay = NO;
+        [self removeBarButton];
         [self getPkRecordData];
     } else {
         self.isToDay = YES;
+        [self addBarButton];
         [self getToDayPKData];
     }
 
@@ -206,39 +211,95 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)rightAction {
-    NSString *contentStr = @"";
-    for (NSInteger i=0; i<self.toDayArr.count; i++) {
-        OtherReportModel *model = (OtherReportModel *)self.toDayArr[i];
-        
-        if (i == self.toDayArr.count-1) {
-            contentStr = [NSString stringWithFormat:@"%@%@%@%@",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
-        }else {
-            contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
+- (void)addBarButton {
+    self.navigationItem.rightBarButtonItems = @[shareBarButton, postBarButton];
+}
+
+- (void)removeBarButton {
+    self.navigationItem.rightBarButtonItems = nil;
+}
+
+- (void)createRightButton {
+    
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shareButton.frame = CGRectMake(30, 0, 49, 18);
+    [shareButton setImage:[UIImage imageNamed:@"PKGather_Share"] forState:UIControlStateNormal];
+    [shareButton addTarget:self action:@selector(clickShareButton) forControlEvents:UIControlEventTouchUpInside];
+    shareBarButton = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+    
+    UIButton *postButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    postButton.frame = CGRectMake(20, 0, 49, 18);
+    [postButton setImage:[UIImage imageNamed:@"PKGather_Posting"] forState:UIControlStateNormal];
+    [postButton addTarget:self action:@selector(clickPostButton) forControlEvents:UIControlEventTouchUpInside];
+    postBarButton = [[UIBarButtonItem alloc] initWithCustomView:postButton];
+    
+}
+
+- (void)clickShareButton {
+    if (self.toDayArr.count) {
+        NSString *contentStr = @"";
+        for (NSInteger i=0; i<self.toDayArr.count; i++) {
+            OtherReportModel *model = (OtherReportModel *)self.toDayArr[i];
+            
+            if (i == self.toDayArr.count-1) {
+                contentStr = [NSString stringWithFormat:@"%@%@%@%@",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
+            }else {
+                contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
+            }
         }
+        NSString *shareStr = [NSString stringWithFormat:@"我今天%@，加入能量圈，和我一起PK吧！",contentStr];
+        shareView = [[XMShareView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height)];
+        shareView.alpha = 0.0;
+        shareView.shareTitle = shareStr;
+        shareView.shareText = @"";
+        NSString * share_url = @"";
+        share_url = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%@",MYJYAppId];
+        shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
+        [[UIApplication sharedApplication].keyWindow addSubview:shareView];
+        [UIView animateWithDuration:0.25 animations:^{
+            shareView.alpha = 1.0;
+        }];
+    } else {
+        [SVProgressHUD showImage:nil status:@"今天你还没有进行PK哦"];
     }
-    NSString *shareStr = [NSString stringWithFormat:@"我今天%@，加入能量圈，和我一起PK吧！",contentStr];
-    shareView = [[XMShareView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height)];
-    shareView.alpha = 0.0;
-    shareView.shareTitle = shareStr;
-    shareView.shareText = @"";
-    NSString * share_url = @"";
-    share_url = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%@",MYJYAppId];
-    shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
-    [[UIApplication sharedApplication].keyWindow addSubview:shareView];
-    [UIView animateWithDuration:0.25 animations:^{
-        shareView.alpha = 1.0;
-    }];
+}
+
+- (void)clickPostButton {
+    if (self.toDayArr.count) {
+        NSString *contentStr = @"";
+        for (NSInteger i=0; i<self.toDayArr.count; i++) {
+            OtherReportModel *model = (OtherReportModel *)self.toDayArr[i];
+            
+            if (i == self.toDayArr.count-1) {
+                contentStr = [NSString stringWithFormat:@"%@%@%@%@",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
+            }else {
+                contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
+            }
+        }
+        NSString *postStr = [NSString stringWithFormat:@"我今天完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
+        NSLog(@"%@", postStr);
+        [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:postStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:nil Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                [SVProgressHUD showImage:nil status:@"能量帖发布成功!"];
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    } else {
+        [SVProgressHUD showImage:nil status:@"今天你还没有进行PK哦"];
+    }
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl*)sender {
     if (sender.selectedSegmentIndex == 0) {
         self.isToDay = YES;
         self.title = @"每日PK";
+        [self addBarButton];
         [self getToDayPKData];
     } else if (sender.selectedSegmentIndex == 1) {
         self.isToDay = NO;
         self.title = @"历史记录";
+        [self removeBarButton];
         [self getPkRecordData];
     }
 }

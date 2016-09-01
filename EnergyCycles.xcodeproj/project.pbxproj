@@ -522,6 +522,10 @@
 		626D3F1F1D48DB2100724000 /* MineChatLeftTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F1D1D48DB2100724000 /* MineChatLeftTableViewCell.xib */; };
 		626D3F2A1D48E1CF00724000 /* chat_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F281D48E1CF00724000 /* chat_left.png */; };
 		626D3F2B1D48E1CF00724000 /* chat_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F291D48E1CF00724000 /* chat_right.png */; };
+		626E6E9F1D77C6A60022C2BA /* PKGather_Posting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626E6E9B1D77C6A60022C2BA /* PKGather_Posting@2x.png */; };
+		626E6EA01D77C6A60022C2BA /* PKGather_Posting@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626E6E9C1D77C6A60022C2BA /* PKGather_Posting@3x.png */; };
+		626E6EA11D77C6A60022C2BA /* PKGather_Share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626E6E9D1D77C6A60022C2BA /* PKGather_Share@3x.png */; };
+		626E6EA21D77C6A60022C2BA /* PKGather_Share@3x.png@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626E6E9E1D77C6A60022C2BA /* PKGather_Share@3x.png@2x.png */; };
 		62724E671D41BBE300E84202 /* more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E661D41BBE300E84202 /* more@2x.png */; };
 		62724E691D41BBE800E84202 /* more@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E681D41BBE800E84202 /* more@3x.png */; };
 		62724E6E1D42225900E84202 /* addAttentionButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E6A1D42225900E84202 /* addAttentionButton@2x.png */; };
@@ -2268,6 +2272,10 @@
 		626D3F1D1D48DB2100724000 /* MineChatLeftTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineChatLeftTableViewCell.xib; sourceTree = "<group>"; };
 		626D3F281D48E1CF00724000 /* chat_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_left.png; sourceTree = "<group>"; };
 		626D3F291D48E1CF00724000 /* chat_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_right.png; sourceTree = "<group>"; };
+		626E6E9B1D77C6A60022C2BA /* PKGather_Posting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PKGather_Posting@2x.png"; sourceTree = "<group>"; };
+		626E6E9C1D77C6A60022C2BA /* PKGather_Posting@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PKGather_Posting@3x.png"; sourceTree = "<group>"; };
+		626E6E9D1D77C6A60022C2BA /* PKGather_Share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PKGather_Share@3x.png"; sourceTree = "<group>"; };
+		626E6E9E1D77C6A60022C2BA /* PKGather_Share@3x.png@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PKGather_Share@3x.png@2x.png"; sourceTree = "<group>"; };
 		62724E661D41BBE300E84202 /* more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more@2x.png"; sourceTree = "<group>"; };
 		62724E681D41BBE800E84202 /* more@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more@3x.png"; sourceTree = "<group>"; };
 		62724E6A1D42225900E84202 /* addAttentionButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addAttentionButton@2x.png"; sourceTree = "<group>"; };
@@ -7638,6 +7646,10 @@
 		DAE0347A1C182181007E6DBD /* every */ = {
 			isa = PBXGroup;
 			children = (
+				626E6E9B1D77C6A60022C2BA /* PKGather_Posting@2x.png */,
+				626E6E9C1D77C6A60022C2BA /* PKGather_Posting@3x.png */,
+				626E6E9D1D77C6A60022C2BA /* PKGather_Share@3x.png */,
+				626E6E9E1D77C6A60022C2BA /* PKGather_Share@3x.png@2x.png */,
 				6202B1631D62FF9A000F7F39 /* help@2x.png */,
 				6202B1641D62FF9A000F7F39 /* help@3x.png */,
 				6202B1651D62FF9A000F7F39 /* off */,
@@ -7966,6 +7978,8 @@
 				62FCE9101D3CB2A500F52E05 /* addAttention@3x.png in Resources */,
 				DAAEC6D21C1FB0C400FA094B /* CourseChooseTableViewCell.xib in Resources */,
 				DA7675231C2805D600A34D9C /* MyPointTableViewCell.xib in Resources */,
+				626E6E9F1D77C6A60022C2BA /* PKGather_Posting@2x.png in Resources */,
+				626E6EA21D77C6A60022C2BA /* PKGather_Share@3x.png@2x.png in Resources */,
 				625750BE1D337F6200E46B2E /* Group@2x.png in Resources */,
 				DA796B341C7AB8A40076C52B /* zoom@3x.png in Resources */,
 				26D8B27D1C10081100A1DB04 /* road_1@3x.png in Resources */,
@@ -8123,6 +8137,7 @@
 				D07E24231D11554700854B51 /* OtherCell.xib in Resources */,
 				DA9A95261C23ABEE00FBE107 /* gengxin@3x.png in Resources */,
 				D04B54F91D23D64600DC259A /* icon0.jpg in Resources */,
+				626E6EA11D77C6A60022C2BA /* PKGather_Share@3x.png in Resources */,
 				DAE0350A1C182181007E6DBD /* meirix@3x.png in Resources */,
 				DA9A952B1C23ABEE00FBE107 /* jiangpai02@2x.png in Resources */,
 				DA82CCFD1C3D066900C6D8EA /* cellbg@3x.png in Resources */,
@@ -8469,6 +8484,7 @@
 				DAD1A1E91C16F31A000A39D3 /* PkHomeCollectionViewCell.xib in Resources */,
 				DA677B7F1C3A6E11004A534E /* QDDT00021.png in Resources */,
 				26D8B25A1C0FEEE900A1DB04 /* 31_2@2x.png in Resources */,
+				626E6EA01D77C6A60022C2BA /* PKGather_Posting@3x.png in Resources */,
 				DA8AFF481C2A4BF90064B9A7 /* 03nengliang@2x.png in Resources */,
 				D08352041D2CE79B0094AC2E /* ec_invite@2x.png in Resources */,
 				625750BA1D337F5600E46B2E /* location@2x.png in Resources */,

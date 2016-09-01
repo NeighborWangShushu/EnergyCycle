@@ -138,6 +138,7 @@
 
 
 - (void)tableViewScroll:(UITableView *)tableView offsetY:(CGFloat)offsetY {
+    NSLog(@"%f",offsetY);
     if (offsetY > kHeaderImgHeight - kNavigationHeight) {
         if (![self.mineView.superview isEqual:self.view]) {
             [self.view insertSubview:self.mineView belowSubview:self.navigationController.navigationBar];
@@ -156,7 +157,6 @@
         
         CGRect rect = self.mineView.frame;
         rect.origin.y = - offsetY;
-//        NSLog(@"y = %f",rect.origin.y);
         self.mineView.frame = rect;
 
     }
