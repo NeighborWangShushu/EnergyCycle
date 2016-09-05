@@ -533,6 +533,9 @@
 		62724E701D42225900E84202 /* attentionButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E6C1D42225900E84202 /* attentionButton@2x.png */; };
 		62724E711D42225900E84202 /* attentionButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62724E6D1D42225900E84202 /* attentionButton@3x.png */; };
 		627F76F81D38D9EF00552B96 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 627F76F71D38D9EF00552B96 /* IntroViewController.m */; };
+		628C74E21D795408002C9FCF /* MineHomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 628C74E11D795408002C9FCF /* MineHomeTableViewController.m */; };
+		628C74E51D795AD8002C9FCF /* MineHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 628C74E41D795AD8002C9FCF /* MineHomeView.m */; };
+		628C74E71D795AE7002C9FCF /* MineHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 628C74E61D795AE7002C9FCF /* MineHomeView.xib */; };
 		629485A21D3F8B0100938E49 /* CommentUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 629485A11D3F8B0100938E49 /* CommentUserModel.m */; };
 		629495051D6BED2500B13A3F /* inbox-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 629495031D6BED2500B13A3F /* inbox-icon@2x.png */; };
 		629495061D6BED2500B13A3F /* inbox-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 629495041D6BED2500B13A3F /* inbox-icon@3x.png */; };
@@ -589,6 +592,10 @@
 		62EDB8041D34D0B000D6F772 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62EDB8021D34D0B000D6F772 /* AboutTableViewCell.xib */; };
 		62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB8081D34D3CF00D6F772 /* AboutViewController.m */; };
 		62EDB80C1D34E51300D6F772 /* FunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EDB80B1D34E51300D6F772 /* FunctionViewController.m */; };
+		62EE48D31D7D17B400012359 /* BadgeRulesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EE48D21D7D17B400012359 /* BadgeRulesCollectionViewController.m */; };
+		62EE48D71D7D193400012359 /* BadgeRulesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EE48D51D7D193400012359 /* BadgeRulesCollectionViewCell.m */; };
+		62EE48D81D7D193400012359 /* BadgeRulesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62EE48D61D7D193400012359 /* BadgeRulesCollectionViewCell.xib */; };
+		62EE48DC1D7D22DB00012359 /* TheAdvPKDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EE48DB1D7D22DB00012359 /* TheAdvPKDetailVC.m */; };
 		62F60E7C1D5311C000EE7E9B /* chartBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E7A1D5311C000EE7E9B /* chartBg.png */; };
 		62F60E7D1D5311C000EE7E9B /* chartBg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E7B1D5311C000EE7E9B /* chartBg@3x.png */; };
 		62F60E821D532B3000EE7E9B /* addPraise.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E7E1D532B3000EE7E9B /* addPraise.png */; };
@@ -2284,6 +2291,11 @@
 		62724E6D1D42225900E84202 /* attentionButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "attentionButton@3x.png"; sourceTree = "<group>"; };
 		627F76F61D38D9EF00552B96 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		627F76F71D38D9EF00552B96 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		628C74E01D795408002C9FCF /* MineHomeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomeTableViewController.h; sourceTree = "<group>"; };
+		628C74E11D795408002C9FCF /* MineHomeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomeTableViewController.m; sourceTree = "<group>"; };
+		628C74E31D795AD8002C9FCF /* MineHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomeView.h; sourceTree = "<group>"; };
+		628C74E41D795AD8002C9FCF /* MineHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomeView.m; sourceTree = "<group>"; };
+		628C74E61D795AE7002C9FCF /* MineHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineHomeView.xib; sourceTree = "<group>"; };
 		629485A11D3F8B0100938E49 /* CommentUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentUserModel.m; sourceTree = "<group>"; };
 		629485A31D3F8B0C00938E49 /* CommentUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentUserModel.h; sourceTree = "<group>"; };
 		629495031D6BED2500B13A3F /* inbox-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inbox-icon@2x.png"; sourceTree = "<group>"; };
@@ -2361,6 +2373,13 @@
 		62EDB8081D34D3CF00D6F772 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		62EDB80A1D34E51300D6F772 /* FunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionViewController.h; sourceTree = "<group>"; };
 		62EDB80B1D34E51300D6F772 /* FunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunctionViewController.m; sourceTree = "<group>"; };
+		62EE48D11D7D17B400012359 /* BadgeRulesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeRulesCollectionViewController.h; sourceTree = "<group>"; };
+		62EE48D21D7D17B400012359 /* BadgeRulesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeRulesCollectionViewController.m; sourceTree = "<group>"; };
+		62EE48D41D7D193400012359 /* BadgeRulesCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeRulesCollectionViewCell.h; sourceTree = "<group>"; };
+		62EE48D51D7D193400012359 /* BadgeRulesCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadgeRulesCollectionViewCell.m; sourceTree = "<group>"; };
+		62EE48D61D7D193400012359 /* BadgeRulesCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BadgeRulesCollectionViewCell.xib; sourceTree = "<group>"; };
+		62EE48DA1D7D22DB00012359 /* TheAdvPKDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheAdvPKDetailVC.h; sourceTree = "<group>"; };
+		62EE48DB1D7D22DB00012359 /* TheAdvPKDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheAdvPKDetailVC.m; sourceTree = "<group>"; };
 		62F60E7A1D5311C000EE7E9B /* chartBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chartBg.png; path = ../chartBg.png; sourceTree = "<group>"; };
 		62F60E7B1D5311C000EE7E9B /* chartBg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chartBg@3x.png"; path = "../chartBg@3x.png"; sourceTree = "<group>"; };
 		62F60E7E1D532B3000EE7E9B /* addPraise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addPraise.png; sourceTree = "<group>"; };
@@ -4228,6 +4247,10 @@
 				DA5D7D5D1CA236CA00FF5378 /* OtherUserGuanZhuViewController.m */,
 				DA5D7D5F1CA236D900FF5378 /* OtherUserFenSiViewController.h */,
 				DA5D7D601CA236D900FF5378 /* OtherUserFenSiViewController.m */,
+				62EE48D11D7D17B400012359 /* BadgeRulesCollectionViewController.h */,
+				62EE48D21D7D17B400012359 /* BadgeRulesCollectionViewController.m */,
+				62EE48DA1D7D22DB00012359 /* TheAdvPKDetailVC.h */,
+				62EE48DB1D7D22DB00012359 /* TheAdvPKDetailVC.m */,
 			);
 			path = PKVC;
 			sourceTree = "<group>";
@@ -5359,6 +5382,7 @@
 				DAE035481C1836EE007E6DBD /* PKHomeView */,
 				DAE033851C18136B007E6DBD /* PKEveryDayView */,
 				DAE033751C18124C007E6DBD /* TheAdvPKView */,
+				62EE48D91D7D193C00012359 /* BadgeRulesView */,
 				DA5D7D621CA23C5300FF5378 /* OtherUserShowViewCell.h */,
 				DA5D7D631CA23C5300FF5378 /* OtherUserShowViewCell.m */,
 				DA5D7D641CA23C5300FF5378 /* OtherUserShowViewCell.xib */,
@@ -5591,6 +5615,8 @@
 			children = (
 				629E41D31D3500E200695296 /* MineHomePageViewController.h */,
 				629E41D41D3500E200695296 /* MineHomePageViewController.m */,
+				628C74E01D795408002C9FCF /* MineHomeTableViewController.h */,
+				628C74E11D795408002C9FCF /* MineHomeTableViewController.m */,
 			);
 			name = HomePage;
 			sourceTree = "<group>";
@@ -5601,6 +5627,9 @@
 				62A93BD41D361EA200343B63 /* MineHomePageHeadView.h */,
 				62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */,
 				62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */,
+				628C74E31D795AD8002C9FCF /* MineHomeView.h */,
+				628C74E41D795AD8002C9FCF /* MineHomeView.m */,
+				628C74E61D795AE7002C9FCF /* MineHomeView.xib */,
 			);
 			name = MineHomePageView;
 			sourceTree = "<group>";
@@ -5706,6 +5735,16 @@
 				62EDB80B1D34E51300D6F772 /* FunctionViewController.m */,
 			);
 			name = About;
+			sourceTree = "<group>";
+		};
+		62EE48D91D7D193C00012359 /* BadgeRulesView */ = {
+			isa = PBXGroup;
+			children = (
+				62EE48D41D7D193400012359 /* BadgeRulesCollectionViewCell.h */,
+				62EE48D51D7D193400012359 /* BadgeRulesCollectionViewCell.m */,
+				62EE48D61D7D193400012359 /* BadgeRulesCollectionViewCell.xib */,
+			);
+			name = BadgeRulesView;
 			sourceTree = "<group>";
 		};
 		62FCE9051D3CAF3500F52E05 /* MineAttentionAndFansView */ = {
@@ -8028,6 +8067,7 @@
 				D029BC5C1D37BB0500B20D65 /* ec_like@3x.png in Resources */,
 				DA3190E41C22A54D00972F63 /* loginqq@3x.png in Resources */,
 				62724E691D41BBE800E84202 /* more@3x.png in Resources */,
+				62EE48D81D7D193400012359 /* BadgeRulesCollectionViewCell.xib in Resources */,
 				DA9A95251C23ABEE00FBE107 /* gengxin@2x.png in Resources */,
 				62E31A5D1D6DB0BC00F1D7C5 /* score_3@2x.png in Resources */,
 				D00AD7F71D4B45DF004AB05A /* 2_07.png in Resources */,
@@ -8284,6 +8324,7 @@
 				263618541C0478DA00D26BE6 /* PushConfig.plist in Resources */,
 				625902181D2B943C00F3F13C /* SettingThreeViewCell.xib in Resources */,
 				26D8B1E01C0FEEE900A1DB04 /* bg@2x.png in Resources */,
+				628C74E71D795AE7002C9FCF /* MineHomeView.xib in Resources */,
 				26D8B24F1C0FEEE900A1DB04 /* 28_2@3x.png in Resources */,
 				DA9A95431C23ABEE00FBE107 /* shenqing@2x.png in Resources */,
 				62367E251D6ADDD400272505 /* PkSummaryTableViewCell.xib in Resources */,
@@ -8753,6 +8794,7 @@
 				26D99EC61C0C4D7B007AF579 /* AFHTTPRequestOperationManager.m in Sources */,
 				DA82CD011C3D0FBD00C6D8EA /* LearnTabModel.m in Sources */,
 				26D99EC91C0C4D7B007AF579 /* AFSecurityPolicy.m in Sources */,
+				628C74E51D795AD8002C9FCF /* MineHomeView.m in Sources */,
 				D0C97B9E1D5C8E9F00B62219 /* SCLTextView.m in Sources */,
 				26E987541C0D49CB00C6A7BB /* SignInOneCollectionViewCell.m in Sources */,
 				D029BC131D365F3500B20D65 /* ECTabbarViewController.m in Sources */,
@@ -8918,6 +8960,7 @@
 				625902391D2CFB6A00F3F13C /* BoundSuccessViewController.m in Sources */,
 				26D99EA21C0C4D7B007AF579 /* BaseNavigationController.m in Sources */,
 				DAD1A1E81C16F31A000A39D3 /* PkHomeCollectionViewCell.m in Sources */,
+				62EE48DC1D7D22DB00012359 /* TheAdvPKDetailVC.m in Sources */,
 				26D99EAB1C0C4D7B007AF579 /* UIView+Extension.m in Sources */,
 				26D26FCC1C118626008511A9 /* LearnDetailViewController.m in Sources */,
 				D0BD3F201D6474AA0010D9BB /* RAMBounceAnimation.swift in Sources */,
@@ -9014,6 +9057,7 @@
 				DAAEC6EF1C1FE79B00FA094B /* MyNewsViewController.m in Sources */,
 				DA4459FB1C21733D0069415D /* InvitationTwoViewCell.m in Sources */,
 				DA4459C91C2136310069415D /* MineAdvPKViewController.m in Sources */,
+				62EE48D71D7D193400012359 /* BadgeRulesCollectionViewCell.m in Sources */,
 				D0C97B9C1D5C8E9F00B62219 /* SCLButton.m in Sources */,
 				26D99F151C0C4D7C007AF579 /* UIImage+MultiFormat.m in Sources */,
 				26D99F201C0C4D7C007AF579 /* EnergyShowBackCollectionCell.m in Sources */,
@@ -9102,6 +9146,7 @@
 				D083524D1D2F909E0094AC2E /* NSObject+MJKeyValue.m in Sources */,
 				D07D2ED91D0FD6CC00AF35B1 /* MASViewAttribute.m in Sources */,
 				26D99E941C0C4D7B007AF579 /* EnergyCycleNavController.m in Sources */,
+				628C74E21D795408002C9FCF /* MineHomeTableViewController.m in Sources */,
 				D07EB2A01D18DE6800840AC2 /* UUMessageCell.m in Sources */,
 				DAAEC7091C1FED3C00FA094B /* MineOneViewCell.m in Sources */,
 				DAF48DB51C1E726F00D9C136 /* CourseRrgOneViewCell.m in Sources */,
@@ -9154,6 +9199,7 @@
 				D07E243D1D127BE000854B51 /* HotPageView.m in Sources */,
 				D04B547A1D23C75700DC259A /* SDTimeLineCellOperationMenu.m in Sources */,
 				D07EB25E1D18DE6800840AC2 /* EmojiPictographs.m in Sources */,
+				62EE48D31D7D17B400012359 /* BadgeRulesCollectionViewController.m in Sources */,
 				DAE0337E1C181283007E6DBD /* TheAdvTwoViewCell.m in Sources */,
 				DA735E261C3BC6C900CE9995 /* TheAdvMainMode.m in Sources */,
 				D07D2ED61D0FD6CC00AF35B1 /* MASConstraint.m in Sources */,

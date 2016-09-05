@@ -9,6 +9,9 @@
 #import "MineTableViewController.h"
 
 #import "MineHomePageViewController.h"
+
+#import "MineHomeTableViewController.h"
+
 #import "IntroViewController.h"
 #import "UserModel.h"
 #import "UserInfoModel.h"
@@ -148,6 +151,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) { // 个人主页
         [self.delegate.tabbarController hideTabbar:YES];
+//        MineHomeTableViewController *mine = [[MineHomeTableViewController alloc] init];
+//        mine.userId = User_ID;
+//        [self.navigationController pushViewController:mine animated:YES];
         [self performSegueWithIdentifier:@"MineHomePageViewController" sender:nil];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) { // 能量圈

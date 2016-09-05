@@ -174,7 +174,7 @@
     [super viewDidLoad];
     
     [self setUpMJRefresh];
-    
+
     self.startPage = 0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (self.isMineTableView) {
@@ -186,7 +186,6 @@
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
         [self setupLeftNavBarWithimage:@"loginfanhui"];
 //        self.tabBarController.tabBar.hidden = YES;
-        
     }
     
     [IQKeyboardManager sharedManager].enable = NO;
