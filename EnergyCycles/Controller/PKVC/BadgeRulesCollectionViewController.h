@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Apple. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface BadgeRulesCollectionViewController : UICollectionViewController
+@interface BadgeRulesCollectionViewController : BaseViewController
 
 @end

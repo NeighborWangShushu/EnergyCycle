@@ -13,23 +13,30 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="165" height="132"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A05-sb-b73">
-                        <rect key="frame" x="0.0" y="0.0" width="165" height="132"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="30signIn_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="A05-sb-b73">
+                        <rect key="frame" x="45.5" y="0.0" width="74" height="91"/>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="A05-sb-b73" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="8It-DC-iqS"/>
-                <constraint firstItem="A05-sb-b73" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="bIf-nE-BYw"/>
-                <constraint firstAttribute="bottom" secondItem="A05-sb-b73" secondAttribute="bottom" id="gBU-es-A6B"/>
-                <constraint firstAttribute="trailing" secondItem="A05-sb-b73" secondAttribute="trailing" id="r1E-gi-LcM"/>
+                <constraint firstItem="A05-sb-b73" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="5Pj-JH-j8J"/>
+                <constraint firstItem="A05-sb-b73" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="aoa-Oa-frR"/>
+                <constraint firstItem="A05-sb-b73" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="xVX-pJ-OgN"/>
             </constraints>
             <size key="customSize" width="165" height="132"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="5Pj-JH-j8J"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="badgeImage" destination="A05-sb-b73" id="TCj-yG-gz9"/>
             </connections>
             <point key="canvasLocation" x="384.5" y="438"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="30signIn_0.png" width="74" height="91"/>
+    </resources>
 </document>

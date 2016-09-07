@@ -416,4 +416,7 @@
 //108.为第三方用户添加能量源
 #define PowerSourceRelevance       @"other/PowerSourceRelevance"
 
+//109.获得个人徽章数据
+#define GetMyBedge                 @"user/MyBedge_Get"
+
 #endif
