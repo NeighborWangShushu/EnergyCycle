@@ -540,7 +540,6 @@
 		629495051D6BED2500B13A3F /* inbox-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 629495031D6BED2500B13A3F /* inbox-icon@2x.png */; };
 		629495061D6BED2500B13A3F /* inbox-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 629495041D6BED2500B13A3F /* inbox-icon@3x.png */; };
 		6297DDA41D3E0736004E42AA /* MineUserDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6297DDA31D3E0736004E42AA /* MineUserDateModel.m */; };
-		629E41D51D3500E200695296 /* MineHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 629E41D41D3500E200695296 /* MineHomePageViewController.m */; };
 		62A93BD61D361EA200343B63 /* MineHomePageHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */; };
 		62A93BD81D361EBC00343B63 /* MineHomePageHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */; };
 		62A93BDC1D3628B600343B63 /* MineHomePageHeadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A93BDB1D3628B600343B63 /* MineHomePageHeadModel.m */; };
@@ -610,6 +609,17 @@
 		62DE91801D7ECF70009F365E /* 50signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91761D7ECF70009F365E /* 50signIn@3x.png */; };
 		62DE91831D7FADE5009F365E /* BadgeDetailLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91811D7FADE5009F365E /* BadgeDetailLine@2x.png */; };
 		62DE91841D7FADE5009F365E /* BadgeDetailLine@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91821D7FADE5009F365E /* BadgeDetailLine@3x.png */; };
+		62DE91B31D7FEE9D009F365E /* MineHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DE91B21D7FEE9D009F365E /* MineHomePageViewController.m */; };
+		62DE91BF1D7FEF93009F365E /* subscript_100signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91B51D7FEF93009F365E /* subscript_100signIn@2x.png */; };
+		62DE91C01D7FEF93009F365E /* subscript_100signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91B61D7FEF93009F365E /* subscript_100signIn@3x.png */; };
+		62DE91C11D7FEF93009F365E /* subscript_200signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91B71D7FEF93009F365E /* subscript_200signIn@2x.png */; };
+		62DE91C21D7FEF93009F365E /* subscript_200signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91B81D7FEF93009F365E /* subscript_200signIn@3x.png */; };
+		62DE91C31D7FEF93009F365E /* subscript_300signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91B91D7FEF93009F365E /* subscript_300signIn@2x.png */; };
+		62DE91C41D7FEF93009F365E /* subscript_300signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91BA1D7FEF93009F365E /* subscript_300signIn@3x.png */; };
+		62DE91C51D7FEF93009F365E /* subscript_30signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91BB1D7FEF93009F365E /* subscript_30signIn@2x.png */; };
+		62DE91C61D7FEF93009F365E /* subscript_30signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91BC1D7FEF93009F365E /* subscript_30signIn@3x.png */; };
+		62DE91C71D7FEF93009F365E /* subscript_50signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91BD1D7FEF93009F365E /* subscript_50signIn@2x.png */; };
+		62DE91C81D7FEF93009F365E /* subscript_50signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62DE91BE1D7FEF93009F365E /* subscript_50signIn@3x.png */; };
 		62E31A301D6D86C000F1D7C5 /* PostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62E31A2F1D6D86C000F1D7C5 /* PostingViewController.m */; };
 		62E31A531D6DB0BC00F1D7C5 /* score_10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A3F1D6DB0BC00F1D7C5 /* score_10@2x.png */; };
 		62E31A551D6DB0BC00F1D7C5 /* score_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E31A411D6DB0BC00F1D7C5 /* score_1@2x.png */; };
@@ -2336,7 +2346,6 @@
 		6297DDA21D3E0736004E42AA /* MineUserDateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineUserDateModel.h; sourceTree = "<group>"; };
 		6297DDA31D3E0736004E42AA /* MineUserDateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineUserDateModel.m; sourceTree = "<group>"; };
 		629E41D31D3500E200695296 /* MineHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageViewController.h; sourceTree = "<group>"; };
-		629E41D41D3500E200695296 /* MineHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageViewController.m; sourceTree = "<group>"; };
 		62A93BD41D361EA200343B63 /* MineHomePageHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageHeadView.h; sourceTree = "<group>"; };
 		62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageHeadView.m; sourceTree = "<group>"; };
 		62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineHomePageHeadView.xib; sourceTree = "<group>"; };
@@ -2421,6 +2430,17 @@
 		62DE91761D7ECF70009F365E /* 50signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "50signIn@3x.png"; sourceTree = "<group>"; };
 		62DE91811D7FADE5009F365E /* BadgeDetailLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BadgeDetailLine@2x.png"; sourceTree = "<group>"; };
 		62DE91821D7FADE5009F365E /* BadgeDetailLine@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BadgeDetailLine@3x.png"; sourceTree = "<group>"; };
+		62DE91B21D7FEE9D009F365E /* MineHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageViewController.m; sourceTree = "<group>"; };
+		62DE91B51D7FEF93009F365E /* subscript_100signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_100signIn@2x.png"; sourceTree = "<group>"; };
+		62DE91B61D7FEF93009F365E /* subscript_100signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_100signIn@3x.png"; sourceTree = "<group>"; };
+		62DE91B71D7FEF93009F365E /* subscript_200signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_200signIn@2x.png"; sourceTree = "<group>"; };
+		62DE91B81D7FEF93009F365E /* subscript_200signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_200signIn@3x.png"; sourceTree = "<group>"; };
+		62DE91B91D7FEF93009F365E /* subscript_300signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_300signIn@2x.png"; sourceTree = "<group>"; };
+		62DE91BA1D7FEF93009F365E /* subscript_300signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_300signIn@3x.png"; sourceTree = "<group>"; };
+		62DE91BB1D7FEF93009F365E /* subscript_30signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_30signIn@2x.png"; sourceTree = "<group>"; };
+		62DE91BC1D7FEF93009F365E /* subscript_30signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_30signIn@3x.png"; sourceTree = "<group>"; };
+		62DE91BD1D7FEF93009F365E /* subscript_50signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_50signIn@2x.png"; sourceTree = "<group>"; };
+		62DE91BE1D7FEF93009F365E /* subscript_50signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_50signIn@3x.png"; sourceTree = "<group>"; };
 		62E31A2E1D6D86C000F1D7C5 /* PostingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingViewController.h; sourceTree = "<group>"; };
 		62E31A2F1D6D86C000F1D7C5 /* PostingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingViewController.m; sourceTree = "<group>"; };
 		62E31A3F1D6DB0BC00F1D7C5 /* score_10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score_10@2x.png"; sourceTree = "<group>"; };
@@ -4521,6 +4541,7 @@
 				26D99D4E1C0C4D7B007AF579 /* Mine */,
 				DA3190CC1C22A54D00972F63 /* Login&Register */,
 				26D99D501C0C4D7B007AF579 /* TabBar */,
+				62DE91B41D7FEF93009F365E /* Subscript */,
 				26D99D4C1C0C4D7B007AF579 /* icon */,
 				DA2AE47D1C2D29E400F2F182 /* GuidePage */,
 				DA2AE48E1C2D398200F2F182 /* StartPage */,
@@ -5684,7 +5705,7 @@
 			isa = PBXGroup;
 			children = (
 				629E41D31D3500E200695296 /* MineHomePageViewController.h */,
-				629E41D41D3500E200695296 /* MineHomePageViewController.m */,
+				62DE91B21D7FEE9D009F365E /* MineHomePageViewController.m */,
 				628C74E01D795408002C9FCF /* MineHomeTableViewController.h */,
 				628C74E11D795408002C9FCF /* MineHomeTableViewController.m */,
 			);
@@ -5814,6 +5835,23 @@
 				62DE91821D7FADE5009F365E /* BadgeDetailLine@3x.png */,
 			);
 			path = DetailBadge;
+			sourceTree = "<group>";
+		};
+		62DE91B41D7FEF93009F365E /* Subscript */ = {
+			isa = PBXGroup;
+			children = (
+				62DE91B51D7FEF93009F365E /* subscript_100signIn@2x.png */,
+				62DE91B61D7FEF93009F365E /* subscript_100signIn@3x.png */,
+				62DE91B71D7FEF93009F365E /* subscript_200signIn@2x.png */,
+				62DE91B81D7FEF93009F365E /* subscript_200signIn@3x.png */,
+				62DE91B91D7FEF93009F365E /* subscript_300signIn@2x.png */,
+				62DE91BA1D7FEF93009F365E /* subscript_300signIn@3x.png */,
+				62DE91BB1D7FEF93009F365E /* subscript_30signIn@2x.png */,
+				62DE91BC1D7FEF93009F365E /* subscript_30signIn@3x.png */,
+				62DE91BD1D7FEF93009F365E /* subscript_50signIn@2x.png */,
+				62DE91BE1D7FEF93009F365E /* subscript_50signIn@3x.png */,
+			);
+			path = Subscript;
 			sourceTree = "<group>";
 		};
 		62E31A3E1D6DB0BC00F1D7C5 /* getScore */ = {
@@ -8096,6 +8134,7 @@
 				26D8B2321C0FEEE900A1DB04 /* 21_2@2x.png in Resources */,
 				D029BC321D37571E00B20D65 /* tabbar_pressed_1@3x.png in Resources */,
 				DA677B981C3A6E11004A534E /* QDDT00046.png in Resources */,
+				62DE91C61D7FEF93009F365E /* subscript_30signIn@3x.png in Resources */,
 				26E987E21C0DAE4000C6A7BB /* jia_pressed@2x.png in Resources */,
 				D07EB2691D18DE6800840AC2 /* input-bar.png in Resources */,
 				D07EB2751D18DE6800840AC2 /* messageBubbleTyping.png in Resources */,
@@ -8169,6 +8208,7 @@
 				26D8B2641C0FEEE900A1DB04 /* 11@2x.png in Resources */,
 				26D8B26F1C0FEEE900A1DB04 /* 5@3x.png in Resources */,
 				D029BC5D1D37BB0500B20D65 /* ec_msg_highlight@2x.png in Resources */,
+				62DE91C71D7FEF93009F365E /* subscript_50signIn@2x.png in Resources */,
 				DA5D7D661CA23C5300FF5378 /* OtherUserShowViewCell.xib in Resources */,
 				DA3190DD1C22A54D00972F63 /* loginbeijing@2x.png in Resources */,
 				62F60E851D532B3000EE7E9B /* praise@3x.png in Resources */,
@@ -8208,6 +8248,7 @@
 				DAE033841C181294007E6DBD /* TheAdvThrViewCell.xib in Resources */,
 				26D8B1E81C0FEEE900A1DB04 /* 02_2@2x.png in Resources */,
 				DA76750E1C27F39900A34D9C /* 08weigouxuan@2x.png in Resources */,
+				62DE91BF1D7FEF93009F365E /* subscript_100signIn@2x.png in Resources */,
 				D04B54CB1D23C90D00DC259A /* MLEmoji_Expression.plist in Resources */,
 				D08352451D2F909E0094AC2E /* Info.plist in Resources */,
 				625750B51D334DB600E46B2E /* man@3x.png in Resources */,
@@ -8264,6 +8305,7 @@
 				26E987E11C0DAE4000C6A7BB /* jia_normal@3x.png in Resources */,
 				DA9A23491C43B8AC0012265D /* weixin@3x.png in Resources */,
 				DA677B791C3A6E11004A534E /* QDDT00015.png in Resources */,
+				62DE91C41D7FEF93009F365E /* subscript_300signIn@3x.png in Resources */,
 				DAE034E31C182181007E6DBD /* 6pinglun_@2x.png in Resources */,
 				D00AD7E01D4B451B004AB05A /* 2_035.png in Resources */,
 				D07EB2941D18DE6800840AC2 /* chat_voice_record.png in Resources */,
@@ -8334,6 +8376,7 @@
 				26D8B2281C0FEEE900A1DB04 /* 19_1@2x.png in Resources */,
 				D07EB28D1D18DE6800840AC2 /* chat_animation_white2.png in Resources */,
 				DA2AE4891C2D29E400F2F182 /* GuidePage_3@3x.png in Resources */,
+				62DE91C01D7FEF93009F365E /* subscript_100signIn@3x.png in Resources */,
 				DA9A95361C23ABEE00FBE107 /* jifen@3x.png in Resources */,
 				62DDA0931D585707005C2CEB /* integral@2x.png in Resources */,
 				26D26FC81C1173C0008511A9 /* top-white@2x.png in Resources */,
@@ -8428,6 +8471,7 @@
 				DA9A23421C43B8890012265D /* weibo@2x.png in Resources */,
 				62DE91641D7EB45D009F365E /* 30signIn_0@2x.png in Resources */,
 				26D99F251C0C4D7C007AF579 /* EnergyShowTwoViewCell.xib in Resources */,
+				62DE91C21D7FEF93009F365E /* subscript_200signIn@3x.png in Resources */,
 				26E987D01C0DAE4000C6A7BB /* +user_normal@2x.png in Resources */,
 				26D8B2671C0FEEE900A1DB04 /* 1@3x.png in Resources */,
 				DA677B801C3A6E11004A534E /* QDDT00022.png in Resources */,
@@ -8534,6 +8578,7 @@
 				26D8B2031C0FEEE900A1DB04 /* 09_2@3x.png in Resources */,
 				DA8AFF581C2A4BF90064B9A7 /* 11xin@2x.png in Resources */,
 				625750DE1D33885B00E46B2E /* mail-icon@2x.png in Resources */,
+				62DE91C51D7FEF93009F365E /* subscript_30signIn@2x.png in Resources */,
 				26D99F231C0C4D7C007AF579 /* EnergyShowOneViewCell.xib in Resources */,
 				DA8AFF591C2A4BF90064B9A7 /* 11xin@3x.png in Resources */,
 				62DE915F1D7EB45D009F365E /* 200signIn_1@3x.png in Resources */,
@@ -8616,6 +8661,7 @@
 				D029BC521D3779D500B20D65 /* post_weibo_selected@2x.png in Resources */,
 				DA677B7E1C3A6E11004A534E /* QDDT00020.png in Resources */,
 				D05A95BA1D62E52D0063AD41 /* ECContactSelectedCell.xib in Resources */,
+				62DE91C31D7FEF93009F365E /* subscript_300signIn@2x.png in Resources */,
 				D00AD7F21D4B45DF004AB05A /* 2_02.png in Resources */,
 				625750DD1D33885B00E46B2E /* set@2x.png in Resources */,
 				DA7674C81C27A66900A34D9C /* NewsOneViewCell.xib in Resources */,
@@ -8658,6 +8704,7 @@
 				D07EB27A1D18DE6800840AC2 /* Speak@2x.png in Resources */,
 				625750B61D334DB600E46B2E /* woman@2x.png in Resources */,
 				26D8B21F1C0FEEE900A1DB04 /* 16_2@3x.png in Resources */,
+				62DE91C81D7FEF93009F365E /* subscript_50signIn@3x.png in Resources */,
 				D07EB2931D18DE6800840AC2 /* Chat_take_picture.png in Resources */,
 				DA2AE4871C2D29E400F2F182 /* GuidePage_2@3x.png in Resources */,
 				DA8AFF4B1C2A4BF90064B9A7 /* 04meiri@3x.png in Resources */,
@@ -8862,6 +8909,7 @@
 				D04B54D81D23C90D00DC259A /* LICENSE in Resources */,
 				DAE035441C1831FC007E6DBD /* right@3x.png in Resources */,
 				26D99EF81C0C4D7C007AF579 /* MJRefresh.bundle in Resources */,
+				62DE91C11D7FEF93009F365E /* subscript_200signIn@2x.png in Resources */,
 				620720EB1D46FA0C00C4F73D /* Guanzhu@2x.png in Resources */,
 				DA68D5AB1C96984B0073E0F6 /* fenxiang_blue@3x.png in Resources */,
 				D00AD7DC1D4B451B004AB05A /* 2_031.png in Resources */,
@@ -9324,6 +9372,7 @@
 				D08352481D2F909E0094AC2E /* MJProperty.m in Sources */,
 				26D99EF41C0C4D7C007AF579 /* MJRefreshBackStateFooter.m in Sources */,
 				26E987711C0D6C9100C6A7BB /* EnergyPostTwoViewCell.m in Sources */,
+				62DE91B31D7FEE9D009F365E /* MineHomePageViewController.m in Sources */,
 				DA68D5C81C96A46E0073E0F6 /* MineTheAdvTwoViewCell.m in Sources */,
 				D04B54951D23C85A00DC259A /* SDWaitingView.m in Sources */,
 				D07E24291D115E0100854B51 /* ArticleView.m in Sources */,
@@ -9443,7 +9492,6 @@
 				DA4459EB1C2160070069415D /* PhoneNumberViewCell.m in Sources */,
 				D07E24821D13DB2300854B51 /* TADotView.m in Sources */,
 				DA91242E1C29160D0018DBAF /* MallDetailViewCell.m in Sources */,
-				629E41D51D3500E200695296 /* MineHomePageViewController.m in Sources */,
 				D044E6231D07F49E00CD24DF /* ECAvatarManager.m in Sources */,
 				26D99E961C0C4D7B007AF579 /* LearnNavController.m in Sources */,
 				D04B54791D23C75700DC259A /* SDTimeLineTableHeaderView.m in Sources */,

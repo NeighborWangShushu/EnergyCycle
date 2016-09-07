@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -145,6 +145,9 @@
                         </mask>
                     </variation>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9O-yQ-ZtU">
+                    <rect key="frame" x="167" y="113" width="30" height="34"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -158,6 +161,7 @@
                 <constraint firstItem="cYH-wt-X7G" firstAttribute="leading" secondItem="Arw-qJ-nlk" secondAttribute="trailing" constant="10" id="7d8-m6-CsY"/>
                 <constraint firstItem="ehw-bt-Ua0" firstAttribute="top" secondItem="ibT-XF-nB3" secondAttribute="top" constant="-250" id="8Xa-Wp-uIm"/>
                 <constraint firstItem="UYn-XY-rUx" firstAttribute="leading" secondItem="UY9-i1-ZXp" secondAttribute="trailing" constant="10" id="Afe-HV-3ZR"/>
+                <constraint firstItem="U9O-yQ-ZtU" firstAttribute="trailing" secondItem="UYn-XY-rUx" secondAttribute="trailing" id="CDG-hR-fCs"/>
                 <constraint firstItem="BHH-2y-UNx" firstAttribute="top" secondItem="UY9-i1-ZXp" secondAttribute="bottom" constant="15" id="EsM-Lg-LdM"/>
                 <constraint firstAttribute="bottom" secondItem="Hqh-2s-8E6" secondAttribute="bottom" id="HTp-ec-wgL"/>
                 <constraint firstItem="Arw-qJ-nlk" firstAttribute="centerX" secondItem="ibT-XF-nB3" secondAttribute="centerX" id="HWL-Vt-luS"/>
@@ -176,6 +180,7 @@
                 <constraint firstItem="UY9-i1-ZXp" firstAttribute="leading" secondItem="ibT-XF-nB3" secondAttribute="leading" constant="20" id="c9Z-G1-6qc"/>
                 <constraint firstAttribute="trailing" secondItem="ehw-bt-Ua0" secondAttribute="trailing" id="csv-bo-N2N"/>
                 <constraint firstItem="cYH-wt-X7G" firstAttribute="top" secondItem="E32-u9-hrb" secondAttribute="bottom" constant="15" id="dR8-0y-vBY"/>
+                <constraint firstItem="U9O-yQ-ZtU" firstAttribute="bottom" secondItem="UYn-XY-rUx" secondAttribute="bottom" id="fFu-p5-WvV"/>
                 <constraint firstItem="Hqh-2s-8E6" firstAttribute="top" secondItem="6ii-fW-4r6" secondAttribute="bottom" constant="8" id="fLP-gr-0yS"/>
                 <constraint firstItem="Hqh-2s-8E6" firstAttribute="top" secondItem="ehw-bt-Ua0" secondAttribute="bottom" id="gDq-j7-gct"/>
                 <constraint firstItem="Hqh-2s-8E6" firstAttribute="leading" secondItem="ibT-XF-nB3" secondAttribute="leading" id="hxh-TF-tZK"/>
@@ -209,6 +214,7 @@
                 <outlet property="rightBackgroundButton" destination="E32-u9-hrb" id="a9b-5Q-7Ze"/>
                 <outlet property="segControl" destination="Hqh-2s-8E6" id="2QZ-zl-ZwM"/>
                 <outlet property="sexImage" destination="b0h-wD-U8f" id="OZO-uI-uNu"/>
+                <outlet property="subscriptBadge" destination="U9O-yQ-ZtU" id="H06-44-x9H"/>
             </connections>
             <point key="canvasLocation" x="577" y="565"/>
         </view>

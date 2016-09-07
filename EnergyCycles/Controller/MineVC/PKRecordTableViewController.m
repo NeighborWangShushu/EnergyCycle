@@ -91,14 +91,13 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     if (self.isMineTableView) {
-        [self getDataWithUserId:self.userId];
+//        [self getDataWithUserId:self.userId];
 //        [self setUpMJRefresh];
         self.tableView.tableHeaderView = nil;
-        self.title = @"PK记录";
-        self.navigationController.navigationBar.translucent = NO;
-        self.tableView.showsVerticalScrollIndicator = NO;
-        self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
-        [self setupLeftNavBarWithimage:@"loginfanhui"];
+//        self.title = @"PK记录";
+//        self.tableView.showsVerticalScrollIndicator = NO;
+//        self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
+//        [self setupLeftNavBarWithimage:@"loginfanhui"];
 
 //        self.tabBarController.tabBar.hidden = YES;
     }
@@ -169,7 +168,11 @@
     MyPkEveryModel *model = self.dataArray[indexPath.row];
     blVC.projectID = model.pId;
     blVC.showStr = model.name;
-    [self.navigationController pushViewController:blVC animated:YES];
+    if (self.isMineTableView) {
+        [self.navigationController pushViewController:blVC animated:YES];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"HomePageControllerToBrokenLineViewController" object:blVC];
+    }
 }
 
 

@@ -81,4 +81,7 @@
 @property (nonatomic, strong) NSString<Optional> *Tel;
 // 登录方式
 @property (nonatomic, strong) NSString<Optional> *LoginType;
+// 累计登陆徽章
+@property (nonatomic, strong) NSString<Optional> *ReportNum;
+
 @end

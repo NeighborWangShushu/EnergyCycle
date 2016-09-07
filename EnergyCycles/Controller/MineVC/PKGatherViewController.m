@@ -10,20 +10,25 @@
 #import "HMSegmentedControl.h"
 #import "BrokenLineViewController.h"
 
+#import "ToDayPKTableViewController.h"
+#import "PKRecordTableViewController.h"
+
 #import "ToDayPKTableViewCell.h"
 #import "MinePKRecordViewTableViewCell.h"
 
 #import "XMShareView.h"
 
-@interface PKGatherViewController () <UITableViewDelegate, UITableViewDataSource> {
+@interface PKGatherViewController ()<UIScrollViewDelegate> {
     XMShareView *shareView;
     UIBarButtonItem *shareBarButton;
     UIBarButtonItem *postBarButton;
 }
 
-@property (nonatomic, strong) NSMutableArray *toDayArr;
+@property (nonatomic, strong) ToDayPKTableViewController *todayVC;
 
-@property (nonatomic, strong) NSMutableArray *pkRecordArr;
+@property (nonatomic, strong) PKRecordTableViewController *pkRecordVC;
+
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) HMSegmentedControl *segControl;
 
@@ -35,178 +40,62 @@
 
 @implementation PKGatherViewController
 
-- (NSMutableArray *)toDayArr {
-    if (!_toDayArr) {
-        self.toDayArr = [NSMutableArray array];
-    }
-    return _toDayArr;
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PKRecordTableViewController" object:self userInfo:@{@"userId" : User_ID}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ToDayTableViewController" object:self userInfo:@{@"userId" : User_ID}];
 }
 
-- (NSMutableArray *)pkRecordArr {
-    if (!_pkRecordArr) {
-        self.pkRecordArr = [NSMutableArray array];
-    }
-    return _pkRecordArr;
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.isToDay) {
-        if ([self.toDayArr count] == 0) {
-            self.noData = YES;
-            return 1;
-        } else {
-            self.noData = NO;
-            return [self.toDayArr count];
-        }
-    } else {
-        if ([self.pkRecordArr count] == 0) {
-            self.noData = YES;
-            return 1;
-        } else {
-            self.noData = NO;
-            return [self.pkRecordArr count];
-        }
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 55;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    UIView *view = [[UIView alloc] init];
-//    [view addSubview:self.segControl];
-    return self.segControl;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.isToDay) {
-        static NSString *toDayPKTableViewCell = @"toDayPKTableViewCell";
-        ToDayPKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:toDayPKTableViewCell];
-        
-        if (cell == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:@"ToDayPKTableViewCell" owner:self options:nil].lastObject;
-        }
-        
-        if (self.noData) {
-            [cell noData];
-            return cell;
-        }
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        // Configure the cell...
-        OtherReportModel *model = self.toDayArr[indexPath.row];
-        [cell updateDataWithModel:model];
-        
-        return cell;
-    } else {
-        static NSString *minePKRecordViewTableViewCell = @"minePKRecordViewTableViewCell";
-        MinePKRecordViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:minePKRecordViewTableViewCell];
-        
-        if (cell  == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:@"MinePKRecordViewTableViewCell" owner:self options:nil].lastObject;
-        }
-        
-        if (self.noData) {
-            [cell noData];
-            return cell;
-        }
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        MyPkEveryModel *model = self.pkRecordArr[indexPath.row];
-        [cell getDataWithModel:model];
-        
-        return cell;
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.isToDay) {
-        return;
-    } else {
-        BrokenLineViewController *blVC = MainStoryBoard(@"BrokenLineViewController");
-        MyPkEveryModel *model = self.pkRecordArr[indexPath.row];
-        blVC.projectID = model.pId;
-        blVC.showStr = model.name;
-        [self.navigationController pushViewController:blVC animated:YES];
-    }
-}
-
-- (void)getToDayPKData {
-    [[AppHttpManager shareInstance] getGetReportByUserWithUserid:[User_ID intValue] Token:User_TOKEN OUserId:[User_ID intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            [self.toDayArr removeAllObjects];
-            NSLog(@"%@", User_ID);
-            for (NSDictionary *dic in dict[@"Data"][@"reportItemInfo"]) {
-                OtherReportModel *model = [[OtherReportModel alloc] initWithDictionary:dic error:nil];
-                [self.toDayArr addObject:model];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        }
-    } failure:^(NSString *str) {
-        NSLog(@"%@", str);
-    }];
-}
-
-- (void)getPkRecordData {
-    [[AppHttpManager shareInstance] getGetMyPkHistoryProjectWithUserId:[User_ID intValue] Token:@"" PostOrGet:@"get" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            [self.pkRecordArr removeAllObjects];
-            for (NSDictionary *dic in dict[@"Data"]) {
-                MyPkEveryModel *model = [[MyPkEveryModel alloc] initWithDictionary:dic error:nil];
-                [self.pkRecordArr addObject:model];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        }
-    } failure:^(NSString *str) {
-        NSLog(@"%@", str);
-    }];
-}
-
-- (void)leftAction {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)createScrollView {
+    CGRect frame = self.view.bounds;
+    frame.origin.y = 40;
+    frame.size.height -= 40;
+    self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
+    CGSize size = frame.size;
+    size.width = size.width * 2;
+    self.scrollView.contentSize = size;
+    self.scrollView.scrollEnabled = YES;
+    self.scrollView.delegate = self;
+    self.scrollView.bounces = YES;
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    
+    frame = self.scrollView.bounds;
+    self.todayVC = [[ToDayPKTableViewController alloc] init];
+    self.todayVC.tableView.showsVerticalScrollIndicator = NO;
+    self.todayVC.tableView.tableHeaderView = nil;
+    self.todayVC.view.frame = frame;
+    
+    self.pkRecordVC = [[PKRecordTableViewController alloc] init];
+    self.pkRecordVC.tableView.showsVerticalScrollIndicator = NO;
+    self.pkRecordVC.isMineTableView = YES;
+    self.pkRecordVC.tableView.tableHeaderView = nil;
+    frame.origin.x += frame.size.width;
+    self.pkRecordVC.view.frame = frame;
+    
+    [self.scrollView addSubview:self.todayVC.view];
+    [self.scrollView addSubview:self.pkRecordVC.view];
+    
+    [self.view addSubview:self.scrollView];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self createSegmentControl];
+    [self createScrollView];
     
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     [self createRightButton];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (_isHistory) {
         self.isToDay = NO;
         [self removeBarButton];
-        [self getPkRecordData];
     } else {
         self.isToDay = YES;
         [self addBarButton];
-        [self getToDayPKData];
     }
-
-//    [self segmentedControlChangedValue:self.segControl];
     
     // Do any additional setup after loading the view.
 }
@@ -217,6 +106,10 @@
 
 - (void)removeBarButton {
     self.navigationItem.rightBarButtonItems = nil;
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)createRightButton {
@@ -236,57 +129,24 @@
 }
 
 - (void)clickShareButton {
-    if (self.toDayArr.count) {
-        NSString *contentStr = @"";
-        for (NSInteger i=0; i<self.toDayArr.count; i++) {
-            OtherReportModel *model = (OtherReportModel *)self.toDayArr[i];
-            
-            if (i == self.toDayArr.count-1) {
-                contentStr = [NSString stringWithFormat:@"%@%@%@%@",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
-            }else {
-                contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
-            }
-        }
-        NSString *shareStr = [NSString stringWithFormat:@"我今天%@，加入能量圈，和我一起PK吧！",contentStr];
-        shareView = [[XMShareView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height)];
-        shareView.alpha = 0.0;
-        shareView.shareTitle = shareStr;
-        shareView.shareText = @"";
-        NSString * share_url = @"";
-        share_url = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%@",MYJYAppId];
-        shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
-        [[UIApplication sharedApplication].keyWindow addSubview:shareView];
-        [UIView animateWithDuration:0.25 animations:^{
-            shareView.alpha = 1.0;
-        }];
-    } else {
-        [SVProgressHUD showImage:nil status:@"今天你还没有进行PK哦"];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ToDayViewControllerShare" object:nil];
 }
 
 - (void)clickPostButton {
-    if (self.toDayArr.count) {
-        NSString *contentStr = @"";
-        for (NSInteger i=0; i<self.toDayArr.count; i++) {
-            OtherReportModel *model = (OtherReportModel *)self.toDayArr[i];
-            
-            if (i == self.toDayArr.count-1) {
-                contentStr = [NSString stringWithFormat:@"%@%@%@%@",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
-            }else {
-                contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
-            }
-        }
-        NSString *postStr = [NSString stringWithFormat:@"我今天完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
-        NSLog(@"%@", postStr);
-        [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:postStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:nil Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
-            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"能量帖发布成功!"];
-            }
-        } failure:^(NSString *str) {
-            NSLog(@"%@", str);
-        }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ToDayViewControllerPost" object:nil];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    CGPoint offset = scrollView.contentOffset;
+    [self.segControl setSelectedSegmentIndex:offset.x / Screen_width animated:YES];
+    if (!offset.x) {
+        self.isToDay = YES;
+        self.title = @"每日PK";
+        [self addBarButton];
     } else {
-        [SVProgressHUD showImage:nil status:@"今天你还没有进行PK哦"];
+        self.isToDay = NO;
+        self.title = @"历史记录";
+        [self removeBarButton];
     }
 }
 
@@ -295,13 +155,15 @@
         self.isToDay = YES;
         self.title = @"每日PK";
         [self addBarButton];
-        [self getToDayPKData];
     } else if (sender.selectedSegmentIndex == 1) {
         self.isToDay = NO;
         self.title = @"历史记录";
         [self removeBarButton];
-        [self getPkRecordData];
     }
+    [UIView animateWithDuration:0.5 animations:^{
+        self.scrollView.contentOffset = CGPointMake(Screen_width * sender.selectedSegmentIndex, 0);
+    }];
+
 }
 
 // 创建分段控件
@@ -336,6 +198,8 @@
     self.segControl.borderColor = [UIColor lightGrayColor];
     // 触发方法
     [self.segControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.view addSubview:self.segControl];
 }
 
 - (void)didReceiveMemoryWarning {

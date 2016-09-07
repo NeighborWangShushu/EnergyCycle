@@ -24,6 +24,8 @@
 #import "ECAvatarManager.h"
 #import "MineChatViewController.h"
 #import "ChatViewController.h"
+#import "WebVC.h"
+#import "BrokenLineViewController.h"
 
 @interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
 
@@ -78,6 +80,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HomePageViewControllerReloadData) name:@"HomePageViewControllerReloadData" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(energyDetailWebVC:) name:@"EnergyDetailWebVC" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(brokenLineViewController:) name:@"HomePageControllerToBrokenLineViewController" object:nil];
+}
+
+- (void)energyDetailWebVC:(NSNotification *)notification {
+    WebVC *webVC = notification.object;
+    [self.navigationController pushViewController:webVC animated:YES];
+}
+
+- (void)brokenLineViewController:(NSNotification *)notification {
+    BrokenLineViewController *blVC = notification.object;
+    [self.navigationController pushViewController:blVC animated:YES];
 }
 
 - (void)HomePageViewControllerReloadData {
@@ -255,7 +270,9 @@
         newVC = self.toDayVC;
     }
     [self tableViewScroll:newVC.tableView offsetY:newVC.tableView.contentOffset.y];
-    self.scrollView.contentOffset = CGPointMake(Screen_width * sender.selectedSegmentIndex, 0);
+    [UIView animateWithDuration:0.5 animations:^{
+        self.scrollView.contentOffset = CGPointMake(Screen_width * sender.selectedSegmentIndex, 0);
+    }];
     
     
 //    [self.showVC.view removeFromSuperview];
@@ -292,10 +309,7 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGPoint offset = scrollView.contentOffset;
-    self.segControl.selectedSegmentIndex = offset.x / Screen_width;
-    [UIView animateWithDuration:0.5 animations:^{
-        [self segmentedControlChangedValue:self.segControl];
-    }];
+    [self.segControl setSelectedSegmentIndex:offset.x / Screen_width animated:YES];
 }
 
 - (void)tableViewDidEndDragging:(UITableView *)tableView offsetY:(CGFloat)offsetY {
