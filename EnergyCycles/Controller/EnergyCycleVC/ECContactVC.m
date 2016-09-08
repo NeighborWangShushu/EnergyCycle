@@ -171,7 +171,7 @@
     self.searchController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
     [self.searchController.searchBar sizeToFit];
     _searchController.searchResultsTableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 2.0f, 0.0f);
-
+    
     
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);

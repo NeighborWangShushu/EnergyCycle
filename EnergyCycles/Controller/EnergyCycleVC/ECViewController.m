@@ -121,6 +121,7 @@
     [super viewDidAppear:animated];
     [self getMessageData];
     [IQKeyboardManager sharedManager].enable = NO;
+    
     if (User_TOKEN.length > 0) {
         [self checkPhone];
     }
@@ -290,6 +291,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(inputModeDidChange:) name:UITextInputCurrentInputModeDidChangeNotification object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postSuccess:) name:@"ECPOSTINGSUCCESS" object:nil];
+
     
 }
 
@@ -1234,6 +1238,11 @@
 
 
 #pragma mark  Notification
+
+- (void)postSuccess:(NSNotification*)notifi {
+    [self getData:YES];
+}
+
 - (void)keyboardWillShow:(NSNotification*)notifi {
     
 }

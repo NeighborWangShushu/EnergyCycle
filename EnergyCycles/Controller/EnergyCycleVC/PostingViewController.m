@@ -103,7 +103,6 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wechatShareSuccess) name:@"wechatShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weiboShareSuccess) name:@"weiboShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(QQShareSuccess) name:@"QQShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareCancel) name:@"shareCancel" object:nil];
@@ -111,6 +110,10 @@
 }
 
 - (void)setup {
+    NSArray * firstModel = [DraftsModel findAll];
+    if (firstModel.count) {
+        _model = [firstModel firstObject];
+    }
     
     [self setupLeftNavBarWithimage:@"blackback_normal.png"];
     
@@ -378,6 +381,7 @@
     
 }
 
+#pragma Mark 发布帖子
 -(void)getURLContext {
     
     NSString * title=[postDict valueForKey:@"title"];
@@ -414,13 +418,14 @@
             if ([_sharesArray count]) {
                 [self share:_sharesArray];
             }else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ECPOSTINGSUCCESS" object:nil];
                 [self back];
             }
         }else {
             [_dataArr removeAllObjects];
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
-
+        
     } failure:^(NSString *str) {
         [SVProgressHUD dismiss];
         [_dataArr removeAllObjects];
@@ -440,9 +445,12 @@
             NSLog(@"selectImgArrayLocal:%lu",(unsigned long)[_selectImgArrayLocal count]);
             if (_selectImgArrayLocal.count) {// 九张
                 if(_tempIndex<_selectImgArrayLocal.count){
-                    NSData * data=UIImageJPEGRepresentation(_selectImgArrayLocal[_tempIndex], 0.05);
+                    __block  NSData * data=nil;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                       data = UIImageJPEGRepresentation(_selectImgArrayLocal[_tempIndex], 0.05);
+                       [self submitImage:data];
+                    });
                     NSLog(@"_tempIndex:%ld",(long)_tempIndex);
-                    [self submitImage:data];
                 }else{
                     // 提交数据
                     [self getURLContext];
@@ -450,6 +458,7 @@
             }
         }else {
             // 网络出错
+            NSLog(@"网络出错:%@",dict[@"Msg"]);
             
         }
     } failure:^(NSString *str) {
