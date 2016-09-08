@@ -24,8 +24,10 @@
 #import "ECAvatarManager.h"
 #import "MineChatViewController.h"
 #import "ChatViewController.h"
+#import "WebVC.h"
+#import "BrokenLineViewController.h"
 
-@interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) MineHomePageHeadView *mineView;
 @property (nonatomic, strong) HMSegmentedControl *segControl;
@@ -38,6 +40,12 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, weak) UIViewController *showVC;
 @property (nonatomic, strong) NSMutableDictionary *offsetYDict; // 存储每个列表在Y轴的偏移量
+
+@property (nonatomic, strong) UIScrollView *scrollView;
+
+@property (nonatomic, strong) EnergyPostTableViewController *energyVC;
+@property (nonatomic, strong) PKRecordTableViewController *pkVC;
+@property (nonatomic, strong) ToDayPKTableViewController *toDayVC;
 
 @end
 
@@ -72,6 +80,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToFansController) name:@"jumpToFansController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToIntroViewController) name:@"jumpToIntroViewController" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HomePageViewControllerReloadData) name:@"HomePageViewControllerReloadData" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(energyDetailWebVC:) name:@"EnergyDetailWebVC" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(brokenLineViewController:) name:@"HomePageControllerToBrokenLineViewController" object:nil];
+}
+
+- (void)energyDetailWebVC:(NSNotification *)notification {
+    WebVC *webVC = notification.object;
+    [self.navigationController pushViewController:webVC animated:YES];
+}
+
+- (void)brokenLineViewController:(NSNotification *)notification {
+    BrokenLineViewController *blVC = notification.object;
+    [self.navigationController pushViewController:blVC animated:YES];
 }
 
 - (void)HomePageViewControllerReloadData {
@@ -135,9 +156,8 @@
     }];
 }
 
-
-
 - (void)tableViewScroll:(UITableView *)tableView offsetY:(CGFloat)offsetY {
+    NSLog(@"%f",offsetY);
     if (offsetY > kHeaderImgHeight - kNavigationHeight) {
         if (![self.mineView.superview isEqual:self.view]) {
             [self.view insertSubview:self.mineView belowSubview:self.navigationController.navigationBar];
@@ -156,7 +176,6 @@
         
         CGRect rect = self.mineView.frame;
         rect.origin.y = - offsetY;
-//        NSLog(@"y = %f",rect.origin.y);
         self.mineView.frame = rect;
 
     }
@@ -179,20 +198,42 @@
 
 // 添加列表
 - (void)addController {
-    EnergyPostTableViewController *energyVC = [[EnergyPostTableViewController alloc] init];
-    energyVC.tableView.showsVerticalScrollIndicator = NO;
-    energyVC.delegate = self;
-    PKRecordTableViewController *pkVC = [[PKRecordTableViewController alloc] init];
-    pkVC.tableView.showsVerticalScrollIndicator = NO;
-//    pkVC.tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    pkVC.delegate = self;
-//    ToDayPKTab
-    ToDayPKTableViewController *toDayVC = [[ToDayPKTableViewController alloc] init];
-    toDayVC.tableView.showsVerticalScrollIndicator = NO;
-    toDayVC.delegate = self;
-    [self addChildViewController:energyVC];
-    [self addChildViewController:pkVC];
-    [self addChildViewController:toDayVC];
+    self.energyVC = [[EnergyPostTableViewController alloc] init];
+    self.energyVC.delegate = self;
+    self.pkVC = [[PKRecordTableViewController alloc] init];
+    self.pkVC.tableView.showsVerticalScrollIndicator = NO;
+    self.pkVC.delegate = self;
+    self.toDayVC = [[ToDayPKTableViewController alloc] init];
+    self.toDayVC.tableView.showsVerticalScrollIndicator = NO;
+    self.toDayVC.delegate = self;
+    
+    CGRect frame = self.view.bounds;
+    self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
+    CGSize size = frame.size;
+    size.width = frame.size.width * 3;
+    self.scrollView.contentSize = size;
+    self.scrollView.scrollEnabled = YES;
+    self.scrollView.delegate = self;
+    self.scrollView.bounces = YES;
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    CGRect energyView = self.energyVC.view.frame;
+    energyView.size.height += energyView.origin.y;
+    energyView.origin.y = 0;
+    self.energyVC.view.frame = energyView;
+    [self.scrollView addSubview:self.energyVC.view];
+    frame.origin.x += frame.size.width;
+    self.pkVC.view.frame = frame;
+    [self.scrollView addSubview:self.pkVC.view];
+    frame.origin.x += frame.size.width;
+    self.toDayVC.view.frame = frame;
+    [self.scrollView addSubview:self.toDayVC.view];
+    
+    [self.view addSubview:self.scrollView];
+    
+//    [self addChildViewController:energyVC];
+//    [self addChildViewController:pkVC];
+//    [self addChildViewController:toDayVC];
 }
 
 // 添加头视图
@@ -220,33 +261,55 @@
 - (void)segmentedControlChangedValue:(HMSegmentedControl*)sender {
     [self.showVC.view removeFromSuperview];
     
-    MineHomePageTableViewControllerProtocol *newVC = self.childViewControllers[sender.selectedSegmentIndex];
-    if (!newVC.view.superview) {
-        [self.view addSubview:newVC.view];
-//        newVC.view.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height - 50);
-        newVC.view.frame = self.view.bounds;
+    MineHomePageTableViewControllerProtocol *newVC = [[MineHomePageTableViewControllerProtocol alloc] init];
+    if (sender.selectedSegmentIndex == 0) {
+        newVC = self.energyVC;
+    } else if (sender.selectedSegmentIndex == 1) {
+        newVC = self.pkVC;
+    } else if (sender.selectedSegmentIndex == 2) {
+        newVC = self.toDayVC;
     }
+    [self tableViewScroll:newVC.tableView offsetY:newVC.tableView.contentOffset.y];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.scrollView.contentOffset = CGPointMake(Screen_width * sender.selectedSegmentIndex, 0);
+    }];
     
-    NSString *nextAddressStr = [NSString stringWithFormat:@"%p", newVC];
-    CGFloat offsetY = [_offsetYDict[nextAddressStr] floatValue];
-    newVC.tableView.contentOffset = CGPointMake(0, offsetY);
     
-//    newVC.tableView.frame = CGRectMake(newVC.tableView.frame.origin.x, offsetY, newVC.tableView.frame.size.width, newVC.tableView.frame.size.height);
-    [self.view insertSubview:newVC.view belowSubview:self.navigationController.navigationBar];
-    if (offsetY <= kHeaderImgHeight - kNavigationHeight) {
-        [newVC.view addSubview:self.mineView];
-        
-        CGRect rect = self.mineView.frame;
-        rect.origin.y = 0;
-        self.mineView.frame = rect;
-    }  else {
-        [self.view insertSubview:self.mineView belowSubview:self.navigationController.navigationBar];
-        CGRect rect = self.mineView.frame;
-        rect.origin.y = kNavigationHeight - kHeaderImgHeight;
-        self.mineView.frame = rect;
-    }
-    self.showVC = newVC;
+//    [self.showVC.view removeFromSuperview];
 
+//    MineHomePageTableViewControllerProtocol *newVC = self.childViewControllers[sender.selectedSegmentIndex];
+//    if (sender.selectedSegmentIndex == 0) {
+//        EnergyPostTableViewController *newVC =
+//    }
+//    if (!newVC.view.superview) {
+//        [self.view addSubview:newVC.view];
+//        newVC.view.frame = self.view.bounds;
+//    }
+//    
+//    NSString *nextAddressStr = [NSString stringWithFormat:@"%p", newVC];
+//    CGFloat offsetY = [_offsetYDict[nextAddressStr] floatValue];
+//    newVC.tableView.contentOffset = CGPointMake(0, offsetY);
+//    
+//    [self.view insertSubview:newVC.view belowSubview:self.navigationController.navigationBar];
+//    if (offsetY <= kHeaderImgHeight - kNavigationHeight) {
+//        [newVC.view addSubview:self.mineView];
+//        
+//        CGRect rect = self.mineView.frame;
+//        rect.origin.y = 0;
+//        self.mineView.frame = rect;
+//    }  else {
+//        [self.view insertSubview:self.mineView belowSubview:self.navigationController.navigationBar];
+//        CGRect rect = self.mineView.frame;
+//        rect.origin.y = kNavigationHeight - kHeaderImgHeight;
+//        self.mineView.frame = rect;
+//    }
+//    self.showVC = newVC;
+
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    CGPoint offset = scrollView.contentOffset;
+    [self.segControl setSelectedSegmentIndex:offset.x / Screen_width animated:YES];
 }
 
 - (void)tableViewDidEndDragging:(UITableView *)tableView offsetY:(CGFloat)offsetY {

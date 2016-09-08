@@ -13,6 +13,8 @@
 
 // 头像
 @property (weak, nonatomic) IBOutlet UIButton *headImage;
+// 徽章
+@property (weak, nonatomic) IBOutlet UIButton *subscriptBadge;
 // 背景图片
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 // 姓名

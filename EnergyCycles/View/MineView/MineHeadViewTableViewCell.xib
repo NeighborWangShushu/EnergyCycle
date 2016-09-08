@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -111,11 +111,15 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dizhi.png" translatesAutoresizingMaskIntoConstraints="NO" id="go1-Uh-DQb">
                                 <rect key="frame" x="154" y="214" width="11" height="16"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHg-VJ-fad">
+                                <rect key="frame" x="195" y="111" width="30" height="30"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Eqz-I5-R7v" firstAttribute="centerY" secondItem="Zg5-sm-aKi" secondAttribute="centerY" id="1cD-ro-dFg"/>
                             <constraint firstItem="Zg5-sm-aKi" firstAttribute="centerX" secondItem="T5m-W4-g5r" secondAttribute="centerX" id="7u6-ju-6gs"/>
+                            <constraint firstItem="LHg-VJ-fad" firstAttribute="bottom" secondItem="Lhp-TX-cAQ" secondAttribute="bottom" id="CHA-Ws-Fme"/>
                             <constraint firstItem="Zg5-sm-aKi" firstAttribute="top" secondItem="Lhp-TX-cAQ" secondAttribute="bottom" constant="8" id="CYt-cE-dek"/>
                             <constraint firstItem="Lhp-TX-cAQ" firstAttribute="centerX" secondItem="T5m-W4-g5r" secondAttribute="centerX" id="Dt9-F8-2VA"/>
                             <constraint firstItem="Zg5-sm-aKi" firstAttribute="leading" secondItem="EjZ-xN-qMT" secondAttribute="trailing" constant="6" id="E8R-rz-4oG"/>
@@ -123,6 +127,7 @@
                             <constraint firstItem="EjZ-xN-qMT" firstAttribute="centerY" secondItem="cM9-Uw-MYx" secondAttribute="centerY" id="JoY-YB-lh7"/>
                             <constraint firstAttribute="trailing" secondItem="T5m-W4-g5r" secondAttribute="trailing" id="Mfz-lg-PNA"/>
                             <constraint firstItem="Zg5-sm-aKi" firstAttribute="leading" secondItem="go1-Uh-DQb" secondAttribute="trailing" constant="6" id="Ocu-wn-eaD"/>
+                            <constraint firstItem="LHg-VJ-fad" firstAttribute="trailing" secondItem="Lhp-TX-cAQ" secondAttribute="trailing" id="PcU-qe-SN2"/>
                             <constraint firstItem="jx0-Cp-zKZ" firstAttribute="top" secondItem="cM9-Uw-MYx" secondAttribute="bottom" constant="14" id="S4c-b8-Xwh"/>
                             <constraint firstItem="jx0-Cp-zKZ" firstAttribute="centerX" secondItem="T5m-W4-g5r" secondAttribute="centerX" id="ZfQ-lT-rRx"/>
                             <constraint firstItem="T5m-W4-g5r" firstAttribute="top" secondItem="bQt-2G-J15" secondAttribute="top" id="b9b-CG-vDZ"/>
@@ -215,6 +220,7 @@
                 <outlet property="integralLabel" destination="cM9-Uw-MYx" id="dfF-EJ-d02"/>
                 <outlet property="nameLabel" destination="Zg5-sm-aKi" id="OVg-M1-p6q"/>
                 <outlet property="sexImage" destination="Eqz-I5-R7v" id="tKb-rj-DhW"/>
+                <outlet property="subscriptBadge" destination="LHg-VJ-fad" id="Hkd-bJ-fT9"/>
             </connections>
             <point key="canvasLocation" x="343.5" y="280"/>
         </tableViewCell>

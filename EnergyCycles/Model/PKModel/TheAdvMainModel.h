@@ -31,5 +31,7 @@
 @property (nonatomic, strong) NSString<Optional> *oldOrderNumber;
 @property (nonatomic, strong) NSString<Optional> *curuserOldOrderNumber;
 
+@property (nonatomic, strong) NSString<Optional> *isHasLike;
+
 
 @end

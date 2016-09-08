@@ -11,13 +11,20 @@
 
 #import "AttentionAndFansTableViewCell.h"
 
+#import "ECContactSearchBar.h"
+#import "ECSearchDisplayController.h"
+
 #import "UserModel.h"
 #import "OtherUserModel.h"
 #import "GifHeader.h"
 
-@interface AttentionAndFansTableViewController ()
+@interface AttentionAndFansTableViewController ()<UISearchDisplayDelegate,UISearchBarDelegate,ECContactSearchBarDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) NSMutableArray *allDataArr;
+
+@property (nonatomic, strong) ECContactSearchBar *searchBar;
+@property (nonatomic, strong) UISearchDisplayController *searchController;
 
 @end
 
@@ -31,9 +38,18 @@
     return _dataArr;
 }
 
+- (NSMutableArray *)allDataArr {
+    if (!_allDataArr) {
+        self.allDataArr = [NSMutableArray array];
+    }
+    return _allDataArr;
+}
+
 - (void)leftAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark -----刷新-----
 
 - (void)setUpMJRefresh {
     __unsafe_unretained __typeof(self) weakSelf = self;
@@ -82,12 +98,24 @@
     }
 }
 
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    if (self.searchController.active) {
+//        self.searchController.active = NO;
+//        [self.searchController.searchBar removeFromSuperview];
+//    }
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupLeftNavBarWithimage:@"loginfanhui"];
 
+    // 关闭自动约束
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     // 设置tableView中cell的线条隐藏
+    // TableView的分割线样式为None,作用为隐藏下划线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self createSearchResultsUpdating];
     
     [self judge];
     
@@ -100,15 +128,99 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+#pragma mark -----搜索框------
+
+// 创建搜索框
+- (void)createSearchResultsUpdating {
+    _searchBar = [[ECContactSearchBar alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
+    _searchBar.delegate = self;
+    _searchBar.edelegate = self;
+    _searchBar.hasCentredPlaceholder = NO;
+    _searchBar.backgroundColor = [UIColor whiteColor];
+    [_searchBar setPlaceholder:@"搜索"];
+    [_searchBar setContentMode:UIViewContentModeLeft];
+    [_searchBar.layer setBorderWidth:0.5];
+    [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
+    [_searchBar setDelegate:self];
+    [_searchBar setKeyboardType:UIKeyboardTypeDefault];
+    [_searchBar sizeToFit];
+    self.tableView.tableHeaderView = self.searchBar;
+    
+    _searchController = [[ECSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+    _searchController.searchResultsDataSource = self;
+    _searchController.searchResultsDelegate = self;
+    _searchController.displaysSearchBarInNavigationBar = NO;
+    _searchController.delegate = self;
+    _searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _searchController.searchContentsController.view.backgroundColor = [UIColor whiteColor];
+    _searchController.searchResultsTableView.tableFooterView = [UIView new];
+    _searchController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
+    [_searchController.searchBar sizeToFit];
+    _searchController.searchResultsTableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 2.0f, 0.0f);
+    
+}
+
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    [_searchBar setShowsCancelButton:YES animated:NO];
+    UIView *topView = controller.searchBar.subviews[0];
+    controller.searchResultsTableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
+    
+    for (UIView *view in topView.subviews) {
+        if ([view isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
+            [view removeFromSuperview];
+        }
+    }
+    
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView {
+    for (UIView *subview in tableView.subviews) {
+        if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewWrapperView"]) {
+            subview.frame = CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height);
+        }
+    }
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+    [self filterContentForSearchText:[self.searchController.searchBar text] scope:[[self.searchController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    return YES;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self filterContentForSearchText:searchString scope:[[self.searchController.searchBar scopeButtonTitles] objectAtIndex:[self.searchController.searchBar selectedScopeButtonIndex]]];
+    return YES;
+}
+
+- (void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope {
+    NSMutableArray *resultsArr = [NSMutableArray array];
+    for (int i = 0; i < self.allDataArr.count; i++) {
+        NSString *nickString = [(UserModel *)self.allDataArr[i] nickname];
+        
+        NSRange nickRange = NSMakeRange(0, nickString.length);
+        
+        NSRange foundRange = [nickString rangeOfString:self.searchController.searchBar.text options:NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch range:nickRange];
+        
+        if (foundRange.length) {
+            [resultsArr addObject:self.allDataArr[i]];
+        }
+    }
+    [self.dataArr removeAllObjects];
+    [self.dataArr addObjectsFromArray:resultsArr];
+}
+
+#pragma mark -----获取数据-----
+
 // 关注列表
 - (void)getAttentionInfo {
     [[AppHttpManager shareInstance] getMyHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self.dataArr removeAllObjects];
+            [self.allDataArr removeAllObjects];
             
             for (NSDictionary *subDict in dict[@"Data"]) {
                 UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
                 [self.dataArr addObject:model];
+                [self.allDataArr addObject:model];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self endRefresh];
@@ -130,10 +242,12 @@
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             
             [self.dataArr removeAllObjects];
+            [self.dataArr removeAllObjects];
             
             for (NSDictionary *subDict in dict[@"Data"]) {
                 UserModel *model = [[UserModel alloc] initWithDictionary:subDict error:nil];
                 [self.dataArr addObject:model];
+                [self.allDataArr addObject:model];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self endRefresh];
@@ -162,10 +276,12 @@
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             
             [self.dataArr removeAllObjects];
+            [self.allDataArr removeAllObjects];
             
             for (NSDictionary *subDict in dict[@"Data"]) {
                 OtherUserModel *model = [[OtherUserModel alloc] initWithDictionary:subDict error:nil];
                 [self.dataArr addObject:model];
+                [self.allDataArr addObject:model];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self endRefresh];
@@ -187,7 +303,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+#pragma mark -----TableView协议方法-----
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -227,6 +343,7 @@
     return cell;
 }
 
+// 点击协议方法
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
     if (self.userId == NULL || [self.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
@@ -238,6 +355,8 @@
     }
     [self.navigationController pushViewController:mineVC animated:YES];
 }
+
+#pragma mark -----备注名-----
 
 // 可以编辑
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

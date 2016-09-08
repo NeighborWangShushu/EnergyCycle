@@ -1247,4 +1247,11 @@
                                   success:(void (^)(NSDictionary *dict))success
                                   failure:(void (^)(NSString *str))failure;
 
+#pragma mark - 109.获得个人徽章数据
+// 输入参数:UserID      int // 用户ID
+- (void)getMyBedgeWithUserID:(int)userid
+                   PostOrGet:(NSString *)postOrGetType
+                     success:(void (^)(NSDictionary *dict))success
+                     failure:(void (^)(NSString *str))failure;
+
 @end

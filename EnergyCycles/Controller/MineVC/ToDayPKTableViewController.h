@@ -11,4 +11,6 @@
 
 @interface ToDayPKTableViewController : MineHomePageTableViewControllerProtocol
 
+@property (nonatomic, assign) BOOL isMineTableView;
+
 @end
