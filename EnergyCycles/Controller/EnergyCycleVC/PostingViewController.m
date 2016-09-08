@@ -110,10 +110,35 @@
 }
 
 - (void)setup {
+    
     NSArray * firstModel = [DraftsModel findAll];
     if (firstModel.count) {
-        _model = [firstModel firstObject];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否加载上次没发完的内容？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction*cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction*okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            _model = [firstModel firstObject];
+            if (_model) {
+                energyPostViewCell.informationTextView.text = _model.context;
+                [postDict setObject:_model.context forKey:@"content"];
+                
+                NSString*documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)firstObject];
+                NSString*newFielPath = [documentsPath stringByAppendingPathComponent:_model.imgLocalURL];
+                NSArray *content = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@.plist",newFielPath]];
+                // 获取model 进行赋值
+                for (NSString*imgpath in content) {
+                    UIImage*img = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imgpath];
+                    [_selectImgArrayLocal addObject:img];
+                    [_selectImgArray addObject:img];
+                }
+                [self.collectionView reloadData];
+            }
+        }];
+        [alertController addAction:cancelAction];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
     }
+    
     
     [self setupLeftNavBarWithimage:@"blackback_normal.png"];
     

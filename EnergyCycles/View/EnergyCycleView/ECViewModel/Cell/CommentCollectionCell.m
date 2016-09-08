@@ -31,7 +31,7 @@
     [self.icon sd_setImageWithURL:[NSURL URLWithString:model.url] placeholderImage:EC_RECOMMEND_PLACEHOLDER];
     self.name.text = model.name;
     self.name.adjustsFontSizeToFitWidth = YES;
-    
+    self.badge.image = [UIImage imageNamed:[NSString stringWithFormat:@"badge_%@",model.badge]];
 }
 
 - (id)initWithFrame:(CGRect)frame {

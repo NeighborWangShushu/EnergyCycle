@@ -132,6 +132,7 @@
  *  检查是否绑定手机号
  */
 
+
 - (void)checkPhone {
     
     [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
@@ -162,7 +163,6 @@
     if (!model) {
         NSTimeZone *zone = [NSTimeZone defaultTimeZone];//获得当前应用程序默认的时区
         NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];//以秒为单位返回当前应用程序与世界标准时间（格林威尼时间）的时差
-        NSDate *localeDate = [[NSDate date] dateByAddingTimeInterval:interval];
         
         model = [[DateAlertModel alloc] init];
         model.last_alert_date = interval;
@@ -293,7 +293,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postSuccess:) name:@"ECPOSTINGSUCCESS" object:nil];
-
     
 }
 
@@ -317,7 +316,6 @@
                 messageCountView.hidden = NO;
             }
             count.text = [NSString stringWithFormat:@"%ld",(long)messageCount];
-            
         }
         
     } failure:^(NSString *str) {
@@ -411,6 +409,7 @@
                 model.url = data[@"photourl"];
                 model.ID = [data[@"use_id"] integerValue];
                 model.isHeart = [data[@"isHeart"] boolValue];
+                model.badge = [NSString stringWithFormat:@"%@",data[@"ReportNum"]];
                 [weakSelf.commentArray addObject:model];
             }
             NSLog(@"operation2 is complete");
@@ -492,6 +491,8 @@
     model.time = data[@"createTime"];
     model.picNamesArray = data[@"artPic"];
     model.liked = [data[@"isHasLike"] boolValue];
+    model.badge = [NSString stringWithFormat:@"%@",data[@"ReportNum"]];
+    
     NSMutableArray * likeArr = [NSMutableArray array];
     if ([data[@"LikeUserList"] count]) {
         for (NSDictionary * like in data[@"LikeUserList"]) {
@@ -623,19 +624,19 @@
     
     self.navigationItem.titleView = navView;
     
-    UIButton *rightbutton = [UIButton buttonWithType:UIButtonTypeSystem];
-    rightbutton.frame = CGRectMake(0, 0, 21, 25);
+    UIButton *rightbutton                   = [UIButton buttonWithType:UIButtonTypeSystem];
+    rightbutton.frame                       = CGRectMake(0, 0, 21, 25);
     [rightbutton setBackgroundImage:[UIImage imageNamed:@"ec_sign"] forState:UIControlStateNormal];
-    rightbutton.tag = 1001;
+    rightbutton.tag                         = 1001;
     [rightbutton addTarget:self action:@selector(energyRightActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightbutton];
+    UIBarButtonItem *item                   = [[UIBarButtonItem alloc] initWithCustomView:rightbutton];
     self.navigationItem.rightBarButtonItems = @[item];
-    
-    UIView*leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 25)];
-    UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftbutton.frame = CGRectMake(0, 4, 18, 22);
+
+    UIView*leftView                         = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 25)];
+    UIButton *leftbutton                    = [UIButton buttonWithType:UIButtonTypeSystem];
+    leftbutton.frame                        = CGRectMake(0, 4, 18, 22);
     [leftbutton setBackgroundImage:[UIImage imageNamed:@"bell-icon"] forState:UIControlStateNormal];
-    leftbutton.tag = 1002;
+    leftbutton.tag                          = 1002;
     [leftbutton addTarget:self action:@selector(energyLeftActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
     [leftView addSubview:leftbutton];
     
@@ -715,7 +716,6 @@
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(endAnimation)];
     arrowImg.transform = CGAffineTransformMakeRotation(angle * (M_PI /180.0f));
     [UIView commitAnimations];
 }
