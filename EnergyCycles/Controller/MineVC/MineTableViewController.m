@@ -9,6 +9,9 @@
 #import "MineTableViewController.h"
 
 #import "MineHomePageViewController.h"
+
+#import "MineHomeTableViewController.h"
+
 #import "IntroViewController.h"
 #import "UserModel.h"
 #import "UserInfoModel.h"
@@ -148,7 +151,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) { // 个人主页
         [self.delegate.tabbarController hideTabbar:YES];
-        [self performSegueWithIdentifier:@"MineHomePageViewController" sender:nil];
+//        MineHomeTableViewController *mine = [[MineHomeTableViewController alloc] init];
+//        mine.userId = User_ID;
+//        [self.navigationController pushViewController:mine animated:YES];
+        MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+        mineVC.userId = User_ID;
+        [self.navigationController pushViewController:mineVC animated:YES];
+//        [self performSegueWithIdentifier:@"MineHomePageViewController" sender:nil];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) { // 能量圈
             //            EnergyPostTableViewController *enVC = [[EnergyPostTableViewController alloc] init];
@@ -243,10 +252,11 @@
 
 // 传值
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"MineHomePageViewController"]) {
-        MineHomePageViewController *mineHomePageVC = segue.destinationViewController;
-        mineHomePageVC.userId = User_ID;
-    } else if([segue.identifier isEqualToString:@"IntroViewController"]){
+//    if ([segue.identifier isEqualToString:@"MineHomePageViewController"]) {
+//        MineHomePageViewController *mineHomePageVC = segue.destinationViewController;
+//        mineHomePageVC.userId = User_ID;
+//    } else
+    if([segue.identifier isEqualToString:@"IntroViewController"]){
         IntroViewController *introVC = segue.destinationViewController;
         introVC.introString = self.model.Brief;
     } else if([segue.identifier isEqualToString:@"SettingTableViewController"]) {

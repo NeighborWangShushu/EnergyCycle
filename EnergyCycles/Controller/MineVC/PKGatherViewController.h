@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Apple. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import "BaseViewController.h"
 
-@interface PKGatherViewController : BaseTableViewController
+@interface PKGatherViewController : BaseViewController
 
 @property (nonatomic, assign) BOOL isHistory;
 

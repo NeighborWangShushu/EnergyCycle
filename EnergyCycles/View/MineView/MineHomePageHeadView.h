@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *rightBackgroundButton;
 // 头像
 @property (weak, nonatomic) IBOutlet UIButton *headImage;
+// 徽章
+@property (weak, nonatomic) IBOutlet UIButton *subscriptBadge;
 // 昵称
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 // 性别

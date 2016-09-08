@@ -26,6 +26,29 @@
         [self.headImage sd_setImageWithURL:[NSURL URLWithString:model.photourl] forState:UIControlStateNormal];
     }
     
+    // 徽章
+    if (model.ReportNum) {
+        NSInteger report = [model.ReportNum intValue];
+        NSString *string = @"";
+        if (report >= 30) {
+            string = @"30";
+            if (report >= 50) {
+                string = @"50";
+                if (report >= 100) {
+                    string = @"100";
+                    if (report >= 200) {
+                        string = @"200";
+                        if (report >= 300) {
+                            string = @"300";
+                        }
+                    }
+                }
+            }
+        }
+        [self.subscriptBadge setImage:[UIImage imageNamed:[NSString stringWithFormat:@"subscript_%@signIn@2x", string]] forState:UIControlStateNormal];
+        self.subscriptBadge.userInteractionEnabled = NO;
+    }
+    
     // 昵称
     self.nameLabel.text = model.nickname;
     

@@ -174,7 +174,7 @@
     [super viewDidLoad];
     
     [self setUpMJRefresh];
-    
+
     self.startPage = 0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (self.isMineTableView) {
@@ -186,7 +186,6 @@
         self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - 50);
         [self setupLeftNavBarWithimage:@"loginfanhui"];
 //        self.tabBarController.tabBar.hidden = YES;
-        
     }
     
     [IQKeyboardManager sharedManager].enable = NO;
@@ -316,7 +315,11 @@
     WebVC *webVC = MainStoryBoard(@"WebVC");
     webVC.titleName = @"动态详情";
     webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,model.ID,[NSString stringWithFormat:@"%@",User_ID]];
-    [self.navigationController pushViewController:webVC animated:YES];
+    if (self.isMineTableView) {
+        [self.navigationController pushViewController:webVC animated:YES];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"EnergyDetailWebVC" object:webVC];
+    }
 }
 
 #pragma mark - 分享

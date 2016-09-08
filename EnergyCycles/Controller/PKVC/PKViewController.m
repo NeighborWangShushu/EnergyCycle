@@ -15,6 +15,7 @@
 #import "WDTwoScrollView.h"
 #import "PostingViewController.h"
 #import "PKGatherViewController.h"
+#import "BadgeRulesCollectionViewController.h"
 #import "AppDelegate.h"
 
 @interface PKViewController () <UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
@@ -37,6 +38,8 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
     
     [self.delegate.tabbarController hideTabbar:NO];
+    [self setupRightNavBarWithTitle:@"徽章规则"];
+
     //获取collectionView网络数据
     [self getPKHeadCollectionViewData];
     [self getPkSummaryData];
@@ -58,6 +61,16 @@
     pkHomeTableView.showsHorizontalScrollIndicator = NO;
     pkHomeTableView.backgroundColor = [UIColor whiteColor];
     pkHomeTableView.bounces = YES;
+}
+
+- (void)rightAction {
+    if (User_TOKEN.length > 0) {
+        [self.delegate.tabbarController hideTabbar:YES];
+        BadgeRulesCollectionViewController *badgeVC = [[BadgeRulesCollectionViewController alloc] init];
+        [self.navigationController pushViewController:badgeVC animated:YES];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+    }
 }
 
 - (void)gotoCyclePostView:(NSNotification*)noti {

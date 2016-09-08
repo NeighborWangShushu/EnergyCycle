@@ -20,6 +20,7 @@
 #import "MineHomePageViewController.h"
 
 #import "WebVC.h"
+#import "TheAdvPKDetailVC.h"
 
 @interface TheAdvPKViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
     UIView *headLineView;
@@ -181,10 +182,12 @@
 //        webVC.url = loadStr;
 //=======
 //        [self performSegueWithIdentifier:@"TheAdvPKViewToDetailView" sender:nil];
-        WebVC *webVC = MainStoryBoard(@"WebVC");
-        webVC.titleName = @"进阶PK详情";
-        webVC.url = [NSString stringWithFormat:@"%@%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,model.postId,[NSString stringWithFormat:@"%@",model.userId]];
-        [self.navigationController pushViewController:webVC animated:YES];
+        TheAdvPKDetailVC *detailVC = [[TheAdvPKDetailVC alloc] init];
+        detailVC.titleName = @"进阶PK详情";
+        detailVC.model = model;
+        detailVC.url = [NSString stringWithFormat:@"%@%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,model.postId,[NSString stringWithFormat:@"%@",model.userId]];
+
+        [self.navigationController pushViewController:detailVC animated:YES];
     }];
     
     //其他人信息
@@ -205,6 +208,10 @@
     }
     
     return cell;
+}
+
+- (void)detailRightActionWithBtn {
+    NSLog(@"testtesttesttest");
 }
 
 #pragma mark - 返回这个UICollectionView是否可以被选择

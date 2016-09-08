@@ -2857,5 +2857,23 @@ static AFHTTPRequestOperationManager *manager;
                      }];
 }
 
+#pragma mark - 109.获得个人徽章数据
+// 输入参数:UserID      int // 用户ID
+- (void)getMyBedgeWithUserID:(int)userid
+                   PostOrGet:(NSString *)postOrGetType
+                     success:(void (^)(NSDictionary *dict))success
+                     failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic =[NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    
+    [self callInterfaceByUrl:GetMyBedge
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                        success(dict);
+                    } failure:^(NSString *str) {
+                        failure(str);
+                    }];
+}
 
 @end
