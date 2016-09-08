@@ -2876,5 +2876,22 @@ static AFHTTPRequestOperationManager *manager;
                     }];
 }
 
+<<<<<<< HEAD
+=======
+#pragma mark - 110.学习模块Banner列表
+- (void)getBannerListPostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure {
+    [self callInterfaceByUrl:BannerList
+                   PostOrGet:postOrGetType
+                    withDict:nil
+                     success:^(NSDictionary *dict) {
+                        success(dict);
+                    } failure:^(NSString *str) {
+                        failure(str);
+                    }];
+}
+
+>>>>>>> wangbin
 
 @end

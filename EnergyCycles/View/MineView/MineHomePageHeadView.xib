@@ -17,22 +17,6 @@
                         <constraint firstAttribute="height" constant="500" id="kYU-nm-eG1"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYn-XY-rUx">
-                    <rect key="frame" x="122" y="72" width="75" height="75"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="75" id="7Hn-gz-QJL"/>
-                        <constraint firstAttribute="width" constant="75" id="WZF-ke-ptU"/>
-                    </constraints>
-                    <state key="normal" image="touxiang.png"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="imageView.layer.cornerRadius">
-                            <real key="value" value="37.5"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="changeHeadImage:" destination="ibT-XF-nB3" eventType="touchUpInside" id="bUk-af-gwB"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHR-TL-hMf">
                     <rect key="frame" x="139" y="150" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -147,6 +131,22 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9O-yQ-ZtU">
                     <rect key="frame" x="167" y="113" width="30" height="34"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYn-XY-rUx">
+                    <rect key="frame" x="122" y="72" width="75" height="75"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="75" id="7Hn-gz-QJL"/>
+                        <constraint firstAttribute="width" constant="75" id="WZF-ke-ptU"/>
+                    </constraints>
+                    <state key="normal" image="touxiang.png"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="imageView.layer.cornerRadius">
+                            <real key="value" value="37.5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="changeHeadImage:" destination="ibT-XF-nB3" eventType="touchUpInside" id="bUk-af-gwB"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

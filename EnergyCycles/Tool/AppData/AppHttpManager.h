@@ -1254,4 +1254,9 @@
                      success:(void (^)(NSDictionary *dict))success
                      failure:(void (^)(NSString *str))failure;
 
+#pragma mark - 110.学习模块Banner列表
+- (void)getBannerListPostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure;
+
 @end
