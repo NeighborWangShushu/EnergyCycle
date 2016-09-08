@@ -10,31 +10,14 @@
 
 @implementation CollectionSliderDetailCell
 
-- (void)getDataWithUrl:(NSString *)url indexPath:(NSIndexPath *)indexPath{
-    self.url = url;
-    switch (indexPath.row) {
-        case 0: {
-            [self.backgroundImage setImage:[UIImage imageNamed:@"Learn_CCTalk"] forState:UIControlStateNormal];
-            self.nameLabel.text = @"CC课堂";
-            break;
-        }
-        case 1: {
-            [self.backgroundImage setImage:[UIImage imageNamed:@"Learn_AudioBooks"] forState:UIControlStateNormal];
-            self.nameLabel.text = @"有声书";
-        }
-            break;
-        case 2: {
-            [self.backgroundImage setImage:[UIImage imageNamed:@"Learn_GreatVideo"] forState:UIControlStateNormal];
-            self.nameLabel.text = @"精彩视频";
-            break;
-        }
-        default:
-            break;
-    }
+- (void)getDataWithModel:(BannerModel *)model {
+    self.url = model.OuterPath;
+    [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:model.ImageUrl] forState:UIControlStateNormal];
+    self.nameLabel.text = model.Content;
 }
 
 - (IBAction)clickAction:(id)sender {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LearnRecommend" object:self.url];
 }
 
 - (void)awakeFromNib {

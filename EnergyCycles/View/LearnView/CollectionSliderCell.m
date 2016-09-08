@@ -47,7 +47,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CollectionSliderDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     BannerModel *model = self.dataArray[indexPath.row];
-    [cell getDataWithUrl:model.OuterPath indexPath:indexPath];
+    [cell getDataWithModel:model];
     return cell;
 }
 

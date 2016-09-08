@@ -43,6 +43,8 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
+@property (nonatomic, strong) UIView *bottomView;
+
 @property (nonatomic, strong) EnergyPostTableViewController *energyVC;
 @property (nonatomic, strong) PKRecordTableViewController *pkVC;
 @property (nonatomic, strong) ToDayPKTableViewController *toDayVC;
@@ -261,6 +263,20 @@
 - (void)segmentedControlChangedValue:(HMSegmentedControl*)sender {
     [self.showVC.view removeFromSuperview];
     
+    if (!self.bottomView) {
+        [self createBottomView];
+    }
+    
+    if (sender.selectedSegmentIndex != 2) {
+        [UIView animateWithDuration:0.5 animations:^{
+            [self.bottomView setFrame:CGRectMake(self.bottomView.frame.origin.x, Screen_Height, self.bottomView.frame.size.width, self.bottomView.frame.size.height)];
+        }];
+    } else {
+        [UIView animateWithDuration:0.5 animations:^{
+            [self.bottomView setFrame:CGRectMake(self.bottomView.frame.origin.x, Screen_Height - 90, self.bottomView.frame.size.width, self.bottomView.frame.size.height)];
+        }];
+    }
+    
     MineHomePageTableViewControllerProtocol *newVC = [[MineHomePageTableViewControllerProtocol alloc] init];
     if (sender.selectedSegmentIndex == 0) {
         newVC = self.energyVC;
@@ -310,6 +326,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGPoint offset = scrollView.contentOffset;
     [self.segControl setSelectedSegmentIndex:offset.x / Screen_width animated:YES];
+    [self segmentedControlChangedValue:self.segControl];
 }
 
 - (void)tableViewDidEndDragging:(UITableView *)tableView offsetY:(CGFloat)offsetY {
@@ -440,6 +457,32 @@
             NSLog(@"%@", str);
         }];
     }
+}
+
+- (void)createBottomView {
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(Screen_width - 160, Screen_Height, 160, 90)];
+    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 90)];
+    image.image = [UIImage imageNamed:@"ToDay_BottomView"];
+    [self.bottomView addSubview:image];
+    UIButton *postButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    postButton.frame = CGRectMake(10, -13, image.frame.size.width / 2, image.frame.size.height);
+    [postButton setImage:[UIImage imageNamed:@"ToDay_BottomPost"] forState:UIControlStateNormal];
+    [postButton addTarget:self action:@selector(postAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomView addSubview:postButton];
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shareButton.frame = CGRectMake(image.frame.size.width / 2 - 10, -13, image.frame.size.width / 2, image.frame.size.height);
+    [shareButton setImage:[UIImage imageNamed:@"ToDay_BottomShare"] forState:UIControlStateNormal];
+    [shareButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomView addSubview:shareButton];
+    [self.view addSubview:self.bottomView];
+}
+
+- (void)postAction {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ToDayViewControllerPost" object:nil];
+}
+
+- (void)shareAction {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ToDayViewControllerShare" object:nil];
 }
 
 

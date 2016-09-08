@@ -246,6 +246,9 @@
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView*view = [UIView new];
     view.backgroundColor = [UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:1.0];
+    if (section == 1) {
+        view.backgroundColor = [UIColor clearColor];
+    }
     return view;
 }
 

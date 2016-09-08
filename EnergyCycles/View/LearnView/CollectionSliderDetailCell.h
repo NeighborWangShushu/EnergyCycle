@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BannerModel.h"
 
 @interface CollectionSliderDetailCell : UICollectionViewCell
 
@@ -16,6 +17,6 @@
 // 文字
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
-- (void)getDataWithUrl:(NSString *)url indexPath:(NSIndexPath *)indexPath;
+- (void)getDataWithModel:(BannerModel *)model;
 
 @end
