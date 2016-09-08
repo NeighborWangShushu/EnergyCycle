@@ -419,4 +419,7 @@
 //109.获得个人徽章数据
 #define GetMyBedge                 @"user/MyBedge_Get"
 
+//110.学习模块Banner列表
+#define BannerList                 @"/Study/Banner_List"
+
 #endif

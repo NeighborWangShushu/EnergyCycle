@@ -169,8 +169,6 @@
     blVC.projectID = model.pId;
     blVC.showStr = model.name;
     if (self.isMineTableView) {
-        [self.navigationController pushViewController:blVC animated:YES];
-    } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"HomePageControllerToBrokenLineViewController" object:blVC];
     }
 }
