@@ -42,6 +42,8 @@
 - (void)setup {
     if (self.type == ReferralHeadViewTypeNone) {
         return;
+    } else if (self.type == ReferralHeadViewTypeCollectionSlider) {
+        return;
     }
     
     UIImageView*img = [UIImageView new];

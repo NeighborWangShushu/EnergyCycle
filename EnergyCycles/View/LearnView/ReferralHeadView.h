@@ -12,7 +12,8 @@ typedef enum {
     ReferralHeadViewTypeNone,
     ReferralHeadViewTypeOther,
     ReferralHeadViewTypeRadio,
-    ReferralHeadViewTypeCCTalk
+    ReferralHeadViewTypeCCTalk,
+    ReferralHeadViewTypeCollectionSlider
 }ReferralHeadViewType;
 
 @protocol ReferralHeadViewDelegate;

@@ -13,20 +13,30 @@
 #import "RadioCell.h"
 #import "OtherCell.h"
 #import "BannerCell.h"
+#import "CollectionSliderCell.h"
 #import "ReferralHeadView.h"
 #import "ReferralModel.h"
+#import "BannerModel.h"
 #import "GifHeader.h"
 
 
 @interface ReferralPageView ()<UITableViewDelegate,UITableViewDataSource,OtherCellDelegate,ReferralHeadViewDelegate> {
     NSMutableArray * banners;
 }
+@property (nonatomic, strong) NSMutableArray * collectionSliderArr;
 
 @property (nonatomic,strong)UITableView * tableView;
 
 @end
 
 @implementation ReferralPageView
+
+- (NSMutableArray *)collectionSliderArr {
+    if (!_collectionSliderArr) {
+        self.collectionSliderArr = [NSMutableArray array];
+    }
+    return _collectionSliderArr;
+}
 
 - (id)init {
     self = [super init];
@@ -89,11 +99,26 @@
     [[AppHttpManager shareInstance] getAppRadioListPostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             _radioData = dict;
-            [[AppHttpManager shareInstance] getSearchWithTypes:self.postType withContent:self.type PostOrGet:@"get" success:^(NSDictionary *dict) {
+            [[AppHttpManager shareInstance] getBannerListPostOrGet:@"get" success:^(NSDictionary *dict) {
                 if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                    [self setData:dict];
-                    [self.tableView.mj_header endRefreshing];
-                }else {
+                    [self.collectionSliderArr removeAllObjects];
+                    for (NSDictionary *data in dict[@"Data"]) {
+                        BannerModel *model = [[BannerModel alloc] initWithDictionary:data error:nil];
+                        if ([model.ShowArea isEqualToString:@"2"]) {
+                            [self.collectionSliderArr addObject:model];
+                        }
+                    }
+                    [[AppHttpManager shareInstance] getSearchWithTypes:self.postType withContent:self.type PostOrGet:@"get" success:^(NSDictionary *dict) {
+                        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                            [self setData:dict];
+                            [self.tableView.mj_header endRefreshing];
+                        }else {
+                            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                        }
+                    } failure:^(NSString *str) {
+                        NSLog(@"%@",str);
+                    }];
+                } else {
                     [SVProgressHUD showImage:nil status:dict[@"Msg"]];
                 }
             } failure:^(NSString *str) {
@@ -138,20 +163,25 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return 0.1f;
+    } else if (section == 1) {
+        return 10.f;
     }
     return 60;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0 || section == 1) {
+        return 0.1f;
+    }
     return 10.0f;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString * BANNERCELL = @"BANNERCELL";
+    static NSString * COLLECTIONSLIDERCELL = @"COLLECTIONSLIDERCELL";
     static NSString * RADIOCELL = @"RADIOCELL";
 //    static NSString * CCTALKCell = @"CCTALKCell";
     static NSString * OTHERCELL = @"OTHERCELL";
-    
     if (indexPath.section == 0) {
         BannerCell * cell0 = (BannerCell*)[tableView dequeueReusableCellWithIdentifier:BANNERCELL];
         if (!cell0) {
@@ -160,15 +190,22 @@
         cell0.data = banners;
         cell0.items = self.model.banners;
         return cell0;
-    }
-    else if (indexPath.section == 1) {
+    } else if (indexPath.section == 1) {
+        CollectionSliderCell *cell = [tableView dequeueReusableCellWithIdentifier:COLLECTIONSLIDERCELL];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CollectionSliderCell" owner:self options:nil] lastObject];
+        }
+        cell.dataArray = self.collectionSliderArr;
+        [cell createCollectionSliderCell];
+        return cell;
+    } else if (indexPath.section == 2) {
         RadioCell * cell2 = (RadioCell*)[tableView dequeueReusableCellWithIdentifier:RADIOCELL];
         if (!cell2) {
             cell2 = [[[NSBundle mainBundle] loadNibNamed:@"RadioCell" owner:self options:nil] lastObject];
         }
         cell2.radios = self.model.radios;
         return cell2;
-    }else{
+    } else {
         NSString * name = @"";
         OtherCell * cell3 = (OtherCell*)[tableView dequeueReusableCellWithIdentifier:OTHERCELL];
         if (!cell3) {
@@ -189,10 +226,12 @@
     ReferralHeadView * headview;
     headview = [[ReferralHeadView alloc] initWithName:name];
     headview.delegate = self;
-    if(section == 1){
+    if (section == 1) {
+        headview.type = ReferralHeadViewTypeCollectionSlider;
+    } else if (section == 2){
         headview.name = @"英文电台";
         headview.type = ReferralHeadViewTypeRadio;
-    }else if (section == 0){
+    } else if (section == 0){
         headview.type = ReferralHeadViewTypeNone;
     }
     else {

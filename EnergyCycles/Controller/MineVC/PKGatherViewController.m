@@ -44,6 +44,7 @@
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PKRecordTableViewController" object:self userInfo:@{@"userId" : User_ID}];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ToDayTableViewController" object:self userInfo:@{@"userId" : User_ID}];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(brokenLineViewController:) name:@"HomePageControllerToBrokenLineViewController" object:nil];
 }
 
 - (void)createScrollView {
@@ -90,9 +91,14 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     if (_isHistory) {
+        self.segControl.selectedSegmentIndex = 1;
+        self.scrollView.contentOffset = CGPointMake(Screen_width, 0);
+        self.title = @"历史记录";
         self.isToDay = NO;
         [self removeBarButton];
     } else {
+        self.segControl.selectedSegmentIndex = 0;
+        self.title = @"每日PK";
         self.isToDay = YES;
         [self addBarButton];
     }
@@ -110,6 +116,11 @@
 
 - (void)leftAction {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)brokenLineViewController:(NSNotification *)notification {
+    BrokenLineViewController *brokenVC = notification.object;
+    [self.navigationController pushViewController:brokenVC animated:YES];
 }
 
 - (void)createRightButton {
@@ -185,13 +196,7 @@
     // 选中后的文本样式
     self.segControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:242/ 255.0 green:77/255.0 blue:77/255.0 alpha:1], NSFontAttributeName:[UIFont systemFontOfSize:14]};
     // 初始位置
-    if (_isHistory) {
-        self.segControl.selectedSegmentIndex = 1;
-        self.title = @"历史记录";
-    } else {
-        self.segControl.selectedSegmentIndex = 0;
-        self.title = @"每日PK";
-    }
+    self.segControl.selectedSegmentIndex = 0;
     // 边界样式
     self.segControl.borderType = HMSegmentedControlBorderTypeBottom;
     // 边界颜色
