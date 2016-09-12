@@ -18,7 +18,9 @@
 #import "OtherUserModel.h"
 #import "GifHeader.h"
 
-@interface AttentionAndFansTableViewController ()<UISearchDisplayDelegate,UISearchBarDelegate,ECContactSearchBarDelegate>
+@interface AttentionAndFansTableViewController ()<UISearchDisplayDelegate,UISearchBarDelegate,ECContactSearchBarDelegate> {
+    BOOL isSearching;
+}
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) NSMutableArray *allDataArr;
@@ -106,6 +108,11 @@
 //    }
 //}
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self createSearchResultsUpdating];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupLeftNavBarWithimage:@"loginfanhui"];
@@ -115,7 +122,6 @@
     // 设置tableView中cell的线条隐藏
     // TableView的分割线样式为None,作用为隐藏下划线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self createSearchResultsUpdating];
     
     [self judge];
     
@@ -187,6 +193,11 @@
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    if (searchString == nil || [searchString isEqualToString:@""]) {
+        isSearching = YES;
+    } else {
+        isSearching = NO;
+    }
     [self filterContentForSearchText:searchString scope:[[self.searchController.searchBar scopeButtonTitles] objectAtIndex:[self.searchController.searchBar selectedScopeButtonIndex]]];
     return YES;
 }
@@ -347,10 +358,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
     if (self.userId == NULL || [self.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
-        UserModel *model = self.dataArr[indexPath.row];
+        UserModel *model = nil;
+        if (isSearching) {
+            model = self.allDataArr[indexPath.row];
+        } else {
+            model = self.dataArr[indexPath.row];
+        }
         mineVC.userId = model.use_id;
     } else {
-        OtherUserModel *model = self.dataArr[indexPath.row];
+        OtherUserModel *model = nil;
+        if (isSearching) {
+            model = self.allDataArr[indexPath.row];
+        } else {
+            model = self.dataArr[indexPath.row];
+        }
         mineVC.userId = model.userId;
     }
     [self.navigationController pushViewController:mineVC animated:YES];

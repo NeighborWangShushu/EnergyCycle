@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -49,7 +49,7 @@
                             <constraint firstAttribute="height" constant="9" id="nll-Bm-uZP"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1C94E8B1-5E4E-4E2A-B636-9CED73A793E1" translatesAutoresizingMaskIntoConstraints="NO" id="KIH-Wr-gma">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="7988EE47-96A3-4B13-8C02-1FD0A9294F24" translatesAutoresizingMaskIntoConstraints="NO" id="KIH-Wr-gma">
                         <rect key="frame" x="154" y="23" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="CGo-2A-9Yd"/>
@@ -119,7 +119,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="1C94E8B1-5E4E-4E2A-B636-9CED73A793E1" width="24" height="24">
+        <image name="7988EE47-96A3-4B13-8C02-1FD0A9294F24" width="24" height="24">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -229,7 +229,7 @@ AAAAAAACAQAAAAAAAAA+AAAAAAAAAAAAAAAAAAAXpw
         </image>
         <image name="Myjiantou.png" width="8" height="12"/>
         <image name="advice_black.png" width="9" height="9"/>
-        <image name="location" width="14" height="20"/>
+        <image name="location" width="29" height="22"/>
         <image name="touxiang.png" width="40" height="40"/>
     </resources>
 </document>
