@@ -22,5 +22,6 @@
 @property (nonatomic, strong) NSString<Optional> *Content;
 // banner图展示位置  1.顶部大图  2.下方小图
 @property (nonatomic, strong) NSString<Optional> *ShowArea;
+@property (nonatomic, strong) NSString<Optional> *Title;
 
 @end

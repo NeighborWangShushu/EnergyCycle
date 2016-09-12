@@ -87,6 +87,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(PageViewChanged:) name:@"PageViewChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReferralHeadViewShowMore:) name:@"ReferralHeadViewShowMore" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(learnRecommend:) name:@"LearnRecommend" object:nil];
     
 }
 
@@ -199,7 +200,6 @@
     [self performSegueWithIdentifier:@"WebVC" sender:nil];
 }
 
-
 - (void)clickBanner:(NSNotification*)notifi {
     NSDictionary * user = [notifi userInfo];
     weburl = [user objectForKey:@"url"];
@@ -210,9 +210,14 @@
         [self autoSetupTuwen:name];
         return;
     }
-    
+
     [self performSegueWithIdentifier:@"WebVC" sender:nil];
     
+}
+
+- (void)learnRecommend:(NSNotification *)notification {
+    weburl = notification.object;
+    [self performSegueWithIdentifier:@"WebVC" sender:nil];
 }
 
 
