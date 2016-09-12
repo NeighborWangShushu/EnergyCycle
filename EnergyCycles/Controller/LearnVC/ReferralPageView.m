@@ -212,7 +212,7 @@
             cell3 = [[[NSBundle mainBundle] loadNibNamed:@"OtherCell" owner:self options:nil] lastObject];
         }
         cell3.delegate = self;
-        NSDictionary * dic = self.model.health[indexPath.section - 2];
+        NSDictionary * dic = self.model.health[indexPath.section - 3];
         name = [dic allKeys][0];
         cell3.healths = [dic objectForKey:name];
         return cell3;
@@ -235,7 +235,7 @@
         headview.type = ReferralHeadViewTypeNone;
     }
     else {
-        NSDictionary*model = self.model.health[section - 2];
+        NSDictionary*model = self.model.health[section - 3];
         headview.name = [model allKeys][0];
         headview.type = ReferralHeadViewTypeOther;
     }
@@ -253,7 +253,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2 + [self.model.health count];
+    return 3 + [self.model.health count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

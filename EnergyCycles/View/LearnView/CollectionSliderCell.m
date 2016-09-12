@@ -30,7 +30,7 @@
     collectionView.backgroundColor = [UIColor clearColor];
     collectionView.delegate = self;
     collectionView.dataSource = self;
-    collectionView.scrollEnabled = NO;
+    collectionView.scrollEnabled = YES;
     collectionView.showsHorizontalScrollIndicator = NO;
     [collectionView registerNib:[UINib nibWithNibName:@"CollectionSliderDetailCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
 //    [collectionView registerClass:[CollectionSliderDetailCell class] forCellWithReuseIdentifier:@"cell"];
