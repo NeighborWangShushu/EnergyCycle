@@ -90,7 +90,7 @@
         shareView.shareText = @"";
         NSString * share_url = @"";
         share_url = [NSString stringWithFormat:@"http://localhost:4218/html/DailyPK/DailyPKDetail.aspx?RID=%@",MYJYAppId];
-        shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
+        shareView.shareUrl = share_url;
         [[UIApplication sharedApplication].keyWindow addSubview:shareView];
         [UIView animateWithDuration:0.25 animations:^{
             shareView.alpha = 1.0;
