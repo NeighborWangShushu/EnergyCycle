@@ -12,7 +12,16 @@
 
 - (void)getDataWithModel:(BannerModel *)model {
     self.url = model.OuterPath;
+//    CGRect frame = self.backgroundImage.frame;
+//    CGFloat width = Screen_width / 3 - 34;
+//    CGFloat height = width * (42 / 103);
+//    CGSize size = CGSizeMake(width, height);
+//    frame.size = size;
+//    self.backgroundImage.frame = frame;
+    self.backgroundImage.layer.cornerRadius = 10;
     [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:model.ImageUrl] forState:UIControlStateNormal];
+//    self.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
+    
     self.nameLabel.text = model.Content;
 }
 

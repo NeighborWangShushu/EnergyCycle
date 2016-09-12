@@ -268,13 +268,21 @@
     }
     
     if (sender.selectedSegmentIndex != 2) {
-        [UIView animateWithDuration:0.5 animations:^{
-            [self.bottomView setFrame:CGRectMake(self.bottomView.frame.origin.x, Screen_Height, self.bottomView.frame.size.width, self.bottomView.frame.size.height)];
-        }];
+        [UIView animateWithDuration:0.5
+                              delay:0
+             usingSpringWithDamping:0.5
+              initialSpringVelocity:2
+                            options:UIViewAnimationOptionLayoutSubviews animations:^{
+        [self.bottomView setFrame:CGRectMake(self.bottomView.frame.origin.x, Screen_Height, self.bottomView.frame.size.width, self.bottomView.frame.size.height)];
+                            } completion:nil];
     } else {
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.5
+                              delay:0
+             usingSpringWithDamping:0.5
+              initialSpringVelocity:2
+                            options:UIViewAnimationOptionLayoutSubviews animations:^{
             [self.bottomView setFrame:CGRectMake(self.bottomView.frame.origin.x, Screen_Height - 90, self.bottomView.frame.size.width, self.bottomView.frame.size.height)];
-        }];
+        } completion:nil];
     }
     
     MineHomePageTableViewControllerProtocol *newVC = [[MineHomePageTableViewControllerProtocol alloc] init];
@@ -460,6 +468,9 @@
 }
 
 - (void)createBottomView {
+    if ([self.userId integerValue] != [User_ID integerValue]) {
+        return;
+    }
     self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(Screen_width - 160, Screen_Height, 160, 90)];
     UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 90)];
     image.image = [UIImage imageNamed:@"ToDay_BottomView"];

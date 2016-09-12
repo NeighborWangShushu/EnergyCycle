@@ -19,10 +19,11 @@
 - (void)createCollectionSliderCell {
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.minimumInteritemSpacing = 0;
-    layout.minimumLineSpacing = 0;
-//    [layout setItemSize:CGSizeMake(Screen_width / 3, 50)];
-    layout.itemSize = CGSizeMake(Screen_width / 3, self.frame.size.height);
+//    layout.minimumInteritemSpacing = 10;
+    layout.minimumLineSpacing = 10;
+    CGFloat width = (Screen_width - 40) / 3;
+    layout.itemSize = CGSizeMake(width, self.frame.size.height);
+    layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, self.frame.size.height) collectionViewLayout:layout];
@@ -48,6 +49,7 @@
     CollectionSliderDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     BannerModel *model = self.dataArray[indexPath.row];
     [cell getDataWithModel:model];
+    cell.layer.cornerRadius = 5;
     return cell;
 }
 
