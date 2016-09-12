@@ -159,7 +159,7 @@
 }
 
 - (void)tableViewScroll:(UITableView *)tableView offsetY:(CGFloat)offsetY {
-    NSLog(@"%f",offsetY);
+//    NSLog(@"%f",offsetY);
     if (offsetY > kHeaderImgHeight - kNavigationHeight) {
         if (![self.mineView.superview isEqual:self.view]) {
             [self.view insertSubview:self.mineView belowSubview:self.navigationController.navigationBar];
@@ -381,6 +381,25 @@
 
 - (void)tableViewWillBeginDecelerating:(UITableView *)tablView offsetY:(CGFloat)offsetY {
     self.mineView.userInteractionEnabled = NO;
+    if (self.segControl.selectedSegmentIndex == 2) {
+        if (offsetY > kHeaderImgHeight - kNavigationHeight) {
+            [UIView animateWithDuration:0.5
+                                  delay:0
+                 usingSpringWithDamping:0.5
+                  initialSpringVelocity:2
+                                options:UIViewAnimationOptionLayoutSubviews animations:^{
+                                    [self.bottomView setFrame:CGRectMake(self.bottomView.frame.origin.x, Screen_Height, self.bottomView.frame.size.width, self.bottomView.frame.size.height)];
+                                } completion:nil];
+        } else {
+            [UIView animateWithDuration:0.5
+                                  delay:0
+                 usingSpringWithDamping:0.5
+                  initialSpringVelocity:2
+                                options:UIViewAnimationOptionLayoutSubviews animations:^{
+                                    [self.bottomView setFrame:CGRectMake(self.bottomView.frame.origin.x, Screen_Height - 90, self.bottomView.frame.size.width, self.bottomView.frame.size.height)];
+                                } completion:nil];
+        }
+    }
 }
 
 - (void)tableViewWillBeginDragging:(UITableView *)tableView offsetY:(CGFloat)offsetY {

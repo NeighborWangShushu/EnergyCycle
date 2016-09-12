@@ -129,9 +129,6 @@
                         </mask>
                     </variation>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9O-yQ-ZtU">
-                    <rect key="frame" x="167" y="113" width="30" height="34"/>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYn-XY-rUx">
                     <rect key="frame" x="122" y="72" width="75" height="75"/>
                     <constraints>
@@ -147,6 +144,9 @@
                     <connections>
                         <action selector="changeHeadImage:" destination="ibT-XF-nB3" eventType="touchUpInside" id="bUk-af-gwB"/>
                     </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9O-yQ-ZtU">
+                    <rect key="frame" x="167" y="113" width="30" height="34"/>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
