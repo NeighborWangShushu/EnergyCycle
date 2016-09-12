@@ -14,7 +14,9 @@
 
 #import "MineHomePageViewController.h"
 
-@interface FriendViewController ()<UIAlertViewDelegate, UISearchDisplayDelegate,UISearchBarDelegate,ECContactSearchBarDelegate>
+@interface FriendViewController ()<UIAlertViewDelegate, UISearchDisplayDelegate,UISearchBarDelegate,ECContactSearchBarDelegate> {
+    BOOL isSearching;
+}
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) NSMutableArray *allDataArr;
@@ -72,6 +74,11 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self createSearchResultsUpdating];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupLeftNavBarWithimage:@"loginfanhui"];
@@ -82,8 +89,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.title = @"我的社交圈";
-    
-    [self createSearchResultsUpdating];
     
     [self getData];
     // Do any additional setup after loading the view.
@@ -149,6 +154,11 @@
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    if (searchString == nil || [searchString isEqualToString:@""]) {
+        isSearching = YES;
+    } else {
+        isSearching = NO;
+    }
     [self filterContentForSearchText:searchString scope:[[self.searchController.searchBar scopeButtonTitles] objectAtIndex:[self.searchController.searchBar selectedScopeButtonIndex]]];
     return YES;
 }
@@ -287,7 +297,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
-    UserModel *model = self.dataArr[indexPath.row];
+    UserModel *model = nil;
+    if (isSearching) {
+        model = self.allDataArr[indexPath.row];
+    } else {
+        model = self.dataArr[indexPath.row];
+    }
     mineVC.userId = model.use_id;
     [self.navigationController pushViewController:mineVC animated:YES];
 }

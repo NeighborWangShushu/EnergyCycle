@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, assign) NSInteger getCount;
 @property (nonatomic, strong) UIButton *detailBackgroundView;
+@property (nonatomic, strong) UIView *detailView;
 
 @end
 
@@ -155,38 +156,58 @@ static NSString * const headerViewIdentifier = @"headerView";
     self.detailBackgroundView.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.75];
     [self.detailBackgroundView addTarget:self action:@selector(removeDetailView) forControlEvents:UIControlEventTouchUpInside];
     
-    UIView *detailView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 320)];
-    detailView.center = CGPointMake(self.detailBackgroundView.frame.size.width/2, self.detailBackgroundView.frame.size.height / 2);
-    detailView.backgroundColor = [UIColor whiteColor];
-    detailView.layer.cornerRadius = 10;
+    self.detailView = [[UIView alloc] initWithFrame:CGRectMake(0, Screen_Height, 260, 320)];
+    CGPoint center = CGPointMake(self.detailBackgroundView.frame.size.width/2, -Screen_Height);
+    self.detailView.center = center;
+    self.detailView.backgroundColor = [UIColor whiteColor];
+    self.detailView.layer.cornerRadius = 10;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@signIn", model.day]]];
-    imageView.center = CGPointMake(detailView.frame.size.width/2, 120);;
-    [detailView addSubview:imageView];
-    UIImageView *lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 200, detailView.frame.size.width, 10)];
+    imageView.center = CGPointMake(self.detailView.frame.size.width/2, 120);;
+    [self.detailView addSubview:imageView];
+    UIImageView *lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 200, self.detailView.frame.size.width, 10)];
     [lineImageView setImage:[UIImage imageNamed:@"BadgeDetailLine"]];
-    [detailView addSubview:lineImageView];
+    [self.detailView addSubview:lineImageView];
     UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 20)];
-    detailLabel.center = CGPointMake(detailView.frame.size.width/2, 240);
+    detailLabel.center = CGPointMake(self.detailView.frame.size.width/2, 240);
     detailLabel.textAlignment = NSTextAlignmentCenter;
     detailLabel.text = [NSString stringWithFormat:@"连续训练%@天", model.day];
     detailLabel.font = [UIFont systemFontOfSize:18];
     detailLabel.textColor = [UIColor colorWithRed:200/255.0 green:106/255.0 blue:106/255.0 alpha:1];
-    [detailView addSubview:detailLabel];
+    [self.detailView addSubview:detailLabel];
     UILabel *getCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 12)];
-    getCountLabel.center = CGPointMake(detailView.frame.size.width/2, 270);;
+    getCountLabel.center = CGPointMake(self.detailView.frame.size.width/2, 270);;
     getCountLabel.textAlignment = NSTextAlignmentCenter;
     getCountLabel.text = [NSString stringWithFormat:@"已有%@人获得",model.HasNum];
     getCountLabel.font = [UIFont systemFontOfSize:12];
     getCountLabel.textColor = [UIColor colorWithRed:200/255.0 green:106/255.0 blue:106/255.0 alpha:1];
-    [detailView addSubview:getCountLabel];
+    [self.detailView addSubview:getCountLabel];
     
-    [self.detailBackgroundView addSubview:detailView];
+    center.y = self.detailBackgroundView.frame.size.height / 2;
+    [UIView animateWithDuration:0.5
+                          delay:0
+         usingSpringWithDamping:0.8
+          initialSpringVelocity:2
+                        options:UIViewAnimationOptionLayoutSubviews animations:^{
+                            self.detailView.center = center;
+    } completion:nil];
+    
+    [self.detailBackgroundView addSubview:self.detailView];
     [[UIApplication sharedApplication].keyWindow addSubview:self.detailBackgroundView];
     
 }
 
 - (void)removeDetailView {
-    [self.detailBackgroundView removeFromSuperview];
+    CGPoint center = self.detailView.center;
+    center.y += Screen_Height;
+    [UIView animateWithDuration:0.5
+                          delay:0
+         usingSpringWithDamping:0.8
+          initialSpringVelocity:2
+                        options:UIViewAnimationOptionLayoutSubviews animations:^{
+                            self.detailView.center = center;
+                        } completion:^(BOOL finished) {
+                            [self.detailBackgroundView removeFromSuperview];
+                        }];
 }
 
 
