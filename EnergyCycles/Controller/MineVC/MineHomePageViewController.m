@@ -27,7 +27,9 @@
 #import "WebVC.h"
 #import "BrokenLineViewController.h"
 
-@interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
+@interface MineHomePageViewController ()<TabelViewScrollingProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate> {
+    CGFloat scrollValue;
+}
 
 @property (nonatomic, strong) MineHomePageHeadView *mineView;
 @property (nonatomic, strong) HMSegmentedControl *segControl;
@@ -382,7 +384,7 @@
 - (void)tableViewWillBeginDecelerating:(UITableView *)tablView offsetY:(CGFloat)offsetY {
     self.mineView.userInteractionEnabled = NO;
     if (self.segControl.selectedSegmentIndex == 2) {
-        if (offsetY > kHeaderImgHeight - kNavigationHeight) {
+        if ((offsetY - scrollValue) > 0) {
             [UIView animateWithDuration:0.5
                                   delay:0
                  usingSpringWithDamping:0.5
@@ -390,7 +392,8 @@
                                 options:UIViewAnimationOptionLayoutSubviews animations:^{
                                     [self.bottomView setFrame:CGRectMake(self.bottomView.frame.origin.x, Screen_Height, self.bottomView.frame.size.width, self.bottomView.frame.size.height)];
                                 } completion:nil];
-        } else {
+        }
+        if ((offsetY - scrollValue) < 0) {
             [UIView animateWithDuration:0.5
                                   delay:0
                  usingSpringWithDamping:0.5
@@ -399,6 +402,7 @@
                                     [self.bottomView setFrame:CGRectMake(self.bottomView.frame.origin.x, Screen_Height - 90, self.bottomView.frame.size.width, self.bottomView.frame.size.height)];
                                 } completion:nil];
         }
+        scrollValue = offsetY;
     }
 }
 

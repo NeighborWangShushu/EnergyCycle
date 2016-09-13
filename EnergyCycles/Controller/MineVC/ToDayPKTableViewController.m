@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, assign) BOOL noData;
+@property (nonatomic, copy) NSString *RID;
 
 @end
 
@@ -44,6 +45,8 @@
                 OtherReportModel *model = [[OtherReportModel alloc] initWithDictionary:dic error:nil];
                 [self.dataArray addObject:model];
             }
+            
+            self.RID = dict[@"Data"][@"RID"];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
@@ -89,8 +92,8 @@
         shareView.shareTitle = shareStr;
         shareView.shareText = @"";
         NSString * share_url = @"";
-        share_url = [NSString stringWithFormat:@"http://localhost:4218/html/DailyPK/DailyPKDetail.aspx?RID=%@",MYJYAppId];
-        shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
+        share_url = [NSString stringWithFormat:@"%@/html/DailyPK/DailyPKDetail.aspx?RID=%@", INTERFACE_URL, self.RID];
+        shareView.shareUrl = share_url;
         [[UIApplication sharedApplication].keyWindow addSubview:shareView];
         [UIView animateWithDuration:0.25 animations:^{
             shareView.alpha = 1.0;

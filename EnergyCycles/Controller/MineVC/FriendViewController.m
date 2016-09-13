@@ -44,7 +44,7 @@
 }
 
 - (void)getData {
-    [[AppHttpManager shareInstance] getBothHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getBothHeartWithUserid:@"25" PostOrGet:@"get" success:^(NSDictionary *dict) {
         [self.dataArr removeAllObjects];
         [self.allDataArr removeAllObjects];
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
@@ -66,18 +66,19 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if (self.searchController.active) {
-        self.searchController.active = NO;
-        [self.searchController.searchBar removeFromSuperview];
-    }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self createSearchResultsUpdating];
-}
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    if (self.searchController.active) {
+//        self.searchController.active = NO;
+//        [self.searchController.searchBar removeFromSuperview];
+//    }
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    [self createSearchResultsUpdating];
+//    isSearching = YES;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -87,6 +88,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     // TableView的分割线样式为None,作用为隐藏下划线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self createSearchResultsUpdating];
     
     self.title = @"我的社交圈";
     
@@ -288,7 +290,12 @@
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    UserModel *model = self.dataArr[indexPath.row];
+    UserModel *model = nil;
+    if (isSearching) {
+        model = self.allDataArr[indexPath.row];
+    } else {
+        model = self.dataArr[indexPath.row];
+    }
     [cell getdateFriendsDataWithUserModel:model];
     // Configure the cell...
     

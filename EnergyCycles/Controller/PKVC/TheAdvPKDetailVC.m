@@ -76,9 +76,9 @@
     
     shareView = [[XMShareView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height)];
     shareView.alpha = 0.0;
-    shareView.shareTitle = [self md5StringForString:self.model.title];
-    shareView.shareText = [self md5StringForString:self.model.content];
-    shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",self.url];
+    shareView.shareTitle = [self.model.title stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    shareView.shareText = [self.model.content stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    shareView.shareUrl = [NSString stringWithFormat:@"%@/%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,self.model.postId,User_ID];;
     [[UIApplication sharedApplication].keyWindow addSubview:shareView];
     [UIView animateWithDuration:0.25 animations:^{
         shareView.alpha = 1.0;
