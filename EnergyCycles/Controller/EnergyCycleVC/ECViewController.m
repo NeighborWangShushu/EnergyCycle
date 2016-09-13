@@ -17,7 +17,7 @@
 #import "XMShareView.h"
 #import "GifHeader.h"
 #import "ECRecommendCell.h"
-#import "AFHttpRequestOperation.h"
+#import "AFHTTPSessionManager.h"
 #import "JSONKit.h"
 #import "NavMenuView.h"
 #import "ECNavMenuModel.h"
@@ -365,84 +365,95 @@
         NSString * zuixin = [NSString stringWithFormat:@"%@%@?type=1&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"0",@"10"];
         currentPage = 0;
         [self.tableView.mj_footer resetNoMoreData];
-        NSURLRequest * request1 = [NSURLRequest requestWithURL:[NSURL URLWithString:jingxuan]];
-        NSURLRequest * request2 = [NSURLRequest requestWithURL:[NSURL URLWithString:tuijian]];
-        NSURLRequest * request3 = [NSURLRequest requestWithURL:[NSURL URLWithString:zuixin]];
+        
+        
         //任务1 精选动态
-        AFHTTPRequestOperation * operation1 = [[AFHTTPRequestOperation alloc] initWithRequest:request1];
+        AFHTTPSessionManager * operation1 = [[AFHTTPSessionManager alloc] init];
         //任务2 推荐用户
-        AFHTTPRequestOperation * operation2 = [[AFHTTPRequestOperation alloc] initWithRequest:request2];
+        AFHTTPSessionManager * operation2 = [[AFHTTPSessionManager alloc] init];
         //任务3 最新用户
-        AFHTTPRequestOperation * operation3 = [[AFHTTPRequestOperation alloc] initWithRequest:request3];
+        AFHTTPSessionManager * operation3 = [[AFHTTPSessionManager alloc] init];
+ 
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_queue_t q = dispatch_get_global_queue(0, 0);
         
-        NSArray * operations = [AFHTTPRequestOperation batchOfRequestOperations:@[operation1,operation2,operation3] progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-            NSLog(@"%ld",(unsigned long)numberOfFinishedOperations);
+        dispatch_group_async(group, q, ^{
+            dispatch_group_enter(group);//很重要,不能少
             
-        } completionBlock:^(NSArray * _Nonnull operations) {
-            
-            
-        }];
-        
-        [operation1 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            AFHTTPRequestOperation * result1 = operation;
-            NSDictionary * dict1 = [result1.responseString objectFromJSONString];
-            [self.dataArray removeAllObjects];
-            for (NSDictionary * data in dict1[@"Data"]) {
-                ECTimeLineModel*model = [self sortByData:data];
-                [weakSelf.dataArray addObject:model];
-            }
-            NSLog(@"operation1 is complete");
-            
-        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-            
-            
-        }];
-        
-        [operation2 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            AFHTTPRequestOperation * result2 = operation;
-            NSDictionary * dict2 = [result2.responseString objectFromJSONString];
-            [self.commentArray removeAllObjects];
-
-            for (NSDictionary * data in dict2[@"Data"]) {
-                CommentUserModel*model = [CommentUserModel new];
-                model.name = data[@"nickName"];
-                model.url = data[@"photourl"];
-                model.ID = [data[@"use_id"] integerValue];
-                model.isHeart = [data[@"isHeart"] boolValue];
-                model.badge = [NSString stringWithFormat:@"%@",data[@"ReportNum"]];
-                [weakSelf.commentArray addObject:model];
-            }
-            NSLog(@"operation2 is complete");
-            
-        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-            
-        }];
-        
-        [operation3 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            AFHTTPRequestOperation * result3 = operation;
-            NSDictionary * dict3 = [result3.responseString objectFromJSONString];
-            [self.newerArray removeAllObjects];
-
-            for (NSDictionary * data in dict3[@"Data"]) {
+            [operation1 GET:jingxuan parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+                
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                
+                NSDictionary*dic = responseObject;
+                [weakSelf.dataArray removeAllObjects];
+                for (NSDictionary * data in (NSDictionary*)dic[@"Data"]) {
                     ECTimeLineModel*model = [self sortByData:data];
-                maxPageSize = [[data objectForKey:@"RowCounts"] integerValue]/10;
-                    [weakSelf.newerArray addObject:model];
+                    [weakSelf.dataArray addObject:model];
                 }
-            NSLog(@"operation3 is complete");
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                NSLog(@"tableview reloaddata");
-                self.tableView.hidden = NO;
-                [SVProgressHUD dismiss];
-                [self.tableView reloadData];
-                [self.tableView.mj_header endRefreshing];
+                NSLog(@"operation1 is complete");
+                
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                
+            }];
+
+        });
+        
+        dispatch_group_async(group, q, ^{
+            dispatch_group_enter(group);//很重要,不能少
+            [operation2 GET:tuijian parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+                
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                
+                NSDictionary *dic = responseObject;
+                [self.commentArray removeAllObjects];
+                
+                for (NSDictionary * data in dic[@"Data"]) {
+                    CommentUserModel*model = [CommentUserModel new];
+                    model.name = data[@"nickName"];
+                    model.url = data[@"photourl"];
+                    model.ID = [data[@"use_id"] integerValue];
+                    model.isHeart = [data[@"isHeart"] boolValue];
+                    model.badge = [NSString stringWithFormat:@"%@",data[@"ReportNum"]];
+                    [weakSelf.commentArray addObject:model];
+                }
+                NSLog(@"operation2 is complete");
+                
+                
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                
             }];
             
-        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        });
+        
+        dispatch_group_async(group, q, ^{
+            dispatch_group_enter(group);//很重要,不能少
+            [operation3 GET:zuixin parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+                
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                
+                NSDictionary *dic = responseObject;
+                [self.newerArray removeAllObjects];
+                
+                for (NSDictionary * data in dic[@"Data"]) {
+                    ECTimeLineModel*model = [self sortByData:data];
+                    maxPageSize = [[data objectForKey:@"RowCounts"] integerValue]/10;
+                    [weakSelf.newerArray addObject:model];
+                }
+                NSLog(@"operation3 is complete");
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    NSLog(@"tableview reloaddata");
+                    self.tableView.hidden = NO;
+                    [SVProgressHUD dismiss];
+                    [self.tableView reloadData];
+                    [self.tableView.mj_header endRefreshing];
+                }];
+                
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                
+            }];
+
             
-        }];
-        
-        
-        [[NSOperationQueue mainQueue] addOperations:operations waitUntilFinished:NO];
+        });
         
     }else {
         //关注的人

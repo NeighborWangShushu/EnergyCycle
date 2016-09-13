@@ -200,18 +200,20 @@ static AFHTTPSessionManager *manager;
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
-    
-    
-    
-    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,AddImg] parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,AddImg] parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (imageData != nil) {
             [formData appendPartWithFileData:imageData name:@"header" fileName:@"file.jpg" mimeType:@"image/jpeg"];
         }
-    }success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error.domain);
+
     }];
+    
 }
 
 #pragma mark - 5.查询基本资料
@@ -1988,18 +1990,20 @@ static AFHTTPSessionManager *manager;
                         PostOrGet:(NSString *)postOrGetType
                           success:(void (^)(NSDictionary *dict))success
                           failure:(void (^)(NSString *str))failure {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
-    
-    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,PostFile] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,PostFile] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (imageData != nil) {
             [formData appendPartWithFileData:imageData name:@"header" fileName:@"file.jpg" mimeType:@"image/jpeg"];
         }
-    }success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error.domain);
     }];
+    
 }
 
 #pragma mark - 74.判断是否已签到
