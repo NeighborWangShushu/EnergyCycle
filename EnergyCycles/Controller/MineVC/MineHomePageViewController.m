@@ -384,7 +384,7 @@
 - (void)tableViewWillBeginDecelerating:(UITableView *)tablView offsetY:(CGFloat)offsetY {
     self.mineView.userInteractionEnabled = NO;
     if (self.segControl.selectedSegmentIndex == 2) {
-        if (offsetY > kHeaderImgHeight - kNavigationHeight) {
+        if ((offsetY - scrollValue) > 0) {
             [UIView animateWithDuration:0.5
                                   delay:0
                  usingSpringWithDamping:0.5
