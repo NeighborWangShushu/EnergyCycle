@@ -5,8 +5,9 @@
 
 #import "AppHttpManager.h"
 #import "SLALertManager.h"
+#import <AFHTTPSessionManager.h>
 
-static AFHTTPRequestOperationManager *manager;
+static AFHTTPSessionManager *manager;
 
 @implementation AppHttpManager
 
@@ -28,30 +29,27 @@ static AFHTTPRequestOperationManager *manager;
                  success:(void (^)(NSDictionary *dict))success
                  failure:(void (^)(NSError *errorStr))failure {
     if (manager == nil) {
-        manager = [AFHTTPRequestOperationManager manager];
+        manager = [AFHTTPSessionManager manager];
     }
     manager.requestSerializer.timeoutInterval=30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
     NSLog(@"url------%@\r type=%@&content=%@",str,[postDict objectForKey:@"types"],[postDict objectForKey:@"content"]);
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
+    [manager GET:str parameters:postDict progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *responDict = (NSDictionary *)responseObject;
+        if ([responDict[@"Code"] integerValue] == 10000) {
+            //发送消息,跳转到登录界面
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+        }
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (error) {
+            failure(error);
+        }
+    }];
     
-    [manager GET:str
-      parameters:postDict
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             if (success) {
-                 NSDictionary *responDict = (NSDictionary *)responseObject;
-                 if ([responDict[@"Code"] integerValue] == 10000) {
-                     //发送消息,跳转到登录界面
-                     [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
-                 }
-                 success(responseObject);
-             }
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             if (error) {
-                 failure(error);
-             }
-             
-         }];
 }
 
 #pragma mark - POST请求
@@ -60,29 +58,27 @@ static AFHTTPRequestOperationManager *manager;
                   success:(void (^)(NSDictionary *dict))success
                   failure:(void (^)(NSError *errorStr))failure {
     if (manager == nil) {
-        manager = [AFHTTPRequestOperationManager manager];
+        manager = [AFHTTPSessionManager manager];
     }
     manager.requestSerializer.timeoutInterval=30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
-    [manager POST:str
-       parameters:postDict
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              if (success) {
-                  NSDictionary *responDict = (NSDictionary *)responseObject;
-                  if ([responDict[@"Code"] integerValue] == 10000) {
-                      //发送消息,跳转到登录界面
-                      [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
-                  }
-                  success(responseObject);
-              }
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"error:%@",operation.description);
-              if (failure) {
-                  failure(error);
-              }
-              
-          }];
+    [manager POST:str parameters:postDict progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *responDict = (NSDictionary *)responseObject;
+        if ([responDict[@"Code"] integerValue] == 10000) {
+            //发送消息,跳转到登录界面
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        if (failure) {
+            failure(error);
+        }
+
+    }];
+
 }
 
 #pragma mark - 请求数据
@@ -202,8 +198,10 @@ static AFHTTPRequestOperationManager *manager;
     NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithCapacity:1];
     [dic setObject:userId forKey:@"userId"];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
+    
+    
     
     [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,AddImg] parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         if (imageData != nil) {

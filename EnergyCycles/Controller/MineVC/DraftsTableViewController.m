@@ -9,7 +9,7 @@
 #import "DraftsTableViewController.h"
 #import "DraftsTableViewCell.h"
 #import "PostingViewController.h"
-#import "SDImageCache.h"
+
 
 @interface DraftsTableViewController () {
     NSMutableArray *_selectImgArrayLocal;

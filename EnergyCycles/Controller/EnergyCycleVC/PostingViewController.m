@@ -31,7 +31,7 @@
 #import "ECContactVC.h"
 #import "DraftsModel.h"
 #import "NSDate+JKUtilities.h"
-#import "SDImageCache.h"
+
 #import "UserModel.h"
 #import "SLALertManager.h"
 

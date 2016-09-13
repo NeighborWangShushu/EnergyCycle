@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SDImageCache.h"
+
 
 @interface CacheManager : NSObject
 /**

@@ -16,8 +16,6 @@
     #import "MJRefresh.h"
     #import "JSONModel.h"
     #import "AFURLSessionManager.h"
-    #import "AFHTTPRequestOperation.h"
-    #import "AFHTTPRequestOperationManager.h"
     #import "Reachability.h"
     #import "UIImageView+WebCache.h"
     #import "UIButton+WebCache.h"
