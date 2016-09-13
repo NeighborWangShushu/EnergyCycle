@@ -391,8 +391,11 @@
                     [weakSelf.dataArray addObject:model];
                 }
                 NSLog(@"operation1 is complete");
+                dispatch_group_leave(group);//很重要,不能少
                 
+
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                dispatch_group_leave(group);//很重要,不能少
                 
             }];
 
@@ -417,9 +420,11 @@
                     [weakSelf.commentArray addObject:model];
                 }
                 NSLog(@"operation2 is complete");
+                dispatch_group_leave(group);//很重要,不能少
                 
                 
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                dispatch_group_leave(group);//很重要,不能少
                 
             }];
             
@@ -440,20 +445,26 @@
                     [weakSelf.newerArray addObject:model];
                 }
                 NSLog(@"operation3 is complete");
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    NSLog(@"tableview reloaddata");
-                    self.tableView.hidden = NO;
-                    [SVProgressHUD dismiss];
-                    [self.tableView reloadData];
-                    [self.tableView.mj_header endRefreshing];
-                }];
+                dispatch_group_leave(group);//很重要,不能少
                 
+
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                dispatch_group_leave(group);//很重要,不能少
                 
             }];
-
             
         });
+        
+        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+            NSLog(@"tableview reloaddata");
+            weakSelf.tableView.hidden = NO;
+            [SVProgressHUD dismiss];
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+            
+        });
+  
+        
         
     }else {
         //关注的人
