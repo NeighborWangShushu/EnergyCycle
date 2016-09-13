@@ -327,9 +327,9 @@
     
     self.shareView = [[XMShareView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height)];
     self.shareView.alpha = 0.0;
-    self.shareView.shareTitle = model.msgContent;
+    self.shareView.shareTitle = @"";
     
-    self.shareView.shareText = @"";
+    self.shareView.shareText = model.msgContent;
     NSString * share_url = @"";
     share_url = [NSString stringWithFormat:@"%@%@?id=%@",INTERFACE_URL,ArticleDetailAspx,model.ID];
     self.shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
