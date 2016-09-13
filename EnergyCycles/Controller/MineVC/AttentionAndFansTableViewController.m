@@ -108,10 +108,11 @@
 //    }
 //}
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self createSearchResultsUpdating];
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    [self createSearchResultsUpdating];
+//    isSearching = YES;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -122,7 +123,8 @@
     // 设置tableView中cell的线条隐藏
     // TableView的分割线样式为None,作用为隐藏下划线
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    [self createSearchResultsUpdating];
+
     [self judge];
     
     [self setUpMJRefresh];
@@ -339,14 +341,29 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (self.userId == NULL || [self.userId isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
         if (self.type == 1) {
-            UserModel *model = self.dataArr[indexPath.row];
+            UserModel *model = nil;
+            if (isSearching) {
+                model = self.allDataArr[indexPath.row];
+            } else {
+                model = self.dataArr[indexPath.row];
+            }
             [cell getdateAttentionDataWithUserModel:model];
         } else if (self.type == 2) {
-            UserModel *model = self.dataArr[indexPath.row];
+            UserModel *model = nil;
+            if (isSearching) {
+                model = self.allDataArr[indexPath.row];
+            } else {
+                model = self.dataArr[indexPath.row];
+            }
             [cell getdateFansDataWithUserModel:model];
         }
     } else {
-        OtherUserModel *model = self.dataArr[indexPath.row];
+        OtherUserModel *model = nil;
+        if (isSearching) {
+            model = self.allDataArr[indexPath.row];
+        } else {
+            model = self.dataArr[indexPath.row];
+        }
         [cell getdateDataWithOtherUserModel:model];
     }
     // Configure the cell...
