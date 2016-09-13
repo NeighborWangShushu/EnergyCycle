@@ -154,10 +154,13 @@ static NSString * const headerViewIdentifier = @"headerView";
     self.detailBackgroundView = [UIButton buttonWithType:UIButtonTypeCustom];
     self.detailBackgroundView.frame = [UIApplication sharedApplication].keyWindow.bounds;
     self.detailBackgroundView.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.75];
+    self.detailBackgroundView.alpha = 0;
     [self.detailBackgroundView addTarget:self action:@selector(removeDetailView) forControlEvents:UIControlEventTouchUpInside];
     
     self.detailView = [[UIView alloc] initWithFrame:CGRectMake(0, Screen_Height, 260, 320)];
-    CGPoint center = CGPointMake(self.detailBackgroundView.frame.size.width/2, -Screen_Height);
+//    CGPoint center = CGPointMake(self.detailBackgroundView.frame.size.width/2, -Screen_Height);
+    CGPoint center = self.detailBackgroundView.center;
+    center.y = -Screen_Height;
     self.detailView.center = center;
     self.detailView.backgroundColor = [UIColor whiteColor];
     self.detailView.layer.cornerRadius = 10;
@@ -189,24 +192,29 @@ static NSString * const headerViewIdentifier = @"headerView";
           initialSpringVelocity:2
                         options:UIViewAnimationOptionLayoutSubviews animations:^{
                             self.detailView.center = center;
+                            self.detailBackgroundView.alpha = 1;
     } completion:nil];
     
     [self.detailBackgroundView addSubview:self.detailView];
     [[UIApplication sharedApplication].keyWindow addSubview:self.detailBackgroundView];
-    
+//    [[UIApplication sharedApplication].keyWindow addSubview:self.detailView];
 }
 
 - (void)removeDetailView {
     CGPoint center = self.detailView.center;
     center.y += Screen_Height;
+//    center.y = Screen_Height;
     [UIView animateWithDuration:0.5
                           delay:0
          usingSpringWithDamping:0.8
           initialSpringVelocity:2
                         options:UIViewAnimationOptionLayoutSubviews animations:^{
                             self.detailView.center = center;
+//                            [self.detailBackgroundView removeFromSuperview];
+                            self.detailBackgroundView.alpha = 0;
                         } completion:^(BOOL finished) {
                             [self.detailBackgroundView removeFromSuperview];
+//                            [self.detailView removeFromSuperview];
                         }];
 }
 
