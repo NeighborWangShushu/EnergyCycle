@@ -266,8 +266,8 @@
     
     delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
 
-    currentPage = 1;
-    attentionPage = 1;
+    currentPage = 0;
+    attentionPage = 0;
     self.dataArray = [NSMutableArray array];
     self.commentArray = [NSMutableArray array];
     self.newerArray = [NSMutableArray array];
@@ -363,7 +363,7 @@
         NSString * jingxuan = [NSString stringWithFormat:@"%@%@?type=2&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"0",@"10"];
         NSString * tuijian = [NSString stringWithFormat:@"%@%@?userId=%@&pageSize=%@",INTERFACE_URL,GetRecommendUser,@"0",[NSNumber numberWithInt:10]];
         NSString * zuixin = [NSString stringWithFormat:@"%@%@?type=1&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"0",@"10"];
-        currentPage = 1;
+        currentPage = 0;
         [self.tableView.mj_footer resetNoMoreData];
         NSURLRequest * request1 = [NSURLRequest requestWithURL:[NSURL URLWithString:jingxuan]];
         NSURLRequest * request2 = [NSURLRequest requestWithURL:[NSURL URLWithString:tuijian]];
@@ -766,6 +766,7 @@
     __weak typeof(self) weakSelf = self;
     if (pageType == 0) {
         //能量圈
+        NSLog(@"当前页数：%ld",currentPage);
         [[AppHttpManager shareInstance] getGetArticleListWithType:@"1" Userid:_userId Token:User_TOKEN PageIndex:[NSString stringWithFormat:@"%ld",(long)currentPage] PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
             for (NSDictionary * data in dict[@"Data"]) {
                 ECTimeLineModel*model = [self sortByData:data];
