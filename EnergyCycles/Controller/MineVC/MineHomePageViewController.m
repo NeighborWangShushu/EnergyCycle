@@ -530,8 +530,6 @@
     UIImage *image = [UIImage imageWithColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] size:CGSizeMake(kScreenWidth, 64)];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     
-
-    
     [self addHeadView];
     [self addController];
     [self segmentedControlChangedValue:self.segControl];
