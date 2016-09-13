@@ -497,6 +497,7 @@
     self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(Screen_width - 160, Screen_Height, 160, 90)];
     UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 90)];
     image.image = [UIImage imageNamed:@"ToDay_BottomView"];
+    image.alpha = 0.9;
     [self.bottomView addSubview:image];
     UIButton *postButton = [UIButton buttonWithType:UIButtonTypeCustom];
     postButton.frame = CGRectMake(10, -13, image.frame.size.width / 2, image.frame.size.height);

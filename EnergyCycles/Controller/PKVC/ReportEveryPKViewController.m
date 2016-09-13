@@ -48,6 +48,9 @@
     
     NSMutableArray *sharesArray;
     
+    NSString *shareStr;
+    NSString *RID;
+    
     BOOL onPost;
     BOOL onQQ;
     BOOL onWecha;
@@ -317,20 +320,21 @@
             [reportSubArr addObject:jsonStr];
         }
         
-        if (onPost) {
-            NSString *shareStr = @"";
-            NSString *contentStr = @"";
-            for (NSInteger i=0; i<_xianmuArr.count; i++) {
-                PKSelectedModel *model = (PKSelectedModel *)_xianmuArr[i];
-                NSString *numStr = [subPostDict objectForKey:model.myId];
-                
-                if (i == _xianmuArr.count-1) {
-                    contentStr = [NSString stringWithFormat:@"%@%@%@%@",contentStr,model.name,numStr,model.unit];
-                }else {
-                    contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.name,numStr,model.unit];
-                }
+        NSString *contentStr = @"";
+        for (NSInteger i=0; i<_xianmuArr.count; i++) {
+            PKSelectedModel *model = (PKSelectedModel *)_xianmuArr[i];
+            NSString *numStr = [subPostDict objectForKey:model.myId];
+            
+            if (i == _xianmuArr.count-1) {
+                contentStr = [NSString stringWithFormat:@"%@%@%@%@",contentStr,model.name,numStr,model.unit];
+            }else {
+                contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.name,numStr,model.unit];
             }
-            shareStr = [NSString stringWithFormat:@"我刚才完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
+        }
+        shareStr = [NSString stringWithFormat:@"我刚才完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
+        
+        if (onPost) {
+//            NSString *shareStr = @"";
             NSLog(@"%@", shareStr);
             [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:shareStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:_imageUrlArr Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
                 if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
@@ -348,6 +352,7 @@
         [[AppHttpManager shareInstance] getAddReportWithUserid:User_ID Token:User_TOKEN ReportList:reportSubArr ImageList:_imageUrlArr PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
 //                [self creatSuccessShareView];
+                RID = dict[@"Data"];
                 [self share:sharesArray];
                 //
                 
@@ -412,8 +417,8 @@
     
 //    NSString * title = energyPostViewCell.informationTextView.text;
 //    NSString* share_url = [NSString stringWithFormat:@"%@%@?aid=%@&is_Share=1",INTERFACE_URL,ArticleDetailAspx,[NSString stringWithFormat:@"%ld",(long)postIndex]];
-    NSString *title = @"快来下载能量圈吧";
-    NSString *share_url = @"https://itunes.apple.com/cn/app/neng-liang-quan/id1079791492?mt=8";
+    NSString *title = shareStr;
+    NSString *share_url = [NSString stringWithFormat:@"%@/html/DailyPK/DailyPKDetail.aspx?RID=%@", INTERFACE_URL, RID];
     switch (index) {
         case 0:
             [self shareToQQ:share_url title:title];
@@ -597,7 +602,7 @@
     [SVProgressHUD dismiss];
     
     //我今天阅读100页、跑步1KM(根据实际的汇报内容)，加入能量圈，和我一起PK吧！
-    NSString *shareStr = @"";
+//    NSString *shareStr = @"";
     NSString *contentStr = @"";
     for (NSInteger i=0; i<_xianmuArr.count; i++) {
         PKSelectedModel *model = (PKSelectedModel *)_xianmuArr[i];
