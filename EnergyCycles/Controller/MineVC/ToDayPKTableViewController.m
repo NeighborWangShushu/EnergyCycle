@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, assign) BOOL noData;
 @property (nonatomic, copy) NSString *RID;
+@property (nonatomic, strong) NSMutableArray *imgUrlArray;
 
 @end
 
@@ -29,6 +30,13 @@
         self.dataArray = [NSMutableArray array];
     }
     return _dataArray;
+}
+
+- (NSMutableArray *)imgUrlArray {
+    if (!_imgUrlArray) {
+        self.imgUrlArray = [NSMutableArray array];
+    }
+    return _imgUrlArray;
 }
 
 - (void)getData:(NSNotification *)notification {
@@ -45,6 +53,10 @@
             for (NSDictionary *dic in dict[@"Data"][@"reportItemInfo"]) {
                 OtherReportModel *model = [[OtherReportModel alloc] initWithDictionary:dic error:nil];
                 [self.dataArray addObject:model];
+            }
+            
+            for (NSString *imgUrl in dict[@"Data"][@"reportPicList"]) {
+                [self.imgUrlArray addObject:imgUrl];
             }
             
             self.RID = dict[@"Data"][@"RID"];
@@ -118,7 +130,7 @@
         }
         NSString *postStr = [NSString stringWithFormat:@"我今天完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
         NSLog(@"%@", postStr);
-        [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:postStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:nil Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
+        [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:postStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:self.imgUrlArray Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 [SVProgressHUD showImage:nil status:@"能量帖发布成功!"];
             }

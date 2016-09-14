@@ -24,6 +24,7 @@
 
 static NSString * const reuseIdentifier = @"Cell";
 static NSString * const headerViewIdentifier = @"headerView";
+static NSString * const footerViewIdentifier = @"footerView";
 
 - (NSMutableArray *)dataArr {
     if (!_dataArr) {
@@ -75,6 +76,7 @@ static NSString * const headerViewIdentifier = @"headerView";
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
     layout.headerReferenceSize = CGSizeMake(Screen_width, 50);
+    layout.footerReferenceSize = CGSizeMake(Screen_width, 50);
     layout.itemSize = CGSizeMake(Screen_width / 3, (Screen_Height - 64 - 50) / 4);
 //    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
 
@@ -84,6 +86,7 @@ static NSString * const headerViewIdentifier = @"headerView";
     // 注册collectionViewCell
     [self.collectionView registerNib:[UINib nibWithNibName:@"BadgeRulesCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier];
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerViewIdentifier];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.view addSubview:self.collectionView];
@@ -128,21 +131,34 @@ static NSString * const headerViewIdentifier = @"headerView";
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    // 创建collection的headerView
-    UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier forIndexPath:indexPath];
-    
-    NSString *string = [NSString stringWithFormat:@"我的徽章：已获得 %ld 枚", self.getCount];
-    // 根据文本创建属性字符创
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
-    // 利用属性字符串将文本颜色替换
-    [text addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(5, text.length - 5)];
-    CGRect frame = headerView.bounds;
-    frame.origin.x = 12;
-    UILabel *label = [[UILabel alloc] initWithFrame:frame];
-    label.font = [UIFont systemFontOfSize:12];
-    label.attributedText = text;
-    [headerView addSubview:label];
-    return headerView;
+    // 创建collection的headerView以及footerView
+    UICollectionReusableView *reusableView = nil;
+    if (kind == UICollectionElementKindSectionHeader) {
+        // 创建collection的headerView
+        reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier forIndexPath:indexPath];
+        
+        NSString *string = [NSString stringWithFormat:@"我的徽章：已获得 %ld 枚", self.getCount];
+        // 根据文本创建属性字符创
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
+        // 利用属性字符串将文本颜色替换
+        [text addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(5, text.length - 5)];
+        CGRect frame = reusableView.bounds;
+        frame.origin.x = 12;
+        UILabel *label = [[UILabel alloc] initWithFrame:frame];
+        label.font = [UIFont systemFontOfSize:12];
+        label.attributedText = text;
+        [reusableView addSubview:label];
+    } else if (kind == UICollectionElementKindSectionFooter) {
+        // 创建collection的footerView
+        reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footerViewIdentifier forIndexPath:indexPath];
+        UILabel *footerLabel = [[UILabel alloc] initWithFrame:reusableView.bounds];
+        footerLabel.text = @"*根据您发布每日PK汇报的累积天数，获得相应的徽章";
+        footerLabel.textAlignment = NSTextAlignmentCenter;
+        footerLabel.font = [UIFont systemFontOfSize:12];
+        footerLabel.textColor = [UIColor grayColor];
+        [reusableView addSubview:footerLabel];
+    }
+    return reusableView;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
