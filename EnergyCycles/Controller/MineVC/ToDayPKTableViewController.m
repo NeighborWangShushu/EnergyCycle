@@ -38,6 +38,7 @@
 }
 
 - (void)getToDayPKDataWithUserId:(NSString *)userId {
+    NSLog(@"%@",User_TOKEN);
     [[AppHttpManager shareInstance] getGetReportByUserWithUserid:[User_ID intValue] Token:User_TOKEN OUserId:[userId intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self.dataArray removeAllObjects];

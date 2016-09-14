@@ -424,10 +424,10 @@
             [self shareToQQ:share_url title:title];
             break;
         case 1:
-            [self shareToWechatTimeline:share_url title:title];
+            [self shareToWechatSession:share_url title:title];
             break;
         case 2:
-            [self shareToWechatSession:share_url title:title];
+            [self shareToWechatTimeline:share_url title:title];
             break;
         case 3:
             [self shareToWeibo:share_url title:title];
