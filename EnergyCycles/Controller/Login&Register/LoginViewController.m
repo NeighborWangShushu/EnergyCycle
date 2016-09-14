@@ -322,7 +322,7 @@
 
 - (void)receiveWeiBoResponse:(NSNotification *)notification {
     NSMutableArray *contentArray = notification.object;
-    if (!contentArray.count>0) {
+    if (contentArray.count <= 0) {
         return;
     }
     
