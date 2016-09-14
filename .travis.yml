@@ -1,0 +1,39 @@
+language: objective-c
+cache: bundler
+before_install:
+- chmod +x scripts/add-key.sh
+- chmod +x scripts/remove-key.sh
+- chmod +x scripts/update-bundle.sh
+- chmod +x scripts/sign-and-upload.sh
+- chmod +x scripts/sendemail/build-send.sh
+
+before_script:
+- ./scripts/remove-key.sh
+- openssl aes-256-cbc -k "$KNCRYPTION_SECRET" -in scripts/profile/$PROFILE_NAME.mobileprovision.enc
+  -d -a -out scripts/profile/$PROFILE_NAME.mobileprovision
+- openssl aes-256-cbc -k "$KNCRYPTION_SECRET" -in scripts/certs/adhoc.cer.enc -d -a
+  -out scripts/certs/adhoc.cer
+- openssl aes-256-cbc -k "$KNCRYPTION_SECRET" -in scripts/certs/adhoc.p12.enc -d -a
+  -out scripts/certs/adhoc.p12
+- ./scripts/add-key.sh
+- ./scripts/update-bundle.sh
+script:
+- xctool clean -workspace $APPNAME.xcworkspace -scheme $APPNAME -configuration Release
+- xctool -workspace $APPNAME.xcworkspace -scheme $APPNAME -sdk iphoneos -configuration Release OBJROOT=$PWD/build SYMROOT=$PWD/build ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO
+
+after_script:
+- ./scripts/remove-key.sh
+- ./scripts/sendemail/build-send.sh
+after_success:
+- ./scripts/sign-and-upload.sh
+env:
+  global:
+  - APPNAME="EnergyCycles"
+  - 'DEVELOPER_NAME="iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd."'
+  - PROFILE_NAME="EnergyCycles_AdHoc"
+  - INFO_PLIST="EnergyCycles/Info.plist"
+  - BUNDLE_DISPLAY_NAME="Travis CI Demo"
+  - KEY_PASSWORD="123"
+  - secure: hgAG5jlVav3ieKvGLbwFjeG9dTO+yn0cNp/cPFWPC6NPzmR87UrFoaTYsfFI9ks0i8tm56El2qSE9pEIg/B57zZzcoc/XjZC9Yww+rwAo7DOi/W0YbCCPSCFpSvo2UbIlUDhvATuKvEWnI6lEJjkD4vnBQ41h3j1jz68MX2OYTEbK0e3/Jlpx2m7js9FDn4rO4h77kHtXpOxyfaN0c4wPL0RFTjmhTyJqOcW3Z1oXPIhndZuZ4ADJO4QrbYx5D41a5XUNn9wGI0hiI80qQ0zxWd5YzmteO5tG5B+puAg50c281ind64SSbeOmbtWiQGNSAIIFp75hNVwLEy/AKnW93MYz6Jhx8kNXCBmVaF/M2xregqMpQL2IskmL7Oj3hiUFVrBoarmLnMIwfgThOswMUfA3+4/72yG2s/iaVVUkpWFOAYdEAVcI7dWttzvv1TTHHuJ2swG7lxMYkwBmxxbOeeQh7SDC6RyTO7ZeS2I3TGNXvR7G0WKsqk5EihiEzarivSImH+D2li/4gZHcCCGM/TgKSmbVRnvQ3z67alV07zhbUFj0LnsnVAjz+wl9bB5samjmZVQ3TGvyHp6rcFONbJN5PK06vtgfm9jcrL2opFydtEkjmggLfD3o8SY+3ujDetv2XZ2dGRUQKnmBXRuT7cwcvZ05gTHor4ywdQhn3M=
+  - secure: h0vIY+LvKcPqhIOhy26f0xWaYW8ydATlvstWqV5WQXOa6OoXNAXs4juWzIfVgvbZBI4vqExZcNpgLOELV36Y8ilHTKgVfuQ8Fekn3d7HkU/3s5T2Zuv064NreobC/bz/UNI0f3wglLVzjMcUKo4tdQ6fTcj+hZqawJhPtCOyrOTc9YDT4eCv3ORmL/aqPJ/nfj/AVuBKP7poliBNX/ML3D6FBLn2SLpD0GjHmwO3hbnsB2+lCwZhvdMjV5L0GvneVWOn4j1CjLxVPU4GM75mzi+ukyHnpwmEh2oDH779WX2zuQsHjfT+6pbqzLI6kAqk3FR2M3I9shBp3gDrGpqN8H3eZTS7h4x9GszSEJjAE1rNeelW5nr5Bp3+8dwkJ7TAN2EN05wjTl7sHmrvzOQC9euKBdqVMgg0qLq1gkVH2q2V3hyzSJ0KYKAeoYRsM7oQcP9iSPyixU8OMofQ/6sc9yt0/fnpA2N/HpAbljdwS+CmR6/5o4VtuDYuNbDKgNDHLfCikvloMVoZ+d2T0MBHZ+NSBe91P6+DvIUi75OfpBMdTMG0XlLziDFuApIi8aZT/AcB19Z8XwhQoQZA7L+JHJU7IOAoEedu7tZG+FylJex8zAY5QYMTMclchW11Mtr2iaSxf2ihBZuE8Vccxtsm/1vmmJeVzWI+Uiv5nUqLr+A=
+  - secure: JntT9+P/pEck39rqOfH37uhMEAr79dB9VXsaiK5KbQUMl/VYVdPSP8q216FiSc623xvABMXlwmAWZPMqWzt0macr/lS33vYg7wh0kBBkAYly1N2m2uC6CMJm/WKgnTXBKi+8g307q0bJYwRPH0bY0yIuAoN22cMuXPxUGP8TpVaSNSYypG04/mZHWdz5oDk5QLO+zw7o8NFttw5q+V5/HKV+3vhTw92O4AcwsDnmP/6Zg0q9hC+wrdeYrf4h3SrbH3c0+peWSi2KIov/+rnxv8n3mH/pq26u4S9V7RLWaWM24TxZzr6Y6UIzL0e5GPiVVlKsIyDzOl/Mu4DAVjccHm60lX93CGB9hUgvnHo+u9tbnZQDpFrLELWdODJVva3SMOJ+zVqdaCk8oxLuOyAdlYUQyUNHGXvPED3RY0heHUrIdtlruy/KZ+7Cwujkr0o0TxntgdIx7nOHTNLlPb8TALOKV0hzB+9fmvCppTZm0g0FQIexIHm6q5LiHRp1gA6+nVPCVFCXZlcCqpGbx9rGvAawKYVaq0tBhDvr7Ntn3eVwPJ7UV9aT/YoXaQfOVLv2DjYGHYzIchtYOgJzmZ5VxAwZ3L3mX4bbSWpmvF3C71rk5M3MBOmdfJP06a5CO96CPBOKWHHOM7ql18LSKQ8JbHBT+I7FWoLghCIDVUlibWk=
