@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D05A95BE1D62EEEA0063AD41"
+               BlueprintIdentifier = "D05A95D31D62F43A0063AD41"
                BuildableName = "EnergyCyclesUITests.xctest"
                BlueprintName = "EnergyCyclesUITests"
                ReferencedContainer = "container:EnergyCycles.xcodeproj">
@@ -71,6 +71,13 @@
             ReferencedContainer = "container:EnergyCycles.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "OS_ACTIVITY_MODE"
+            value = "Disable"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
          <AdditionalOption
             key = "NSZombieEnabled"

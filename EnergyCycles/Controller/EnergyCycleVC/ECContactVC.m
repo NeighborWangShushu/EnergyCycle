@@ -134,6 +134,11 @@
 
     
     _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
+    [_searchBar sizeToFit];
+    _searchBar.delegate = self;
+    _searchBar.hasCentredPlaceholder = NO;
+
+    _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
     _searchBar.delegate = self;
     _searchBar.edelegate = self;
     _searchBar.hasCentredPlaceholder = NO;
@@ -144,6 +149,14 @@
     [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
+    self.tableView.tableHeaderView = self.searchBar;
+    
+    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+    self.searchController.searchBar.delegate = self;
+    [self.searchController.searchBar sizeToFit];
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    
+    
     [_searchBar sizeToFit];
     _searchBar.datas = self.selectedDatas;
     [self.view addSubview:self.searchBar];
@@ -158,7 +171,7 @@
     self.searchController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
     [self.searchController.searchBar sizeToFit];
     _searchController.searchResultsTableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 2.0f, 0.0f);
-
+    
     
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);

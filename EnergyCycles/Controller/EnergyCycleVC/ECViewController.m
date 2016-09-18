@@ -121,6 +121,7 @@
     [super viewDidAppear:animated];
     [self getMessageData];
     [IQKeyboardManager sharedManager].enable = NO;
+    
     if (User_TOKEN.length > 0) {
         [self checkPhone];
     }
@@ -130,6 +131,7 @@
 /**
  *  检查是否绑定手机号
  */
+
 
 - (void)checkPhone {
     
@@ -161,7 +163,6 @@
     if (!model) {
         NSTimeZone *zone = [NSTimeZone defaultTimeZone];//获得当前应用程序默认的时区
         NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];//以秒为单位返回当前应用程序与世界标准时间（格林威尼时间）的时差
-        NSDate *localeDate = [[NSDate date] dateByAddingTimeInterval:interval];
         
         model = [[DateAlertModel alloc] init];
         model.last_alert_date = interval;
@@ -265,8 +266,8 @@
     
     delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
 
-    currentPage = 1;
-    attentionPage = 1;
+    currentPage = 0;
+    attentionPage = 0;
     self.dataArray = [NSMutableArray array];
     self.commentArray = [NSMutableArray array];
     self.newerArray = [NSMutableArray array];
@@ -291,6 +292,8 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postSuccess:) name:@"ECPOSTINGSUCCESS" object:nil];
+    
 }
 
 
@@ -313,7 +316,6 @@
                 messageCountView.hidden = NO;
             }
             count.text = [NSString stringWithFormat:@"%ld",(long)messageCount];
-            
         }
         
     } failure:^(NSString *str) {
@@ -361,7 +363,7 @@
         NSString * jingxuan = [NSString stringWithFormat:@"%@%@?type=2&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"0",@"10"];
         NSString * tuijian = [NSString stringWithFormat:@"%@%@?userId=%@&pageSize=%@",INTERFACE_URL,GetRecommendUser,@"0",[NSNumber numberWithInt:10]];
         NSString * zuixin = [NSString stringWithFormat:@"%@%@?type=1&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"0",@"10"];
-        currentPage = 1;
+        currentPage = 0;
         [self.tableView.mj_footer resetNoMoreData];
         NSURLRequest * request1 = [NSURLRequest requestWithURL:[NSURL URLWithString:jingxuan]];
         NSURLRequest * request2 = [NSURLRequest requestWithURL:[NSURL URLWithString:tuijian]];
@@ -407,6 +409,7 @@
                 model.url = data[@"photourl"];
                 model.ID = [data[@"use_id"] integerValue];
                 model.isHeart = [data[@"isHeart"] boolValue];
+                model.badge = [NSString stringWithFormat:@"%@",data[@"ReportNum"]];
                 [weakSelf.commentArray addObject:model];
             }
             NSLog(@"operation2 is complete");
@@ -450,7 +453,7 @@
             [self.tableView reloadData];
             return;
         }
-        attentionPage = 1;
+        attentionPage = 0;
         [self.tableView.mj_footer resetNoMoreData];
         [self.attentionArray removeAllObjects];
         [[AppHttpManager shareInstance] getGetArticleListWithType:@"3" Userid:_userId Token:User_TOKEN PageIndex:@"1" PageSize:@"10" PostOrGet:@"get" success:^(NSDictionary *dict) {
@@ -488,6 +491,8 @@
     model.time = data[@"createTime"];
     model.picNamesArray = data[@"artPic"];
     model.liked = [data[@"isHasLike"] boolValue];
+    model.badge = [NSString stringWithFormat:@"%@",data[@"ReportNum"]];
+    
     NSMutableArray * likeArr = [NSMutableArray array];
     if ([data[@"LikeUserList"] count]) {
         for (NSDictionary * like in data[@"LikeUserList"]) {
@@ -619,19 +624,19 @@
     
     self.navigationItem.titleView = navView;
     
-    UIButton *rightbutton = [UIButton buttonWithType:UIButtonTypeSystem];
-    rightbutton.frame = CGRectMake(0, 0, 21, 25);
+    UIButton *rightbutton                   = [UIButton buttonWithType:UIButtonTypeSystem];
+    rightbutton.frame                       = CGRectMake(0, 0, 21, 25);
     [rightbutton setBackgroundImage:[UIImage imageNamed:@"ec_sign"] forState:UIControlStateNormal];
-    rightbutton.tag = 1001;
+    rightbutton.tag                         = 1001;
     [rightbutton addTarget:self action:@selector(energyRightActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightbutton];
+    UIBarButtonItem *item                   = [[UIBarButtonItem alloc] initWithCustomView:rightbutton];
     self.navigationItem.rightBarButtonItems = @[item];
-    
-    UIView*leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 25)];
-    UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftbutton.frame = CGRectMake(0, 4, 18, 22);
+
+    UIView*leftView                         = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 25)];
+    UIButton *leftbutton                    = [UIButton buttonWithType:UIButtonTypeSystem];
+    leftbutton.frame                        = CGRectMake(0, 4, 18, 22);
     [leftbutton setBackgroundImage:[UIImage imageNamed:@"bell-icon"] forState:UIControlStateNormal];
-    leftbutton.tag = 1002;
+    leftbutton.tag                          = 1002;
     [leftbutton addTarget:self action:@selector(energyLeftActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
     [leftView addSubview:leftbutton];
     
@@ -711,7 +716,6 @@
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(endAnimation)];
     arrowImg.transform = CGAffineTransformMakeRotation(angle * (M_PI /180.0f));
     [UIView commitAnimations];
 }
@@ -1146,7 +1150,7 @@
     shareView = [[XMShareView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height)];
     shareView.alpha = 0.0;
     shareView.shareTitle = model.msgContent;
-    shareView.shareText = @"";
+    shareView.shareText = model.msgContent;
     NSString * share_url = @"";
     share_url = [NSString stringWithFormat:@"%@%@?aid=%@",INTERFACE_URL,ArticleDetailAspx,model.ID];
     shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
@@ -1234,6 +1238,11 @@
 
 
 #pragma mark  Notification
+
+- (void)postSuccess:(NSNotification*)notifi {
+    [self getData:YES];
+}
+
 - (void)keyboardWillShow:(NSNotification*)notifi {
     
 }

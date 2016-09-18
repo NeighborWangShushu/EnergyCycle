@@ -2876,6 +2876,7 @@ static AFHTTPRequestOperationManager *manager;
                     }];
 }
 
+
 #pragma mark - 110.学习模块Banner列表
 - (void)getBannerListPostOrGet:(NSString *)postOrGetType
                        success:(void (^)(NSDictionary *dict))success

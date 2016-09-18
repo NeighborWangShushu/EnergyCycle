@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSArray *picNamesArray;
 @property (nonatomic, copy)NSString *ID;
 @property (nonatomic, copy)NSString *UserID;
+@property (nonatomic, copy)NSString *badge;
 
 @property (nonatomic, assign, getter = isLiked) BOOL liked;
 

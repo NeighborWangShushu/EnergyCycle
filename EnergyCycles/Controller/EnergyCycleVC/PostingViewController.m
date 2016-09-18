@@ -103,7 +103,6 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wechatShareSuccess) name:@"wechatShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weiboShareSuccess) name:@"weiboShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(QQShareSuccess) name:@"QQShareSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareCancel) name:@"shareCancel" object:nil];
@@ -111,6 +110,35 @@
 }
 
 - (void)setup {
+    
+    NSArray * firstModel = [DraftsModel findAll];
+    if (firstModel.count) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否加载上次没发完的内容？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction*cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction*okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            _model = [firstModel firstObject];
+            if (_model) {
+                energyPostViewCell.informationTextView.text = _model.context;
+                [postDict setObject:_model.context forKey:@"content"];
+                
+                NSString*documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)firstObject];
+                NSString*newFielPath = [documentsPath stringByAppendingPathComponent:_model.imgLocalURL];
+                NSArray *content = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@.plist",newFielPath]];
+                // 获取model 进行赋值
+                for (NSString*imgpath in content) {
+                    UIImage*img = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imgpath];
+                    [_selectImgArrayLocal addObject:img];
+                    [_selectImgArray addObject:img];
+                }
+                [self.collectionView reloadData];
+            }
+        }];
+        [alertController addAction:cancelAction];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+    }
+    
     
     [self setupLeftNavBarWithimage:@"blackback_normal.png"];
     
@@ -212,6 +240,8 @@
 #pragma mark ECPAlertWhoCellDelegate 
 
 - (void)didSelected {
+
+//    [self presentViewController:nav animated:YES completion:nil];
     
     ECContactVC*vc = [[ECContactVC alloc] init];
     vc.delegate = self;
@@ -224,6 +254,7 @@
     
     _contacts = items;
     self.alertWhoView.datas = _contacts;
+
 
 }
 
@@ -375,6 +406,7 @@
     
 }
 
+#pragma Mark 发布帖子
 -(void)getURLContext {
     
     NSString * title=[postDict valueForKey:@"title"];
@@ -411,13 +443,14 @@
             if ([_sharesArray count]) {
                 [self share:_sharesArray];
             }else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ECPOSTINGSUCCESS" object:nil];
                 [self back];
             }
         }else {
             [_dataArr removeAllObjects];
             [SVProgressHUD showImage:nil status:dict[@"Msg"]];
         }
-
+        
     } failure:^(NSString *str) {
         [SVProgressHUD dismiss];
         [_dataArr removeAllObjects];
@@ -437,9 +470,12 @@
             NSLog(@"selectImgArrayLocal:%lu",(unsigned long)[_selectImgArrayLocal count]);
             if (_selectImgArrayLocal.count) {// 九张
                 if(_tempIndex<_selectImgArrayLocal.count){
-                    NSData * data=UIImageJPEGRepresentation(_selectImgArrayLocal[_tempIndex], 0.05);
+                    __block  NSData * data=nil;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                       data = UIImageJPEGRepresentation(_selectImgArrayLocal[_tempIndex], 0.05);
+                       [self submitImage:data];
+                    });
                     NSLog(@"_tempIndex:%ld",(long)_tempIndex);
-                    [self submitImage:data];
                 }else{
                     // 提交数据
                     [self getURLContext];
@@ -447,6 +483,7 @@
             }
         }else {
             // 网络出错
+            NSLog(@"网络出错:%@",dict[@"Msg"]);
             
         }
     } failure:^(NSString *str) {
@@ -621,7 +658,7 @@
     __weak __typeof(self)weakSelf = self;
     
     ShareModel*model = [[ShareModel alloc] init];
-    model.title = @"我刚刚在能量圈分享了好东西，快来看看吧";
+    model.title = title;
     model.content = @"";
     model.shareUrl = url;
     [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {

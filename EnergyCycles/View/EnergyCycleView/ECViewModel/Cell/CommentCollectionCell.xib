@@ -34,11 +34,19 @@
                             </mask>
                         </variation>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OLW-fJ-Hsa">
+                        <rect key="frame" x="46" y="47" width="17" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Hna-GM-hWI"/>
+                            <constraint firstAttribute="width" constant="17" id="cZd-eq-p8X"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="Gj3-jQ-PCW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="2g5-5c-y1l"/>
+                <constraint firstItem="Org-bV-Pik" firstAttribute="top" secondItem="OLW-fJ-Hsa" secondAttribute="bottom" id="6RU-VX-MXV"/>
                 <constraint firstItem="Gj3-jQ-PCW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="72a-mC-sxq"/>
                 <constraint firstItem="Gj3-jQ-PCW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="FDZ-Lz-dKP"/>
                 <constraint firstItem="Org-bV-Pik" firstAttribute="top" secondItem="Gj3-jQ-PCW" secondAttribute="bottom" constant="5" id="GNR-Q4-yUh"/>
@@ -49,6 +57,7 @@
                 <constraint firstAttribute="trailing" secondItem="Gj3-jQ-PCW" secondAttribute="trailing" id="aVl-bq-aCp"/>
                 <constraint firstItem="Org-bV-Pik" firstAttribute="top" secondItem="Gj3-jQ-PCW" secondAttribute="bottom" constant="2" id="t0g-o3-Gqh"/>
                 <constraint firstItem="Org-bV-Pik" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="tge-z7-GAM"/>
+                <constraint firstAttribute="trailing" secondItem="OLW-fJ-Hsa" secondAttribute="trailing" constant="3" id="vJm-56-sxR"/>
             </constraints>
             <size key="customSize" width="66" height="86"/>
             <variation key="default">
@@ -60,6 +69,7 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="badge" destination="OLW-fJ-Hsa" id="5t0-Zz-qd1"/>
                 <outlet property="icon" destination="Gj3-jQ-PCW" id="i4x-Gh-2Zy"/>
                 <outlet property="name" destination="Org-bV-Pik" id="SLc-Lm-aLT"/>
             </connections>
