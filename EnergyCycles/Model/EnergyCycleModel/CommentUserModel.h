@@ -14,5 +14,6 @@
 @property (nonatomic,copy)NSString * url;
 @property (nonatomic,assign)NSInteger ID;
 @property (nonatomic,assign)BOOL isHeart;
+@property (nonatomic,copy)NSString *badge;
 
 @end

@@ -38,6 +38,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 {
     UIImageView *_iconView;
     UIButton *iconButton;
+    UIImageView *_badge;
     UILabel *_nameLable;
     UIButton *_deleteButton;
     UIImageView *_locaIcon;
@@ -86,6 +87,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     iconButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [iconButton addTarget:self action:@selector(tapIcon) forControlEvents:UIControlEventTouchUpInside];
     
+    _badge = [UIImageView new];
     
     _nameLable = [UILabel new];
     _nameLable.font = [UIFont systemFontOfSize:14];
@@ -171,7 +173,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _marginView.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1.0];
     
     
-    NSArray *views = @[line, _iconView,iconButton, _nameLable,_deleteButton, _time, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
+    NSArray *views = @[line, _iconView,_badge, iconButton, _nameLable,_deleteButton, _time, _contentLabel, _moreButton, _picContainerView, _operationButton, _operationMenu, _commentView,_bottomView,_marginView];
     [self.contentView sd_addSubviews:views];
     
     UIView *contentView = self.contentView;
@@ -189,6 +191,13 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     .widthIs(50)
     .heightIs(50);
     _iconView.sd_cornerRadiusFromHeightRatio = [NSNumber numberWithFloat:0.5];
+    
+    _badge.sd_layout
+    .leftSpaceToView(_iconView,-15)
+    .topSpaceToView(_iconView,-20)
+    .widthIs(17)
+    .heightIs(21);
+    
     
     iconButton.sd_layout
     .leftEqualToView(_iconView)
@@ -315,6 +324,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _shouldOpenContentLabel = NO;
     
     [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:EC_AVATAR_PLACEHOLDER];
+    _badge.image = [UIImage imageNamed:[NSString stringWithFormat:@"badge_%@",model.badge]];
+
     _nameLable.text = model.name;
     _location.text = model.location;
     _time.text = model.time;

@@ -53,7 +53,7 @@
 
 //正式环境
 
-#define INTERFACE_URL @"http://120.26.218.68:8038/"
+//#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 
 //阿里云

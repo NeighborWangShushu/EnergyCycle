@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *name;
 
 @property (nonatomic,strong)CommentUserModel*model;
+@property (weak, nonatomic) IBOutlet UIImageView *badge;
 
 - (void)showMore;
 @end

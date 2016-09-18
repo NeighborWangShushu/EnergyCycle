@@ -18,9 +18,9 @@
     [super setActive:visible animated:animated];
     [self.searchContentsController.navigationController setNavigationBarHidden:NO animated:NO];
     if (visible) {
-//        [self.searchBar becomeFirstResponder];
+        [self.searchBar becomeFirstResponder];
     } else {
-//        [self.searchBar resignFirstResponder];
+        [self.searchBar resignFirstResponder];
     }
     
     
@@ -29,19 +29,6 @@
 
         if ([subview isKindOfClass:NSClassFromString(@"UISearchDisplayControllerContainerView")])
         {
-//            if (!visible) {
-//                UIView*searchView = subview.subviews[1];
-//                for (UIView*v in searchView.subviews) {
-//                    if ([v isKindOfClass:NSClassFromString(@"ECContactSearchBar")]) {
-//                        NSLog(@"%f",v.frame.origin.y);
-//                        CGRect frame = v.frame;
-//                        NSLog(@"%f---%f",frame.origin.y,frame.size.height);
-//                        frame.origin.y = 0;
-//                        v.frame = frame;
-//                    }
-//                }
-//            }
-        
             UIView*view = subview.subviews[2];
             for (UIView*v in view.subviews) {
                 if ([v isKindOfClass:NSClassFromString(@"_UISearchDisplayControllerDimmingView")]) {
