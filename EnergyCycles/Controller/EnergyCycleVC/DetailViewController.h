@@ -10,12 +10,14 @@
 
 #import "EnergyCycleShowCellModel.h"
 #import "TheAdvMainModel.h"
+#import <WebKit/WebKit.h>
 
 @interface DetailViewController : BaseViewController {
     IBOutlet UITableView *detailTabelView;
     
     UIView *deatilWabBackView;
     UIWebView *detailWebView;
+    WKWebView *wkWebView;
 }
 
 //区分 
@@ -36,6 +38,7 @@
 
 //
 @property (nonatomic, strong) NSString *videoUrl;
+
 
 
 @end
