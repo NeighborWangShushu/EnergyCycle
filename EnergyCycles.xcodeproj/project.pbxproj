@@ -8042,7 +8042,7 @@
 				TargetAttributes = {
 					2609B0051C02DD2A0006BC02 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = 9GXKKC9FN5;
+						DevelopmentTeam = V39449673K;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -9797,6 +9797,7 @@
 				CODE_SIGN_ENTITLEMENTS = EnergyCycles/EnergyCycles.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gong Hai (U5V584Z73H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
+				DEVELOPMENT_TEAM = V39449673K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9835,7 +9836,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8e6b0d00-6bb7-4bd7-91f8-30737c611f6a";
+				PROVISIONING_PROFILE = "fcda7d82-1e51-435e-b851-61068826a9d7";
+				PROVISIONING_PROFILE_SPECIFIER = "About Mine";
 				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -9851,6 +9853,7 @@
 				CODE_SIGN_ENTITLEMENTS = EnergyCycles/EnergyCycles.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gong Hai (U5V584Z73H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
+				DEVELOPMENT_TEAM = V39449673K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9889,7 +9892,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8e6b0d00-6bb7-4bd7-91f8-30737c611f6a";
+				PROVISIONING_PROFILE = "fcda7d82-1e51-435e-b851-61068826a9d7";
+				PROVISIONING_PROFILE_SPECIFIER = "About Mine";
 				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";

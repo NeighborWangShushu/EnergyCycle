@@ -168,7 +168,9 @@
         }
         CGRect rect = self.mineView.frame;
         rect.origin.y = kNavigationHeight - kHeaderImgHeight;
-        self.mineView.frame = rect;
+        [UIView animateWithDuration:0.5 animations:^{
+            self.mineView.frame = rect;
+        }];
     } else {
         [self.view insertSubview:self.mineView belowSubview:self.navigationController.navigationBar];
         
@@ -180,7 +182,9 @@
         
         CGRect rect = self.mineView.frame;
         rect.origin.y = - offsetY;
-        self.mineView.frame = rect;
+        [UIView animateWithDuration:0.5 animations:^{
+            self.mineView.frame = rect;
+        }];
 
     }
     
@@ -301,8 +305,24 @@
     }];
     
     
-//    [self.showVC.view removeFromSuperview];
-
+//    NSString *nextAddressStr = [NSString stringWithFormat:@"%p", newVC];
+//    CGFloat offsetY = [_offsetYDict[nextAddressStr] floatValue];
+//
+//    if (offsetY <= kHeaderImgHeight - kNavigationHeight) {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            CGRect rect = self.mineView.frame;
+//            rect.origin.y = 0;
+//            self.mineView.frame = rect;
+//        }];
+//
+//    }  else {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            CGRect rect = self.mineView.frame;
+//            rect.origin.y = kNavigationHeight - kHeaderImgHeight;
+//            self.mineView.frame = rect;
+//        }];
+//    }
+    
 //    MineHomePageTableViewControllerProtocol *newVC = self.childViewControllers[sender.selectedSegmentIndex];
 //    if (sender.selectedSegmentIndex == 0) {
 //        EnergyPostTableViewController *newVC =
