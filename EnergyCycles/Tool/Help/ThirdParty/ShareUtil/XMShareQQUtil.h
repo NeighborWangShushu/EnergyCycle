@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, SHARE_QQ_TYPE){
 
 @end
 
-@interface XMShareQQUtil : XMShareUtil <TencentSessionDelegate,TencentApiInterfaceDelegate,TCAPIRequestDelegate,QQApiInterfaceDelegate>
+@interface XMShareQQUtil : XMShareUtil<TCAPIRequestDelegate,QQApiInterfaceDelegate,TencentSessionDelegate,TencentApiInterfaceDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *inforDict;
 

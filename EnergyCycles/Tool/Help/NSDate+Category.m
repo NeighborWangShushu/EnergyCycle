@@ -26,7 +26,10 @@
         return @"刚刚";
 	} else if (timeInterval < 3600) {
         return @"一小时前";
-	} else if (timeInterval < 86400) {
+	}
+    else if(timeInterval < 86400 && timeInterval > 3600) {
+        return @"几小时前";
+    }else if (timeInterval < 86400) {
         return @"昨天";
 	} else if (timeInterval < 2592000) {//30天内
         return @"一个月内";

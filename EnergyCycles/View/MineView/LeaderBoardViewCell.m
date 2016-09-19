@@ -11,11 +11,12 @@
 @implementation LeaderBoardViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self.headLearnButton setBackgroundImage:[UIImage imageNamed:@"touxiang.png"] forState:UIControlStateNormal];
     self.headLearnButton.layer.masksToBounds = YES;
     self.headLearnButton.layer.cornerRadius = 20.f;
-    
     self.leftLearnButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    
 }
 
 - (void)updateLearderBoardDataWithModel:(UserModel *)model withIndex:(NSInteger)index {

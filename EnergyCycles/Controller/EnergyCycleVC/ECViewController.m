@@ -191,7 +191,6 @@
             return YES;
         } actionBlock:^(void) {
             NSLog(@"Second button tapped");
-            
         }];
         
         [alert showSuccess:self title:@"温馨提示" subTitle:@"根据工信部相关规定，APP应用必须进行用户实名认证。系统检测到您使用的是第三方登录，请您尽快到“我的\"模块\"->\"我的资料\"栏目中设置您的手机号，完成实名认证，谢谢配合！" closeButtonTitle:nil duration:0.0f];
@@ -1101,7 +1100,6 @@
         }else {
             cell.model = self.attentionArray[indexPath.row];
         }
-        
         return cell;
     }else {
         

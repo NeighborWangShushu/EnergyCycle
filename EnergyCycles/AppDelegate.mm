@@ -34,7 +34,7 @@ AppDelegate *EnetgyCycle = nil;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     EnetgyCycle = self;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     
 //    //第三方_微信
@@ -264,6 +264,8 @@ AppDelegate *EnetgyCycle = nil;
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
 }
+
+
 
 #pragma mark - 判断点击icon
 - (void)applicationDidBecomeActive:(UIApplication *)application {
