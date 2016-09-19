@@ -11,13 +11,14 @@
 #import "Masonry.h"
 
 
-@interface EnergyPostViewCell ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface EnergyPostViewCell ()
 
 @end
 
 @implementation EnergyPostViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.informationTextView.placehoder = @"说点什么吧... \r正文字数不得少于30字";
 
     

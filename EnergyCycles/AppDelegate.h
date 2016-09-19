@@ -15,6 +15,10 @@
 #import "MineNavController.h"
 #import "ECTabbarViewController.h"
 
+static NSString *appKey = @"da84470cd94e0e2dc2db282b";
+static NSString *channel = @"0";
+static BOOL isProduction = FALSE;
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

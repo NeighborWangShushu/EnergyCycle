@@ -1108,8 +1108,9 @@
 		D0C97BA61D5DA85C00B62219 /* DateAlertModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97BA51D5DA85C00B62219 /* DateAlertModel.m */; };
 		D0C97BA91D5DB04200B62219 /* NSDate+JKReporting.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97BA81D5DB04200B62219 /* NSDate+JKReporting.m */; };
 		D0C97BAC1D5DB26800B62219 /* NSDate+JKUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C97BAB1D5DB26800B62219 /* NSDate+JKUtilities.m */; };
+		D0D3001C1D8FA8BC007180F1 /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0D3001A1D8FA8BC007180F1 /* jpush-ios-2.1.9.a */; };
+		D0D3001F1D8FAB50007180F1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0D3001E1D8FAB50007180F1 /* UserNotifications.framework */; };
 		DA14E7991C225D390040104A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA14E7981C225D380040104A /* CoreFoundation.framework */; };
-		DA1E1B131C30CBA7007DFC48 /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1E1B121C30CBA7007DFC48 /* libPushSDK-1.8.8.a */; };
 		DA26A4FE1C30DD8B00F503CD /* PKHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DA26A4FD1C30DD8B00F503CD /* PKHomeModel.m */; };
 		DA26A5011C30E1CD00F503CD /* EveryDayPKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DA26A5001C30E1CD00F503CD /* EveryDayPKModel.m */; };
 		DA2AE4841C2D29E400F2F182 /* GuidePage_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA2AE47E1C2D29E400F2F182 /* GuidePage_1@2x.png */; };
@@ -3163,9 +3164,10 @@
 		D0C97BAA1D5DB26800B62219 /* NSDate+JKUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+JKUtilities.h"; sourceTree = "<group>"; };
 		D0C97BAB1D5DB26800B62219 /* NSDate+JKUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+JKUtilities.m"; sourceTree = "<group>"; };
 		D0D300191D8E3B97007180F1 /* EnergyCycles.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EnergyCycles.entitlements; sourceTree = "<group>"; };
+		D0D3001A1D8FA8BC007180F1 /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
+		D0D3001B1D8FA8BC007180F1 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		D0D3001E1D8FAB50007180F1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		DA14E7981C225D380040104A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		DA1E1B111C30CBA7007DFC48 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
-		DA1E1B121C30CBA7007DFC48 /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
 		DA26A4FC1C30DD8B00F503CD /* PKHomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKHomeModel.h; sourceTree = "<group>"; };
 		DA26A4FD1C30DD8B00F503CD /* PKHomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKHomeModel.m; sourceTree = "<group>"; };
 		DA26A4FF1C30E1CD00F503CD /* EveryDayPKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EveryDayPKModel.h; sourceTree = "<group>"; };
@@ -3841,6 +3843,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0D3001F1D8FAB50007180F1 /* UserNotifications.framework in Frameworks */,
 				D05842391D473133006859B9 /* AdSupport.framework in Frameworks */,
 				26D802F81C043393001CD2D5 /* ImageIO.framework in Frameworks */,
 				D05842371D473110006859B9 /* JavaScriptCore.framework in Frameworks */,
@@ -3868,6 +3871,7 @@
 				DA4DBC411C2BE18700C1F7F1 /* BaiduMapAPI_Location.framework in Frameworks */,
 				D07EB27F1D18DE6800840AC2 /* libmp3lame.a in Frameworks */,
 				26D802F41C043380001CD2D5 /* Security.framework in Frameworks */,
+				D0D3001C1D8FA8BC007180F1 /* jpush-ios-2.1.9.a in Frameworks */,
 				26D802F21C043378001CD2D5 /* UIKit.framework in Frameworks */,
 				26D802F01C043372001CD2D5 /* Foundation.framework in Frameworks */,
 				26D802EE1C04336A001CD2D5 /* CoreGraphics.framework in Frameworks */,
@@ -3883,7 +3887,6 @@
 				D05842261D47296A006859B9 /* ShareSDKExtension.framework in Frameworks */,
 				DA4DBC591C2BF60B00C1F7F1 /* BaiduMapAPI_Search.framework in Frameworks */,
 				DA4DBC401C2BE18700C1F7F1 /* BaiduMapAPI_Base.framework in Frameworks */,
-				DA1E1B131C30CBA7007DFC48 /* libPushSDK-1.8.8.a in Frameworks */,
 				26D802E41C04333C001CD2D5 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3911,6 +3914,7 @@
 				2609B0221C02DD2B0006BC02 /* EnergyCyclesTests */,
 				D05A95D51D62F43A0063AD41 /* EnergyCyclesUITests */,
 				2609B0071C02DD2A0006BC02 /* Products */,
+				D0D3001D1D8FAB50007180F1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5184,8 +5188,8 @@
 		26D99DE71C0C4D7B007AF579 /* JPushLib */ = {
 			isa = PBXGroup;
 			children = (
-				DA1E1B111C30CBA7007DFC48 /* APService.h */,
-				DA1E1B121C30CBA7007DFC48 /* libPushSDK-1.8.8.a */,
+				D0D3001A1D8FA8BC007180F1 /* jpush-ios-2.1.9.a */,
+				D0D3001B1D8FA8BC007180F1 /* JPUSHService.h */,
 			);
 			path = JPushLib;
 			sourceTree = "<group>";
@@ -7086,6 +7090,14 @@
 				D0C97B981D5C8E9F00B62219 /* UIImage+ImageEffects.m */,
 			);
 			path = SCLAlertView;
+			sourceTree = "<group>";
+		};
+		D0D3001D1D8FAB50007180F1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0D3001E1D8FAB50007180F1 /* UserNotifications.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		DA2AE47D1C2D29E400F2F182 /* GuidePage */ = {
