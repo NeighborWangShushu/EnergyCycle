@@ -153,7 +153,7 @@
     
     energyPostViewCell = [[[NSBundle mainBundle] loadNibNamed:@"EnergyPostViewCell" owner:self options:nil] lastObject];
     energyPostViewCell.informationTextView.delegate = self;
-    [self.view insertSubview:energyPostViewCell atIndex:0];
+    [self.view addSubview:energyPostViewCell];
     
     
     UICollectionViewFlowLayout*layout = [[UICollectionViewFlowLayout alloc] init];
