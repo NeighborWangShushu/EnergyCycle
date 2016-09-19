@@ -3162,6 +3162,7 @@
 		D0C97BA81D5DB04200B62219 /* NSDate+JKReporting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+JKReporting.m"; sourceTree = "<group>"; };
 		D0C97BAA1D5DB26800B62219 /* NSDate+JKUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+JKUtilities.h"; sourceTree = "<group>"; };
 		D0C97BAB1D5DB26800B62219 /* NSDate+JKUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+JKUtilities.m"; sourceTree = "<group>"; };
+		D0D300191D8E3B97007180F1 /* EnergyCycles.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EnergyCycles.entitlements; sourceTree = "<group>"; };
 		DA14E7981C225D380040104A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		DA1E1B111C30CBA7007DFC48 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
 		DA1E1B121C30CBA7007DFC48 /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
@@ -3925,6 +3926,7 @@
 		2609B0081C02DD2A0006BC02 /* EnergyCycles */ = {
 			isa = PBXGroup;
 			children = (
+				D0D300191D8E3B97007180F1 /* EnergyCycles.entitlements */,
 				D07804C31D51D587001C432B /* zh.lproj */,
 				2609B00C1C02DD2A0006BC02 /* AppDelegate.h */,
 				2609B00D1C02DD2A0006BC02 /* AppDelegate.mm */,
@@ -8045,6 +8047,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 					D05A95D31D62F43A0063AD41 = {
@@ -9789,6 +9794,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = EnergyCycles/EnergyCycles.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gong Hai (U5V584Z73H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
 				ENABLE_BITCODE = NO;
@@ -9842,6 +9848,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = EnergyCycles/EnergyCycles.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gong Hai (U5V584Z73H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
 				ENABLE_BITCODE = NO;

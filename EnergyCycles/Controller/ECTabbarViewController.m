@@ -59,7 +59,6 @@
                 
             }];
             [self.tabbar layoutIfNeeded];
-            [viewController.view layoutIfNeeded];
         }];
     }else {
         [UIView animateWithDuration:0.25 animations:^{
@@ -71,7 +70,6 @@
             }];
             
             [self.tabbar layoutIfNeeded];
-            [viewController.view layoutIfNeeded];
         }];
     }
 }
