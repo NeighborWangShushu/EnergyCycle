@@ -24,7 +24,7 @@
     #import "SVProgressHUD.h"
     #import "UIImage+Extension.h"
     #import "IQKeyboardManager.h"
-    #import "APService.h"
+    #import "JPUSHService.h"
 
     #import "AppDelegate.h"
 
