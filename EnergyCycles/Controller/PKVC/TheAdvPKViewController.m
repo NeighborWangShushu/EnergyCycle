@@ -175,6 +175,7 @@
     [cell setTheAdvPKCollectionView:^(TheAdvMainModel *model,NSInteger cellTouchIndex) {
         mainTouchModel = model;
         cellIndex = cellTouchIndex;
+        [self performSegueWithIdentifier:@"TheAdvPKViewToDetailView" sender:nil];
 
 //        WebVC *webVC = MainStoryBoard(@"WebVC");
 //        webVC.titleName = @"动态详情";
@@ -182,12 +183,13 @@
 //        webVC.url = loadStr;
 //=======
 //        [self performSegueWithIdentifier:@"TheAdvPKViewToDetailView" sender:nil];
-        TheAdvPKDetailVC *detailVC = [[TheAdvPKDetailVC alloc] init];
-        detailVC.titleName = @"进阶PK详情";
-        detailVC.model = model;
-        detailVC.url = [NSString stringWithFormat:@"%@%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,model.postId,[NSString stringWithFormat:@"%@",model.userId]];
-
-        [self.navigationController pushViewController:detailVC animated:YES];
+        
+//        TheAdvPKDetailVC *detailVC = [[TheAdvPKDetailVC alloc] init];
+//        detailVC.titleName = @"进阶PK详情";
+//        detailVC.model = model;
+//        detailVC.url = [NSString stringWithFormat:@"%@%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,model.postId,[NSString stringWithFormat:@"%@",model.userId]];
+//
+//        [self.navigationController pushViewController:detailVC animated:YES];
     }];
     
     //其他人信息
@@ -270,15 +272,15 @@
 
 #pragma mark - Navigation 传值
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([segue.identifier isEqualToString:@"TheAdvPKViewToDetailView"]) {
-//        DetailViewController *detailVC = segue.destinationViewController;
-//        detailVC.tabBarStr = @"pk";
-//        detailVC.showTitle = mainTouchModel.title;
-//        detailVC.showDetailId = mainTouchModel.postId;
-//        detailVC.advModel = mainTouchModel;
-//        detailVC.touchIndex = cellIndex;
-//        detailVC.videoUrl = mainTouchModel.videoUrl;
-//    }else
+    if ([segue.identifier isEqualToString:@"TheAdvPKViewToDetailView"]) {
+        DetailViewController *detailVC = segue.destinationViewController;
+        detailVC.tabBarStr = @"pk";
+        detailVC.showTitle = mainTouchModel.title;
+        detailVC.showDetailId = mainTouchModel.postId;
+        detailVC.advModel = mainTouchModel;
+        detailVC.touchIndex = cellIndex;
+        detailVC.videoUrl = mainTouchModel.videoUrl;
+    }else
     if ([segue.identifier isEqualToString:@"TheAdvPKViewToThePrizeView"]) {
         ThePizeViewController *pizeVC = segue.destinationViewController;
         pizeVC.waradID = awarID;
