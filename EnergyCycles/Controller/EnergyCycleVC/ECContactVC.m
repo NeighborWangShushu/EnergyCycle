@@ -156,22 +156,9 @@
     [self.searchController.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchController.searchBar;
     
-    
     [_searchBar sizeToFit];
     _searchBar.datas = self.selectedDatas;
     [self.view addSubview:self.searchBar];
-    
-    self.searchController = [[ECSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-    self.searchController.searchResultsDataSource = self;
-    self.searchController.searchResultsDelegate = self;
-    self.searchController.displaysSearchBarInNavigationBar = NO;
-    self.searchDisplayController.delegate = self;
-    self.searchController.delegate = self;
-    self.searchController.searchContentsController.view.backgroundColor = [UIColor whiteColor];
-    self.searchController.searchResultsTableView.tableFooterView = [UIView new];
-    self.searchController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
-    [self.searchController.searchBar sizeToFit];
-    _searchController.searchResultsTableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 2.0f, 0.0f);
     
     
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -188,79 +175,6 @@
         make.top.equalTo(self.searchBar.mas_bottom);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
-}
-
-
-- (NSMutableArray *)getFriendListDataBy:(NSMutableArray *)array{
-    
-    NSMutableArray *ans = [[NSMutableArray alloc] init];
-    NSArray *serializeArray = [(NSArray *)array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {//排序
-        int i;
-        NSString *strA = ((UserModel *)obj1).pinyin;
-        NSString *strB = ((UserModel *)obj2).pinyin;
-        for (i = 0; i < strA.length && i < strB.length; i ++) {
-            char a = [strA characterAtIndex:i];
-            char b = [strB characterAtIndex:i];
-            if (a > b) {
-                return (NSComparisonResult)NSOrderedDescending;//上升
-            }
-            else if (a < b) {
-                return (NSComparisonResult)NSOrderedAscending;//下降
-            }
-        }
-        
-        if (strA.length > strB.length) {
-            return (NSComparisonResult)NSOrderedDescending;
-        }else if (strA.length < strB.length){
-            return (NSComparisonResult)NSOrderedAscending;
-        }else{
-            return (NSComparisonResult)NSOrderedSame;
-        }
-    }];
-    
-    char lastC = '1';
-    NSMutableArray *data;
-    NSMutableArray *oth = [[NSMutableArray alloc] init];
-    for (UserModel *user in serializeArray) {
-        char c = [user.pinyin characterAtIndex:0];
-        if (!isalpha(c)) {
-            [oth addObject:user];
-        }
-        else if (c != lastC){
-            lastC = c;
-            if (data && data.count > 0) {
-                [ans addObject:data];
-            }
-            
-            data = [[NSMutableArray alloc] init];
-            [data addObject:user];
-        }
-        else {
-            [data addObject:user];
-        }
-    }
-    if (data && data.count > 0) {
-        [ans addObject:data];
-    }
-    if (oth.count > 0) {
-        [ans addObject:oth];
-    }
-    return ans;
-}
-
-
-- (NSMutableArray *)getFriendListSectionBy:(NSMutableArray *)array{
-    NSMutableArray *section = [[NSMutableArray alloc] init];
-    [section addObject:UITableViewIndexSearch];
-    for (NSArray *item in array) {
-        UserModel *user = [item objectAtIndex:0];
-        char c = [user.pinyin characterAtIndex:0];
-        if (!isalpha(c)) {
-            c = '#';
-        }
-        [section addObject:[NSString stringWithFormat:@"%c", toupper(c)]];
-    }
-    return section;
 }
 
 
@@ -312,8 +226,7 @@
 
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    isSearching = YES;
-//    [self.tableView reloadData];
+     isSearching = YES;
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -335,72 +248,7 @@
 }
 
 
-
 #pragma mark SearchController Delegate
-
-- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
-    
-    [_searchBar setShowsCancelButton:YES animated:NO];
-    UIView *topView = controller.searchBar.subviews[0];
-    controller.searchResultsTableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
-   
-    
-    for (UIView *v in topView.subviews) {
-        if ([v isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
-            [v removeFromSuperview];
-        }
-    }
-}
-
-
-- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
-    
-    for (UIView *subview in controller.searchContentsController.view.subviews) {
-        
-        if ([subview isKindOfClass:NSClassFromString(@"UISearchDisplayControllerContainerView")])
-        {
-            UIView*searchView = subview.subviews[1];
-            for (UIView*v in searchView.subviews) {
-                if ([v isKindOfClass:NSClassFromString(@"ECContactSearchBar")]) {
-                    NSLog(@"%f",v.frame.origin.y);
-                    CGRect frame = v.frame;
-                    NSLog(@"%f---%f",frame.origin.y,frame.size.height);
-                    frame.origin.y = -20;
-                    v.frame = frame;    
-                }
-            }
-        }
-    }
-
-}
-
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    isSearching = NO;
-    [self.tableView reloadData];
-    
-}
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView {
-    
-    for (UIView *subview in tableView.subviews)
-    {
-        if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewWrapperView"])
-        {
-            subview.frame = CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height);
-        }
-    }
-}
-
-- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller {
-    
-    isSearching = NO;
-    [self.tableView reloadData];
-    
-}
-
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
     [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:[[self.searchDisplayController.searchBar scopeButtonTitles]objectAtIndex:searchOption]];

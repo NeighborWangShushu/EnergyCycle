@@ -66,20 +66,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//    if (self.searchController.active) {
-//        self.searchController.active = NO;
-//        [self.searchController.searchBar removeFromSuperview];
-//    }
-//}
-//
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    [self createSearchResultsUpdating];
-//    isSearching = YES;
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupLeftNavBarWithimage:@"loginfanhui"];
