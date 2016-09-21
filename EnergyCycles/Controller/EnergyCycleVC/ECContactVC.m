@@ -132,12 +132,6 @@
     self.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.tableView];
 
-    
-    _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
-    [_searchBar sizeToFit];
-    _searchBar.delegate = self;
-    _searchBar.hasCentredPlaceholder = NO;
-
     _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
     _searchBar.delegate = self;
     _searchBar.edelegate = self;
@@ -150,13 +144,6 @@
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
     self.tableView.tableHeaderView = self.searchBar;
-    
-    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-    self.searchController.searchBar.delegate = self;
-    [self.searchController.searchBar sizeToFit];
-    self.tableView.tableHeaderView = self.searchController.searchBar;
-    
-    
     [_searchBar sizeToFit];
     _searchBar.datas = self.selectedDatas;
     [self.view addSubview:self.searchBar];
@@ -185,7 +172,7 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(self.searchBar.mas_bottom);
+        make.top.equalTo(self.searchBar.mas_bottom).with.offset(0);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
 }
