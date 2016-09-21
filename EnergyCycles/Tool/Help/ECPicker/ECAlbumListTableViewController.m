@@ -122,14 +122,11 @@ static NSString * const ECAlbumListCellReuseIdentifier = @"ECAlbumListTableViewC
         [[PHCachingImageManager defaultManager] requestImageForAsset:fetchResult[0] targetSize:CGSizeMake(50, 50) contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
             if (result) {
                 cell.headerImage = result;
-//                [cell.imageView setImage:result];
             }
             NSLog(@"haha");
         }];
     }
-    
     [cell updateDataWithTitle:collection.localizedTitle Count:fetchResult.count];
-//    [PHCachingImageManager defaultManager] requestimage
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
     
     // Configure the cell...
