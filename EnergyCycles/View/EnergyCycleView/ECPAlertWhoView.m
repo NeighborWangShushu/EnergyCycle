@@ -6,22 +6,25 @@
 //  Copyright © 2016年 Apple. All rights reserved.
 //
 
-#import "ECPAlertWhoCell.h"
+#import "ECPAlertWhoView.h"
 #import "ECContactSelectedCell.h"
 #import "Masonry.h"
 
-@interface ECPAlertWhoCell()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface ECPAlertWhoView()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong)UICollectionView * collectionView;
 
 @end
 
-@implementation ECPAlertWhoCell
+@implementation ECPAlertWhoView
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-    [self setup];
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self setup];
+    }
+    return self;
 }
 
 #pragma mark SET/GET
@@ -50,6 +53,12 @@
 
 - (void)setup {
     
+    self.text = [UILabel new];
+    self.text.textColor = [UIColor blackColor];
+    self.text.font = [UIFont systemFontOfSize:14];
+    self.text.text = @"提醒谁看";
+    [self addSubview:self.text];
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     layout.itemSize = CGSizeMake(30, 30);
@@ -64,6 +73,27 @@
     [self.collectionView setShowsHorizontalScrollIndicator:NO];
     [self.collectionView registerClass:[ECContactSelectedCell class] forCellWithReuseIdentifier:@"CommentCellID"];
     [self addSubview:self.collectionView];
+    
+    UIImageView * arrow = [UIImageView new];
+    [arrow setImage:[UIImage imageNamed:@"ec_comment_arrow"]];
+    [self addSubview:arrow];
+    
+    UIButton*button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:button];
+    
+    
+    [self.text mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).with.offset(10);
+        make.centerY.equalTo(self.mas_centerY).with.offset(0);
+    }];
+    
+    
+    [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).with.offset(-10);
+        make.centerY.equalTo(self.mas_centerY).with.offset(0);
+    }];
+    
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.greaterThanOrEqualTo(self.text.mas_right).with.offset(30);
         make.right.equalTo(self.mas_right).with.offset(-40);
@@ -72,6 +102,20 @@
         make.height.equalTo(@40);
     }];
     
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).with.offset(0);
+        make.right.equalTo(self.mas_right).with.offset(0);
+        make.top.equalTo(self.mas_top).with.offset(0);
+        make.bottom.equalTo(self.mas_bottom).with.offset(0);
+        
+    }];
+    
+}
+
+- (void)click {
+    if ([self.delegate respondsToSelector:@selector(didSelected)]) {
+        [self.delegate didSelected];
+    }
 }
 
 #pragma mark UICollectionViewDataSource
@@ -95,16 +139,4 @@
     return cell;
 }
 
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
-}
-
-- (IBAction)alertAction:(id)sender {
-    
-    if ([self.delegate respondsToSelector:@selector(didSelected)]) {
-        [self.delegate didSelected];
-    }
-}
 @end
