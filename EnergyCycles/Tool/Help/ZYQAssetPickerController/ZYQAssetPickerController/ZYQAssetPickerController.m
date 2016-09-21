@@ -9,9 +9,9 @@
 #import "ZYQAssetPickerController.h"
 
 #define IS_IOS7             ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)
-#define kThumbnailLength    Screen_width/3 - 20
+#define kThumbnailLength    (Screen_width - 20)/3
 #define kThumbnailSize      CGSizeMake(kThumbnailLength, kThumbnailLength)
-#define kPopoverContentSize CGSizeMake(320, 480)
+#define kPopoverContentSize CGSizeMake(Screen_width, Screen_Height)
 
 #pragma mark -
 

@@ -35,6 +35,8 @@
 #import "RecommendedTableViewController.h"
 #import "DraftsTableViewController.h"
 
+#import "ECPickerController.h"
+
 #import "AppDelegate.h"
 
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
@@ -164,6 +166,9 @@
             //            enVC.userId = self.model.use_id;
             //            enVC.isMineTableView = YES;
             //            [self.navigationController pushViewController:enVC animated:YES];
+            [self.delegate.tabbarController hideTabbar:YES];
+            ECPickerController *picker = [[ECPickerController alloc] init];
+            [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
         } else if (indexPath.row == 1) { // 我的资料
             [self.delegate.tabbarController hideTabbar:YES];
             MyProfileViewController *myVC = MainStoryBoard(@"MyProfileViewController");
@@ -275,7 +280,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    [[self navigationController] setNavigationBarHidden:YES animated:NO];
     [self.delegate.tabbarController hideTabbar:NO];
     [self getUserInfo];
     [self getUserInfoModel];
@@ -308,7 +313,7 @@
 //}
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [[self navigationController] setNavigationBarHidden:NO animated:NO];
 }
 
 // 获取用户信息

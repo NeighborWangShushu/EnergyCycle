@@ -513,6 +513,12 @@
 		625A17621D5494F700F12A4B /* ToDayPKTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A17611D5494F700F12A4B /* ToDayPKTableViewController.m */; };
 		625A17661D549C1F00F12A4B /* ToDayPKTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A17641D549C1F00F12A4B /* ToDayPKTableViewCell.m */; };
 		625A17671D549C1F00F12A4B /* ToDayPKTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 625A17651D549C1F00F12A4B /* ToDayPKTableViewCell.xib */; };
+		625AD2801D9295B300435FC2 /* ECAlbumListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD2761D9295B300435FC2 /* ECAlbumListTableViewCell.m */; };
+		625AD2811D9295B300435FC2 /* ECAlbumListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD2781D9295B300435FC2 /* ECAlbumListTableViewController.m */; };
+		625AD2821D9295B300435FC2 /* ECPhotoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD27A1D9295B300435FC2 /* ECPhotoListViewController.m */; };
+		625AD2831D9295B300435FC2 /* ECPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD27C1D9295B300435FC2 /* ECPickerController.m */; };
+		625AD2841D9295B300435FC2 /* AlbumNoAsset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD27E1D9295B300435FC2 /* AlbumNoAsset@2x.png */; };
+		625AD2851D9295B300435FC2 /* AlbumNoAsset@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD27F1D9295B300435FC2 /* AlbumNoAsset@3x.png */; };
 		626D3F0D1D489A6C00724000 /* MineChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */; };
 		626D3F0E1D489A6C00724000 /* MineChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */; };
 		626D3F111D48A29400724000 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F101D48A29400724000 /* ChatTableViewCell.m */; };
@@ -2332,6 +2338,16 @@
 		625A17631D549C1F00F12A4B /* ToDayPKTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToDayPKTableViewCell.h; sourceTree = "<group>"; };
 		625A17641D549C1F00F12A4B /* ToDayPKTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToDayPKTableViewCell.m; sourceTree = "<group>"; };
 		625A17651D549C1F00F12A4B /* ToDayPKTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToDayPKTableViewCell.xib; sourceTree = "<group>"; };
+		625AD2751D9295B300435FC2 /* ECAlbumListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAlbumListTableViewCell.h; sourceTree = "<group>"; };
+		625AD2761D9295B300435FC2 /* ECAlbumListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAlbumListTableViewCell.m; sourceTree = "<group>"; };
+		625AD2771D9295B300435FC2 /* ECAlbumListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAlbumListTableViewController.h; sourceTree = "<group>"; };
+		625AD2781D9295B300435FC2 /* ECAlbumListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAlbumListTableViewController.m; sourceTree = "<group>"; };
+		625AD2791D9295B300435FC2 /* ECPhotoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPhotoListViewController.h; sourceTree = "<group>"; };
+		625AD27A1D9295B300435FC2 /* ECPhotoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPhotoListViewController.m; sourceTree = "<group>"; };
+		625AD27B1D9295B300435FC2 /* ECPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPickerController.h; sourceTree = "<group>"; };
+		625AD27C1D9295B300435FC2 /* ECPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPickerController.m; sourceTree = "<group>"; };
+		625AD27E1D9295B300435FC2 /* AlbumNoAsset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AlbumNoAsset@2x.png"; sourceTree = "<group>"; };
+		625AD27F1D9295B300435FC2 /* AlbumNoAsset@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AlbumNoAsset@3x.png"; sourceTree = "<group>"; };
 		626D3F0A1D489A6C00724000 /* MineChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineChatTableViewCell.h; sourceTree = "<group>"; };
 		626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineChatTableViewCell.m; sourceTree = "<group>"; };
 		626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineChatTableViewCell.xib; sourceTree = "<group>"; };
@@ -4914,6 +4930,7 @@
 				62C99F321D3797620032E83C /* MineHomePageTableViewControllerProtocol.m */,
 				D06215DD1D6E891A00D3845E /* SLALertManager.h */,
 				D06215DE1D6E891A00D3845E /* SLALertManager.m */,
+				625AD2741D9295B300435FC2 /* ECPicker */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -5699,6 +5716,31 @@
 				625A17651D549C1F00F12A4B /* ToDayPKTableViewCell.xib */,
 			);
 			name = ToDayPKView;
+			sourceTree = "<group>";
+		};
+		625AD2741D9295B300435FC2 /* ECPicker */ = {
+			isa = PBXGroup;
+			children = (
+				625AD27B1D9295B300435FC2 /* ECPickerController.h */,
+				625AD27C1D9295B300435FC2 /* ECPickerController.m */,
+				625AD2791D9295B300435FC2 /* ECPhotoListViewController.h */,
+				625AD27A1D9295B300435FC2 /* ECPhotoListViewController.m */,
+				625AD2771D9295B300435FC2 /* ECAlbumListTableViewController.h */,
+				625AD2781D9295B300435FC2 /* ECAlbumListTableViewController.m */,
+				625AD2751D9295B300435FC2 /* ECAlbumListTableViewCell.h */,
+				625AD2761D9295B300435FC2 /* ECAlbumListTableViewCell.m */,
+				625AD27D1D9295B300435FC2 /* ECPickerImg */,
+			);
+			path = ECPicker;
+			sourceTree = "<group>";
+		};
+		625AD27D1D9295B300435FC2 /* ECPickerImg */ = {
+			isa = PBXGroup;
+			children = (
+				625AD27E1D9295B300435FC2 /* AlbumNoAsset@2x.png */,
+				625AD27F1D9295B300435FC2 /* AlbumNoAsset@3x.png */,
+			);
+			path = ECPickerImg;
 			sourceTree = "<group>";
 		};
 		626D3F091D489A4200724000 /* MineChat */ = {
@@ -8428,6 +8470,7 @@
 				620720F31D46FD0B00C4F73D /* MineWhisperTableViewCell.xib in Resources */,
 				26D8B2451C0FEEE900A1DB04 /* 26_1@3x.png in Resources */,
 				D029F9521D81372B00FC6EE2 /* badge_50@2x.png in Resources */,
+				625AD2851D9295B300435FC2 /* AlbumNoAsset@3x.png in Resources */,
 				DA9A95441C23ABEE00FBE107 /* shenqing@3x.png in Resources */,
 				62D35ABF1D59A859009E84C4 /* give@3x.png in Resources */,
 				DA677B711C3A6E11004A534E /* QDDT00007.png in Resources */,
@@ -8767,6 +8810,7 @@
 				DA8AFF501C2A4BF90064B9A7 /* 07tongxun@2x.png in Resources */,
 				DA677B811C3A6E11004A534E /* QDDT00023.png in Resources */,
 				62BE735F1D5B1FF000A83766 /* tongzhi@2x.png in Resources */,
+				625AD2841D9295B300435FC2 /* AlbumNoAsset@2x.png in Resources */,
 				26D99F211C0C4D7C007AF579 /* EnergyShowBackCollectionCell.xib in Resources */,
 				DAF48DA31C1E530C00D9C136 /* dianhua_@3x.png in Resources */,
 				D00AD7CC1D4B451B004AB05A /* 2_015.png in Resources */,
@@ -9280,6 +9324,7 @@
 				26D99EAB1C0C4D7B007AF579 /* UIView+Extension.m in Sources */,
 				26D26FCC1C118626008511A9 /* LearnDetailViewController.m in Sources */,
 				D0BD3F201D6474AA0010D9BB /* RAMBounceAnimation.swift in Sources */,
+				625AD2831D9295B300435FC2 /* ECPickerController.m in Sources */,
 				62FCE9191D3CC52D00F52E05 /* AttentionAndFansModel.m in Sources */,
 				D07E24221D11554700854B51 /* OtherCell.m in Sources */,
 				D07D2EAD1D0FA0C700AF35B1 /* ScrollTagView.m in Sources */,
@@ -9310,6 +9355,7 @@
 				26D99E9B1C0C4D7B007AF579 /* MineViewController.m in Sources */,
 				DA77F3AE1C479438003CBA4D /* TheAdvDetailModel.m in Sources */,
 				D04B54CD1D23C90D00DC259A /* MLEmojiLabel.m in Sources */,
+				625AD2811D9295B300435FC2 /* ECAlbumListTableViewController.m in Sources */,
 				26D99ED71C0C4D7B007AF579 /* IQBarButtonItem.m in Sources */,
 				26D99F061C0C4D7C007AF579 /* SBJsonStreamWriterState.m in Sources */,
 				D07E246B1D13CD9C00854B51 /* WebVC.m in Sources */,
@@ -9363,6 +9409,7 @@
 				D07E24151D112DB900854B51 /* RadioCell.m in Sources */,
 				DAAEC6DD1C1FB88D00FA094B /* SearchTwoTableViewCell.m in Sources */,
 				DA9125031C29423F0018DBAF /* ChatViewController.m in Sources */,
+				625AD2821D9295B300435FC2 /* ECPhotoListViewController.m in Sources */,
 				6297DDA41D3E0736004E42AA /* MineUserDateModel.m in Sources */,
 				DA77F3B11C479D9A003CBA4D /* CourseTuiJianModel.m in Sources */,
 				26CB28CB1C1146590065083D /* CustomTextView.m in Sources */,
@@ -9434,6 +9481,7 @@
 				D07E24831D13DB2300854B51 /* TAPageControl.m in Sources */,
 				26D99EB91C0C4D7B007AF579 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				DA772EF61C3F9AE300843666 /* InformationViewCell.m in Sources */,
+				625AD2801D9295B300435FC2 /* ECAlbumListTableViewCell.m in Sources */,
 				DA7CE5581C3E38BF00272952 /* TwoInfoView.m in Sources */,
 				D07D2EDB1D0FD6CC00AF35B1 /* NSArray+MASAdditions.m in Sources */,
 				26E9873C1C0D363A00C6A7BB /* ThePizeViewController.m in Sources */,
