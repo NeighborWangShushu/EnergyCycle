@@ -9,8 +9,12 @@
 #import "WebVC.h"
 #import "TheAdvMainModel.h"
 
-@interface TheAdvPKDetailVC : WebVC
+@interface TheAdvPKDetailVC : UITableViewController
+
+@property (nonatomic, copy) NSString *titleName;
 
 @property (nonatomic, strong) TheAdvMainModel *model;
+
+@property (nonatomic, copy) NSString *url;
 
 @end

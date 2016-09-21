@@ -24,6 +24,9 @@
 
 - (void)noData {
     self.userInteractionEnabled = NO;
+    self.titleLabel.text = nil;
+    self.numberLabel.text = nil;
+    self.rankingLabel.text = nil;
     self.textLabel.text = @"该用户暂无今日PK汇报";
     self.textLabel.font = [UIFont systemFontOfSize:16];
     self.textLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];

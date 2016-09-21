@@ -8,9 +8,6 @@
 
 #import "PostingViewController.h"
 
-#import "EnergyPostViewCell.h"
-#import "EnergyPostOneViewCell.h"
-#import "EnergyPostTwoViewCell.h"
 #import "ZYQAssetPickerController.h"
 #import "EnergyPostCollectionViewCell.h"
 #import "ECShareCell.h"
@@ -27,15 +24,18 @@
 #import "Masonry.h"
 #import "ShareModel.h"
 #import "ShareSDKManager.h"
-#import "ECPAlertWhoCell.h"
+#import "ECPAlertWhoView.h"
 #import "ECContactVC.h"
 #import "DraftsModel.h"
 #import "NSDate+JKUtilities.h"
 #import "SDImageCache.h"
 #import "UserModel.h"
 #import "SLALertManager.h"
+#import "EnergyPostShareView.h"
+#import "EnergyPostView.h"
 
-@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,EnergyPostViewCellDelegate,ECShareCellDelegate,SDPhotoBrowserDelegate,SDPhotoBrowserDelegate,EnergyPostCollectionViewCellDelegate,ECPAlertWhoCellDelegate,ECContactVCDelegate,UIActionSheetDelegate> {
+
+@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,ECShareCellDelegate,SDPhotoBrowserDelegate,SDPhotoBrowserDelegate,EnergyPostCollectionViewCellDelegate,ECPAlertWhoCellDelegate,ECContactVCDelegate,UIActionSheetDelegate,ECPostShareDelegate> {
     NSMutableDictionary *postDict;
     NSMutableArray *_dataArr;
     NSMutableArray *_selectImgArray;
@@ -46,7 +46,7 @@
     
     UIAlertView *delAlertView;
     
-    EnergyPostViewCell * energyPostViewCell;
+    EnergyPostView*energyPostViewCell;
     NSInteger postIndex;
     NSInteger postNumToday;
     
@@ -61,7 +61,7 @@
 
 @property (nonatomic,strong)NSMutableArray * contacts;
 @property (nonatomic,strong)NSMutableArray * contactIds;
-@property (nonatomic,strong)ECPAlertWhoCell*alertWhoView;
+@property (nonatomic,strong)ECPAlertWhoView*alertWhoView;
 
 @end
 
@@ -69,7 +69,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     
     [self initialize];
     [self setup];
@@ -100,7 +99,7 @@
     self.title = @"发帖";
     postDict = [[NSMutableDictionary alloc] init];
     _dataArr = [[NSMutableArray alloc] init];
-    
+
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weiboShareSuccess) name:@"weiboShareSuccess" object:nil];
@@ -139,7 +138,6 @@
         
     }
     
-    
     [self setupLeftNavBarWithimage:@"blackback_normal.png"];
     
     rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -151,8 +149,9 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = item;
     
-    energyPostViewCell = [[[NSBundle mainBundle] loadNibNamed:@"EnergyPostViewCell" owner:self options:nil] lastObject];
+    energyPostViewCell = [EnergyPostView new];
     energyPostViewCell.informationTextView.delegate = self;
+    energyPostViewCell.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:energyPostViewCell];
     
     
@@ -169,13 +168,16 @@
     self.collectionView.dataSource = self;
     [self.view addSubview:self.collectionView];
     
-    ECShareCell * shareView = [[[NSBundle mainBundle] loadNibNamed:@"ECShareCell" owner:self options:nil] lastObject];
+    EnergyPostShareView * shareView = [EnergyPostShareView new];
+    shareView.backgroundColor = [UIColor whiteColor];
     shareView.delegate = self;
+    shareView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:shareView];
     
-    self.alertWhoView = [[[NSBundle mainBundle] loadNibNamed:@"ECPAlertWhoCell" owner:self options:nil] lastObject];
+    self.alertWhoView = [ECPAlertWhoView new];
     self.alertWhoView.text.text = @"提醒谁看";
     self.alertWhoView.delegate = self;
+    self.alertWhoView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.alertWhoView];
     
     [energyPostViewCell mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -183,32 +185,31 @@
         make.left.equalTo(self.view.mas_left).with.offset(0);
         make.right.equalTo(self.view.mas_right).with.offset(0);
         make.top.equalTo(self.view.mas_top).with.offset(74);
-        make.height.equalTo(@100);
-
+        make.bottom.equalTo(self.view.mas_top).with.offset(274);
     }];
     
-    CGFloat height = 45 + (70*([_selectImgArrayLocal count]+1)/5);
+    CGFloat height = 65 + (70*([_selectImgArrayLocal count]+1)/5);
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).with.offset(0);
         make.right.equalTo(self.view.mas_right).with.offset(0);
-        make.top.equalTo(energyPostViewCell.mas_bottom);
+        make.top.equalTo(energyPostViewCell.mas_bottom).with.offset(0);
         make.height.equalTo(@(height));
     }];
     
     [shareView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).with.offset(0);
         make.right.equalTo(self.view.mas_right).with.offset(0);
-        make.top.equalTo(self.collectionView.mas_bottom);
+        make.top.equalTo(self.collectionView.mas_bottom).with.offset(1);
         make.height.equalTo(@50);
     }];
     
     [self.alertWhoView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.left.equalTo(self.view.mas_left).with.offset(0);
         make.right.equalTo(self.view.mas_right).with.offset(0);
-        make.top.equalTo(shareView.mas_bottom);
-        
+        make.top.equalTo(shareView.mas_bottom).with.offset(1);
+        make.height.equalTo(@44);
     }];
     
     if (_model) {
@@ -274,10 +275,6 @@
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
         [actionSheet showInView:self.view];
         
-        
-        
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"保存草稿?" delegate:self cancelButtonTitle:@"不保存" otherButtonTitles:@"保存", nil];
-//        [alertView show];
     }else {
         [self back];
     }

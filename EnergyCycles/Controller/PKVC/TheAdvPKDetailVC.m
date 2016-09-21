@@ -15,6 +15,8 @@
 }
 @property (nonatomic, strong) UIButton *likeButton;
 
+@property (nonatomic, strong) WebVC *webVC;
+
 @end
 
 @implementation TheAdvPKDetailVC
@@ -83,6 +85,18 @@
     [UIView animateWithDuration:0.25 animations:^{
         shareView.alpha = 1.0;
     }];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    WebVC *webVC = MainStoryBoard(@"WebVC");
+    webVC.url = self.url;
+    return webVC.view;
 }
 
 - (void)didReceiveMemoryWarning {

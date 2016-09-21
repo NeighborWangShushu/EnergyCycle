@@ -101,7 +101,6 @@
     self.datas = [NSMutableArray array];
     self.searchResultArr=[NSMutableArray array];
     
-    
 }
 
 - (void)filterData {
@@ -113,6 +112,7 @@
         [self.tableView reloadData];
     });
 }
+
 
 - (void)setSelectedDatas:(NSMutableArray *)selectedDatas {
     _selectedDatas = selectedDatas;
@@ -165,6 +165,7 @@
     self.searchController.searchResultsDataSource = self;
     self.searchController.searchResultsDelegate = self;
     self.searchController.displaysSearchBarInNavigationBar = NO;
+    self.searchDisplayController.delegate = self;
     self.searchController.delegate = self;
     self.searchController.searchContentsController.view.backgroundColor = [UIColor whiteColor];
     self.searchController.searchResultsTableView.tableFooterView = [UIView new];
@@ -266,7 +267,7 @@
 - (void)getData {
     
     __weak __typeof(self)weakSelf = self;
-    [[AppHttpManager shareInstance] getBothHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getBothHeartWithUserid:@"25" PostOrGet:@"get" success:^(NSDictionary *dict) {
         
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             for (NSDictionary *dic in dict[@"Data"]) {
@@ -296,6 +297,11 @@
 
 #pragma mark searchBar delegate
 
+-(void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    
+}
+
+
 - (void)contactSearchBar:(ECContactSearchBar *)searchBar model:(UserModel *)model isClear:(BOOL)isClear {
     
     [self.tableView reloadData];
@@ -308,6 +314,10 @@
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     isSearching = YES;
 //    [self.tableView reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -356,7 +366,7 @@
                     CGRect frame = v.frame;
                     NSLog(@"%f---%f",frame.origin.y,frame.size.height);
                     frame.origin.y = -20;
-                    v.frame = frame;
+                    v.frame = frame;    
                 }
             }
         }
@@ -367,13 +377,9 @@
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
     
-
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     isSearching = NO;
     [self.tableView reloadData];
-    
-    
     
 }
 
@@ -388,17 +394,11 @@
     }
 }
 
-- (void) keyboardWillHide {
-    
-   
-    
-}
-
 - (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller {
     
     isSearching = NO;
     [self.tableView reloadData];
-
+    
 }
 
 
@@ -425,7 +425,6 @@
         
         NSRange foundRange = [storeString rangeOfString:searchText options:searchOptions range:storeRange];
         if (foundRange.length) {
-            
             [tempResults addObject:self.contacts[i]];
         }
     }
