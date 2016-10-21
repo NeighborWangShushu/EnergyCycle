@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="SettingThreeViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="清理缓存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FvU-v4-O3h">
+                        <rect key="frame" x="31" y="14.5" width="68" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="b3h-5M-Pg0"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Myjiantou.png" translatesAutoresizingMaskIntoConstraints="NO" id="Yun-ai-0zO">
+                        <rect key="frame" x="293" y="19.5" width="8" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="PG9-OF-SH9"/>
+                            <constraint firstAttribute="width" constant="20" id="wy1-O1-gaw"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="PG9-OF-SH9"/>
+                                <exclude reference="wy1-O1-gaw"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="55M" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lnj-OT-KER">
+                        <rect key="frame" x="247" y="15.5" width="33" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="Yun-ai-0zO" secondAttribute="trailing" constant="19" id="0Us-gE-jch"/>
+                    <constraint firstItem="Yun-ai-0zO" firstAttribute="centerY" secondItem="FvU-v4-O3h" secondAttribute="centerY" id="0XM-2K-kLG"/>
+                    <constraint firstAttribute="trailing" secondItem="Yun-ai-0zO" secondAttribute="trailing" constant="19" id="9Yy-ju-p5e"/>
+                    <constraint firstItem="Lnj-OT-KER" firstAttribute="centerY" secondItem="FvU-v4-O3h" secondAttribute="centerY" id="IuG-qJ-Rw9"/>
+                    <constraint firstItem="Yun-ai-0zO" firstAttribute="leading" secondItem="Lnj-OT-KER" secondAttribute="trailing" constant="5" id="N1F-I3-bWg"/>
+                    <constraint firstItem="FvU-v4-O3h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="31" id="Qj1-uF-ryN"/>
+                    <constraint firstItem="FvU-v4-O3h" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VOD-Ve-c1b"/>
+                    <constraint firstAttribute="trailing" secondItem="Lnj-OT-KER" secondAttribute="trailing" constant="40" id="jqF-So-3aR"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Lnj-OT-KER" secondAttribute="trailing" constant="40" id="vcy-tp-VjM"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="vcy-tp-VjM"/>
+                        <exclude reference="0Us-gE-jch"/>
+                        <exclude reference="N1F-I3-bWg"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="leftLabel" destination="FvU-v4-O3h" id="avd-9T-XNY"/>
+                <outlet property="rightImage" destination="Yun-ai-0zO" id="wap-0y-8Yv"/>
+                <outlet property="rightLabel" destination="Lnj-OT-KER" id="MK0-6o-OdX"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Myjiantou.png" width="8" height="12"/>
+    </resources>
+</document>

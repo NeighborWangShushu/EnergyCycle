@@ -413,8 +413,6 @@ static NSArray * kStylePropertyNames() {
                     mustReturnYES = YES;
                 }
                 UIFont *newFont = [UIFont fontWithName:fontName size:newSize];
-                
-                //                [attrStr removeAttribute:NSFontAttributeName range:range];
                 [attrStr addAttribute:NSFontAttributeName value:newFont range:range];
             }
         }];

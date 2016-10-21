@@ -11,6 +11,8 @@
 #import "ReportOneTableViewCell.h"
 #import "ReportTwoTableViewCell.h"
 #import "ReportThrTableViewCell.h"
+#import "ReportPostingTableViewCell.h"
+#import "ReportShareTableViewCell.h"
 
 #import "ReportOneCollectionViewCell.h"
 #import "EnergyPostCollectionViewCell.h"
@@ -22,6 +24,10 @@
 
 #import "XHImageViewer.h"
 #import "UIImageView+XHURLDownload.h"
+
+#import "ShareModel.h"
+#import "ShareSDKManager.h"
+#import "SLALertManager.h"
 
 @interface ReportEveryPKViewController () <UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ZYQAssetPickerControllerDelegate,XHImageViewerDelegate> {
     UIButton *rightButton;
@@ -39,6 +45,20 @@
     XMTwoShareView *shareView;
     
     UIAlertView *delAlertView;
+    
+    NSMutableArray *sharesArray;
+    
+    NSString *shareStr;
+    NSString *RID;
+    
+    BOOL onPost;
+    BOOL onQQ;
+    BOOL onWecha;
+    BOOL onMoments;
+    BOOL onWeibo;
+    
+    BOOL isImage;
+    BOOL isShare;
 }
 
 @end
@@ -49,6 +69,8 @@
     [super viewDidLoad];
     
     self.title = @"汇报";
+    
+    sharesArray = [[NSMutableArray alloc] init];
     
     _imageUrlArr = [[NSMutableArray alloc] init];
     postDict = [[NSMutableDictionary alloc] init];
@@ -64,19 +86,19 @@
     reportTableView.showsVerticalScrollIndicator = NO;
     
     //尾视图
-    UIView *tableHeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 60)];
+    UIView *tableHeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 80)];
     UIImageView *leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 27, 22, 22)];
-    leftImageView.image = [UIImage imageNamed:@"42bangzhu_.png"];
+    leftImageView.image = [UIImage imageNamed:@"help.png"];
     [tableHeadView addSubview:leftImageView];
     
-    UILabel *biaozhuLabel = [[UILabel alloc] initWithFrame:CGRectMake(12+22+5, 21, Screen_width-12-22-5, 35)];
+    UILabel *biaozhuLabel = [[UILabel alloc] initWithFrame:CGRectMake(12+22+5, 11, Screen_width-12-22-5-12, 55)];
     biaozhuLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
-    biaozhuLabel.numberOfLines = 2;
+    biaozhuLabel.numberOfLines = 3;
     biaozhuLabel.font = [UIFont systemFontOfSize:14];
     [tableHeadView addSubview:biaozhuLabel];
     
-    NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请确认汇报真实数据，否则积分将被清零\n如有阅读汇报，请上传书籍封面"];
-    NSRange range1 = [[hintString string]rangeOfString:@"请确认汇报真实数据，否则积分将被清零"];
+    NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请确认汇报当日数据（非累计数据），否则积分清零\n如有阅读汇报，请上传书籍封面"];
+    NSRange range1 = [[hintString string]rangeOfString:@"请确认汇报当日真实数据(非累计数据),否则积分清零"];
     [hintString addAttribute:NSForegroundColorAttributeName value:[[UIColor blackColor] colorWithAlphaComponent:0.4] range:range1];
     
     NSRange range2 = [[hintString string]rangeOfString:@"如有阅读汇报，请上传书籍封面"];
@@ -87,12 +109,13 @@
     reportTableView.tableFooterView = tableHeadView;
     
     //左按键
-    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     //右按键
     rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     rightButton.frame = CGRectMake(0, 0, 35, 30);
     [rightButton setTitle:@"提交" forState:UIControlStateNormal];
-    [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+    //    [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
@@ -109,12 +132,72 @@
         model.myId = subDict[@"myId"];
         model.picUrl = subDict[@"picUrl"];
         model.name = subDict[@"name"];
-
+        
         [_xianmuArr addObject:model];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePost:) name:@"ReportPostSwitch" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQQ:) name:@"ReportQQSwitch" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWecha:) name:@"ReportWechaSwitch" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMoments:) name:@"ReportMomentsSwitch" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWeibo:) name:@"ReportWeiboSwitch" object:nil];
+
+    
     //增加消息中心,移除分享界面
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeShareView:) name:@"NotificationRemoveShareView" object:nil];
+}
+
+- (void)updatePost:(NSNotification *)notification {
+    NSString *string = notification.object;
+    if ([string isEqualToString:@"YES"]) {
+        onPost = YES;
+    } else if ([string isEqualToString:@"NO"]) {
+        onPost = NO;
+    }
+}
+
+- (void)updateQQ:(NSNotification *)notification {
+    NSString *string = notification.object;
+    if ([string isEqualToString:@"YES"]) {
+        onQQ = YES;
+        [sharesArray addObject:@"0"];
+    } else if ([string isEqualToString:@"NO"]) {
+        onQQ = NO;
+        [sharesArray removeObject:@"0"];
+    }
+}
+
+- (void)updateWecha:(NSNotification *)notification {
+    NSString *string = notification.object;
+    if ([string isEqualToString:@"YES"]) {
+        onWecha = YES;
+        [sharesArray addObject:@"1"];
+    } else if ([string isEqualToString:@"NO"]) {
+        onWecha = NO;
+        [sharesArray removeObject:@"1"];
+    }
+}
+
+- (void)updateMoments:(NSNotification *)notification {
+    NSString *string = notification.object;
+    if ([string isEqualToString:@"YES"]) {
+        onMoments = YES;
+        [sharesArray addObject:@"2"];
+    } else if ([string isEqualToString:@"NO"]) {
+        onMoments = NO;
+        [sharesArray removeObject:@"2"];
+    }
+}
+
+- (void)updateWeibo:(NSNotification *)notification {
+    NSString *string = notification.object;
+    if ([string isEqualToString:@"YES"]) {
+        onWeibo = YES;
+        [sharesArray addObject:@"3"];
+    } else if ([string isEqualToString:@"NO"]) {
+        onWeibo = NO;
+        [sharesArray removeObject:@"3"];
+    }
 }
 
 #pragma mark - 增加监听,选中提交的种类
@@ -132,9 +215,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+    //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-white.png"] forBarMetrics:UIBarMetricsDefault];
+    //    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.6],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
 }
 
 #pragma mark - 返回按键
@@ -166,34 +251,34 @@
 - (void)back {
     [self.navigationController popViewControllerAnimated:YES];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
 }
 
 #pragma mark - 提交按键响应事件
 - (void)rightAction {
-//    if (subPostDict.count != _xianmuArr.count) {
-//        [SVProgressHUD showImage:nil status:@"要填写完整哟~"];
-//    }
-//    else {
-//        for (NSString *value in subPostDict.allValues) {
-//            if ([value floatValue] == 0.00) {
-//                [SVProgressHUD showImage:nil status:@"汇报的项目要填写且不能是0哦~"];
-//                return;
-//            }
-//        }
-//        
-//        if(_selectImgArrayLocal.count){
-//            NSData * data = UIImageJPEGRepresentation(_selectImgArrayLocal[0], 0.05);
-//            [self submitImage:data];
-//        }else {
-//            [self getURLContext];
-//        }
-//    }
-//    if (subPostDict.count != _xianmuArr.count) {
-//        [SVProgressHUD showImage:nil status:@"要填写完整哟~"];
-//    }
+    //    if (subPostDict.count != _xianmuArr.count) {
+    //        [SVProgressHUD showImage:nil status:@"要填写完整哟~"];
+    //    }
+    //    else {
+    //        for (NSString *value in subPostDict.allValues) {
+    //            if ([value floatValue] == 0.00) {
+    //                [SVProgressHUD showImage:nil status:@"汇报的项目要填写且不能是0哦~"];
+    //                return;
+    //            }
+    //        }
+    //
+    //        if(_selectImgArrayLocal.count){
+    //            NSData * data = UIImageJPEGRepresentation(_selectImgArrayLocal[0], 0.05);
+    //            [self submitImage:data];
+    //        }else {
+    //            [self getURLContext];
+    //        }
+    //    }
+    //    if (subPostDict.count != _xianmuArr.count) {
+    //        [SVProgressHUD showImage:nil status:@"要填写完整哟~"];
+    //    }
     if (subPostDict.count <= 0) {
         [SVProgressHUD showImage:nil status:@"请填写汇报内容"];
     }
@@ -210,7 +295,7 @@
     }else {
         [self getURLContext];
     }
-
+    
 }
 
 - (void)getURLContext {
@@ -235,11 +320,58 @@
             [reportSubArr addObject:jsonStr];
         }
         
+        NSString *contentStr = @"";
+        for (NSInteger i=0; i<_xianmuArr.count; i++) {
+            PKSelectedModel *model = (PKSelectedModel *)_xianmuArr[i];
+            NSString *numStr = [subPostDict objectForKey:model.myId];
+            
+            if (i == _xianmuArr.count-1) {
+                contentStr = [NSString stringWithFormat:@"%@%@%@%@",contentStr,model.name,numStr,model.unit];
+            }else {
+                contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.name,numStr,model.unit];
+            }
+        }
+        shareStr = [NSString stringWithFormat:@"我刚才完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
+        
+        if (onPost) {
+//            NSString *shareStr = @"";
+            NSLog(@"%@", shareStr);
+            [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:shareStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:_imageUrlArr Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    NSLog(@"能量帖发布成功!");
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@",str);
+            }];
+        }
+        
+        if(_imageUrlArr.count) {
+            isImage = YES;
+        }
+        
         [[AppHttpManager shareInstance] getAddReportWithUserid:User_ID Token:User_TOKEN ReportList:reportSubArr ImageList:_imageUrlArr PostOrGet:@"post" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [self creatSuccessShareView];
-                
+//                [self creatSuccessShareView];
+                RID = dict[@"Data"];
+                [self share:sharesArray];
                 //
+                
+                if (isShare) {
+                    [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
+                        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                            if (isImage && isShare) {
+                                [[SLALertManager shareManager] showAlert:SLScroeTypeSix];
+                            } else {
+                                [[SLALertManager shareManager] showAlert:SLScroeTypeThree];
+                            }
+                        }
+                    } failure:^(NSString *str) {
+                        NSLog(@"%@", str);
+                    }];
+                } else if (isImage) {
+                    [[SLALertManager shareManager] showAlert:SLScroeTypeThree];
+                }
+                
                 NSMutableDictionary *choDict = [[NSMutableDictionary alloc] init];
                 for (NSInteger i=0; i<_xianmuArr.count; i++) {
                     NSMutableDictionary *subDict = [[NSMutableDictionary alloc] init];
@@ -255,6 +387,8 @@
                 NSData *jsonData = [NSKeyedArchiver archivedDataWithRootObject:choDict];
                 [[NSUserDefaults standardUserDefaults] setObject:jsonData forKey:@"chooseDict"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                
             }else if ([dict[@"Code"] integerValue] == 10000) {
                 [SVProgressHUD showImage:nil status:@"登录失效"];
                 [self.navigationController popToRootViewControllerAnimated:NO];
@@ -268,12 +402,207 @@
     }
 }
 
+- (void)share:(NSMutableArray*)items {
+    
+    [SVProgressHUD showWithStatus:@""];
+    if ([items count]) {
+        NSNumber*num = items[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+}
+
+- (void)shareByIndex:(NSInteger)index {
+    
+//    NSString * title = energyPostViewCell.informationTextView.text;
+//    NSString* share_url = [NSString stringWithFormat:@"%@%@?aid=%@&is_Share=1",INTERFACE_URL,ArticleDetailAspx,[NSString stringWithFormat:@"%ld",(long)postIndex]];
+    NSString *title = shareStr;
+    NSString *share_url = [NSString stringWithFormat:@"%@/html/DailyPK/DailyPKDetail.aspx?RID=%@", INTERFACE_URL, RID];
+    switch (index) {
+        case 0:
+            [self shareToQQ:share_url title:title];
+            break;
+        case 1:
+            [self shareToWechatSession:share_url title:title];
+            break;
+        case 2:
+            [self shareToWechatTimeline:share_url title:title];
+            break;
+        case 3:
+            [self shareToWeibo:share_url title:title];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)shareCancel {
+    
+    [SVProgressHUD dismiss];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+- (void)shareToWechatTimeline:(NSString*)url title:(NSString*)title {
+    
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = title;
+    model.content = @"";
+    model.shareUrl = url;
+    [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf wechatTimeLineShareSuccess];
+            }
+                break;
+            case SSDKResponseStateCancel:
+                [weakSelf shareCancel];
+                break;
+                
+            default:
+                break;
+        }
+    }];
+}
+
+- (void)wechatTimeLineShareSuccess {
+    isShare = YES;
+    [sharesArray removeObjectAtIndex:0];
+    if ([sharesArray count]) {
+        NSNumber*num = sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+    
+}
+
+- (void)shareToWechatSession:(NSString*)url title:(NSString*)title {
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = title;
+    model.content = @"";
+    model.shareUrl = url;
+    [[ShareSDKManager shareInstance] shareClientToWeixinSession:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf wechatSessionShareSuccess];
+            }
+                break;
+            case SSDKResponseStateCancel:
+                [weakSelf shareCancel];
+                
+                break;
+                
+            default:
+                break;
+        }
+    }];
+}
+
+- (void)wechatSessionShareSuccess {
+    isShare = YES;
+    [sharesArray removeObjectAtIndex:0];
+    if ([sharesArray count]) {
+        NSNumber*num = sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+    
+}
+
+- (void)shareToWeibo:(NSString*)url title:(NSString*)title {
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = title;
+    model.content = @"";
+    model.shareUrl = url;
+    [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf weiboShareSuccess];
+            }
+                break;
+            case SSDKResponseStateCancel:
+                [weakSelf shareCancel];
+                break;
+                
+            default:
+                break;
+        }
+    }];
+    
+}
+
+- (void)weiboShareSuccess {
+    isShare = YES;
+    [sharesArray removeObjectAtIndex:0];
+    if ([sharesArray count]) {
+        NSNumber*num = sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+}
+
+- (void)shareToQQ:(NSString*)url title:(NSString*)title {
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = title;
+    model.content = @"";
+    model.shareUrl = url;
+    [[ShareSDKManager shareInstance] shareClientToQQSession:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf QQShareSuccess];
+            }
+                break;
+            case SSDKResponseStateCancel:
+                [weakSelf shareCancel];
+                
+                break;
+                
+            default:
+                break;
+        }
+    }];
+    
+}
+
+- (void)QQShareSuccess {
+    isShare = YES;
+    [sharesArray removeObjectAtIndex:0];
+    if ([sharesArray count]) {
+        NSNumber*num = sharesArray[0];
+        [self shareByIndex:[num integerValue]];
+    }else {
+        [self shareCancel];
+    }
+}
+
 #pragma mark - 创建View
 - (void)creatSuccessShareView {
     [SVProgressHUD dismiss];
     
     //我今天阅读100页、跑步1KM(根据实际的汇报内容)，加入能量圈，和我一起PK吧！
-    NSString *shareStr = @"";
+//    NSString *shareStr = @"";
     NSString *contentStr = @"";
     for (NSInteger i=0; i<_xianmuArr.count; i++) {
         PKSelectedModel *model = (PKSelectedModel *)_xianmuArr[i];
@@ -293,7 +622,7 @@
     shareView.shareTitle = shareStr;
     shareView.shareText = @"";
     shareView.shareUrl = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%@",MYJYAppId];
-
+    
     
     [[UIApplication sharedApplication].keyWindow addSubview:shareView];
     
@@ -304,10 +633,10 @@
 
 //实现消息中心方法
 - (void)removeShareView:(NSNotification *)notification {
-//    NSInteger index = [[[notification object] objectForKey:@"index"] integerValue];
-//    if (index == 1) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
+    //    NSInteger index = [[[notification object] objectForKey:@"index"] integerValue];
+    //    if (index == 1) {
+    //        [self.navigationController popViewControllerAnimated:YES];
+    //    }
     [self.navigationController popViewControllerAnimated:YES];
     [shareView removeFromSuperview];
 }
@@ -332,7 +661,7 @@
             }
         }else {
             // 网络出错
-            [SVProgressHUD showImage:nil status:@"请检查网络"];
+            
         }
     } failure:^(NSString *str) {
         NSLog(@"错误：%@",str);
@@ -342,7 +671,7 @@
 
 #pragma mark -
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -357,6 +686,8 @@
         return 120.f;
     }else if (indexPath.section == 1) {
         return 50.f;
+    }else if (indexPath.section == 3 || indexPath.section == 4) {
+        return 45.f;
     }
     return 100.f;
 }
@@ -399,38 +730,61 @@
             PKSelectedModel *model = (PKSelectedModel *)_xianmuArr[indexPath.row];
             cell.titleLabel.text = model.name;
             cell.danweiLabel.text = model.unit;
-//            cell.inputTextField.text = @"0";
+            //            cell.inputTextField.text = @"0";
         }
         cell.inputTextField.tag = 2311+indexPath.row;
         [cell.inputTextField addTarget:self action:@selector(cellInputTextFieldChange:) forControlEvents:UIControlEventEditingChanged];
         
         return cell;
+    } else if (indexPath.section == 2) {
+        static NSString *ReportThrTableViewCellId = @"ReportThrTableViewCellId";
+        ReportThrTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReportThrTableViewCellId];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"ReportThrTableViewCell" owner:self options:nil].lastObject;
+        }
+        
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        layout.minimumInteritemSpacing = 10.f;
+        layout.minimumLineSpacing = 10.f;
+        cell.showImageCollectionView.collectionViewLayout = layout;
+        cell.showImageCollectionView.backgroundColor = [UIColor clearColor];
+        [cell.showImageCollectionView registerNib:[UINib nibWithNibName:@"EnergyPostCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"EnergyPostCollectionViewCellId"];
+        cell.showImageCollectionView.tag = 2302;
+        cell.showImageCollectionView.dataSource = self;
+        cell.showImageCollectionView.delegate = self;
+        
+        cell.showImageCollectionView.showsHorizontalScrollIndicator = NO;
+        cell.showImageCollectionView.showsVerticalScrollIndicator = NO;
+        
+        return cell;
+    } else if (indexPath.section == 3) {
+        static NSString *reportPostingTableViewCell = @"reportPostingTableViewCell";
+        ReportPostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reportPostingTableViewCell];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"ReportPostingTableViewCell" owner:self options:nil].lastObject;
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell updateData];
+        return cell;
+    } else if (indexPath.section == 4) {
+        static NSString *reportShareTableViewCell = @"reportShareTableViewCell";
+        ReportShareTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reportShareTableViewCell];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"ReportShareTableViewCell" owner:self options:nil].lastObject;
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell updateData];
+        return cell;
     }
+    return nil;
     
-    static NSString *ReportThrTableViewCellId = @"ReportThrTableViewCellId";
-    ReportThrTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReportThrTableViewCellId];
-    if (cell == nil) {
-        cell = [[NSBundle mainBundle] loadNibNamed:@"ReportThrTableViewCell" owner:self options:nil].lastObject;
-    }
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    layout.minimumInteritemSpacing = 10.f;
-    layout.minimumLineSpacing = 10.f;
-    cell.showImageCollectionView.collectionViewLayout = layout;
-    cell.showImageCollectionView.backgroundColor = [UIColor clearColor];
-    [cell.showImageCollectionView registerNib:[UINib nibWithNibName:@"EnergyPostCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"EnergyPostCollectionViewCellId"];
-    cell.showImageCollectionView.tag = 2302;
-    cell.showImageCollectionView.dataSource = self;
-    cell.showImageCollectionView.delegate = self;
-    
-    cell.showImageCollectionView.showsHorizontalScrollIndicator = NO;
-    cell.showImageCollectionView.showsVerticalScrollIndicator = NO;
-    
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 3 || section == 4) {
+        return 20.f;
+    }
     return 40.f;
 }
 
@@ -443,13 +797,15 @@
     if (section == 0) {
         label.text = @"项目";
     }else if (section == 1) {
-        label.text = @"记录";
+        label.text = @"今日共完成";
     }else {
         label.text = @"添加照片";
     }
     [headView addSubview:label];
     
-    
+    if (section == 3 || section == 4) {
+        return nil;
+    }
     return headView;
 }
 
@@ -462,7 +818,7 @@
 }
 
 #pragma mark -
-- (void)cellInputTextFieldChange:(UITextField *)textField {    
+- (void)cellInputTextFieldChange:(UITextField *)textField {
     PKSelectedModel *model = (PKSelectedModel *)_xianmuArr[textField.tag-2311];
     
     CGFloat textFloatValue = [textField.text floatValue];
@@ -644,7 +1000,8 @@
         }
         //资源类型为照相机
         picker.sourceType = sourceType;
-        [self presentViewController:picker animated:YES completion:nil];
+        //        [self presentViewController:picker animated:YES completion:nil];
+        [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
     }else {
         NSLog(@"该设备无摄像头");
     }
@@ -657,6 +1014,9 @@
     }
     ZYQAssetPickerController *picker = [[ZYQAssetPickerController alloc] init];
     picker.navigationBar.tintColor=[UIColor whiteColor];
+    picker.navigationBar.translucent = NO;
+    [picker.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [picker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
     picker.maximumNumberOfSelection = 9-count;
     picker.assetsFilter = [ALAssetsFilter allPhotos];
     picker.showEmptyGroups = NO;
@@ -669,7 +1029,9 @@
             return YES;
         }
     }];
-    [self presentViewController:picker animated:YES completion:nil];
+    //    [self presentViewController:picker animated:YES completion:nil];
+    [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
+    
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {

@@ -20,6 +20,7 @@
 
 @property (nonatomic, strong) NSString *showName;
 
+@property (nonatomic, copy) NSString *userId;
 
 
 @end

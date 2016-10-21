@@ -12,6 +12,10 @@
 #import "XMShareWechatUtil.h"
 #import "XMShareQQUtil.h"
 
+#import "ShareModel.h"
+#import "ShareSDKManager.h"
+#import "SLALertManager.h"
+
 //每行显示数量
 static const NSInteger numbersOfItemInLine = 4;
 
@@ -190,31 +194,99 @@ static const NSInteger numbersOfItemInLine = 4;
     [self clickClose];
 }
 
+- (void)ShareSuccess {
+    [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            if (self.isImage) {
+                [[SLALertManager shareManager] showAlert:SLScroeTypeTwenty];
+            } else {
+                [[SLALertManager shareManager] showAlert:SLScroeTypeTen];
+            }
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
+}
+
 - (void)shareToWeixinSession {
-    XMShareWechatUtil *util = [XMShareWechatUtil sharedInstance];
-    util.shareTitle = self.shareTitle;
-    util.shareText = self.shareText;
-    util.shareUrl = self.shareUrl;
+//    XMShareWechatUtil *util = [XMShareWechatUtil sharedInstance];
+//    util.shareTitle = self.shareTitle;
+//    util.shareText = self.shareText;
+//    util.shareUrl = self.shareUrl;
+//    
+//    [util shareToWeixinSession];
+    __weak __typeof(self)weakSelf = self;
     
-    [util shareToWeixinSession];
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = self.showTitle;
+    model.content = self.shareText;
+    model.shareUrl = self.shareUrl;
+    [[ShareSDKManager shareInstance] shareClientToWeixinSession:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf ShareSuccess];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }];
 }
 
 - (void)shareToWeixinTimeline {
-    XMShareWechatUtil *util = [XMShareWechatUtil sharedInstance];
-    util.shareTitle = self.shareTitle;
-    util.shareText = self.shareText;
-    util.shareUrl = self.shareUrl;
+//    XMShareWechatUtil *util = [XMShareWechatUtil sharedInstance];
+//    util.shareTitle = self.shareTitle;
+//    util.shareText = self.shareText;
+//    util.shareUrl = self.shareUrl;
+//    
+//    [util shareToWeixinTimeline];
+    __weak __typeof(self)weakSelf = self;
     
-    [util shareToWeixinTimeline];
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = self.showTitle;
+    model.content = self.shareText;
+    model.shareUrl = self.shareUrl;
+    [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf ShareSuccess];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }];
 }
 
 - (void)shareToQQ {
-    XMShareQQUtil *util = [XMShareQQUtil sharedInstance];
-    util.shareTitle = self.shareTitle;
-    util.shareText = self.shareText;
-    util.shareUrl = self.shareUrl;
+//    XMShareQQUtil *util = [XMShareQQUtil sharedInstance];
+//    util.shareTitle = self.shareTitle;
+//    util.shareText = self.shareText;
+//    util.shareUrl = self.shareUrl;
+//    
+//    [util shareToQQ];
+    __weak __typeof(self)weakSelf = self;
     
-    [util shareToQQ];
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = self.showTitle;
+    model.content = self.shareText;
+    model.shareUrl = self.shareUrl;
+    [[ShareSDKManager shareInstance] shareClientToQQSession:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf ShareSuccess];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }];
 }
 
 - (void)shareToQzone {
@@ -227,17 +299,37 @@ static const NSInteger numbersOfItemInLine = 4;
 }
 
 - (void)shareToWeibo {
-    XMShareWeiboUtil *util = [XMShareWeiboUtil sharedInstance];
-    util.shareTitle = self.shareTitle;
-    util.shareText = self.shareText;
-    util.shareUrl = self.shareUrl;
+//    XMShareWeiboUtil *util = [XMShareWeiboUtil sharedInstance];
+//    util.shareTitle = self.shareTitle;
+//    util.shareText = self.shareText;
+//    util.shareUrl = self.shareUrl;
+//    
+//    [util shareToWeibo];
+    __weak __typeof(self)weakSelf = self;
     
-    [util shareToWeibo];
+    ShareModel*model = [[ShareModel alloc] init];
+    model.title = self.showTitle;
+    model.content = self.shareText;
+    model.shareUrl = self.shareUrl;
+    [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+                [weakSelf ShareSuccess];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }];
 }
-
 
 - (void)buttonClick:(UIButton *)button {
     touchIndex = button.tag - 3001;
+    if (self.isImage) {
+        [[SLALertManager shareManager] showAlert:SLScroeTypeTen];
+    }
     [self clickClose];
 }
 

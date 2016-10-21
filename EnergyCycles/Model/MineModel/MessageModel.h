@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSString<Optional> *MessagePeople;
 @property (nonatomic, strong) NSString<Optional> *MessageTime;
 @property (nonatomic, strong) NSString<Optional> *MessageedPeople;
+@property (nonatomic, strong) NSString<Optional> *photourl;
+@property (nonatomic, strong) NSString<Optional> *UserID;
 @property (nonatomic, strong) NSString<Optional> *bImg;
 @property (nonatomic, strong) NSString<Optional> *bNickname;
 @property (nonatomic, strong) NSString<Optional> *cImg;

@@ -21,10 +21,13 @@
 #import "XMShareWeiboUtil.h"
 
 #import "SBJson.h"
-
+#import "SLALertManager.h"
 #import "WXApiRequestHandler.h"
 #import "WXApiManager.h"
 #import "Constant.h"
+#import "ECTabbarViewController.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 
 
 @interface LoginViewController () <getQQLoginGetInformationDelegate,WBHttpRequestDelegate,WXApiDelegate> {
@@ -70,6 +73,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"USERID"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"TOKEN"];
     [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"PHONE"];
+
 }
 
 #pragma mark - 返回按键响应事件
@@ -77,12 +81,7 @@
     EnetgyCycle.isEnterLoginView = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
     
-    if (EnetgyCycle.energyTabBar.selectedIndex == 3) {
-        EnetgyCycle.energyTabBar.selectedIndex = 0;
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }else {
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma mark - 忘记密码按键响应事件
@@ -96,9 +95,11 @@
         [SVProgressHUD showImage:nil status:@"请输入手机号"];
     }else if ([self.loginPassWordTextField.text length] <= 0) {
         [SVProgressHUD showImage:nil status:@"请输入密码"];
-    }else if (![[AppHelpManager sharedInstance] isValidPassword:self.loginPassWordTextField.text]) {
-        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
-    }else {
+    }
+//    else if (![[AppHelpManager sharedInstance] isValidPassword:self.loginPassWordTextField.text]) {
+//        [SVProgressHUD showImage:nil status:@"密码由6到16位数字或字母组成"];
+//    }
+    else {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"请等待.."];
         
@@ -108,6 +109,8 @@
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"use_id"] forKey:@"USERID"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"token"] forKey:@"TOKEN"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"phone"] forKey:@"PHONE"];
+                
+                [[NSUserDefaults standardUserDefaults] setObject:subDict[@"pwd"] forKey:@"PASSWORD"];
                 
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"jifen"] forKey:@"UserJiFen"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"studyVal"] forKey:@"UserStudyValues"];
@@ -153,30 +156,85 @@
 
 #pragma mark - 第三方登录-调用接口
 - (void)thirdLoginInWithType:(int)type withOpenId:(NSString *)openId withNickName:(NSString *)nickName withPhotoUrl:(NSString *)photoUrl withSex:(NSString *)sex withPhone:(NSString *)phone {
+    
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
     [SVProgressHUD showWithStatus:@"登录中.."];
     
-    [[AppHttpManager shareInstance] getOtherLoginWithLoginType:type OpenId:openId NickName:nickName PhotoUrl:photoUrl Sex:sex Phone:phone PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] IsFirstLoginWithLoginType:type openId:openId PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            NSDictionary *subDict = (NSDictionary *)dict[@"Data"][0];
-            [[NSUserDefaults standardUserDefaults] setObject:subDict[@"use_id"] forKey:@"USERID"];
-            [[NSUserDefaults standardUserDefaults] setObject:subDict[@"token"] forKey:@"TOKEN"];
-            [[NSUserDefaults standardUserDefaults] setObject:nickName forKey:@"UserNickName"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            [SVProgressHUD dismiss];
-            
-            EnetgyCycle.isEnterLoginView = NO;
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"isSetAPService" object:nil];
-            [self dismissViewControllerAnimated:NO completion:nil];
-        }else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+
+            NSLog(@"%@",dict);
+            NSInteger isFirst = [dict[@"Data"] integerValue];
+            [[AppHttpManager shareInstance] getOtherLoginWithLoginType:type OpenId:openId NickName:nickName PhotoUrl:photoUrl Sex:sex Phone:phone PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    NSDictionary *subDict = (NSDictionary *)dict[@"Data"][0];
+                    [[NSUserDefaults standardUserDefaults] setObject:subDict[@"use_id"] forKey:@"USERID"];
+                    [[NSUserDefaults standardUserDefaults] setObject:subDict[@"token"] forKey:@"TOKEN"];
+                    [[NSUserDefaults standardUserDefaults] setObject:nickName forKey:@"UserNickName"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    [SVProgressHUD dismiss];
+                    if (isFirst) {
+                        [self isFirstLoginWithUserID:[subDict[@"use_id"] intValue] Token:subDict[@"token"]];
+                    } else {
+                        EnetgyCycle.isEnterLoginView = NO;
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"isSetAPService" object:nil];
+                        
+                        [self dismissViewControllerAnimated:NO completion:nil];
+                    }
+                    
+                }else {
+                    [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@",str);
+                [SVProgressHUD dismiss];
+            }];
         }
     } failure:^(NSString *str) {
-        NSLog(@"%@",str);
-        [SVProgressHUD dismiss];
+        NSLog(@"%@", str);
     }];
+    
+    
+}
+
+- (void)isFirstLoginWithUserID:(int)userid Token:(NSString *)token {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"添加能量源" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入要添加的能量源";
+    }];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *textField = alert.textFields.firstObject;
+        if ([textField.text isEqualToString:@""] || textField.text == nil) {
+            [SVProgressHUD showImage:nil status:@"能量源不能为空" maskType:SVProgressHUDMaskTypeClear];
+        } else {
+            [[AppHttpManager shareInstance] getPowerSourceRelevanceWithUserID:userid Token:token PowerSource:textField.text PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    [[SLALertManager shareManager] showAlert:SLScroeTypeFifty];
+//                    [SVProgressHUD showImage:nil status:@"能量源添加成功" maskType:SVProgressHUDMaskTypeClear];
+                    EnetgyCycle.isEnterLoginView = NO;
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"isSetAPService" object:nil];
+                    
+                    [self dismissViewControllerAnimated:NO completion:nil];
+                } else {
+                    [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@", str);
+            }];
+        }
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        EnetgyCycle.isEnterLoginView = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"isLoginViewBackButtonClick" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"isSetAPService" object:nil];
+        
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+
 }
 
 #pragma mark - 第三方登录-QQ登录
@@ -185,17 +243,28 @@
     [SVProgressHUD showWithStatus:@"登录中.."];
     
     //设备安装QQ应用,调用QQ应用,否则走网页
-    [[XMShareQQUtil sharedInstance] login];
-    [XMShareQQUtil sharedInstance].delegate = self;
+//    [[XMShareQQUtil sharedInstance] login];
+//    [XMShareQQUtil sharedInstance].delegate = self;
+    [ShareSDK getUserInfo:SSDKPlatformTypeQQ onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+        
+        if (state == SSDKResponseStateSuccess) {
+            NSLog(@"uid=%@",user.uid);
+            NSLog(@"%@",user.credential);
+            NSLog(@"token=%@",user.credential.token);
+            NSLog(@"nickname=%@",user.nickname);
+            NSLog(@"icon=%@",user.icon);
+            
+            [self thirdLoginInWithType:1 withOpenId:user.uid withNickName:user.nickname withPhotoUrl:user.icon withSex:@"" withPhone:@""];
+        }else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示信息", nil) message:NSLocalizedString(@"手机未安装相关应用", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil, nil];
+            [alertView show];
+            NSLog(@"%@",error);
+        }
+    }];
+    
     
     //检测设备是否安装QQ,安装获取权限,否则提示未安装相关应用
-//    if ([TencentOAuth iphoneQQInstalled]) {
-//        [[XMShareQQUtil sharedInstance] login];
-//        [XMShareQQUtil sharedInstance].delegate = self;
-//    }else {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示信息", nil) message:NSLocalizedString(@"手机未安装相关应用", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil, nil];
-//        [alertView show];
-//    }
+
 }
 
 #pragma mark - 第三方登录-QQ登录代理方法
@@ -206,6 +275,9 @@
         [alertView show];
     }else {
         //第三方QQ登录成功,通过网络接口,提交数据
+        
+        
+        
         [self thirdLoginInWithType:1 withOpenId:dict[@"openId"] withNickName:dict[@"nickname"] withPhotoUrl:dict[@"headimage"] withSex:@"" withPhone:@""];
     }
 }
@@ -216,16 +288,21 @@
     [SVProgressHUD showWithStatus:@"登录中.."];
     
     //设备安装微博应用,调用微博应用,否则走网页
-    [[XMShareWeiboUtil sharedInstance] weiBoLogin];
-    
-    //检测设备是否安装微博,安装获取权限,否则提示未安装相关应用
-//    if ([WeiboSDK isWeiboAppInstalled]) {
-//        [[XMShareWeiboUtil sharedInstance] weiBoLogin];
-//    }else {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示信息", nil) message:NSLocalizedString(@"手机未安装相关应用", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil, nil];
-//        [alertView show];
-//    }
+    [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+        
+        if (state == SSDKResponseStateSuccess) {
+            NSLog(@"uid=%@",user.uid);
+            NSLog(@"%@",user.credential);
+            NSLog(@"token=%@",user.credential.token);
+            NSLog(@"nickname=%@",user.nickname);
+            [self thirdLoginInWithType:3 withOpenId:user.uid withNickName:user.nickname withPhotoUrl:user.icon withSex:@"" withPhone:@""];
+
+        }else {
+            NSLog(@"%@",error);
+        }
+    }];
 }
+
 
 #pragma mark - 第三方登录-微博登录代理方法---消息中心
 - (void)weiboNotification:(NSNotification *)notification {
@@ -245,7 +322,7 @@
 
 - (void)receiveWeiBoResponse:(NSNotification *)notification {
     NSMutableArray *contentArray = notification.object;
-    if (!contentArray.count>0) {
+    if (contentArray.count <= 0) {
         return;
     }
     
@@ -290,10 +367,32 @@
 //        [alertView show];
 //    }
     
-    [WXApiRequestHandler sendAuthRequestScope:kAuthScope
-                                        State:kAuthState
-                                       OpenID:kAuthOpenID
-                             InViewController:self];
+
+//    
+//   BOOL success = [WXApiRequestHandler sendAuthRequestScope:kAuthScope
+//                                        State:kAuthState
+//                                       OpenID:kAuthOpenID
+//                             InViewController:self];
+    
+    
+    [ShareSDK getUserInfo:SSDKPlatformTypeWechat onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+        
+        if (state == SSDKResponseStateSuccess)
+        {
+            
+            NSLog(@"uid=%@",user.uid);
+            NSLog(@"%@",user.credential);
+            NSLog(@"token=%@",user.credential.token);
+            NSLog(@"nickname=%@",user.nickname);
+            [self getUserInfoWithToken:user.credential.token withOpenId:user.uid];
+
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
+    
 }
 
 #pragma mark - 第三方登录-微信登录实现方法
@@ -325,7 +424,7 @@
     code          填写第一步获取的code参数
     grant_type    填authorization_code */
     
-    NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",APP_KEY_WEIXIN,@"eb7c123f1794cd3f173569e5bb6801dc",code];
+    NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",APP_KEY_WEIXIN,APP_SECRECT_WEIXIN,code];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURL *zoneUrl = [NSURL URLWithString:url];
         NSString *zoneStr = [NSString stringWithContentsOfURL:zoneUrl encoding:NSUTF8StringEncoding error:nil];
@@ -380,6 +479,11 @@
             }
         });
     });
+}
+
+//如果是第三方登录就绑定手机号
+- (void)gotoBindPhone {
+    
 }
 
 #pragma mark - Navigation传值

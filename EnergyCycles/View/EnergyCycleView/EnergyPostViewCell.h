@@ -10,6 +10,8 @@
 
 #import "CustomTextView.h"
 
+@protocol EnergyPostViewCellDelegate;
+
 @interface EnergyPostViewCell : UITableViewCell
 
 //block
@@ -22,6 +24,20 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *rightLabel;
 
+@property (strong, nonatomic)  UICollectionView *collectionView;
 
+@property (nonatomic,strong)NSMutableArray * pics;
+
+@property (nonatomic,weak)id<EnergyPostViewCellDelegate>delegate;
+
+- (IBAction)addPicAction:(id)sender;
+@end
+
+@protocol EnergyPostViewCellDelegate <NSObject>
+
+
+- (void)didAddPic;
+
+- (void)didClickPic:(EnergyPostViewCell*)cell currentIndex:(NSInteger)index pics:(NSArray*)pics;
 
 @end

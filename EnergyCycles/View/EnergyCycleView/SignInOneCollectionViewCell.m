@@ -10,10 +10,6 @@
 
 @implementation SignInOneCollectionViewCell
 
-- (void)awakeFromNib {
-    
-}
-
 #pragma mark - 填充数据
 - (void)signInCollectionViewWithDataWithIndex:(NSInteger)index withMonthDay:(NSInteger)days withArr:(NSArray *)getArr withToday:(NSString *)today withNow:(NSString *)nowDay {
     //获取所有已签到数据

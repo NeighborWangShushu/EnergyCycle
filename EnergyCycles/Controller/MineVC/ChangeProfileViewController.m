@@ -18,16 +18,17 @@
     [super viewDidLoad];
     
     self.title = self.showStr;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     
     //
-    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
+//    [self setupLeftNavBarWithimage:@"blackback_normal.png"];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     //
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     rightButton.frame = CGRectMake(0, 0, 35, 30);
     [rightButton setTitle:@"完成" forState:UIControlStateNormal];
-    [rightButton setTitleColor:[UIColor colorWithRed:81/255.0 green:171/255.0 blue:241/255.0 alpha:1] forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
@@ -44,6 +45,9 @@
     }else if ([self.showStr isEqualToString:@"电话"]) {
         self.inputTextFiled.keyboardType = UIKeyboardTypeNumberPad;
     }
+    if (![self.value isEqualToString:@""] && self.value != nil) {
+        self.inputTextFiled.text = self.value;
+    }
 }
 
 #pragma mark - 返回按键响应事件
@@ -57,13 +61,12 @@
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[NSString stringWithFormat:@"请输入%@",self.showStr]];
     }else {
         if (([self.showStr isEqualToString:@"电话"] || [self.showStr isEqualToString:@"父亲电话"] || [self.showStr isEqualToString:@"母亲电话"]) && ![AppHM isPhoneNum:self.inputTextFiled.text]) {
-            [SVProgressHUD showImage:nil status:@"请输入合法手机号"];
+            [SVProgressHUD showImage:nil status:@"请输入合法手机号" maskType:SVProgressHUDMaskTypeClear];
         }else if ([self.showStr isEqualToString:@"邮箱"] && ![AppHM isEmail:self.inputTextFiled.text]) {
-            [SVProgressHUD showImage:nil status:@"请输入合法邮箱"];
-        }else if([self.showStr isEqualToString:@"姓名"] || [self.showStr isEqualToString:@"昵称"]){
-            [self check];
-        }
-        else{
+            [SVProgressHUD showImage:nil status:@"请输入合法邮箱" maskType:SVProgressHUDMaskTypeClear];
+        }else if(([self.showStr isEqualToString:@"姓名"] || [self.showStr isEqualToString:@"昵称"]) && self.inputTextFiled.text.length > 10){
+            [SVProgressHUD showImage:nil status:@"名字过长，请重新输入" maskType:SVProgressHUDMaskTypeClear];
+        } else {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
             [dict setObject:self.touchIndex forKey:@"index"];
             [dict setObject:self.touchSection forKey:@"section"];
@@ -82,9 +85,7 @@
 
 //检查字符长度 长度不能大于10
 - (void)check {
-    if(self.inputTextFiled.text.length > 10){
-        [SVProgressHUD showImage:nil status:@"名字过长，请重新输入"];
-    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

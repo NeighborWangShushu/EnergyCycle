@@ -4,6 +4,7 @@
 //
 
 #import "AppHttpManager.h"
+#import "SLALertManager.h"
 
 static AFHTTPRequestOperationManager *manager;
 
@@ -49,7 +50,7 @@ static AFHTTPRequestOperationManager *manager;
              if (error) {
                  failure(error);
              }
-             [SVProgressHUD showImage:nil status:@"请检查网络"];
+             
          }];
 }
 
@@ -80,7 +81,7 @@ static AFHTTPRequestOperationManager *manager;
               if (failure) {
                   failure(error);
               }
-              [SVProgressHUD showImage:nil status:@"请检查网络"];
+              
           }];
 }
 
@@ -1423,6 +1424,7 @@ static AFHTTPRequestOperationManager *manager;
                                          PId:(int)PId
                                      Content:(NSString *)Content
                                   CommUserId:(int)CommUserId
+                                        type:(NSString *)type
                                        token:(NSString *)token
                                    PostOrGet:(NSString *)postOrGetType
                                      success:(void (^)(NSDictionary *dict))success
@@ -1433,6 +1435,7 @@ static AFHTTPRequestOperationManager *manager;
     [dic setObject:Content forKey:@"content"];
     [dic setObject:[NSNumber numberWithInt:CommUserId] forKey:@"commUserId"];
     [dic setObject:token forKey:@"token"];
+    [dic setObject:type forKey:@"type"];
     
     [self callInterfaceByUrl:AddCommentOfArticle
                    PostOrGet:postOrGetType
@@ -1452,12 +1455,17 @@ static AFHTTPRequestOperationManager *manager;
 //int UserId  //发布人id
 //string token   //发布人token
 //List<String> ArticlePic //图片
+//location      地点
+//list          提醒人的列表
+
 - (void)postAddArticleWithTitle:(NSString *)Title
                         Content:(NSString *)Content
                        VideoUrl:(NSString *)VideoUrl
                          UserId:(int)UserId
                           token:(NSString *)token
                            List:(NSArray *)list
+                       Location:(NSString *)location
+                       UserList:(NSArray *)userlist
                       PostOrGet:(NSString *)postOrGetType
                         success:(void (^)(NSDictionary *dict))success
                         failure:(void (^)(NSString *str))failure {
@@ -1468,6 +1476,9 @@ static AFHTTPRequestOperationManager *manager;
     [dic setObject:[NSNumber numberWithInt:UserId] forKey:@"userId"];
     [dic setObject:token forKey:@"token"];
     [dic setObject:[NSArray arrayWithArray:list] forKey:@"articlePic"];
+    [dic setObject:location forKey:@"Location"];
+    [dic setObject:[NSArray arrayWithArray:userlist] forKey:@"UserList"];
+
     
     [self callInterfaceByUrl:AddArticle
                    PostOrGet:postOrGetType
@@ -1527,6 +1538,25 @@ static AFHTTPRequestOperationManager *manager;
                    PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict) {
+                         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                             NSInteger integral = [dict[@"Data"] integerValue];
+                             switch (integral) {
+                                 case 10:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeTen];
+                                     break;
+                                 case 20:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeTwenty];
+                                     break;
+                                 case 30:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeThirty];
+                                     break;
+                                 case 40:
+                                     [[SLALertManager shareManager] showAlert:SLScroeTypeForty];
+                                     break;
+                                 default:
+                                     break;
+                             }
+                         }
                          success(dict);
                      } failure:^(NSString *dict) {
                          failure(dict);
@@ -2406,10 +2436,207 @@ static AFHTTPRequestOperationManager *manager;
                    PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict) {
-                         if (dict&&([dict[@"Code"] intValue] == 200)) {
-                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示信息" message:@"获取积分成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                             [alertView show];
-                         }
+//                         if (dict&&([dict[@"Code"] intValue] == 200)) {
+//                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示信息" message:@"获取积分成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                             [alertView show];
+//                         }
+                         success(dict);
+                     } failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 92.更换手机号
+//接口请求参数
+//把参数直接放到Body里面（Json格式）
+//必选  类型及范围   说明
+//UserID  true    int 用户ID
+//Token   true    string  令牌
+//Phone   true    string  用户id
+- (void)changePhoneNumberWithUserid:(int)userid
+                              Token:(NSString *)token
+                              Phone:(NSString *)phone
+                          PostOrGet:(NSString *)postOrGetType
+                            success:(void (^)(NSDictionary *dict))success
+                            failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:phone forKey:@"phone"];
+    
+    [self callInterfaceByUrl:ChangePhoneNumber
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict){
+                         success(dict);
+                     }failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 93.更换、绑定手机号时发送验证码
+//接口请求参数
+//把参数直接放到Body里面（Json格式）
+//必选  类型及范围   说明
+//phoneNo string 用户id
+//type  int 验证码类型
+- (void)getVerificationCodeWithPhoneNo:(NSString *)phoneNo
+                                  Type:(int)type
+                         PostOrGet:(NSString *)postOrGetType
+                            success:(void (^)(NSDictionary *dict))success
+                            failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:phoneNo forKey:@"phoneNo"];
+    [dic setObject:[NSNumber numberWithInt:type] forKey:@"type"];
+    
+    [self callInterfaceByUrl:GetVerificationCode
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict){
+                         success(dict);
+                     }failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 94.修改密码、绑定手机号
+//请求参数：
+//把参数直接放到Body里面（Json格式）
+//必选	类型及范围	说明
+//UserID	true	int	用户ID
+//Token	true	string	令牌
+//Pwd	true	string	用户密码
+//Phone true    string  用户手机号
+- (void)changePasswordWithUserid:(int)userid
+                           Token:(NSString *)token
+                             Pwd:(NSString *)pwd
+                           Phone:(NSString *)phone
+                          PostOrGet:(NSString *)postOrGetType
+                            success:(void (^)(NSDictionary *dict))success
+                            failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:pwd forKey:@"pwd"];
+    [dic setObject:phone forKey:@"phone"];
+    
+    [self callInterfaceByUrl:ChangePassword
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict){
+                         success(dict);
+                     }failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 95.修改个人简介
+//请求参数:
+//把参数直接放到Body里面(Json格式)
+//UserID   int     用户ID
+//token    string  令牌
+//Brief    string  简介
+- (void)changeBriefWithUserid:(int)userid
+                        Token:(NSString *)token
+                        Brief:(NSString *)brief
+                    PostOrGet:(NSString *)postOrGetType
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:brief forKey:@"Brief"];
+    
+    [self callInterfaceByUrl:ChangeBrief
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict){
+                         success(dict);
+                     }failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 96.获取用户粉丝/关注/能连贴等数量
+//请求参数
+//把参数直接放到Body里面(Json格式)
+//UserID       int  当前登录用户ID
+//OtherUserID  int  其他用户ID
+- (void)getGetUserInfoWithUserid:(int)userid
+                     OtherUserID:(int)otherUserID
+                       PostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:[NSNumber numberWithInt:otherUserID] forKey:@"otherUserID"];
+    
+    [self callInterfaceByUrl:UserInfo_Get
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                        success(dict);
+                    } failure:^(NSString *str) {
+                        failure(str);
+                    }];
+}
+
+#pragma mark - 97.修改个人主页背景图片
+//请求参数
+//把参数直接放到Body里面(Json格式)
+//UserID            int     用户ID
+//token             string  令牌
+//BackgroundImg     string  图片地址
+- (void)changeBackgroundImgWithUserid:(int)userid
+                                Token:(NSString *)token
+                        BackgroundImg:(NSString *)backgroundImg
+                            PostOrGet:(NSString *)postOrGetType
+                              success:(void (^)(NSDictionary *dict))success
+                              failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:backgroundImg forKey:@"BackgroundImg"];
+    
+    [self callInterfaceByUrl:ChangeBackgroundImg
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+}
+
+#pragma mark - 98.获取能量圈列表(查看其他人的能量圈)
+//请求参数：
+//type  // 1-最新 2-最热 3-精选 4-关注
+//userid  //用户id  (当type=4的时候需要传)
+//otherUserId  // 其他用户id
+//token   //用户token     (当type=4的时候需要传)
+//pageIndex  //页码
+//pageSize   //每页显示数
+- (void)getGetArticleListWithType:(NSString *)type
+                           Userid:(NSString *)userid
+                      OtherUserId:(NSString *)otherUserId
+                            Token:(NSString *)token
+                        PageIndex:(NSString *)pageIndex
+                         PageSize:(NSString *)pageSize
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:type forKey:@"type"];
+    [dic setObject:userid forKey:@"userId"];
+    [dic setObject:otherUserId forKey:@"otherUserId"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:pageIndex forKey:@"pageIndex"];
+    [dic setObject:pageSize forKey:@"pageSize"];
+    
+    [self callInterfaceByUrl:GetOtherArticleList
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
                          success(dict);
                      } failure:^(NSString *dict) {
                          failure(dict);
@@ -2417,6 +2644,255 @@ static AFHTTPRequestOperationManager *manager;
 }
 
 
+#pragma mark - 99.获取用户点赞/评论消息
+//请求参数:
+//Type      int 1.评论 2.赞
+//UserID    int 用户ID
+//PageIndex int 页码
+//PageSize  int 每页显示数
+- (void)getMessageGetWithType:(int)type
+                       Userid:(int)userid
+                    PageIndex:(int)pageIndex
+                     PageSize:(int)pageSize
+                    PostOrGet:(NSString *)postOrGetType
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:type] forKey:@"type"];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:[NSNumber numberWithInt:pageIndex] forKey:@"pageIndex"];
+    [dic setObject:[NSNumber numberWithInt:pageSize] forKey:@"pageSize"];
+    
+    [self callInterfaceByUrl:Message_Get
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+    
+}
+
+#pragma mark - 100.将消息置为已读
+//请求参数
+//Type      int 1.评论 2.赞
+//UserID    int 用户ID
+- (void)getMessageReadedWithType:(int)type
+                          Userid:(int)userid
+                       PostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:type] forKey:@"type"];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    
+    [self callInterfaceByUrl:Message_Readed
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                        success(dict);
+                    } failure:^(NSString *dict) {
+                        failure(dict);
+                    }];
+
+}
+
+
+#pragma mark - 101 获取未读消息数量
+
+- (void)getMyMessageNum:(int)userid success:(void (^)(NSDictionary *))success failure:(void (^)(NSString *))failure {
+    NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"UserID"];
+    
+    [self callInterfaceByUrl:MyMessage PostOrGet:@"get" withDict:dic success:^(NSDictionary *dict) {
+        success(dict);
+    } failure:^(NSString *str) {
+        failure(str);
+    }];
+}
+
+#pragma mark - 102.获取通知列表
+
+- (void)getAPPNotifyWithUserid:(int)userid
+                     Pageindex:(int)pageindex
+                      Pagesize:(int)pagesize
+                     PostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:[NSNumber numberWithInt:pageindex] forKey:@"pageindex"];
+    [dic setObject:[NSNumber numberWithInt:pagesize] forKey:@"pagesize"];
+    
+    [self callInterfaceByUrl:APP_Notify_Get
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+    
+}
+
+#pragma mark - 103.修改个人资料中的手机号发送验证码
+//输入参数：UserID   int
+//输入参数：Tel      string
+- (void)getTelCodeWithUserid:(int)userid
+                         Tel:(NSString *)tel
+                   PostOrGet:(NSString *)postOrGetType
+                     success:(void (^)(NSDictionary *dict))success
+                     failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:tel forKey:@"tel"];
+    
+    [self callInterfaceByUrl:GetTelCode
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 104.修改个人资料中的手机号
+//输入参数：UserID   int
+//输入参数：Tel      string    //手机号
+- (void)updateAppUserTelUpdWithUserid:(int)userid
+                                  Tel:(NSString *)tel
+                            PostOrGet:(NSString *)postOrGetType
+                              success:(void (^)(NSDictionary *dict))success
+                              failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:tel forKey:@"tel"];
+    
+    [self callInterfaceByUrl:AppUserTelUpdate
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 105.电台列表
+// 输入参数:无
+- (void)getAppRadioListPostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure {
+    [self callInterfaceByUrl:AppRadioList
+                   PostOrGet:postOrGetType
+                    withDict:nil
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *dict) {
+                         failure(dict);
+                     }];
+}
+
+#pragma mark - 106.获取用户每日PK统计
+// 输入参数:UserID      int // 用户ID
+- (void)getPkStatisticsWithUserid:(int)userid
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    
+    [self callInterfaceByUrl:PkStatistics
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+}
+
+#pragma mark - 107.监测第三方是否第一次登录
+// 输入参数:loginType   int // 登录类型
+// 输入参数:openId      string // 登录ID
+- (void)IsFirstLoginWithLoginType:(int)loginType
+                           openId:(NSString *)openId
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:loginType] forKey:@"loginType"];
+    [dic setObject:openId forKey:@"openId"];
+    
+    [self callInterfaceByUrl:IsFirstLogin
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+}
+
+#pragma mark - 108.为第三方用户添加能量源
+// 输入参数:UserID      int // 用户ID
+// 输入参数:powerSource string // 能量源
+- (void)getPowerSourceRelevanceWithUserID:(int)userid
+                                    Token:(NSString *)token
+                              PowerSource:(NSString *)powerSource
+                                PostOrGet:(NSString *)postOrGetType
+                                  success:(void (^)(NSDictionary *dict))success
+                                  failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:powerSource forKey:@"powerSource"];
+    
+    [self callInterfaceByUrl:PowerSourceRelevance
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+}
+
+#pragma mark - 109.获得个人徽章数据
+// 输入参数:UserID      int // 用户ID
+- (void)getMyBedgeWithUserID:(int)userid
+                   PostOrGet:(NSString *)postOrGetType
+                     success:(void (^)(NSDictionary *dict))success
+                     failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic =[NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    
+    [self callInterfaceByUrl:GetMyBedge
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                        success(dict);
+                    } failure:^(NSString *str) {
+                        failure(str);
+                    }];
+}
+
+
+#pragma mark - 110.学习模块Banner列表
+- (void)getBannerListPostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure {
+    [self callInterfaceByUrl:BannerList
+                   PostOrGet:postOrGetType
+                    withDict:nil
+                     success:^(NSDictionary *dict) {
+                        success(dict);
+                    } failure:^(NSString *str) {
+                        failure(str);
+                    }];
+}
 
 
 @end

@@ -7,10 +7,18 @@
 //
 
 #import "BaseViewController.h"
+#import "DraftsModel.h"
 
 @interface PostingViewController : BaseViewController {
-    IBOutlet UITableView *energyPostTableView;
+    
 }
 
+- (instancetype)initWithModel:(DraftsModel*)model;
+
+@property (nonatomic,strong)DraftsModel * model;
+
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)push:(id)sender;
 
 @end
