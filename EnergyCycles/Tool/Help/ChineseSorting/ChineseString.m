@@ -51,7 +51,7 @@
             ((UserModel*)object).pinyin = @"?";
         }
         NSString *pinyin = [((UserModel*)object).pinyin substringToIndex:1];
-        NSString *string = ((UserModel*)object).nickname;
+        
         //不同
         if(![tempString isEqualToString:pinyin])
         {

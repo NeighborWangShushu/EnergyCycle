@@ -11,9 +11,9 @@
 @protocol ECPAlertWhoCellDelegate;
 
 
-@interface ECPAlertWhoCell : UITableViewCell
+@interface ECPAlertWhoView : UIView
 
-@property (weak, nonatomic) IBOutlet UILabel *text;
+@property (strong, nonatomic) UILabel *text;
 
 @property (nonatomic,strong) NSMutableArray * datas;
 - (IBAction)alertAction:(id)sender;

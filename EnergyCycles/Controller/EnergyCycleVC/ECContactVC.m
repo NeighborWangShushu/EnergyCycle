@@ -89,7 +89,7 @@
     leftItem.tintColor = [UIColor whiteColor];
     [leftItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItems = @[leftItem];
-
+    
     UIBarButtonItem*rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction:)];
     rightItem.tintColor = [UIColor whiteColor];
     [rightItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} forState:UIControlStateNormal];
@@ -100,7 +100,6 @@
     self.contacts = [NSMutableArray array];
     self.datas = [NSMutableArray array];
     self.searchResultArr=[NSMutableArray array];
-    
     
 }
 
@@ -113,6 +112,7 @@
         [self.tableView reloadData];
     });
 }
+
 
 - (void)setSelectedDatas:(NSMutableArray *)selectedDatas {
     _selectedDatas = selectedDatas;
@@ -131,13 +131,7 @@
     self.tableView.sectionIndexColor = [UIColor lightGrayColor];
     self.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.tableView];
-
     
-    _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
-    [_searchBar sizeToFit];
-    _searchBar.delegate = self;
-    _searchBar.hasCentredPlaceholder = NO;
-
     _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
     _searchBar.delegate = self;
     _searchBar.edelegate = self;
@@ -149,14 +143,6 @@
     [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
-    self.tableView.tableHeaderView = self.searchBar;
-    
-    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-    self.searchController.searchBar.delegate = self;
-    [self.searchController.searchBar sizeToFit];
-    self.tableView.tableHeaderView = self.searchController.searchBar;
-    
-    
     [_searchBar sizeToFit];
     _searchBar.datas = self.selectedDatas;
     [self.view addSubview:self.searchBar];
@@ -165,6 +151,7 @@
     self.searchController.searchResultsDataSource = self;
     self.searchController.searchResultsDelegate = self;
     self.searchController.displaysSearchBarInNavigationBar = NO;
+    self.searchDisplayController.delegate = self;
     self.searchController.delegate = self;
     self.searchController.searchContentsController.view.backgroundColor = [UIColor whiteColor];
     self.searchController.searchResultsTableView.tableFooterView = [UIView new];
@@ -184,89 +171,16 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(self.searchBar.mas_bottom);
+        make.top.equalTo(self.searchBar.mas_bottom).with.offset(0);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
-}
-
-
-- (NSMutableArray *)getFriendListDataBy:(NSMutableArray *)array{
-    
-    NSMutableArray *ans = [[NSMutableArray alloc] init];
-    NSArray *serializeArray = [(NSArray *)array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {//排序
-        int i;
-        NSString *strA = ((UserModel *)obj1).pinyin;
-        NSString *strB = ((UserModel *)obj2).pinyin;
-        for (i = 0; i < strA.length && i < strB.length; i ++) {
-            char a = [strA characterAtIndex:i];
-            char b = [strB characterAtIndex:i];
-            if (a > b) {
-                return (NSComparisonResult)NSOrderedDescending;//上升
-            }
-            else if (a < b) {
-                return (NSComparisonResult)NSOrderedAscending;//下降
-            }
-        }
-        
-        if (strA.length > strB.length) {
-            return (NSComparisonResult)NSOrderedDescending;
-        }else if (strA.length < strB.length){
-            return (NSComparisonResult)NSOrderedAscending;
-        }else{
-            return (NSComparisonResult)NSOrderedSame;
-        }
-    }];
-    
-    char lastC = '1';
-    NSMutableArray *data;
-    NSMutableArray *oth = [[NSMutableArray alloc] init];
-    for (UserModel *user in serializeArray) {
-        char c = [user.pinyin characterAtIndex:0];
-        if (!isalpha(c)) {
-            [oth addObject:user];
-        }
-        else if (c != lastC){
-            lastC = c;
-            if (data && data.count > 0) {
-                [ans addObject:data];
-            }
-            
-            data = [[NSMutableArray alloc] init];
-            [data addObject:user];
-        }
-        else {
-            [data addObject:user];
-        }
-    }
-    if (data && data.count > 0) {
-        [ans addObject:data];
-    }
-    if (oth.count > 0) {
-        [ans addObject:oth];
-    }
-    return ans;
-}
-
-
-- (NSMutableArray *)getFriendListSectionBy:(NSMutableArray *)array{
-    NSMutableArray *section = [[NSMutableArray alloc] init];
-    [section addObject:UITableViewIndexSearch];
-    for (NSArray *item in array) {
-        UserModel *user = [item objectAtIndex:0];
-        char c = [user.pinyin characterAtIndex:0];
-        if (!isalpha(c)) {
-            c = '#';
-        }
-        [section addObject:[NSString stringWithFormat:@"%c", toupper(c)]];
-    }
-    return section;
 }
 
 
 - (void)getData {
     
     __weak __typeof(self)weakSelf = self;
-    [[AppHttpManager shareInstance] getBothHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getBothHeartWithUserid:@"25" PostOrGet:@"get" success:^(NSDictionary *dict) {
         
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             for (NSDictionary *dic in dict[@"Data"]) {
@@ -282,7 +196,7 @@
     } failure:^(NSString *str) {
         NSLog(@"%@", str);
     }];
-
+    
 }
 
 - (void)filterSelectedData:(UserModel*)model {
@@ -296,6 +210,11 @@
 
 #pragma mark searchBar delegate
 
+-(void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    
+}
+
+
 - (void)contactSearchBar:(ECContactSearchBar *)searchBar model:(UserModel *)model isClear:(BOOL)isClear {
     
     [self.tableView reloadData];
@@ -307,7 +226,11 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     isSearching = YES;
-//    [self.tableView reloadData];
+    //    [self.tableView reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -333,7 +256,7 @@
     [_searchBar setShowsCancelButton:YES animated:NO];
     UIView *topView = controller.searchBar.subviews[0];
     controller.searchResultsTableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
-   
+    
     
     for (UIView *v in topView.subviews) {
         if ([v isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
@@ -361,19 +284,15 @@
             }
         }
     }
-
+    
 }
 
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
     
-
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     isSearching = NO;
     [self.tableView reloadData];
-    
-    
     
 }
 
@@ -388,17 +307,11 @@
     }
 }
 
-- (void) keyboardWillHide {
-    
-   
-    
-}
-
 - (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller {
     
     isSearching = NO;
     [self.tableView reloadData];
-
+    
 }
 
 
@@ -425,7 +338,6 @@
         
         NSRange foundRange = [storeString rangeOfString:searchText options:searchOptions range:storeRange];
         if (foundRange.length) {
-            
             [tempResults addObject:self.contacts[i]];
         }
     }

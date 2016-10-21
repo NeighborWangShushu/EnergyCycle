@@ -153,11 +153,6 @@
 }
 
 - (void)showAlert {
-//    // 获取沙盒主目录路径
-//    NSString *homeDir = NSHomeDirectory();
-//    // 获取Documents目录路径
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *docDir = [paths objectAtIndex:0];
     
     DateAlertModel*model = [DateAlertModel findByPK:1];
     if (!model) {
@@ -246,9 +241,7 @@
         NSLog(@"%@",str);
         [SVProgressHUD showImage:nil status:str];
     }];
-    
 }
-
 
 
 - (void)viewDidLoad {

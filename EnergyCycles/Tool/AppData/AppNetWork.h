@@ -52,7 +52,10 @@
 #define INTERFACE_URL @"http://120.26.218.68:8888/"
 
 //正式环境
+<<<<<<< HEAD
 
+=======
+>>>>>>> zhuweijie
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 
