@@ -514,11 +514,22 @@
 		625A17661D549C1F00F12A4B /* ToDayPKTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A17641D549C1F00F12A4B /* ToDayPKTableViewCell.m */; };
 		625A17671D549C1F00F12A4B /* ToDayPKTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 625A17651D549C1F00F12A4B /* ToDayPKTableViewCell.xib */; };
 		625AD2801D9295B300435FC2 /* ECAlbumListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD2761D9295B300435FC2 /* ECAlbumListTableViewCell.m */; };
-		625AD2811D9295B300435FC2 /* ECAlbumListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD2781D9295B300435FC2 /* ECAlbumListTableViewController.m */; };
-		625AD2821D9295B300435FC2 /* ECPhotoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD27A1D9295B300435FC2 /* ECPhotoListViewController.m */; };
+		625AD2811D9295B300435FC2 /* ECAlbumListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD2781D9295B300435FC2 /* ECAlbumListVC.m */; };
+		625AD2821D9295B300435FC2 /* ECPhotoListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD27A1D9295B300435FC2 /* ECPhotoListVC.m */; };
 		625AD2831D9295B300435FC2 /* ECPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD27C1D9295B300435FC2 /* ECPickerController.m */; };
 		625AD2841D9295B300435FC2 /* AlbumNoAsset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD27E1D9295B300435FC2 /* AlbumNoAsset@2x.png */; };
 		625AD2851D9295B300435FC2 /* AlbumNoAsset@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD27F1D9295B300435FC2 /* AlbumNoAsset@3x.png */; };
+		625AD2881D93E87A00435FC2 /* ECPhotoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625AD2871D93E87A00435FC2 /* ECPhotoListCell.m */; };
+		625AD2931D94D99200435FC2 /* ecphoto_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD2891D94D99200435FC2 /* ecphoto_selected@2x.png */; };
+		625AD2941D94D99200435FC2 /* ecphoto_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD28A1D94D99200435FC2 /* ecphoto_selected@3x.png */; };
+		625AD2951D94D99200435FC2 /* ecphoto_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD28B1D94D99200435FC2 /* ecphoto_unselected@2x.png */; };
+		625AD2961D94D99200435FC2 /* ecphoto_unselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD28C1D94D99200435FC2 /* ecphoto_unselected@3x.png */; };
+		625AD2971D94D99200435FC2 /* ecpicker_drop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD28D1D94D99200435FC2 /* ecpicker_drop@2x.png */; };
+		625AD2981D94D99200435FC2 /* ecpicker_drop@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD28E1D94D99200435FC2 /* ecpicker_drop@3x.png */; };
+		625AD2991D94D99200435FC2 /* ecpicker_next_ disable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD28F1D94D99200435FC2 /* ecpicker_next_ disable@2x.png */; };
+		625AD29A1D94D99200435FC2 /* ecpicker_next_ disable@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD2901D94D99200435FC2 /* ecpicker_next_ disable@3x.png */; };
+		625AD29B1D94D99200435FC2 /* ecpicker_next_ enable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD2911D94D99200435FC2 /* ecpicker_next_ enable@2x.png */; };
+		625AD29C1D94D99200435FC2 /* ecpicker_next_ enable@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625AD2921D94D99200435FC2 /* ecpicker_next_ enable@3x.png */; };
 		626D3F0D1D489A6C00724000 /* MineChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */; };
 		626D3F0E1D489A6C00724000 /* MineChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */; };
 		626D3F111D48A29400724000 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F101D48A29400724000 /* ChatTableViewCell.m */; };
@@ -2340,14 +2351,26 @@
 		625A17651D549C1F00F12A4B /* ToDayPKTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToDayPKTableViewCell.xib; sourceTree = "<group>"; };
 		625AD2751D9295B300435FC2 /* ECAlbumListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAlbumListTableViewCell.h; sourceTree = "<group>"; };
 		625AD2761D9295B300435FC2 /* ECAlbumListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAlbumListTableViewCell.m; sourceTree = "<group>"; };
-		625AD2771D9295B300435FC2 /* ECAlbumListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAlbumListTableViewController.h; sourceTree = "<group>"; };
-		625AD2781D9295B300435FC2 /* ECAlbumListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAlbumListTableViewController.m; sourceTree = "<group>"; };
-		625AD2791D9295B300435FC2 /* ECPhotoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPhotoListViewController.h; sourceTree = "<group>"; };
-		625AD27A1D9295B300435FC2 /* ECPhotoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPhotoListViewController.m; sourceTree = "<group>"; };
+		625AD2771D9295B300435FC2 /* ECAlbumListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAlbumListVC.h; sourceTree = "<group>"; };
+		625AD2781D9295B300435FC2 /* ECAlbumListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAlbumListVC.m; sourceTree = "<group>"; };
+		625AD2791D9295B300435FC2 /* ECPhotoListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPhotoListVC.h; sourceTree = "<group>"; };
+		625AD27A1D9295B300435FC2 /* ECPhotoListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPhotoListVC.m; sourceTree = "<group>"; };
 		625AD27B1D9295B300435FC2 /* ECPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPickerController.h; sourceTree = "<group>"; };
 		625AD27C1D9295B300435FC2 /* ECPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPickerController.m; sourceTree = "<group>"; };
 		625AD27E1D9295B300435FC2 /* AlbumNoAsset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AlbumNoAsset@2x.png"; sourceTree = "<group>"; };
 		625AD27F1D9295B300435FC2 /* AlbumNoAsset@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AlbumNoAsset@3x.png"; sourceTree = "<group>"; };
+		625AD2861D93E87A00435FC2 /* ECPhotoListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPhotoListCell.h; sourceTree = "<group>"; };
+		625AD2871D93E87A00435FC2 /* ECPhotoListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPhotoListCell.m; sourceTree = "<group>"; };
+		625AD2891D94D99200435FC2 /* ecphoto_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ecphoto_selected@2x.png"; sourceTree = "<group>"; };
+		625AD28A1D94D99200435FC2 /* ecphoto_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ecphoto_selected@3x.png"; sourceTree = "<group>"; };
+		625AD28B1D94D99200435FC2 /* ecphoto_unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ecphoto_unselected@2x.png"; sourceTree = "<group>"; };
+		625AD28C1D94D99200435FC2 /* ecphoto_unselected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ecphoto_unselected@3x.png"; sourceTree = "<group>"; };
+		625AD28D1D94D99200435FC2 /* ecpicker_drop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ecpicker_drop@2x.png"; sourceTree = "<group>"; };
+		625AD28E1D94D99200435FC2 /* ecpicker_drop@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ecpicker_drop@3x.png"; sourceTree = "<group>"; };
+		625AD28F1D94D99200435FC2 /* ecpicker_next_ disable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ecpicker_next_ disable@2x.png"; sourceTree = "<group>"; };
+		625AD2901D94D99200435FC2 /* ecpicker_next_ disable@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ecpicker_next_ disable@3x.png"; sourceTree = "<group>"; };
+		625AD2911D94D99200435FC2 /* ecpicker_next_ enable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ecpicker_next_ enable@2x.png"; sourceTree = "<group>"; };
+		625AD2921D94D99200435FC2 /* ecpicker_next_ enable@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ecpicker_next_ enable@3x.png"; sourceTree = "<group>"; };
 		626D3F0A1D489A6C00724000 /* MineChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineChatTableViewCell.h; sourceTree = "<group>"; };
 		626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineChatTableViewCell.m; sourceTree = "<group>"; };
 		626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineChatTableViewCell.xib; sourceTree = "<group>"; };
@@ -5723,10 +5746,12 @@
 			children = (
 				625AD27B1D9295B300435FC2 /* ECPickerController.h */,
 				625AD27C1D9295B300435FC2 /* ECPickerController.m */,
-				625AD2791D9295B300435FC2 /* ECPhotoListViewController.h */,
-				625AD27A1D9295B300435FC2 /* ECPhotoListViewController.m */,
-				625AD2771D9295B300435FC2 /* ECAlbumListTableViewController.h */,
-				625AD2781D9295B300435FC2 /* ECAlbumListTableViewController.m */,
+				625AD2791D9295B300435FC2 /* ECPhotoListVC.h */,
+				625AD27A1D9295B300435FC2 /* ECPhotoListVC.m */,
+				625AD2861D93E87A00435FC2 /* ECPhotoListCell.h */,
+				625AD2871D93E87A00435FC2 /* ECPhotoListCell.m */,
+				625AD2771D9295B300435FC2 /* ECAlbumListVC.h */,
+				625AD2781D9295B300435FC2 /* ECAlbumListVC.m */,
 				625AD2751D9295B300435FC2 /* ECAlbumListTableViewCell.h */,
 				625AD2761D9295B300435FC2 /* ECAlbumListTableViewCell.m */,
 				625AD27D1D9295B300435FC2 /* ECPickerImg */,
@@ -5739,6 +5764,16 @@
 			children = (
 				625AD27E1D9295B300435FC2 /* AlbumNoAsset@2x.png */,
 				625AD27F1D9295B300435FC2 /* AlbumNoAsset@3x.png */,
+				625AD2891D94D99200435FC2 /* ecphoto_selected@2x.png */,
+				625AD28A1D94D99200435FC2 /* ecphoto_selected@3x.png */,
+				625AD28B1D94D99200435FC2 /* ecphoto_unselected@2x.png */,
+				625AD28C1D94D99200435FC2 /* ecphoto_unselected@3x.png */,
+				625AD28D1D94D99200435FC2 /* ecpicker_drop@2x.png */,
+				625AD28E1D94D99200435FC2 /* ecpicker_drop@3x.png */,
+				625AD28F1D94D99200435FC2 /* ecpicker_next_ disable@2x.png */,
+				625AD2901D94D99200435FC2 /* ecpicker_next_ disable@3x.png */,
+				625AD2911D94D99200435FC2 /* ecpicker_next_ enable@2x.png */,
+				625AD2921D94D99200435FC2 /* ecpicker_next_ enable@3x.png */,
 			);
 			path = ECPickerImg;
 			sourceTree = "<group>";
@@ -8174,6 +8209,7 @@
 				DAAEC6D91C1FB87700FA094B /* SearchOneTableViewCell.xib in Resources */,
 				26D8B2131C0FEEE900A1DB04 /* 13_2@3x.png in Resources */,
 				26D8B2711C0FEEE900A1DB04 /* 6@3x.png in Resources */,
+				625AD2991D94D99200435FC2 /* ecpicker_next_ disable@2x.png in Resources */,
 				62DDA0921D585707005C2CEB /* advancePK@3x.png in Resources */,
 				62E31A631D6DB0BC00F1D7C5 /* score_50@2x.png in Resources */,
 				DA4459FC1C21733D0069415D /* InvitationTwoViewCell.xib in Resources */,
@@ -8192,6 +8228,7 @@
 				DAE034E81C182181007E6DBD /* cai02_@3x.png in Resources */,
 				26D8B13A1C0FE81900A1DB04 /* cai_pressed@3x.png in Resources */,
 				D07EB26E1D18DE6800840AC2 /* InputBack@2x.png in Resources */,
+				625AD2961D94D99200435FC2 /* ecphoto_unselected@3x.png in Resources */,
 				DAE034D11C182181007E6DBD /* 2ding02_@2x.png in Resources */,
 				D00AD7E41D4B451B004AB05A /* 2_039.png in Resources */,
 				26D8B2751C0FEEE900A1DB04 /* 8@3x.png in Resources */,
@@ -8315,6 +8352,7 @@
 				D05A959D1D61AD500063AD41 /* ECContactVC.xib in Resources */,
 				625750EA1D33886400E46B2E /* circle@3x.png in Resources */,
 				26D8B2091C0FEEE900A1DB04 /* 11_1@3x.png in Resources */,
+				625AD2931D94D99200435FC2 /* ecphoto_selected@2x.png in Resources */,
 				62DE916A1D7EB45D009F365E /* 50signIn_1@2x.png in Resources */,
 				DAF48DA01C1E530C00D9C136 /* chakan_@2x.png in Resources */,
 				26CB28D01C116B090065083D /* PingLunViewCell.xib in Resources */,
@@ -8381,6 +8419,7 @@
 				D029BC5C1D37BB0500B20D65 /* ec_like@3x.png in Resources */,
 				DA3190E41C22A54D00972F63 /* loginqq@3x.png in Resources */,
 				62724E691D41BBE800E84202 /* more@3x.png in Resources */,
+				625AD2951D94D99200435FC2 /* ecphoto_unselected@2x.png in Resources */,
 				62EE48D81D7D193400012359 /* BadgeRulesCollectionViewCell.xib in Resources */,
 				DA9A95251C23ABEE00FBE107 /* gengxin@2x.png in Resources */,
 				62E31A5D1D6DB0BC00F1D7C5 /* score_3@2x.png in Resources */,
@@ -8651,6 +8690,7 @@
 				26D8B20E1C0FEEE900A1DB04 /* 12_2@2x.png in Resources */,
 				DA7675181C27F6FC00A34D9C /* InterMallCollectionViewCell.xib in Resources */,
 				263618541C0478DA00D26BE6 /* PushConfig.plist in Resources */,
+				625AD2981D94D99200435FC2 /* ecpicker_drop@3x.png in Resources */,
 				625902181D2B943C00F3F13C /* SettingThreeViewCell.xib in Resources */,
 				26D8B1E01C0FEEE900A1DB04 /* bg@2x.png in Resources */,
 				628C74E71D795AE7002C9FCF /* MineHomeView.xib in Resources */,
@@ -8735,6 +8775,7 @@
 				625750DE1D33885B00E46B2E /* mail-icon@2x.png in Resources */,
 				62DE91C51D7FEF93009F365E /* subscript_30signIn@2x.png in Resources */,
 				26D99F231C0C4D7C007AF579 /* EnergyShowOneViewCell.xib in Resources */,
+				625AD29B1D94D99200435FC2 /* ecpicker_next_ enable@2x.png in Resources */,
 				DA8AFF591C2A4BF90064B9A7 /* 11xin@3x.png in Resources */,
 				62DE915F1D7EB45D009F365E /* 200signIn_1@3x.png in Resources */,
 				62DE91591D7EB45D009F365E /* 100signIn_0@3x.png in Resources */,
@@ -8764,6 +8805,7 @@
 				62E31A591D6DB0BC00F1D7C5 /* score_2@2x.png in Resources */,
 				D00591791D25454000F91692 /* ec_search@2x.png in Resources */,
 				D00AD7F81D4B45DF004AB05A /* 2_08.png in Resources */,
+				625AD2941D94D99200435FC2 /* ecphoto_selected@3x.png in Resources */,
 				DAC4D0A61C4C90FE00BCC979 /* icon-60@2x.png in Resources */,
 				DA7674C01C279A1800A34D9C /* MyProfileViewCell.xib in Resources */,
 				62DE917F1D7ECF70009F365E /* 50signIn@2x.png in Resources */,
@@ -8923,6 +8965,7 @@
 				26D26FF51C11A20F008511A9 /* LearnDetailViewCell.xib in Resources */,
 				DA9A95321C23ABEE00FBE107 /* jianyi@3x.png in Resources */,
 				26D8B2221C0FEEE900A1DB04 /* 17_2@2x.png in Resources */,
+				625AD29C1D94D99200435FC2 /* ecpicker_next_ enable@3x.png in Resources */,
 				26D8B2411C0FEEE900A1DB04 /* 25_1@3x.png in Resources */,
 				DA76750D1C27F39900A34D9C /* 07gouxuan@3x.png in Resources */,
 				DA9A95401C23ABEE00FBE107 /* nengliangyuan@3x.png in Resources */,
@@ -9040,6 +9083,7 @@
 				D029BC331D37571E00B20D65 /* tabbar_pressed_2@3x.png in Resources */,
 				DA9A95421C23ABEE00FBE107 /* shejiaoquan@3x.png in Resources */,
 				D029BC4F1D3779D500B20D65 /* post_wechat_normal@2x.png in Resources */,
+				625AD2971D94D99200435FC2 /* ecpicker_drop@2x.png in Resources */,
 				DA677B8D1C3A6E11004A534E /* QDDT00035.png in Resources */,
 				26E987D11C0DAE4000C6A7BB /* +user_normal@3x.png in Resources */,
 				D05B9CEB1D34887300A88A10 /* nav_menu_bg@2x.png in Resources */,
@@ -9068,6 +9112,7 @@
 				6202B18C1D62FF9A000F7F39 /* onQQ@3x.png in Resources */,
 				D04B54D81D23C90D00DC259A /* LICENSE in Resources */,
 				DAE035441C1831FC007E6DBD /* right@3x.png in Resources */,
+				625AD29A1D94D99200435FC2 /* ecpicker_next_ disable@3x.png in Resources */,
 				26D99EF81C0C4D7C007AF579 /* MJRefresh.bundle in Resources */,
 				62DE91C11D7FEF93009F365E /* subscript_200signIn@2x.png in Resources */,
 				620720EB1D46FA0C00C4F73D /* Guanzhu@2x.png in Resources */,
@@ -9355,7 +9400,7 @@
 				26D99E9B1C0C4D7B007AF579 /* MineViewController.m in Sources */,
 				DA77F3AE1C479438003CBA4D /* TheAdvDetailModel.m in Sources */,
 				D04B54CD1D23C90D00DC259A /* MLEmojiLabel.m in Sources */,
-				625AD2811D9295B300435FC2 /* ECAlbumListTableViewController.m in Sources */,
+				625AD2811D9295B300435FC2 /* ECAlbumListVC.m in Sources */,
 				26D99ED71C0C4D7B007AF579 /* IQBarButtonItem.m in Sources */,
 				26D99F061C0C4D7C007AF579 /* SBJsonStreamWriterState.m in Sources */,
 				D07E246B1D13CD9C00854B51 /* WebVC.m in Sources */,
@@ -9409,7 +9454,7 @@
 				D07E24151D112DB900854B51 /* RadioCell.m in Sources */,
 				DAAEC6DD1C1FB88D00FA094B /* SearchTwoTableViewCell.m in Sources */,
 				DA9125031C29423F0018DBAF /* ChatViewController.m in Sources */,
-				625AD2821D9295B300435FC2 /* ECPhotoListViewController.m in Sources */,
+				625AD2821D9295B300435FC2 /* ECPhotoListVC.m in Sources */,
 				6297DDA41D3E0736004E42AA /* MineUserDateModel.m in Sources */,
 				DA77F3B11C479D9A003CBA4D /* CourseTuiJianModel.m in Sources */,
 				26CB28CB1C1146590065083D /* CustomTextView.m in Sources */,
@@ -9684,6 +9729,7 @@
 				DA7AC8CF1C3FA1D500CD97EE /* FenLeiModel.m in Sources */,
 				26D99E9E1C0C4D7B007AF579 /* TheAdvPKViewController.m in Sources */,
 				D04B54781D23C75700DC259A /* SDTimeLineCellCommentView.m in Sources */,
+				625AD2881D93E87A00435FC2 /* ECPhotoListCell.m in Sources */,
 				DA7CE5321C3E15BE00272952 /* BrokenModel.m in Sources */,
 				26D99F171C0C4D7C007AF579 /* UIImageView+HighlightedWebCache.m in Sources */,
 				26E987661C0D6BD100C6A7BB /* EnergyPostViewCell.m in Sources */,

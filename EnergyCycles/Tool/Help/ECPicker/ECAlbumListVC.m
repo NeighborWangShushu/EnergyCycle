@@ -6,9 +6,10 @@
 //  Copyright © 2016年 Apple. All rights reserved.
 //
 
-#import "ECAlbumListTableViewController.h"
+#import "ECAlbumListVC.h"
+#import "ECAlbumListTableViewCell.h"
 
-@interface ECAlbumListTableViewController ()<PHPhotoLibraryChangeObserver>
+@interface ECAlbumListVC ()<PHPhotoLibraryChangeObserver>
 
 @property (nonatomic, strong) NSMutableArray *allAlbums;
 
@@ -18,7 +19,7 @@
 
 static NSString * const ECAlbumListCellReuseIdentifier = @"ECAlbumListTableViewCell";
 
-@implementation ECAlbumListTableViewController
+@implementation ECAlbumListVC
 
 - (NSMutableArray *)allAlbums {
     if (!_allAlbums) {
@@ -32,14 +33,8 @@ static NSString * const ECAlbumListCellReuseIdentifier = @"ECAlbumListTableViewC
     // PHFetchOptions是为获取数据时候的配置对象,用来设置获取时候的需要的条件
     self.photosOptions = [[PHFetchOptions alloc] init];
     
-    // 图片配置中设置其排序规则-----升序
-    self.photosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
-    
-//    // 根据配置对象来获取所有的图片资源
-//    PHFetchResult *allPhotos = [PHAsset fetchAssetsWithOptions:photosOptions];
-//    
-//    // 获取类型为智能相册的图片资源
-//    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
+    // 图片配置中设置其排序规则-----降序
+    self.photosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
     
     // 获取相机胶卷相册资源
     PHFetchResult *userLibraryAlbum = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
@@ -67,15 +62,25 @@ static NSString * const ECAlbumListCellReuseIdentifier = @"ECAlbumListTableViewC
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // 注册观察相册变换的观察者
+    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+}
+
+- (void)dealloc {
+    // 销毁观察者
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    
-    self.navigationItem.leftBarButtonItem = left;
-    self.navigationController.navigationBar.tintColor = [UIColor redColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self setupData];
+    
+    [self getData];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -84,9 +89,12 @@ static NSString * const ECAlbumListCellReuseIdentifier = @"ECAlbumListTableViewC
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)cancel {
-    [self dismissViewControllerAnimated:YES completion:nil];
-//    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+- (void)getData {
+    
+    PHAssetCollection *collection = self.allAlbums[0];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateECAlbumPhoto" object:@{@"assetCollection" : collection, @"allAlbumsCount" : @(self.allAlbums.count)}];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,10 +103,6 @@ static NSString * const ECAlbumListCellReuseIdentifier = @"ECAlbumListTableViewC
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.allAlbums.count;
@@ -132,6 +136,40 @@ static NSString * const ECAlbumListCellReuseIdentifier = @"ECAlbumListTableViewC
     // Configure the cell...
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    PHAssetCollection *collection = self.allAlbums[indexPath.row];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateECAlbumPhoto" object:@{@"assetCollection" : collection, @"allAlbumsCount" : @(self.allAlbums.count)}];
+    
+}
+
+#pragma mark -----PHPhotoLibraryChangeObserver-----
+
+// 如果出现相册中的资源变化时,执行这个方法
+- (void)photoLibraryDidChange:(PHChange *)changeInstance {
+    dispatch_async(dispatch_get_main_queue(), ^{ 
+        NSMutableArray *updateAllAlbums = [self.allAlbums mutableCopy];
+        __block BOOL reload = NO;
+        
+        [self.allAlbums enumerateObjectsUsingBlock:^(PHObject *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            PHObjectChangeDetails *changeDetails = [changeInstance changeDetailsForObject:obj];
+            
+            if (changeDetails) {
+                PHAssetCollection *collection = [changeDetails objectAfterChanges];
+                [updateAllAlbums replaceObjectAtIndex:idx withObject:collection];
+                reload = YES;
+            }
+            
+        }];
+        
+        if (reload) {
+            self.allAlbums = updateAllAlbums;
+            [self.tableView reloadData];
+        }
+    });
 }
 
 /*

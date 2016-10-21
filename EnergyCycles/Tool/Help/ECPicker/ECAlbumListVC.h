@@ -1,5 +1,5 @@
 //
-//  ECPhotoListViewController.h
+//  ECAlbumListTableViewController.h
 //  EnergyCycles
 //
 //  Created by 王斌 on 16/9/20.
@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 
-@interface ECPhotoListViewController : UIViewController
+@interface ECAlbumListVC : UITableViewController
 
 @end

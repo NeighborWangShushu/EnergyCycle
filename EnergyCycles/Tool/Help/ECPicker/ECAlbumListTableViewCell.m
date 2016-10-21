@@ -36,6 +36,8 @@
     
     UIGraphicsEndImageContext();
     
+    self.albumImageView.image = [UIImage imageNamed:@"AlbumNoAsset"];
+    
 }
 
 - (UIImageView *)albumImageView {

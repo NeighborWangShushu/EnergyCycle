@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ECPhotoListViewController.h"
-#import "ECAlbumListTableViewController.h"
+#import "ECPhotoListVC.h"
+#import "ECAlbumListVC.h"
 
 @interface ECPickerController : UINavigationController
 

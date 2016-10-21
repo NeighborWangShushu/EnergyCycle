@@ -15,10 +15,9 @@
 @implementation ECPickerController
 
 - (instancetype)init {
-//    self = [super initWithRootViewController:[[ECPhotoListViewController alloc] init]];
-    self = [super initWithRootViewController:[[ECAlbumListTableViewController alloc] init]];
+    self = [super initWithRootViewController:[[ECPhotoListVC alloc] init]];
     if (self) {
-        
+
     }
     return self;
 }
