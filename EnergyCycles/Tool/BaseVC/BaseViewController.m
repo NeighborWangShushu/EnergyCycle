@@ -14,7 +14,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     self.navigationController.navigationBar.translucent = NO;
 }
 
@@ -28,10 +28,23 @@
 }
 #pragma mark - 左边button-图片
 - (void)setupLeftNavBarWithimage:(NSString *)imageName {
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(leftAction)];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    /**
+     *  设置frame只能控制按钮的大小
+     */
+    btn.frame= CGRectMake(0, 0, 30, 30);
+    
+    [btn addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+
+    
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//                                                                             style:UIBarButtonItemStyleBordered
+//                                                                            target:self
+//                                                                            action:@selector(leftAction)];
+    
     self.navigationController.navigationBar.tintColor = [UIColor clearColor];
 }
 #pragma mark - 左边button-响应事件

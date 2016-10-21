@@ -2,12 +2,11 @@
 //  EnergyCyclesUITests.m
 //  EnergyCyclesUITests
 //
-//  Created by Adinnet_Mac on 15/11/23.
-//  Copyright © 2015年 Apple. All rights reserved.
+//  Created by Weijie Zhu on 16/8/16.
+//  Copyright © 2016年 Apple. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
-
 
 @interface EnergyCyclesUITests : XCTestCase
 
@@ -31,6 +30,11 @@
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+- (void)testCollectionCellShow {
+    
+
 }
 
 - (void)testExample {

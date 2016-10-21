@@ -21,6 +21,8 @@
 //
 @property (nonatomic, strong) NSString *changeProType;
 
+@property (nonatomic, strong) NSString *value;
+
 //
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 //

@@ -57,7 +57,7 @@
     [collectionView registerClass:[RadioCollectionCell class] forCellWithReuseIdentifier:@"cell"];
     [self addSubview:collectionView];
     
-    NSInteger height = (((Screen_width - 50)/3) * 2) + 20;
+    NSInteger height = (((Screen_width - 50)/3) * 3) + 30;
     [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.top.equalTo(self.mas_top);
@@ -66,6 +66,7 @@
         make.height.equalTo(@(height + 10));
     }];
 }
+
 
 #pragma mark UICollectionViewDataSource 
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

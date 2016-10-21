@@ -17,6 +17,7 @@
 #import "OtherUesrViewController.h"
 #import "OtherUserReportViewController.h"
 #import "MineEveryDayPKViewController.h"
+#import "MineHomePageViewController.h"
 
 @interface EveryDayPKViewController ()  <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
     UIView *headLineView;
@@ -47,9 +48,14 @@ static BOOL isShowAll = NO;
     _headDataArr = [[NSMutableArray alloc] init];
     
     [self setupRightNavBarWithimage:@"35pen_.png"];
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     [self creatHeadCollectionView];
     
-    [self getHeadCollectionViewData];
+    
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,6 +64,8 @@ static BOOL isShowAll = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+    
+    [self getHeadCollectionViewData];
 }
 
 #pragma mark - 获取头 分类 网络数据
@@ -259,23 +267,35 @@ static BOOL isShowAll = NO;
     
     //其他用户信息
     [cell setHeadButtonTouchu:^(EveryDPKPMModel *model) {
-        OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
-        otherUserVC.otherUserId = model.userId;
-        otherUserVC.otherName = model.nickname;
-        otherUserVC.otherPic = model.photourl;
-        [self.navigationController pushViewController:otherUserVC animated:YES];
+//        OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
+//        otherUserVC.otherUserId = model.userId;
+//        otherUserVC.otherName = model.nickname;
+//        otherUserVC.otherPic = model.photourl;
+//        [self.navigationController pushViewController:otherUserVC animated:YES];
+        MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+        mineVC.userId = model.userId;
+        [self.navigationController pushViewController:mineVC animated:YES];
     }];
     
     //其他用户汇报
     [cell setOtherCellTouch:^(EveryDPKPMModel *model) {
-        pushModel  = model;
-        [self performSegueWithIdentifier:@"EveryDayPKViewToOtherUserReportView" sender:nil];
+        MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+        mineVC.userId = model.userId;
+        mineVC.isPK = YES;
+        [self.navigationController pushViewController:mineVC animated:YES];
+//        pushModel  = model;
+//        [self performSegueWithIdentifier:@"EveryDayPKViewToOtherUserReportView" sender:nil];
     }];
     
     //跳转到当前用户的PK
     [cell setJumpToMineEveryDayPK:^{
-        OtherUesrViewController *otherUserVC = MainStoryBoard(@"MineEveryDayPKVCID");
-        [self.navigationController pushViewController:otherUserVC animated:YES];
+        
+        MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+        mineVC.userId = [NSString stringWithFormat:@"%@", User_ID];
+        mineVC.isPK = YES;
+        [self.navigationController pushViewController:mineVC animated:YES];
+//        OtherUesrViewController *otherUserVC = MainStoryBoard(@"MineEveryDayPKVCID");
+//        [self.navigationController pushViewController:otherUserVC animated:YES];
     }];
     
     return cell;

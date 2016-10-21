@@ -25,17 +25,25 @@
     
     NSMutableArray *_dataArr;
     NSInteger delIndex;
+    
+    BOOL noData;
 }
 
 @end
 
 @implementation MineAdvPKViewController
 
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = [NSString stringWithFormat:@"%@的进阶PK",self.showTitle];
     EnetgyCycle.energyTabBar.tabBar.translucent = NO;
+    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     _dataArr = [[NSMutableArray alloc] init];
     
@@ -120,10 +128,20 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _dataArr.count;
+    if (_dataArr.count == 0) {
+        noData = YES;
+        return 1;
+    } else {
+        noData = NO;
+        return _dataArr.count;
+    }
+//    return _dataArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (noData) {
+        return 55.f;
+    }
     if (_dataArr.count) {
         TheAdvMainModel *model = (TheAdvMainModel *)_dataArr[indexPath.row];
         
@@ -139,6 +157,16 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (noData) {
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.textLabel.text = @"该用户暂无进阶PK汇报";
+        cell.textLabel.font = [UIFont systemFontOfSize:16];
+        cell.textLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.backgroundColor = [UIColor clearColor];
+        return cell;
+    }
+    
     if (_dataArr.count) {
         TheAdvMainModel *model = (TheAdvMainModel *)_dataArr[indexPath.row];
         if (![self.showTitle isEqualToString:@"我"]) {

@@ -76,7 +76,7 @@
             [self.navigationController popToRootViewControllerAnimated:NO];
         }else {
             [self endRefresh];
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
 
     } failure:^(NSString *str) {

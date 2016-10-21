@@ -10,10 +10,17 @@
 
 @interface UserModel : JSONModel
 
+@property (nonatomic,strong) NSString <Optional>*portrait;
 @property (nonatomic, strong) NSString<Optional> *use_id;
 @property (nonatomic, strong) NSString<Optional> *userguid;
 @property (nonatomic, strong) NSString<Optional> *token;
 @property (nonatomic, strong) NSString<Optional> *nickname;
+@property (nonatomic, strong) NSString<Ignore> *pinyin;
+@property (strong,nonatomic) NSString<Optional> *isSelected;
+@property (strong,nonatomic) NSString<Optional> *readyToDelete;
+
+
+
 @property (nonatomic, strong) NSString<Optional> *username;
 @property (nonatomic, strong) NSString<Optional> *sex;
 @property (nonatomic, strong) NSString<Optional> *phone;
@@ -25,6 +32,7 @@
 @property (nonatomic, strong) NSString<Optional> *pwd;
 @property (nonatomic, strong) NSString<Optional> *powerSource;
 @property (nonatomic, strong) NSString<Optional> *poweredSource;
+
 
 @property (nonatomic, strong) NSString<Optional> *oldName;
 @property (nonatomic, strong) NSString<Optional> *oldSex;
@@ -65,7 +73,15 @@
 
 //是否彼此关注
 @property (nonatomic, strong) NSString<Optional> *isFriend;
-
-
+// 简介
+@property (nonatomic, strong) NSString<Optional> *Brief;
+// 背景图片
+@property (nonatomic, strong) NSString<Optional> *BackgroundImg;
+// 第三方电话
+@property (nonatomic, strong) NSString<Optional> *Tel;
+// 登录方式
+@property (nonatomic, strong) NSString<Optional> *LoginType;
+// 累计登陆徽章
+@property (nonatomic, strong) NSString<Optional> *ReportNum;
 
 @end

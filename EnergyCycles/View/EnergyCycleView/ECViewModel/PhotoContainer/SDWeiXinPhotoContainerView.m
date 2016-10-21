@@ -84,14 +84,20 @@
     
     CGFloat itemW = [self itemWidthForPicPathArray:_picPathStringsArray];
     CGFloat itemH = 0;
+    
+    //当只有一张图的时候，放大显示
     if (_picPathStringsArray.count == 1) {
         UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
         if (image.size.width) {
             itemH = image.size.height / image.size.width * itemW;
         }
     } else {
-        itemH = itemW;
+        
+        
     }
+    
+    //保持正方形，固定大小
+    itemH = itemW;
     long perRowItemCount = [self perRowItemCountForPicPathArray:_picPathStringsArray];
     CGFloat margin = 5;
     
@@ -100,7 +106,12 @@
         long rowIndex = idx / perRowItemCount;
         UIImageView *imageView = [_imageViewsArray objectAtIndex:idx];
         imageView.hidden = NO;
-        imageView.image = [UIImage imageNamed:obj];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+        [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:EC_ARTICLE_PLACEHOLDER completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSLog(@"%f---%f",imageView.image.size.width,imageView.image.size.height);
+        }];
         imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
     }];
     
@@ -142,7 +153,7 @@
     if (array.count < 3) {
         return array.count;
     } else if (array.count <= 4) {
-        return 2;
+        return 3;
     } else {
         return 3;
     }
@@ -154,14 +165,14 @@
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
 {
     NSString *imageName = self.picPathStringsArray[index];
-    NSURL *url = [[NSBundle mainBundle] URLForResource:imageName withExtension:nil];
+    NSURL *url = [NSURL URLWithString:imageName];
     return url;
 }
 
 - (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
-    UIImageView *imageView = self.subviews[index];
-    return imageView.image;
+    
+    return ((UIImageView*)_imageViewsArray[index]).image;
 }
 
 @end

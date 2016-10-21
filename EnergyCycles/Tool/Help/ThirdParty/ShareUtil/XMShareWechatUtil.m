@@ -36,6 +36,33 @@
     [WXApi sendReq:req];
 }
 
+- (void)shareToWeixinSessionWithImage {
+    [self shareToWeixinImageBase:WXSceneSession];
+}
+
+- (void)shareToWeixinTimelineWithImage {
+    [self shareToWeixinImageBase:WXSceneTimeline];
+}
+
+- (void)shareToWeixinImageBase:(enum WXScene)scene {
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = self.shareTitle;
+    message.description = self.shareText;
+    [message setThumbImage:SHARE_IMG];
+    
+    WXImageObject *ext = [WXImageObject object];
+    ext.imageData = self.shareImgData;
+    
+    message.mediaObject = ext;
+    message.mediaTagName = @"WECHAT_TAG_JUMP_SHOWRANK";
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = scene;
+    [WXApi sendReq:req];
+}
+
 + (instancetype)sharedInstance {
     static XMShareWechatUtil* util;
     static dispatch_once_t onceToken;

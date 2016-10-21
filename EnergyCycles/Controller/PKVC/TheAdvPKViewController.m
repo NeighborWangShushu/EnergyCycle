@@ -16,6 +16,11 @@
 #import "TheAdvMainModel.h"
 
 #import "OtherUesrViewController.h"
+#import "WebVC.h"
+#import "MineHomePageViewController.h"
+
+#import "WebVC.h"
+#import "TheAdvPKDetailVC.h"
 
 @interface TheAdvPKViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
     UIView *headLineView;
@@ -37,6 +42,9 @@
     [super viewDidLoad];
     
     self.title = @"进阶PK";
+    
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
     _changPage=0;
     _btnArr = [[NSMutableArray alloc] init];
     _dataArr=[NSMutableArray array];
@@ -59,6 +67,10 @@
     self.theAdvPKCollectionView.scrollEnabled = NO;
     
     [self getTheAdvTabList];
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -164,15 +176,32 @@
         mainTouchModel = model;
         cellIndex = cellTouchIndex;
         [self performSegueWithIdentifier:@"TheAdvPKViewToDetailView" sender:nil];
+
+//        WebVC *webVC = MainStoryBoard(@"WebVC");
+//        webVC.titleName = @"动态详情";
+//       NSString *loadStr = [NSString stringWithFormat:@"%@/%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,mainTouchModel.postId,User_ID];
+//        webVC.url = loadStr;
+//=======
+//        [self performSegueWithIdentifier:@"TheAdvPKViewToDetailView" sender:nil];
+        
+//        TheAdvPKDetailVC *detailVC = [[TheAdvPKDetailVC alloc] init];
+//        detailVC.titleName = @"进阶PK详情";
+//        detailVC.model = model;
+//        detailVC.url = [NSString stringWithFormat:@"%@%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,model.postId,[NSString stringWithFormat:@"%@",model.userId]];
+//
+//        [self.navigationController pushViewController:detailVC animated:YES];
     }];
     
     //其他人信息
     [cell setJumpToOtherInformation:^(TheAdvMainModel *model) {
-        OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
-        otherUserVC.otherUserId = model.userId;
-        otherUserVC.otherName = model.nickName;
-        otherUserVC.otherPic = model.photoUrl;
-        [self.navigationController pushViewController:otherUserVC animated:YES];
+        MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+        mineVC.userId = model.userId;
+        [self.navigationController pushViewController:mineVC animated:YES];
+//        OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
+//        otherUserVC.otherUserId = model.userId;
+//        otherUserVC.otherName = model.nickName;
+//        otherUserVC.otherPic = model.photoUrl;
+//        [self.navigationController pushViewController:otherUserVC animated:YES];
     }];
     
     if (_tabArr.count) {
@@ -183,9 +212,17 @@
     return cell;
 }
 
+- (void)detailRightActionWithBtn {
+    NSLog(@"testtesttesttest");
+}
+
 #pragma mark - 返回这个UICollectionView是否可以被选择
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+  
 }
 
 #pragma mark - UIScrollView实现协议
@@ -243,7 +280,8 @@
         detailVC.advModel = mainTouchModel;
         detailVC.touchIndex = cellIndex;
         detailVC.videoUrl = mainTouchModel.videoUrl;
-    }else if ([segue.identifier isEqualToString:@"TheAdvPKViewToThePrizeView"]) {
+    }else
+    if ([segue.identifier isEqualToString:@"TheAdvPKViewToThePrizeView"]) {
         ThePizeViewController *pizeVC = segue.destinationViewController;
         pizeVC.waradID = awarID;
     }

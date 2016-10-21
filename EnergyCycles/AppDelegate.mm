@@ -17,9 +17,14 @@
 #import <TencentOpenAPI/QQApiInterfaceObject.h>
 #import "GuidePageViewController.h"
 #import "XMShareQQUtil.h"
+#import "ShareSDKManager.h"
+#import <AdSupport/AdSupport.h>
+#import <AudioToolbox/AudioToolbox.h>
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
 
-
-@interface AppDelegate () <WeiboSDKDelegate,WXApiDelegate,QQApiInterfaceDelegate,UIAlertViewDelegate>
+@interface AppDelegate () <WeiboSDKDelegate,WXApiDelegate,QQApiInterfaceDelegate,UIAlertViewDelegate,JPUSHRegisterDelegate>
 //引导页
 @property (nonatomic, strong) GuidePageViewController *guidePageView;
 
@@ -32,20 +37,14 @@ AppDelegate *EnetgyCycle = nil;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     EnetgyCycle = self;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     
-    //第三方_微信
-    [WXApi registerApp:APP_KEY_WEIXIN withDescription:@"weixin"];
-    //第三方_微博
-    [WeiboSDK enableDebugMode:YES];
-    [WeiboSDK registerApp:APP_KEY_WEIBO];
-    [XMShareQQUtil sharedInstance];
-
+    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     
-    self.audioPlayIndex = -1;
-    //进入引导页
-    NSString *isEnterGuidePage = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsEnterGuidePage"];
+    [ShareSDKManager shareInstance];
+    
+     NSString *isEnterGuidePage = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsEnterGuidePage"];
     if (!isEnterGuidePage) {
         [self creatGuidePageView];
     }
@@ -56,18 +55,43 @@ AppDelegate *EnetgyCycle = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUnLoginAPService:) name:@"isUnLoginSetAPService" object:nil];
     
     //注册推送
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        [APService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
-                                                       UIUserNotificationTypeSound |
-                                                       UIUserNotificationTypeAlert)
-                                           categories:nil];
-    }else {
-        [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                       UIRemoteNotificationTypeSound |
-                                                       UIRemoteNotificationTypeAlert)
-                                           categories:nil];
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+        JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+        entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+        [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+#endif
+    } else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        //可以添加自定义categories
+        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                                          UIUserNotificationTypeSound |
+                                                          UIUserNotificationTypeAlert)
+                                              categories:nil];
+    } else {
+        //categories 必须为nil
+        [JPUSHService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                          UIRemoteNotificationTypeSound |
+                                                          UIRemoteNotificationTypeAlert)
+                                              categories:nil];
     }
-    [APService setupWithOption:launchOptions];
+    
+    
+    //如不需要使用IDFA，advertisingIdentifier 可为nil
+    [JPUSHService setupWithOption:launchOptions appKey:appKey
+                          channel:channel
+                 apsForProduction:isProduction
+            advertisingIdentifier:advertisingId];
+    
+    //2.1.9版本新增获取registration id block接口。
+    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+        if(resCode == 0){
+            NSLog(@"registrationID获取成功：%@",registrationID);
+            
+        }
+        else{
+            NSLog(@"registrationID获取失败，code：%d",resCode);
+        }
+    }];
     
     //设置启动页停留时间
 //    [NSThread sleepForTimeInterval:10.0];
@@ -78,12 +102,12 @@ AppDelegate *EnetgyCycle = nil;
 #pragma mark - 设置推送别名
 - (void)setAPService:(NSNotification *)notification {
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERID"];
-    [APService setAlias:[NSString stringWithFormat:@"MY_%@",userId] callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+    [JPUSHService setAlias:[NSString stringWithFormat:@"MY_%@",userId] callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
 }
 
 #pragma mark - 退出登录
 - (void)setUnLoginAPService:(NSNotification *)notification {
-    [APService setAlias:@"MY_" callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+    [JPUSHService setAlias:@"MY_" callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
 }
 
 #pragma mark - 进入引导页
@@ -125,6 +149,7 @@ AppDelegate *EnetgyCycle = nil;
     
     return YES;
 }
+
 #pragma mark - 腾讯
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     NSString *urlStr = [NSString stringWithFormat:@"%@",url];
@@ -140,6 +165,8 @@ AppDelegate *EnetgyCycle = nil;
     return YES;
 }
 
+
+
 #pragma mark - 微博
 - (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
     NSLog(@"微博请求");
@@ -154,8 +181,8 @@ AppDelegate *EnetgyCycle = nil;
                 if (userInfo == nil || [userInfo isKindOfClass:[NSNull class]] || [userInfo isEqual:[NSNull null]]) {
                     [SVProgressHUD showImage:nil status:@"微博登录失败"];
                 }else {
-                    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
                     
+                    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
                     [dict setObject:userInfo.userID forKey:@"openId"];
                     [dict setObject:userInfo.screenName forKey:@"nickname"];
                     [dict setObject:userInfo.profileImageUrl forKey:@"photoUrl"];
@@ -166,8 +193,8 @@ AppDelegate *EnetgyCycle = nil;
                     }else if ([userInfo.gender isEqualToString:@"f"]) {
                         weiboSex = @"女";
                     }
-                    [dict setObject:weiboSex forKey:@"sex"];
                     
+                    [dict setObject:weiboSex forKey:@"sex"];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"isWeiboNotification" object:dict];
                 }
             }];
@@ -177,8 +204,10 @@ AppDelegate *EnetgyCycle = nil;
         }
     }else if ([response isKindOfClass:WBSendMessageToWeiboResponse.class]) {
         if (response.statusCode == 0) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"weiboShareSuccess" object:nil];
             [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
-                NSLog(@"%@",dict);
+                NSLog(@"微博分享成功%@",dict);
             } failure:^(NSString *str) {
                 NSLog(@"%@",str);
             }];
@@ -196,55 +225,76 @@ AppDelegate *EnetgyCycle = nil;
     if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
         if (resp.errCode == 0) {
             //分享成功
-            [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
-                NSLog(@"%@",dict);
-            } failure:^(NSString *str) {
-                NSLog(@"%@",str);
-            }];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"wechatShareSuccess" object:nil];
+            
+//            [[AppHttpManager shareInstance] getShareWithUserid:[User_ID intValue] Token:User_TOKEN Type:1 PostOrGet:@"post" success:^(NSDictionary *dict) {
+//                NSLog(@"微信分享成功%@",dict);
+//                
+//            } failure:^(NSString *str) {
+//                NSLog(@"%@",str);
+//            }];
+        }
+    }if ([resp isKindOfClass:[QQBaseResp class]]) {
+        if (resp.errCode == 0) {
+            NSLog(@"分享qq成功");
+            
         }
     }
 }
 
-- (void)onReq:(BaseReq *)req {
-    NSLog(@"微信请求");
-    NSLog(@"onReq");
-}
+
 - (void)tagsAliasCallback:(int)iResCode tags:(NSSet *)tags alias:(NSString *)alias {
     NSLog(@"%@",[NSString stringWithFormat:@"%d, tags: %@, alias: %@\n", iResCode,tags, alias]);
 }
 
 #pragma mark - 获取极光推送注册设备的ID
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [APService registerDeviceToken:deviceToken];
-    self.appJPushRegisterId = [APService registrationID];
-//    NSLog(@"%@",[APService registrationID]);
+    [JPUSHService registerDeviceToken:deviceToken];
+    self.appJPushRegisterId = [JPUSHService registrationID];
+    
 }
 
-#pragma mark - 接收推送的处理//APNs.正在前台或者后台运行
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [APService handleRemoteNotification:userInfo];
+#pragma mark- JPUSHRegisterDelegate
+// iOS 10 Support
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
+    // Required
+    NSDictionary * userInfo = notification.request.content.userInfo; if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo]; }
+    completionHandler(UNNotificationPresentationOptionAlert); //                    Badge Sound Alert
+}
+// iOS 10 Support
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    // Required
+    NSDictionary * userInfo = response.notification.request.content.userInfo; if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo]; }
+    completionHandler(); //
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void(^)(UIBackgroundFetchResult))completionHandler {
-    [APService handleRemoteNotification:userInfo];
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler: (void (^)(UIBackgroundFetchResult))completionHandler {
+        // Required, iOS 7 Support
+    [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
     
     NSDictionary *apsDictionary = (NSDictionary *)userInfo;
-//    NSLog(@"推送：%@",apsDictionary);
-    if (apsDictionary) {
-        [application setApplicationIconBadgeNumber:0];
-//        EnetgyCycle.mineNavC.mineItem.badgeValue = @"";
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        
-        if ([apsDictionary[@"type"] isKindOfClass:[NSNull class]] || [apsDictionary[@"type"] isEqual:[NSNull null]] || apsDictionary[@"type"] == nil) {
-            [dict setObject:@"1" forKey:@"type"];
-        }else {
-            [dict setObject:apsDictionary[@"type"] forKey:@"type"];
-        }
- 
-        self.isHaveJPush = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"isAppGetJPush" object:dict];
+    
+    NSString *type = [NSString stringWithFormat:@"%@", apsDictionary[@"type"]];
+    if ([type isEqualToString:@"1"] || [type isEqualToString:@"2"] || [type isEqualToString:@"3"]) {
+        // 通知推送 type = 1
+        // 活动推送 type = 2
+        // 私信推送 type = 3
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"pushReloadData" object:nil];
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
+    
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    // Required,For systems with less than or equal to iOS6
+    [JPUSHService handleRemoteNotification:userInfo];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error { //Optional
+    NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 
 #pragma mark - 判断点击icon
@@ -268,8 +318,7 @@ AppDelegate *EnetgyCycle = nil;
         [[AppHttpManager shareInstance] getIsHasSignWithUserId:[User_ID intValue] Token:User_TOKEN PostOrGet:@"get" success:^(NSDictionary *dict) {
             if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
                 if ([dict[@"Data"] integerValue] == 0) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"今天还没有签到" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-                    [alertView show];
+                    [SVProgressHUD showImage:nil status:@"今日您还未签到!"];
                 }
             }
         } failure:^(NSString *str) {

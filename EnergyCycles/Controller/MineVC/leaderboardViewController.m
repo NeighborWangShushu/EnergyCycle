@@ -7,11 +7,13 @@
 //
 
 #import "leaderboardViewController.h"
+#import "IntegralMallViewController.h"
 
 #import "LeaderBoardViewCell.h"
 #import "UserModel.h"
 #import "GifHeader.h"
 #import "OtherUesrViewController.h"
+#import "MineHomePageViewController.h"
 
 @interface leaderboardViewController () <UITableViewDataSource,UITableViewDelegate> {
     int page;
@@ -23,10 +25,24 @@
 
 @implementation leaderboardViewController
 
+//- (void)rightAction {
+//    IntegralMallViewController *imVC = MainStoryBoard(@"IntegralMallViewController");
+//    [self.navigationController pushViewController:imVC animated:YES];
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated {
+//    [self setupRightNavBarWithTitle:@"商城"];
+//}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"积分排行榜";
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
 
     //
     [self creatHeadView];
@@ -78,11 +94,11 @@
     NSString *jifen = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"UserJiFen"]];
     numLabel.text = jifen;
     
-    [[AppHttpManager shareInstance] getGetJinfenCountWithUserid:[User_ID intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getGetJinfenCountWithUserid:[self.userId intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             self.paimingLabel.text = [NSString stringWithFormat:@"第%@名",dict[@"Data"]];
         }else {
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
     } failure:^(NSString *str) {
         NSLog(@"%@",str);
@@ -111,7 +127,7 @@
 }
 //加载网络数据
 - (void)loadDataWithIndexPage:(int)pages {
-    [[AppHttpManager shareInstance] getGetJiFenListWithPage:pages  withUserId:[User_ID intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getGetJiFenListWithPage:pages  withUserId:[self.userId intValue] PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             if (pages == 1) {
                 [_dataArr removeAllObjects];
@@ -124,11 +140,11 @@
             [self endRefresh];
             [leaderBoardTableView reloadData];
         }else if ([dict[@"Code"] integerValue] == 10000) {
-            [SVProgressHUD showImage:nil status:@"登录失效"];
+            [SVProgressHUD showImage:nil status:@"登录失效" maskType:SVProgressHUDMaskTypeClear];
             [self.navigationController popToRootViewControllerAnimated:NO];
         }else {
             [self endRefresh];
-            [SVProgressHUD showImage:nil status:dict[@"Msg"]];
+            [SVProgressHUD showImage:nil status:dict[@"Msg"] maskType:SVProgressHUDMaskTypeClear];
         }
         
     } failure:^(NSString *str) {
@@ -196,12 +212,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
-    UserModel *model = (UserModel *)_dataArr[indexPath.row];
-    otherUserVC.otherUserId = model.use_id;
-    otherUserVC.otherName = model.nickname;
-    otherUserVC.otherPic = model.photourl;
-    [self.navigationController pushViewController:otherUserVC animated:YES];
+//    OtherUesrViewController *otherUserVC = MainStoryBoard(@"OtherUserInformationVCID");
+//    UserModel *model = (UserModel *)_dataArr[indexPath.row];
+//    otherUserVC.otherUserId = model.use_id;
+//    otherUserVC.otherName = model.nickname;
+//    otherUserVC.otherPic = model.photourl;
+//    [self.navigationController pushViewController:otherUserVC animated:YES];
+    MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+    UserModel *model = _dataArr[indexPath.row];
+    mineVC.userId = model.use_id;
+    [self.navigationController pushViewController:mineVC animated:YES];
 }
 
 #pragma mark - Navigation

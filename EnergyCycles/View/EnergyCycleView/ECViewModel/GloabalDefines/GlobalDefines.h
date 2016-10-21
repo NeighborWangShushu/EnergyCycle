@@ -6,25 +6,6 @@
 //  Copyright © 2016年 GSD. All rights reserved.
 //
 
-/*
- 
- *********************************************************************************
- *
- * GSD_WeiXin
- *
- * QQ交流群: 459274049
- * Email : gsdios@126.com
- * GitHub: https://github.com/gsdios/GSD_WeiXin
- * 新浪微博:GSD_iOS
- *
- * 此“高仿微信”用到了很高效方便的自动布局库SDAutoLayout（一行代码搞定自动布局）
- * SDAutoLayout地址：https://github.com/gsdios/SDAutoLayout
- * SDAutoLayout视频教程：http://www.letv.com/ptv/vplay/24038772.html
- * SDAutoLayout用法示例：https://github.com/gsdios/SDAutoLayout/blob/master/README.md
- *
- *********************************************************************************
- 
- */
 
 #ifndef GlobalDefines_h
 #define GlobalDefines_h
@@ -35,7 +16,7 @@
 
 #define Global_mainBackgroundColor SDColor(248, 248, 248, 1)
 
-#define TimeLineCellHighlightedColor [UIColor colorWithRed:92/255.0 green:140/255.0 blue:193/255.0 alpha:1.0]
+#define TimeLineCellHighlightedColor [UIColor colorWithRed:67.0/255.0 green:120.0/255.0 blue:190.0/255.0 alpha:1.0]
 
 #define DAY @"day"
 

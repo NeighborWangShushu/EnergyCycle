@@ -14,5 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *rightLabel;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint;
+
+@property (weak, nonatomic) IBOutlet UIImageView *rightImage;
 
 @end

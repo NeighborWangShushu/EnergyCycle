@@ -42,13 +42,28 @@
 - (void)setup {
     if (self.type == ReferralHeadViewTypeNone) {
         return;
+    } else if (self.type == ReferralHeadViewTypeCollectionSlider) {
+        return;
     }
+    
+    UIImageView*img = [UIImageView new];
+    [img setImage:[UIImage imageNamed:@"learn_head_icon"]];
+    [self addSubview:img];
     
     UILabel * title = [UILabel new];
     title.textColor = [UIColor blackColor];
     title.font = [UIFont systemFontOfSize:15];
     title.text = _name;
     [self addSubview:title];
+    
+    
+    [img mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).with.offset(10);
+        make.top.equalTo(self.mas_top).with.offset(20);
+        make.bottom.equalTo(self.mas_bottom).with.offset(-20);
+        
+    }];
+    
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(20);
         make.top.equalTo(self.mas_top).with.offset(16);

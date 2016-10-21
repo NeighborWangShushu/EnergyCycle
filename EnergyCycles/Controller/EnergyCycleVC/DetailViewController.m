@@ -15,6 +15,8 @@
 #import "TheAdvDetailModel.h"
 #import "NSDate+Category.h"
 
+#import "MineHomePageViewController.h"
+
 static NSString* const kTouchJavaScriptString=
 @"document.ontouchstart=function(event){\
 x=event.targetTouches[0].clientX;\
@@ -37,7 +39,7 @@ enum
     GESTURE_STATE_END = 4,
     GESTURE_STATE_ACTION = (GESTURE_STATE_START | GESTURE_STATE_END),
 };
-@interface DetailViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIWebViewDelegate,UIActionSheetDelegate> {
+@interface DetailViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIWebViewDelegate,UIActionSheetDelegate, WKScriptMessageHandler, WKUIDelegate> {
     NSMutableArray *_allArr;
     NSMutableArray *_dataArr;
     NSMutableArray *_otherDataArr;
@@ -83,6 +85,9 @@ enum
         self.title = @"进阶PK详情";
     }
     
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+
+    
     detailTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
     detailTabelView.showsVerticalScrollIndicator = NO;
     detailTabelView.backgroundColor = [UIColor whiteColor];
@@ -113,6 +118,20 @@ enum
     detailWebView.mediaPlaybackRequiresUserAction = NO;
     detailWebView.scrollView.scrollEnabled=NO;
     
+//    webVC = MainStoryBoard(@"WebVC");
+//    webVC.url = [NSString stringWithFormat:@"%@%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,self.advModel.postId,[NSString stringWithFormat:@"%@",self.advModel.userId]];
+//    webVC.view.frame = CGRectMake(0, 0, Screen_width, 80);
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    [config.userContentController addScriptMessageHandler:self name:@"UserID"];
+    [config.userContentController addScriptMessageHandler:self name:@"SaveImg"];
+    
+    wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 0) configuration:config];
+    wkWebView.backgroundColor = [UIColor redColor];
+    wkWebView.UIDelegate = self;
+    NSString *url = [NSString stringWithFormat:@"%@%@?postId=%@&userId=%@",INTERFACE_URL,PostDetailAspx,self.advModel.postId,[NSString stringWithFormat:@"%@",self.advModel.userId]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30];
+    [wkWebView loadRequest:request];
+    
     //监听键盘弹出
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -122,6 +141,37 @@ enum
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+}
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    if ([message.name isEqualToString:@"UserID"]) {
+        NSLog(@"%@",[message.body class]);
+        NSString*user_id = [message.body objectForKey:@"body"];
+        MineHomePageViewController *home = MainStoryBoard(@"MineHomePageViewController");
+        home.userId = user_id;
+        [self.navigationController pushViewController:home animated:YES];
+    }else if ([message.name isEqualToString:@"SaveImg"]) {
+        NSString*img_id = (NSString*)[message.body objectForKey:@"body"];
+        NSLog(@"%@",img_id);
+        [[UIImageView new] sd_setImageWithURL:[NSURL URLWithString:img_id] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+        }];
+    }
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler {
+    NSLog(@"%@", message);
+    
+    
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
+    
+    
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -220,13 +270,13 @@ enum
     webView.frame = CGRectMake(frame.origin.x, frame.origin.y, Screen_width, frame.size.height);
     CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
     
-    CGRect rect = detailWebView.frame;
+    CGRect rect = wkWebView.frame;
     rect.size.height = height+80;
-    detailWebView.frame = rect;
+    wkWebView.frame = rect;
     
     deatilWabBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 80+height)];
     detailTabelView.tableHeaderView = deatilWabBackView;
-    [deatilWabBackView addSubview:detailWebView];
+    [deatilWabBackView addSubview:wkWebView];
     
     subHight = height+80;
     if ([self.tabBarStr isEqualToString:@"pk"]) {
@@ -718,7 +768,7 @@ enum
 #pragma mark - 能量圈评论
 - (void)commentWithContentWithDict:(NSDictionary *)getDict {
     EnergyDetailModel *model = (EnergyDetailModel *)_allArr[0];
-    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[model.artId intValue] PId:[getDict[@"type"] intValue] Content:getDict[@"content"] CommUserId:[User_ID intValue] token:User_TOKEN PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postAddCommentOfArticleWithArticleId:[model.artId intValue] PId:[getDict[@"type"] intValue] Content:getDict[@"content"] CommUserId:[User_ID intValue] type:@"1" token:User_TOKEN PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             [self getEnergyDetailDataWithArticleID:self.showDetailId];
             

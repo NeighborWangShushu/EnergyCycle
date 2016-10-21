@@ -13,6 +13,11 @@
 #import "PKNavController.h"
 #import "LearnNavController.h"
 #import "MineNavController.h"
+#import "ECTabbarViewController.h"
+
+static NSString *appKey = @"da84470cd94e0e2dc2db282b";
+static NSString *channel = @"0";
+static BOOL isProduction = FALSE;
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -33,8 +38,13 @@
 //是否在消息界面
 @property (nonatomic, assign) BOOL isAtInformationView;
 
+//是否跳转消息界面
+@property (nonatomic, assign) BOOL isPushToMessageView;
+
 //音频播放index
 @property (nonatomic) NSInteger audioPlayIndex;
+
+@property (nonatomic,strong)ECTabbarViewController*tabbarController;
 
 @end
 

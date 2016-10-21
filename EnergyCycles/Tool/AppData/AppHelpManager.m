@@ -86,6 +86,29 @@
     return isMatch;
 }
 
+
+- (BOOL)isBlankString:(NSString *)string{
+    
+    if (string == nil) {
+        return YES;
+    }
+    
+    if (string == NULL) {
+        return YES;
+    }
+    
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+    
+}
+
+
 #pragma mark - MID、TOKEN
 //写入MID、TOKEN
 - (void)writeNSUserDefaultWithMid:(NSString *)mid withToken:(NSString *)token {
@@ -116,6 +139,14 @@
         phone = @"";
     }
     return phone;
+}
+
+- (NSString *)readUserName {
+    NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserNickName"];
+    if ((name == nil || [name isKindOfClass:[NSNull class]] || [name isEqual:[NSNull null]])) {
+        name = @"";
+    }
+    return name;
 }
 
 #pragma mark - 获取通讯录权限
@@ -160,7 +191,6 @@
     
     return thumbnailImage;
 }
-
 
 
 @end

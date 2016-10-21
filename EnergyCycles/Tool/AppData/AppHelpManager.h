@@ -28,19 +28,23 @@
 //密码格式
 - (BOOL)isValidPassword:(NSString *)password;
 
+
+- (BOOL)isBlankString:(NSString *)string;
+
 //写入mid、token
 - (void)writeNSUserDefaultWithMid:(NSString *)mid withToken:(NSString *)token;
 //读取userid、token
 - (NSString *)readUserId;
 - (NSString *)readToken;
 - (NSString *)readPhone;
+- (NSString *)readUserName;
+
 
 //获取通讯录权限
 + (void)CheckAddressBookAuthorization:(void (^)(bool isAuthorized))block;
 
 //获取第一帧图片
 + (UIImage*)thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;
-
 
 
 @end

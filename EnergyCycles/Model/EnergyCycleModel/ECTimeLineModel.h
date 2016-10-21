@@ -18,11 +18,15 @@
 @property (nonatomic, copy) NSString * time;
 @property (nonatomic, copy) NSString *msgContent;
 @property (nonatomic, strong) NSArray *picNamesArray;
+@property (nonatomic, copy)NSString *ID;
+@property (nonatomic, copy)NSString *UserID;
+@property (nonatomic, copy)NSString *badge;
 
 @property (nonatomic, assign, getter = isLiked) BOOL liked;
 
-@property (nonatomic, strong) NSArray<ECTimeLineCellLikeItemModel *> *likeItemsArray;
-@property (nonatomic, strong) NSArray<ECTimeLineCellCommentItemModel *> *commentItemsArray;
+@property (nonatomic, strong) NSMutableArray <ECTimeLineCellLikeItemModel *> *likeItemsArray;
+@property (nonatomic, strong) NSMutableArray <ECTimeLineCellCommentItemModel *> *commentItemsArray;
+
 
 @property (nonatomic, assign) BOOL isOpening;
 
