@@ -89,7 +89,7 @@
     leftItem.tintColor = [UIColor whiteColor];
     [leftItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItems = @[leftItem];
-
+    
     UIBarButtonItem*rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction:)];
     rightItem.tintColor = [UIColor whiteColor];
     [rightItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} forState:UIControlStateNormal];
@@ -131,13 +131,7 @@
     self.tableView.sectionIndexColor = [UIColor lightGrayColor];
     self.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.tableView];
-
     
-    _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
-    [_searchBar sizeToFit];
-    _searchBar.delegate = self;
-    _searchBar.hasCentredPlaceholder = NO;
-
     _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
     _searchBar.delegate = self;
     _searchBar.edelegate = self;
@@ -149,16 +143,21 @@
     [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
-    self.tableView.tableHeaderView = self.searchBar;
-    
-    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
-    self.searchController.searchBar.delegate = self;
-    [self.searchController.searchBar sizeToFit];
-    self.tableView.tableHeaderView = self.searchController.searchBar;
-    
     [_searchBar sizeToFit];
     _searchBar.datas = self.selectedDatas;
     [self.view addSubview:self.searchBar];
+    
+    self.searchController = [[ECSearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+    self.searchController.searchResultsDataSource = self;
+    self.searchController.searchResultsDelegate = self;
+    self.searchController.displaysSearchBarInNavigationBar = NO;
+    self.searchDisplayController.delegate = self;
+    self.searchController.delegate = self;
+    self.searchController.searchContentsController.view.backgroundColor = [UIColor whiteColor];
+    self.searchController.searchResultsTableView.tableFooterView = [UIView new];
+    self.searchController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
+    [self.searchController.searchBar sizeToFit];
+    _searchController.searchResultsTableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 2.0f, 0.0f);
     
     
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,7 +171,7 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(self.searchBar.mas_bottom);
+        make.top.equalTo(self.searchBar.mas_bottom).with.offset(0);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
 }
@@ -197,7 +196,7 @@
     } failure:^(NSString *str) {
         NSLog(@"%@", str);
     }];
-
+    
 }
 
 - (void)filterSelectedData:(UserModel*)model {
@@ -226,7 +225,8 @@
 
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-     isSearching = YES;
+    isSearching = YES;
+    //    [self.tableView reloadData];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -248,7 +248,72 @@
 }
 
 
+
 #pragma mark SearchController Delegate
+
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    
+    [_searchBar setShowsCancelButton:YES animated:NO];
+    UIView *topView = controller.searchBar.subviews[0];
+    controller.searchResultsTableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
+    
+    
+    for (UIView *v in topView.subviews) {
+        if ([v isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
+            [v removeFromSuperview];
+        }
+    }
+}
+
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
+    
+    for (UIView *subview in controller.searchContentsController.view.subviews) {
+        
+        if ([subview isKindOfClass:NSClassFromString(@"UISearchDisplayControllerContainerView")])
+        {
+            UIView*searchView = subview.subviews[1];
+            for (UIView*v in searchView.subviews) {
+                if ([v isKindOfClass:NSClassFromString(@"ECContactSearchBar")]) {
+                    NSLog(@"%f",v.frame.origin.y);
+                    CGRect frame = v.frame;
+                    NSLog(@"%f---%f",frame.origin.y,frame.size.height);
+                    frame.origin.y = -20;
+                    v.frame = frame;
+                }
+            }
+        }
+    }
+    
+}
+
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    isSearching = NO;
+    [self.tableView reloadData];
+    
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView {
+    
+    for (UIView *subview in tableView.subviews)
+    {
+        if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewWrapperView"])
+        {
+            subview.frame = CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height);
+        }
+    }
+}
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller {
+    
+    isSearching = NO;
+    [self.tableView reloadData];
+    
+}
+
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
     [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:[[self.searchDisplayController.searchBar scopeButtonTitles]objectAtIndex:searchOption]];

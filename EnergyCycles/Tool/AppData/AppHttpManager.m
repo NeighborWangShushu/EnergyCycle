@@ -1455,6 +1455,9 @@ static AFHTTPRequestOperationManager *manager;
 //int UserId  //发布人id
 //string token   //发布人token
 //List<String> ArticlePic //图片
+//location      地点
+//list          提醒人的列表
+
 - (void)postAddArticleWithTitle:(NSString *)Title
                         Content:(NSString *)Content
                        VideoUrl:(NSString *)VideoUrl
