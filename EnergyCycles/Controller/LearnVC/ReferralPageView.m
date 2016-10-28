@@ -96,7 +96,7 @@
 
 //下拉刷新
 - (void)loadNewData {
-    [[AppHttpManager shareInstance] getAppRadioListPostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getAppRadioListWithPageIndex:0 PageSize:9 PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             _radioData = dict;
             [[AppHttpManager shareInstance] getBannerListPostOrGet:@"get" success:^(NSDictionary *dict) {

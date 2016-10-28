@@ -107,8 +107,22 @@
         }];
     }
     
+    if (self.type == ReferralHeadViewTypeRadio) {
+        UIButton *moreRadio = [UIButton buttonWithType:UIButtonTypeSystem];
+        [moreRadio setTitle:@"更多" forState:UIControlStateNormal];
+        [self addSubview:moreRadio];
+        [moreRadio addTarget:self action:@selector(moreRadioList) forControlEvents:UIControlEventTouchUpInside];
+        [moreRadio mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.mas_right).with.offset(-10);
+            make.centerY.equalTo(self.mas_centerY);
+        }];
+    }
+    
 }
 
+- (void)moreRadioList {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MoreRadioListVC" object:nil];
+}
 
 - (void)more:(id)sender {
     if ([self.delegate respondsToSelector:@selector(headView:showMore:)]) {

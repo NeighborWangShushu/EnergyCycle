@@ -16,6 +16,7 @@
 #import "PostingViewController.h"
 #import "PKGatherViewController.h"
 #import "BadgeRulesCollectionViewController.h"
+#import "PraiseRankingTableVC.h"
 #import "AppDelegate.h"
 
 @interface PKViewController () <UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
@@ -54,13 +55,20 @@
     
     _homeCollecctionArr = [[NSMutableArray alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(praiseRankingList) name:@"PraiseRankingList" object:nil];
     
     pkHomeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     pkHomeTableView.showsVerticalScrollIndicator = NO;
     pkHomeTableView.showsHorizontalScrollIndicator = NO;
     pkHomeTableView.backgroundColor = [UIColor whiteColor];
     pkHomeTableView.bounces = YES;
+}
+
+// 跳转到获赞排名页面
+- (void)praiseRankingList {
+    [self.delegate.tabbarController hideTabbar:YES];
+    PraiseRankingTableVC *praiseVC = [[PraiseRankingTableVC alloc] init];
+    [self.navigationController pushViewController:praiseVC animated:YES];
 }
 
 - (void)rightAction {

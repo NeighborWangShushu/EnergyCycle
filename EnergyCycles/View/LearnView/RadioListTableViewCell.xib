@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="RadioListTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <frame key="frameInset" width="320" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ixl-lo-sJ0">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="IiG-UQ-Jf9"/>
+                            <constraint firstAttribute="width" constant="50" id="fbw-Ou-tSX"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FE0-6G-KkG">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="Evr-PR-fXe"/>
+                            <constraint firstAttribute="width" constant="50" id="uWp-Fm-KwV"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9l-LW-g74">
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9E-fc-RXR">
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="A9E-fc-RXR" firstAttribute="top" secondItem="C9l-LW-g74" secondAttribute="bottom" constant="10" id="7qu-L5-2wc"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A9E-fc-RXR" secondAttribute="trailing" constant="14" id="9MO-xx-3hZ"/>
+                    <constraint firstItem="C9l-LW-g74" firstAttribute="top" secondItem="FE0-6G-KkG" secondAttribute="top" id="Gik-Zz-cXk"/>
+                    <constraint firstItem="ixl-lo-sJ0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="MlN-WM-7Wu"/>
+                    <constraint firstItem="ixl-lo-sJ0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="XgR-1C-y2l"/>
+                    <constraint firstItem="FE0-6G-KkG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="hAx-D3-SQ4"/>
+                    <constraint firstItem="C9l-LW-g74" firstAttribute="leading" secondItem="FE0-6G-KkG" secondAttribute="trailing" constant="10" id="nbS-H4-NPs"/>
+                    <constraint firstItem="FE0-6G-KkG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nik-RS-63d"/>
+                    <constraint firstItem="A9E-fc-RXR" firstAttribute="leading" secondItem="C9l-LW-g74" secondAttribute="leading" id="oMl-4j-rdn"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="RadioPlayAnimation" destination="ixl-lo-sJ0" id="M7h-8N-rym"/>
+                <outlet property="radioImage" destination="FE0-6G-KkG" id="Nlu-tT-JT8"/>
+                <outlet property="radioIntro" destination="A9E-fc-RXR" id="X9j-fC-cgw"/>
+                <outlet property="radioName" destination="C9l-LW-g74" id="0O1-Ag-bHp"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

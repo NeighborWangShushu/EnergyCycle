@@ -1216,10 +1216,13 @@
                               success:(void (^)(NSDictionary *dict))success
                               failure:(void (^)(NSString *str))failure;
 #pragma mark - 105.电台列表
-// 输入参数:无
-- (void)getAppRadioListPostOrGet:(NSString *)postOrGetType
-                         success:(void (^)(NSDictionary *dict))success
-                         failure:(void (^)(NSString *str))failure;
+// 输入参数:pageIndex   int // 页码
+// 输入参数:pageSize    int // 每页显示的数量
+- (void)getAppRadioListWithPageIndex:(int)pageIndex
+                            PageSize:(int)pageSize
+                           PostOrGet:(NSString *)postOrGetType
+                             success:(void (^)(NSDictionary *dict))success
+                             failure:(void (^)(NSString *str))failure;
 
 #pragma mark - 106.获取用户每日PK统计
 // 输入参数:UserID      int // 用户ID
@@ -1259,4 +1262,11 @@
                        success:(void (^)(NSDictionary *dict))success
                        failure:(void (^)(NSString *str))failure;
 
+#pragma mark - 111.获赞排名
+- (void)getGoodOrderWithUserID:(int)userid
+                     PageIndex:(int)pageIndex
+                      PageSize:(int)pageSize
+                     PostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure;
 @end

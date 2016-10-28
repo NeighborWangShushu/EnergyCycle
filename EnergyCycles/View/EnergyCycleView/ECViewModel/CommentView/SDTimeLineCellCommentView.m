@@ -130,7 +130,13 @@
 
 - (void)setLikeItemsArray:(NSArray *)likeItemsArray
 {
+//    if (likeItemsArray.count >= 10) {
+//        _likeItemsArray = [likeItemsArray objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 10)]];
+//    } else {
     _likeItemsArray = likeItemsArray;
+//    }
+    NSInteger count = likeItemsArray.count >= 10 ? 10 : likeItemsArray.count;
+    
     
     NSTextAttachment *attach = [NSTextAttachment new];
     attach.image = [UIImage imageNamed:@"ec_like_small"];
@@ -139,13 +145,21 @@
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:likeIcon];
 
     [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
-    for (int i = 0; i < likeItemsArray.count; i++) {
-        ECTimeLineCellLikeItemModel *model = likeItemsArray[i];
-        if (i > 0) {
-            [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@"，"]];
-        }
-        [attributedText appendAttributedString:[self generateAttributedStringWithLikeItemModel:model]];
+    for (int i = 0; i < count; i++) {
         
+        ECTimeLineCellLikeItemModel *model = likeItemsArray[i];
+        if (i >= 9) {
+            NSString *text = [NSString stringWithFormat:@"等%ld人觉得很赞", likeItemsArray.count];
+            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
+            UIColor *highLightColor = TimeLineCellHighlightedColor;
+            [attString setAttributes:@{NSForegroundColorAttributeName : highLightColor}range:[text rangeOfString:text]];
+            [attributedText appendAttributedString:attString];
+        } else {
+            if (i > 0) {
+                [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@"，"]];
+            }
+            [attributedText appendAttributedString:[self generateAttributedStringWithLikeItemModel:model]];
+        }
     }
     
     _likeLabel.attributedText = [attributedText copy];
@@ -167,9 +181,16 @@
     return _commentButtonArray;
 }
 
-- (void)setupWithLikeItemsArray:(NSArray *)likeItemsArray commentItemsArray:(NSArray *)commentItemsArray
+- (void)setupWithLikeItemsArray:(NSArray *)likeItemsArrays commentItemsArray:(NSArray *)commentItemsArray
 {
-    self.likeItemsArray = likeItemsArray;
+    NSArray *likeItemsArray = [NSArray array];
+    if (likeItemsArrays.count >= 10) {
+        likeItemsArray = [likeItemsArrays objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 10)]];
+    } else {
+        likeItemsArray = likeItemsArrays;
+    }
+    
+    self.likeItemsArray = likeItemsArrays;
     self.commentItemsArray = commentItemsArray;
     
     if (self.commentLabelsArray.count) {

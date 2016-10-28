@@ -11,5 +11,6 @@
 @interface ECPhotoListCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImage *thumbnailImage;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 @end

@@ -555,8 +555,6 @@
     [self addController];
     [self segmentedControlChangedValue:self.segControl];
     
-
-    
     // Do any additional setup after loading the view.
 }
 
@@ -668,8 +666,6 @@
     afVC.type = 2;
     [self.navigationController pushViewController:afVC animated:YES];
 }
-
-
 
 - (void)jumpToIntroViewController {
     IntroViewController *introVC = MainStoryBoard(@"IntroViewController");

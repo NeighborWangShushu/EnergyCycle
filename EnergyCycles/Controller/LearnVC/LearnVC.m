@@ -19,6 +19,7 @@
 #import "LearnDetailViewController.h"
 #import "MoreVC.h"
 #import "PostingViewController.h"
+#import "RadioListVC.h"
 
 
 @interface LearnVC ()<UIPageViewControllerDelegate,UIPageViewControllerDataSource,PopColumViewDelegate>{
@@ -39,6 +40,7 @@
 @property (nonatomic,strong)UIPageViewController * pageController;
 @property (nonatomic,strong)NSMutableArray * pageTags; //当前定制的标签
 @property (nonatomic,strong)NSMutableArray * otherTags; //当前定制的标签
+@property (nonatomic, strong) NSURL *radioUrl; // 电台的url
 
 @end
 
@@ -88,6 +90,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReferralHeadViewShowMore:) name:@"ReferralHeadViewShowMore" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(learnRecommend:) name:@"LearnRecommend" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(radioList) name:@"MoreRadioListVC" object:nil];
     
 }
 
@@ -215,6 +218,13 @@
     
 }
 
+- (void)radioList {
+    [delegate.tabbarController hideTabbar:YES];
+    RadioListVC *radioVC = [[RadioListVC alloc] init];
+    radioVC.radioUrl = self.radioUrl;
+    [self.navigationController pushViewController:radioVC animated:YES];
+}
+
 - (void)learnRecommend:(NSNotification *)notification {
     weburl = notification.object;
     [self performSegueWithIdentifier:@"WebVC" sender:nil];
@@ -245,6 +255,9 @@
     
     NSString * index = [dic objectForKey:@"index"];
     lastPlayIndex = [index intValue];
+    
+    self.radioUrl = [NSURL URLWithString:url];
+    
     [self play:url];
 }
 

@@ -10,6 +10,7 @@
 #import "ECPhotoListCell.h"
 
 #import "ECAlbumListVC.h"
+#import "ECPhotoScrollVC.h"
 
 #define columnCount 3
 
@@ -24,6 +25,10 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) ECAlbumListVC *albumListVC;
 @property (nonatomic, strong) UIButton *maskButton;
+@property (nonatomic, strong) NSMutableArray *photoArr;
+
+@property (nonatomic, strong) UIBarButtonItem *rightButtonItem;
+@property (nonatomic, strong) UIButton *rightItem;
 
 @end
 
@@ -31,6 +36,13 @@ static NSString * const photoReuseIdentifier = @"ECPhotoListCell";
 static CGSize itemSize;
 
 @implementation ECPhotoListVC
+
+- (NSMutableArray *)photoArr {
+    if (!_photoArr) {
+        self.photoArr = [NSMutableArray array];
+    }
+    return _photoArr;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -41,6 +53,7 @@ static CGSize itemSize;
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFetchResult:) name:@"UpdateECAlbumPhoto" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhotoArr:) name:@"UpdatePhotoArr" object:nil];
     
     [self setup];
     
@@ -66,8 +79,40 @@ static CGSize itemSize;
     }
     
     [self titleViewWith:collection.localizedTitle];
-
+    
     [self.collectionView reloadData];
+}
+
+- (void)updatePhotoArr:(NSNotification *)notification {
+    NSDictionary *dic = notification.object;
+    NSIndexPath *index = dic[@"imageIndex"];
+    BOOL selected = [dic[@"selected"] boolValue];
+    BOOL exist = [self.photoArr containsObject:index];
+    if (exist && !selected) {
+        [self.photoArr removeObject:index];
+        if (self.photoArr.count < 9) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"JudgeDisable" object:@{@"disable" : @(NO)}];
+        }
+    }
+    if (!exist && selected) {
+        [self.photoArr addObject:index];
+        if (self.photoArr.count >= 9) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"JudgeDisable" object:@{@"disable" : @(YES)}];
+        }
+    }
+    if (self.photoArr.count >= 1) {
+        [self.rightItem setFrame:CGRectMake(0, 0, 80, 25)];
+        [self.rightItem setTitle:[NSString stringWithFormat:@"下一步(%ld)", self.photoArr.count] forState:UIControlStateNormal];
+        [self.rightItem setBackgroundImage:[UIImage imageNamed:@"ecpicker_next_enable"] forState:UIControlStateNormal];
+        UIBarButtonItem *rightButtontItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightItem];
+        self.navigationItem.rightBarButtonItem = rightButtontItem;
+    } else {
+        [self.rightItem setFrame:CGRectMake(0, 0, 60, 25)];
+        [self.rightItem setTitle:@"" forState:UIControlStateNormal];
+        [self.rightItem setBackgroundImage:[UIImage imageNamed:@"ecpicker_next_disable"] forState:UIControlStateNormal];
+        UIBarButtonItem *rightButtontItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightItem];
+        self.navigationItem.rightBarButtonItem = rightButtontItem;
+    }
 }
 
 - (void)titleViewWith:(NSString *)title {
@@ -95,7 +140,9 @@ static CGSize itemSize;
     layout.itemSize = itemSize;
     
     // 初始化collectionView
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+    CGRect frame = self.view.bounds;
+    frame.size.height -= 64;
+    self.collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
     // 注册collectionViewCell
@@ -122,8 +169,24 @@ static CGSize itemSize;
     
     // 导航栏左按钮
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    [left setTintColor:[UIColor redColor]];
     self.navigationItem.leftBarButtonItem = left;
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
+    
+    self.rightItem = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.rightItem.frame = CGRectMake(0, 0, 60, 25);
+    [self.rightItem setTitle:@"" forState:UIControlStateNormal];
+    [self.rightItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.rightItem.titleLabel.font = [UIFont systemFontOfSize:14];
+    [self.rightItem setBackgroundImage:[UIImage imageNamed:@"ecpicker_next_disable"] forState:UIControlStateNormal];
+    [self.rightItem addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *rightButtontItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightItem];
+    self.navigationItem.rightBarButtonItem = rightButtontItem;
+    
+}
+
+- (void)next {
     
 }
 
@@ -133,6 +196,7 @@ static CGSize itemSize;
 
 // 弹出相册列表
 - (void)popupList {
+    
     if (drop) {
         drop = NO;
         [UIView animateWithDuration:0.5
@@ -158,7 +222,7 @@ static CGSize itemSize;
 
                             } completion:nil];
     }
-
+    
 }
 
 - (void)createListTableView {
@@ -184,8 +248,15 @@ static CGSize itemSize;
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:itemSize contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         cell.thumbnailImage = result;
     }];
-    
+    cell.indexPath = indexPath;
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ECPhotoScrollVC *psVC = [[ECPhotoScrollVC alloc] init];
+    psVC.albumData = self.albumData;
+    psVC.indexPath = indexPath;
+    [self.navigationController pushViewController:psVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -16,7 +16,7 @@
         self.reportNum.text = @"--";
         self.allDayNum.text = @"--";
         self.praiseCount.text = @"--";
-        self.praiseRanking.text = @"--";
+        self.praiseRanking.titleLabel.text = @"--";
     } else {
         NSMutableAttributedString *reportText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@次",model.ReportNum]];
         [reportText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10] range:NSMakeRange(reportText.length - 1, 1)];
@@ -32,9 +32,14 @@
         
         NSMutableAttributedString *praiseRankingText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@名",[model.GoodsRanking isEqualToString:@"0"] ? @"--" : model.GoodsRanking]];
         [praiseRankingText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10] range:NSMakeRange(praiseRankingText.length - 1, 1)];
-        self.praiseRanking.attributedText = praiseRankingText;
+//        self.praiseRanking.attributedText = praiseRankingText;
+        [self.praiseRanking setAttributedTitle:praiseRankingText forState:UIControlStateNormal];
+        [self.praiseRanking setTitleEdgeInsets:UIEdgeInsetsMake(-10, 0, 0, 0)];
     }
     
+}
+- (IBAction)clickButton:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PraiseRankingList" object:nil];
 }
 
 - (void)awakeFromNib {

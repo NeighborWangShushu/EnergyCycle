@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong) CALayer *maskLayer;
 
+@property (nonatomic, assign) BOOL disable;
+
 @end
 
 @implementation ECPhotoListCell
@@ -31,6 +33,13 @@
     [self.selectedButton setImage:[UIImage imageNamed:ECPhoto_unselected] forState:UIControlStateNormal];
     self.maskLayer.hidden = YES;
     selected = NO;
+    self.disable = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(judge:) name:@"JudgeDisable" object:nil];
+}
+
+- (void)judge:(NSNotification *)notification {
+    NSDictionary *dic = notification.object;
+    self.disable = [dic[@"disable"] boolValue];
 }
 
 - (CALayer *)maskLayer {
@@ -70,15 +79,12 @@
         [button setImage:[UIImage imageNamed:ECPhoto_unselected] forState:UIControlStateNormal];
         self.maskLayer.hidden = YES;
         selected = NO;
-    } else {
+    } else if (!self.disable) {
         [button setImage:[UIImage imageNamed:ECPhoto_selected] forState:UIControlStateNormal];
         self.maskLayer.hidden = NO;
         selected = YES;
     }
-}
-
-- (void)setSelected:(BOOL)selected {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatePhotoArr" object:@{@"imageIndex" : self.indexPath, @"selected" : @(selected)}];
 }
 
 @end
