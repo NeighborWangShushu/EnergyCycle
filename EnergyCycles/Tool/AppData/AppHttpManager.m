@@ -2923,4 +2923,24 @@ static AFHTTPRequestOperationManager *manager;
                      }];
 }
 
+#pragma mark - 112.上传图片有水印
+//数据以multipart/form-data方式上传
+- (void)postArticlePostFileWithImageData:(NSData *)imageData
+                                PostOrGet:(NSString *)postOrGetType
+                                  success:(void (^)(NSDictionary *dict))success
+                                  failure:(void (^)(NSString *str))failure {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
+    
+    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,Article_PostFile] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        if (imageData != nil) {
+            [formData appendPartWithFileData:imageData name:@"header" fileName:@"file.jpg" mimeType:@"image/jpeg"];
+        }
+    }success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(responseObject);
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error.domain);
+    }];
+}
+
 @end

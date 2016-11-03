@@ -130,12 +130,14 @@
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
-        return @"最新获赞排行";
-    } else {
-        return nil;
-    }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 30)];
+    view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.1];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(22, 0, 100, 30)];
+    label.text = @"最新获赞排名";
+    [label setFont:[UIFont systemFontOfSize:14]];
+    [view addSubview:label];
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

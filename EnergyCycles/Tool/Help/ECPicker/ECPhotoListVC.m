@@ -44,6 +44,13 @@ static CGSize itemSize;
     return _photoArr;
 }
 
+- (NSArray *)imageIDArr {
+    if (!_imageIDArr) {
+        self.imageIDArr = [NSMutableArray array];
+    }
+    return _imageIDArr;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
@@ -187,7 +194,23 @@ static CGSize itemSize;
 }
 
 - (void)next {
-    
+    NSMutableArray *imageData = [NSMutableArray array];
+    NSMutableArray *imageID = [NSMutableArray array];
+    for (NSIndexPath *index in self.photoArr) {
+        PHAsset *asset = self.albumData[index.row];
+        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            if (result) {
+                [imageData addObject:result];
+                [imageID addObject:asset.localIdentifier];
+                if (imageData.count == self.photoArr.count && imageID.count == self.photoArr.count) {
+                    if ([self.delegate respondsToSelector:@selector(exportImageData:ID:)]) {
+                        [self.delegate exportImageData:imageData ID:imageID];
+                        [self cancel];
+                    }
+                }
+            }
+        }];
+    }
 }
 
 - (void)cancel {
@@ -246,7 +269,14 @@ static CGSize itemSize;
     
     PHAsset *asset = self.albumData[indexPath.row];
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:itemSize contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-        cell.thumbnailImage = result;
+        if (result) {
+            cell.thumbnailImage = result;
+            if ([self.imageIDArr containsObject:asset.localIdentifier]) {
+                cell.isSelected = YES;
+                cell.indexPath = indexPath;
+                [cell selected];
+            }
+        }
     }];
     cell.indexPath = indexPath;
     return cell;

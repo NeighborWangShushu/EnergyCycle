@@ -10,6 +10,7 @@
 
 @interface OtherReportModel : JSONModel
 
+@property (nonatomic, strong) NSString<Optional> *FirstPic;
 @property (nonatomic, strong) NSString<Optional> *RI_Name;
 @property (nonatomic, strong) NSString<Optional> *RI_Pic;
 @property (nonatomic, strong) NSString<Optional> *RI_Unit;

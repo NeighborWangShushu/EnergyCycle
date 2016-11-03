@@ -115,7 +115,7 @@
         imageView.contentMode = UIViewContentModeScaleAspectFit;
 //        imageView.userInteractionEnabled = YES;
         PHAsset *asset = self.albumData[i];
-        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeMake(Screen_width, Screen_Height) contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
             imageView.image = result;
         }];
         UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(Screen_width * i, 0, Screen_width, Screen_Height -64)];

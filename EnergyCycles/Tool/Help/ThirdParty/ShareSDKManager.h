@@ -29,4 +29,14 @@ typedef void (^result)(SSDKResponseState state);
 
 - (void)shareClientToQQZone:(ShareModel*)model block:(result)result;
 
+- (void)shareClientToWeixinSession:(ShareModel*)model imageUrl:(NSString *)imageUrl block:(result)result;
+
+- (void)shareClientToWeixinTimeLine:(ShareModel*)model imageUrl:(NSString *)imageUrl block:(result)result;
+
+- (void)shareClientToWeibo:(ShareModel*)model imageUrl:(NSString *)imageUrl block:(result)result;
+
+- (void)shareClientToQQSession:(ShareModel*)model imageUrl:(NSString *)imageUrl block:(result)result;
+
+- (void)shareClientToQQZone:(ShareModel*)model imageUrl:(NSString *)imageUrl block:(result)result;
+
 @end

@@ -110,6 +110,8 @@
     if (self.type == ReferralHeadViewTypeRadio) {
         UIButton *moreRadio = [UIButton buttonWithType:UIButtonTypeSystem];
         [moreRadio setTitle:@"更多" forState:UIControlStateNormal];
+        [moreRadio.titleLabel setFont:[UIFont systemFontOfSize:13]];
+        [moreRadio setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [self addSubview:moreRadio];
         [moreRadio addTarget:self action:@selector(moreRadioList) forControlEvents:UIControlEventTouchUpInside];
         [moreRadio mas_makeConstraints:^(MASConstraintMaker *make) {

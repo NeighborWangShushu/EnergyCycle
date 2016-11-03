@@ -1269,4 +1269,11 @@
                      PostOrGet:(NSString *)postOrGetType
                        success:(void (^)(NSDictionary *dict))success
                        failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 112.上传图片有水印
+//数据以multipart/form-data方式上传
+- (void)postArticlePostFileWithImageData:(NSData *)imageData
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure;
 @end

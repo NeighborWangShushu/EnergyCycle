@@ -8,28 +8,47 @@
 
 #import "RadioListTableViewCell.h"
 #import "AFSoundManager.h"
+#import "ECAudioPlayAnimation.h"
+
+@interface RadioListTableViewCell ()
+
+@property (nonatomic, strong) ECAudioPlayAnimation *animation;
+@property (nonatomic, strong) NSString *ID;
+@property (nonatomic, strong) NSURL *cellUrl;
+@property (nonatomic, assign) BOOL isPlay;
+
+@end
 
 @implementation RadioListTableViewCell
 
 - (void)getDataWithModel:(RadioModel *)model {
     
+    self.cellUrl = [NSURL URLWithString:model.RadioUrl];
+    self.ID = model.ID;
     if ([AFSoundManager sharedManager].player.status == AVPlayerStatusReadyToPlay) {
         NSLog(@"111");
-        NSURL *url = [NSURL URLWithString:model.RadioUrl];
-        if ([url isEqual:self.radioUrl]) {
+        if ([self.cellUrl isEqual:self.radioUrl]) {
             NSLog(@"222%@", model.Name);
             [self setAnimation];
         }
+    } else {
+        self.isPlay = NO;
     }
     
     // 电台图片
     [self.radioImage sd_setImageWithURL:[NSURL URLWithString:model.ImgUrl]];
+    self.radioImage.layer.cornerRadius = 5;
+    self.radioImage.layer.masksToBounds = YES;
     
     // 电台名字
     self.radioName.text = model.Name;
     
     // 电台简介
-    self.radioIntro.text = @"简介";
+    if (model.Intro == nil || [model.Intro isEqualToString:@""]) {
+        self.radioIntro.text = @"暂无";
+    } else {
+        self.radioIntro.text = model.Intro;
+    }
     
     [self lineView];
     
@@ -43,37 +62,43 @@
 }
 
 - (void)setAnimation {
-    CGSize size = CGSizeMake(50, 50);
-    CGFloat height = 10;
-    CGFloat height_h = size.height - height;
-    CGFloat width = 10;
-    UIView *firstView = [[UIView alloc] initWithFrame:CGRectMake(0, size.height - height, width, height)];
-    firstView.backgroundColor = [UIColor redColor];
-    UIView *secondView = [[UIView alloc] initWithFrame:CGRectMake(20, size.height - height_h, width, height_h)];
-    secondView.backgroundColor = [UIColor redColor];
-    UIView *thirdView = [[UIView alloc] initWithFrame:CGRectMake(40, size.height - height, width, height)];
-    thirdView.backgroundColor = [UIColor redColor];
-    [self.RadioPlayAnimation addSubview:firstView];
-    [self.RadioPlayAnimation addSubview:secondView];
-    [self.RadioPlayAnimation addSubview:thirdView];
-    
-    [UIView animateWithDuration:0.5
-                          delay:0
-                        options:UIViewAnimationOptionRepeat
-                     animations:^{
-                         firstView.frame = CGRectMake(0, size.height - height_h, width, height_h);
-                         secondView.frame = CGRectMake(20, size.height - height, width, height);
-                         thirdView.frame = CGRectMake(40, size.height - height_h, width, height_h);
-                     } completion:^(BOOL finished) {
-                         
-                     }];
-    
-//    UIView *fourthView = [[UIView alloc] init];
+    self.isPlay = YES;
+    self.animation = [[ECAudioPlayAnimation alloc] initWithFrame:CGRectMake(0, 30, 50, 20)];
+    self.animation.numberOfRect = 6;
+    self.animation.rectColor = [UIColor whiteColor];
+    self.animation.space = 1;
+    self.animation.rectSize = CGSizeMake(50, 20);
+    self.animation.rectWidth = 8;
+    self.RadioPlayAnimation.clipsToBounds = YES;
+    [self.RadioPlayAnimation addSubview:self.animation];
+    [self.animation startAnimation];
 }
 
+- (void)stopAnimation {
+    self.isPlay = NO;
+    [self.animation stopAnimation];
+}
+
+- (void)stopRadioPlayer:(NSNotification *)notification {
+    NSURL *stopUrl = [[notification userInfo] objectForKey:@"radioUrl"];
+    if ([stopUrl isEqual:self.cellUrl]) {
+        [self stopAnimation]; // 停止
+    }
+}
+
+- (void)play {
+    if (!self.isPlay) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RadioCollectionCellPlay" object:nil userInfo:@{@"url" : [NSString stringWithFormat:@"%@", self.cellUrl], @"index" : self.ID}];
+        [self setAnimation];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RadioCollectionCellStop" object:nil userInfo:@{@"url" : [NSString stringWithFormat:@"%@", self.cellUrl], @"index" : self.ID}];
+        [self stopAnimation];
+    }
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopRadioPlayer:) name:@"stopRadioPlayer" object:nil];
     // Initialization code
 }
 

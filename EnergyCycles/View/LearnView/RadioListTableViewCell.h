@@ -25,4 +25,6 @@
 
 - (void)getDataWithModel:(RadioModel *)model;
 
+- (void)play;
+
 @end

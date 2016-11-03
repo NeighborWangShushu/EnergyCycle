@@ -100,17 +100,15 @@
      }];
 }
 
-
 - (void)shareClientToWeixinSession:(ShareModel *)model block:(result)result{
     NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKEnableUseClientShare];
     [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatSession];
     
-    
     [self share:SSDKPlatformSubTypeWechatSession params:shareParams block:^(SSDKResponseState state) {
         result(state);
     }];
-
+    
 }
 
 - (void)shareClientToWeixinTimeLine:(ShareModel *)model block:(result)result {
@@ -127,13 +125,12 @@
 - (void)shareClientToWeibo:(ShareModel *)model block:(result)result {
     NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKEnableUseClientShare];
-    
     [shareParams SSDKSetupSinaWeiboShareParamsByText:model.content title:model.title image:SHARE_IMG url:[NSURL URLWithString:model.shareUrl] latitude:0.0 longitude:0.0 objectID:nil type:SSDKContentTypeWebPage];
     
     [self share:SSDKPlatformTypeSinaWeibo params:shareParams block:^(SSDKResponseState state) {
         result(state);
     }];
-
+    
 }
 
 - (void)shareClientToQQSession:(ShareModel *)model block:(result)result {
@@ -151,7 +148,127 @@
     
     NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKEnableUseClientShare];
+    
     [shareParams SSDKSetupQQParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQZone];
+    
+    [self share:SSDKPlatformSubTypeQZone params:shareParams block:^(SSDKResponseState state) {
+        result(state);
+    }];
+}
+
+- (void)shareClientToWeixinSession:(ShareModel *)model imageUrl:(NSString *)imageUrl block:(result)result{
+    NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKEnableUseClientShare];
+    if (imageUrl == nil || [imageUrl isEqualToString:@""]) {
+        [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatSession];
+    } else {
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadImageWithURL:[NSURL URLWithString:imageUrl]
+                              options:0
+                             progress:nil
+                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                if (image) {
+                                    [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:image image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatSession];
+                                }
+                            }];
+    }
+    
+    [self share:SSDKPlatformSubTypeWechatSession params:shareParams block:^(SSDKResponseState state) {
+        result(state);
+    }];
+
+}
+
+- (void)shareClientToWeixinTimeLine:(ShareModel *)model imageUrl:(NSString *)imageUrl block:(result)result {
+    NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKEnableUseClientShare];
+    if (imageUrl == nil || [imageUrl isEqualToString:@""]) {
+        [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatTimeline];
+    } else {
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadImageWithURL:[NSURL URLWithString:imageUrl]
+                              options:0
+                             progress:nil
+                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                if (image) {
+                                    [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:image image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatTimeline];
+
+                                }
+                            }];
+    }
+    
+    [self share:SSDKPlatformSubTypeWechatTimeline params:shareParams block:^(SSDKResponseState state) {
+        result(state);
+    }];
+    
+}
+
+- (void)shareClientToWeibo:(ShareModel *)model imageUrl:(NSString *)imageUrl block:(result)result {
+    NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKEnableUseClientShare];
+    if (imageUrl == nil || [imageUrl isEqualToString:@""]) {
+        [shareParams SSDKSetupSinaWeiboShareParamsByText:model.content title:model.title image:SHARE_IMG url:[NSURL URLWithString:model.shareUrl] latitude:0.0 longitude:0.0 objectID:nil type:SSDKContentTypeWebPage];
+    } else {
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadImageWithURL:[NSURL URLWithString:imageUrl]
+                              options:0
+                             progress:nil
+                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                if (image) {
+                                    [shareParams SSDKSetupSinaWeiboShareParamsByText:model.content title:model.title image:image url:[NSURL URLWithString:model.shareUrl] latitude:0.0 longitude:0.0 objectID:nil type:SSDKContentTypeWebPage];
+                                }
+                            }];
+    }
+    
+    [self share:SSDKPlatformTypeSinaWeibo params:shareParams block:^(SSDKResponseState state) {
+        result(state);
+    }];
+
+}
+
+- (void)shareClientToQQSession:(ShareModel *)model imageUrl:(NSString *)imageUrl block:(result)result {
+    
+    NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKEnableUseClientShare];
+    
+    if (imageUrl == nil || [imageUrl isEqualToString:@""]) {
+        [shareParams SSDKSetupQQParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:SHARE_IMG type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQQFriend];
+    } else {
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadImageWithURL:[NSURL URLWithString:imageUrl]
+                              options:0
+                             progress:nil
+                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                if (image) {
+                                    [shareParams SSDKSetupQQParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:image image:SHARE_IMG type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQQFriend];
+                                }
+                            }];
+    }
+    
+    [self share:SSDKPlatformSubTypeQQFriend params:shareParams block:^(SSDKResponseState state) {
+        result(state);
+    }];
+}
+
+- (void)shareClientToQQZone:(ShareModel *)model imageUrl:(NSString *)imageUrl block:(result)result {
+    
+    NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKEnableUseClientShare];
+    
+    if (imageUrl == nil || [imageUrl isEqualToString:@""]) {
+        [shareParams SSDKSetupQQParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQZone];
+    } else {
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadImageWithURL:[NSURL URLWithString:imageUrl]
+                              options:0
+                             progress:nil
+                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                if (image) {
+                                    [shareParams SSDKSetupQQParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:image image:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQZone];
+                                }
+                            }];
+    }
+    
     
     [self share:SSDKPlatformSubTypeQZone params:shareParams block:^(SSDKResponseState state) {
         result(state);

@@ -29,7 +29,9 @@
 #import "ShareSDKManager.h"
 #import "SLALertManager.h"
 
-@interface ReportEveryPKViewController () <UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ZYQAssetPickerControllerDelegate,XHImageViewerDelegate> {
+#import "ECPickerController.h"
+
+@interface ReportEveryPKViewController () <UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ZYQAssetPickerControllerDelegate,XHImageViewerDelegate,ECPickerControllerDelegate> {
     UIButton *rightButton;
     UICollectionView *oneCellCollectionView;
     
@@ -47,6 +49,8 @@
     UIAlertView *delAlertView;
     
     NSMutableArray *sharesArray;
+    
+    NSMutableArray *imageIDArr; // 图片ID数组
     
     NSString *shareStr;
     NSString *RID;
@@ -71,6 +75,7 @@
     self.title = @"汇报";
     
     sharesArray = [[NSMutableArray alloc] init];
+    imageIDArr = [[NSMutableArray alloc] init];
     
     _imageUrlArr = [[NSMutableArray alloc] init];
     postDict = [[NSMutableDictionary alloc] init];
@@ -237,6 +242,7 @@
         if (buttonIndex == 1) {
             [_selectImgArray removeObjectAtIndex:delAlertView.tag];
             [_selectImgArrayLocal removeObjectAtIndex:delAlertView.tag];
+            [imageIDArr removeObjectAtIndex:delAlertView.tag];
             
             ReportThrTableViewCell *cell = [reportTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
             [cell.showImageCollectionView reloadData];
@@ -455,7 +461,8 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model block:^(SSDKResponseState state) {
+    NSString *shareImageUrl = _imageUrlArr[0];
+    [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
             {
@@ -492,7 +499,8 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    [[ShareSDKManager shareInstance] shareClientToWeixinSession:model block:^(SSDKResponseState state) {
+    NSString *shareImageUrl = _imageUrlArr[0];
+    [[ShareSDKManager shareInstance] shareClientToWeixinSession:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
             {
@@ -530,7 +538,8 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {
+    NSString *shareImageUrl = _imageUrlArr[0];
+    [[ShareSDKManager shareInstance] shareClientToWeibo:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
             {
@@ -567,7 +576,8 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    [[ShareSDKManager shareInstance] shareClientToQQSession:model block:^(SSDKResponseState state) {
+    NSString *shareImageUrl = _imageUrlArr[0];
+    [[ShareSDKManager shareInstance] shareClientToQQSession:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
             {
@@ -645,7 +655,7 @@
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
     [SVProgressHUD showWithStatus:@"提交中.."];
     
-    [[AppHttpManager shareInstance] postPostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postArticlePostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             _tempIndex++;
             NSString * imgURL=[dict[@"Data"] firstObject];
@@ -983,8 +993,29 @@
         [self takePhoto:UIImagePickerControllerSourceTypeCamera];
     }else if(buttonIndex==0){
         // 获取本地图片
-        [self LocalPhoto];
+        // [self LocalPhoto];
+        [self createPhotoPicker];
     }
+}
+
+#pragma mark -----自定义相册
+- (void)createPhotoPicker {
+    ECPickerController *picker = [[ECPickerController alloc] init];
+    picker.imageIDArr = imageIDArr;
+    picker.delegate = self;
+    [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark -----自定义相册代理
+- (void)exportImageData:(NSArray *)imageData ID:(NSArray *)ID {
+    [imageIDArr removeAllObjects];
+    [_selectImgArray removeAllObjects];
+    [_selectImgArrayLocal removeAllObjects];
+    [imageIDArr addObjectsFromArray:ID];
+    [_selectImgArray addObjectsFromArray:imageData];
+    [_selectImgArrayLocal addObjectsFromArray:imageData];
+    ReportThrTableViewCell *cell = [reportTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+    [cell.showImageCollectionView reloadData];
 }
 
 - (void)takePhoto:(NSInteger)type {

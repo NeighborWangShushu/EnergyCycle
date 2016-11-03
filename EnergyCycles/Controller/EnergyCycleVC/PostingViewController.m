@@ -34,8 +34,9 @@
 #import "EnergyPostShareView.h"
 #import "EnergyPostView.h"
 
+#import "ECPickerController.h"
 
-@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,ECShareCellDelegate,SDPhotoBrowserDelegate,SDPhotoBrowserDelegate,EnergyPostCollectionViewCellDelegate,ECPAlertWhoCellDelegate,ECContactVCDelegate,UIActionSheetDelegate,ECPostShareDelegate> {
+@interface PostingViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ZYQAssetPickerControllerDelegate,UIAlertViewDelegate,XHImageViewerDelegate,ECShareCellDelegate,SDPhotoBrowserDelegate,SDPhotoBrowserDelegate,EnergyPostCollectionViewCellDelegate,ECPAlertWhoCellDelegate,ECContactVCDelegate,UIActionSheetDelegate,ECPostShareDelegate,ECPickerControllerDelegate> {
     NSMutableDictionary *postDict;
     NSMutableArray *_dataArr;
     NSMutableArray *_selectImgArray;
@@ -62,6 +63,8 @@
 @property (nonatomic,strong)NSMutableArray * contacts;
 @property (nonatomic,strong)NSMutableArray * contactIds;
 @property (nonatomic,strong)ECPAlertWhoView*alertWhoView;
+
+@property (nonatomic, strong) NSMutableArray *imageIDArr; // 存储图片的ID
 
 @end
 
@@ -93,6 +96,7 @@
     
     _selectImgArray = [[NSMutableArray alloc] initWithCapacity:1];
     _selectImgArrayLocal = [[NSMutableArray alloc] initWithCapacity:1];
+    _imageIDArr = [[NSMutableArray alloc] initWithCapacity:1];
     _contacts = [NSMutableArray array];
     _sharesArray = [NSMutableArray array];
     _contactIds = [NSMutableArray array];
@@ -128,6 +132,7 @@
                     UIImage*img = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imgpath];
                     [_selectImgArrayLocal addObject:img];
                     [_selectImgArray addObject:img];
+                    [_imageIDArr addObject:imgpath];
                 }
                 [self.collectionView reloadData];
             }
@@ -224,6 +229,7 @@
             UIImage*img = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imgpath];
             [_selectImgArrayLocal addObject:img];
             [_selectImgArray addObject:img];
+            [_imageIDArr addObject:imgpath];
         }
         [self.collectionView reloadData];
     }
@@ -309,7 +315,8 @@
         _model.time = [[NSDate date] jk_stringWithFormat:@"YYYY-MM-dd"];
         NSMutableArray * keys = [NSMutableArray array];
         for (int i = 0; i < _selectImgArrayLocal.count; i++) {
-            NSString*key = [NSString stringWithFormat:@"%@_%d",[[NSDate date] jk_stringWithFormat:@"YYYYMMddHHmmssSSS"],i];
+//            NSString*key = [NSString stringWithFormat:@"%@_%d",[[NSDate date] jk_stringWithFormat:@"YYYYMMddHHmmssSSS"],i];
+            NSString *key = _imageIDArr[i];
             UIImage*img = _selectImgArrayLocal[i];
             if (img) {
                 [[SDImageCache sharedImageCache] storeImage:img forKey:key toDisk:YES];
@@ -457,7 +464,7 @@
 
 -(void)submitImage:(NSData*)imageData {
     
-    [[AppHttpManager shareInstance] postPostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postArticlePostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             _tempIndex++;
             isSubmitImg = YES;
@@ -606,7 +613,8 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model block:^(SSDKResponseState state) {
+    NSString *shareImageUrl = _dataArr[0];
+    [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
             {
@@ -631,7 +639,8 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    [[ShareSDKManager shareInstance] shareClientToWeixinSession:model block:^(SSDKResponseState state) {
+    NSString *shareImageUrl = _dataArr[0];
+    [[ShareSDKManager shareInstance] shareClientToWeixinSession:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
             {
@@ -657,7 +666,8 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {
+    NSString *shareImageUrl = _dataArr[0];
+    [[ShareSDKManager shareInstance] shareClientToWeibo:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
             {
@@ -684,7 +694,8 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    [[ShareSDKManager shareInstance] shareClientToQQSession:model block:^(SSDKResponseState state) {
+    NSString *shareImageUrl = _dataArr[0];
+    [[ShareSDKManager shareInstance] shareClientToQQSession:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
             {
@@ -758,6 +769,7 @@
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *  action) {
         [_selectImgArray removeObjectAtIndex:index];
         [_selectImgArrayLocal removeObjectAtIndex:index];
+        [_imageIDArr removeObjectAtIndex:index];
         [self.collectionView reloadData];
         [self updateCollectionHeight];
     }];
@@ -874,7 +886,7 @@
             [self takePhoto:UIImagePickerControllerSourceTypeCamera];
         }else if(buttonIndex==0){
             // 获取本地图片
-            [self LocalPhoto];
+            [self craetePhotoPicker];
         }
 
     }
@@ -897,6 +909,23 @@
     }else {
         NSLog(@"该设备无摄像头");
     }
+}
+#pragma mark -----自定义相册
+- (void)craetePhotoPicker {
+    ECPickerController *picker = [[ECPickerController alloc] init];
+    picker.imageIDArr = self.imageIDArr;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark -----自定义相册代理方法
+- (void)exportImageData:(NSArray *)imageData ID:(NSArray *)ID {
+    [_selectImgArrayLocal removeAllObjects];
+    [_imageIDArr removeAllObjects];
+    [_selectImgArrayLocal addObjectsFromArray:imageData];
+    [_imageIDArr addObjectsFromArray:ID];
+    [self updateCollectionHeight];
+    [self.collectionView reloadData];
 }
 
 -(void)LocalPhoto{

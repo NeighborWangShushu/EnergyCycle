@@ -185,7 +185,7 @@
 {
     NSArray *likeItemsArray = [NSArray array];
     if (likeItemsArrays.count >= 10) {
-        likeItemsArray = [likeItemsArrays objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 10)]];
+        likeItemsArray = [likeItemsArrays objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 9)]];
     } else {
         likeItemsArray = likeItemsArrays;
     }

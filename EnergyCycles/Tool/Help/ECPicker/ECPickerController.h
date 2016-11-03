@@ -12,4 +12,8 @@
 
 @interface ECPickerController : UINavigationController
 
+@property (nonatomic, strong) NSMutableArray *imageIDArr;
+
+@property (nonatomic, assign) id<ECPickerControllerDelegate> delegate;
+
 @end

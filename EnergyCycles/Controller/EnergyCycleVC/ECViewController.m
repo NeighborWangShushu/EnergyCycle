@@ -1142,6 +1142,7 @@
     shareView.alpha = 0.0;
     shareView.shareTitle = model.msgContent;
     shareView.shareText = model.msgContent;
+    shareView.shareImageUrl = model.picNamesArray[0];
     NSString * share_url = @"";
     share_url = [NSString stringWithFormat:@"%@%@?aid=%@",INTERFACE_URL,ArticleDetailAspx,model.ID];
     shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];

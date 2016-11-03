@@ -18,8 +18,8 @@
 // 获赞个数
 @property (weak, nonatomic) IBOutlet UILabel *praiseCount;
 // 获赞排名
-//@property (weak, nonatomic) IBOutlet UILabel *praiseRanking;
-@property (weak, nonatomic) IBOutlet UIButton *praiseRanking;
+@property (weak, nonatomic) IBOutlet UILabel *praiseRanking;
+//@property (weak, nonatomic) IBOutlet UIButton *praiseRanking;
 
 - (void)getDataWithModel:(PkSummaryModel *)model;
 

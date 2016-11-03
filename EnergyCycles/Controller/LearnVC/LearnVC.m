@@ -30,6 +30,7 @@
     HMSegmentedControl *segmentedControl1;
     LearnPageViewController*currentPageViewController;
     int lastPlayIndex;
+    NSURL *radioUrl;
     NSInteger currentSegmentIndex;
     NSString * weburl;
     BOOL isGotoDetail;
@@ -40,7 +41,7 @@
 @property (nonatomic,strong)UIPageViewController * pageController;
 @property (nonatomic,strong)NSMutableArray * pageTags; //当前定制的标签
 @property (nonatomic,strong)NSMutableArray * otherTags; //当前定制的标签
-@property (nonatomic, strong) NSURL *radioUrl; // 电台的url
+@property (nonatomic, strong) NSURL *playRadioUrl; // 电台的url
 
 @end
 
@@ -71,6 +72,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     lastPlayIndex = -1;
+    radioUrl = nil;
     self.otherTags = [NSMutableArray array];
     self.pageTags  = [NSMutableArray array];
     delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
@@ -181,6 +183,7 @@
     NSString * title        = [userInfo objectForKey:@"title"];
     NSString * content      = [userInfo objectForKey:@"content"];
     NSNumber * type         = [userInfo objectForKey:@"type"];
+    NSString * pic          = [userInfo objectForKey:@"pic"];
     
     
     [delegate.tabbarController hideTabbar:YES];
@@ -194,6 +197,7 @@
     learnVC.courseType = course;
     learnVC.learnTitle = title;
     learnVC.learnContent = content;
+    learnVC.shareImage = pic;
     [self.navigationController pushViewController:learnVC animated:YES];
 }
 
@@ -221,7 +225,7 @@
 - (void)radioList {
     [delegate.tabbarController hideTabbar:YES];
     RadioListVC *radioVC = [[RadioListVC alloc] init];
-    radioVC.radioUrl = self.radioUrl;
+    radioVC.radioUrl = self.playRadioUrl;
     [self.navigationController pushViewController:radioVC animated:YES];
 }
 
@@ -250,13 +254,14 @@
     delegate.audioPlayIndex = audioindex;
     
     if (lastPlayIndex != -1) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopRadioPlayer" object:nil userInfo:@{@"index":[NSString stringWithFormat:@"%i",lastPlayIndex]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopRadioPlayer" object:nil userInfo:@{@"index":[NSString stringWithFormat:@"%i",lastPlayIndex], @"radioUrl" : self.playRadioUrl}];
     }
     
     NSString * index = [dic objectForKey:@"index"];
     lastPlayIndex = [index intValue];
+    radioUrl = [NSURL URLWithString:url];
     
-    self.radioUrl = [NSURL URLWithString:url];
+    self.playRadioUrl = [NSURL URLWithString:url];
     
     [self play:url];
 }
@@ -268,7 +273,7 @@
 }
 
 - (void)stopAudio {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"stopRadioPlayer" object:nil userInfo:@{@"index":[NSString stringWithFormat:@"%i",lastPlayIndex]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"stopRadioPlayer" object:nil userInfo:@{@"index":[NSString stringWithFormat:@"%i",lastPlayIndex], @"radioUrl" : radioUrl}];
     [[AFSoundManager sharedManager] stop];
 }
 

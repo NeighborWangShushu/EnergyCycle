@@ -8,10 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ECPickerControllerDelegate <NSObject>
+
+@optional
+- (void)exportImageData:(NSArray *)imageData ID:(NSArray *)ID;
+
+@end
+
 @import Photos;
 
 @interface ECPhotoListVC : UIViewController
 
 @property (nonatomic, strong) PHFetchResult *fetchResult;
+
+@property (nonatomic, assign) id<ECPickerControllerDelegate> delegate;
+
+@property (nonatomic, strong) NSArray *imageIDArr;
 
 @end

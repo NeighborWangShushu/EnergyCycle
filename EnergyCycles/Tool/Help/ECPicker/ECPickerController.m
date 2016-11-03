@@ -10,21 +10,33 @@
 
 @interface ECPickerController ()
 
+@property (nonatomic, strong) ECPhotoListVC *photoVC;
+
 @end
 
 @implementation ECPickerController
 
 - (instancetype)init {
-    self = [super initWithRootViewController:[[ECPhotoListVC alloc] init]];
+    self = [super init];
     if (self) {
-
+        
     }
     return self;
 }
 
+- (NSMutableArray *)imageIDArr {
+    if (!_imageIDArr) {
+        self.imageIDArr = [NSMutableArray array];
+    }
+    return _imageIDArr;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.photoVC = [[ECPhotoListVC alloc] init];
+    self.photoVC.imageIDArr = self.imageIDArr;
+    self.photoVC.delegate = self.delegate;
+    self.viewControllers = @[self.photoVC];
 //    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
 //    
 //    self.navigationItem.leftBarButtonItem = left;

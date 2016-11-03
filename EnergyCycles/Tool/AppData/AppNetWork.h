@@ -424,4 +424,7 @@
 //111.获赞排名
 #define Good_Order                 @"pk/APP_REPORTITEM_Goods_Order"
 
+//112.上传图片有水印
+#define Article_PostFile           @"Other/Article_PostFile"
+
 #endif

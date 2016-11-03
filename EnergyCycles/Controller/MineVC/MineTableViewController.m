@@ -166,9 +166,9 @@
             //            enVC.userId = self.model.use_id;
             //            enVC.isMineTableView = YES;
             //            [self.navigationController pushViewController:enVC animated:YES];
-            [self.delegate.tabbarController hideTabbar:YES];
-            ECPickerController *picker = [[ECPickerController alloc] init];
-            [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
+            // [self.delegate.tabbarController hideTabbar:YES];
+            // ECPickerController *picker = [[ECPickerController alloc] init];
+            // [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
         } else if (indexPath.row == 1) { // 我的资料
             [self.delegate.tabbarController hideTabbar:YES];
             MyProfileViewController *myVC = MainStoryBoard(@"MyProfileViewController");

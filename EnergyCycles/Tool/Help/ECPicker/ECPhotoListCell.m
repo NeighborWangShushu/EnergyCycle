@@ -11,9 +11,7 @@
 #define ECPhoto_selected @"ecphoto_selected"
 #define ECPhoto_unselected @"ecphoto_unselected"
 
-@interface ECPhotoListCell () {
-    BOOL selected;
-}
+@interface ECPhotoListCell ()
 
 @property (nonatomic, strong) UIButton *selectedButton;
 
@@ -32,7 +30,7 @@
     self.imageView.image = thumbnailImage;
     [self.selectedButton setImage:[UIImage imageNamed:ECPhoto_unselected] forState:UIControlStateNormal];
     self.maskLayer.hidden = YES;
-    selected = NO;
+    self.isSelected = NO;
     self.disable = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(judge:) name:@"JudgeDisable" object:nil];
 }
@@ -74,17 +72,25 @@
     return _selectedButton;
 }
 
-- (void)clickSelectedButton:(UIButton *)button {
-    if (selected) {
-        [button setImage:[UIImage imageNamed:ECPhoto_unselected] forState:UIControlStateNormal];
-        self.maskLayer.hidden = YES;
-        selected = NO;
-    } else if (!self.disable) {
-        [button setImage:[UIImage imageNamed:ECPhoto_selected] forState:UIControlStateNormal];
+- (void)selected {
+    if (self.isSelected) {
+        [self.selectedButton setImage:[UIImage imageNamed:ECPhoto_selected] forState:UIControlStateNormal];
         self.maskLayer.hidden = NO;
-        selected = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatePhotoArr" object:@{@"imageIndex" : self.indexPath, @"selected" : @(self.isSelected)}];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatePhotoArr" object:@{@"imageIndex" : self.indexPath, @"selected" : @(selected)}];
+}
+
+- (void)clickSelectedButton:(UIButton *)button {
+    if (self.isSelected) {
+        [self.selectedButton setImage:[UIImage imageNamed:ECPhoto_unselected] forState:UIControlStateNormal];
+        self.maskLayer.hidden = YES;
+        self.isSelected = NO;
+    } else if (!self.disable) {
+        [self.selectedButton setImage:[UIImage imageNamed:ECPhoto_selected] forState:UIControlStateNormal];
+        self.maskLayer.hidden = NO;
+        self.isSelected = YES;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatePhotoArr" object:@{@"imageIndex" : self.indexPath, @"selected" : @(self.isSelected)}];
 }
 
 @end

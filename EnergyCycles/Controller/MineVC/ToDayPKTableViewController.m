@@ -90,6 +90,7 @@
 - (void)toDayViewControllerShare {
     if (self.dataArray.count) {
         NSString *contentStr = @"";
+        NSString *firstPic = @"";
         for (NSInteger i=0; i<self.dataArray.count; i++) {
             OtherReportModel *model = (OtherReportModel *)self.dataArray[i];
             
@@ -98,12 +99,18 @@
             }else {
                 contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
             }
+            
+            if ([firstPic isEqualToString:@""]) {
+                firstPic = model.FirstPic;
+            }
+            
         }
         NSString *shareStr = [NSString stringWithFormat:@"我今天%@，加入能量圈，和我一起PK吧！",contentStr];
         shareView = [[XMShareView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height)];
         shareView.alpha = 0.0;
         shareView.shareTitle = shareStr;
         shareView.shareText = @"";
+        shareView.shareImageUrl = firstPic;
         NSString * share_url = @"";
         share_url = [NSString stringWithFormat:@"%@/html/DailyPK/DailyPKDetail.aspx?RID=%@", INTERFACE_URL, self.RID];
         shareView.shareUrl = share_url;

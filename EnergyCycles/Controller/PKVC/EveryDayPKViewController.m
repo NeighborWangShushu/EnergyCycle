@@ -19,7 +19,7 @@
 #import "MineEveryDayPKViewController.h"
 #import "MineHomePageViewController.h"
 
-@interface EveryDayPKViewController ()  <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
+@interface EveryDayPKViewController ()  <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     UIView *headLineView;
     UIView *everyPKShowHeadView;
     UICollectionView *headCollectionView;
@@ -32,6 +32,8 @@
     NSMutableArray *_headDataArr;
     EveryDPKPMModel *pushModel;
 }
+
+@property (nonatomic, strong) UIImagePickerController *picker;
 
 @end
 
@@ -46,7 +48,7 @@ static BOOL isShowAll = NO;
     touchIndex = 0;
     
     _headDataArr = [[NSMutableArray alloc] init];
-    
+    [self getHeadCollectionViewData];
     [self setupRightNavBarWithimage:@"35pen_.png"];
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     [self creatHeadCollectionView];
@@ -65,7 +67,8 @@ static BOOL isShowAll = NO;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
     
-    [self getHeadCollectionViewData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changePKBackgroundImage) name:@"changePKBackgroundImage" object:nil];
+
 }
 
 #pragma mark - 获取头 分类 网络数据
@@ -97,6 +100,55 @@ static BOOL isShowAll = NO;
         [self.view insertSubview:everyPKShowHeadView atIndex:self.view.subviews.count-1];
     } failure:^(NSString *str) {
         NSLog(@"%@",str);
+    }];
+}
+
+#pragma mark - 更换PK背景图
+- (void)changePKBackgroundImage {
+    if (!self.picker) {
+        self.picker = [[UIImagePickerController alloc] init];
+        self.picker.delegate = self;
+        self.picker.allowsEditing = YES;
+        self.picker.navigationBar.tintColor = [UIColor whiteColor];
+    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"设置封面" message:@"您可先设置封面,当您成为第一名时自动替换该封面" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self.view.window.rootViewController presentViewController:self.picker animated:YES completion:nil];
+    }];
+    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self.view.window.rootViewController presentViewController:self.picker animated:YES completion:nil];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cameraAction];
+    [alert addAction:photoAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+    [viewController.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
+    [self.picker dismissViewControllerAnimated:YES completion:nil];
+    [[AppHttpManager shareInstance] postPostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            [[AppHttpManager shareInstance] getChangeMyPkImgWithUserId:[User_ID intValue] Token:User_TOKEN PkImg:dict[@"Data"] PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    [SVProgressHUD showImage:nil status:@"设置完成"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadPKHeadViewData" object:nil];
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@", str);
+            }];
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
     }];
 }
 
@@ -255,7 +307,9 @@ static BOOL isShowAll = NO;
         cell = [[[NSBundle mainBundle] loadNibNamed:@"PkEveryDayViewCell" owner:self options:nil] lastObject];
     }
     cell.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:240/255.0 alpha:1];
-    
+    cell.backImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changePKBackgroundImage)];
+    [cell.backImageView addGestureRecognizer:singleTap];
     if (_headDataArr.count) {
         EveryDayPKModel *model = (EveryDayPKModel *)_headDataArr[indexPath.row];
         [cell pkShowCollectionGetDataWithIndex:model];
@@ -366,6 +420,10 @@ static BOOL isShowAll = NO;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
 }
 
 

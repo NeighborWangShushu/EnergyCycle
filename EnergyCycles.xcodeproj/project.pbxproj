@@ -575,6 +575,9 @@
 		629495051D6BED2500B13A3F /* inbox-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 629495031D6BED2500B13A3F /* inbox-icon@2x.png */; };
 		629495061D6BED2500B13A3F /* inbox-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 629495041D6BED2500B13A3F /* inbox-icon@3x.png */; };
 		6297DDA41D3E0736004E42AA /* MineUserDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6297DDA31D3E0736004E42AA /* MineUserDateModel.m */; };
+		629F6D761DC708D5005B75E3 /* ECAudioPlayAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 629F6D751DC708D5005B75E3 /* ECAudioPlayAnimation.m */; };
+		62A60CBA1DCB19500028E326 /* pkBgImgSetting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62A60CB81DCB19500028E326 /* pkBgImgSetting@2x.png */; };
+		62A60CBB1DCB19500028E326 /* pkBgImgSetting@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62A60CB91DCB19500028E326 /* pkBgImgSetting@3x.png */; };
 		62A93BD61D361EA200343B63 /* MineHomePageHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */; };
 		62A93BD81D361EBC00343B63 /* MineHomePageHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */; };
 		62A93BDC1D3628B600343B63 /* MineHomePageHeadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A93BDB1D3628B600343B63 /* MineHomePageHeadModel.m */; };
@@ -2428,6 +2431,10 @@
 		6297DDA21D3E0736004E42AA /* MineUserDateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineUserDateModel.h; sourceTree = "<group>"; };
 		6297DDA31D3E0736004E42AA /* MineUserDateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineUserDateModel.m; sourceTree = "<group>"; };
 		629E41D31D3500E200695296 /* MineHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageViewController.h; sourceTree = "<group>"; };
+		629F6D741DC708D5005B75E3 /* ECAudioPlayAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAudioPlayAnimation.h; sourceTree = "<group>"; };
+		629F6D751DC708D5005B75E3 /* ECAudioPlayAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAudioPlayAnimation.m; sourceTree = "<group>"; };
+		62A60CB81DCB19500028E326 /* pkBgImgSetting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pkBgImgSetting@2x.png"; sourceTree = "<group>"; };
+		62A60CB91DCB19500028E326 /* pkBgImgSetting@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pkBgImgSetting@3x.png"; sourceTree = "<group>"; };
 		62A93BD41D361EA200343B63 /* MineHomePageHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHomePageHeadView.h; sourceTree = "<group>"; };
 		62A93BD51D361EA200343B63 /* MineHomePageHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHomePageHeadView.m; sourceTree = "<group>"; };
 		62A93BD71D361EBC00343B63 /* MineHomePageHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineHomePageHeadView.xib; sourceTree = "<group>"; };
@@ -4811,6 +4818,8 @@
 		26D99D4F1C0C4D7B007AF579 /* PK */ = {
 			isa = PBXGroup;
 			children = (
+				62A60CB81DCB19500028E326 /* pkBgImgSetting@2x.png */,
+				62A60CB91DCB19500028E326 /* pkBgImgSetting@3x.png */,
 				62F60E7E1D532B3000EE7E9B /* addPraise.png */,
 				62F60E7F1D532B3000EE7E9B /* addPraise@3x.png */,
 				62F60E801D532B3000EE7E9B /* praise.png */,
@@ -4962,6 +4971,8 @@
 				D06215DD1D6E891A00D3845E /* SLALertManager.h */,
 				D06215DE1D6E891A00D3845E /* SLALertManager.m */,
 				625AD2741D9295B300435FC2 /* ECPicker */,
+				629F6D741DC708D5005B75E3 /* ECAudioPlayAnimation.h */,
+				629F6D751DC708D5005B75E3 /* ECAudioPlayAnimation.m */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -8521,6 +8532,7 @@
 				26D8B2451C0FEEE900A1DB04 /* 26_1@3x.png in Resources */,
 				D029F9521D81372B00FC6EE2 /* badge_50@2x.png in Resources */,
 				625AD2851D9295B300435FC2 /* AlbumNoAsset@3x.png in Resources */,
+				62A60CBA1DCB19500028E326 /* pkBgImgSetting@2x.png in Resources */,
 				DA9A95441C23ABEE00FBE107 /* shenqing@3x.png in Resources */,
 				62D35ABF1D59A859009E84C4 /* give@3x.png in Resources */,
 				DA677B711C3A6E11004A534E /* QDDT00007.png in Resources */,
@@ -8689,6 +8701,7 @@
 				DA7D19C61C5AF84600FFB337 /* 4_1366x768.jpeg in Resources */,
 				DAF48DA21C1E530C00D9C136 /* dianhua_@2x.png in Resources */,
 				DA8AFF7C1C2A9D300064B9A7 /* minebeijing@2x.png in Resources */,
+				62A60CBB1DCB19500028E326 /* pkBgImgSetting@3x.png in Resources */,
 				D00AD7E31D4B451B004AB05A /* 2_038.png in Resources */,
 				26D8B1E11C0FEEE900A1DB04 /* bg@3x.png in Resources */,
 				D07EB28E1D18DE6800840AC2 /* chat_animation_white3.png in Resources */,
@@ -9596,6 +9609,7 @@
 				DA68D5C81C96A46E0073E0F6 /* MineTheAdvTwoViewCell.m in Sources */,
 				D04B54951D23C85A00DC259A /* SDWaitingView.m in Sources */,
 				D07E24291D115E0100854B51 /* ArticleView.m in Sources */,
+				629F6D761DC708D5005B75E3 /* ECAudioPlayAnimation.m in Sources */,
 				D07EB25D1D18DE6800840AC2 /* EmojiMapSymbols.m in Sources */,
 				D07E24041D111A6000854B51 /* BannerItem.m in Sources */,
 				D04B54D11D23C90D00DC259A /* MLExpressionManager.m in Sources */,
@@ -9882,8 +9896,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gong Hai (U5V584Z73H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
