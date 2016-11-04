@@ -885,8 +885,8 @@
             // 选择拍照
             [self takePhoto:UIImagePickerControllerSourceTypeCamera];
         }else if(buttonIndex==0){
-            // 获取本地图片
-            [self craetePhotoPicker];
+            // 判断是否有相册权限
+            [self createPhotoPicker];
         }
 
     }
@@ -911,7 +911,8 @@
     }
 }
 #pragma mark -----自定义相册
-- (void)craetePhotoPicker {
+- (void)createPhotoPicker {
+    
     ECPickerController *picker = [[ECPickerController alloc] init];
     picker.imageIDArr = self.imageIDArr;
     picker.delegate = self;

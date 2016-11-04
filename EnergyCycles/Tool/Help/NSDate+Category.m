@@ -22,24 +22,37 @@
 - (NSString *)timeIntervalDescription
 {
     NSTimeInterval timeInterval = -[self timeIntervalSinceNow];
-	if (timeInterval < 60) {
-        return @"刚刚";
-	} else if (timeInterval < 3600) {
-        return @"一小时前";
-	}
-    else if(timeInterval < 86400 && timeInterval > 3600) {
-        return @"几小时前";
-    }else if (timeInterval < 86400) {
-        return @"昨天";
-	} else if (timeInterval < 2592000) {//30天内
-        return @"一个月内";
-    } else if (timeInterval < 5184000) {
-        return @"一个月前";
-    }else if (timeInterval < 31536000) {//30天至1年内
-//        NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterWithFormat:NSLocalizedString(@"NSDateCategory.text5", @"")];
-        return @"几个月前";
+    NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd"];
+    NSString *day = [dateFormatter stringFromDate:self];
+    if ([self isThisYear]) {
+        if (timeInterval < 60) {
+            return @"刚刚";
+        } else if (timeInterval < 3600) {
+            NSInteger timeCount = timeInterval / 60;
+            return [NSString stringWithFormat:@"%ld分钟前", timeCount];
+            // return @"一小时前";
+        }
+        else if(timeInterval < 86400 && timeInterval > 3600) {
+            NSInteger timeCount = timeInterval / 3600;
+            return [NSString stringWithFormat:@"%ld小时前", timeCount];
+            // return @"几小时前";
+        }else if (timeInterval < 86400) {
+            return @"昨天";
+        } else {
+            return [day substringFromIndex:5];
+        }
+        //else if (timeInterval < 2592000) {//30天内
+        //    return @"一个月内";
+        //} else if (timeInterval < 5184000) {
+        //    return @"一个月前";
+        //}else if (timeInterval < 31536000) {//30天至1年内
+        //    //        NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterWithFormat:NSLocalizedString(@"NSDateCategory.text5", @"")];
+        //    return @"几个月前";
+        //} else {
+        //    return @"几年前";
+        //}
     } else {
-        return @"几年前";
+        return [day substringFromIndex:2];
     }
 }
 

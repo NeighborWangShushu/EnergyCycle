@@ -337,7 +337,7 @@
                 contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.name,numStr,model.unit];
             }
         }
-        shareStr = [NSString stringWithFormat:@"我刚才完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
+        shareStr = [NSString stringWithFormat:@"【%@蜕变之旅】我刚才完成了%@，欢迎到每日PK来挑战我！【来自能量圈APP-每日PK】", User_NAME, contentStr];
         
         if (onPost) {
 //            NSString *shareStr = @"";

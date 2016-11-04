@@ -9,6 +9,7 @@
 #import "PraiseRankingTableVC.h"
 #import "PraiseRankingTableViewCell.h"
 #import "GifHeader.h"
+#import "MineHomePageViewController.h"
 
 @interface PraiseRankingTableVC () {
     int pageIndex;
@@ -159,6 +160,18 @@
     [cell getDataWithModel:model];
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MineHomePageViewController *mineVC = MainStoryBoard(@"MineHomePageViewController");
+    PraiseRankingModel *model = [[PraiseRankingModel alloc] init];
+    if (indexPath.section == 0) {
+        model = self.userModel;
+    } else {
+        model = self.dataArray[indexPath.row];
+    }
+    mineVC.userId = model.M_ID;
+    [self.navigationController pushViewController:mineVC animated:YES];
 }
 
 /*

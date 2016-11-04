@@ -45,7 +45,7 @@
     
     // 电台简介
     if (model.Intro == nil || [model.Intro isEqualToString:@""]) {
-        self.radioIntro.text = @"暂无";
+        self.radioIntro.text = @"暂无简介";
     } else {
         self.radioIntro.text = model.Intro;
     }

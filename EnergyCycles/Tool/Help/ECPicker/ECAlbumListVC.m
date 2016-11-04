@@ -77,10 +77,8 @@ static NSString * const ECAlbumListCellReuseIdentifier = @"ECAlbumListTableViewC
     [super viewDidLoad];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    [self setupData];
     
-    [self getData];
+    [self isPhotoAlbumPermissions];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -89,11 +87,48 @@ static NSString * const ECAlbumListCellReuseIdentifier = @"ECAlbumListTableViewC
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)isPhotoAlbumPermissions {
+    if ([self isPhotoAlbumNotDetermined]) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied)
+                {
+                    // 用户拒绝
+                }
+                else if (status == PHAuthorizationStatusAuthorized)
+                {
+                    // 用户授权，弹出相册对话框
+                    [self setupData];
+                    
+                    [self getData];
+                }
+            });
+        }];
+        
+    } else {
+        [self setupData];
+        
+        [self getData];
+    }
+}
+
+- (BOOL)isPhotoAlbumNotDetermined {
+    ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+    if (author == ALAuthorizationStatusNotDetermined)
+    {
+        return YES;
+    }
+    return NO;
+}
+
 - (void)getData {
     
-    PHAssetCollection *collection = self.allAlbums[0];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateECAlbumPhoto" object:@{@"assetCollection" : collection, @"allAlbumsCount" : @(self.allAlbums.count)}];
+    if (self.allAlbums.count > 0) {
+        
+        PHAssetCollection *collection = self.allAlbums[0];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateECAlbumPhoto" object:@{@"assetCollection" : collection, @"allAlbumsCount" : @(self.allAlbums.count)}];
+    }
 
 }
 

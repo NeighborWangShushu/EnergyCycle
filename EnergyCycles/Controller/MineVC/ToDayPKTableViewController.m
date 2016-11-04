@@ -135,7 +135,7 @@
                 contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
             }
         }
-        NSString *postStr = [NSString stringWithFormat:@"我今天完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
+        NSString *postStr = [NSString stringWithFormat:@"【%@蜕变之旅】我今天完成了%@，欢迎到每日PK来挑战我！【来自能量圈APP-每日PK】", User_NAME, contentStr];
         NSLog(@"%@", postStr);
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认一键发帖" message:postStr preferredStyle:UIAlertControllerStyleAlert];
         

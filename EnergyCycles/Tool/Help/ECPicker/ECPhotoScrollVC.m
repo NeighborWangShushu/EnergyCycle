@@ -33,30 +33,28 @@
 }
 
 - (void)viewDidLoad {
-    [self createPhotoScrollView];
-//    [self setLayout];
+//    [self createPhotoScrollView];
+    [self setLayout];
     self.page = self.indexPath.row;
-    self.navigationItem.title = [NSString stringWithFormat:@"%ld/%ld", self.indexPath.row + 1, self.albumData.count];
+    self.navigationItem.title = [NSString stringWithFormat:@"%ld/%ld", self.page + 1, self.albumData.count];
     
     // Do any additional setup after loading the view.
 }
 
 - (void)setLayout {
-    for (int i = 0; i < self.albumData.count; i++) {
-        PHAsset *asset = self.albumData[i];
-        UIImageView *image = [[UIImageView alloc] init];
-        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-            image.image = result;
-            [self.imageArr addObject:image];
-        }];
-    }
     // 创建滚动视图
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height - 64)];
     // 接受代理
     self.scrollView.delegate = self;
+    self.scrollView.contentSize = CGSizeMake(3 * self.scrollView.frame.size.width, self.scrollView.frame.size.height);
+    self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width, self.scrollView.frame.origin.y);
+    self.scrollView.backgroundColor = [UIColor whiteColor];
     self.leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScrollViewWidth, kScrollViewHeight)];
     self.middleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScrollViewWidth, 0, kScrollViewWidth, kScrollViewHeight)];
     self.rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(2 * kScrollViewWidth, 0, kScrollViewWidth, kScrollViewHeight)];
+    self.leftImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.middleImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.rightImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.scrollView addSubview:self.leftImageView];
     [self.scrollView addSubview:self.middleImageView];
     [self.scrollView addSubview:self.rightImageView];
@@ -73,10 +71,24 @@
     [self setScrollViewImage:self.indexPath.row];
 }
 
+// 设置图片
 - (void)setScrollViewImage:(NSInteger)imageNumber {
-    self.middleImageView.image = self.imageArr[CALCULATE_NUMBER(imageNumber, self.albumData.count)];
-    self.leftImageView.image = self.imageArr[CALCULATE_NUMBER(imageNumber - 1, self.albumData.count)];
-    self.rightImageView.image = self.imageArr[CALCULATE_NUMBER(imageNumber + 1, self.albumData.count)];
+    [self getImageWithImageView:self.leftImageView Index:CALCULATE_NUMBER(imageNumber - 1, self.albumData.count)];
+    [self getImageWithImageView:self.rightImageView Index:CALCULATE_NUMBER(imageNumber + 1, self.albumData.count)];
+    [self getImageWithImageView:self.middleImageView Index:CALCULATE_NUMBER(imageNumber, self.albumData.count)];
+}
+
+// 获取图片
+- (void)getImageWithImageView:(UIImageView *)imageView Index:(NSInteger)index {
+    NSLog(@"%ld",index);
+    PHAsset *asset = self.albumData[index];
+    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeMake(Screen_width, Screen_Height) contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        imageView.image = result;
+    }];
+}
+
+- (void)setPageTitle {
+    self.navigationItem.title = [NSString stringWithFormat:@"%ld/%ld", self.page + 1, self.albumData.count];
 }
 
 - (void)createPhotoScrollView {
@@ -132,30 +144,24 @@
 
 #pragma mark -----ScrollViewDelegate-----
 
-// 滚动过程中触发的方法
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    CGPoint offset = self.scrollView.contentOffset;
-//    self.page = offset.x / Screen_width;
-//    self.navigationItem.title = [NSString stringWithFormat:@"%ld/%ld", self.page + 1, self.albumData.count];
-//    NSLog(@"正在滚动");
-}
-
 // 结束滚动时触发
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGPoint offset = self.scrollView.contentOffset;
-//    if (offset.x == 2 * kScrollViewWidth) {
-//        self.page = CALCULATE_NUMBER(self.page + 1, self.albumData.count);
-//    } else if (offset.x == 0) {
-//        self.page = CALCULATE_NUMBER(self.page - 1, self.albumData.count);
-//    } else {
-//        return;
-//    }
-//    [self setScrollViewImage:self.page];
-    self.page = offset.x / Screen_width;
-    self.navigationItem.title = [NSString stringWithFormat:@"%ld/%ld", self.page + 1, self.albumData.count];
-    if (scrollView.zoomScale != 1.0) {
-        scrollView.zoomScale = 1.0;
+    if (offset.x >= 2 * kScrollViewWidth) {
+        self.page = CALCULATE_NUMBER(self.page + 1, self.albumData.count);
+    } else if (offset.x == 0) {
+        self.page = CALCULATE_NUMBER(self.page - 1, self.albumData.count);
+    } else {
+        return;
     }
+    [self setScrollViewImage:self.page];
+    [self setPageTitle];
+    self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width, self.scrollView.frame.origin.y);
+//    self.page = offset.x / Screen_width;
+//    self.navigationItem.title = [NSString stringWithFormat:@"%ld/%ld", self.page + 1, self.albumData.count];
+//    if (scrollView.zoomScale != 1.0) {
+//        scrollView.zoomScale = 1.0;
+//    }
 }
 
 //- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
