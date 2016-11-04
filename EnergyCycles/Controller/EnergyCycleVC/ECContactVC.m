@@ -131,11 +131,7 @@
     self.tableView.sectionIndexColor = [UIColor lightGrayColor];
     self.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.tableView];
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 29af7988c4b37e0d155f85995a6fc8b4cd7b7bcb
     _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
     _searchBar.delegate = self;
     _searchBar.edelegate = self;
@@ -147,10 +143,7 @@
     [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
-<<<<<<< HEAD
     self.tableView.tableHeaderView = self.searchBar;
-=======
->>>>>>> 29af7988c4b37e0d155f85995a6fc8b4cd7b7bcb
     [_searchBar sizeToFit];
     _searchBar.datas = self.selectedDatas;
     [self.view addSubview:self.searchBar];
