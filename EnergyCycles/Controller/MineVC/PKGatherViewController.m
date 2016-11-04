@@ -50,7 +50,7 @@
 - (void)createScrollView {
     CGRect frame = self.view.bounds;
     frame.origin.y = 40;
-    frame.size.height -= 40;
+    frame.size.height -= 104; // 导航栏的高度加上顶部控件的高度
     self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
     CGSize size = frame.size;
     size.width = size.width * 2;

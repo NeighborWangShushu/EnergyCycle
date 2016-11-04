@@ -131,6 +131,7 @@
     [postData setObject:[NSString stringWithFormat:@"%ld",model.ID] forKey:@"id"];
     [postData setObject:model.course forKey:@"course"];
     [postData setObject:model.title forKey:@"title"];
+    [postData setObject:model.pic forKey:@"pic"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ReferralSelected" object:nil userInfo:postData];
 }
 

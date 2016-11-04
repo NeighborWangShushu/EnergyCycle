@@ -21,14 +21,16 @@
 
 #import "XHImageViewer.h"
 #import "UIImageView+XHURLDownload.h"
+#import "ECPickerController.h"
 
-@interface TheAdvPkPostViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,ZYQAssetPickerControllerDelegate,UIActionSheetDelegate,XHImageViewerDelegate> {
+@interface TheAdvPkPostViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,ZYQAssetPickerControllerDelegate,UIActionSheetDelegate,XHImageViewerDelegate,ECPickerControllerDelegate> {
     NSMutableDictionary *postDict;
     NSMutableArray *_dataArr;
     
     CustomChooseClassView *customChooseClassView;
     NSMutableArray * _selectImgArrayLocal;
     NSMutableArray * _selectImgArray;
+    NSMutableArray *imageIDArr;
     UIButton *rightButton;
     NSInteger _tempIndex;
     
@@ -49,6 +51,7 @@
     _dataArr = [[NSMutableArray alloc] init];
     _selectImgArrayLocal=[NSMutableArray array];
     _selectImgArray=[NSMutableArray array];
+    imageIDArr = [NSMutableArray array];
     self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:240/255.0 alpha:1];
     pkPostTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     pkPostTableView.showsVerticalScrollIndicator = NO;
@@ -86,6 +89,7 @@
         if (buttonIndex == 1) {
             [_selectImgArray removeObjectAtIndex:delAlertView.tag];
             [_selectImgArrayLocal removeObjectAtIndex:delAlertView.tag];
+            [imageIDArr removeObjectAtIndex:delAlertView.tag];
             [pkPostTableView reloadData];
         }
     }else {
@@ -156,7 +160,7 @@
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
     [SVProgressHUD showWithStatus:@"提交中.."];
     
-    [[AppHttpManager shareInstance] postPostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postArticlePostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             _tempIndex++;
             NSString * imgURL=[dict[@"Data"] firstObject];
@@ -460,7 +464,8 @@
         [self takePhoto:UIImagePickerControllerSourceTypeCamera];
     }else if(buttonIndex==0){
         // 获取本地图片
-        [self LocalPhoto];
+        // [self LocalPhoto];
+        [self createPhotoPicker];
     }
 }
 
@@ -483,6 +488,26 @@
         NSLog(@"该设备无摄像头");
     }
 }
+
+#pragma mark -----自定义相册
+- (void)createPhotoPicker {
+    ECPickerController *picker = [[ECPickerController alloc] init];
+    picker.imageIDArr = imageIDArr;
+    picker.delegate = self;
+    [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark -----自定义相册代理
+- (void)exportImageData:(NSArray *)imageData ID:(NSArray *)ID {
+    [imageIDArr removeAllObjects];
+    [_selectImgArray removeAllObjects];
+    [_selectImgArrayLocal removeAllObjects];
+    [imageIDArr addObjectsFromArray:ID];
+    [_selectImgArray addObjectsFromArray:imageData];
+    [_selectImgArrayLocal addObjectsFromArray:imageData];
+    [pkPostTableView reloadData];
+}
+
 
 - (void)LocalPhoto {
     NSInteger count = 0;

@@ -90,6 +90,7 @@
 - (void)toDayViewControllerShare {
     if (self.dataArray.count) {
         NSString *contentStr = @"";
+        NSString *firstPic = @"";
         for (NSInteger i=0; i<self.dataArray.count; i++) {
             OtherReportModel *model = (OtherReportModel *)self.dataArray[i];
             
@@ -98,12 +99,18 @@
             }else {
                 contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
             }
+            
+            if ([firstPic isEqualToString:@""]) {
+                firstPic = model.FirstPic;
+            }
+            
         }
         NSString *shareStr = [NSString stringWithFormat:@"我今天%@，加入能量圈，和我一起PK吧！",contentStr];
         shareView = [[XMShareView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, Screen_Height)];
         shareView.alpha = 0.0;
         shareView.shareTitle = shareStr;
         shareView.shareText = @"";
+        shareView.shareImageUrl = firstPic;
         NSString * share_url = @"";
         share_url = [NSString stringWithFormat:@"%@/html/DailyPK/DailyPKDetail.aspx?RID=%@", INTERFACE_URL, self.RID];
         shareView.shareUrl = share_url;
@@ -128,15 +135,24 @@
                 contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.RI_Name,model.RI_Num,model.RI_Unit];
             }
         }
-        NSString *postStr = [NSString stringWithFormat:@"我今天完成了%@，欢迎到每日PK来挑战我！【来自每日PK】",contentStr];
+        NSString *postStr = [NSString stringWithFormat:@"【%@蜕变之旅】我今天完成了%@，欢迎到每日PK来挑战我！【来自能量圈APP-每日PK】", User_NAME, contentStr];
         NSLog(@"%@", postStr);
-        [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:postStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:self.imgUrlArray Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
-            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-                [SVProgressHUD showImage:nil status:@"能量帖发布成功!"];
-            }
-        } failure:^(NSString *str) {
-            NSLog(@"%@", str);
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认一键发帖" message:postStr preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *exitAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:postStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:self.imgUrlArray Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
+                if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                    [SVProgressHUD showImage:nil status:@"能量帖发布成功!"];
+                }
+            } failure:^(NSString *str) {
+                NSLog(@"%@", str);
+            }];
         }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:exitAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
     } else {
         [SVProgressHUD showImage:nil status:@"今天你还没有进行PK哦"];
     }

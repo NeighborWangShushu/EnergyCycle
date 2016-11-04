@@ -46,13 +46,12 @@
 //#define INTERFACE_URL @"http://10.40.200.186:8089/"
 
 //测试环境
-#define INTERFACE_URL @"http://192.168.2.13:8888/"
+//#define INTERFACE_URL @"http://192.168.80.13:8888/"
 
 //测试公网环境
 //#define INTERFACE_URL @"http://120.26.218.68:8888/"
 
 //正式环境
-
 #define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 
@@ -421,5 +420,11 @@
 
 //110.学习模块Banner列表
 #define BannerList                 @"/Study/Banner_List"
+
+//111.获赞排名
+#define Good_Order                 @"pk/APP_REPORTITEM_Goods_Order"
+
+//112.上传图片有水印
+#define Article_PostFile           @"Other/Article_PostFile"
 
 #endif

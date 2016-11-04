@@ -153,11 +153,6 @@
 }
 
 - (void)showAlert {
-//    // 获取沙盒主目录路径
-//    NSString *homeDir = NSHomeDirectory();
-//    // 获取Documents目录路径
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *docDir = [paths objectAtIndex:0];
     
     DateAlertModel*model = [DateAlertModel findByPK:1];
     if (!model) {
@@ -246,9 +241,7 @@
         NSLog(@"%@",str);
         [SVProgressHUD showImage:nil status:str];
     }];
-    
 }
-
 
 
 - (void)viewDidLoad {
@@ -1149,6 +1142,7 @@
     shareView.alpha = 0.0;
     shareView.shareTitle = model.msgContent;
     shareView.shareText = model.msgContent;
+    shareView.shareImageUrl = model.picNamesArray[0];
     NSString * share_url = @"";
     share_url = [NSString stringWithFormat:@"%@%@?aid=%@",INTERFACE_URL,ArticleDetailAspx,model.ID];
     shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];

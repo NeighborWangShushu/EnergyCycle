@@ -44,7 +44,7 @@
 }
 
 - (void)getData {
-    [[AppHttpManager shareInstance] getBothHeartWithUserid:@"25" PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getBothHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         [self.dataArr removeAllObjects];
         [self.allDataArr removeAllObjects];
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
@@ -65,20 +65,6 @@
 - (void)leftAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//    if (self.searchController.active) {
-//        self.searchController.active = NO;
-//        [self.searchController.searchBar removeFromSuperview];
-//    }
-//}
-//
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    [self createSearchResultsUpdating];
-//    isSearching = YES;
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

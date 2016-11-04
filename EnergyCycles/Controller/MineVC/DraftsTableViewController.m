@@ -140,7 +140,7 @@
 
 -(void)submitImage:(NSData*)imageData {
     
-    [[AppHttpManager shareInstance] postPostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] postArticlePostFileWithImageData:imageData PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             _tempIndex++;
             NSString * imgURL=[dict[@"Data"] firstObject];

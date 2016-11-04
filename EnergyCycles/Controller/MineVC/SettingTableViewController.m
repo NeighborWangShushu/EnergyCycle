@@ -267,7 +267,6 @@
     
 - (void)leftAction {
     [self.navigationController popViewControllerAnimated:YES];
-
 }
 
 - (void)didReceiveMemoryWarning {
