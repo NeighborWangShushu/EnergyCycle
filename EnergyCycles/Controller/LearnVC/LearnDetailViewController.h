@@ -26,5 +26,7 @@
 
 @property (nonatomic, assign) NSInteger touchIndex;
 
+@property (nonatomic, copy) NSString *shareImage;
+
 
 @end

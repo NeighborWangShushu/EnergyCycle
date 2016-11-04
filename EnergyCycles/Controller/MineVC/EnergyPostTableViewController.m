@@ -329,6 +329,7 @@
     self.shareView.alpha = 0.0;
     self.shareView.shareTitle = model.msgContent;
     self.shareView.shareText = @"";
+    self.shareView.shareImageUrl = model.picNamesArray[0];
     NSString * share_url = @"";
     share_url = [NSString stringWithFormat:@"%@%@?id=%@",INTERFACE_URL,ArticleDetailAspx,model.ID];
     self.shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
@@ -382,8 +383,6 @@
         //添加点赞名
         ECTimeLineCellLikeItemModel *likeModel = [ECTimeLineCellLikeItemModel new];
         likeModel.userId = [NSString stringWithFormat:@"%@",User_ID];
-        
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         likeModel.userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserNickName"];
         [model.likeItemsArray addObject:likeModel];
     }

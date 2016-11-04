@@ -131,7 +131,7 @@
     self.tableView.sectionIndexColor = [UIColor lightGrayColor];
     self.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.tableView];
-    
+
     _searchBar=[[ECContactSearchBar alloc]initWithFrame:CGRectMake(0, 0, Screen_width, 44)];
     _searchBar.delegate = self;
     _searchBar.edelegate = self;

@@ -64,6 +64,7 @@
 //            }
         }];
     }
+    self.backgroundImage.clipsToBounds = YES;
     
 //    self.backgroundImage
     

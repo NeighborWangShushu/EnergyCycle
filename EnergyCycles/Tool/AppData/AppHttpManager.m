@@ -2781,13 +2781,21 @@ static AFHTTPRequestOperationManager *manager;
 }
 
 #pragma mark - 105.电台列表
-// 输入参数:无
-- (void)getAppRadioListPostOrGet:(NSString *)postOrGetType
-                         success:(void (^)(NSDictionary *dict))success
-                         failure:(void (^)(NSString *str))failure {
+// 输入参数:pageindex   int // 页码
+// 输入参数:pagesize    int // 每页显示的数量
+- (void)getAppRadioListWithPageIndex:(int)pageIndex
+                            PageSize:(int)pageSize
+                           PostOrGet:(NSString *)postOrGetType
+                             success:(void (^)(NSDictionary *dict))success
+                             failure:(void (^)(NSString *str))failure {
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:pageIndex] forKey:@"pageindex"];
+    [dic setObject:[NSNumber numberWithInt:pageSize] forKey:@"pagesize"];
+    
     [self callInterfaceByUrl:AppRadioList
                    PostOrGet:postOrGetType
-                    withDict:nil
+                    withDict:dic
                      success:^(NSDictionary *dict) {
                          success(dict);
                      } failure:^(NSString *dict) {
@@ -2894,5 +2902,45 @@ static AFHTTPRequestOperationManager *manager;
                     }];
 }
 
+#pragma mark - 111.获赞排名
+- (void)getGoodOrderWithUserID:(int)userid
+                     PageIndex:(int)pageIndex
+                      PageSize:(int)pageSize
+                     PostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:[NSNumber numberWithInt:pageIndex] forKey:@"pageindex"];
+    [dic setObject:[NSNumber numberWithInt:pageSize] forKey:@"pagesize"];
+    [self callInterfaceByUrl:Good_Order
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+}
+
+#pragma mark - 112.上传图片有水印
+//数据以multipart/form-data方式上传
+- (void)postArticlePostFileWithImageData:(NSData *)imageData
+                                PostOrGet:(NSString *)postOrGetType
+                                  success:(void (^)(NSDictionary *dict))success
+                                  failure:(void (^)(NSString *str))failure {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
+    
+    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,Article_PostFile] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        if (imageData != nil) {
+            [formData appendPartWithFileData:imageData name:@"header" fileName:@"file.jpg" mimeType:@"image/jpeg"];
+        }
+    }success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(responseObject);
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error.domain);
+    }];
+}
 
 @end

@@ -47,6 +47,7 @@
     pkEveryDayTableView.dataSource = self;
     pkEveryDayTableView.delegate = self;
     pkEveryDayTableView.showsVerticalScrollIndicator = NO;
+    pkEveryDayTableView.exclusiveTouch = YES;
     
     [self getUserInfo];
     //
@@ -68,6 +69,8 @@
     subLabel.font = [UIFont systemFontOfSize:15];
     subLabel.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
     [upBackView addSubview:subLabel];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPKHeadViewData) name:@"reloadPKHeadViewData" object:nil];
     
 //    //底部显示
 //    UIView *downBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 220, Screen_width, 40)];
@@ -150,39 +153,9 @@
                     [_dataArr addObject:model];
                 }
                 
-                if (_dataArr.count > 1) {
-                    EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[1];
-//                    [self getUserInfo:model.userId];
-                    [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
-//                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
-//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
-//                    } else {
-//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
-//                    }
-                    if ([model.BackgroundImg isEqualToString:@""] || model.BackgroundImg == nil) {
-                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
-                    } else {
-                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg]];
-                    }
+                [self setUpHeadView];
+                
 
-                    
-                    subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的首页",model.nickname];
-                }else {
-                    EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[0];
-//                    [self getUserInfo:model.userId];
-                    [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
-//                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
-//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
-//                    } else {
-//                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
-//                    }
-                    if ([model.BackgroundImg isEqualToString:@""] || model.BackgroundImg == nil) {
-                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
-                    } else {
-                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.BackgroundImg]];
-                    }
-                    subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的首页",model.nickname];
-                }
             }else if ([dict[@"Code"] integerValue] == 1000) {
                 subHeadImageView.image = [UIImage imageNamed:@""];
                 subLabel.text = @"";
@@ -202,6 +175,70 @@
         NSLog(@"%@",str);
         [self endRefresh];
     }];
+}
+
+// 第一名占领封面的方法
+- (void)headView {
+    if (_dataArr.count > 1) {
+        EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[1];
+        //                    [self getUserInfo:model.userId];
+        [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
+        //                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
+        //                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+        //                    } else {
+        //                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
+        //                    }
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changPKImg)];
+        self.backImageView.userInteractionEnabled = YES;
+        [self.backImageView addGestureRecognizer:singleTap];
+        if ([model.pkImg isEqualToString:@""] || model.pkImg == nil) {
+            [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+        } else {
+            [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg]];
+        }
+        
+        
+        subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的封面",model.nickname];
+    }else {
+        EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[0];
+        //                    [self getUserInfo:model.userId];
+        [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl] placeholderImage:[UIImage imageNamed:@"touxiang.png"]];
+        //                    if ([self.model.BackgroundImg isEqualToString:@""] || self.model.BackgroundImg == nil) {
+        //                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+        //                    } else {
+        //                        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.model.BackgroundImg]];
+        //                    }
+        if ([model.pkImg isEqualToString:@""] || model.pkImg == nil) {
+            [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+        } else {
+            [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg]];
+        }
+        subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的封面",model.nickname];
+    }
+}
+
+- (void)setUpHeadView {
+    EveryDPKPMModel *model = [[EveryDPKPMModel alloc] init];
+    if (_dataArr.count > 1) {
+        model = _dataArr[1];
+    } else {
+        model = _dataArr[0];
+    }
+    if ([model.pkImg isEqualToString:@""] || model.pkImg == nil) {
+        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg] placeholderImage:[UIImage imageNamed:@"placepic.png"]];
+    } else {
+        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:model.pkImg]];
+    }
+    [subHeadImageView sd_setImageWithURL:[NSURL URLWithString:model.photourl]];
+    subLabel.text = [NSString stringWithFormat:@"%@ 占领了你的封面", model.nickname];
+}
+
+- (void)changePKBackgroundImage {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changePKBackgroundImage" object:nil];
+}
+
+- (void)reloadPKHeadViewData {
+    [self loadDataWithIndexWithProjectId:[myModel.PKId integerValue] Page:page];
 }
 
 #pragma mark - 填充数据
@@ -327,15 +364,21 @@
 }
 //头视图
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 260.f;
+    return 290.f;
 }
 //
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 290)];
+    headView.backgroundColor = [UIColor clearColor];
     subHeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 260)];
-    subHeadView.backgroundColor = [UIColor whiteColor];
-    subHeadView.alpha = 0.0;
-    
-    return subHeadView;
+    subHeadView.backgroundColor = [UIColor clearColor];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(Screen_width - 40, 250, 30, 30);
+    [button setImage:[UIImage imageNamed:@"pkBgImgSetting"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(changePKBackgroundImage) forControlEvents:UIControlEventTouchUpInside];
+    [headView addSubview:subHeadView];
+    [headView addSubview:button];
+    return headView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -405,7 +448,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y <= 0) {
-        subHeadView.alpha = 0.0;
+        subHeadView.alpha = 1;
     }else {
         subHeadView.alpha = 1 * scrollView.contentOffset.y/260.f;
     }

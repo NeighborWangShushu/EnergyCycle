@@ -34,6 +34,9 @@ typedef NS_ENUM(NSInteger, SHARE_ITEM){
 @property (nonatomic, strong) NSData *imageData;
 @property (nonatomic, strong) NSString *imageUrl;
 
+//分享标题图片
+@property (nonatomic, strong) NSString *shareImageUrl;
+
 
 @end
 

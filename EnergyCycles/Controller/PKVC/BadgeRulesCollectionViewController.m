@@ -109,10 +109,10 @@ static NSString * const footerViewIdentifier = @"footerView";
 
 #pragma mark <UICollectionViewDataSource>
 
-// 返回的section个数
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
+//// 返回的section个数
+//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+//    return 1;
+//}
 
 // 返回每个section的item个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

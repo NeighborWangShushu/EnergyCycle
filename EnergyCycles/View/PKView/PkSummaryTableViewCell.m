@@ -32,9 +32,13 @@
         
         NSMutableAttributedString *praiseRankingText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@名",[model.GoodsRanking isEqualToString:@"0"] ? @"--" : model.GoodsRanking]];
         [praiseRankingText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10] range:NSMakeRange(praiseRankingText.length - 1, 1)];
+//        self.praiseRanking.attributedText = praiseRankingText;
         self.praiseRanking.attributedText = praiseRankingText;
     }
     
+}
+- (IBAction)clickButton:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PraiseRankingList" object:nil];
 }
 
 - (void)awakeFromNib {

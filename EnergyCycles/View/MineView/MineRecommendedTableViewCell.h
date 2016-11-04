@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 // 简介
 @property (weak, nonatomic) IBOutlet UILabel *introLabel;
+// 底部view
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 
 - (void)updateDataWithModel:(RecommentModel *)model;
 

@@ -18,6 +18,8 @@
 // 时间
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+
 - (void)updateDataWithModel:(NotifyModel *)model;
 
 - (void)noData;

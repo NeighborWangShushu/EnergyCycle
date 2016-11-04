@@ -806,6 +806,7 @@
     shareView.alpha = 0.0;
     shareView.shareTitle = self.learnTitle;
     shareView.shareText = @"";
+    shareView.shareImageUrl = self.shareImage;
     NSString * share_url = @"";
     share_url = [NSString stringWithFormat:@"%@/%@?id=%@",INTERFACE_URL,StudyDetailAspx,self.learnAtriID];
     

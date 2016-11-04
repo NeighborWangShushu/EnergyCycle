@@ -184,7 +184,7 @@ static const NSInteger numbersOfItemInLine = 4;
     model.title = self.shareTitle;
     model.content = self.shareText;
     model.shareUrl = self.shareUrl;
-    [[ShareSDKManager shareInstance] shareClientToWeixinSession:model block:^(SSDKResponseState state) {
+    [[ShareSDKManager shareInstance] shareClientToWeixinSession:model imageUrl:self.shareImageUrl block:^(SSDKResponseState state) {
         
     }];
     
@@ -196,7 +196,7 @@ static const NSInteger numbersOfItemInLine = 4;
     model.title = self.shareTitle;
     model.content = self.shareText;
     model.shareUrl = self.shareUrl;
-    [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model block:^(SSDKResponseState state) {
+    [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model imageUrl:self.shareImageUrl block:^(SSDKResponseState state) {
         
     }];
 }
@@ -206,7 +206,7 @@ static const NSInteger numbersOfItemInLine = 4;
     model.title = self.shareTitle;
     model.content = self.shareText;
     model.shareUrl = self.shareUrl;
-    [[ShareSDKManager shareInstance] shareClientToQQSession:model block:^(SSDKResponseState state) {
+    [[ShareSDKManager shareInstance] shareClientToQQSession:model imageUrl:self.shareImageUrl block:^(SSDKResponseState state) {
         
     }];
 }
@@ -216,7 +216,7 @@ static const NSInteger numbersOfItemInLine = 4;
     model.title = self.shareTitle;
     model.content = self.shareText;
     model.shareUrl = self.shareUrl;
-    [[ShareSDKManager shareInstance] shareClientToQQZone:model block:^(SSDKResponseState state) {
+    [[ShareSDKManager shareInstance] shareClientToQQZone:model imageUrl:self.shareImageUrl block:^(SSDKResponseState state) {
         
     }];
 }
@@ -226,7 +226,7 @@ static const NSInteger numbersOfItemInLine = 4;
     model.title = @"我刚刚在能量圈分享了好东西，快来看看吧";
     model.content = self.shareText;
     model.shareUrl = self.shareUrl;
-    [[ShareSDKManager shareInstance] shareClientToWeibo:model block:^(SSDKResponseState state) {
+    [[ShareSDKManager shareInstance] shareClientToWeibo:model imageUrl:self.shareImageUrl block:^(SSDKResponseState state) {
         
     }];
 }

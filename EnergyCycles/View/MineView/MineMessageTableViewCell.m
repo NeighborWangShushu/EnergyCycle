@@ -46,6 +46,11 @@
 
 - (void)noData {
     self.userInteractionEnabled = NO;
+    self.nameLabel.hidden = YES;
+    self.timeLabel.hidden = YES;
+    self.messageLabel.hidden = YES;
+    self.firstImage.hidden = YES;
+    self.titleLabel.hidden = YES;
     self.textLabel.text = @"暂无数据";
     self.textLabel.font = [UIFont systemFontOfSize:16];
     self.textLabel.textColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.8];
