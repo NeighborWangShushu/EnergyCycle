@@ -3966,9 +3966,9 @@
 				26D802FF1C0433B7001CD2D5 /* Framework */,
 				26D99D511C0C4D7B007AF579 /* Tool */,
 				26D99D4A1C0C4D7B007AF579 /* Resource */,
+				26D99D231C0C4D7B007AF579 /* Controller */,
 				26D99D431C0C4D7B007AF579 /* Model */,
 				26D99E811C0C4D7B007AF579 /* View */,
-				26D99D231C0C4D7B007AF579 /* Controller */,
 				2609B0081C02DD2A0006BC02 /* EnergyCycles */,
 				2609B0221C02DD2B0006BC02 /* EnergyCyclesTests */,
 				D05A95D51D62F43A0063AD41 /* EnergyCyclesUITests */,
@@ -9957,7 +9957,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = EnergyCycles/EnergyCycles.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gong Hai (U5V584Z73H)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
 				DEVELOPMENT_TEAM = V39449673K;
 				ENABLE_BITCODE = NO;
@@ -9998,8 +9998,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fcda7d82-1e51-435e-b851-61068826a9d7";
-				PROVISIONING_PROFILE_SPECIFIER = "About Mine";
+				PROVISIONING_PROFILE = "eac21853-fda2-49e9-8c71-b8647df47642";
+				PROVISIONING_PROFILE_SPECIFIER = NeighborWangshushu_AppStore;
 				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -10013,8 +10013,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = EnergyCycles/EnergyCycles.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gong Hai (U5V584Z73H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
 				DEVELOPMENT_TEAM = V39449673K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -10054,8 +10054,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fcda7d82-1e51-435e-b851-61068826a9d7";
-				PROVISIONING_PROFILE_SPECIFIER = "About Mine";
+				PROVISIONING_PROFILE = "eac21853-fda2-49e9-8c71-b8647df47642";
+				PROVISIONING_PROFILE_SPECIFIER = NeighborWangshushu_AppStore;
 				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -10074,7 +10074,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "EC-Develop.EnergyCyclesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "83bd3699-abf4-4e26-bc90-f78b2eee1e1c";
+				PROVISIONING_PROFILE = "a4054090-66cc-45c3-b13d-0410c007cc91";
 				TEST_TARGET_NAME = EnergyCycles;
 			};
 			name = Debug;
@@ -10089,7 +10089,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "EC-Develop.EnergyCyclesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "89416ac2-205c-4c42-9460-e4d32c10406b";
+				PROVISIONING_PROFILE = "a4054090-66cc-45c3-b13d-0410c007cc91";
 				TEST_TARGET_NAME = EnergyCycles;
 			};
 			name = Release;

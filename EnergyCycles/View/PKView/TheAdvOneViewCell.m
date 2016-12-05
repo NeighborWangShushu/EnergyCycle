@@ -49,7 +49,7 @@
     
     if (model.postPic.count>3) {
         for (NSInteger i=0; i<3; i++) {
-            UIImageView * image=[[UIImageView alloc]initWithFrame:CGRectMake(10+i*(Screen_width-20)/3, 140,(Screen_width-20)/3-5, 112)];
+            UIImageView * image=[[UIImageView alloc]initWithFrame:CGRectMake(10+i*(Screen_width-20)/3, 120,(Screen_width-20)/3-5, 112)];
             image.contentMode = UIViewContentModeScaleAspectFill;
             image.layer.masksToBounds = YES;
             [image sd_setImageWithURL:[NSURL URLWithString:model.postPic[i]] placeholderImage:[UIImage imageNamed:@""]];
@@ -57,7 +57,7 @@
         }
     }else{
         for (NSInteger i=0; i<model.postPic.count ; i++) {
-            UIImageView * image=[[UIImageView alloc]initWithFrame:CGRectMake(10+i*(Screen_width-20)/3, 140,(Screen_width-20)/3-5, 112)];
+            UIImageView * image=[[UIImageView alloc]initWithFrame:CGRectMake(10+i*(Screen_width-20)/3, 120,(Screen_width-20)/3-5, 112)];
             image.contentMode = UIViewContentModeScaleAspectFill;
             image.layer.masksToBounds = YES;
             [image sd_setImageWithURL:[NSURL URLWithString:model.postPic[i]] placeholderImage:[UIImage imageNamed:@""]];
