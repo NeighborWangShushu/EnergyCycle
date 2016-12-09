@@ -101,7 +101,7 @@
     [super viewDidLoad];
     
     self.title = @"关于能量圈";
-    self.version.text = @"能量圈1.6";
+    self.version.text = @"能量圈1.6.1";
     [self setupLeftNavBarWithimage:@"loginfanhui"];
 
     self.tableView.delegate = self;

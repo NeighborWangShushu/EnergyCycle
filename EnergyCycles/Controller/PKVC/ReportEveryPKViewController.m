@@ -337,8 +337,12 @@
                 contentStr = [NSString stringWithFormat:@"%@%@%@%@、",contentStr,model.name,numStr,model.unit];
             }
         }
-        shareStr = [NSString stringWithFormat:@"【%@蜕变之旅】我刚才完成了%@，欢迎到每日PK来挑战我！【来自能量圈APP-每日PK】", User_NAME, contentStr];
-        
+        NSDate *currentDate = [NSDate date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"YYYYMMdd"];
+        NSString *currentDateStr = [dateFormatter stringFromDate:currentDate];
+        shareStr = [NSString stringWithFormat:@"【%@蜕变之旅%@】我刚才完成了%@，欢迎到每日PK来挑战我！【来自能量圈APP-每日PK】", User_NAME, currentDateStr, contentStr];
+
         if (onPost) {
 //            NSString *shareStr = @"";
             NSLog(@"%@", shareStr);
@@ -448,6 +452,8 @@
     
     [SVProgressHUD dismiss];
     [self dismissViewControllerAnimated:YES completion:nil];
+    // 返回每日pk界面刷新数据
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadPKHeadViewData" object:nil];
     [self.navigationController popViewControllerAnimated:YES];
     
 }

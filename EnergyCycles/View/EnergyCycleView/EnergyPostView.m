@@ -29,7 +29,8 @@
 - (void)setup {
     
     self.informationTextView = [[CustomTextView alloc] init];
-    self.informationTextView.placehoder = @"说点什么吧... \r正文字数不得少于30字";
+//    self.informationTextView.placehoder = @"说点什么吧... \r正文字数不得少于30字";
+    self.informationTextView.placehoder = @"说点什么吧...";
     [self addSubview:self.informationTextView];
     [self.informationTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(10);

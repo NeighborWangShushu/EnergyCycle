@@ -388,10 +388,10 @@
         [SVProgressHUD showImage:nil status:@"内容不能为空"];
         return;
     }
-    if (context.length < 30) {
-        [SVProgressHUD showImage:nil status:@"30字以上才能发表哦~"];
-        return;
-    }
+//    if (context.length < 30) {
+//        [SVProgressHUD showImage:nil status:@"30字以上才能发表哦~"];
+//        return;
+//    }
     if ([User_TOKEN length] > 0) {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
         [SVProgressHUD showWithStatus:@"提交中.."];
@@ -496,7 +496,6 @@
 }
 
 
-
 - (void)showImageView:(NSInteger )index
 {
     NSLog(@"%ld",[self.collectionView.subviews count]);
@@ -522,7 +521,6 @@
 
 
 #pragma mark ShareSuccess
-
 - (void)QQShareSuccess {
     isShare = YES;
     [_sharesArray removeObjectAtIndex:0];
@@ -597,7 +595,6 @@
 
 
 #pragma mark Share
-
 - (void)shareCancel {
     
     [SVProgressHUD dismiss];
@@ -780,7 +777,6 @@
 }
 
 #pragma mark --UICollectionViewDataSource
-
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *EnergyPostCollectionViewCellId = @"EnergyPostCollectionViewCell";
     EnergyPostCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:EnergyPostCollectionViewCellId forIndexPath:indexPath];
