@@ -86,7 +86,6 @@ AppDelegate *EnetgyCycle = nil;
     [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
         if(resCode == 0){
             NSLog(@"registrationID获取成功：%@",registrationID);
-            
         }
         else{
             NSLog(@"registrationID获取失败，code：%d",resCode);

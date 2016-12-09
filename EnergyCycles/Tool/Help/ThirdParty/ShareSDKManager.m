@@ -68,7 +68,6 @@
                  [ShareSDKConnector connectWeibo:[WeiboSDK class]];
                  break;
 
- 
              default:
                  break;
          }

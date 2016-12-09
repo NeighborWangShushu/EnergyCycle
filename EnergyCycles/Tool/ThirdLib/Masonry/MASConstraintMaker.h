@@ -55,6 +55,7 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
  *	The following properties return a new MASViewConstraint
  *  with the first item set to the makers associated view and the appropriate MASViewAttribute
  */
+
 @property (nonatomic, strong, readonly) MASConstraint *left;
 @property (nonatomic, strong, readonly) MASConstraint *top;
 @property (nonatomic, strong, readonly) MASConstraint *right;

@@ -180,7 +180,7 @@
 - (void)getData {
     
     __weak __typeof(self)weakSelf = self;
-    [[AppHttpManager shareInstance] getBothHeartWithUserid:@"25" PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getBothHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             for (NSDictionary *dic in dict[@"Data"]) {
@@ -211,6 +211,7 @@
 #pragma mark searchBar delegate
 
 -(void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    
     
 }
 
