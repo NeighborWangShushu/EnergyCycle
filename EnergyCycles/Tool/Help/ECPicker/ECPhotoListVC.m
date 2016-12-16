@@ -285,7 +285,7 @@ static CGSize itemSize;
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:itemSize contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         if (result) {
             cell.thumbnailImage = result;
-            if ([self.imageIDArr containsObject:asset.localIdentifier]) {
+            if ([self.imageIDArr containsObject:asset.localIdentifier] || [self.photoArr containsObject:indexPath]) {
                 cell.isSelected = YES;
                 cell.indexPath = indexPath;
                 [cell selected];

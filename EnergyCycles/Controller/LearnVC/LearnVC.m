@@ -231,6 +231,8 @@
 
 - (void)learnRecommend:(NSNotification *)notification {
     weburl = notification.object;
+    // 隐藏底部的tablebar
+    [delegate.tabbarController hideTabbar:YES];
     [self performSegueWithIdentifier:@"WebVC" sender:nil];
 }
 
