@@ -46,21 +46,15 @@
 //#define INTERFACE_URL @"http://10.40.200.186:8089/"
 
 //测试环境
-<<<<<<< HEAD
-#define INTERFACE_URL @"http://www.woodybear.cn/Power"
-=======
+
 #define INTERFACE_URL @"https://www.woodybear.cn/Power/"
->>>>>>> wangbin
+
 
 //测试公网环境
 //#define INTERFACE_URL @"http://120.26.218.68:8888/"
 
 //正式环境
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"
-<<<<<<< HEAD
-=======
-
->>>>>>> wangbin
 
 //阿里云
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"

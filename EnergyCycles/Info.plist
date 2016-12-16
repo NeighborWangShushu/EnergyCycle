@@ -5,17 +5,12 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoadsInWebContent</key>
-		<string>YES</string>
+		<true/>
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-	</dict>
 	<key>CFBundleDisplayName</key>
 	<string>能量圈</string>
 	<key>CFBundleExecutable</key>

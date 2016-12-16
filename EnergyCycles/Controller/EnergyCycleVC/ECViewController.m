@@ -928,7 +928,7 @@
         
         WebVC *webVC = MainStoryBoard(@"WebVC");
         webVC.titleName = @"动态详情";
-        webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,aid,[NSString stringWithFormat:@"%@",[User_ID integerValue]]];
+        webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,aid,[NSString stringWithFormat:@"%ld",[User_ID integerValue]]];
         [self.navigationController pushViewController:webVC animated:YES];
         
     }else {
