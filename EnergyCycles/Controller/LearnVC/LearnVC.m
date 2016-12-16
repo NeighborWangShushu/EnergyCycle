@@ -217,7 +217,7 @@
         [self autoSetupTuwen:name];
         return;
     }
-
+    [delegate.tabbarController hideTabbar:YES];
     [self performSegueWithIdentifier:@"WebVC" sender:nil];
     
 }
