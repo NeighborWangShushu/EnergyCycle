@@ -6,7 +6,9 @@
 #import "AppHttpManager.h"
 #import "SLALertManager.h"
 
-static AFHTTPRequestOperationManager *manager;
+
+
+static AFHTTPSessionManager *manager;
 
 @implementation AppHttpManager
 
@@ -22,36 +24,60 @@ static AFHTTPRequestOperationManager *manager;
     return shareNetworkMessage;
 }
 
+
++ (AFSecurityPolicy*)customSecurityPolicy
+{
+    // /先导入证书
+    NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"ca" ofType:@"cer"];//证书的路径
+    NSData *certData = [NSData dataWithContentsOfFile:cerPath];
+    
+    // AFSSLPinningModeCertificate 使用证书验证模式
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    
+    // allowInvalidCertificates 是否允许无效证书（也就是自建的证书），默认为NO
+    // 如果是需要验证自建证书，需要设置为YES
+    securityPolicy.allowInvalidCertificates = YES;
+    
+    //validatesDomainName 是否需要验证域名，默认为YES；
+    //假如证书的域名与你请求的域名不一致，需把该项设置为NO；如设成NO的话，即服务器使用其他可信任机构颁发的证书，也可以建立连接，这个非常危险，建议打开。
+    //置为NO，主要用于这种情况：客户端请求的是子域名，而证书上的是另外一个域名。因为SSL证书上的域名是独立的，假如证书上注册的域名是www.google.com，那么mail.google.com是无法验证通过的；当然，有钱可以注册通配符的域名*.google.com，但这个还是比较贵的。
+    //如置为NO，建议自己添加对应域名的校验逻辑。
+    securityPolicy.validatesDomainName = YES;
+    
+    securityPolicy.pinnedCertificates = @[certData];
+    
+    return securityPolicy;
+}
+
 #pragma mark - GET请求
 - (void)getDataWithMethod:(NSString *)methodName
           parametersDict:(NSDictionary *)postDict
                  success:(void (^)(NSDictionary *dict))success
                  failure:(void (^)(NSError *errorStr))failure {
     if (manager == nil) {
-        manager = [AFHTTPRequestOperationManager manager];
+        manager = [AFHTTPSessionManager manager];
     }
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager setSecurityPolicy:[AppHttpManager customSecurityPolicy]];
+    
     manager.requestSerializer.timeoutInterval=30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
     NSLog(@"url------%@\r type=%@&content=%@",str,[postDict objectForKey:@"types"],[postDict objectForKey:@"content"]);
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
     
-    [manager GET:str
-      parameters:postDict
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             if (success) {
-                 NSDictionary *responDict = (NSDictionary *)responseObject;
-                 if ([responDict[@"Code"] integerValue] == 10000) {
-                     //发送消息,跳转到登录界面
-                     [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
-                 }
-                 success(responseObject);
-             }
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             if (error) {
-                 failure(error);
-             }
-             
-         }];
+    [manager GET:str parameters:postDict progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *responDict = (NSDictionary *)responseObject;
+        if ([responDict[@"Code"] integerValue] == 10000) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+        }
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (error) {
+            failure(error);
+        }
+    }];
 }
 
 #pragma mark - POST请求
@@ -60,29 +86,29 @@ static AFHTTPRequestOperationManager *manager;
                   success:(void (^)(NSDictionary *dict))success
                   failure:(void (^)(NSError *errorStr))failure {
     if (manager == nil) {
-        manager = [AFHTTPRequestOperationManager manager];
+        manager = [AFHTTPSessionManager manager];
     }
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager setSecurityPolicy:[AppHttpManager customSecurityPolicy]];
     manager.requestSerializer.timeoutInterval=30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
-    [manager POST:str
-       parameters:postDict
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              if (success) {
-                  NSDictionary *responDict = (NSDictionary *)responseObject;
-                  if ([responDict[@"Code"] integerValue] == 10000) {
-                      //发送消息,跳转到登录界面
-                      [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
-                  }
-                  success(responseObject);
-              }
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"error:%@",operation.description);
-              if (failure) {
-                  failure(error);
-              }
-              
-          }];
+    [manager POST:str parameters:postDict progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *responDict = (NSDictionary *)responseObject;
+        if ([responDict[@"Code"] integerValue] == 10000) {
+            //发送消息,跳转到登录界面
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+
+        }
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
 }
 
 #pragma mark - 请求数据
@@ -202,18 +228,21 @@ static AFHTTPRequestOperationManager *manager;
     NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithCapacity:1];
     [dic setObject:userId forKey:@"userId"];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
-    
-    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,AddImg] parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,AddImg] parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (imageData != nil) {
             [formData appendPartWithFileData:imageData name:@"header" fileName:@"file.jpg" mimeType:@"image/jpeg"];
         }
-    }success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error.domain);
     }];
+    
 }
 
 #pragma mark - 5.查询基本资料
@@ -1993,18 +2022,21 @@ static AFHTTPRequestOperationManager *manager;
                         PostOrGet:(NSString *)postOrGetType
                           success:(void (^)(NSDictionary *dict))success
                           failure:(void (^)(NSString *str))failure {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
-    
-    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,PostFile] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,PostFile] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (imageData != nil) {
             [formData appendPartWithFileData:imageData name:@"header" fileName:@"file.jpg" mimeType:@"image/jpeg"];
         }
-    }success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error.domain);
     }];
+    
 }
 
 #pragma mark - 74.判断是否已签到
@@ -2929,18 +2961,81 @@ static AFHTTPRequestOperationManager *manager;
                                 PostOrGet:(NSString *)postOrGetType
                                   success:(void (^)(NSDictionary *dict))success
                                   failure:(void (^)(NSString *str))failure {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
-    
-    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,Article_PostFile] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:[NSString stringWithFormat:@"%@/%@",INTERFACE_URL,Article_PostFile] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (imageData != nil) {
             [formData appendPartWithFileData:imageData name:@"header" fileName:@"file.jpg" mimeType:@"image/jpeg"];
         }
-    }success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error.domain);
     }];
+    
+}
+
+#pragma mark - 113.加载html
+
+- (void)loadHtmlStringWithUrl:(NSString *)url PostOrGet:(NSString *)postOrGetType parametersDict:(NSDictionary *)postDict
+ success:(void (^)(NSDictionary *))success failure:(void (^)(NSString *))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:@"1" forKey:@"aid"];
+    [dic setObject:@"0" forKey:@"userId"];
+    
+    
+}
+
+#pragma mark - 114. 请求队列
+- (void)requestTasksWithUrls:(NSMutableArray *)urls success:(void (^)(NSDictionary *dic,NSInteger idx))success failure:(void (^)(NSError *error))failure complete:(void (^)(NSMutableArray *))complete {
+    
+    NSMutableArray * results = [NSMutableArray arrayWithCapacity:urls.count];
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_queue_create("tk.bourne.testQueue", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_group_async(group, queue, ^{
+        for (NSInteger i = 0; i < urls.count; i++) {
+            
+            dispatch_group_enter(group);
+            NSURLSessionDataTask * task = [AppHttpManager requestWithURL:urls[i] success:^(NSURLSessionDataTask *task, id responseObject) {
+                NSDictionary * data = (NSDictionary*)responseObject;
+                success(data,i);
+                @synchronized (results) {
+                   [results addObject:data];
+                }
+            dispatch_group_leave(group);
+            } fail:^(NSURLSessionDataTask *task, NSError *error) {
+                failure(error);
+                dispatch_group_leave(group);
+            }];
+            
+            [task resume];
+        }
+        
+    });
+    
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        NSLog(@"完成 - %@", [NSThread currentThread]);
+        complete(results);
+    });
+}
+
++ (NSURLSessionDataTask*)requestWithURL:(NSString*)url success:(void (^)(NSURLSessionDataTask *task, id responseObject))successBlock fail:(void (^)(NSURLSessionDataTask *task, NSError * error))failure{
+    
+    __block NSURLSessionDataTask * resultTask;
+    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        successBlock(task,responseObject);
+        resultTask = task;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(task,error);
+        resultTask = task;
+    }];
+    
+    return resultTask;
 }
 
 @end
