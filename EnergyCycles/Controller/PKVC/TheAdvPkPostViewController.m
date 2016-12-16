@@ -186,7 +186,8 @@
 
 - (void)getURLContext {
     NSString *postTypeId = postDict[@"fenlei"];
-    NSString *title = postDict[@"title"];
+//    NSString *title = postDict[@"title"];
+    NSString *title = @"标题";
     NSString *context = postDict[@"information"];
     
     title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -196,8 +197,10 @@
     
     if (postTypeId == nil || [postTypeId isKindOfClass:[NSNull class]] || [postTypeId isEqual:[NSNull null]] || [postTypeId length] <= 0) {
         [SVProgressHUD showImage:nil status:@"请选择分类"];
-    }else if (title == nil || context == nil) {
-        [SVProgressHUD showImage:nil status:@"内容或标题不能为空"];
+//    }else if (title == nil || context == nil) {
+//        [SVProgressHUD showImage:nil status:@"内容或标题不能为空"];
+    }else if (context == nil) {
+        [SVProgressHUD showImage:nil status:@"内容不能为空"];
     }else {
         if (_dataArr.count) {
             isImage = YES;
@@ -220,17 +223,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 4;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         return 50.f;
+//    } else if (indexPath.row == 1) {
+//        return 30.f;
     } else if (indexPath.row == 1) {
-        return 30.f;
-    } else if (indexPath.row == 2) {
         return 308.f;
-    }else if (indexPath.row == 3) {
+    }else if (indexPath.row == 2) {
         return 120.f;
     }
     
@@ -245,15 +248,15 @@
          cell.titleLabel.text=postDict[@"fenleiText"];
        }
         return cell;
+//    } else if (indexPath.row == 1) {
+//        HeadLineTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"HeadLineTableViewCell" owner:self options:nil].lastObject;
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        
+//        [cell.textField addTarget:self action:@selector(textFieldValueChange:) forControlEvents:UIControlEventEditingChanged];
+//        cell.textField.text = postDict[@"title"];
+//        
+//        return cell;
     } else if (indexPath.row == 1) {
-        HeadLineTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"HeadLineTableViewCell" owner:self options:nil].lastObject;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        [cell.textField addTarget:self action:@selector(textFieldValueChange:) forControlEvents:UIControlEventEditingChanged];
-        cell.textField.text = postDict[@"title"];
-        
-        return cell;
-    } else if (indexPath.row == 2) {
         EnergyPostViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"EnergyPostViewCell" owner:self options:nil].lastObject;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -265,7 +268,7 @@
         cell.informationTextView.delegate = self;
         
         return cell;
-    }else if (indexPath.row == 3) {
+    }else if (indexPath.row == 2) {
         EnergyPostOneViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"EnergyPostOneViewCell" owner:self options:nil].lastObject;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];

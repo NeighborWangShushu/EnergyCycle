@@ -10,10 +10,14 @@
 #import "Masonry.h"
 #import <WebKit/WebKit.h>
 #import "MineHomePageViewController.h"
+#import "AFHTTPSessionManager.h"
 
 
-@interface WebVC ()<WKScriptMessageHandler,WKUIDelegate> {
+@interface WebVC ()<WKScriptMessageHandler,WKUIDelegate,NSURLSessionDelegate,NSURLSessionDataDelegate,WKNavigationDelegate> {
     NSString * _url;
+    WKWebView * webview;
+    NSURLRequest *request;
+    NSMutableData *resultData;
 }
 
 @end
@@ -40,6 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    resultData = [NSMutableData new];
+    
     UIButton *leftbutton = [UIButton buttonWithType:UIButtonTypeSystem];
     leftbutton.frame = CGRectMake(0, 0, 30, 30);
     [leftbutton setBackgroundImage:[UIImage imageNamed:@"whiteback_normal"] forState:UIControlStateNormal];
@@ -59,9 +65,11 @@
     [config.userContentController addScriptMessageHandler:self name:@"SaveImg"];
     
     
-    WKWebView * webview = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
+    
+    webview = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
     webview.backgroundColor = [UIColor redColor];
     webview.UIDelegate = self;
+    webview.navigationDelegate = self;
     [self.view addSubview:webview];
     
     [webview mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -71,11 +79,75 @@
         make.bottom.equalTo(self.view.mas_bottom).with.offset(-5);
     }];
     
-    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30];
-    [webview loadRequest:request];
+    NSLog(@"%@",self.url);
+    
+    request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
+//    [webview loadRequest:request];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    [connection start];
     
     // Do any additional setup after loading the view.
 }
+
+- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
+{
+    return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+{
+    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust])
+    {
+        [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
+    }
+    else
+    {
+        [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [resultData appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    NSString *htmlString = [[NSString alloc] initWithBytes:[resultData bytes] length:[resultData length] encoding:NSUTF8StringEncoding];
+    [webview loadHTMLString:htmlString baseURL:[NSURL URLWithString:self.url]];
+}
+
+- (void)URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * __nullable credential))completionHandler{
+    
+    NSURLSessionAuthChallengeDisposition disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+    NSURLCredential *credential = nil;
+    if([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]){
+        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+#if DEBUG
+        securityPolicy.allowInvalidCertificates = YES;
+        securityPolicy.validatesDomainName = NO;
+#endif
+        if ([securityPolicy evaluateServerTrust:challenge.protectionSpace.serverTrust forDomain:challenge.protectionSpace.host]) {
+            credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+            if (credential) {
+                disposition = NSURLSessionAuthChallengeUseCredential;
+            }
+            
+        } else {
+            disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
+        }
+        
+    }
+    completionHandler(disposition, credential);
+
+}
+
+//- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler {
+//    NSURLCredential * credential = [[NSURLCredential alloc] initWithTrust:[challenge protectionSpace].serverTrust];
+//    completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+//}
 
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
