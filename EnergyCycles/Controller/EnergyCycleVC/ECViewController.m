@@ -1142,7 +1142,12 @@
     shareView.alpha = 0.0;
     shareView.shareTitle = model.msgContent;
     shareView.shareText = model.msgContent;
-    shareView.shareImageUrl = model.picNamesArray[0];
+    // 如果能量贴没有图片给空字符
+    if (model.picNamesArray.count != 0) {
+        shareView.shareImageUrl = model.picNamesArray[0];
+    } else {
+        shareView.shareImageUrl = @"";
+    }
     NSString * share_url = @"";
     share_url = [NSString stringWithFormat:@"%@%@?aid=%@",INTERFACE_URL,ArticleDetailAspx,model.ID];
     shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
