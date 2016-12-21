@@ -11,7 +11,9 @@
 @implementation BadgeRulesCollectionViewCell
 
 - (void)updateImageViewWithDays:(NSString *)days flag:(NSString *)flag {
-    NSString *string = [NSString stringWithFormat:@"%@signIn_%@", days, flag];
+    NSString *string = [NSString stringWithFormat:@"%@signIn_0", days];
+//    NSString *string = [NSString stringWithFormat:@"%@signIn_%@", days, flag];
+    self.badgeImage.alpha = [flag isEqualToString:@"0"] ? 0.4 : 1;
     [self.badgeImage setImage:[UIImage imageNamed:string]];
 }
 

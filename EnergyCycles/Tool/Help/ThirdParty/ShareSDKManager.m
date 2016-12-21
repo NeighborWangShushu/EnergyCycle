@@ -168,14 +168,14 @@
                              progress:nil
                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                                 if (image) {
-                                    [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:image image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatSession];
+                                    [shareParams SSDKSetupWeChatParamsByText:model.content title:@"测试" url:[NSURL URLWithString:model.shareUrl] thumbImage:image image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatSession];
                                 }
+                                [self share:SSDKPlatformSubTypeWechatSession params:shareParams block:^(SSDKResponseState state) {
+                                    result(state);
+                                }];
+                                
                             }];
     }
-    
-    [self share:SSDKPlatformSubTypeWechatSession params:shareParams block:^(SSDKResponseState state) {
-        result(state);
-    }];
 
 }
 
