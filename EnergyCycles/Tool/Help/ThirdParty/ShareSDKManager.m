@@ -194,12 +194,13 @@
                                     [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:image image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatTimeline];
 
                                 }
+                                [self share:SSDKPlatformSubTypeWechatTimeline params:shareParams block:^(SSDKResponseState state) {
+                                    result(state);
+                                }];
+
                             }];
     }
     
-    [self share:SSDKPlatformSubTypeWechatTimeline params:shareParams block:^(SSDKResponseState state) {
-        result(state);
-    }];
     
 }
 
