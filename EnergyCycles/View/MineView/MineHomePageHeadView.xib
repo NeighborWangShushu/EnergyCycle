@@ -149,12 +149,13 @@
                         <action selector="changeHeadImage:" destination="ibT-XF-nB3" eventType="touchUpInside" id="bUk-af-gwB"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9O-yQ-ZtU">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9O-yQ-ZtU">
                     <rect key="frame" x="115" y="127.5" width="90" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="HLr-rS-oJ4"/>
                         <constraint firstAttribute="width" constant="90" id="Xj2-1i-R01"/>
                     </constraints>
+                    <state key="normal" image="subscript_30signIn.png"/>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -231,6 +232,7 @@
         <image name="advice.png" width="12" height="14"/>
         <image name="dizhi.png" width="11" height="16"/>
         <image name="man.png" width="12" height="12"/>
+        <image name="subscript_30signIn.png" width="60" height="15"/>
         <image name="touxiang.png" width="40" height="40"/>
     </resources>
 </document>
