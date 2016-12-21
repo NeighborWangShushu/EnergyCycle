@@ -193,25 +193,39 @@ static CGSize itemSize;
     
 }
 
+// 下一步按钮的方法
 - (void)next {
     NSMutableArray *imageData = [NSMutableArray array];
     NSMutableArray *imageID = [NSMutableArray array];
+    /*
+        iphone的照片进行了编辑后,图片源文件的数据会发生改变,所以为了拿到正确的图片我们需要对文件的属性进行设置,
+        PHImageRequestOptions中有一个属性是version,我们可以通过这个属性来有选择的拿到相册中的图片(原图,编辑后的图片)
+     */
+    PHImageRequestOptions *requestOptions = [[PHImageRequestOptions alloc] init];
+    requestOptions.version = PHImageRequestOptionsVersionCurrent;
+    
     for (NSIndexPath *index in self.photoArr) {
         PHAsset *asset = self.albumData[index.row];
-        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:requestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
             if (result) {
-                [imageData addObject:result];
-                [imageID addObject:asset.localIdentifier];
-                if (imageData.count == self.photoArr.count && imageID.count == self.photoArr.count) {
-                    if ([self.delegate respondsToSelector:@selector(exportImageData:ID:)]) {
-                        [self.delegate exportImageData:imageData ID:imageID];
-                        [self cancel];
+                // 排除取消，错误，低清图三种情况，即已经获取到了高清图时，把这张高清图缓存到 result 中
+                BOOL downloadFinined = ![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey] && ![[info objectForKey:PHImageResultIsDegradedKey] boolValue];
+                if (downloadFinined) {
+                    [imageData addObject:result];
+                    [imageID addObject:asset.localIdentifier];
+                    if (imageData.count == self.photoArr.count && imageID.count == self.photoArr.count) {
+                        if ([self.delegate respondsToSelector:@selector(exportImageData:ID:)]) {
+                            [self.delegate exportImageData:imageData ID:imageID];
+                            [self cancel];
+                        }
                     }
                 }
             }
         }];
     }
 }
+
+
 
 - (void)cancel {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -271,7 +285,7 @@ static CGSize itemSize;
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:itemSize contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         if (result) {
             cell.thumbnailImage = result;
-            if ([self.imageIDArr containsObject:asset.localIdentifier]) {
+            if ([self.imageIDArr containsObject:asset.localIdentifier] || [self.photoArr containsObject:indexPath]) {
                 cell.isSelected = YES;
                 cell.indexPath = indexPath;
                 [cell selected];
