@@ -9958,7 +9958,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = EnergyCycles/EnergyCycles.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
 				DEVELOPMENT_TEAM = V39449673K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
