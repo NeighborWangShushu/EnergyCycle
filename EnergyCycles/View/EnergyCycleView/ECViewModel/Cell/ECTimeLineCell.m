@@ -325,11 +325,11 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:EC_AVATAR_PLACEHOLDER];
     _badge.image = [UIImage imageNamed:[NSString stringWithFormat:@"badge_%@",model.badge]];
-
+    NSLog(@"%@",model.iconName);
+    
     _nameLable.text = model.name;
     _location.text = model.location;
     _time.text = model.time;
-    
     // 防止单行文本label在重用时宽度计算不准的问题
     [_nameLable sizeToFit];
     _contentLabel.text = model.msgContent;

@@ -318,7 +318,8 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
         _defaultMaskType = SVProgressHUDMaskTypeNone;
         _defaultStyle = SVProgressHUDStyleLight;
         _defaultAnimationType = SVProgressHUDAnimationTypeFlat;
-
+        
+        
         // add accessibility support
         self.accessibilityIdentifier = @"SVProgressHUD";
         self.accessibilityLabel = @"SVProgressHUD";
