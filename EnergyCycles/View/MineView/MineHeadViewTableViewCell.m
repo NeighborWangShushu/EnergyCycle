@@ -36,16 +36,22 @@
                 string = @"50";
                 if (report >= 100) {
                     string = @"100";
-                    if (report >= 200) {
-                        string = @"200";
-                        if (report >= 300) {
-                            string = @"300";
+                    if (report >= 150) {
+                        string = @"150";
+                        if (report >= 200) {
+                            string = @"200";
+                            if (report >= 250) {
+                                string = @"250";
+                                if (report >= 300) {
+                                    string = @"300";
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-        [self.subscriptBadge setImage:[UIImage imageNamed:[NSString stringWithFormat:@"subscript_%@signIn@2x", string]] forState:UIControlStateNormal];
+        [self.subscriptBadge setImage:[UIImage imageNamed:[NSString stringWithFormat:@"subscript_%@signIn", string]] forState:UIControlStateNormal];
         self.subscriptBadge.userInteractionEnabled = NO;
     }
     
