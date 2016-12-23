@@ -281,7 +281,7 @@
 - (void)shareClientToQQZone:(ShareModel *)model imageUrl:(NSString *)imageUrl block:(result)result {
     
     __weak typeof(self) weakSelf = self;
-
+    
     NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKEnableUseClientShare];
     
@@ -292,7 +292,7 @@
         content = [content stringByAppendingString:@"..."];
     }
     
-       if (imageUrl == nil || [imageUrl isEqualToString:@""]) {
+    if (imageUrl == nil || [imageUrl isEqualToString:@""]) {
         [shareParams SSDKSetupQQParamsByText:content title:content url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQZone];
     } else {
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
@@ -306,12 +306,10 @@
                             }];
     }
     
-    
-    
     [self share:SSDKPlatformSubTypeQZone params:shareParams block:^(SSDKResponseState state) {
         result(state);
     }];
-  
+    
 }
 
 
