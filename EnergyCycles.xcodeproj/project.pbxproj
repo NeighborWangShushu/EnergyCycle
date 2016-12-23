@@ -409,6 +409,9 @@
 		34B360CB1E039CD8000A1296 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360C41E039CD8000A1296 /* AFURLResponseSerialization.m */; };
 		34B360CC1E039CD8000A1296 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360C61E039CD8000A1296 /* AFURLSessionManager.m */; };
 		34B360CE1E093A5D000A1296 /* https.cer in Resources */ = {isa = PBXBuildFile; fileRef = 34B360CD1E093A5D000A1296 /* https.cer */; };
+		34F756611E0CCECE00A1C0DD /* ECSiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F7565F1E0CCECE00A1C0DD /* ECSiftCell.m */; };
+		34F756621E0CCECE00A1C0DD /* ECSiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F756601E0CCECE00A1C0DD /* ECSiftCell.xib */; };
+		34F756651E0CCFA900A1C0DD /* ECSiftCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756641E0CCFA900A1C0DD /* ECSiftCollectionCell.m */; };
 		6202B1611D62F9AD000F7F39 /* ReportShareTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6202B15F1D62F9AD000F7F39 /* ReportShareTableViewCell.m */; };
 		6202B1621D62F9AD000F7F39 /* ReportShareTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6202B1601D62F9AD000F7F39 /* ReportShareTableViewCell.xib */; };
 		6202B17B1D62FF9A000F7F39 /* help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6202B1631D62FF9A000F7F39 /* help@2x.png */; };
@@ -2211,6 +2214,11 @@
 		34B360C51E039CD8000A1296 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		34B360C61E039CD8000A1296 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		34B360CD1E093A5D000A1296 /* https.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = https.cer; sourceTree = "<group>"; };
+		34F7565E1E0CCECE00A1C0DD /* ECSiftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSiftCell.h; sourceTree = "<group>"; };
+		34F7565F1E0CCECE00A1C0DD /* ECSiftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSiftCell.m; sourceTree = "<group>"; };
+		34F756601E0CCECE00A1C0DD /* ECSiftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECSiftCell.xib; sourceTree = "<group>"; };
+		34F756631E0CCFA900A1C0DD /* ECSiftCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSiftCollectionCell.h; sourceTree = "<group>"; };
+		34F756641E0CCFA900A1C0DD /* ECSiftCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSiftCollectionCell.m; sourceTree = "<group>"; };
 		6202B15E1D62F9AD000F7F39 /* ReportShareTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportShareTableViewCell.h; sourceTree = "<group>"; };
 		6202B15F1D62F9AD000F7F39 /* ReportShareTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportShareTableViewCell.m; sourceTree = "<group>"; };
 		6202B1601D62F9AD000F7F39 /* ReportShareTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportShareTableViewCell.xib; sourceTree = "<group>"; };
@@ -6442,6 +6450,11 @@
 				D05A95B61D62E52D0063AD41 /* ECContactSelectedCell.h */,
 				D05A95B71D62E52D0063AD41 /* ECContactSelectedCell.m */,
 				D05A95B81D62E52D0063AD41 /* ECContactSelectedCell.xib */,
+				34F7565E1E0CCECE00A1C0DD /* ECSiftCell.h */,
+				34F7565F1E0CCECE00A1C0DD /* ECSiftCell.m */,
+				34F756601E0CCECE00A1C0DD /* ECSiftCell.xib */,
+				34F756631E0CCFA900A1C0DD /* ECSiftCollectionCell.h */,
+				34F756641E0CCFA900A1C0DD /* ECSiftCollectionCell.m */,
 			);
 			name = Cell;
 			path = ECViewModel/Cell;
@@ -8977,6 +8990,7 @@
 				D05A95B21D62B8030063AD41 /* ec_contact_unselected@3x.png in Resources */,
 				D029BC391D3771C300B20D65 /* ec_post_add_button@3x.png in Resources */,
 				6202B1851D62FF9A000F7F39 /* offWeibo@2x.png in Resources */,
+				34F756621E0CCECE00A1C0DD /* ECSiftCell.xib in Resources */,
 				26D26FE81C118FFF008511A9 /* LearnOneViewCell.xib in Resources */,
 				6202B18B1D62FF9A000F7F39 /* onQQ@2x.png in Resources */,
 				6259020E1D2B92B300F3F13C /* SettingOneViewCell.xib in Resources */,
@@ -9667,6 +9681,7 @@
 				26E987361C0D309300C6A7BB /* TheInvitationViewController.m in Sources */,
 				62367E281D6AE3B800272505 /* PkSummaryModel.m in Sources */,
 				D07EB2A31D18DE6800840AC2 /* UUProgressHUD.m in Sources */,
+				34F756611E0CCECE00A1C0DD /* ECSiftCell.m in Sources */,
 				DA7AC8C91C3F9ED000CD97EE /* InformationModel.m in Sources */,
 				DAAEC7131C1FF58800FA094B /* NewDetailViewController.m in Sources */,
 				D07E24911D13F04000854B51 /* RACollectionViewTripletLayout.m in Sources */,
@@ -9740,6 +9755,7 @@
 				26D99F0D1C0C4D7C007AF579 /* SDWebImageCompat.m in Sources */,
 				26D99EBA1C0C4D7B007AF579 /* WXMediaMessage+messageConstruct.m in Sources */,
 				26D99EE41C0C4D7C007AF579 /* JSONHTTPClient.m in Sources */,
+				34F756651E0CCFA900A1C0DD /* ECSiftCollectionCell.m in Sources */,
 				D07EB2B51D192BB400840AC2 /* LoadMoreCollectionCell.m in Sources */,
 				D07EB2831D18DE6800840AC2 /* MessageSoundEffect.m in Sources */,
 				DAAEC6D81C1FB87700FA094B /* SearchOneTableViewCell.m in Sources */,

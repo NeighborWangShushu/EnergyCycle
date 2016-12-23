@@ -33,5 +33,7 @@
 @property (nonatomic, assign, readonly) BOOL shouldShowMoreButton;
 
 
+- (NSString*)shortTime;
+
 @end
 

@@ -269,7 +269,6 @@
                                     [shareParams SSDKSetupShareParamsByText:content images:@[image] url:[NSURL URLWithString:model.shareUrl] title:model.title type:SSDKContentTypeAuto];
                                     
                                 }
-                              
                             }];
     }
     

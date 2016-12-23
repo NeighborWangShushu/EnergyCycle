@@ -17,6 +17,7 @@
 #import "XMShareView.h"
 #import "GifHeader.h"
 #import "ECRecommendCell.h"
+#import "ECSiftCell.h"
 
 #import "JSONKit.h"
 #import "NavMenuView.h"
@@ -35,6 +36,7 @@
 #import "NSDate+JKReporting.h"
 #import "NSDate+JKUtilities.h"
 
+#define kSiftTimeLineTableViewCellId @"kSiftTimeLineCell"
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
 
@@ -132,7 +134,6 @@
  *  检查是否绑定手机号
  */
 
-
 - (void)checkPhone {
     
     [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
@@ -198,6 +199,7 @@
     
 }
 
+
 - (void)vertyAction:(UIButton*)button {
     NSLog(@"获取验证码");
     if ([[AppHelpManager sharedInstance] isPhoneNum:textf.text]) {
@@ -222,10 +224,10 @@
 
 }
 
+
 /**
  *  获取验证码
  */
-
 
 - (void)getVertyCode:(NSString*)phone {
     
@@ -314,7 +316,6 @@
         
     }];
     
-    
 }
 
 
@@ -343,10 +344,11 @@
     }
 }
 
+
 - (void)getData:(BOOL)isloading {
     __weak typeof(self) weakSelf = self;
     _userId = [[NSString stringWithFormat:@"%@",User_ID] isEqualToString:@""]?@"0":User_ID;
-
+    
     if (pageType == 0) {
         //能量圈
         if(isloading)[SVProgressHUD showWithStatus:@""];
@@ -383,7 +385,7 @@
                     [weakSelf.commentArray addObject:model];
                 }
                 NSLog(@"operation2 is complete");
-
+                
             }else if (idx == 2){
                 [self.newerArray removeAllObjects];
                 for (NSDictionary * data in dict[@"Data"]) {
@@ -410,7 +412,7 @@
     }else {
         //关注的人
         [SVProgressHUD showWithStatus:@""];
-
+        
         if ([User_TOKEN length] <= 0) {
             [SVProgressHUD showImage:nil status:@"您还未登录，暂无数据"];
             [self.tableView reloadData];
@@ -483,6 +485,7 @@
     model.commentItemsArray = commentArr;
     return model;
 }
+
 
 /**
  *  GET
@@ -623,7 +626,6 @@
     self.navigationItem.leftBarButtonItems = @[leftitem];
     
     
-    
     UITableView * tableView   = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.delegate        = self;
     tableView.dataSource      = self;
@@ -632,6 +634,8 @@
     tableView.backgroundColor = [UIColor clearColor];
     [tableView registerClass:[ECTimeLineCell class] forCellReuseIdentifier:@"TestCell2"];
     [tableView registerClass:[ECRecommendCell class] forCellReuseIdentifier:kCommentUserCellId];
+    [tableView registerClass:[ECSiftCell class] forCellReuseIdentifier:kSiftTimeLineTableViewCellId];
+
     [self.view addSubview:tableView];
     tableView.hidden = YES;
     
@@ -848,7 +852,6 @@
 - (void)didClickMoreCommendUser {
     [delegate.tabbarController hideTabbar:YES];
     [self performSegueWithIdentifier:@"EnergyCycleViewToInviteView" sender:nil];
-    
 }
 
 - (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
@@ -1037,7 +1040,16 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0 || indexPath.section == 2) {
+    if (indexPath.section == 0) {
+        //精选动态
+        ECSiftCell *cell = [tableView dequeueReusableCellWithIdentifier:kSiftTimeLineTableViewCellId];
+        cell.models = self.dataArray;
+        
+        
+        return cell;
+    }else if (indexPath.section == 2) {
+        //最新动态
+        
         ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
         cell.indexPath = indexPath;
         __weak typeof(self) weakSelf = self;
@@ -1058,7 +1070,7 @@
         ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
         [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
         if (pageType == 0) {
-            cell.model = indexPath.section == 0? self.dataArray[indexPath.row]:self.newerArray[indexPath.row];
+            cell.model = self.newerArray[indexPath.row];
         }else {
             cell.model = self.attentionArray[indexPath.row];
         }
