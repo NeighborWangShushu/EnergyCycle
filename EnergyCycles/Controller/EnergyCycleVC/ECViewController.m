@@ -41,7 +41,7 @@
 #define kCommentUserCellId @"ECCommentUserCell"
 
 
-@interface ECViewController ()<UITableViewDelegate,UITableViewDataSource,ECTimeLineCellDelegate,UITextFieldDelegate,NavMenuViewDelegate,ECRecommendCellDelegate> {
+@interface ECViewController ()<UITableViewDelegate,UITableViewDataSource,ECTimeLineCellDelegate,UITextFieldDelegate,NavMenuViewDelegate,ECRecommendCellDelegate,ECSiftCellDelegate> {
     XMShareView*shareView;
     AppDelegate*delegate;
     
@@ -612,7 +612,7 @@
     messageCountView.layer.cornerRadius    = 7.0;
     messageCountView.hidden                = YES;
     [leftView addSubview:messageCountView];
-
+    
     count                                  = [[UILabel alloc] initWithFrame:CGRectMake(1, 2, 12, 10)];
     count.font                             = [UIFont systemFontOfSize:10];
     count.center                           = messageCountView.center;
@@ -634,7 +634,9 @@
     tableView.backgroundColor = [UIColor clearColor];
     [tableView registerClass:[ECTimeLineCell class] forCellReuseIdentifier:@"TestCell2"];
     [tableView registerClass:[ECRecommendCell class] forCellReuseIdentifier:kCommentUserCellId];
-    [tableView registerClass:[ECSiftCell class] forCellReuseIdentifier:kSiftTimeLineTableViewCellId];
+    
+    UINib *nib = [UINib nibWithNibName:@"ECSiftCell" bundle:nil];
+    [tableView registerNib:nib forCellReuseIdentifier:kSiftTimeLineTableViewCellId];
 
     [self.view addSubview:tableView];
     tableView.hidden = YES;
@@ -971,10 +973,15 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 || indexPath.section == 2) {
+    if (indexPath.section == 0) {
+        NSInteger line = self.dataArray.count%2 + 1;
+        CGFloat itemHeight = Screen_width/2 + 60;
+        return line * (itemHeight + 10);
+    }
+    else if (indexPath.section == 2) {
         id model = nil;
         if(pageType == 0) {
-          model = indexPath.section == 0? self.dataArray[indexPath.row]:self.newerArray[indexPath.row];
+          model = self.newerArray[indexPath.row];
         }else {
             model = self.attentionArray[indexPath.row];
         }
@@ -1035,7 +1042,16 @@
     else {
         return [UIView new];
     }
+}
 
+- (void)ecSiftCellDidSelectedItem:(NSIndexPath *)indexPath model:(ECTimeLineModel *)model {
+    NSString*aid = model.ID;
+    [delegate.tabbarController hideTabbar:YES];
+    
+    WebVC *webVC = MainStoryBoard(@"WebVC");
+    webVC.titleName = @"动态详情";
+    webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,aid,[NSString stringWithFormat:@"%ld",[User_ID integerValue]]];
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -1043,8 +1059,8 @@
     if (indexPath.section == 0) {
         //精选动态
         ECSiftCell *cell = [tableView dequeueReusableCellWithIdentifier:kSiftTimeLineTableViewCellId];
+        cell.delegate = self;
         cell.models = self.dataArray;
-        
         
         return cell;
     }else if (indexPath.section == 2) {
@@ -1056,7 +1072,7 @@
         if (!cell.moreButtonClickedBlock) {
             [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
                 if (pageType == 0) {
-                    ECTimeLineModel *model = indexPath.section == 0? weakSelf.dataArray[indexPath.row]:weakSelf.newerArray[indexPath.row];
+                    ECTimeLineModel *model = weakSelf.newerArray[indexPath.row];
                     model.isOpening = !model.isOpening;
                 }else {
                     ECTimeLineModel *model = weakSelf.attentionArray[indexPath.row];
@@ -1095,7 +1111,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (pageType == 0) {
         if (section == 0) {
-            return [self.dataArray count];
+            return 1;
         }else if (section == 2) {
             return [self.newerArray count];
         }

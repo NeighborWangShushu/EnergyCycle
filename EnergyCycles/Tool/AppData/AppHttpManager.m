@@ -60,7 +60,7 @@ static AFHTTPSessionManager *manager;
         manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://www.woodybear.cn"]];
     }
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager setSecurityPolicy:[AppHttpManager customSecurityPolicy]];
+//    [manager setSecurityPolicy:[AppHttpManager customSecurityPolicy]];
     
     manager.requestSerializer.timeoutInterval=30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
@@ -93,7 +93,7 @@ static AFHTTPSessionManager *manager;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager setSecurityPolicy:[AppHttpManager customSecurityPolicy]];
+//    [manager setSecurityPolicy:[AppHttpManager customSecurityPolicy]];
     manager.requestSerializer.timeoutInterval=30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];

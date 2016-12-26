@@ -38,6 +38,14 @@
     return self;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self initUI];
+    }
+    return self;
+}
+
 - (void)setModel:(ECTimeLineModel *)model {
     
     _model = model;
@@ -63,10 +71,12 @@
 - (void)initUI {
     
     self.contentImg = [UIImageView new];
+    self.contentImg.layer.masksToBounds = YES;
+    [self.contentImg setContentMode:UIViewContentModeScaleAspectFill];
     [self addSubview:self.contentImg];
     
     self.title = [UILabel new];
-    [self.title setFont:[UIFont systemFontOfSize:14]];
+    [self.title setFont:[UIFont systemFontOfSize:13]];
     [self.title setTextColor:[UIColor blackColor]];
     self.title.numberOfLines = 2;
     [self addSubview:self.title];
@@ -96,25 +106,26 @@
         make.left.equalTo(@0);
         make.right.equalTo(@0);
         make.top.equalTo(@0);
+        make.height.equalTo(@(Screen_width/2 - 10));
         
     }];
     
     [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@15);
-        make.right.equalTo(@15);
+        make.right.equalTo(@-15);
         make.top.equalTo(self.contentImg.mas_bottom).with.offset(10);
-        make.height.equalTo(@20);
+        make.height.equalTo(@40);
     }];
     
     [self.time mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@15);
-        make.top.equalTo(self.title.mas_bottom).with.offset(20);
+        make.top.equalTo(self.title.mas_bottom).with.offset(10);
         
     }];
     
     [self.likeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).with.offset(-15);
-        make.top.equalTo(self.title.mas_bottom).with.offset(20);
+        make.top.equalTo(self.title.mas_bottom).with.offset(10);
         make.left.equalTo(self.like.mas_right).with.offset(10);
         
     }];
@@ -127,7 +138,7 @@
     }];
     
     [self.msgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.like.mas_left).with.offset(-40);
+        make.right.equalTo(self.like.mas_left).with.offset(-5);
         make.centerY.equalTo(self.like.mas_centerY);
         
     }];

@@ -47,6 +47,8 @@
 
 //测试环境
 
+//#define INTERFACE_URL @"http://192.168.2.13:8888"
+
 #define INTERFACE_URL @"https://www.woodybear.cn/Power/"
 
 
