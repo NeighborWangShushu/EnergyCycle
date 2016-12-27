@@ -11,6 +11,8 @@
 #import "SignInModel.h"
 #import "SignInOneCollectionViewCell.h"
 
+#import "SignRankingTableVC.h"
+
 @interface SignInViewController () <UIScrollViewDelegate> {
     NSMutableArray *_dataArr;
     
@@ -329,6 +331,12 @@
         isQian = NO;
         [SVProgressHUD showImage:nil status:@"已经签过了"];
     }
+}
+
+#pragma mark - 签到排行榜
+- (IBAction)signListClick:(UIButton *)sender {
+    SignRankingTableVC *signRankingVC = [[SignRankingTableVC alloc] init];
+    [self.navigationController pushViewController:signRankingVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

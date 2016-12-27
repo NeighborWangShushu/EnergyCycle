@@ -26,6 +26,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *signButton;
 - (IBAction)signButtonClick:(UIButton *)sender;
 
+// 早起签到排行榜
+@property (weak, nonatomic) IBOutlet UIButton *signList;
+- (IBAction)signListClick:(UIButton *)sender;
 
 
 @end

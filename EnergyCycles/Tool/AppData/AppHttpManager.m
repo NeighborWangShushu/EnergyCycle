@@ -2943,4 +2943,25 @@ static AFHTTPRequestOperationManager *manager;
     }];
 }
 
+#pragma mark - 113.早起签到排行榜
+- (void)getEarlySignRankingWithUserID:(int)userid
+                            PageIndex:(int)pageIndex
+                             PageSize:(int)pageSize
+                            PostOrGet:(NSString *)postOrGetType
+                              success:(void (^)(NSDictionary *dict))success
+                              failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:[NSNumber numberWithInt:pageIndex] forKey:@"pageindex"];
+    [dic setObject:[NSNumber numberWithInt:pageSize] forKey:@"pagesize"];
+    [self callInterfaceByUrl:Early_Sign_Ranking
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+}
+
 @end

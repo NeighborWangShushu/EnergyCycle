@@ -448,6 +448,9 @@
 		622BA6501D40ADBB00194984 /* MinePKRecordViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 622BA64E1D40ADBB00194984 /* MinePKRecordViewTableViewCell.m */; };
 		622BA6511D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622BA64F1D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib */; };
 		622BA6541D40E71A00194984 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 622BA6531D40E71A00194984 /* UserInfoModel.m */; };
+		622EF2CD1E121BE000A19B05 /* SignRankingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 622EF2CC1E121BE000A19B05 /* SignRankingModel.m */; };
+		622EF2D11E12320500A19B05 /* MineSignRankingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 622EF2CF1E12320500A19B05 /* MineSignRankingTableViewCell.m */; };
+		622EF2D21E12320500A19B05 /* MineSignRankingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622EF2D01E12320500A19B05 /* MineSignRankingTableViewCell.xib */; };
 		62367E181D6ACA3B00272505 /* DraftsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62367E161D6ACA3B00272505 /* DraftsTableViewCell.m */; };
 		62367E191D6ACA3B00272505 /* DraftsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62367E171D6ACA3B00272505 /* DraftsTableViewCell.xib */; };
 		62367E1C1D6AD11B00272505 /* retry@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62367E1A1D6AD11B00272505 /* retry@2x.png */; };
@@ -560,6 +563,10 @@
 		626B80591E0A30AD0097CFA5 /* subscript_150signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B80551E0A30AD0097CFA5 /* subscript_150signIn@3x.png */; };
 		626B805A1E0A30AD0097CFA5 /* subscript_250signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B80561E0A30AD0097CFA5 /* subscript_250signIn@2x.png */; };
 		626B805B1E0A30AD0097CFA5 /* subscript_250signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B80571E0A30AD0097CFA5 /* subscript_250signIn@3x.png */; };
+		626B80601E0BD7120097CFA5 /* 150signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B805C1E0BD7120097CFA5 /* 150signIn@2x.png */; };
+		626B80611E0BD7120097CFA5 /* 150signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B805D1E0BD7120097CFA5 /* 150signIn@3x.png */; };
+		626B80621E0BD7120097CFA5 /* 250signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B805E1E0BD7120097CFA5 /* 250signIn@2x.png */; };
+		626B80631E0BD7120097CFA5 /* 250signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B805F1E0BD7120097CFA5 /* 250signIn@3x.png */; };
 		626D3F0D1D489A6C00724000 /* MineChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */; };
 		626D3F0E1D489A6C00724000 /* MineChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */; };
 		626D3F111D48A29400724000 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F101D48A29400724000 /* ChatTableViewCell.m */; };
@@ -704,6 +711,10 @@
 		62FE509B1D45B62E0082BD03 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62FE509A1D45B62E0082BD03 /* MessageViewController.m */; };
 		62FE50A01D45DEE40082BD03 /* MineMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62FE509E1D45DEE40082BD03 /* MineMessageTableViewCell.m */; };
 		62FE50A11D45DEE40082BD03 /* MineMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62FE509F1D45DEE40082BD03 /* MineMessageTableViewCell.xib */; };
+		62FE56C71E1111C50094EEFD /* SignRankingTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 62FE56C61E1111C50094EEFD /* SignRankingTableVC.m */; };
+		62FE56C91E11336E0094EEFD /* sign_coverlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 62FE56C81E11336E0094EEFD /* sign_coverlayer.png */; };
+		62FE56CE1E1200250094EEFD /* SignRankingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62FE56CC1E1200250094EEFD /* SignRankingTableViewCell.m */; };
+		62FE56CF1E1200250094EEFD /* SignRankingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62FE56CD1E1200250094EEFD /* SignRankingTableViewCell.xib */; };
 		D00591601D24F6B300F91692 /* pengyouquan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005915F1D24F6B300F91692 /* pengyouquan@2x.png */; };
 		D00591641D24F77D00F91692 /* qzone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591611D24F77D00F91692 /* qzone@2x.png */; };
 		D00591651D24F77D00F91692 /* wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591621D24F77D00F91692 /* wechat@2x.png */; };
@@ -2263,6 +2274,11 @@
 		622BA64F1D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MinePKRecordViewTableViewCell.xib; sourceTree = "<group>"; };
 		622BA6521D40E71A00194984 /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
 		622BA6531D40E71A00194984 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
+		622EF2CB1E121BE000A19B05 /* SignRankingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignRankingModel.h; sourceTree = "<group>"; };
+		622EF2CC1E121BE000A19B05 /* SignRankingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignRankingModel.m; sourceTree = "<group>"; };
+		622EF2CE1E12320500A19B05 /* MineSignRankingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineSignRankingTableViewCell.h; sourceTree = "<group>"; };
+		622EF2CF1E12320500A19B05 /* MineSignRankingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineSignRankingTableViewCell.m; sourceTree = "<group>"; };
+		622EF2D01E12320500A19B05 /* MineSignRankingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineSignRankingTableViewCell.xib; sourceTree = "<group>"; };
 		62367E151D6ACA3B00272505 /* DraftsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraftsTableViewCell.h; sourceTree = "<group>"; };
 		62367E161D6ACA3B00272505 /* DraftsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraftsTableViewCell.m; sourceTree = "<group>"; };
 		62367E171D6ACA3B00272505 /* DraftsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DraftsTableViewCell.xib; sourceTree = "<group>"; };
@@ -2406,6 +2422,10 @@
 		626B80551E0A30AD0097CFA5 /* subscript_150signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_150signIn@3x.png"; sourceTree = "<group>"; };
 		626B80561E0A30AD0097CFA5 /* subscript_250signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_250signIn@2x.png"; sourceTree = "<group>"; };
 		626B80571E0A30AD0097CFA5 /* subscript_250signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_250signIn@3x.png"; sourceTree = "<group>"; };
+		626B805C1E0BD7120097CFA5 /* 150signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "150signIn@2x.png"; sourceTree = "<group>"; };
+		626B805D1E0BD7120097CFA5 /* 150signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "150signIn@3x.png"; sourceTree = "<group>"; };
+		626B805E1E0BD7120097CFA5 /* 250signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "250signIn@2x.png"; sourceTree = "<group>"; };
+		626B805F1E0BD7120097CFA5 /* 250signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "250signIn@3x.png"; sourceTree = "<group>"; };
 		626D3F0A1D489A6C00724000 /* MineChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineChatTableViewCell.h; sourceTree = "<group>"; };
 		626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineChatTableViewCell.m; sourceTree = "<group>"; };
 		626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineChatTableViewCell.xib; sourceTree = "<group>"; };
@@ -2596,6 +2616,12 @@
 		62FE509D1D45DEE40082BD03 /* MineMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineMessageTableViewCell.h; sourceTree = "<group>"; };
 		62FE509E1D45DEE40082BD03 /* MineMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineMessageTableViewCell.m; sourceTree = "<group>"; };
 		62FE509F1D45DEE40082BD03 /* MineMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineMessageTableViewCell.xib; sourceTree = "<group>"; };
+		62FE56C51E1111C50094EEFD /* SignRankingTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignRankingTableVC.h; sourceTree = "<group>"; };
+		62FE56C61E1111C50094EEFD /* SignRankingTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignRankingTableVC.m; sourceTree = "<group>"; };
+		62FE56C81E11336E0094EEFD /* sign_coverlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_coverlayer.png; sourceTree = "<group>"; };
+		62FE56CB1E1200250094EEFD /* SignRankingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignRankingTableViewCell.h; sourceTree = "<group>"; };
+		62FE56CC1E1200250094EEFD /* SignRankingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignRankingTableViewCell.m; sourceTree = "<group>"; };
+		62FE56CD1E1200250094EEFD /* SignRankingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignRankingTableViewCell.xib; sourceTree = "<group>"; };
 		D005915F1D24F6B300F91692 /* pengyouquan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pengyouquan@2x.png"; path = "Mine/FourImage/pengyouquan@2x.png"; sourceTree = "<group>"; };
 		D00591611D24F77D00F91692 /* qzone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "qzone@2x.png"; path = "Mine/FourImage/qzone@2x.png"; sourceTree = "<group>"; };
 		D00591621D24F77D00F91692 /* wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wechat@2x.png"; path = "Mine/FourImage/wechat@2x.png"; sourceTree = "<group>"; };
@@ -4214,6 +4240,7 @@
 		26D8B1C91C0FEEE900A1DB04 /* road_Duan */ = {
 			isa = PBXGroup;
 			children = (
+				62FE56C81E11336E0094EEFD /* sign_coverlayer.png */,
 				26D8B1CA1C0FEEE900A1DB04 /* 10@2x.png */,
 				26D8B1CB1C0FEEE900A1DB04 /* 10@3x.png */,
 				26D8B1CC1C0FEEE900A1DB04 /* 11@2x.png */,
@@ -4325,6 +4352,8 @@
 				D05A959B1D61AD500063AD41 /* ECContactVC.xib */,
 				D06215D31D6AFE0C00D3845E /* ECSearchDisplayController.h */,
 				D06215D41D6AFE0C00D3845E /* ECSearchDisplayController.m */,
+				62FE56C51E1111C50094EEFD /* SignRankingTableVC.h */,
+				62FE56C61E1111C50094EEFD /* SignRankingTableVC.m */,
 			);
 			path = EnergyCycleVC;
 			sourceTree = "<group>";
@@ -4500,6 +4529,8 @@
 				D0C97BA51D5DA85C00B62219 /* DateAlertModel.m */,
 				D05A95A31D61E57A0063AD41 /* ContactModel.h */,
 				D05A95A41D61E57A0063AD41 /* ContactModel.m */,
+				622EF2CB1E121BE000A19B05 /* SignRankingModel.h */,
+				622EF2CC1E121BE000A19B05 /* SignRankingModel.m */,
 			);
 			path = EnergyCycleModel;
 			sourceTree = "<group>";
@@ -5536,6 +5567,7 @@
 		26D99E821C0C4D7B007AF579 /* EnergyCycleView */ = {
 			isa = PBXGroup;
 			children = (
+				62FE56CA1E11FFD20094EEFD /* SignRankingView */,
 				D05B9CE51D3481A500A88A10 /* NavMenuView */,
 				D04B54E01D23CBBC00DC259A /* Cell */,
 				D04B54611D23C75700DC259A /* ECViewModel */,
@@ -5836,6 +5868,10 @@
 		626B802D1E0A24D70097CFA5 /* DetailBadge */ = {
 			isa = PBXGroup;
 			children = (
+				626B805C1E0BD7120097CFA5 /* 150signIn@2x.png */,
+				626B805D1E0BD7120097CFA5 /* 150signIn@3x.png */,
+				626B805E1E0BD7120097CFA5 /* 250signIn@2x.png */,
+				626B805F1E0BD7120097CFA5 /* 250signIn@3x.png */,
 				626B802E1E0A24D70097CFA5 /* 100signIn@2x.png */,
 				626B802F1E0A24D70097CFA5 /* 100signIn@3x.png */,
 				626B80301E0A24D70097CFA5 /* 200signIn@2x.png */,
@@ -6163,6 +6199,19 @@
 				62BE73621D5B21D600A83766 /* InformTableViewCell.xib */,
 			);
 			name = MineMessage;
+			sourceTree = "<group>";
+		};
+		62FE56CA1E11FFD20094EEFD /* SignRankingView */ = {
+			isa = PBXGroup;
+			children = (
+				62FE56CB1E1200250094EEFD /* SignRankingTableViewCell.h */,
+				62FE56CC1E1200250094EEFD /* SignRankingTableViewCell.m */,
+				62FE56CD1E1200250094EEFD /* SignRankingTableViewCell.xib */,
+				622EF2CE1E12320500A19B05 /* MineSignRankingTableViewCell.h */,
+				622EF2CF1E12320500A19B05 /* MineSignRankingTableViewCell.m */,
+				622EF2D01E12320500A19B05 /* MineSignRankingTableViewCell.xib */,
+			);
+			name = SignRankingView;
 			sourceTree = "<group>";
 		};
 		D00820E41D1D7DEA00D34117 /* RefreshHeadView */ = {
@@ -8255,6 +8304,7 @@
 				625AD2991D94D99200435FC2 /* ecpicker_next_disable@2x.png in Resources */,
 				62DDA0921D585707005C2CEB /* advancePK@3x.png in Resources */,
 				62E31A631D6DB0BC00F1D7C5 /* score_50@2x.png in Resources */,
+				622EF2D21E12320500A19B05 /* MineSignRankingTableViewCell.xib in Resources */,
 				DA4459FC1C21733D0069415D /* InvitationTwoViewCell.xib in Resources */,
 				627C874B1D812FE500D2FC6E /* Learn_AudioBooks@3x.png in Resources */,
 				D0946D9B1D3CAC90003C9C4C /* icon-80@2x.png in Resources */,
@@ -8617,6 +8667,7 @@
 				629495051D6BED2500B13A3F /* inbox-icon@2x.png in Resources */,
 				26D8B2591C0FEEE900A1DB04 /* 31_1@3x.png in Resources */,
 				626B804A1E0A24D70097CFA5 /* 200signIn@2x.png in Resources */,
+				62FE56C91E11336E0094EEFD /* sign_coverlayer.png in Resources */,
 				625750DC1D33885B00E46B2E /* MineAttention@2x.png in Resources */,
 				625750CC1D33883F00E46B2E /* advice_black@2x.png in Resources */,
 				62E31A531D6DB0BC00F1D7C5 /* score_10@2x.png in Resources */,
@@ -8629,6 +8680,7 @@
 				D029BC241D3737E000B20D65 /* tabbar_pressed_3@2x.png in Resources */,
 				DA677B751C3A6E11004A534E /* QDDT00011.png in Resources */,
 				D07EB2891D18DE6800840AC2 /* chat_animation1.png in Resources */,
+				626B80601E0BD7120097CFA5 /* 150signIn@2x.png in Resources */,
 				DA3190EB1C22A54D00972F63 /* loginyincang@2x.png in Resources */,
 				D07EB26B1D18DE6800840AC2 /* input-field.png in Resources */,
 				62E31A611D6DB0BC00F1D7C5 /* score_4@2x.png in Resources */,
@@ -8714,6 +8766,7 @@
 				DAE034DD1C182181007E6DBD /* 46gou_@2x.png in Resources */,
 				D00AD7CA1D4B451B004AB05A /* 2_013.png in Resources */,
 				DA7D19C61C5AF84600FFB337 /* 4_1366x768.jpeg in Resources */,
+				626B80621E0BD7120097CFA5 /* 250signIn@2x.png in Resources */,
 				DAF48DA21C1E530C00D9C136 /* dianhua_@2x.png in Resources */,
 				DA8AFF7C1C2A9D300064B9A7 /* minebeijing@2x.png in Resources */,
 				62A60CBB1DCB19500028E326 /* pkBgImgSetting@3x.png in Resources */,
@@ -8734,6 +8787,7 @@
 				626B803F1E0A24D70097CFA5 /* 200signIn_0@3x.png in Resources */,
 				62367E251D6ADDD400272505 /* PkSummaryTableViewCell.xib in Resources */,
 				26E987551C0D49CB00C6A7BB /* SignInOneCollectionViewCell.xib in Resources */,
+				626B80631E0BD7120097CFA5 /* 250signIn@3x.png in Resources */,
 				DA9A23351C43B24B0012265D /* 50zan_@3x.png in Resources */,
 				627C873D1D81161700D2FC6E /* CollectionSliderDetailCell.xib in Resources */,
 				DA9A95451C23ABEE00FBE107 /* tuijian@2x.png in Resources */,
@@ -8884,6 +8938,7 @@
 				DA677B811C3A6E11004A534E /* QDDT00023.png in Resources */,
 				626B80481E0A24D70097CFA5 /* 100signIn@2x.png in Resources */,
 				62BE735F1D5B1FF000A83766 /* tongzhi@2x.png in Resources */,
+				62FE56CF1E1200250094EEFD /* SignRankingTableViewCell.xib in Resources */,
 				625AD2841D9295B300435FC2 /* AlbumNoAsset@2x.png in Resources */,
 				26D99F211C0C4D7C007AF579 /* EnergyShowBackCollectionCell.xib in Resources */,
 				DAF48DA31C1E530C00D9C136 /* dianhua_@3x.png in Resources */,
@@ -9098,6 +9153,7 @@
 				DAE034E21C182181007E6DBD /* 48zongpiao_@3x.png in Resources */,
 				626B804C1E0A24D70097CFA5 /* 300signIn@2x.png in Resources */,
 				D00591601D24F6B300F91692 /* pengyouquan@2x.png in Resources */,
+				626B80611E0BD7120097CFA5 /* 150signIn@3x.png in Resources */,
 				DA3190E51C22A54D00972F63 /* loginweibo@2x.png in Resources */,
 				62724E711D42225900E84202 /* attentionButton@3x.png in Resources */,
 				DA7675091C27F39900A34D9C /* 05choujiang@3x.png in Resources */,
@@ -9220,6 +9276,7 @@
 				26E987301C0D305B00C6A7BB /* SignInViewController.m in Sources */,
 				D07EB29D1D18DE6800840AC2 /* UUImageAvatarBrowser.m in Sources */,
 				622BA6541D40E71A00194984 /* UserInfoModel.m in Sources */,
+				622EF2D11E12320500A19B05 /* MineSignRankingTableViewCell.m in Sources */,
 				26D99EA01C0C4D7B007AF579 /* AppHelpManager.m in Sources */,
 				26D99F191C0C4D7C007AF579 /* UIView+WebCacheOperation.m in Sources */,
 				D04B547B1D23C75700DC259A /* SDWeiXinPhotoContainerView.m in Sources */,
@@ -9447,6 +9504,7 @@
 				26D99F241C0C4D7C007AF579 /* EnergyShowTwoViewCell.m in Sources */,
 				D05A95971D619A8A0063AD41 /* ECPAlertWhoView.m in Sources */,
 				D07D2EB21D0FC3DF00AF35B1 /* TagItemView.m in Sources */,
+				622EF2CD1E121BE000A19B05 /* SignRankingModel.m in Sources */,
 				DA4459F61C2173290069415D /* InvitationOneViewCell.m in Sources */,
 				DA7CE5521C3E38BF00272952 /* InfoView.m in Sources */,
 				62D35AC51D59CD9A009E84C4 /* PKGatherViewController.m in Sources */,
@@ -9483,6 +9541,7 @@
 				D07EB29E1D18DE6800840AC2 /* UUInputFunctionView.m in Sources */,
 				D04B54861D23C7C400DC259A /* SDBaseRefreshView.m in Sources */,
 				627C87521D8138BE00D2FC6E /* BannerModel.m in Sources */,
+				62FE56CE1E1200250094EEFD /* SignRankingTableViewCell.m in Sources */,
 				26D99EA11C0C4D7B007AF579 /* AppHttpManager.m in Sources */,
 				D07E24151D112DB900854B51 /* RadioCell.m in Sources */,
 				DAAEC6DD1C1FB88D00FA094B /* SearchTwoTableViewCell.m in Sources */,
@@ -9572,6 +9631,7 @@
 				DA7AC8D21C3FBF1B00CD97EE /* JiFenHistoryModel.m in Sources */,
 				D07EB1D81D17EA6900840AC2 /* JKDBModel.m in Sources */,
 				26D99ED61C0C4D7B007AF579 /* IQTextView.m in Sources */,
+				62FE56C71E1111C50094EEFD /* SignRankingTableVC.m in Sources */,
 				D04B54DC1D23C90D00DC259A /* SDRefreshFooterView.m in Sources */,
 				26D99EED1C0C4D7C007AF579 /* MJRefreshFooter.m in Sources */,
 				DA9124341C291DE10018DBAF /* RecordDetailViewCell.m in Sources */,

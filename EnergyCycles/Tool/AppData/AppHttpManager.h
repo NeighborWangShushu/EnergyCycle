@@ -1276,4 +1276,13 @@
                         PostOrGet:(NSString *)postOrGetType
                           success:(void (^)(NSDictionary *dict))success
                           failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 113.早起签到排行榜
+- (void)getEarlySignRankingWithUserID:(int)userid
+                            PageIndex:(int)pageIndex
+                             PageSize:(int)pageSize
+                            PostOrGet:(NSString *)postOrGetType
+                              success:(void (^)(NSDictionary *dict))success
+                              failure:(void (^)(NSString *str))failure;
+
 @end
