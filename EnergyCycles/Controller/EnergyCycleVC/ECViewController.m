@@ -974,7 +974,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        NSInteger line = self.dataArray.count%2 + 1;
+        CGFloat line = ceil((CGFloat)self.dataArray.count/2.0);
         CGFloat itemHeight = Screen_width/2 + 60;
         return line * (itemHeight + 10);
     }

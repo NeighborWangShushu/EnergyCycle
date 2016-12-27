@@ -28,7 +28,6 @@
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
     
-    
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -45,7 +44,9 @@
 
 - (void)setModels:(NSMutableArray<ECTimeLineModel *> *)models {
     _models = models;
-    NSInteger line = _models.count%2 + 1;
+//    NSInteger line = _models.count%2 + 1;
+    CGFloat line = ceil((CGFloat)models.count/2.0);
+
     CGFloat itemHeight = Screen_width/2 + 70;
     [self.collectionView setFrame:CGRectMake(5, 0, Screen_width - 10, itemHeight * line)];
     
