@@ -18,10 +18,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cyy-zU-nzu">
-                        <rect key="frame" x="11" y="30" width="30" height="30"/>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="praiseRankingFirst.png" translatesAutoresizingMaskIntoConstraints="NO" id="cyy-zU-nzu">
+                        <rect key="frame" x="11" y="28.5" width="30" height="33"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="MBI-tK-IwG"/>
                             <constraint firstAttribute="width" constant="30" id="sn4-Bb-7io"/>
                         </constraints>
                     </imageView>
@@ -33,7 +32,7 @@
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="20"/>
+                                <integer key="value" value="25"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
@@ -91,4 +90,7 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="praiseRankingFirst.png" width="27" height="33"/>
+    </resources>
 </document>

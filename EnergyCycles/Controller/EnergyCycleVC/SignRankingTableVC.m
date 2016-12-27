@@ -7,6 +7,7 @@
 //
 
 #import "SignRankingTableVC.h"
+#import "MineSignRankingTableViewCell.h"
 #import "SignRankingTableViewCell.h"
 #import "GifHeader.h"
 #import "MineHomePageViewController.h"
@@ -35,11 +36,24 @@
     [self.tableView.mj_footer endRefreshing];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    [navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"]
+                       forBarPosition:UIBarPositionAny
+                           barMetrics:UIBarMetricsDefault];
+    [navigationBar setShadowImage:[UIImage new]];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"Arial-Bold" size:0.0]}];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"早起签到排名";
+    self.title = @"排行榜";
     [self setupLeftNavBarWithimage:@"loginfanhui"];
+    // 去除tableview自带的下划线
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self setUpMJRefresh];
     
@@ -65,6 +79,7 @@
     }];
 }
 
+// 数据请求
 - (void)getData {
     [[AppHttpManager shareInstance] getEarlySignRankingWithUserID:[User_ID intValue] PageIndex:pageIndex PageSize:pageSize PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
@@ -93,10 +108,13 @@
 }
 
 #pragma mark - TableView
+
+// 分组数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
+// 每组分别有多少row
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1;
@@ -105,38 +123,79 @@
     }
 }
 
+// 每行的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 90;
 }
 
-// 每一组的高度
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
-        return 30.f;
+// 分区尾的高度
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return 30;
     } else {
         return 0;
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *signRankingTableViewCell = @"SignRankingTableViewCell";
-    SignRankingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:signRankingTableViewCell];
-    
-    if (cell == nil) {
-        cell = [[NSBundle mainBundle] loadNibNamed:signRankingTableViewCell owner:self options:nil].lastObject;
-    }
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    SignRankingModel *model = [[SignRankingModel alloc] init];
-    if (indexPath.section == 0) {
-        model = self.userModel;
-        cell.lineView.hidden = YES;
+// 设置分区尾的View
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        UIView *view = [[UIView alloc] init];
+        view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
+        UILabel *label = [[UILabel alloc] init];
+        label.frame = CGRectMake(0, 0, Screen_width, 30);
+//        label.numberOfLines = 0;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont boldSystemFontOfSize:12];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor colorWithRed:74/255.0 green:74/255.0 blue:74/255.0 alpha:0.6];
+        label.text = @"早晨5:00~6:30累计签到有效";
+        [view addSubview:label];
+        return view;
     } else {
-        model = self.dataArray[indexPath.row];
+        return nil;
     }
-    [cell getDataWithModel:model];
-    
-    return cell;
+}
+
+//// 每一组的高度
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    if (section == 1) {
+//        return 30.f;
+//    } else {
+//        return 0;
+//    }
+//}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        static NSString *mineSignRankingTableViewCell = @"MineSignRankingTableViewCell";
+        MineSignRankingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mineSignRankingTableViewCell];
+        
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:mineSignRankingTableViewCell owner:self options:nil].lastObject;
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        SignRankingModel *model = [[SignRankingModel alloc] init];
+        model = self.userModel;
+        [cell getDataWithModel:model];
+        
+        return cell;
+    } else {
+        static NSString *signRankingTableViewCell = @"SignRankingTableViewCell";
+        SignRankingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:signRankingTableViewCell];
+        
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:signRankingTableViewCell owner:self options:nil].lastObject;
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        SignRankingModel *model = [[SignRankingModel alloc] init];
+        model = self.dataArray[indexPath.row];
+        [cell getDataWithModel:model];
+        
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

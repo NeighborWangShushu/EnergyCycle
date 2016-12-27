@@ -35,6 +35,8 @@
     
     _dataArr = [[NSMutableArray alloc] init];
     days = 30;
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
     [self setupRightNavBarWithTitle:@"规则"];
     
     self.dayLabel.text = @"";
@@ -107,6 +109,10 @@
     [self.showImageView setAnimationDuration:1.f];
     [self.showImageView setAnimationRepeatCount:0];
     [self.showImageView startAnimating];
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - 跳转到签到规则界面

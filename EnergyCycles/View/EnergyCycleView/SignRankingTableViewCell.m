@@ -11,6 +11,10 @@
 @implementation SignRankingTableViewCell
 
 - (void)getDataWithModel:(SignRankingModel *)model {
+    
+    // 图片用原比例显示
+    self.rankingImage.contentMode = UIViewContentModeScaleAspectFit;
+    
     // 前三名显示图标
     if ([model.RankNum isEqualToString:@"1"]) {
         self.rankingLabel.hidden = YES;
