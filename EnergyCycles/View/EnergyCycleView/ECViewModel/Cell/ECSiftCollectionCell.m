@@ -76,7 +76,7 @@
     [self addSubview:self.contentImg];
     
     self.title = [UILabel new];
-    [self.title setFont:[UIFont systemFontOfSize:13]];
+    [self.title setFont:[UIFont systemFontOfSize:12]];
     [self.title setTextColor:[UIColor blackColor]];
     self.title.numberOfLines = 2;
     [self addSubview:self.title];
@@ -111,9 +111,9 @@
     }];
     
     [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@15);
-        make.right.equalTo(@-15);
-        make.top.equalTo(self.contentImg.mas_bottom).with.offset(10);
+        make.left.equalTo(@10);
+        make.right.equalTo(@-10);
+        make.top.equalTo(self.contentImg.mas_bottom).with.offset(5);
         make.height.equalTo(@40);
     }];
     
