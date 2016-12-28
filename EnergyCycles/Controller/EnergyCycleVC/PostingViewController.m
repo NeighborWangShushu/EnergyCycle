@@ -764,7 +764,7 @@
         
     }];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *  action) {
-        [_selectImgArray removeObjectAtIndex:index];
+//        [_selectImgArray removeObjectAtIndex:index];
         [_selectImgArrayLocal removeObjectAtIndex:index];
         [_imageIDArr removeObjectAtIndex:index];
         [self.collectionView reloadData];
