@@ -1277,7 +1277,7 @@
                           success:(void (^)(NSDictionary *dict))success
                           failure:(void (^)(NSString *str))failure;
 
-<<<<<<< HEAD
+
 #pragma mark - 113.加载html
 
 - (void)loadHtmlStringWithUrl:(NSString*)url
@@ -1299,6 +1299,15 @@
                  complete:(void (^)(NSMutableArray*datas))complete;
 
 
+#pragma mark - 113.早起签到排行榜
+- (void)getEarlySignRankingWithUserID:(int)userid
+                            PageIndex:(int)pageIndex
+                             PageSize:(int)pageSize
+                            PostOrGet:(NSString *)postOrGetType
+                              success:(void (^)(NSDictionary *dict))success
+                              failure:(void (^)(NSString *str))failure;
+
+
 #pragma mark - 116.置顶帖子
 //请求方式：POST
 //ArticleID   帖子ID
@@ -1313,15 +1322,5 @@
                        userId:(NSString*)userId
                       success:(void (^)(NSDictionary *dict))success
                       failure:(void (^)(NSString *str))failure;
-
-=======
-#pragma mark - 113.早起签到排行榜
-- (void)getEarlySignRankingWithUserID:(int)userid
-                            PageIndex:(int)pageIndex
-                             PageSize:(int)pageSize
-                            PostOrGet:(NSString *)postOrGetType
-                              success:(void (^)(NSDictionary *dict))success
-                              failure:(void (^)(NSString *str))failure;
->>>>>>> aa1097e9f98c75bdf27c014508f8e027404838e8
 
 @end

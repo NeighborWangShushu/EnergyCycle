@@ -41,6 +41,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     UIImageView *_badge;
     UILabel *_nameLable;
     UIButton *_deleteButton;
+    UIButton *_recommendButton;
     UIImageView *_locaIcon;
     UILabel *_location;
     UILabel *_time;
@@ -95,8 +96,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     
     _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_deleteButton setImage:[UIImage imageNamed:@"trash-icon"] forState:UIControlStateNormal];
+    [_deleteButton setImage:[UIImage imageNamed:@"ec_comment_arrow"] forState:UIControlStateNormal];
     [_deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+    _deleteButton.transform = CGAffineTransformMakeRotation(M_PI_2);
     _deleteButton.hidden = YES;
     
     _locaIcon = [UIImageView new];
@@ -213,10 +215,11 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     
     _deleteButton.sd_layout
-    .rightSpaceToView(contentView,10)
-    .topSpaceToView(contentView,10)
+    .rightSpaceToView(contentView,25)
+    .topSpaceToView(contentView,15)
     .widthIs(20)
     .heightIs(20);
+    
     
     _locaIcon.sd_layout
     .leftSpaceToView(_iconView,margin)
@@ -281,13 +284,12 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     if ([self.delegate respondsToSelector:@selector(didClickOtherUser:userId:userName:)]) {
         [self.delegate didClickOtherUser:self userId:self.model.UserID userName:self.model.name];
     }
-    
 }
 
 - (void)deleteAction {
     
-    if ([self.delegate respondsToSelector:@selector(didDelete:atIndexPath:)]) {
-        [self.delegate didDelete:self.model atIndexPath:self.indexPath];
+    if ([self.delegate respondsToSelector:@selector(didPopover:atIndexPath:fromButton:)]) {
+        [self.delegate didPopover:self.model atIndexPath:self.indexPath fromButton:_deleteButton];
     }
 }
 
@@ -312,7 +314,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 {
     _model = model;
     
-    if ([model.UserID isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
+    if ([model.UserID isEqualToString:[NSString stringWithFormat:@"%@",User_ID]] || [User_ROLE boolValue]) {
         _deleteButton.hidden = NO;
     }else {
         _deleteButton.hidden = YES;
@@ -325,11 +327,11 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:EC_AVATAR_PLACEHOLDER];
     _badge.image = [UIImage imageNamed:[NSString stringWithFormat:@"badge_%@",model.badge]];
-
+    NSLog(@"%@",model.iconName);
+    
     _nameLable.text = model.name;
     _location.text = model.location;
     _time.text = model.time;
-    
     // 防止单行文本label在重用时宽度计算不准的问题
     [_nameLable sizeToFit];
     _contentLabel.text = model.msgContent;

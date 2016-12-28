@@ -143,7 +143,6 @@
     [_searchBar.layer setBorderColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1].CGColor];
     [_searchBar setDelegate:self];
     [_searchBar setKeyboardType:UIKeyboardTypeDefault];
-    self.tableView.tableHeaderView = self.searchBar;
     [_searchBar sizeToFit];
     _searchBar.datas = self.selectedDatas;
     [self.view addSubview:self.searchBar];
@@ -181,7 +180,7 @@
 - (void)getData {
     
     __weak __typeof(self)weakSelf = self;
-    [[AppHttpManager shareInstance] getBothHeartWithUserid:@"25" PostOrGet:@"get" success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] getBothHeartWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
         
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             for (NSDictionary *dic in dict[@"Data"]) {
@@ -212,6 +211,7 @@
 #pragma mark searchBar delegate
 
 -(void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    
     
 }
 

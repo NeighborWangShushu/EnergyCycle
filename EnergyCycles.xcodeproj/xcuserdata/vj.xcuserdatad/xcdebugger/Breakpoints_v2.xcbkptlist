@@ -9,280 +9,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/AppData/AppHttpManager.m"
-            timestampString = "503572990.208112"
+            filePath = "EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
+            timestampString = "504093971.402775"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "+customSecurityPolicy"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "-shareClientToWeibo:imageUrl:block:"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/ThirdLib/AFNetworking/AFHTTPRequestOperation.m"
-            timestampString = "503477369.142828"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "-setCompletionBlockWithSuccess:failure:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AFHTTPRequestOperation setCompletionBlockWithSuccess:failure:]"
-                  moduleName = "EnergyCycles"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Tool/ThirdLib/AFNetworking/AFHTTPRequestOperation.m"
-                  timestampString = "503477386.135908"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "98">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__64-[AFHTTPRequestOperation setCompletionBlockWithSuccess:failure:]_block_invoke"
-                  moduleName = "EnergyCycles"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Tool/ThirdLib/AFNetworking/AFHTTPRequestOperation.m"
-                  timestampString = "503477386.138112"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "15">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/ThirdLib/AFNetworking/AFHTTPRequestOperation.m"
-            timestampString = "503477406.337158"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "-setCompletionBlockWithSuccess:failure:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/ThirdLib/AFNetworking/AFHTTPRequestOperation.m"
-            timestampString = "503477420.197958"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "-setCompletionBlockWithSuccess:failure:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__64-[AFHTTPRequestOperation setCompletionBlockWithSuccess:failure:]_block_invoke"
-                  moduleName = "EnergyCycles"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Tool/ThirdLib/AFNetworking/AFHTTPRequestOperation.m"
-                  timestampString = "503477423.232181"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "119"
-                  endingLineNumber = "119"
-                  offsetFromSymbolStart = "138">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__64-[AFHTTPRequestOperation setCompletionBlockWithSuccess:failure:]_block_invoke_2"
-                  moduleName = "EnergyCycles"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Tool/ThirdLib/AFNetworking/AFHTTPRequestOperation.m"
-                  timestampString = "503477423.238013"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "119"
-                  endingLineNumber = "119"
-                  offsetFromSymbolStart = "15">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/ThirdLib/AFNetworking/AFHTTPRequestOperation.m"
-            timestampString = "503477487.51281"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "-setCompletionBlockWithSuccess:failure:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AFHTTPRequestOperation setCompletionBlockWithSuccess:failure:]"
-                  moduleName = "EnergyCycles"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Tool/ThirdLib/AFNetworking/AFHTTPRequestOperation.m"
-                  timestampString = "503477487.517657"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "98">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__64-[AFHTTPRequestOperation setCompletionBlockWithSuccess:failure:]_block_invoke"
-                  moduleName = "EnergyCycles"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Tool/ThirdLib/AFNetworking/AFHTTPRequestOperation.m"
-                  timestampString = "503477487.520485"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "15">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Controller/LearnVC/LearnVC.m"
-            timestampString = "503478230.758667"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "-getPageData"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
-            timestampString = "503576460.140098"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
-            landmarkName = "-getData:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Controller/LearnVC/WebVC.m"
-            timestampString = "503492324.482198"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "@implementation WebVC"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/Help/ThirdParty/XMShareView.m"
-            timestampString = "503994958.420086"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "-shareToWeixinSession"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[XMShareView shareToWeixinSession]"
-                  moduleName = "EnergyCycles"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Tool/Help/ThirdParty/XMShareView.m"
-                  timestampString = "503994958.446446"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "187"
-                  endingLineNumber = "187"
-                  offsetFromSymbolStart = "316">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__35-[XMShareView shareToWeixinSession]_block_invoke"
-                  moduleName = "EnergyCycles"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Tool/Help/ThirdParty/XMShareView.m"
-                  timestampString = "503994958.44923"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "189"
-                  endingLineNumber = "189"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -292,51 +26,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
-            timestampString = "503997394.615635"
+            timestampString = "504093971.402775"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "-shareClientToWeibo:imageUrl:block:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
+            timestampString = "504093971.402775"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "225"
             endingLineNumber = "225"
-            landmarkName = "-shareClientToWeibo:imageUrl:block:"
-            landmarkType = "7">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "po imageUrl">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
-            timestampString = "503997394.615635"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
-            landmarkName = "-shareClientToWeibo:imageUrl:block:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
-            timestampString = "503997394.615635"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
             landmarkName = "-shareClientToWeibo:imageUrl:block:"
             landmarkType = "7">
             <Locations>
@@ -348,26 +58,26 @@
                   moduleName = "EnergyCycles"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
-                  timestampString = "503996580.725463"
+                  timestampString = "504088961.470838"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "235"
-                  endingLineNumber = "235"
-                  offsetFromSymbolStart = "1012">
+                  startingLineNumber = "222"
+                  endingLineNumber = "222"
+                  offsetFromSymbolStart = "1104">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__53-[ShareSDKManager shareClientToWeibo:imageUrl:block:]_block_invoke.125"
+                  symbolName = "__53-[ShareSDKManager shareClientToWeibo:imageUrl:block:]_block_invoke"
                   moduleName = "EnergyCycles"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
-                  timestampString = "503996580.726844"
+                  timestampString = "504088961.472743"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "235"
-                  endingLineNumber = "235"
+                  startingLineNumber = "222"
+                  endingLineNumber = "222"
                   offsetFromSymbolStart = "16">
                </Location>
             </Locations>
@@ -379,13 +89,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
-            timestampString = "503997394.615635"
+            filePath = "EnergyCycles/View/EnergyCycleView/ECViewModel/Cell/ECSiftCell.m"
+            timestampString = "504512669.24056"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
-            landmarkName = "-shareClientToWeibo:imageUrl:block:"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -395,13 +105,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
-            timestampString = "503997394.615635"
+            filePath = "EnergyCycles/View/EnergyCycleView/ECViewModel/Cell/ECSiftCell.m"
+            timestampString = "504512669.24056"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "326"
-            endingLineNumber = "326"
-            landmarkName = "-share:params:block:"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "-setModels:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -411,13 +121,77 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/Tool/Help/ThirdParty/ShareSDKManager.m"
-            timestampString = "503997394.615635"
+            filePath = "EnergyCycles/View/EnergyCycleView/ECViewModel/Cell/ECSiftCell.m"
+            timestampString = "504440372.765154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
-            landmarkName = "-share:params:block:"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "-awakeFromNib"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/Tool/AppData/AppHttpManager.m"
+            timestampString = "504508653.675976"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3004"
+            endingLineNumber = "3004"
+            landmarkName = "-requestTasksWithUrls:success:failure:complete:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/Tool/AppData/AppHttpManager.m"
+            timestampString = "504508654.874715"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3006"
+            endingLineNumber = "3006"
+            landmarkName = "-requestTasksWithUrls:success:failure:complete:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/View/EnergyCycleView/ECViewModel/Cell/ECSiftCell.m"
+            timestampString = "504513334.361792"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "-setModels:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/Controller/EnergyCycleVC/ECViewController.m"
+            timestampString = "504601506.737587"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1069"
+            endingLineNumber = "1069"
+            landmarkName = "-tableView:heightForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -165,7 +165,12 @@ static const NSInteger numbersOfItemInLine = 4;
             [alertView show];
         }
     }else if ( sender.tag == SHARE_ITEM_QZONE ) {//QQ空间
-        [self shareToQzone];
+        if (hadInstalledQQ) {
+            [self shareToQzone];
+        }else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"提示信息", nil) message:NSLocalizedString(@"手机未安装相关应用", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"确定", nil) otherButtonTitles:nil, nil];
+            [alertView show];
+        }
     }else if ( sender.tag == SHARE_ITEM_WEIBO ) {//微博
         if (hadInstalledWeibo) {
             [self shareToWeibo];
