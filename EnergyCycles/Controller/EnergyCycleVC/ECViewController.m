@@ -909,10 +909,10 @@
     
 }
 
-//删除动态
+//管理员权限弹窗
 - (void)didPopover:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath fromButton:(UIButton *)button{
     
-    
+    NSLog(@"%ld---%ld",(long)indexPath.row,(long)indexPath.section);
     UIView*view = [self createMenuView:indexPath];
     
     CGRect cellRect = [[self.tableView cellForRowAtIndexPath:indexPath] convertRect:button.frame toView:self.view];
@@ -927,6 +927,22 @@
     self.popTip.shouldDismissOnTapOutside = YES;
     
     
+}
+
+//删除动态
+- (void)didDelete:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath fromButton:(UIButton *)button {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除该动态吗?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteArticle:model indexPath:indexPath];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:alert completion:nil];
+    }];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 
@@ -999,6 +1015,7 @@
         default:
             break;
     }
+    
     
     [[AppHttpManager shareInstance] getDeleteArticleWithuserId:[User_ID intValue] Token:User_TOKEN AType:1 AId:[model.ID intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
         
@@ -1169,7 +1186,7 @@
         //最新动态
         
         ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
-        cell.indexPath = indexPath;
+        cell.tableView = tableView;
         __weak typeof(self) weakSelf = self;
         if (!cell.moreButtonClickedBlock) {
             [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {

@@ -287,7 +287,7 @@
         return cell;
     } else {
         ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
-        cell.indexPath = indexPath;
+        cell.tableView = tableView;
         __weak typeof(self) weakSelf = self;
         if (!cell.moreButtonClickedBlock) {
             [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
