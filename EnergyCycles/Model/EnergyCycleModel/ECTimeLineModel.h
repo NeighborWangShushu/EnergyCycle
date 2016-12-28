@@ -22,6 +22,7 @@
 @property (nonatomic, copy)NSString *UserID;
 @property (nonatomic, copy)NSString *badge;
 
+@property (nonatomic)BOOL isRole;
 @property (nonatomic, assign, getter = isLiked) BOOL liked;
 
 @property (nonatomic, strong) NSMutableArray <ECTimeLineCellLikeItemModel *> *likeItemsArray;

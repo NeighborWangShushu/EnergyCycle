@@ -18,6 +18,7 @@
 #import "GifHeader.h"
 #import "ECRecommendCell.h"
 #import "ECSiftCell.h"
+#import "AMPopTip.h"
 
 #import "JSONKit.h"
 #import "NavMenuView.h"
@@ -95,7 +96,7 @@
 @property (nonatomic,strong)NSMutableArray * commentArray;
 @property (nonatomic,strong)NSMutableArray * newerArray;
 @property (nonatomic,strong)NSMutableArray * attentionArray;
-
+@property (nonatomic,strong)AMPopTip * popTip;
 
 @end
 
@@ -168,7 +169,7 @@
     else {
         NSTimeZone *zone = [NSTimeZone defaultTimeZone];//获得当前应用程序默认的时区
         NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];//以秒为单位返回当前应用程序与世界标准时间（格林威尼时间）的时差
-        NSDate*nextDate = [NSDate jk_oneDayAfter:[[NSDate date]dateByAddingTimeInterval:model.last_alert_date]];
+        NSDate*nextDate = [NSDate jk_oneDayAfter:[[NSDate date] dateByAddingTimeInterval:model.last_alert_date]];
         if ([[NSDate date] jk_isLaterThanDate:nextDate]) {
             //如果当前时间晚于下次需要提醒的时间提醒
             model.is_alert = NO;
@@ -458,6 +459,7 @@
     model.liked = [data[@"isHasLike"] boolValue];
     model.badge = [NSString stringWithFormat:@"%@",data[@"ReportNum"]];
     
+    
     NSMutableArray * likeArr = [NSMutableArray array];
     if ([data[@"LikeUserList"] count]) {
         for (NSDictionary * like in data[@"LikeUserList"]) {
@@ -657,6 +659,48 @@
 
 
 #pragma mark Actions
+
+
+//管理员权限
+//置顶
+- (void)topAction:(UIButton*)button {
+    [self.popTip hide];
+    ECTimeLineModel*model = [self.newerArray objectAtIndex:button.tag];
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:button.tag inSection:2];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认要置顶该帖子吗?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"置顶" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self topArticle:model indexPath:indexPath];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:alert completion:nil];
+    }];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+
+}
+
+//删除
+- (void)deleteAction:(UIButton*)button {
+    
+    [self.popTip hide];
+    ECTimeLineModel*model = [self.newerArray objectAtIndex:button.tag];
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:button.tag inSection:2];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除该动态吗?" preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteArticle:model indexPath:indexPath];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:alert completion:nil];
+    }];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 //Navigation Action
 - (void)showFromNavigation {
@@ -866,19 +910,67 @@
 }
 
 //删除动态
-- (void)didDelete:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath {
+- (void)didPopover:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath fromButton:(UIButton *)button{
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除该动态吗?" preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self deleteArticle:model indexPath:indexPath];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:alert completion:nil];
-    }];
-    [alert addAction:sureAction];
-    [alert addAction:cancelAction];
-    [self presentViewController:alert animated:YES completion:nil];
+    UIView*view = [self createMenuView:indexPath];
+    
+    CGRect cellRect = [[self.tableView cellForRowAtIndexPath:indexPath] convertRect:button.frame toView:self.view];
+    if (self.popTip) {
+        [self.popTip hide];
+        self.popTip = nil;
+    }
+    
+    self.popTip = [AMPopTip popTip];
+    [self.popTip setPopoverColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]];
+    [self.popTip showCustomView:view direction:AMPopTipDirectionDown inView:self.view fromFrame:cellRect];
+    self.popTip.shouldDismissOnTapOutside = YES;
+    
+    
+}
+
+
+//管理员权限弹窗
+- (UIView*)createMenuView:(NSIndexPath*)indexPath {
+    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 60)];
+    UIButton * topButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [topButton setFrame:CGRectMake(5, 5, 40, 15)];
+    [topButton setTitle:@"置顶" forState:UIControlStateNormal];
+    [topButton.titleLabel setTextColor:[UIColor whiteColor]];
+    [topButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [topButton addTarget:self action:@selector(topAction:) forControlEvents:UIControlEventTouchUpInside];
+    topButton.tag = indexPath.row;
+    [view addSubview:topButton];
+    
+    UIView*line = [[UIView alloc] initWithFrame:CGRectMake(5, 30, 40, 1)];
+    line.backgroundColor = [UIColor whiteColor];
+    [view addSubview:line];
+    
+    UIButton * deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [deleteButton setFrame:CGRectMake(5, 40, 40, 15)];
+    [deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+    [deleteButton.titleLabel setTextColor:[UIColor whiteColor]];
+    [deleteButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [deleteButton addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+    deleteButton.tag = indexPath.row;
+    [view addSubview:deleteButton];
+    
+    return view;
+    
+}
+
+- (void)topArticle:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath {
+    
+    [self.dataArray addObject:model];
+    [self.newerArray removeObjectAtIndex:indexPath.row];
+    
+    NSIndexSet *section = [NSIndexSet indexSetWithIndex:0];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadSections:section withRowAnimation:UITableViewRowAnimationNone];
+    });
+    
     
 }
 

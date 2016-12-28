@@ -38,6 +38,8 @@
 - (NSString *)readToken;
 - (NSString *)readPhone;
 - (NSString *)readUserName;
+//管理员权限
+- (NSString *)readRole;
 
 
 //获取通讯录权限

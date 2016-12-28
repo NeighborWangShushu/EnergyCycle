@@ -18,6 +18,7 @@
 #define User_ID [[AppHelpManager sharedInstance] readUserId]
 #define User_TOKEN [[AppHelpManager sharedInstance] readToken]
 #define User_PHONE [[AppHelpManager sharedInstance] readPhone]
+#define User_ROLE [[AppHelpManager sharedInstance] readRole]
 #define User_NAME [[AppHelpManager sharedInstance] readUserName]
 
 #define MYJYAppId @"1079791492"

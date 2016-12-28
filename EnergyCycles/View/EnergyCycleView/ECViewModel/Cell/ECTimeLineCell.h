@@ -18,16 +18,8 @@ typedef NS_ENUM(NSUInteger, ECTimeLineCellActionType) {
     ECTimeLineCellActionTypeReply
 };
 
-@protocol ECTimeLineCellDelegate <NSObject>
+@protocol ECTimeLineCellDelegate;
 
-- (void)didClickLikeButtonInCell:(UITableViewCell *)cell;
-- (void)didClickcCommentButtonInCell:(UITableViewCell *)cell;
-- (void)didClickOtherUser:(UITableViewCell*)cell userId:(NSString*)userId userName:(NSString*)name;
-
-- (void)didActionInCell:(UITableViewCell*)cell actionType:(ECTimeLineCellActionType)type atIndexPath:(NSIndexPath*)indexPath;
-
-- (void)didDelete:(ECTimeLineModel*)model atIndexPath:(NSIndexPath*)indexPath;
-@end
 
 @class ECTimeLineModel;
 
@@ -42,4 +34,17 @@ typedef NS_ENUM(NSUInteger, ECTimeLineCellActionType) {
 @property (nonatomic, copy) void (^moreButtonClickedBlock)(NSIndexPath *indexPath);
 
 @property (nonatomic) ECTimeLineCellActionType type;
+@end
+
+@protocol ECTimeLineCellDelegate <NSObject>
+
+- (void)didClickLikeButtonInCell:(UITableViewCell *)cell;
+- (void)didClickcCommentButtonInCell:(UITableViewCell *)cell;
+- (void)didClickOtherUser:(UITableViewCell*)cell userId:(NSString*)userId userName:(NSString*)name;
+
+- (void)didActionInCell:(UITableViewCell*)cell actionType:(ECTimeLineCellActionType)type atIndexPath:(NSIndexPath*)indexPath;
+
+- (void)didPopover:(ECTimeLineModel*)model atIndexPath:(NSIndexPath*)indexPath fromButton:(UIButton*)button;
+
+
 @end

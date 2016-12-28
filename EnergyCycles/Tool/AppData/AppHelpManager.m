@@ -141,6 +141,14 @@
     return phone;
 }
 
+- (NSString *)readRole {
+    NSString *role = [[NSUserDefaults standardUserDefaults] objectForKey:@"ISROLE"];
+    if ((role == nil || [role isKindOfClass:[NSNull class]] || [role isEqual:[NSNull null]])) {
+        role = @"";
+    }
+    return role;
+}
+
 - (NSString *)readUserName {
     NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserNickName"];
     if ((name == nil || [name isKindOfClass:[NSNull class]] || [name isEqual:[NSNull null]])) {
