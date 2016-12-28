@@ -1286,6 +1286,8 @@
                       failure:(void (^)(NSString *str))failure;
 
 
+
+
 #pragma mark - 114.请求队列
 //请求方式：GET
 //urls---- 请求地址及参数
@@ -1295,6 +1297,21 @@
                      failure:(void (^)(NSError *error))failure
                  complete:(void (^)(NSMutableArray*datas))complete;
 
+
+#pragma mark - 116.置顶帖子
+//请求方式：POST
+//ArticleID   帖子ID
+//IsChoice    是否精选  1 是  0 否
+//token
+//userId
+- (void)sticklyArticleWithUrl:(NSString*)url
+                    PostOrGet:(NSString *)postOrGetType
+                    articleId:(NSString*)articleId
+                     isChoice:(NSString*)isChoice
+                        token:(NSString*)token
+                       userId:(NSString*)userId
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure;
 
 
 @end

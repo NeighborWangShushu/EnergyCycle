@@ -3038,4 +3038,25 @@ static AFHTTPSessionManager *manager;
     return resultTask;
 }
 
+- (void)sticklyArticleWithUrl:(NSString *)url PostOrGet:(NSString *)postOrGetType articleId:(NSString *)articleId isChoice:(NSString*)isChoice token:(NSString *)token userId:(NSString *)userId success:(void (^)(NSDictionary *))success failure:(void (^)(NSString *))failure{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:isChoice forKey:@"IsChoice"];
+    [dic setObject:articleId forKey:@"ArticleID"];
+    
+    
+    [self callInterfaceByUrl:SticklyArticle
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+
+    
+    
+}
+
 @end
