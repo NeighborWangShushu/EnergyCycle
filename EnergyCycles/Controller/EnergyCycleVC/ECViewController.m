@@ -970,7 +970,11 @@
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView reloadSections:section withRowAnimation:UITableViewRowAnimationNone];
     });
-    
+    [[AppHttpManager shareInstance] sticklyArticleWithUrl:SticklyArticle PostOrGet:@"POST" articleId:model.ID isChoice:@"1" token:User_TOKEN userId:User_ID success:^(NSDictionary *dict) {
+        
+    } failure:^(NSString *str) {
+        
+    }];
     
 }
 
@@ -1002,6 +1006,12 @@
         
     }];
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.popTip) {
+        [self.popTip hide];
+    }
 }
 
 
@@ -1065,12 +1075,12 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 && pageType == 0) {
         CGFloat line = ceil((CGFloat)self.dataArray.count/2.0);
         CGFloat itemHeight = Screen_width/2 + 60;
         return line * (itemHeight + 10);
     }
-    else if (indexPath.section == 2) {
+    else if (indexPath.section == 2 || indexPath.section == 0) {
         id model = nil;
         if(pageType == 0) {
           model = self.newerArray[indexPath.row];
@@ -1148,14 +1158,14 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 && pageType == 0) {
         //精选动态
         ECSiftCell *cell = [tableView dequeueReusableCellWithIdentifier:kSiftTimeLineTableViewCellId];
         cell.delegate = self;
         cell.models = self.dataArray;
         
         return cell;
-    }else if (indexPath.section == 2) {
+    }else if (indexPath.section == 2 || indexPath.section == 0) {
         //最新动态
         
         ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];

@@ -3049,7 +3049,7 @@ static AFHTTPSessionManager *manager;
     [dic setObject:articleId forKey:@"ArticleID"];
     
     
-    [self callInterfaceByUrl:SticklyArticle
+    [self callInterfaceByUrl:url
                    PostOrGet:postOrGetType
                     withDict:dic
                      success:^(NSDictionary *dict) {
