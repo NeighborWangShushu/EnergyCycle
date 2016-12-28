@@ -12,6 +12,8 @@
 
 - (void)getDataWithModel:(PraiseRankingModel *)model {
     
+    self.rankingImage.contentMode = UIViewContentModeScaleAspectFit;
+    
     // 前三名显示图标
     if ([model.RankingNum isEqualToString:@"1"]) {
         self.rankingLabel.hidden = YES;

@@ -32,6 +32,7 @@
     self.maskLayer.hidden = YES;
     self.isSelected = NO;
     self.disable = NO;
+    self.asset = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(judge:) name:@"JudgeDisable" object:nil];
 }
 
@@ -76,7 +77,7 @@
     if (self.isSelected) {
         [self.selectedButton setImage:[UIImage imageNamed:ECPhoto_selected] forState:UIControlStateNormal];
         self.maskLayer.hidden = NO;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatePhotoArr" object:@{@"imageIndex" : self.indexPath, @"selected" : @(self.isSelected)}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateAssetArr" object:@{@"selected" : @(self.isSelected), @"asset" : self.asset}];
     }
 }
 
@@ -90,7 +91,7 @@
         self.maskLayer.hidden = NO;
         self.isSelected = YES;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatePhotoArr" object:@{@"imageIndex" : self.indexPath, @"selected" : @(self.isSelected)}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateAssetArr" object:@{@"selected" : @(self.isSelected), @"asset" : self.asset}];
 }
 
 @end

@@ -431,4 +431,13 @@
 //112.上传图片有水印
 #define Article_PostFile           @"Other/Article_PostFile"
 
+
+//113.早起签到排行榜
+#define Early_Sign_Ranking         @"article/Early_Sign_Ranking"
+
+//114.置顶帖子
+#define SticklyArticle            @"Article/ArticleChoice_Set"
+
+
+
 #endif
