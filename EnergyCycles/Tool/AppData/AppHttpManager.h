@@ -1277,6 +1277,28 @@
                           success:(void (^)(NSDictionary *dict))success
                           failure:(void (^)(NSString *str))failure;
 
+
+#pragma mark - 113.加载html
+
+- (void)loadHtmlStringWithUrl:(NSString*)url
+                    PostOrGet:(NSString *)postOrGetType
+               parametersDict:(NSDictionary *)postDict
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure;
+
+
+
+
+#pragma mark - 114.请求队列
+//请求方式：GET
+//urls---- 请求地址及参数
+//complete --- 请求队列完成
+- (void)requestTasksWithUrls:(NSMutableArray*)urls
+                     success:(void (^)(NSDictionary *dic,NSInteger idx))success
+                     failure:(void (^)(NSError *error))failure
+                 complete:(void (^)(NSMutableArray*datas))complete;
+
+
 #pragma mark - 113.早起签到排行榜
 - (void)getEarlySignRankingWithUserID:(int)userid
                             PageIndex:(int)pageIndex
@@ -1284,5 +1306,21 @@
                             PostOrGet:(NSString *)postOrGetType
                               success:(void (^)(NSDictionary *dict))success
                               failure:(void (^)(NSString *str))failure;
+
+
+#pragma mark - 116.置顶帖子
+//请求方式：POST
+//ArticleID   帖子ID
+//IsChoice    是否精选  1 是  0 否
+//token
+//userId
+- (void)sticklyArticleWithUrl:(NSString*)url
+                    PostOrGet:(NSString *)postOrGetType
+                    articleId:(NSString*)articleId
+                     isChoice:(NSString*)isChoice
+                        token:(NSString*)token
+                       userId:(NSString*)userId
+                      success:(void (^)(NSDictionary *dict))success
+                      failure:(void (^)(NSString *str))failure;
 
 @end

@@ -109,7 +109,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"use_id"] forKey:@"USERID"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"token"] forKey:@"TOKEN"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"phone"] forKey:@"PHONE"];
-                
+                [[NSUserDefaults standardUserDefaults] setObject:subDict[@"Role"] forKey:@"ISROLE"];
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"pwd"] forKey:@"PASSWORD"];
                 
                 [[NSUserDefaults standardUserDefaults] setObject:subDict[@"jifen"] forKey:@"UserJiFen"];
@@ -170,6 +170,7 @@
                     NSDictionary *subDict = (NSDictionary *)dict[@"Data"][0];
                     [[NSUserDefaults standardUserDefaults] setObject:subDict[@"use_id"] forKey:@"USERID"];
                     [[NSUserDefaults standardUserDefaults] setObject:subDict[@"token"] forKey:@"TOKEN"];
+                    [[NSUserDefaults standardUserDefaults] setObject:subDict[@"Role"] forKey:@"ISROLE"];
                     [[NSUserDefaults standardUserDefaults] setObject:nickName forKey:@"UserNickName"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     

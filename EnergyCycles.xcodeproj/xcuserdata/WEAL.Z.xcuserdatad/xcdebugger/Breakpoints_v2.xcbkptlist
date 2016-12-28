@@ -57,6 +57,25 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
+            filePath = "EnergyCycles/Controller/EnergyCycleVC/ECContactVC.m"
+            timestampString = "496134893.025715"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "-getFriendListDataBy:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+=======
+>>>>>>> 29af7988c4b37e0d155f85995a6fc8b4cd7b7bcb
             filePath = "EnergyCycles/Tool/AppData/AppHttpManager.m"
             timestampString = "496056867.392784"
             startingColumnNumber = "9223372036854775807"
@@ -86,6 +105,18 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EnergyCycles/Controller/EnergyCycleVC/ECContactVC.m"
+            timestampString = "496134893.025715"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
+            landmarkName = "-searchDisplayControllerWillBeginSearch:"
+=======
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -112,6 +143,7 @@
             startingLineNumber = "432"
             endingLineNumber = "432"
             landmarkName = "-getURLContext"
+>>>>>>> 29af7988c4b37e0d155f85995a6fc8b4cd7b7bcb
             landmarkType = "7">
             <Locations>
                <Location

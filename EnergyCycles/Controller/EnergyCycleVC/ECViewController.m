@@ -17,7 +17,9 @@
 #import "XMShareView.h"
 #import "GifHeader.h"
 #import "ECRecommendCell.h"
-#import "AFHttpRequestOperation.h"
+#import "ECSiftCell.h"
+#import "AMPopTip.h"
+
 #import "JSONKit.h"
 #import "NavMenuView.h"
 #import "ECNavMenuModel.h"
@@ -35,11 +37,12 @@
 #import "NSDate+JKReporting.h"
 #import "NSDate+JKUtilities.h"
 
+#define kSiftTimeLineTableViewCellId @"kSiftTimeLineCell"
 #define kTimeLineTableViewCellId @"ECTimeLineCell"
 #define kCommentUserCellId @"ECCommentUserCell"
 
 
-@interface ECViewController ()<UITableViewDelegate,UITableViewDataSource,ECTimeLineCellDelegate,UITextFieldDelegate,NavMenuViewDelegate,ECRecommendCellDelegate> {
+@interface ECViewController ()<UITableViewDelegate,UITableViewDataSource,ECTimeLineCellDelegate,UITextFieldDelegate,NavMenuViewDelegate,ECRecommendCellDelegate,ECSiftCellDelegate> {
     XMShareView*shareView;
     AppDelegate*delegate;
     
@@ -93,7 +96,7 @@
 @property (nonatomic,strong)NSMutableArray * commentArray;
 @property (nonatomic,strong)NSMutableArray * newerArray;
 @property (nonatomic,strong)NSMutableArray * attentionArray;
-
+@property (nonatomic,strong)AMPopTip * popTip;
 
 @end
 
@@ -132,7 +135,6 @@
  *  检查是否绑定手机号
  */
 
-
 - (void)checkPhone {
     
     [[AppHttpManager shareInstance] getGetInfoByUseridWithUserid:User_ID PostOrGet:@"get" success:^(NSDictionary *dict) {
@@ -167,7 +169,7 @@
     else {
         NSTimeZone *zone = [NSTimeZone defaultTimeZone];//获得当前应用程序默认的时区
         NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];//以秒为单位返回当前应用程序与世界标准时间（格林威尼时间）的时差
-        NSDate*nextDate = [NSDate jk_oneDayAfter:[[NSDate date]dateByAddingTimeInterval:model.last_alert_date]];
+        NSDate*nextDate = [NSDate jk_oneDayAfter:[[NSDate date] dateByAddingTimeInterval:model.last_alert_date]];
         if ([[NSDate date] jk_isLaterThanDate:nextDate]) {
             //如果当前时间晚于下次需要提醒的时间提醒
             model.is_alert = NO;
@@ -198,6 +200,7 @@
     
 }
 
+
 - (void)vertyAction:(UIButton*)button {
     NSLog(@"获取验证码");
     if ([[AppHelpManager sharedInstance] isPhoneNum:textf.text]) {
@@ -222,10 +225,10 @@
 
 }
 
+
 /**
  *  获取验证码
  */
-
 
 - (void)getVertyCode:(NSString*)phone {
     
@@ -314,7 +317,6 @@
         
     }];
     
-    
 }
 
 
@@ -343,84 +345,63 @@
     }
 }
 
+
 - (void)getData:(BOOL)isloading {
     __weak typeof(self) weakSelf = self;
     _userId = [[NSString stringWithFormat:@"%@",User_ID] isEqualToString:@""]?@"0":User_ID;
-
+    
     if (pageType == 0) {
         //能量圈
         if(isloading)[SVProgressHUD showWithStatus:@""];
         
-        
         NSString * jingxuan = [NSString stringWithFormat:@"%@%@?type=2&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"0",@"10"];
+        NSLog(@"%@",jingxuan);
         NSString * tuijian = [NSString stringWithFormat:@"%@%@?userId=%@&pageSize=%@",INTERFACE_URL,GetRecommendUser,@"0",[NSNumber numberWithInt:10]];
         NSString * zuixin = [NSString stringWithFormat:@"%@%@?type=1&userId=%@&token=%@&pageIndex=%@&pageSize=%@",INTERFACE_URL,GetArticleList,_userId,User_TOKEN,@"0",@"10"];
         currentPage = 0;
         [self.tableView.mj_footer resetNoMoreData];
-        NSURLRequest * request1 = [NSURLRequest requestWithURL:[NSURL URLWithString:jingxuan]];
-        NSURLRequest * request2 = [NSURLRequest requestWithURL:[NSURL URLWithString:tuijian]];
-        NSURLRequest * request3 = [NSURLRequest requestWithURL:[NSURL URLWithString:zuixin]];
-        //任务1 精选动态
-        AFHTTPRequestOperation * operation1 = [[AFHTTPRequestOperation alloc] initWithRequest:request1];
-        //任务2 推荐用户
-        AFHTTPRequestOperation * operation2 = [[AFHTTPRequestOperation alloc] initWithRequest:request2];
-        //任务3 最新用户
-        AFHTTPRequestOperation * operation3 = [[AFHTTPRequestOperation alloc] initWithRequest:request3];
+        NSMutableArray * urls = [NSMutableArray array];
+        [urls addObject:jingxuan];
+        [urls addObject:tuijian];
+        [urls addObject:zuixin];
         
-        NSArray * operations = [AFHTTPRequestOperation batchOfRequestOperations:@[operation1,operation2,operation3] progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-            NSLog(@"%ld",(unsigned long)numberOfFinishedOperations);
-            
-        } completionBlock:^(NSArray * _Nonnull operations) {
-            
-            
-        }];
         
-        [operation1 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            AFHTTPRequestOperation * result1 = operation;
-            NSDictionary * dict1 = [result1.responseString objectFromJSONString];
-            [self.dataArray removeAllObjects];
-            for (NSDictionary * data in dict1[@"Data"]) {
-                ECTimeLineModel*model = [self sortByData:data];
-                [weakSelf.dataArray addObject:model];
-            }
-            NSLog(@"operation1 is complete");
-            
-        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-            
-            
-        }];
-        
-        [operation2 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            AFHTTPRequestOperation * result2 = operation;
-            NSDictionary * dict2 = [result2.responseString objectFromJSONString];
-            [self.commentArray removeAllObjects];
-
-            for (NSDictionary * data in dict2[@"Data"]) {
-                CommentUserModel*model = [CommentUserModel new];
-                model.name = data[@"nickName"];
-                model.url = data[@"photourl"];
-                model.ID = [data[@"use_id"] integerValue];
-                model.isHeart = [data[@"isHeart"] boolValue];
-                model.badge = [NSString stringWithFormat:@"%@",data[@"ReportNum"]];
-                [weakSelf.commentArray addObject:model];
-            }
-            NSLog(@"operation2 is complete");
-            
-        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-            
-        }];
-        
-        [operation3 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            AFHTTPRequestOperation * result3 = operation;
-            NSDictionary * dict3 = [result3.responseString objectFromJSONString];
-            [self.newerArray removeAllObjects];
-
-            for (NSDictionary * data in dict3[@"Data"]) {
+        [[AppHttpManager shareInstance] requestTasksWithUrls:urls success:^(NSDictionary *dict,NSInteger idx) {
+            NSLog(@"%ld",idx);
+            if (idx == 0) {
+                [self.dataArray removeAllObjects];
+                for (NSDictionary * data in dict[@"Data"]) {
                     ECTimeLineModel*model = [self sortByData:data];
-                maxPageSize = [[data objectForKey:@"RowCounts"] integerValue]/10;
+                    [weakSelf.dataArray addObject:model];
+                }
+            }else if (idx == 1){
+                [self.commentArray removeAllObjects];
+                for (NSDictionary * data in dict[@"Data"]) {
+                    CommentUserModel*model = [CommentUserModel new];
+                    model.name = data[@"nickName"];
+                    model.url = data[@"photourl"];
+                    model.ID = [data[@"use_id"] integerValue];
+                    model.isHeart = [data[@"isHeart"] boolValue];
+                    model.badge = [NSString stringWithFormat:@"%@",data[@"ReportNum"]];
+                    [weakSelf.commentArray addObject:model];
+                }
+                NSLog(@"operation2 is complete");
+                
+            }else if (idx == 2){
+                [self.newerArray removeAllObjects];
+                for (NSDictionary * data in dict[@"Data"]) {
+                    ECTimeLineModel*model = [self sortByData:data];
+                    maxPageSize = [[data objectForKey:@"RowCounts"] integerValue]/10;
                     [weakSelf.newerArray addObject:model];
                 }
             NSLog(@"operation3 is complete");
+
+            }
+            
+        } failure:^(NSError *error) {
+            
+        } complete:^(NSMutableArray *datas) {
+            NSLog(@"complete%@",datas);
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 NSLog(@"tableview reloaddata");
                 self.tableView.hidden = NO;
@@ -428,18 +409,11 @@
                 [self.tableView reloadData];
                 [self.tableView.mj_header endRefreshing];
             }];
-            
-        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-            
         }];
-        
-        
-        [[NSOperationQueue mainQueue] addOperations:operations waitUntilFinished:NO];
-        
     }else {
         //关注的人
         [SVProgressHUD showWithStatus:@""];
-
+        
         if ([User_TOKEN length] <= 0) {
             [SVProgressHUD showImage:nil status:@"您还未登录，暂无数据"];
             [self.tableView reloadData];
@@ -485,6 +459,7 @@
     model.liked = [data[@"isHasLike"] boolValue];
     model.badge = [NSString stringWithFormat:@"%@",data[@"ReportNum"]];
     
+    
     NSMutableArray * likeArr = [NSMutableArray array];
     if ([data[@"LikeUserList"] count]) {
         for (NSDictionary * like in data[@"LikeUserList"]) {
@@ -512,6 +487,7 @@
     model.commentItemsArray = commentArr;
     return model;
 }
+
 
 /**
  *  GET
@@ -638,7 +614,7 @@
     messageCountView.layer.cornerRadius    = 7.0;
     messageCountView.hidden                = YES;
     [leftView addSubview:messageCountView];
-
+    
     count                                  = [[UILabel alloc] initWithFrame:CGRectMake(1, 2, 12, 10)];
     count.font                             = [UIFont systemFontOfSize:10];
     count.center                           = messageCountView.center;
@@ -652,7 +628,6 @@
     self.navigationItem.leftBarButtonItems = @[leftitem];
     
     
-    
     UITableView * tableView   = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.delegate        = self;
     tableView.dataSource      = self;
@@ -661,10 +636,12 @@
     tableView.backgroundColor = [UIColor clearColor];
     [tableView registerClass:[ECTimeLineCell class] forCellReuseIdentifier:@"TestCell2"];
     [tableView registerClass:[ECRecommendCell class] forCellReuseIdentifier:kCommentUserCellId];
+    
+    UINib *nib = [UINib nibWithNibName:@"ECSiftCell" bundle:nil];
+    [tableView registerNib:nib forCellReuseIdentifier:kSiftTimeLineTableViewCellId];
+
     [self.view addSubview:tableView];
     tableView.hidden = YES;
-    
-
     
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -682,6 +659,48 @@
 
 
 #pragma mark Actions
+
+
+//管理员权限
+//置顶
+- (void)topAction:(UIButton*)button {
+    [self.popTip hide];
+    ECTimeLineModel*model = [self.newerArray objectAtIndex:button.tag];
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:button.tag inSection:2];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认要置顶该帖子吗?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"置顶" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self topArticle:model indexPath:indexPath];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:alert completion:nil];
+    }];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+
+}
+
+//删除
+- (void)deleteAction:(UIButton*)button {
+    
+    [self.popTip hide];
+    ECTimeLineModel*model = [self.newerArray objectAtIndex:button.tag];
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:button.tag inSection:2];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除该动态吗?" preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteArticle:model indexPath:indexPath];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:alert completion:nil];
+    }];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 //Navigation Action
 - (void)showFromNavigation {
@@ -879,7 +898,6 @@
 - (void)didClickMoreCommendUser {
     [delegate.tabbarController hideTabbar:YES];
     [self performSegueWithIdentifier:@"EnergyCycleViewToInviteView" sender:nil];
-    
 }
 
 - (void)didClickOtherUser:(UITableViewCell *)cell userId:(NSString *)userId userName:(NSString *)name {
@@ -892,19 +910,67 @@
 }
 
 //删除动态
-- (void)didDelete:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath {
+- (void)didPopover:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath fromButton:(UIButton *)button{
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除该动态吗?" preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self deleteArticle:model indexPath:indexPath];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:alert completion:nil];
-    }];
-    [alert addAction:sureAction];
-    [alert addAction:cancelAction];
-    [self presentViewController:alert animated:YES completion:nil];
+    UIView*view = [self createMenuView:indexPath];
+    
+    CGRect cellRect = [[self.tableView cellForRowAtIndexPath:indexPath] convertRect:button.frame toView:self.view];
+    if (self.popTip) {
+        [self.popTip hide];
+        self.popTip = nil;
+    }
+    
+    self.popTip = [AMPopTip popTip];
+    [self.popTip setPopoverColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]];
+    [self.popTip showCustomView:view direction:AMPopTipDirectionDown inView:self.view fromFrame:cellRect];
+    self.popTip.shouldDismissOnTapOutside = YES;
+    
+    
+}
+
+
+//管理员权限弹窗
+- (UIView*)createMenuView:(NSIndexPath*)indexPath {
+    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 60)];
+    UIButton * topButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [topButton setFrame:CGRectMake(5, 5, 40, 15)];
+    [topButton setTitle:@"置顶" forState:UIControlStateNormal];
+    [topButton.titleLabel setTextColor:[UIColor whiteColor]];
+    [topButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [topButton addTarget:self action:@selector(topAction:) forControlEvents:UIControlEventTouchUpInside];
+    topButton.tag = indexPath.row;
+    [view addSubview:topButton];
+    
+    UIView*line = [[UIView alloc] initWithFrame:CGRectMake(5, 30, 40, 1)];
+    line.backgroundColor = [UIColor whiteColor];
+    [view addSubview:line];
+    
+    UIButton * deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [deleteButton setFrame:CGRectMake(5, 40, 40, 15)];
+    [deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+    [deleteButton.titleLabel setTextColor:[UIColor whiteColor]];
+    [deleteButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [deleteButton addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+    deleteButton.tag = indexPath.row;
+    [view addSubview:deleteButton];
+    
+    return view;
+    
+}
+
+- (void)topArticle:(ECTimeLineModel*)model indexPath:(NSIndexPath*)indexPath {
+    
+    [self.dataArray addObject:model];
+    [self.newerArray removeObjectAtIndex:indexPath.row];
+    
+    NSIndexSet *section = [NSIndexSet indexSetWithIndex:0];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadSections:section withRowAnimation:UITableViewRowAnimationNone];
+    });
+    
     
 }
 
@@ -959,7 +1025,7 @@
         
         WebVC *webVC = MainStoryBoard(@"WebVC");
         webVC.titleName = @"动态详情";
-        webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,aid,[NSString stringWithFormat:@"%@",User_ID]];
+        webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,aid,[NSString stringWithFormat:@"%ld",[User_ID integerValue]]];
         [self.navigationController pushViewController:webVC animated:YES];
         
     }else {
@@ -999,10 +1065,15 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 || indexPath.section == 2) {
+    if (indexPath.section == 0) {
+        CGFloat line = ceil((CGFloat)self.dataArray.count/2.0);
+        CGFloat itemHeight = Screen_width/2 + 60;
+        return line * (itemHeight + 10);
+    }
+    else if (indexPath.section == 2) {
         id model = nil;
         if(pageType == 0) {
-          model = indexPath.section == 0? self.dataArray[indexPath.row]:self.newerArray[indexPath.row];
+          model = self.newerArray[indexPath.row];
         }else {
             model = self.attentionArray[indexPath.row];
         }
@@ -1063,19 +1134,37 @@
     else {
         return [UIView new];
     }
+}
 
+- (void)ecSiftCellDidSelectedItem:(NSIndexPath *)indexPath model:(ECTimeLineModel *)model {
+    NSString*aid = model.ID;
+    [delegate.tabbarController hideTabbar:YES];
+    
+    WebVC *webVC = MainStoryBoard(@"WebVC");
+    webVC.titleName = @"动态详情";
+    webVC.url = [NSString stringWithFormat:@"%@%@?aid=%@&userId=%@",INTERFACE_URL,ArticleDetailAspx,aid,[NSString stringWithFormat:@"%ld",[User_ID integerValue]]];
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0 || indexPath.section == 2) {
+    if (indexPath.section == 0) {
+        //精选动态
+        ECSiftCell *cell = [tableView dequeueReusableCellWithIdentifier:kSiftTimeLineTableViewCellId];
+        cell.delegate = self;
+        cell.models = self.dataArray;
+        
+        return cell;
+    }else if (indexPath.section == 2) {
+        //最新动态
+        
         ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
         cell.indexPath = indexPath;
         __weak typeof(self) weakSelf = self;
         if (!cell.moreButtonClickedBlock) {
             [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
                 if (pageType == 0) {
-                    ECTimeLineModel *model = indexPath.section == 0? weakSelf.dataArray[indexPath.row]:weakSelf.newerArray[indexPath.row];
+                    ECTimeLineModel *model = weakSelf.newerArray[indexPath.row];
                     model.isOpening = !model.isOpening;
                 }else {
                     ECTimeLineModel *model = weakSelf.attentionArray[indexPath.row];
@@ -1089,7 +1178,7 @@
         ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
         [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
         if (pageType == 0) {
-            cell.model = indexPath.section == 0? self.dataArray[indexPath.row]:self.newerArray[indexPath.row];
+            cell.model = self.newerArray[indexPath.row];
         }else {
             cell.model = self.attentionArray[indexPath.row];
         }
@@ -1114,7 +1203,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (pageType == 0) {
         if (section == 0) {
-            return [self.dataArray count];
+            return 1;
         }else if (section == 2) {
             return [self.newerArray count];
         }
