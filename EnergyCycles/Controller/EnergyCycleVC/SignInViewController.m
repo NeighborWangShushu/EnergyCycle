@@ -11,6 +11,8 @@
 #import "SignInModel.h"
 #import "SignInOneCollectionViewCell.h"
 
+#import "SignRankingTableVC.h"
+
 @interface SignInViewController () <UIScrollViewDelegate> {
     NSMutableArray *_dataArr;
     
@@ -33,6 +35,8 @@
     
     _dataArr = [[NSMutableArray alloc] init];
     days = 30;
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
     [self setupRightNavBarWithTitle:@"规则"];
     
     self.dayLabel.text = @"";
@@ -105,6 +109,10 @@
     [self.showImageView setAnimationDuration:1.f];
     [self.showImageView setAnimationRepeatCount:0];
     [self.showImageView startAnimating];
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - 跳转到签到规则界面
@@ -329,6 +337,12 @@
         isQian = NO;
         [SVProgressHUD showImage:nil status:@"已经签过了"];
     }
+}
+
+#pragma mark - 签到排行榜
+- (IBAction)signListClick:(UIButton *)sender {
+    SignRankingTableVC *signRankingVC = [[SignRankingTableVC alloc] init];
+    [self.navigationController pushViewController:signRankingVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

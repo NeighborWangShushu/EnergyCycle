@@ -46,7 +46,11 @@
 //#define INTERFACE_URL @"http://10.40.200.186:8089/"
 
 //测试环境
+<<<<<<< HEAD
 #define INTERFACE_URL @"https://www.woodybear.cn/Power/"
+=======
+#define INTERFACE_URL @"http://192.168.80.13:8888/"
+>>>>>>> aa1097e9f98c75bdf27c014508f8e027404838e8
 
 //测试公网环境
 //#define INTERFACE_URL @"http://120.26.218.68:8888/"
@@ -428,8 +432,12 @@
 #define Article_PostFile           @"Other/Article_PostFile"
 
 
+//113.早起签到排行榜
+#define Early_Sign_Ranking         @"article/Early_Sign_Ranking"
+
 //114.置顶帖子
 #define SticklyArticle            @"Article/ArticleChoice_Set"
+
 
 
 #endif

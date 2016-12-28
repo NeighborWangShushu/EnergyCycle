@@ -23,6 +23,7 @@
 
 @property (nonatomic, assign) id<ECPickerControllerDelegate> delegate;
 
-@property (nonatomic, strong) NSArray *imageIDArr;
+// 保存的图片localIdentifier数组
+@property (nonatomic, strong) NSMutableArray *imageIDArr;
 
 @end

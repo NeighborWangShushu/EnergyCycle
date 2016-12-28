@@ -21,6 +21,8 @@
     
     self.title = @"积分规则";
     
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     showTableView.backgroundColor = [UIColor clearColor];
@@ -29,6 +31,10 @@
     showTableView.dataSource = self;
     
     [self.view insertSubview:self.backImageView atIndex:0];
+}
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
