@@ -223,8 +223,9 @@
         if ([User_TOKEN length] <= 0) {
             shareTitle = @"一起加入能量圈吧！";
         }
-        NSString *shareText = @"能量圈—新圈子，新起点，新生活；输入能量源，获得100积分，赢取丰厚奖品！";
-        NSString *shareUrl = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%@",MYJYAppId];
+        NSString *shareText = @"能量圈—新圈子，新起点，新生活；输入能量源，获得50积分，赢取丰厚奖品！";
+//        NSString *shareUrl = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%@",MYJYAppId];
+        NSString *shareUrl = [NSString stringWithFormat:@"%@html/sharereg/sharereg.html?userid=%@",INTERFACE_URL, User_ID];
         
         if (indexPath.row == 0) {//通讯录
             [AppHelpManager CheckAddressBookAuthorization:^(bool isAuthorized) {
