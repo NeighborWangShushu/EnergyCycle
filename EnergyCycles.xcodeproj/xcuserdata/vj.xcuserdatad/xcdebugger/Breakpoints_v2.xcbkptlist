@@ -227,13 +227,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EnergyCycles/AppDelegate.mm"
-            timestampString = "504713662.048957"
+            filePath = "EnergyCycles/Tool/AppData/AppHttpManager.m"
+            timestampString = "504777139.780629"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "-application:didFinishLaunchingWithOptions:"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "-callInterfaceByUrl:PostOrGet:withDict:success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

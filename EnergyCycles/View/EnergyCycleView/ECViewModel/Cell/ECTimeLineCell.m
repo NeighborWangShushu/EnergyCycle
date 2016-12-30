@@ -97,7 +97,6 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_deleteButton setImage:[UIImage imageNamed:@"ec_comment_arrow"] forState:UIControlStateNormal];
-    _deleteButton.transform = CGAffineTransformMakeRotation(M_PI_2);
     _deleteButton.hidden = YES;
     
     _locaIcon = [UIImageView new];
@@ -327,7 +326,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     if([User_ROLE boolValue]){
         _deleteButton.hidden = NO;
         [_deleteButton addTarget:self action:@selector(managerAction) forControlEvents:UIControlEventTouchUpInside];
-        
+        _deleteButton.transform = CGAffineTransformMakeRotation(M_PI_2);
+
     }else if ([model.UserID isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
         _deleteButton.hidden = NO;
         [_deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];

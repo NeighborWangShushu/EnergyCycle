@@ -178,6 +178,37 @@
     return [[NSDate dateWithTimeIntervalInMilliSecondSince1970:time] formattedTime];
 }
 
++ (NSString *)shortWeekdayStringFromWeekday:(NSInteger)weekday {
+    
+    NSString * weekDayString = @"";
+    switch (weekday) {
+        case 0:
+            weekDayString = @"日";
+            break;
+        case 1:
+            weekDayString = @"一";
+            break;
+        case 2:
+            weekDayString = @"二";
+            break;
+        case 3:
+            weekDayString = @"三";
+            break;
+        case 4:
+            weekDayString = @"四";
+            break;
+        case 5:
+            weekDayString = @"五";
+            break;
+        case 6:
+            weekDayString = @"六";
+            break;
+        default:
+            break;
+    }
+    return weekDayString;
+}
+
 #pragma mark Relative Dates
 
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days

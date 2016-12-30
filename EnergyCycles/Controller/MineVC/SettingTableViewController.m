@@ -13,6 +13,8 @@
 #import "SettingTwoViewCell.h"
 #import "SettingThreeViewCell.h"
 #import "SettingFourViewCell.h"
+#import "SettingRadioCell.h"
+#import "SettingPlayRadioCell.h"
 
 #import "CacheManager.h"
 
@@ -26,14 +28,16 @@
 
 // 分组数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 5;
 }
 
 // 每一组的行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 2) {
+        return 2;
+    }else if (section == 3){
         return 3;
-    } else {
+    }else {
         return 1;
     }
 }
@@ -108,7 +112,27 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell updateDataWithJudge:[self isAllowedNotification]]; // 获取推送通知开关状态
         return cell;
-    } else if (indexPath.section == 2) { // 清楚缓存
+    }else if (indexPath.section == 2){ //定时电台
+        if (indexPath.row == 0) {
+            static NSString *fourViewCell = @"radioViewCell";
+            SettingRadioCell *cell = [tableView dequeueReusableCellWithIdentifier:fourViewCell];
+            if (cell == nil) {
+                cell = [[NSBundle mainBundle] loadNibNamed:@"SettingRadioCell" owner:self options:nil].lastObject;
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }else {
+            static NSString *fourViewCell = @"radioPlayViewCell";
+            SettingPlayRadioCell *cell = [tableView dequeueReusableCellWithIdentifier:fourViewCell];
+            if (cell == nil) {
+                cell = [[NSBundle mainBundle] loadNibNamed:@"SettingPlayRadioCell" owner:self options:nil].lastObject;
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+        
+    }
+    else if (indexPath.section == 3) { // 清楚缓存
         if (indexPath.row == 0) {
             static NSString *threeViewCell = @"threeViewCell";
             SettingThreeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:threeViewCell];
@@ -153,7 +177,11 @@
         }
     } else if (indexPath.section == 1) { // 消息推送
 //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"prefs:root=NOTIFICATIONS_ID&&path=%@",[[NSBundle mainBundle] bundleIdentifier]]]];
-    } else if (indexPath.section == 2) {
+    }else if (indexPath.section == 2) {
+        //电台
+        
+        
+    }else if (indexPath.section == 3) {
         if (indexPath.row == 0) { // 清除缓存
             [self clearDisk];
         } else if (indexPath.row == 1) { // 意见反馈

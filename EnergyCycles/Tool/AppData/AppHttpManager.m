@@ -3041,13 +3041,13 @@ static AFHTTPSessionManager *manager;
     return resultTask;
 }
 
-- (void)sticklyArticleWithUrl:(NSString *)url PostOrGet:(NSString *)postOrGetType articleId:(NSString *)articleId isChoice:(NSString*)isChoice token:(NSString *)token userId:(NSString *)userId success:(void (^)(NSDictionary *))success failure:(void (^)(NSString *))failure{
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
-    [dic setObject:userId forKey:@"userId"];
+- (void)sticklyArticleWithUrl:(NSString *)url PostOrGet:(NSString *)postOrGetType articleId:(NSInteger)articleId isChoice:(NSInteger)isChoice token:(NSString *)token userId:(NSInteger)userId success:(void (^)(NSDictionary *))success failure:(void (^)(NSString *))failure{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
     [dic setObject:token forKey:@"token"];
-    [dic setObject:isChoice forKey:@"IsChoice"];
-    [dic setObject:articleId forKey:@"ArticleID"];
-    
+    [dic setObject:[NSNumber numberWithBool:YES] forKey:@"IsChoice"];
+    [dic setObject:[NSNumber numberWithInteger:articleId] forKey:@"ArticID"];
+
     
     [self callInterfaceByUrl:url
                    PostOrGet:postOrGetType

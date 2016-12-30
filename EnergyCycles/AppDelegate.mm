@@ -22,9 +22,11 @@
 #import <AudioToolbox/AudioToolbox.h>
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
+#import "RadioClockModel.h"
+
 #endif
 
-@interface AppDelegate () <WeiboSDKDelegate,WXApiDelegate,QQApiInterfaceDelegate,UIAlertViewDelegate,JPUSHRegisterDelegate>
+@interface AppDelegate () <WeiboSDKDelegate,WXApiDelegate,QQApiInterfaceDelegate,UIAlertViewDelegate,JPUSHRegisterDelegate,UNUserNotificationCenterDelegate>
 //引导页
 @property (nonatomic, strong) GuidePageViewController *guidePageView;
 
@@ -78,6 +80,7 @@ AppDelegate *EnetgyCycle = nil;
     }
     
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
     [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (!error) {
             NSLog(@"request authorization succeeded!");
@@ -90,18 +93,19 @@ AppDelegate *EnetgyCycle = nil;
     content.body = @"Woah! These new notifications look amazing! Don’t you agree?";
     content.badge = @1;
     content.sound = [UNNotificationSound defaultSound];
+    content.categoryIdentifier = @"707";
     
 
     NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"ec_manager_bg@2x" ofType:@"png"];
-
+    
     // 5.依据 url 创建 attachment
     UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"request_identifier1" URL:[NSURL fileURLWithPath:imagePath] options:nil error:nil];
     content.attachments = @[attachment];
     
     NSDateComponents *components = [[NSDateComponents alloc] init];
-    components.weekday = 5;
-    components.hour = 22;
-    components.minute = 22;
+    components.weekday = 6;
+    components.hour = 15;
+    components.minute = 32;
     UNCalendarNotificationTrigger *trigger3 = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];
     
     
@@ -326,6 +330,25 @@ AppDelegate *EnetgyCycle = nil;
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
     
+}
+
+#pragma mark - UNNotificationCenter iOS10通知
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    
+    NSLog(@"actionIdentifier:%@",response.actionIdentifier);
+    NSLog(@"categoryIdentifier:%@",response.notification.request.content.categoryIdentifier);
+    
+    NSArray * notifications = [RadioClockModel findAll];
+    [notifications enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        RadioClockModel*model = notifications[idx];
+        if ([model.identifier isEqualToString:response.actionIdentifier]) {
+            // do some action
+            
+        }
+    }];
+    
+    completionHandler();
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {

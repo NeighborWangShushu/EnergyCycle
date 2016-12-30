@@ -20,7 +20,7 @@
 //            [self lineView];
 //        }
     }
-    if (section == 2) {
+    if (section == 3) {
         if (index == 1) {
             self.leftLabel.text = @"意见反馈";
             [self lineView];
@@ -28,7 +28,7 @@
             self.leftLabel.text = @"关于能量圈";
         }
     }
-    if (section == 3) {
+    if (section == 4) {
         self.leftLabel.text = @"退出当前账号";
         self.leftLabel.textColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
         self.rightImage.hidden = YES;

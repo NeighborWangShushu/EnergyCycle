@@ -8,6 +8,8 @@
 
 #import "RadioClockModel.h"
 #import "NSDate+Category.h"
+#import "NSDate+JKUtilities.h"
+#import "NSString+Utils.h"
 #import <UserNotifications/UserNotifications.h>
 
 #define RADIOTITLE @"能量圈"
@@ -18,7 +20,6 @@
 @interface RadioClockModel ()
 
 @property (nonatomic,assign)UNUserNotificationCenter *notificationCenter;
-
 
 
 @end
@@ -33,35 +34,55 @@
     return self;
 }
 
+#pragma mark GET
+
+- (NSString*)notificationWeekydays {
+    NSArray * arr = [RadioClockModel findAll];
+    NSString * weekdays = @"";
+    if (arr.count) {
+        [weekdays stringByAppendingString:@"星期"];
+        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            RadioClockModel*model = arr[idx];
+            [weekdays stringByAppendingString:[NSString stringWithFormat:@"%@、",[NSDate shortWeekdayStringFromWeekday:model.weekday]]];
+        }];
+    }
+    return [weekdays stringByDeletingLastPathComponent];
+}
+
+- (NSString*)specificTime {
+    
+    return [self.date formattedDateDescription];
+}
+
 - (NSString*)getChannelName {
     NSString*name = @"";
     switch (self.channelName) {
         case RadioClockChannelNameBBC:
-            name = @"BBC";
+            name = @"bbc";
             break;
         case RadioClockChannelNameCNN:
-            name = @"CNN";
+            name = @"cnn";
             break;
         case RadioClockChannelNameJPR:
-            name = @"JPR";
+            name = @"jpr";
             break;
         case RadioClockChannelNameLBC:
-            name = @"LBC";
+            name = @"lbc";
             break;
         case RadioClockChannelNameNPR:
-            name = @"NPR";
+            name = @"nrp";
             break;
         case RadioClockChannelNameTED:
-            name = @"TED";
+            name = @"ted";
             break;
         case RadioClockChannelNameVOA:
-            name = @"VOA";
+            name = @"voa";
             break;
         case RadioClockChannelNameFOXNEWS:
-            name = @"FOXNEWS";
+            name = @"fox";
             break;
         case RadioClockChannelNameAustralia:
-            name = @"Australia";
+            name = @"australia";
             break;
             
         default:
@@ -69,6 +90,38 @@
     }
     return name;
 }
+
+
+- (NSString*)durationTime {
+    NSString*time = @"";
+    switch (self.duration) {
+        case RadioDurationTenMinutes:
+            time = @"10分钟";
+            break;
+        case RadioDurationTwentyMinutes:
+            time = @"20分钟";
+            break;
+        case RadioDurationThirtyMinutes:
+            time = @"30分钟";
+            break;
+        case RadioDurationFortyMinutes:
+            time = @"40分钟";
+            break;
+        case RadioDurationFiftyMinutes:
+            time = @"50分钟";
+            break;
+        case RadioDurationSixtyMinutes:
+            time = @"60分钟";
+            break;
+        default:
+            break;
+    }
+    return time;
+}
+
+
+
+#pragma mark - init
 
 - (void)initialize {
     
@@ -79,7 +132,7 @@
     self.channelName = RadioClockChannelNameBBC;
     self.duration = RadioDurationTenMinutes;
     NSString * channelName = [self getChannelName];
-    self.body = [NSString stringWithFormat:@"%ld点%ld分啦！能量圈提醒您应该收听%@电台啦！滑动本消息收听~",hour,minutes,channelName];
+    self.body = [NSString stringWithFormat:@"%ld点%ld分啦！能量圈提醒您应该收听%@电台啦！滑动本消息收听~",(long)hour,minutes,channelName];
     self.weekday = 0;
     self.hour = 9;
     self.minutes = 0;
@@ -96,8 +149,6 @@
     self.weekday = [date weekday];
     self.hour = [date hour];
     self.minutes = [date minute];
-    
-    
     
 }
 

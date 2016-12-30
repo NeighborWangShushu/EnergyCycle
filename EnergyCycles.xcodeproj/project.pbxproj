@@ -402,8 +402,10 @@
 		26E987EE1C0DAE4000C6A7BB /* whiteback_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */; };
 		26E987EF1C0DAE4000C6A7BB /* whiteback_pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */; };
 		3402F89D1E1501D400202365 /* RadioNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402F89C1E1501D400202365 /* RadioNotificationController.m */; };
-		3402F8A61E15305100202365 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402F8A51E15305100202365 /* NotificationService.m */; };
-		3402F8AA1E15305100202365 /* ECRadioNotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3402F8A21E15305100202365 /* ECRadioNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3402F8B71E16608600202365 /* SettingRadioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402F8B51E16608600202365 /* SettingRadioCell.m */; };
+		3402F8B81E16608600202365 /* SettingRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3402F8B61E16608600202365 /* SettingRadioCell.xib */; };
+		3402F8BC1E1663DF00202365 /* SettingPlayRadioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402F8BA1E1663DF00202365 /* SettingPlayRadioCell.m */; };
+		3402F8BD1E1663DF00202365 /* SettingPlayRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3402F8BB1E1663DF00202365 /* SettingPlayRadioCell.xib */; };
 		34B360B81E02B034000A1296 /* HttpsWebViewProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360B71E02B034000A1296 /* HttpsWebViewProtocol.m */; };
 		34B360C71E039CD8000A1296 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360BB1E039CD8000A1296 /* AFHTTPSessionManager.m */; };
 		34B360C81E039CD8000A1296 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360BE1E039CD8000A1296 /* AFNetworkReachabilityManager.m */; };
@@ -1644,13 +1646,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3402F8A81E15305100202365 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2609AFFE1C02DD2A0006BC02 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3402F8A11E15305100202365;
-			remoteInfo = ECRadioNotificationService;
-		};
 		D05A95D91D62F43A0063AD41 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2609AFFE1C02DD2A0006BC02 /* Project object */;
@@ -1667,7 +1662,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				3402F8AA1E15305100202365 /* ECRadioNotificationService.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2239,10 +2233,15 @@
 		26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@3x.png"; sourceTree = "<group>"; };
 		3402F89B1E1501D400202365 /* RadioNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioNotificationController.h; sourceTree = "<group>"; };
 		3402F89C1E1501D400202365 /* RadioNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioNotificationController.m; sourceTree = "<group>"; };
-		3402F8A21E15305100202365 /* ECRadioNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ECRadioNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3402F8A41E15305100202365 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
 		3402F8A51E15305100202365 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		3402F8A71E15305100202365 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3402F8B41E16608600202365 /* SettingRadioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingRadioCell.h; sourceTree = "<group>"; };
+		3402F8B51E16608600202365 /* SettingRadioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingRadioCell.m; sourceTree = "<group>"; };
+		3402F8B61E16608600202365 /* SettingRadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingRadioCell.xib; sourceTree = "<group>"; };
+		3402F8B91E1663DF00202365 /* SettingPlayRadioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingPlayRadioCell.h; sourceTree = "<group>"; };
+		3402F8BA1E1663DF00202365 /* SettingPlayRadioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingPlayRadioCell.m; sourceTree = "<group>"; };
+		3402F8BB1E1663DF00202365 /* SettingPlayRadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingPlayRadioCell.xib; sourceTree = "<group>"; };
 		34B360B61E02B034000A1296 /* HttpsWebViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpsWebViewProtocol.h; sourceTree = "<group>"; };
 		34B360B71E02B034000A1296 /* HttpsWebViewProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpsWebViewProtocol.m; sourceTree = "<group>"; };
 		34B360BA1E039CD8000A1296 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -4019,13 +4018,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3402F89F1E15305100202365 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D05A95D11D62F43A0063AD41 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -4059,7 +4051,6 @@
 			children = (
 				2609B0061C02DD2A0006BC02 /* EnergyCycles.app */,
 				D05A95D41D62F43A0063AD41 /* EnergyCyclesUITests.xctest */,
-				3402F8A21E15305100202365 /* ECRadioNotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -6057,6 +6048,12 @@
 		6293337E1D2B61300085AE82 /* MineSettingView */ = {
 			isa = PBXGroup;
 			children = (
+				3402F8B41E16608600202365 /* SettingRadioCell.h */,
+				3402F8B51E16608600202365 /* SettingRadioCell.m */,
+				3402F8B61E16608600202365 /* SettingRadioCell.xib */,
+				3402F8B91E1663DF00202365 /* SettingPlayRadioCell.h */,
+				3402F8BA1E1663DF00202365 /* SettingPlayRadioCell.m */,
+				3402F8BB1E1663DF00202365 /* SettingPlayRadioCell.xib */,
 				6259020A1D2B92B300F3F13C /* SettingOneViewCell.h */,
 				6259020B1D2B92B300F3F13C /* SettingOneViewCell.m */,
 				6259020C1D2B92B300F3F13C /* SettingOneViewCell.xib */,
@@ -8240,29 +8237,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				3402F8A91E15305100202365 /* PBXTargetDependency */,
 			);
 			name = EnergyCycles;
 			productName = EnergyCycles;
 			productReference = 2609B0061C02DD2A0006BC02 /* EnergyCycles.app */;
 			productType = "com.apple.product-type.application";
-		};
-		3402F8A11E15305100202365 /* ECRadioNotificationService */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3402F8AB1E15305100202365 /* Build configuration list for PBXNativeTarget "ECRadioNotificationService" */;
-			buildPhases = (
-				3402F89E1E15305100202365 /* Sources */,
-				3402F89F1E15305100202365 /* Frameworks */,
-				3402F8A01E15305100202365 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ECRadioNotificationService;
-			productName = ECRadioNotificationService;
-			productReference = 3402F8A21E15305100202365 /* ECRadioNotificationService.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 		D05A95D31D62F43A0063AD41 /* EnergyCyclesUITests */ = {
 			isa = PBXNativeTarget;
@@ -8304,11 +8283,6 @@
 							};
 						};
 					};
-					3402F8A11E15305100202365 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = V39449673K;
-						ProvisioningStyle = Automatic;
-					};
 					D05A95D31D62F43A0063AD41 = {
 						CreatedOnToolsVersion = 7.3.1;
 						TestTargetID = 2609B0051C02DD2A0006BC02;
@@ -8331,7 +8305,6 @@
 			targets = (
 				2609B0051C02DD2A0006BC02 /* EnergyCycles */,
 				D05A95D31D62F43A0063AD41 /* EnergyCyclesUITests */,
-				3402F8A11E15305100202365 /* ECRadioNotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -8865,6 +8838,7 @@
 				26D8B24F1C0FEEE900A1DB04 /* 28_2@3x.png in Resources */,
 				DA9A95431C23ABEE00FBE107 /* shenqing@2x.png in Resources */,
 				626B803F1E0A24D70097CFA5 /* 200signIn_0@3x.png in Resources */,
+				3402F8BD1E1663DF00202365 /* SettingPlayRadioCell.xib in Resources */,
 				62367E251D6ADDD400272505 /* PkSummaryTableViewCell.xib in Resources */,
 				26E987551C0D49CB00C6A7BB /* SignInOneCollectionViewCell.xib in Resources */,
 				626B80631E0BD7120097CFA5 /* 250signIn@3x.png in Resources */,
@@ -9311,6 +9285,7 @@
 				D029BC1F1D3737E000B20D65 /* tabbar_normal_2@2x.png in Resources */,
 				627C87591D815E0200D2FC6E /* ToDay_BottomPost@2x.png in Resources */,
 				26E9876D1C0D6C8100C6A7BB /* EnergyPostOneViewCell.xib in Resources */,
+				3402F8B81E16608600202365 /* SettingRadioCell.xib in Resources */,
 				D07EB2681D18DE6800840AC2 /* icon_avatar_default_big@2x.png in Resources */,
 				DA9A953F1C23ABEE00FBE107 /* nengliangyuan@2x.png in Resources */,
 				626B805B1E0A30AD0097CFA5 /* subscript_250signIn@3x.png in Resources */,
@@ -9340,13 +9315,6 @@
 				26E987721C0D6C9100C6A7BB /* EnergyPostTwoViewCell.xib in Resources */,
 				625750BB1D337F5600E46B2E /* location@3x.png in Resources */,
 				DA76750A1C27F39900A34D9C /* 06beijing01@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3402F8A01E15305100202365 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9802,10 +9770,12 @@
 				D07D2ED61D0FD6CC00AF35B1 /* MASConstraint.m in Sources */,
 				DA7D19CB1C5AF84600FFB337 /* XHCacheManager.m in Sources */,
 				62F109F81DC3204F00AFB806 /* RadioModel.m in Sources */,
+				3402F8BC1E1663DF00202365 /* SettingPlayRadioCell.m in Sources */,
 				DAE1A4761C196415006FE119 /* ReportThrTableViewCell.m in Sources */,
 				26D99F1D1C0C4D7C007AF579 /* SVRadialGradientLayer.m in Sources */,
 				26D99EA31C0C4D7B007AF579 /* BaseTableViewController.m in Sources */,
 				DA9124311C2917FE0018DBAF /* RecordDetailViewController.m in Sources */,
+				3402F8B71E16608600202365 /* SettingRadioCell.m in Sources */,
 				34B360CB1E039CD8000A1296 /* AFURLResponseSerialization.m in Sources */,
 				34B360B81E02B034000A1296 /* HttpsWebViewProtocol.m in Sources */,
 				D07EB25C1D18DE6800840AC2 /* EmojiEmoticons.m in Sources */,
@@ -9954,14 +9924,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3402F89E1E15305100202365 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3402F8A61E15305100202365 /* NotificationService.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D05A95D01D62F43A0063AD41 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -9973,11 +9935,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3402F8A91E15305100202365 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3402F8A11E15305100202365 /* ECRadioNotificationService */;
-			targetProxy = 3402F8A81E15305100202365 /* PBXContainerItemProxy */;
-		};
 		D05A95DA1D62F43A0063AD41 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2609B0051C02DD2A0006BC02 /* EnergyCycles */;
@@ -10030,8 +9987,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10053,7 +10010,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "38532ed1-fa20-4be6-8fff-394c6fee1f2c";
+				PROVISIONING_PROFILE = "e23c9884-554d-4f4a-b058-2509f7d8aa37";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -10076,8 +10033,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gong Hai (U5V584Z73H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -10092,7 +10049,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "38532ed1-fa20-4be6-8fff-394c6fee1f2c";
+				PROVISIONING_PROFILE = "466c1cb4-4b1b-4c85-a2f3-683f575509f7";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -10146,7 +10103,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e23c9884-554d-4f4a-b058-2509f7d8aa37";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = Energy_Cycle_Dev_12_29;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -10161,8 +10118,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = EnergyCycles/EnergyCycles.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = V39449673K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -10202,52 +10159,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "466c1cb4-4b1b-4c85-a2f3-683f575509f7";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = EnergyCycle_AppStore;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
-			};
-			name = Release;
-		};
-		3402F8AC1E15305100202365 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = V39449673K;
-				INFOPLIST_FILE = ECRadioNotificationService/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles.ECRadioNotificationService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		3402F8AD1E15305100202365 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
-				DEVELOPMENT_TEAM = V39449673K;
-				INFOPLIST_FILE = ECRadioNotificationService/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles.ECRadioNotificationService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -10302,14 +10219,6 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-		};
-		3402F8AB1E15305100202365 /* Build configuration list for PBXNativeTarget "ECRadioNotificationService" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3402F8AC1E15305100202365 /* Debug */,
-				3402F8AD1E15305100202365 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
 		};
 		D05A95DB1D62F43A0063AD41 /* Build configuration list for PBXNativeTarget "EnergyCyclesUITests" */ = {
 			isa = XCConfigurationList;

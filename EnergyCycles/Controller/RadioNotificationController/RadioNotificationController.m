@@ -71,31 +71,37 @@
 }
 
 + (void)removeAll {
-   
-    
+    NSArray * arr = [RadioClockModel findAll];
+    for (RadioClockModel*model in arr) {
+        [self remove:model];
+    }
+    [RadioClockModel clearTable];
 }
 
 
 - (void)addNotification:(RadioClockModel*)model {
     
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:model.identifier ofType:@"png"];
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:[model getChannelName] ofType:@"png"];
     
-    // 5.依据 url 创建 attachment
-    UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"request_identifier1" URL:[NSURL fileURLWithPath:imagePath] options:nil error:nil];
+   
     
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
     content.title = model.title;
     content.subtitle = model.subtitle;
     content.body = model.body;
-    content.attachments = @[attachment];
-
+    content.categoryIdentifier = model.identifier;
+    // 5.依据 url 创建 attachment
+    if (imagePath) {
+        UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:model.identifier URL:[NSURL fileURLWithPath:imagePath] options:nil error:nil];
+        content.attachments = @[attachment];
+    }
+    
     
     NSDateComponents *components = [[NSDateComponents alloc] init];
     components.weekday = model.weekday;
     components.hour = model.hour;
     components.minute = model.minutes;
     UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];
-    
     
     
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:model.identifier
@@ -105,6 +111,35 @@
         
         
     }];
+    
+}
+
+
+- (void)removeAllNotifications {
+    if (self.notificationCenter) {
+        [self.notificationCenter removeAllPendingNotificationRequests];
+    }
+}
+
+- (void)removeNotifications:(NSArray*)models {
+    
+    NSMutableArray * identifiers = [NSMutableArray array];
+    
+    [models enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        RadioClockModel*model = models[idx];
+        [identifiers addObject:model.identifier];
+    }];
+    if (self.notificationCenter) {
+        [self.notificationCenter removePendingNotificationRequestsWithIdentifiers:identifiers];
+    }
+}
+
+
+- (void)removeNotification:(RadioClockModel*)model {
+    
+    if (self.notificationCenter) {
+        [self.notificationCenter removeDeliveredNotificationsWithIdentifiers:@[model.identifier]];
+    }
     
 }
 

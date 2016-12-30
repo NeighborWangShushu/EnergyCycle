@@ -65,6 +65,15 @@ typedef NS_ENUM(NSUInteger,RadioDuration) {
 //minutes
 @property (nonatomic,assign)NSInteger minutes;
 
+//设定闹钟的周期集合（周一到周日）
+@property (nonatomic,readonly)NSString * notificationWeekydays;
 
+//具体时间
+@property (nonatomic,readonly)NSString * specificTime;
+
+
+- (NSString*)getChannelName;
+
+- (NSString*)durationTime;
 
 @end

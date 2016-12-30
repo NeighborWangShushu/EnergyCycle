@@ -986,7 +986,7 @@
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView reloadSections:section withRowAnimation:UITableViewRowAnimationNone];
     });
-    [[AppHttpManager shareInstance] sticklyArticleWithUrl:SticklyArticle PostOrGet:@"POST" articleId:model.ID isChoice:@"1" token:User_TOKEN userId:User_ID success:^(NSDictionary *dict) {
+    [[AppHttpManager shareInstance] sticklyArticleWithUrl:SticklyArticle PostOrGet:@"post" articleId:[model.ID integerValue] isChoice:1 token:User_TOKEN userId:[User_ID integerValue] success:^(NSDictionary *dict) {
         
     } failure:^(NSString *str) {
         
