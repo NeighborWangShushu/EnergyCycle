@@ -288,6 +288,10 @@
     if (subPostDict.count <= 0) {
         [SVProgressHUD showImage:nil status:@"请填写汇报内容"];
     }
+    if (subPostDict.count != _xianmuArr.count) {
+        [SVProgressHUD showImage:nil status:@"汇报的项目要填写且不能是空哦~"];
+        return;
+    }
     for (NSString *value in subPostDict.allValues) {
         if ([value floatValue] == 0.00) {
             [SVProgressHUD showImage:nil status:@"汇报的项目要填写且不能是0哦~"];
