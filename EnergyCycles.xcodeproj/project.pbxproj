@@ -401,6 +401,9 @@
 		26E987ED1C0DAE4000C6A7BB /* whiteback_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987C91C0DAE4000C6A7BB /* whiteback_normal@3x.png */; };
 		26E987EE1C0DAE4000C6A7BB /* whiteback_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */; };
 		26E987EF1C0DAE4000C6A7BB /* whiteback_pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */; };
+		3402F89D1E1501D400202365 /* RadioNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402F89C1E1501D400202365 /* RadioNotificationController.m */; };
+		3402F8A61E15305100202365 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402F8A51E15305100202365 /* NotificationService.m */; };
+		3402F8AA1E15305100202365 /* ECRadioNotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3402F8A21E15305100202365 /* ECRadioNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		34B360B81E02B034000A1296 /* HttpsWebViewProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360B71E02B034000A1296 /* HttpsWebViewProtocol.m */; };
 		34B360C71E039CD8000A1296 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360BB1E039CD8000A1296 /* AFHTTPSessionManager.m */; };
 		34B360C81E039CD8000A1296 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360BE1E039CD8000A1296 /* AFNetworkReachabilityManager.m */; };
@@ -423,6 +426,7 @@
 		34F756B21E12869900A1C0DD /* AMPopTip+Entrance.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756AA1E12869900A1C0DD /* AMPopTip+Entrance.m */; };
 		34F756B31E12869900A1C0DD /* AMPopTip+Exit.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756AC1E12869900A1C0DD /* AMPopTip+Exit.m */; };
 		34F756B41E12869900A1C0DD /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756AE1E12869900A1C0DD /* AMPopTip.m */; };
+		34F756B81E13C5AD00A1C0DD /* RadioClockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756B71E13C5AD00A1C0DD /* RadioClockModel.m */; };
 		6202B1611D62F9AD000F7F39 /* ReportShareTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6202B15F1D62F9AD000F7F39 /* ReportShareTableViewCell.m */; };
 		6202B1621D62F9AD000F7F39 /* ReportShareTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6202B1601D62F9AD000F7F39 /* ReportShareTableViewCell.xib */; };
 		6202B17B1D62FF9A000F7F39 /* help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6202B1631D62FF9A000F7F39 /* help@2x.png */; };
@@ -1127,14 +1131,6 @@
 		D0946DA01D3F676D003C9C4C /* ec_zhiding@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0946D9E1D3F676D003C9C4C /* ec_zhiding@2x.png */; };
 		D0946DA11D3F676D003C9C4C /* ec_zhiding@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0946D9F1D3F676D003C9C4C /* ec_zhiding@3x.png */; };
 		D0BD3F0F1D6460830010D9BB /* ECSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F0E1D6460830010D9BB /* ECSearchController.m */; };
-		D0BD3F201D6474AA0010D9BB /* RAMBounceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F131D6474AA0010D9BB /* RAMBounceAnimation.swift */; };
-		D0BD3F211D6474AA0010D9BB /* RAMFrameItemAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F151D6474AA0010D9BB /* RAMFrameItemAnimation.swift */; };
-		D0BD3F221D6474AA0010D9BB /* RAMFumeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F171D6474AA0010D9BB /* RAMFumeAnimation.swift */; };
-		D0BD3F231D6474AA0010D9BB /* RAMRotationAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F191D6474AA0010D9BB /* RAMRotationAnimation.swift */; };
-		D0BD3F241D6474AA0010D9BB /* RAMTransitionItemAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F1B1D6474AA0010D9BB /* RAMTransitionItemAnimations.swift */; };
-		D0BD3F251D6474AA0010D9BB /* RAMAnimatedTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F1C1D6474AA0010D9BB /* RAMAnimatedTabBarController.swift */; };
-		D0BD3F261D6474AA0010D9BB /* RAMBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F1E1D6474AA0010D9BB /* RAMBadge.swift */; };
-		D0BD3F271D6474AA0010D9BB /* RAMItemAnimationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F1F1D6474AA0010D9BB /* RAMItemAnimationProtocol.swift */; };
 		D0BEF3131D20DAEA00F1985C /* ECViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF3121D20DAEA00F1985C /* ECViewController.m */; };
 		D0BEF32D1D22A01600F1985C /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF32A1D22A01600F1985C /* UITableView+SDAutoTableViewCellHeight.m */; };
 		D0BEF32E1D22A01600F1985C /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF32C1D22A01600F1985C /* UIView+SDAutoLayout.m */; };
@@ -1648,6 +1644,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3402F8A81E15305100202365 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2609AFFE1C02DD2A0006BC02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3402F8A11E15305100202365;
+			remoteInfo = ECRadioNotificationService;
+		};
 		D05A95D91D62F43A0063AD41 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2609AFFE1C02DD2A0006BC02 /* Project object */;
@@ -1656,6 +1659,20 @@
 			remoteInfo = EnergyCycles;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3402F8AE1E15305100202365 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3402F8AA1E15305100202365 /* ECRadioNotificationService.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2609B0061C02DD2A0006BC02 /* EnergyCycles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnergyCycles.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2220,6 +2237,12 @@
 		26E987C91C0DAE4000C6A7BB /* whiteback_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_normal@3x.png"; sourceTree = "<group>"; };
 		26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@2x.png"; sourceTree = "<group>"; };
 		26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@3x.png"; sourceTree = "<group>"; };
+		3402F89B1E1501D400202365 /* RadioNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioNotificationController.h; sourceTree = "<group>"; };
+		3402F89C1E1501D400202365 /* RadioNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioNotificationController.m; sourceTree = "<group>"; };
+		3402F8A21E15305100202365 /* ECRadioNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ECRadioNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3402F8A41E15305100202365 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		3402F8A51E15305100202365 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		3402F8A71E15305100202365 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34B360B61E02B034000A1296 /* HttpsWebViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpsWebViewProtocol.h; sourceTree = "<group>"; };
 		34B360B71E02B034000A1296 /* HttpsWebViewProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpsWebViewProtocol.m; sourceTree = "<group>"; };
 		34B360BA1E039CD8000A1296 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -2258,6 +2281,8 @@
 		34F756AD1E12869900A1C0DD /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTip.h; sourceTree = "<group>"; };
 		34F756AE1E12869900A1C0DD /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPopTip.m; sourceTree = "<group>"; };
 		34F756AF1E12869900A1C0DD /* AMPopTipDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTipDefaults.h; sourceTree = "<group>"; };
+		34F756B61E13C5AD00A1C0DD /* RadioClockModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioClockModel.h; sourceTree = "<group>"; };
+		34F756B71E13C5AD00A1C0DD /* RadioClockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioClockModel.m; sourceTree = "<group>"; };
 		6202B15E1D62F9AD000F7F39 /* ReportShareTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportShareTableViewCell.h; sourceTree = "<group>"; };
 		6202B15F1D62F9AD000F7F39 /* ReportShareTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportShareTableViewCell.m; sourceTree = "<group>"; };
 		6202B1601D62F9AD000F7F39 /* ReportShareTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportShareTableViewCell.xib; sourceTree = "<group>"; };
@@ -3234,14 +3259,6 @@
 		D0946D9F1D3F676D003C9C4C /* ec_zhiding@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ec_zhiding@3x.png"; sourceTree = "<group>"; };
 		D0BD3F0D1D6460830010D9BB /* ECSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSearchController.h; sourceTree = "<group>"; };
 		D0BD3F0E1D6460830010D9BB /* ECSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSearchController.m; sourceTree = "<group>"; };
-		D0BD3F131D6474AA0010D9BB /* RAMBounceAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMBounceAnimation.swift; sourceTree = "<group>"; };
-		D0BD3F151D6474AA0010D9BB /* RAMFrameItemAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMFrameItemAnimation.swift; sourceTree = "<group>"; };
-		D0BD3F171D6474AA0010D9BB /* RAMFumeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMFumeAnimation.swift; sourceTree = "<group>"; };
-		D0BD3F191D6474AA0010D9BB /* RAMRotationAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMRotationAnimation.swift; sourceTree = "<group>"; };
-		D0BD3F1B1D6474AA0010D9BB /* RAMTransitionItemAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMTransitionItemAnimations.swift; sourceTree = "<group>"; };
-		D0BD3F1C1D6474AA0010D9BB /* RAMAnimatedTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMAnimatedTabBarController.swift; sourceTree = "<group>"; };
-		D0BD3F1E1D6474AA0010D9BB /* RAMBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMBadge.swift; sourceTree = "<group>"; };
-		D0BD3F1F1D6474AA0010D9BB /* RAMItemAnimationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMItemAnimationProtocol.swift; sourceTree = "<group>"; };
 		D0BEF3111D20DAEA00F1985C /* ECViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECViewController.h; sourceTree = "<group>"; };
 		D0BEF3121D20DAEA00F1985C /* ECViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECViewController.m; sourceTree = "<group>"; };
 		D0BEF3281D22A01600F1985C /* SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAutoLayout.h; sourceTree = "<group>"; };
@@ -4002,6 +4019,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3402F89F1E15305100202365 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D05A95D11D62F43A0063AD41 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -4024,6 +4048,7 @@
 				2609B0081C02DD2A0006BC02 /* EnergyCycles */,
 				2609B0221C02DD2B0006BC02 /* EnergyCyclesTests */,
 				D05A95D51D62F43A0063AD41 /* EnergyCyclesUITests */,
+				3402F8A31E15305100202365 /* ECRadioNotificationService */,
 				2609B0071C02DD2A0006BC02 /* Products */,
 				D0D3001D1D8FAB50007180F1 /* Frameworks */,
 			);
@@ -4034,6 +4059,7 @@
 			children = (
 				2609B0061C02DD2A0006BC02 /* EnergyCycles.app */,
 				D05A95D41D62F43A0063AD41 /* EnergyCyclesUITests.xctest */,
+				3402F8A21E15305100202365 /* ECRadioNotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4345,6 +4371,7 @@
 		26D99D231C0C4D7B007AF579 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3402F89A1E1501C600202365 /* RadioNotificationController */,
 				D029BC0D1D365E5500B20D65 /* TabbarController */,
 				26D99D241C0C4D7B007AF579 /* AppTabBarController.h */,
 				26D99D251C0C4D7B007AF579 /* AppTabBarController.m */,
@@ -4516,6 +4543,7 @@
 		26D99D431C0C4D7B007AF579 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				34F756B51E13C55F00A1C0DD /* Setting */,
 				34B360B51E02AF92000A1296 /* Protocol */,
 				D0BD3F0C1D64605D0010D9BB /* Common */,
 				D058423D1D474FCE006859B9 /* ShareModel */,
@@ -5185,7 +5213,6 @@
 			children = (
 				34F756A41E12869900A1C0DD /* AMPopTip */,
 				34B360B91E039CD8000A1296 /* AFNetworking */,
-				D0BD3F101D6474AA0010D9BB /* RAMAnimatedTabBarController */,
 				D0C97B871D5C8E9F00B62219 /* SCLAlertView */,
 				D05842021D47296A006859B9 /* ShareSDK */,
 				D08352501D2F92950094AC2E /* JSONKit */,
@@ -5718,6 +5745,25 @@
 			name = EnergyPostView;
 			sourceTree = "<group>";
 		};
+		3402F89A1E1501C600202365 /* RadioNotificationController */ = {
+			isa = PBXGroup;
+			children = (
+				3402F89B1E1501D400202365 /* RadioNotificationController.h */,
+				3402F89C1E1501D400202365 /* RadioNotificationController.m */,
+			);
+			path = RadioNotificationController;
+			sourceTree = "<group>";
+		};
+		3402F8A31E15305100202365 /* ECRadioNotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				3402F8A41E15305100202365 /* NotificationService.h */,
+				3402F8A51E15305100202365 /* NotificationService.m */,
+				3402F8A71E15305100202365 /* Info.plist */,
+			);
+			path = ECRadioNotificationService;
+			sourceTree = "<group>";
+		};
 		34B360B51E02AF92000A1296 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -5763,6 +5809,15 @@
 				34F756AF1E12869900A1C0DD /* AMPopTipDefaults.h */,
 			);
 			path = AMPopTip;
+			sourceTree = "<group>";
+		};
+		34F756B51E13C55F00A1C0DD /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				34F756B61E13C5AD00A1C0DD /* RadioClockModel.h */,
+				34F756B71E13C5AD00A1C0DD /* RadioClockModel.m */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		6202B1651D62FF9A000F7F39 /* off */ = {
@@ -7221,77 +7276,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		D0BD3F101D6474AA0010D9BB /* RAMAnimatedTabBarController */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F111D6474AA0010D9BB /* Animations */,
-				D0BD3F1C1D6474AA0010D9BB /* RAMAnimatedTabBarController.swift */,
-				D0BD3F1D1D6474AA0010D9BB /* RAMBadge */,
-				D0BD3F1F1D6474AA0010D9BB /* RAMItemAnimationProtocol.swift */,
-			);
-			path = RAMAnimatedTabBarController;
-			sourceTree = "<group>";
-		};
-		D0BD3F111D6474AA0010D9BB /* Animations */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F121D6474AA0010D9BB /* BounceAnimation */,
-				D0BD3F141D6474AA0010D9BB /* FrameAnimation */,
-				D0BD3F161D6474AA0010D9BB /* FumeAnimation */,
-				D0BD3F181D6474AA0010D9BB /* RotationAnimation */,
-				D0BD3F1A1D6474AA0010D9BB /* TransitionAniamtions */,
-			);
-			path = Animations;
-			sourceTree = "<group>";
-		};
-		D0BD3F121D6474AA0010D9BB /* BounceAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F131D6474AA0010D9BB /* RAMBounceAnimation.swift */,
-			);
-			path = BounceAnimation;
-			sourceTree = "<group>";
-		};
-		D0BD3F141D6474AA0010D9BB /* FrameAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F151D6474AA0010D9BB /* RAMFrameItemAnimation.swift */,
-			);
-			path = FrameAnimation;
-			sourceTree = "<group>";
-		};
-		D0BD3F161D6474AA0010D9BB /* FumeAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F171D6474AA0010D9BB /* RAMFumeAnimation.swift */,
-			);
-			path = FumeAnimation;
-			sourceTree = "<group>";
-		};
-		D0BD3F181D6474AA0010D9BB /* RotationAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F191D6474AA0010D9BB /* RAMRotationAnimation.swift */,
-			);
-			path = RotationAnimation;
-			sourceTree = "<group>";
-		};
-		D0BD3F1A1D6474AA0010D9BB /* TransitionAniamtions */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F1B1D6474AA0010D9BB /* RAMTransitionItemAnimations.swift */,
-			);
-			path = TransitionAniamtions;
-			sourceTree = "<group>";
-		};
-		D0BD3F1D1D6474AA0010D9BB /* RAMBadge */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F1E1D6474AA0010D9BB /* RAMBadge.swift */,
-			);
-			path = RAMBadge;
-			sourceTree = "<group>";
-		};
 		D0BEF3271D22A01600F1985C /* SDAutoLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -8251,15 +8235,34 @@
 				2609B0031C02DD2A0006BC02 /* Frameworks */,
 				2609B0021C02DD2A0006BC02 /* Sources */,
 				2609B0041C02DD2A0006BC02 /* Resources */,
+				3402F8AE1E15305100202365 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3402F8A91E15305100202365 /* PBXTargetDependency */,
 			);
 			name = EnergyCycles;
 			productName = EnergyCycles;
 			productReference = 2609B0061C02DD2A0006BC02 /* EnergyCycles.app */;
 			productType = "com.apple.product-type.application";
+		};
+		3402F8A11E15305100202365 /* ECRadioNotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3402F8AB1E15305100202365 /* Build configuration list for PBXNativeTarget "ECRadioNotificationService" */;
+			buildPhases = (
+				3402F89E1E15305100202365 /* Sources */,
+				3402F89F1E15305100202365 /* Frameworks */,
+				3402F8A01E15305100202365 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ECRadioNotificationService;
+			productName = ECRadioNotificationService;
+			productReference = 3402F8A21E15305100202365 /* ECRadioNotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		D05A95D31D62F43A0063AD41 /* EnergyCyclesUITests */ = {
 			isa = PBXNativeTarget;
@@ -8291,6 +8294,7 @@
 					2609B0051C02DD2A0006BC02 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = V39449673K;
+						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -8299,6 +8303,11 @@
 								enabled = 1;
 							};
 						};
+					};
+					3402F8A11E15305100202365 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = V39449673K;
+						ProvisioningStyle = Automatic;
 					};
 					D05A95D31D62F43A0063AD41 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -8322,6 +8331,7 @@
 			targets = (
 				2609B0051C02DD2A0006BC02 /* EnergyCycles */,
 				D05A95D31D62F43A0063AD41 /* EnergyCyclesUITests */,
+				3402F8A11E15305100202365 /* ECRadioNotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -9333,6 +9343,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3402F8A01E15305100202365 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D05A95D21D62F43A0063AD41 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -9389,6 +9406,7 @@
 				DA8AFF6C1C2A97740064B9A7 /* MineRecViewCell.m in Sources */,
 				D06215DC1D6C4CE300D3845E /* pinyin.m in Sources */,
 				26D99EFF1C0C4D7C007AF579 /* SBJsonParser.m in Sources */,
+				3402F89D1E1501D400202365 /* RadioNotificationController.m in Sources */,
 				D07EB2861D18DE6800840AC2 /* UIView+AnimationOptionsForCurve.m in Sources */,
 				D07D2EDA1D0FD6CC00AF35B1 /* MASViewConstraint.m in Sources */,
 				D04B54D21D23C90D00DC259A /* MLTextAttachment.m in Sources */,
@@ -9500,13 +9518,13 @@
 				DA677B351C3A0F57004A534E /* TheAdvTabModel.m in Sources */,
 				D05A95A11D61B8C20063AD41 /* ECContactCell.m in Sources */,
 				D07E248A1D13EFE900854B51 /* PopColumView.m in Sources */,
-				D0BD3F251D6474AA0010D9BB /* RAMAnimatedTabBarController.swift in Sources */,
 				DAA9E6911C571F5800BB0436 /* CustomButton.m in Sources */,
 				26D99E971C0C4D7B007AF579 /* LearnViewController.m in Sources */,
 				DA5D7D611CA236D900FF5378 /* OtherUserFenSiViewController.m in Sources */,
 				DA5D7D651CA23C5300FF5378 /* OtherUserShowViewCell.m in Sources */,
 				26D99EF31C0C4D7C007AF579 /* MJRefreshBackNormalFooter.m in Sources */,
 				DA6F79351C34F1740095C82F /* RecordModel.m in Sources */,
+				34F756B81E13C5AD00A1C0DD /* RadioClockModel.m in Sources */,
 				DA9125001C2940730018DBAF /* MyImageView.m in Sources */,
 				627F76F81D38D9EF00552B96 /* IntroViewController.m in Sources */,
 				DA68D5B71C96A1680073E0F6 /* MineEnergyShowThreeViewCell.m in Sources */,
@@ -9530,7 +9548,6 @@
 				62EE48DC1D7D22DB00012359 /* TheAdvPKDetailVC.m in Sources */,
 				26D99EAB1C0C4D7B007AF579 /* UIView+Extension.m in Sources */,
 				26D26FCC1C118626008511A9 /* LearnDetailViewController.m in Sources */,
-				D0BD3F201D6474AA0010D9BB /* RAMBounceAnimation.swift in Sources */,
 				625AD2831D9295B300435FC2 /* ECPickerController.m in Sources */,
 				62FCE9191D3CC52D00F52E05 /* AttentionAndFansModel.m in Sources */,
 				D07E24221D11554700854B51 /* OtherCell.m in Sources */,
@@ -9624,7 +9641,6 @@
 				26CB28CB1C1146590065083D /* CustomTextView.m in Sources */,
 				DA7674D81C27C97C00A34D9C /* SocialCollectionViewCell.m in Sources */,
 				DAC4D0AD1C4C95A000BCC979 /* CityDataManager.m in Sources */,
-				D0BD3F231D6474AA0010D9BB /* RAMRotationAnimation.swift in Sources */,
 				26E987421C0D382400C6A7BB /* ReportEveryPKViewController.m in Sources */,
 				D05A95B91D62E52D0063AD41 /* ECContactSelectedCell.m in Sources */,
 				D02F3B461D90EDCD00455A8E /* EnergyPostShareView.m in Sources */,
@@ -9649,12 +9665,10 @@
 				DAC4D0BA1C4C95AA00BCC979 /* FMDatabase.m in Sources */,
 				34F756B31E12869900A1C0DD /* AMPopTip+Exit.m in Sources */,
 				26D99F131C0C4D7C007AF579 /* UIButton+WebCache.m in Sources */,
-				D0BD3F221D6474AA0010D9BB /* RAMFumeAnimation.swift in Sources */,
 				26D99F121C0C4D7C007AF579 /* SDWebImagePrefetcher.m in Sources */,
 				DAAEC6CD1C1FAA7900FA094B /* LearnCustomChooseClassView.m in Sources */,
 				DA68D5B91C96A1680073E0F6 /* MineEnergyShowTwoViewCell.m in Sources */,
 				26D26FCF1C118651008511A9 /* CourseViewController.m in Sources */,
-				D0BD3F241D6474AA0010D9BB /* RAMTransitionItemAnimations.swift in Sources */,
 				DA68D5A71C9680310073E0F6 /* OtherUserEDPKViewController.m in Sources */,
 				D0BEF3131D20DAEA00F1985C /* ECViewController.m in Sources */,
 				625750A61D33493600E46B2E /* MineTableViewController.m in Sources */,
@@ -9790,7 +9804,6 @@
 				62F109F81DC3204F00AFB806 /* RadioModel.m in Sources */,
 				DAE1A4761C196415006FE119 /* ReportThrTableViewCell.m in Sources */,
 				26D99F1D1C0C4D7C007AF579 /* SVRadialGradientLayer.m in Sources */,
-				D0BD3F211D6474AA0010D9BB /* RAMFrameItemAnimation.swift in Sources */,
 				26D99EA31C0C4D7B007AF579 /* BaseTableViewController.m in Sources */,
 				DA9124311C2917FE0018DBAF /* RecordDetailViewController.m in Sources */,
 				34B360CB1E039CD8000A1296 /* AFURLResponseSerialization.m in Sources */,
@@ -9816,11 +9829,9 @@
 				26D99EA91C0C4D7B007AF579 /* UIImage+Extension.m in Sources */,
 				62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */,
 				26D99ECF1C0C4D7B007AF579 /* IQUITextFieldView+Additions.m in Sources */,
-				D0BD3F271D6474AA0010D9BB /* RAMItemAnimationProtocol.swift in Sources */,
 				DA7CE5551C3E38BF00272952 /* NSDate+Additions.m in Sources */,
 				DAE033831C181294007E6DBD /* TheAdvThrViewCell.m in Sources */,
 				D04B54601D23BEDF00DC259A /* ECTimeLineModel.m in Sources */,
-				D0BD3F261D6474AA0010D9BB /* RAMBadge.swift in Sources */,
 				26D99F221C0C4D7C007AF579 /* EnergyShowOneViewCell.m in Sources */,
 				625902361D2CFB6100F3F13C /* InputPasswordViewController.m in Sources */,
 				626D3F111D48A29400724000 /* ChatTableViewCell.m in Sources */,
@@ -9943,6 +9954,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3402F89E1E15305100202365 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3402F8A61E15305100202365 /* NotificationService.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D05A95D01D62F43A0063AD41 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -9954,6 +9973,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3402F8A91E15305100202365 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3402F8A11E15305100202365 /* ECRadioNotificationService */;
+			targetProxy = 3402F8A81E15305100202365 /* PBXContainerItemProxy */;
+		};
 		D05A95DA1D62F43A0063AD41 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2609B0051C02DD2A0006BC02 /* EnergyCycles */;
@@ -10124,7 +10148,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e23c9884-554d-4f4a-b058-2509f7d8aa37";
 				PROVISIONING_PROFILE_SPECIFIER = Energy_Cycle_Dev_12_29;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -10180,10 +10204,50 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "466c1cb4-4b1b-4c85-a2f3-683f575509f7";
 				PROVISIONING_PROFILE_SPECIFIER = EnergyCycle_AppStore;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
+			};
+			name = Release;
+		};
+		3402F8AC1E15305100202365 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = V39449673K;
+				INFOPLIST_FILE = ECRadioNotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles.ECRadioNotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3402F8AD1E15305100202365 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
+				DEVELOPMENT_TEAM = V39449673K;
+				INFOPLIST_FILE = ECRadioNotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles.ECRadioNotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -10238,6 +10302,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		3402F8AB1E15305100202365 /* Build configuration list for PBXNativeTarget "ECRadioNotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3402F8AC1E15305100202365 /* Debug */,
+				3402F8AD1E15305100202365 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		D05A95DB1D62F43A0063AD41 /* Build configuration list for PBXNativeTarget "EnergyCyclesUITests" */ = {
 			isa = XCConfigurationList;

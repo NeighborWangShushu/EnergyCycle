@@ -60,6 +60,7 @@ AppDelegate *EnetgyCycle = nil;
         JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
         entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
         [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+        
 #endif
     } else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         //可以添加自定义categories
@@ -67,6 +68,7 @@ AppDelegate *EnetgyCycle = nil;
                                                           UIUserNotificationTypeSound |
                                                           UIUserNotificationTypeAlert)
                                               categories:nil];
+        
     } else {
         //categories 必须为nil
         [JPUSHService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
@@ -74,6 +76,43 @@ AppDelegate *EnetgyCycle = nil;
                                                           UIRemoteNotificationTypeAlert)
                                               categories:nil];
     }
+    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (!error) {
+            NSLog(@"request authorization succeeded!");
+        }
+    }];
+    
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.title = @"Introduction to Notifications";
+    content.subtitle = @"Session 707";
+    content.body = @"Woah! These new notifications look amazing! Don’t you agree?";
+    content.badge = @1;
+    content.sound = [UNNotificationSound defaultSound];
+    
+
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"ec_manager_bg@2x" ofType:@"png"];
+
+    // 5.依据 url 创建 attachment
+    UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"request_identifier1" URL:[NSURL fileURLWithPath:imagePath] options:nil error:nil];
+    content.attachments = @[attachment];
+    
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.weekday = 5;
+    components.hour = 22;
+    components.minute = 22;
+    UNCalendarNotificationTrigger *trigger3 = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];
+    
+    
+    NSString *requestIdentifier = @"sampleRequest";
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifier
+                                                                          content:content
+                                                                          trigger:trigger3];
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        
+        
+    }];
     
     
     //如不需要使用IDFA，advertisingIdentifier 可为nil
@@ -97,6 +136,7 @@ AppDelegate *EnetgyCycle = nil;
     
     return YES;
 }
+
 
 #pragma mark - 设置推送别名
 - (void)setAPService:(NSNotification *)notification {
@@ -257,9 +297,10 @@ AppDelegate *EnetgyCycle = nil;
 // iOS 10 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
     // Required
+    
     NSDictionary * userInfo = notification.request.content.userInfo; if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo]; }
-    completionHandler(UNNotificationPresentationOptionAlert); //                    Badge Sound Alert
+    completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
 }
 // iOS 10 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
