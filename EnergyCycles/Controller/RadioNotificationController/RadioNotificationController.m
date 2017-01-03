@@ -83,8 +83,6 @@
     
     NSString *imagePath = [[NSBundle mainBundle] pathForResource:[model getChannelName] ofType:@"png"];
     
-   
-    
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
     content.title = model.title;
     content.subtitle = model.subtitle;

@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger,RadioDuration) {
 
 
 @property (nonatomic,copy)NSString * identifier;
+
 //提醒时间
 @property (nonatomic,strong)NSDate * date;
 
@@ -43,6 +44,9 @@ typedef NS_ENUM(NSUInteger,RadioDuration) {
 
 //持续时间
 @property (nonatomic,assign)RadioDuration duration;
+
+//是否重复
+@property (nonatomic)BOOL isRepeat;
 
 //标题
 @property (nonatomic,copy)NSString * title;
@@ -66,10 +70,10 @@ typedef NS_ENUM(NSUInteger,RadioDuration) {
 @property (nonatomic,assign)NSInteger minutes;
 
 //设定闹钟的周期集合（周一到周日）
-@property (nonatomic,readonly)NSString * notificationWeekydays;
+@property (nonatomic,copy)NSString * notificationWeekydays;
 
 //具体时间
-@property (nonatomic,readonly)NSString * specificTime;
+@property (nonatomic,copy)NSString * specificTime;
 
 
 - (NSString*)getChannelName;

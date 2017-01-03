@@ -406,6 +406,13 @@
 		3402F8B81E16608600202365 /* SettingRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3402F8B61E16608600202365 /* SettingRadioCell.xib */; };
 		3402F8BC1E1663DF00202365 /* SettingPlayRadioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402F8BA1E1663DF00202365 /* SettingPlayRadioCell.m */; };
 		3402F8BD1E1663DF00202365 /* SettingPlayRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3402F8BB1E1663DF00202365 /* SettingPlayRadioCell.xib */; };
+		348EF1FC1E1B6E4B0046A529 /* RadioDurationTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 348EF1FA1E1B6E4B0046A529 /* RadioDurationTimeVC.m */; };
+		348EF1FD1E1B6E4B0046A529 /* RadioDurationTimeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 348EF1FB1E1B6E4B0046A529 /* RadioDurationTimeVC.xib */; };
+		348EF2011E1B82860046A529 /* RadioPlanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 348EF1FF1E1B82860046A529 /* RadioPlanCell.m */; };
+		348EF2021E1B82860046A529 /* RadioPlanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 348EF2001E1B82860046A529 /* RadioPlanCell.xib */; };
+		348EF2081E1B99020046A529 /* mine_playradio_checked_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 348EF2051E1B99020046A529 /* mine_playradio_checked_bg@2x.png */; };
+		348EF2091E1B99020046A529 /* mine_playradio_switch_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 348EF2061E1B99020046A529 /* mine_playradio_switch_button@2x.png */; };
+		348EF20A1E1B99020046A529 /* mine_playradio_time_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 348EF2071E1B99020046A529 /* mine_playradio_time_checked@2x.png */; };
 		34B360B81E02B034000A1296 /* HttpsWebViewProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360B71E02B034000A1296 /* HttpsWebViewProtocol.m */; };
 		34B360C71E039CD8000A1296 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360BB1E039CD8000A1296 /* AFHTTPSessionManager.m */; };
 		34B360C81E039CD8000A1296 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360BE1E039CD8000A1296 /* AFNetworkReachabilityManager.m */; };
@@ -1492,8 +1499,6 @@
 		DA9A954A1C23ABEE00FBE107 /* yingbi@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA9A95201C23ABEE00FBE107 /* yingbi@3x.png */; };
 		DA9A954B1C23ABEE00FBE107 /* ziliao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA9A95211C23ABEE00FBE107 /* ziliao@2x.png */; };
 		DA9A954C1C23ABEE00FBE107 /* ziliao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA9A95221C23ABEE00FBE107 /* ziliao@3x.png */; };
-		DAA8DBD61C97A9020011EB7E /* placepic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA8DBD41C97A9020011EB7E /* placepic@2x.png */; };
-		DAA8DBD71C97A9020011EB7E /* placepic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA8DBD51C97A9020011EB7E /* placepic@3x.png */; };
 		DAA8DBDA1C97B0360011EB7E /* delete_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA8DBD81C97B0360011EB7E /* delete_icon@2x.png */; };
 		DAA8DBDB1C97B0360011EB7E /* delete_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA8DBD91C97B0360011EB7E /* delete_icon@3x.png */; };
 		DAA8DBDE1C97BAA20011EB7E /* SetNoteNameView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DBDD1C97BAA20011EB7E /* SetNoteNameView.m */; };
@@ -2242,6 +2247,15 @@
 		3402F8B91E1663DF00202365 /* SettingPlayRadioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingPlayRadioCell.h; sourceTree = "<group>"; };
 		3402F8BA1E1663DF00202365 /* SettingPlayRadioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingPlayRadioCell.m; sourceTree = "<group>"; };
 		3402F8BB1E1663DF00202365 /* SettingPlayRadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingPlayRadioCell.xib; sourceTree = "<group>"; };
+		348EF1F91E1B6E4B0046A529 /* RadioDurationTimeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioDurationTimeVC.h; sourceTree = "<group>"; };
+		348EF1FA1E1B6E4B0046A529 /* RadioDurationTimeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioDurationTimeVC.m; sourceTree = "<group>"; };
+		348EF1FB1E1B6E4B0046A529 /* RadioDurationTimeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioDurationTimeVC.xib; sourceTree = "<group>"; };
+		348EF1FE1E1B82860046A529 /* RadioPlanCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RadioPlanCell.h; path = ../RadioPlanCell.h; sourceTree = "<group>"; };
+		348EF1FF1E1B82860046A529 /* RadioPlanCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RadioPlanCell.m; path = ../RadioPlanCell.m; sourceTree = "<group>"; };
+		348EF2001E1B82860046A529 /* RadioPlanCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RadioPlanCell.xib; path = ../RadioPlanCell.xib; sourceTree = "<group>"; };
+		348EF2051E1B99020046A529 /* mine_playradio_checked_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mine_playradio_checked_bg@2x.png"; sourceTree = "<group>"; };
+		348EF2061E1B99020046A529 /* mine_playradio_switch_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mine_playradio_switch_button@2x.png"; sourceTree = "<group>"; };
+		348EF2071E1B99020046A529 /* mine_playradio_time_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mine_playradio_time_checked@2x.png"; sourceTree = "<group>"; };
 		34B360B61E02B034000A1296 /* HttpsWebViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpsWebViewProtocol.h; sourceTree = "<group>"; };
 		34B360B71E02B034000A1296 /* HttpsWebViewProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpsWebViewProtocol.m; sourceTree = "<group>"; };
 		34B360BA1E039CD8000A1296 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -3750,8 +3764,6 @@
 		DA9A95201C23ABEE00FBE107 /* yingbi@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yingbi@3x.png"; path = "MineCenterHome/yingbi@3x.png"; sourceTree = "<group>"; };
 		DA9A95211C23ABEE00FBE107 /* ziliao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ziliao@2x.png"; sourceTree = "<group>"; };
 		DA9A95221C23ABEE00FBE107 /* ziliao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ziliao@3x.png"; sourceTree = "<group>"; };
-		DAA8DBD41C97A9020011EB7E /* placepic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placepic@2x.png"; sourceTree = "<group>"; };
-		DAA8DBD51C97A9020011EB7E /* placepic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placepic@3x.png"; sourceTree = "<group>"; };
 		DAA8DBD81C97B0360011EB7E /* delete_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_icon@2x.png"; sourceTree = "<group>"; };
 		DAA8DBD91C97B0360011EB7E /* delete_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_icon@3x.png"; sourceTree = "<group>"; };
 		DAA8DBDC1C97BAA20011EB7E /* SetNoteNameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetNoteNameView.h; sourceTree = "<group>"; };
@@ -4738,8 +4750,6 @@
 				DA937D521C44FDA900F174F6 /* touxiang@3x.png */,
 				DA8103A31C2BABD300CFFF44 /* loginicon@2x.png */,
 				DA8103A41C2BABD300CFFF44 /* loginIcon@3x.png */,
-				DAA8DBD41C97A9020011EB7E /* placepic@2x.png */,
-				DAA8DBD51C97A9020011EB7E /* placepic@3x.png */,
 				26D99D4B1C0C4D7B007AF579 /* EnergyCycle */,
 				26D99D4F1C0C4D7B007AF579 /* PK */,
 				26D99D4D1C0C4D7B007AF579 /* Learn */,
@@ -4866,6 +4876,7 @@
 		26D99D4E1C0C4D7B007AF579 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				348EF2041E1B99020046A529 /* PlayRadio */,
 				62BE73691D5B249700A83766 /* inform@2x.png */,
 				62BE736A1D5B249700A83766 /* inform@3x.png */,
 				62BE735C1D5B1FF000A83766 /* tongzhi@3x.png */,
@@ -5634,6 +5645,7 @@
 		26D99E901C0C4D7B007AF579 /* MineView */ = {
 			isa = PBXGroup;
 			children = (
+				348EF2031E1B82980046A529 /* MineRadioPlanCell */,
 				62DDA0811D5853D8005C2CEB /* MineHeadTableView */,
 				62B666191D49FAA300660E1D /* MineRecommended */,
 				626D3F091D489A4200724000 /* MineChat */,
@@ -5753,6 +5765,36 @@
 				3402F8A71E15305100202365 /* Info.plist */,
 			);
 			path = ECRadioNotificationService;
+			sourceTree = "<group>";
+		};
+		348EF1F81E1B6D670046A529 /* RadioPlan */ = {
+			isa = PBXGroup;
+			children = (
+				348EF1F91E1B6E4B0046A529 /* RadioDurationTimeVC.h */,
+				348EF1FA1E1B6E4B0046A529 /* RadioDurationTimeVC.m */,
+				348EF1FB1E1B6E4B0046A529 /* RadioDurationTimeVC.xib */,
+			);
+			path = RadioPlan;
+			sourceTree = "<group>";
+		};
+		348EF2031E1B82980046A529 /* MineRadioPlanCell */ = {
+			isa = PBXGroup;
+			children = (
+				348EF1FE1E1B82860046A529 /* RadioPlanCell.h */,
+				348EF1FF1E1B82860046A529 /* RadioPlanCell.m */,
+				348EF2001E1B82860046A529 /* RadioPlanCell.xib */,
+			);
+			path = MineRadioPlanCell;
+			sourceTree = "<group>";
+		};
+		348EF2041E1B99020046A529 /* PlayRadio */ = {
+			isa = PBXGroup;
+			children = (
+				348EF2051E1B99020046A529 /* mine_playradio_checked_bg@2x.png */,
+				348EF2061E1B99020046A529 /* mine_playradio_switch_button@2x.png */,
+				348EF2071E1B99020046A529 /* mine_playradio_time_checked@2x.png */,
+			);
+			path = PlayRadio;
 			sourceTree = "<group>";
 		};
 		34B360B51E02AF92000A1296 /* Protocol */ = {
@@ -6037,6 +6079,7 @@
 		6293337A1D2B5E830085AE82 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				348EF1F81E1B6D670046A529 /* RadioPlan */,
 				625902271D2CF99C00F3F13C /* AccountManage */,
 				62EDB8061D34D39D00D6F772 /* About */,
 				6259021E1D2BB0EF00F3F13C /* SettingTableViewController.h */,
@@ -8414,6 +8457,7 @@
 				6202B18D1D62FF9A000F7F39 /* onWechat@2x.png in Resources */,
 				D07E242F1D12433A00854B51 /* msg@2x.png in Resources */,
 				D029BC621D38B6DD00B20D65 /* ec_like_selected@3x.png in Resources */,
+				348EF2091E1B99020046A529 /* mine_playradio_switch_button@2x.png in Resources */,
 				DA677B781C3A6E11004A534E /* QDDT00014.png in Resources */,
 				62367E1D1D6AD11B00272505 /* retry@3x.png in Resources */,
 				26D8B27E1C10081100A1DB04 /* road_2@2x.png in Resources */,
@@ -8557,6 +8601,7 @@
 				DA3190E41C22A54D00972F63 /* loginqq@3x.png in Resources */,
 				62724E691D41BBE800E84202 /* more@3x.png in Resources */,
 				626B80451E0A24D70097CFA5 /* 30signIn_0@3x.png in Resources */,
+				348EF1FD1E1B6E4B0046A529 /* RadioDurationTimeVC.xib in Resources */,
 				625AD2951D94D99200435FC2 /* ecphoto_unselected@2x.png in Resources */,
 				34F7569D1E11298500A1C0DD /* ec_sift_comment@3x.png in Resources */,
 				62EE48D81D7D193400012359 /* BadgeRulesCollectionViewCell.xib in Resources */,
@@ -8591,6 +8636,8 @@
 				26D8B2301C0FEEE900A1DB04 /* 21_1@2x.png in Resources */,
 				26E987E51C0DAE4000C6A7BB /* Rectangle @3x.png in Resources */,
 				626B80591E0A30AD0097CFA5 /* subscript_150signIn@3x.png in Resources */,
+				348EF2021E1B82860046A529 /* RadioPlanCell.xib in Resources */,
+				348EF20A1E1B99020046A529 /* mine_playradio_time_checked@2x.png in Resources */,
 				26D99F1B1C0C4D7C007AF579 /* SVProgressHUD.bundle in Resources */,
 				626B80581E0A30AD0097CFA5 /* subscript_150signIn@2x.png in Resources */,
 				D07EB2921D18DE6800840AC2 /* chat_send_message.png in Resources */,
@@ -8828,6 +8875,7 @@
 				D07EB28E1D18DE6800840AC2 /* chat_animation_white3.png in Resources */,
 				626B80441E0A24D70097CFA5 /* 30signIn_0@2x.png in Resources */,
 				26D8B20E1C0FEEE900A1DB04 /* 12_2@2x.png in Resources */,
+				348EF2081E1B99020046A529 /* mine_playradio_checked_bg@2x.png in Resources */,
 				DA7675181C27F6FC00A34D9C /* InterMallCollectionViewCell.xib in Resources */,
 				263618541C0478DA00D26BE6 /* PushConfig.plist in Resources */,
 				625AD2981D94D99200435FC2 /* ecpicker_drop@3x.png in Resources */,
@@ -9204,7 +9252,6 @@
 				D08352001D2CB1D90094AC2E /* ec_share@2x.png in Resources */,
 				DA796B351C7AB8A40076C52B /* zoom@2x.png in Resources */,
 				D07804C61D51D5A2001C432B /* InfoPlist.strings in Resources */,
-				DAA8DBD61C97A9020011EB7E /* placepic@2x.png in Resources */,
 				26D26FE31C118C8B008511A9 /* LearnShowCollectionViewCell.xib in Resources */,
 				D05842271D47296A006859B9 /* ShareSDKUI.bundle in Resources */,
 				D05A95B11D62B8030063AD41 /* ec_contact_unselected@2x.png in Resources */,
@@ -9266,7 +9313,6 @@
 				DA9A23431C43B8890012265D /* weibo@3x.png in Resources */,
 				D00AD7E21D4B451B004AB05A /* 2_037.png in Resources */,
 				DA3190E91C22A54D00972F63 /* loginxianshi@2x.png in Resources */,
-				DAA8DBD71C97A9020011EB7E /* placepic@3x.png in Resources */,
 				D07EB2721D18DE6800840AC2 /* messageBubbleGray@2x.png in Resources */,
 				627C875A1D815E0200D2FC6E /* ToDay_BottomPost@3x.png in Resources */,
 				DA937D511C44FA7A00F174F6 /* EveryDayPKViewCell.xib in Resources */,
@@ -9520,6 +9566,7 @@
 				62FCE9191D3CC52D00F52E05 /* AttentionAndFansModel.m in Sources */,
 				D07E24221D11554700854B51 /* OtherCell.m in Sources */,
 				D07D2EAD1D0FA0C700AF35B1 /* ScrollTagView.m in Sources */,
+				348EF2011E1B82860046A529 /* RadioPlanCell.m in Sources */,
 				26D99ECE1C0C4D7B007AF579 /* IQNSArray+Sort.m in Sources */,
 				D07E24851D13DB2300854B51 /* SDCycleScrollView.m in Sources */,
 				26D99EE31C0C4D7C007AF579 /* JSONAPI.m in Sources */,
@@ -9659,6 +9706,7 @@
 				D05A95A81D61EB890063AD41 /* NSString+Utils.m in Sources */,
 				DAAEC6D11C1FB0C400FA094B /* CourseChooseTableViewCell.m in Sources */,
 				620720F61D472AD700C4F73D /* GetMessageModel.m in Sources */,
+				348EF1FC1E1B6E4B0046A529 /* RadioDurationTimeVC.m in Sources */,
 				D07E240A1D111AC600854B51 /* HealthModel.m in Sources */,
 				DAF48DBF1C1E72A000D9C136 /* CourseRegThrViewCell.m in Sources */,
 				D05A959C1D61AD500063AD41 /* ECContactVC.m in Sources */,

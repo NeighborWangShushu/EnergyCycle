@@ -15,7 +15,7 @@
 #import "SettingFourViewCell.h"
 #import "SettingRadioCell.h"
 #import "SettingPlayRadioCell.h"
-
+#import "RadioDurationTimeVC.h"
 #import "CacheManager.h"
 
 @interface SettingTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
@@ -179,7 +179,15 @@
 //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"prefs:root=NOTIFICATIONS_ID&&path=%@",[[NSBundle mainBundle] bundleIdentifier]]]];
     }else if (indexPath.section == 2) {
         //电台
-        
+        if (indexPath.row == 0) {
+            //定时停止电台
+            RadioDurationTimeVC *vc = [[RadioDurationTimeVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }else {
+            //定时播放电台
+            
+        }
         
     }else if (indexPath.section == 3) {
         if (indexPath.row == 0) { // 清除缓存

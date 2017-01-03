@@ -40,13 +40,16 @@
     NSArray * arr = [RadioClockModel findAll];
     NSString * weekdays = @"";
     if (arr.count) {
-        [weekdays stringByAppendingString:@"星期"];
+        weekdays = [weekdays stringByAppendingString:@"星期"];
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             RadioClockModel*model = arr[idx];
             [weekdays stringByAppendingString:[NSString stringWithFormat:@"%@、",[NSDate shortWeekdayStringFromWeekday:model.weekday]]];
         }];
     }
-    return [weekdays stringByDeletingLastPathComponent];
+    if (weekdays.length > 0) {
+        return [weekdays substringWithRange:NSMakeRange(0, [weekdays length] - 1)];
+    }
+    return @"";
 }
 
 - (NSString*)specificTime {
@@ -144,11 +147,12 @@
 
 
 - (void)setDate:(NSDate *)date {
-    
-    _date = date;
-    self.weekday = [date weekday];
-    self.hour = [date hour];
-    self.minutes = [date minute];
+//    if (date) {
+//        _date = date;
+//        self.weekday = [date weekday];
+//        self.hour = [date hour];
+//        self.minutes = [date minute];
+//    }
     
 }
 
