@@ -23,12 +23,18 @@ typedef NS_ENUM(NSUInteger,RadioClockChannelName) {
 };
 
 typedef NS_ENUM(NSUInteger,RadioDuration) {
-    RadioDurationTenMinutes = 0,
+    RadioDurationNone = 0,
+    RadioDurationTenMinutes,
     RadioDurationTwentyMinutes,
     RadioDurationThirtyMinutes,
     RadioDurationFortyMinutes,
     RadioDurationFiftyMinutes,
     RadioDurationSixtyMinutes
+};
+
+typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
+    RadioTimeSlotAM = 0,
+    RadioTimeSlotPM
 };
 
 @interface RadioClockModel : JKDBModel
@@ -40,13 +46,18 @@ typedef NS_ENUM(NSUInteger,RadioDuration) {
 @property (nonatomic,strong)NSDate * date;
 
 //频道名称
-@property (nonatomic,assign)RadioClockChannelName channelName;
+@property (nonatomic,strong)NSString * channelName;
 
 //持续时间
 @property (nonatomic,assign)RadioDuration duration;
 
+//时段 上午 下午
+@property (nonatomic,assign)RadioTimeSlot slot;
 //是否重复
 @property (nonatomic)BOOL isRepeat;
+
+//是否打开提醒功能
+@property (nonatomic)BOOL isOpen;
 
 //标题
 @property (nonatomic,copy)NSString * title;
@@ -68,6 +79,12 @@ typedef NS_ENUM(NSUInteger,RadioDuration) {
 
 //minutes
 @property (nonatomic,assign)NSInteger minutes;
+
+//数组 存储闹钟周期Index  -- 存储本地
+@property (nonatomic,strong)NSString * weekdaysToString;
+
+//数组 存储闹钟周期Index  -- 不存储本地
+@property (nonatomic,strong)NSMutableArray * weekdays;
 
 //设定闹钟的周期集合（周一到周日）
 @property (nonatomic,copy)NSString * notificationWeekydays;

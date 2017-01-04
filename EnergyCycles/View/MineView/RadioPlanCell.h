@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RadioClockModel.h"
 
 typedef NS_ENUM(NSUInteger,RadioPlanCellStyle) {
     RadioPlanCellStyleNormal = 0,
-    RadioPlanCellStyleSwitch
+    RadioPlanCellStyleSwitch,
+    RadioPlanCellStyleTime,
+    RadioPlanCellStyleRadio,
+    RadioPlanCellStyleFeaturesSwitch,
+    RadioPlanCellStyleChannel
     
 };
 
@@ -26,12 +31,17 @@ typedef NS_ENUM(NSUInteger,RadioPlanCellStyle) {
 
 @property (nonatomic,assign)BOOL isChecked;
 
+@property (nonatomic,strong)RadioClockModel * model;
+
+
 //设置cell样式
-- (void)setStyle:(RadioPlanCellStyle)style;
+- (void)setStyle:(RadioPlanCellStyle)style model:(RadioClockModel *)model;
 
 //是否重复
 - (void)setSwitchSelected:(BOOL)selected;
 
+//是否打开提醒功能
+- (void)setOpenSelected:(BOOL)selected;
 
 @end
 

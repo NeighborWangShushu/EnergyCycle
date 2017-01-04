@@ -57,7 +57,7 @@
 
 + (void)add:(RadioClockModel *)model {
     [model save];
-    
+    [[RadioNotificationController shareInstance] addNotification:model];
 }
 
 + (void)remove:(RadioClockModel *)model {
@@ -81,7 +81,7 @@
 
 - (void)addNotification:(RadioClockModel*)model {
     
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:[model getChannelName] ofType:@"png"];
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:[model channelName] ofType:@"png"];
     
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
     content.title = model.title;

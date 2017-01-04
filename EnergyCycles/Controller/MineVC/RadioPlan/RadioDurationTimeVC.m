@@ -25,7 +25,7 @@
 #pragma mark - Navigation
 
 - (void)leftAction {
-  
+    [self.model saveOrUpdate];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -41,7 +41,12 @@
 - (RadioClockModel*)model {
     
   if (!_model){
-        _model = [[RadioClockModel alloc] init];
+      NSArray * arr = [RadioClockModel findAll];
+      if (arr.count > 0) {
+          _model = [arr firstObject];
+      }else {
+          _model = [[RadioClockModel alloc] init];
+      }
     }
     return _model;
 
@@ -69,10 +74,7 @@
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     self.view.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:239.0/255.0 blue:245.0/255.0 alpha:1.0];
 
-    NSArray * arr = [RadioClockModel findAll];
-    if (!_model && arr.count > 0) {
-        _model = [arr firstObject];
-    }
+   
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
@@ -118,9 +120,10 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     RadioPlanCell * cell = [tableView dequeueReusableCellWithIdentifier:@"RadioPlanCellID" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     switch (indexPath.section) {
         case 0:
-            [cell setStyle:RadioPlanCellStyleNormal];
+            [cell setStyle:RadioPlanCellStyleNormal model:self.model];
             cell.text.text = _datas[indexPath.row];
             if (indexPath.row == self.model.duration) {
                 cell.isChecked = YES;
@@ -128,11 +131,10 @@
             }
             break;
         case 1:
-            [cell setStyle:RadioPlanCellStyleSwitch];
+            [cell setStyle:RadioPlanCellStyleSwitch model:self.model];
             cell.text.text = @"重复";
             [cell setSwitchSelected:self.model.isRepeat];
             break;
-            
         default:
             break;
     }
@@ -157,7 +159,6 @@
 - (void)switchValueDidChange:(RadioPlanCell *)cell isSelected:(BOOL)selected {
     if (self.model) {
         self.model.isRepeat = selected;
-        [self.model saveOrUpdate];
     }
 }
 

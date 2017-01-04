@@ -34,16 +34,39 @@
     return self;
 }
 
-#pragma mark GET
++(NSArray *)transients
+{
+    return [NSArray arrayWithObjects:@"notificationWeekydays",@"specificTime",@"weekdays",nil];
+}
+
+#pragma mark - SET
+
+- (void)setWeekdays:(NSMutableArray *)weekdays {
+    
+    if (weekdays.count) {
+        _weekdaysToString = [weekdays componentsJoinedByString:@","];
+    }
+}
+
+
+#pragma mark - GET
+
 
 - (NSString*)notificationWeekydays {
-    NSArray * arr = [RadioClockModel findAll];
-    NSString * weekdays = @"";
+    
+    NSArray * arr = @[];
+    if (![self.weekdaysToString isEqualToString:@""]) {
+       arr = [self.weekdaysToString componentsSeparatedByString:@","];
+    }
+   __block NSString * weekdays = @"";
     if (arr.count) {
+        //为数组排序
+        arr = [self sort:arr];
+        
         weekdays = [weekdays stringByAppendingString:@"星期"];
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            RadioClockModel*model = arr[idx];
-            [weekdays stringByAppendingString:[NSString stringWithFormat:@"%@、",[NSDate shortWeekdayStringFromWeekday:model.weekday]]];
+            NSInteger index = [[arr objectAtIndex:idx] integerValue];
+          weekdays = [weekdays stringByAppendingString:[NSString stringWithFormat:@"%@、",[NSDate shortWeekdayStringFromWeekday:index]]];
         }];
     }
     if (weekdays.length > 0) {
@@ -52,52 +75,42 @@
     return @"";
 }
 
+
 - (NSString*)specificTime {
     
-    return [self.date formattedDateDescription];
-}
-
-- (NSString*)getChannelName {
-    NSString*name = @"";
-    switch (self.channelName) {
-        case RadioClockChannelNameBBC:
-            name = @"bbc";
+    NSString * hour = @"";
+    if (self.hour < 10) {
+        hour = [NSString stringWithFormat:@"0%ld",self.hour];
+    }else {
+        hour = [NSString stringWithFormat:@"%ld",self.hour];
+    }
+    
+    NSString * minutes = @"";
+    if (self.minutes < 10) {
+        minutes = [NSString stringWithFormat:@"0%ld",self.minutes];
+    }else {
+        minutes = [NSString stringWithFormat:@"%ld",self.minutes];
+    }
+    NSString*slot = @"AM";
+    switch (self.slot) {
+        case RadioTimeSlotAM:
+            slot = @"AM";
             break;
-        case RadioClockChannelNameCNN:
-            name = @"cnn";
+        case RadioTimeSlotPM:
+            slot = @"PM";
             break;
-        case RadioClockChannelNameJPR:
-            name = @"jpr";
-            break;
-        case RadioClockChannelNameLBC:
-            name = @"lbc";
-            break;
-        case RadioClockChannelNameNPR:
-            name = @"nrp";
-            break;
-        case RadioClockChannelNameTED:
-            name = @"ted";
-            break;
-        case RadioClockChannelNameVOA:
-            name = @"voa";
-            break;
-        case RadioClockChannelNameFOXNEWS:
-            name = @"fox";
-            break;
-        case RadioClockChannelNameAustralia:
-            name = @"australia";
-            break;
-            
         default:
             break;
     }
-    return name;
+    return [NSString stringWithFormat:@"%@:%@ %@",hour,minutes,slot];
 }
-
 
 - (NSString*)durationTime {
     NSString*time = @"";
     switch (self.duration) {
+        case RadioDurationNone:
+            time = @"关闭";
+            break;
         case RadioDurationTenMinutes:
             time = @"10分钟";
             break;
@@ -134,9 +147,9 @@
     NSInteger minutes = 0;
     self.channelName = RadioClockChannelNameBBC;
     self.duration = RadioDurationTenMinutes;
-    NSString * channelName = [self getChannelName];
+    NSString * channelName = [self channelName];
     self.body = [NSString stringWithFormat:@"%ld点%ld分啦！能量圈提醒您应该收听%@电台啦！滑动本消息收听~",(long)hour,minutes,channelName];
-    self.weekday = 0;
+    self.weekday = 4;
     self.hour = 9;
     self.minutes = 0;
     self.img = @"BBC";
@@ -156,6 +169,20 @@
     
 }
 
-
+- (NSArray*)sort:(NSArray*)datas {
+    NSComparator finderSort = ^(id string1,id string2){
+        
+        if ([string1 integerValue] > [string2 integerValue]) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }else if ([string1 integerValue] < [string2 integerValue]){
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        else
+            return (NSComparisonResult)NSOrderedSame;
+    };
+    
+    NSArray *resultArray = [datas sortedArrayUsingComparator:finderSort];
+    return resultArray;
+}
 
 @end

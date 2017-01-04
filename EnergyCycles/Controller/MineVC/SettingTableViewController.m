@@ -16,12 +16,14 @@
 #import "SettingRadioCell.h"
 #import "SettingPlayRadioCell.h"
 #import "RadioDurationTimeVC.h"
+#import "RadioPlaySettingVC.h"
 #import "CacheManager.h"
+#import "RadioClockModel.h"
 
 @interface SettingTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
     BOOL isPhoneLogin;
 }
-
+@property (nonatomic,strong)RadioClockModel*radioModel;
 @end
 
 @implementation SettingTableViewController
@@ -120,6 +122,7 @@
                 cell = [[NSBundle mainBundle] loadNibNamed:@"SettingRadioCell" owner:self options:nil].lastObject;
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell setTimeValue:[self.radioModel durationTime]];
             return cell;
         }else {
             static NSString *fourViewCell = @"radioPlayViewCell";
@@ -127,6 +130,8 @@
             if (cell == nil) {
                 cell = [[NSBundle mainBundle] loadNibNamed:@"SettingPlayRadioCell" owner:self options:nil].lastObject;
             }
+            [cell setWeekdayValue:[self.radioModel notificationWeekydays]];
+            [cell setTimeAndChannel:[NSString stringWithFormat:@"%@  %@",[self.radioModel specificTime], [self.radioModel channelName]]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -186,7 +191,8 @@
             
         }else {
             //定时播放电台
-            
+            RadioPlaySettingVC * vc = [[RadioPlaySettingVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         
     }else if (indexPath.section == 3) {
@@ -277,6 +283,23 @@
     }
 }
 
+
+#pragma mark GET
+
+- (RadioClockModel*)radioModel {
+    if (!_radioModel) {
+        NSArray * arr = [RadioClockModel findAll];
+        if (arr.count) {
+            _radioModel = [arr firstObject];
+        }else {
+            _radioModel = [[RadioClockModel alloc] init];
+        }
+    }else {
+        _radioModel = [RadioClockModel findByPK:_radioModel.pk];
+    }
+    return _radioModel;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupLeftNavBarWithimage:@"loginfanhui"];
@@ -290,6 +313,11 @@
 //    self.tableView.style = UITableViewStyleGrouped;
     
     // Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.tableView reloadData];
 }
 
 

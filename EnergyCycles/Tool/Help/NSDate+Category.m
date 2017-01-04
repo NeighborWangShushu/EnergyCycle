@@ -182,25 +182,25 @@
     
     NSString * weekDayString = @"";
     switch (weekday) {
-        case 0:
+        case 6:
             weekDayString = @"日";
             break;
-        case 1:
+        case 0:
             weekDayString = @"一";
             break;
-        case 2:
+        case 1:
             weekDayString = @"二";
             break;
-        case 3:
+        case 2:
             weekDayString = @"三";
             break;
-        case 4:
+        case 3:
             weekDayString = @"四";
             break;
-        case 5:
+        case 4:
             weekDayString = @"五";
             break;
-        case 6:
+        case 5:
             weekDayString = @"六";
             break;
         default:

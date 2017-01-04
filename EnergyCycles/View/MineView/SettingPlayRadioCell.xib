@@ -70,15 +70,16 @@
                     <constraint firstItem="gko-4M-YaG" firstAttribute="centerX" secondItem="tln-et-hTh" secondAttribute="centerX" id="LCE-zZ-ikM"/>
                     <constraint firstItem="C37-hC-VLk" firstAttribute="centerY" secondItem="tln-et-hTh" secondAttribute="centerY" constant="4" id="MQC-px-Y5c"/>
                     <constraint firstAttribute="trailingMargin" secondItem="C37-hC-VLk" secondAttribute="trailing" constant="17" id="SQN-oI-NDN"/>
+                    <constraint firstItem="C37-hC-VLk" firstAttribute="leading" secondItem="o0c-XK-gUY" secondAttribute="trailing" constant="13" id="Sz7-Jw-IU8"/>
                     <constraint firstAttribute="topMargin" secondItem="mau-Cd-9Ge" secondAttribute="top" id="qhs-7E-mPr"/>
                     <constraint firstAttribute="trailingMargin" secondItem="mau-Cd-9Ge" secondAttribute="trailing" constant="38" id="qxK-QQ-Agh"/>
-                    <constraint firstItem="o0c-XK-gUY" firstAttribute="centerX" secondItem="mau-Cd-9Ge" secondAttribute="centerX" id="uJF-G3-1cR"/>
                     <constraint firstItem="tln-et-hTh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="17" id="vhI-lL-e7s"/>
                     <constraint firstItem="gko-4M-YaG" firstAttribute="top" secondItem="tln-et-hTh" secondAttribute="bottom" constant="-3" id="wY1-lS-uSP"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="timeAndChannel" destination="o0c-XK-gUY" id="ubg-3F-XcC"/>
+                <outlet property="timeChannel" destination="o0c-XK-gUY" id="TVZ-T0-Pzn"/>
                 <outlet property="weekday" destination="mau-Cd-9Ge" id="apT-5l-se3"/>
             </connections>
             <point key="canvasLocation" x="34" y="125"/>
