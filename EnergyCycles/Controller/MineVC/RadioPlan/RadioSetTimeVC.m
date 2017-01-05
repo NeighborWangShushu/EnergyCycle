@@ -138,7 +138,7 @@
     }];
     
     [self.view addSubview:self.datePickerView];
-    [self.datePickerView selectRow:_hour - 1 inComponent:0 animated:NO];
+    [self.datePickerView selectRow:_hour inComponent:0 animated:NO];
     [self.datePickerView selectRow:_minute inComponent:1 animated:NO];
 
     [self.datePickerView mas_makeConstraints:^(MASConstraintMaker *make) {

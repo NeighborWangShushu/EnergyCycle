@@ -51,6 +51,10 @@
 
 #pragma mark - GET
 
+- (NSString*)body {
+    
+    return [NSString stringWithFormat:@"%ld点%ld分啦！能量圈提醒您应该收听%@电台啦！滑动本消息收听~",_hour,_minutes,_channelName];
+}
 
 - (NSString*)notificationWeekydays {
     
@@ -80,17 +84,18 @@
     
     NSString * hour = @"";
     if (self.hour < 10) {
-        hour = [NSString stringWithFormat:@"0%ld",self.hour];
+        hour = [NSString stringWithFormat:@"0%ld",(long)self.hour];
     }else {
-        hour = [NSString stringWithFormat:@"%ld",self.hour];
+        hour = [NSString stringWithFormat:@"%ld",(long)self.hour];
     }
     
     NSString * minutes = @"";
     if (self.minutes < 10) {
-        minutes = [NSString stringWithFormat:@"0%ld",self.minutes];
+        minutes = [NSString stringWithFormat:@"0%ld",(long)self.minutes];
     }else {
-        minutes = [NSString stringWithFormat:@"%ld",self.minutes];
+        minutes = [NSString stringWithFormat:@"%ld",(long)self.minutes];
     }
+    
     NSString*slot = @"AM";
     switch (self.slot) {
         case RadioTimeSlotAM:
@@ -104,6 +109,7 @@
     }
     return [NSString stringWithFormat:@"%@:%@ %@",hour,minutes,slot];
 }
+
 
 - (NSString*)durationTime {
     NSString*time = @"";
@@ -136,6 +142,11 @@
 }
 
 
+//持续时间
+- (NSTimeInterval)durationTimeInterval {
+    
+    return self.duration * 10 * 60;
+}
 
 #pragma mark - init
 
@@ -145,15 +156,12 @@
     self.subtitle = RADIOSUBTITLE;
     NSInteger hour = 9;
     NSInteger minutes = 0;
-    self.channelName = RadioClockChannelNameBBC;
     self.duration = RadioDurationTenMinutes;
-    NSString * channelName = [self channelName];
-    self.body = [NSString stringWithFormat:@"%ld点%ld分啦！能量圈提醒您应该收听%@电台啦！滑动本消息收听~",(long)hour,minutes,channelName];
-    self.weekday = 4;
+    self.channelName = @"BBC";
+    _body = [NSString stringWithFormat:@"%ld点%ld分啦！能量圈提醒您应该收听%@电台啦！滑动本消息收听~",(long)hour,(long)minutes,self.channelName];
     self.hour = 9;
     self.minutes = 0;
     self.img = @"BBC";
-    
     self.identifier = [NSString stringWithFormat:@"%@%i",REQUESTIDENTIFIER,self.pk];
     
 }
@@ -170,6 +178,7 @@
 }
 
 - (NSArray*)sort:(NSArray*)datas {
+    
     NSComparator finderSort = ^(id string1,id string2){
         
         if ([string1 integerValue] > [string2 integerValue]) {
@@ -183,6 +192,27 @@
     
     NSArray *resultArray = [datas sortedArrayUsingComparator:finderSort];
     return resultArray;
+}
+
+- (NSArray*)alertDateComponents {
+    NSArray * weeks = @[];
+    if (![self.weekdaysToString isEqualToString:@""]) {
+        weeks = [self.weekdaysToString componentsSeparatedByString:@","];
+    }
+    
+    __block NSMutableArray * results = [NSMutableArray array];
+    __weak typeof(self) weakSelf = self;
+    
+    [weeks enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSInteger weekday = [[weeks objectAtIndex:idx] integerValue];
+        NSDateComponents *components = [[NSDateComponents alloc] init];
+        components.weekday = weekday;
+        components.hour = weakSelf.hour;
+        components.minute = weakSelf.minutes;
+        
+        [results addObject:components];
+    }];
+    return results;
 }
 
 @end

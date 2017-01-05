@@ -429,6 +429,8 @@
 		34C5EC701E1CFE13005A2F9A /* RadioSetTimeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34C5EC6E1E1CFE13005A2F9A /* RadioSetTimeVC.xib */; };
 		34C5EC761E1CFFB6005A2F9A /* SVSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C5EC731E1CFFB6005A2F9A /* SVSegmentedControl.m */; };
 		34C5EC771E1CFFB6005A2F9A /* SVSegmentedThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C5EC751E1CFFB6005A2F9A /* SVSegmentedThumb.m */; };
+		34C5EC7A1E1DF43F005A2F9A /* learn_radio_clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34C5EC781E1DF43F005A2F9A /* learn_radio_clock@2x.png */; };
+		34C5EC7B1E1DF43F005A2F9A /* learn_radio_clock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34C5EC791E1DF43F005A2F9A /* learn_radio_clock@3x.png */; };
 		34F756611E0CCECE00A1C0DD /* ECSiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F7565F1E0CCECE00A1C0DD /* ECSiftCell.m */; };
 		34F756621E0CCECE00A1C0DD /* ECSiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F756601E0CCECE00A1C0DD /* ECSiftCell.xib */; };
 		34F756651E0CCFA900A1C0DD /* ECSiftCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756641E0CCFA900A1C0DD /* ECSiftCollectionCell.m */; };
@@ -754,8 +756,8 @@
 		D00591651D24F77D00F91692 /* wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591621D24F77D00F91692 /* wechat@2x.png */; };
 		D00591681D24FD0800F91692 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00591671D24FD0800F91692 /* WebKit.framework */; };
 		D005916B1D25152300F91692 /* MoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D005916A1D25152300F91692 /* MoreVC.m */; };
-		D005916E1D253FDF00F91692 /* australia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005916C1D253FDF00F91692 /* australia@2x.png */; };
-		D005916F1D253FDF00F91692 /* fox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005916D1D253FDF00F91692 /* fox@2x.png */; };
+		D005916E1D253FDF00F91692 /* Radio Australia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005916C1D253FDF00F91692 /* Radio Australia@2x.png */; };
+		D005916F1D253FDF00F91692 /* FOX News@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005916D1D253FDF00F91692 /* FOX News@2x.png */; };
 		D00591791D25454000F91692 /* ec_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591731D25454000F91692 /* ec_search@2x.png */; };
 		D005917A1D25454000F91692 /* ec_sign@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591741D25454000F91692 /* ec_sign@2x.png */; };
 		D005917B1D25454000F91692 /* location_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591751D25454000F91692 /* location_icon@2x.png */; };
@@ -1002,13 +1004,13 @@
 		D07E243D1D127BE000854B51 /* HotPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E243C1D127BE000854B51 /* HotPageView.m */; };
 		D07E24401D12801F00854B51 /* LearnPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E243F1D12801F00854B51 /* LearnPageViewController.m */; };
 		D07E24431D129BA900854B51 /* OtherPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E24421D129BA900854B51 /* OtherPageView.m */; };
-		D07E244E1D12BFD100854B51 /* bbc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24471D12BFD100854B51 /* bbc@2x.png */; };
+		D07E244E1D12BFD100854B51 /* BBC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24471D12BFD100854B51 /* BBC@2x.png */; };
 		D07E244F1D12BFD100854B51 /* cctalk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24481D12BFD100854B51 /* cctalk@2x.png */; };
-		D07E24501D12BFD100854B51 /* cnn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24491D12BFD100854B51 /* cnn@2x.png */; };
-		D07E24511D12BFD100854B51 /* lbc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244A1D12BFD100854B51 /* lbc@2x.png */; };
-		D07E24521D12BFD100854B51 /* npr@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244B1D12BFD100854B51 /* npr@2x.png */; };
-		D07E24531D12BFD100854B51 /* ted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244C1D12BFD100854B51 /* ted@2x.png */; };
-		D07E24541D12BFD100854B51 /* voa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244D1D12BFD100854B51 /* voa@2x.png */; };
+		D07E24501D12BFD100854B51 /* CNN@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24491D12BFD100854B51 /* CNN@2x.png */; };
+		D07E24511D12BFD100854B51 /* LBC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244A1D12BFD100854B51 /* LBC@2x.png */; };
+		D07E24521D12BFD100854B51 /* NPR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244B1D12BFD100854B51 /* NPR@2x.png */; };
+		D07E24531D12BFD100854B51 /* TED@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244C1D12BFD100854B51 /* TED@2x.png */; };
+		D07E24541D12BFD100854B51 /* VOA@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244D1D12BFD100854B51 /* VOA@2x.png */; };
 		D07E24581D12C8EA00854B51 /* ReferralHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E24571D12C8EA00854B51 /* ReferralHeadView.m */; };
 		D07E24611D13907300854B51 /* AFAudioRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E245E1D13907300854B51 /* AFAudioRouter.m */; };
 		D07E24621D13907300854B51 /* AFSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E24601D13907300854B51 /* AFSoundManager.m */; };
@@ -2293,6 +2295,8 @@
 		34C5EC731E1CFFB6005A2F9A /* SVSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSegmentedControl.m; sourceTree = "<group>"; };
 		34C5EC741E1CFFB6005A2F9A /* SVSegmentedThumb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSegmentedThumb.h; sourceTree = "<group>"; };
 		34C5EC751E1CFFB6005A2F9A /* SVSegmentedThumb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSegmentedThumb.m; sourceTree = "<group>"; };
+		34C5EC781E1DF43F005A2F9A /* learn_radio_clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "learn_radio_clock@2x.png"; sourceTree = "<group>"; };
+		34C5EC791E1DF43F005A2F9A /* learn_radio_clock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "learn_radio_clock@3x.png"; sourceTree = "<group>"; };
 		34F7565E1E0CCECE00A1C0DD /* ECSiftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSiftCell.h; sourceTree = "<group>"; };
 		34F7565F1E0CCECE00A1C0DD /* ECSiftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSiftCell.m; sourceTree = "<group>"; };
 		34F756601E0CCECE00A1C0DD /* ECSiftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECSiftCell.xib; sourceTree = "<group>"; };
@@ -2719,8 +2723,8 @@
 		D00591671D24FD0800F91692 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D00591691D25152300F91692 /* MoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreVC.h; sourceTree = "<group>"; };
 		D005916A1D25152300F91692 /* MoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreVC.m; sourceTree = "<group>"; };
-		D005916C1D253FDF00F91692 /* australia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "australia@2x.png"; sourceTree = "<group>"; };
-		D005916D1D253FDF00F91692 /* fox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fox@2x.png"; sourceTree = "<group>"; };
+		D005916C1D253FDF00F91692 /* Radio Australia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Radio Australia@2x.png"; sourceTree = "<group>"; };
+		D005916D1D253FDF00F91692 /* FOX News@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FOX News@2x.png"; sourceTree = "<group>"; };
 		D00591731D25454000F91692 /* ec_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ec_search@2x.png"; path = "EnergyCycle/ec_search@2x.png"; sourceTree = "<group>"; };
 		D00591741D25454000F91692 /* ec_sign@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ec_sign@2x.png"; path = "EnergyCycle/ec_sign@2x.png"; sourceTree = "<group>"; };
 		D00591751D25454000F91692 /* location_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "location_icon@2x.png"; path = "EnergyCycle/location_icon@2x.png"; sourceTree = "<group>"; };
@@ -3081,13 +3085,13 @@
 		D07E243F1D12801F00854B51 /* LearnPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LearnPageViewController.m; sourceTree = "<group>"; };
 		D07E24411D129BA900854B51 /* OtherPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherPageView.h; sourceTree = "<group>"; };
 		D07E24421D129BA900854B51 /* OtherPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherPageView.m; sourceTree = "<group>"; };
-		D07E24471D12BFD100854B51 /* bbc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bbc@2x.png"; sourceTree = "<group>"; };
+		D07E24471D12BFD100854B51 /* BBC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BBC@2x.png"; sourceTree = "<group>"; };
 		D07E24481D12BFD100854B51 /* cctalk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cctalk@2x.png"; sourceTree = "<group>"; };
-		D07E24491D12BFD100854B51 /* cnn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cnn@2x.png"; sourceTree = "<group>"; };
-		D07E244A1D12BFD100854B51 /* lbc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lbc@2x.png"; sourceTree = "<group>"; };
-		D07E244B1D12BFD100854B51 /* npr@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "npr@2x.png"; sourceTree = "<group>"; };
-		D07E244C1D12BFD100854B51 /* ted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ted@2x.png"; sourceTree = "<group>"; };
-		D07E244D1D12BFD100854B51 /* voa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voa@2x.png"; sourceTree = "<group>"; };
+		D07E24491D12BFD100854B51 /* CNN@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CNN@2x.png"; sourceTree = "<group>"; };
+		D07E244A1D12BFD100854B51 /* LBC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LBC@2x.png"; sourceTree = "<group>"; };
+		D07E244B1D12BFD100854B51 /* NPR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NPR@2x.png"; sourceTree = "<group>"; };
+		D07E244C1D12BFD100854B51 /* TED@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TED@2x.png"; sourceTree = "<group>"; };
+		D07E244D1D12BFD100854B51 /* VOA@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VOA@2x.png"; sourceTree = "<group>"; };
 		D07E24561D12C8EA00854B51 /* ReferralHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferralHeadView.h; sourceTree = "<group>"; };
 		D07E24571D12C8EA00854B51 /* ReferralHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferralHeadView.m; sourceTree = "<group>"; };
 		D07E245D1D13907300854B51 /* AFAudioRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAudioRouter.h; sourceTree = "<group>"; };
@@ -4849,12 +4853,14 @@
 		26D99D4D1C0C4D7B007AF579 /* Learn */ = {
 			isa = PBXGroup;
 			children = (
+				34C5EC781E1DF43F005A2F9A /* learn_radio_clock@2x.png */,
+				34C5EC791E1DF43F005A2F9A /* learn_radio_clock@3x.png */,
 				627C87431D812FE500D2FC6E /* LearnRecommend */,
 				D066C1891D4A2D82009F1208 /* learn_head_icon@2x.png */,
 				D066C18A1D4A2D82009F1208 /* learn_head_icon@3x.png */,
 				D010F30C1D2A094000CA5D7C /* read_icon@2x.png */,
-				D005916C1D253FDF00F91692 /* australia@2x.png */,
-				D005916D1D253FDF00F91692 /* fox@2x.png */,
+				D005916C1D253FDF00F91692 /* Radio Australia@2x.png */,
+				D005916D1D253FDF00F91692 /* FOX News@2x.png */,
 				D077C5101D1D264B00303A90 /* banner_dot_noamal@2x.png */,
 				D077C5111D1D264B00303A90 /* banner_dot_selected@2x.png */,
 				D01D88151D1A8DFD004B7F0F /* learn_add@2x.png */,
@@ -4867,13 +4873,13 @@
 				D07EB1D01D17D63300840AC2 /* close@2x.png */,
 				D07EB1CC1D17D2DD00840AC2 /* learn_delete@2x.png */,
 				D07EB1C31D17824200840AC2 /* play@2x.png */,
-				D07E24471D12BFD100854B51 /* bbc@2x.png */,
+				D07E24471D12BFD100854B51 /* BBC@2x.png */,
 				D07E24481D12BFD100854B51 /* cctalk@2x.png */,
-				D07E24491D12BFD100854B51 /* cnn@2x.png */,
-				D07E244A1D12BFD100854B51 /* lbc@2x.png */,
-				D07E244B1D12BFD100854B51 /* npr@2x.png */,
-				D07E244C1D12BFD100854B51 /* ted@2x.png */,
-				D07E244D1D12BFD100854B51 /* voa@2x.png */,
+				D07E24491D12BFD100854B51 /* CNN@2x.png */,
+				D07E244A1D12BFD100854B51 /* LBC@2x.png */,
+				D07E244B1D12BFD100854B51 /* NPR@2x.png */,
+				D07E244C1D12BFD100854B51 /* TED@2x.png */,
+				D07E244D1D12BFD100854B51 /* VOA@2x.png */,
 				D07E242C1D12433A00854B51 /* like@2x.png */,
 				D07E242D1D12433A00854B51 /* msg@2x.png */,
 				DA7674EB1C27F21A00A34D9C /* cha@2x.png */,
@@ -8495,6 +8501,7 @@
 				D029BC071D361B9900B20D65 /* ec_comment_bg@2x.png in Resources */,
 				DAE034ED1C182181007E6DBD /* 35pen_@2x.png in Resources */,
 				26D8B2261C0FEEE900A1DB04 /* 18_2@2x.png in Resources */,
+				34C5EC7A1E1DF43F005A2F9A /* learn_radio_clock@2x.png in Resources */,
 				D07E24961D14173D00854B51 /* ColumCell.xib in Resources */,
 				D00AD7D41D4B451B004AB05A /* 2_023.png in Resources */,
 				6202B18D1D62FF9A000F7F39 /* onWechat@2x.png in Resources */,
@@ -8535,7 +8542,7 @@
 				DA8103A51C2BABD300CFFF44 /* loginicon@2x.png in Resources */,
 				D00AD7C81D4B451B004AB05A /* 2_011.png in Resources */,
 				625750EF1D33886400E46B2E /* paihang@3x.png in Resources */,
-				D07E24501D12BFD100854B51 /* cnn@2x.png in Resources */,
+				D07E24501D12BFD100854B51 /* CNN@2x.png in Resources */,
 				DA7674DE1C27CB2D00A34D9C /* SoicalTableViewCell.xib in Resources */,
 				DA7674CD1C27A68600A34D9C /* NewsTwoViewCell.xib in Resources */,
 				26E987671C0D6BD100C6A7BB /* EnergyPostViewCell.xib in Resources */,
@@ -8604,7 +8611,7 @@
 				DAE034D41C182181007E6DBD /* 3cai_@3x.png in Resources */,
 				D029BC211D3737E000B20D65 /* tabbar_normal_4@2x.png in Resources */,
 				D029BC2E1D37571E00B20D65 /* tabbar_normal_1@3x.png in Resources */,
-				D07E24531D12BFD100854B51 /* ted@2x.png in Resources */,
+				D07E24531D12BFD100854B51 /* TED@2x.png in Resources */,
 				626B803C1E0A24D70097CFA5 /* 150signIn_0@2x.png in Resources */,
 				26E987D61C0DAE4000C6A7BB /* blackback_pressed@2x.png in Resources */,
 				DA9A95381C23ABEE00FBE107 /* jinjiepk@3x.png in Resources */,
@@ -8719,7 +8726,7 @@
 				DA677B7B1C3A6E11004A534E /* QDDT00017.png in Resources */,
 				DAAEC70F1C1FED4C00FA094B /* MineTwoViewCell.xib in Resources */,
 				D00AD7C91D4B451B004AB05A /* 2_012.png in Resources */,
-				D07E24521D12BFD100854B51 /* npr@2x.png in Resources */,
+				D07E24521D12BFD100854B51 /* NPR@2x.png in Resources */,
 				26E987E11C0DAE4000C6A7BB /* jia_normal@3x.png in Resources */,
 				DA9A23491C43B8AC0012265D /* weixin@3x.png in Resources */,
 				DA677B791C3A6E11004A534E /* QDDT00015.png in Resources */,
@@ -8868,7 +8875,7 @@
 				D083520A1D2CF91B0094AC2E /* 10weibo@2x.png in Resources */,
 				D00AD7DA1D4B451B004AB05A /* 2_029.png in Resources */,
 				26D8B2501C0FEEE900A1DB04 /* 29_1@2x.png in Resources */,
-				D07E24541D12BFD100854B51 /* voa@2x.png in Resources */,
+				D07E24541D12BFD100854B51 /* VOA@2x.png in Resources */,
 				DA9A95281C23ABEE00FBE107 /* hongdian@3x.png in Resources */,
 				DAF48DC41C1E8B0C00D9C136 /* xiangxiajiantou@3x.png in Resources */,
 				D07804B21D4EF40B001C432B /* ec_article_placeholder@2x.png in Resources */,
@@ -8950,7 +8957,7 @@
 				DA7675041C27F39900A34D9C /* 03xuanzhe@2x.png in Resources */,
 				26E987E91C0DAE4000C6A7BB /* video 1@3x.png in Resources */,
 				62EDB8041D34D0B000D6F772 /* AboutTableViewCell.xib in Resources */,
-				D07E24511D12BFD100854B51 /* lbc@2x.png in Resources */,
+				D07E24511D12BFD100854B51 /* LBC@2x.png in Resources */,
 				DAE1A47C1C196B58006FE119 /* OtherUserTableViewCell.xib in Resources */,
 				6202B1811D62FF9A000F7F39 /* offQQ@2x.png in Resources */,
 				6202B17E1D62FF9A000F7F39 /* offMoments@3x.png in Resources */,
@@ -9005,7 +9012,7 @@
 				26D8B13B1C0FE81900A1DB04 /* pinglun_normal@2x.png in Resources */,
 				26D8B2721C0FEEE900A1DB04 /* 7@2x.png in Resources */,
 				26D8B22E1C0FEEE900A1DB04 /* 20_2@2x.png in Resources */,
-				D005916E1D253FDF00F91692 /* australia@2x.png in Resources */,
+				D005916E1D253FDF00F91692 /* Radio Australia@2x.png in Resources */,
 				DAF48DA81C1E530C00D9C136 /* yuedu_@2x.png in Resources */,
 				26D8B2561C0FEEE900A1DB04 /* 30_2@2x.png in Resources */,
 				26D8B2031C0FEEE900A1DB04 /* 09_2@3x.png in Resources */,
@@ -9071,6 +9078,7 @@
 				DA7D19C71C5AF84600FFB337 /* 5_1280x800.jpeg in Resources */,
 				626B80491E0A24D70097CFA5 /* 100signIn@3x.png in Resources */,
 				62FCE90F1D3CB2A500F52E05 /* addAttention@2x.png in Resources */,
+				34C5EC7B1E1DF43F005A2F9A /* learn_radio_clock@3x.png in Resources */,
 				DA2AE4841C2D29E400F2F182 /* GuidePage_1@2x.png in Resources */,
 				62DDA09A1D585707005C2CEB /* toDayPK@3x.png in Resources */,
 				626B804B1E0A24D70097CFA5 /* 200signIn@3x.png in Resources */,
@@ -9272,7 +9280,7 @@
 				626D3F0E1D489A6C00724000 /* MineChatTableViewCell.xib in Resources */,
 				62FE50A11D45DEE40082BD03 /* MineMessageTableViewCell.xib in Resources */,
 				DAE035051C182181007E6DBD /* NO3_@2x.png in Resources */,
-				D07E244E1D12BFD100854B51 /* bbc@2x.png in Resources */,
+				D07E244E1D12BFD100854B51 /* BBC@2x.png in Resources */,
 				DA3190E81C22A54D00972F63 /* loginweixin@3x.png in Resources */,
 				D07EB2A81D18E5E900840AC2 /* learn_category_normal@2x.png in Resources */,
 				D059BD721D1A352800BDE5E6 /* share_icon@2x.png in Resources */,
@@ -9354,7 +9362,7 @@
 				D00AD7DC1D4B451B004AB05A /* 2_031.png in Resources */,
 				26D8B2701C0FEEE900A1DB04 /* 6@2x.png in Resources */,
 				34B360CE1E093A5D000A1296 /* https.cer in Resources */,
-				D005916F1D253FDF00F91692 /* fox@2x.png in Resources */,
+				D005916F1D253FDF00F91692 /* FOX News@2x.png in Resources */,
 				DA9A23431C43B8890012265D /* weibo@3x.png in Resources */,
 				D00AD7E21D4B451B004AB05A /* 2_037.png in Resources */,
 				DA3190E91C22A54D00972F63 /* loginxianshi@2x.png in Resources */,

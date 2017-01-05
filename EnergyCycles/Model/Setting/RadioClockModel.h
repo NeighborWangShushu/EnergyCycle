@@ -72,13 +72,20 @@ typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
 @property (nonatomic,copy)NSString * img;
 
 //weeday
-@property (nonatomic,assign)NSInteger weekday;
+//@property (nonatomic,assign)NSInteger weekday;
 
 //hour
 @property (nonatomic,assign)NSInteger hour;
 
 //minutes
 @property (nonatomic,assign)NSInteger minutes;
+
+
+//倒计时剩余时间
+@property (nonatomic)NSTimeInterval residueTime;
+
+//已播放时间
+@property (nonatomic)NSTimeInterval playedTime;
 
 //数组 存储闹钟周期Index  -- 存储本地
 @property (nonatomic,strong)NSString * weekdaysToString;
@@ -93,8 +100,12 @@ typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
 @property (nonatomic,copy)NSString * specificTime;
 
 
-- (NSString*)getChannelName;
-
 - (NSString*)durationTime;
+
+- (NSTimeInterval)durationTimeInterval;
+
+//本周需要设置推送的时间
+- (NSArray*)alertDateComponents;
+
 
 @end

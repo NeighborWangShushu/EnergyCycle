@@ -125,7 +125,7 @@
         }];
         
         [self.time mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.week.mas_centerX);
+            make.right.equalTo(@-40);
             make.top.equalTo(self.week.mas_bottom).with.offset(5);
         }];
     }

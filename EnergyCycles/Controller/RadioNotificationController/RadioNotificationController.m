@@ -81,36 +81,57 @@
 
 - (void)addNotification:(RadioClockModel*)model {
     
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:[model channelName] ofType:@"png"];
     
-    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-    content.title = model.title;
-    content.subtitle = model.subtitle;
-    content.body = model.body;
-    content.categoryIdentifier = model.identifier;
-    // 5.依据 url 创建 attachment
-    if (imagePath) {
-        UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:model.identifier URL:[NSURL fileURLWithPath:imagePath] options:nil error:nil];
-        content.attachments = @[attachment];
+    
+    
+//    NSDateComponents *components = [[NSDateComponents alloc] init];
+//    components.hour = model.hour;
+//    components.minute = model.minutes;
+    
+    
+  
+    
+    
+    NSArray * weekdayComponents= [model alertDateComponents];
+    
+    for (int i = 0; i < weekdayComponents.count; i++) {
+        NSDateComponents *components = weekdayComponents[i];
+        
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:model.channelName ofType:@"png"];
+        
+        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+        content.title = model.title;
+        content.subtitle = model.subtitle;
+        content.body = model.body;
+        content.sound = [UNNotificationSound defaultSound];
+        content.categoryIdentifier = model.identifier;
+        // 5.依据 url 创建 attachment
+        if (imagePath) {
+            UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:model.identifier URL:[NSURL fileURLWithPath:imagePath] options:nil error:nil];
+            content.attachments = @[attachment];
+        }
+        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:[NSString stringWithFormat:@"%i",i]
+                                                                              content:content
+                                                                              trigger:trigger];
+        
+        [self.notificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+            if (!error) {
+                NSLog(@"addNotificationRequest success");
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"本地通知" message:@"成功添加推送" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:cancelAction];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+            }
+            
+        }];
+    
     }
     
-    
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    components.weekday = model.weekday;
-    components.hour = model.hour;
-    components.minute = model.minutes;
-    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];
-    
-    
-    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:model.identifier
-                                                                          content:content
-                                                                          trigger:trigger];
-    [self.notificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-        
-        
-    }];
-    
 }
+
+
+
 
 
 - (void)removeAllNotifications {
@@ -136,7 +157,7 @@
 - (void)removeNotification:(RadioClockModel*)model {
     
     if (self.notificationCenter) {
-        [self.notificationCenter removeDeliveredNotificationsWithIdentifiers:@[model.identifier]];
+        [self.notificationCenter removePendingNotificationRequestsWithIdentifiers:@[model.identifier]];
     }
     
 }

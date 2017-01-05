@@ -16,19 +16,22 @@
 @property (nonatomic, strong) NSString *ID;
 @property (nonatomic, strong) NSURL *cellUrl;
 @property (nonatomic, assign) BOOL isPlay;
+@property (nonatomic, strong) RadioClockModel * radioModel;
+
+@property (nonatomic) CGFloat duration;
 
 @end
 
 @implementation RadioListTableViewCell
 
-- (void)getDataWithModel:(RadioModel *)model {
+- (void)getDataWithModel:(RadioModel *)model clockModel:(RadioClockModel*)radioModel{
     
     self.cellUrl = [NSURL URLWithString:model.RadioUrl];
     self.ID = model.ID;
     if ([AFSoundManager sharedManager].player.status == AVPlayerStatusReadyToPlay) {
-        NSLog(@"111");
+        
         if ([self.cellUrl isEqual:self.radioUrl]) {
-            NSLog(@"222%@", model.Name);
+            
             [self setAnimation];
         }
     } else {
@@ -50,9 +53,22 @@
         self.radioIntro.text = model.Intro;
     }
     
-    [self lineView];
+    [self setupClock:radioModel withRadioModel:model];
     
+    [self lineView];
 }
+
+
+- (void)setupClock:(RadioClockModel*)radioModel withRadioModel:(RadioModel*)model {
+    
+    self.radioModel = radioModel;
+    if (self.radioModel && [radioModel.channelName isEqualToString:model.Name]) {
+        _clock.hidden = NO;
+        _radioTime.hidden = NO;
+        
+    }
+}
+
 
 - (void)lineView {
     UIView *line = [[UIView alloc] init];
@@ -60,6 +76,7 @@
     line.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.2];
     [self.contentView addSubview:line];
 }
+
 
 - (void)setAnimation {
     self.isPlay = YES;

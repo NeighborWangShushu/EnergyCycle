@@ -275,7 +275,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     NSString *string = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginType"]];
-//    string
+    
     if ([string isEqualToString:@"0"]) {
         isPhoneLogin = YES;
     } else {
@@ -293,6 +293,7 @@
             _radioModel = [arr firstObject];
         }else {
             _radioModel = [[RadioClockModel alloc] init];
+            [_radioModel saveOrUpdate];
         }
     }else {
         _radioModel = [RadioClockModel findByPK:_radioModel.pk];

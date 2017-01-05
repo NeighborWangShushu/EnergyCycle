@@ -54,13 +54,14 @@
                            @"JPR"];
                 break;
             case RadioChooseItemTypeDuration:
-                _datas = @[@"星期一",
+                _datas = @[@"星期日",
+                           @"星期一",
                            @"星期二",
                            @"星期三",
                            @"星期四",
                            @"星期五",
-                           @"星期六",
-                           @"星期日"];
+                           @"星期六"
+                           ];
 
                 break;
             default:
@@ -147,7 +148,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell setStyle:RadioPlanCellStyleNormal model:self.model];
     if (self.type == RadioChooseItemTypeDuration) {
-        __block NSString * index = [NSString stringWithFormat:@"%ld",indexPath.row];
+        __block NSString * index = [NSString stringWithFormat:@"%ld",indexPath.row + 1];
       [self.selectedDates enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
           NSString * value = [self.selectedDates objectAtIndex:idx];
           if ([index isEqualToString:value]) {
@@ -172,9 +173,9 @@
     if (self.type == RadioChooseItemTypeDuration) {
         [cell setIsChecked:!cell.isChecked];
         if (cell.isChecked) {
-            [self.selectedDates addObject:[NSString stringWithFormat:@"%ld",indexPath.row]];
+            [self.selectedDates addObject:[NSString stringWithFormat:@"%ld",indexPath.row + 1]];
         }else {
-            [self.selectedDates removeObject:[NSString stringWithFormat:@"%ld",indexPath.row]];
+            [self.selectedDates removeObject:[NSString stringWithFormat:@"%ld",indexPath.row + 1]];
         }
         self.model.weekdays = self.selectedDates;
     }else {

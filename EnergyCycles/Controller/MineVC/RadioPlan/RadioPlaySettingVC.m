@@ -24,7 +24,7 @@
 @implementation RadioPlaySettingVC
 
 - (void)leftAction {
-    self.model.weekday = 5;
+    
     [RadioNotificationController add:self.model];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -66,7 +66,6 @@
     self.view.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:239.0/255.0 blue:245.0/255.0 alpha:1.0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modelChanged:) name:@"RADIOPLAYSETTINGMODELCHANGED" object:nil];
-
     
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];

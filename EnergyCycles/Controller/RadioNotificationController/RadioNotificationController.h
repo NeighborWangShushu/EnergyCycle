@@ -23,4 +23,6 @@
 
 + (void)removeAll;
 
+- (NSArray*)getAllRequests;
+
 @end
