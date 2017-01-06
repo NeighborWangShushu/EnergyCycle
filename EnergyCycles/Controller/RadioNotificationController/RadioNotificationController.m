@@ -113,10 +113,7 @@
         [self.notificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
             if (!error) {
                 NSLog(@"addNotificationRequest success");
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"本地通知" message:@"成功添加推送" preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-                [alert addAction:cancelAction];
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+                
             }
             
         }];

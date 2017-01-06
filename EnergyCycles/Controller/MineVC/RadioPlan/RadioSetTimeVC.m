@@ -102,6 +102,8 @@
     self.title = @"设置时间";
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     [self setupRightNavBarWithTitle:@"保存"];
+    self.view.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:239.0/255.0 blue:245.0/255.0 alpha:1.0];
+
     
     if (self.model) {
         if (self.model.hour == 0) {
@@ -112,39 +114,41 @@
             _minute = self.model.minutes;
         }
     }
-    __weak typeof(self) weakSelf = self;
-    self.segmentedControl = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:@"   AM   ", @"   PM   ", nil]];
-    [self.segmentedControl setSelectedSegmentIndex:self.model.slot animated:YES];
-    self.segmentedControl.changeHandler = ^(NSUInteger newIndex) {
-        // respond to index change
-        weakSelf.model.slot = newIndex;
-    };
-    self.segmentedControl.backgroundImage = [UIImage imageNamed:@"mine_playradio_checked_bg@2x"];
-    self.segmentedControl.thumb.backgroundImage = [UIImage imageNamed:@"mine_playradio_switch_button@2x.png"];
-    self.segmentedControl.thumb.highlightedBackgroundImage = [UIImage imageNamed:@"mine_playradio_switch_button@2x.png"];
-    self.segmentedControl.textColor = [UIColor colorWithRed:239.0/255.0 green:79.0/255.0 blue:81.0/255.0 alpha:1.0];
-    self.segmentedControl.textShadowColor = [UIColor clearColor];
-    self.segmentedControl.thumb.tintColor = [UIColor clearColor];
-    self.segmentedControl.thumb.textShadowColor = [UIColor clearColor];
-    self.segmentedControl.thumbEdgeInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//    __weak typeof(self) weakSelf = self;
+//    self.segmentedControl = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:@"   AM   ", @"   PM   ", nil]];
+//    [self.segmentedControl setSelectedSegmentIndex:self.model.slot animated:YES];
+//    self.segmentedControl.changeHandler = ^(NSUInteger newIndex) {
+//        // respond to index change
+//        weakSelf.model.slot = newIndex;
+//    };
+//    self.segmentedControl.backgroundImage = [UIImage imageNamed:@"mine_playradio_checked_bg@2x"];
+//    self.segmentedControl.thumb.backgroundImage = [UIImage imageNamed:@"mine_playradio_switch_button@2x.png"];
+//    self.segmentedControl.thumb.highlightedBackgroundImage = [UIImage imageNamed:@"mine_playradio_switch_button@2x.png"];
+//    self.segmentedControl.textColor = [UIColor colorWithRed:239.0/255.0 green:79.0/255.0 blue:81.0/255.0 alpha:1.0];
+//    self.segmentedControl.textShadowColor = [UIColor clearColor];
+//    self.segmentedControl.thumb.tintColor = [UIColor clearColor];
+//    self.segmentedControl.thumb.textShadowColor = [UIColor clearColor];
+//    self.segmentedControl.thumbEdgeInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//    
+//    
+//    [self.view addSubview:self.segmentedControl];
     
-    
-    [self.view addSubview:self.segmentedControl];
-    [self.segmentedControl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(@30);
-        make.width.equalTo(@135);
-        make.height.equalTo(@35);
-    }];
+//    [self.segmentedControl mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.view.mas_centerX);
+//        make.top.equalTo(@30);
+//        make.width.equalTo(@135);
+//        make.height.equalTo(@35);
+//    }];
     
     [self.view addSubview:self.datePickerView];
-    [self.datePickerView selectRow:_hour inComponent:0 animated:NO];
-    [self.datePickerView selectRow:_minute inComponent:1 animated:NO];
+    [self.datePickerView selectRow:self.hours.count * 50 + _hour inComponent:0 animated:NO];
+    [self.datePickerView selectRow:self.minites.count * 50 + _minute inComponent:1 animated:NO];
+
 
     [self.datePickerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@40);
         make.right.equalTo(@-40);
-        make.top.equalTo(self.segmentedControl.mas_bottom).with.offset(20);
+        make.top.equalTo(self.view.mas_top).with.offset(20);
         make.bottom.equalTo(self.view.mas_bottom).with.offset(-100);
     }];
     
@@ -205,10 +209,10 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     switch (component) {
         case 0:
-            _hour = row;
+            _hour = row%self.hours.count;
             break;
         case 1:
-            _minute = row;
+            _minute = row%self.minites.count;
             break;
         default:
             break;
@@ -248,10 +252,10 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     switch (component) {
         case 0:
-            return self.hours.count;
+            return self.hours.count * 100;
             break;
         case 1:
-            return self.minites.count;
+            return self.minites.count * 100;
             break;
         default:
             break;
@@ -262,10 +266,10 @@
 - (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     switch (component) {
         case 0:
-            return [self.hours objectAtIndex:row];
+            return [self.hours objectAtIndex:row%self.hours.count];
             break;
         case 1:
-            return [self.minites objectAtIndex:row];
+            return [self.minites objectAtIndex:row%self.minites.count];
             break;
         default:
             break;

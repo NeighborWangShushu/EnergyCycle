@@ -260,6 +260,7 @@
 
 // 清理缓存
 - (void)clearDisk {
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认清除缓存" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *exitAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

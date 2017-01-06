@@ -19,7 +19,7 @@
 
 @interface RadioClockModel ()
 
-@property (nonatomic,assign)UNUserNotificationCenter *notificationCenter;
+@property (nonatomic,assign)UNUserNotificationCenter * notificationCenter;
 
 
 @end
@@ -62,6 +62,7 @@
     if (![self.weekdaysToString isEqualToString:@""]) {
        arr = [self.weekdaysToString componentsSeparatedByString:@","];
     }
+    
    __block NSString * weekdays = @"";
     if (arr.count) {
         //为数组排序
@@ -96,18 +97,18 @@
         minutes = [NSString stringWithFormat:@"%ld",(long)self.minutes];
     }
     
-    NSString*slot = @"AM";
-    switch (self.slot) {
-        case RadioTimeSlotAM:
-            slot = @"AM";
-            break;
-        case RadioTimeSlotPM:
-            slot = @"PM";
-            break;
-        default:
-            break;
-    }
-    return [NSString stringWithFormat:@"%@:%@ %@",hour,minutes,slot];
+//    NSString*slot = @"AM";
+//    switch (self.slot) {
+//        case RadioTimeSlotAM:
+//            slot = @"AM";
+//            break;
+//        case RadioTimeSlotPM:
+//            slot = @"PM";
+//            break;
+//        default:
+//            break;
+//    }
+    return [NSString stringWithFormat:@"%@:%@",hour,minutes];
 }
 
 
@@ -143,9 +144,11 @@
 
 
 //持续时间
-- (NSTimeInterval)durationTimeInterval {
-    
-    return self.duration * 10 * 60;
+- (NSTimeInterval)residueTime {
+    if (_residueTime == 0) {
+        _residueTime = self.duration * 10 * 60;
+    }
+    return _residueTime;
 }
 
 #pragma mark - init

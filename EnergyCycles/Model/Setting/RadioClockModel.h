@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
 
 //时段 上午 下午
 @property (nonatomic,assign)RadioTimeSlot slot;
+
 //是否重复
 @property (nonatomic)BOOL isRepeat;
 
@@ -101,7 +102,6 @@ typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
 
 - (NSString*)durationTime;
 
-- (NSTimeInterval)durationTimeInterval;
 
 //本周需要设置推送的时间
 - (NSArray*)alertDateComponents;
