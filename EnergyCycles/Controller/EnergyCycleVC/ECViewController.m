@@ -909,10 +909,10 @@
     
 }
 
-//删除动态
+//管理员权限弹窗
 - (void)didPopover:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath fromButton:(UIButton *)button{
     
-    
+    NSLog(@"%ld---%ld",(long)indexPath.row,(long)indexPath.section);
     UIView*view = [self createMenuView:indexPath];
     
     CGRect cellRect = [[self.tableView cellForRowAtIndexPath:indexPath] convertRect:button.frame toView:self.view];
@@ -927,6 +927,22 @@
     self.popTip.shouldDismissOnTapOutside = YES;
     
     
+}
+
+//删除动态
+- (void)didDelete:(ECTimeLineModel *)model atIndexPath:(NSIndexPath *)indexPath fromButton:(UIButton *)button {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除该动态吗?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteArticle:model indexPath:indexPath];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:alert completion:nil];
+    }];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 
@@ -970,7 +986,11 @@
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView reloadSections:section withRowAnimation:UITableViewRowAnimationNone];
     });
-    
+    [[AppHttpManager shareInstance] sticklyArticleWithUrl:SticklyArticle PostOrGet:@"post" articleId:[model.ID integerValue] isChoice:1 token:User_TOKEN userId:[User_ID integerValue] success:^(NSDictionary *dict) {
+        
+    } failure:^(NSString *str) {
+        
+    }];
     
 }
 
@@ -996,12 +1016,19 @@
             break;
     }
     
+    
     [[AppHttpManager shareInstance] getDeleteArticleWithuserId:[User_ID intValue] Token:User_TOKEN AType:1 AId:[model.ID intValue] PostOrGet:@"post" success:^(NSDictionary *dict) {
         
     } failure:^(NSString *str) {
         
     }];
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.popTip) {
+        [self.popTip hide];
+    }
 }
 
 
@@ -1065,12 +1092,12 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 && pageType == 0) {
         CGFloat line = ceil((CGFloat)self.dataArray.count/2.0);
         CGFloat itemHeight = Screen_width/2 + 60;
         return line * (itemHeight + 10);
     }
-    else if (indexPath.section == 2) {
+    else if (indexPath.section == 2 || indexPath.section == 0) {
         id model = nil;
         if(pageType == 0) {
           model = self.newerArray[indexPath.row];
@@ -1148,18 +1175,18 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 && pageType == 0) {
         //精选动态
         ECSiftCell *cell = [tableView dequeueReusableCellWithIdentifier:kSiftTimeLineTableViewCellId];
         cell.delegate = self;
         cell.models = self.dataArray;
         
         return cell;
-    }else if (indexPath.section == 2) {
+    }else if (indexPath.section == 2 || indexPath.section == 0) {
         //最新动态
         
         ECTimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:kTimeLineTableViewCellId];
-        cell.indexPath = indexPath;
+        cell.tableView = tableView;
         __weak typeof(self) weakSelf = self;
         if (!cell.moreButtonClickedBlock) {
             [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {

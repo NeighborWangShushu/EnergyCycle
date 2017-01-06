@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,39 +16,56 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="79"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FE0-6G-KkG">
+                        <rect key="frame" x="14" y="15" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="Evr-PR-fXe"/>
                             <constraint firstAttribute="width" constant="50" id="uWp-Fm-KwV"/>
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ixl-lo-sJ0">
+                        <rect key="frame" x="14" y="15" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="IiG-UQ-Jf9"/>
                             <constraint firstAttribute="width" constant="50" id="fbw-Ou-tSX"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9l-LW-g74">
+                        <rect key="frame" x="74" y="15" width="36" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9E-fc-RXR">
+                        <rect key="frame" x="74" y="42" width="31" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="learn_radio_clock.png" translatesAutoresizingMaskIntoConstraints="NO" id="O26-oT-dAg">
+                        <rect key="frame" x="229" y="31" width="17" height="17"/>
+                    </imageView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRW-I4-wO1">
+                        <rect key="frame" x="250.5" y="31" width="41.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="A9E-fc-RXR" firstAttribute="top" secondItem="C9l-LW-g74" secondAttribute="bottom" constant="10" id="7qu-L5-2wc"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="A9E-fc-RXR" secondAttribute="trailing" constant="14" id="9MO-xx-3hZ"/>
+                    <constraint firstItem="rRW-I4-wO1" firstAttribute="leading" secondItem="O26-oT-dAg" secondAttribute="trailing" constant="4.5" id="9tT-Ly-o0a"/>
                     <constraint firstItem="ixl-lo-sJ0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="BCB-Eb-ocS"/>
                     <constraint firstItem="C9l-LW-g74" firstAttribute="top" secondItem="FE0-6G-KkG" secondAttribute="top" id="Gik-Zz-cXk"/>
                     <constraint firstItem="ixl-lo-sJ0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="MlN-WM-7Wu"/>
+                    <constraint firstItem="O26-oT-dAg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="QFi-XM-Mgd"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="rRW-I4-wO1" secondAttribute="trailing" constant="20" id="fdC-sS-nkb"/>
                     <constraint firstItem="FE0-6G-KkG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="hAx-D3-SQ4"/>
+                    <constraint firstItem="rRW-I4-wO1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="kAn-nZ-qjv"/>
                     <constraint firstItem="C9l-LW-g74" firstAttribute="leading" secondItem="FE0-6G-KkG" secondAttribute="trailing" constant="10" id="nbS-H4-NPs"/>
                     <constraint firstItem="FE0-6G-KkG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nik-RS-63d"/>
                     <constraint firstItem="A9E-fc-RXR" firstAttribute="leading" secondItem="C9l-LW-g74" secondAttribute="leading" id="oMl-4j-rdn"/>
@@ -52,11 +73,16 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="RadioPlayAnimation" destination="ixl-lo-sJ0" id="lxf-YG-qye"/>
+                <outlet property="clock" destination="O26-oT-dAg" id="opH-qn-hpv"/>
                 <outlet property="radioImage" destination="FE0-6G-KkG" id="Nlu-tT-JT8"/>
                 <outlet property="radioIntro" destination="A9E-fc-RXR" id="X9j-fC-cgw"/>
                 <outlet property="radioName" destination="C9l-LW-g74" id="0O1-Ag-bHp"/>
+                <outlet property="radioTime" destination="rRW-I4-wO1" id="I6q-pu-brw"/>
             </connections>
             <point key="canvasLocation" x="-74" y="4"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="learn_radio_clock.png" width="17" height="17"/>
+    </resources>
 </document>

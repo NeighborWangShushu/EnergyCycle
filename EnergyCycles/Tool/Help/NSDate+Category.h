@@ -27,6 +27,8 @@
 - (double)timeIntervalSince1970InMilliSecond;
 + (NSDate *)dateWithTimeIntervalInMilliSecondSince1970:(double)timeIntervalInMilliSecond;
 + (NSString *)formattedTimeFromTimeInterval:(long long)time;
++ (NSString *)shortWeekdayStringFromWeekday:(NSInteger)weekday;
+
 // Relative dates from the current date
 + (NSDate *) dateTomorrow;
 + (NSDate *) dateYesterday;

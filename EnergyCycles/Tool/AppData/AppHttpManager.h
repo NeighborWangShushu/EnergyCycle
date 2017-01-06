@@ -1316,10 +1316,10 @@
 //userId
 - (void)sticklyArticleWithUrl:(NSString*)url
                     PostOrGet:(NSString *)postOrGetType
-                    articleId:(NSString*)articleId
-                     isChoice:(NSString*)isChoice
+                    articleId:(NSInteger)articleId
+                     isChoice:(NSInteger)isChoice
                         token:(NSString*)token
-                       userId:(NSString*)userId
+                       userId:(NSInteger)userId
                       success:(void (^)(NSDictionary *dict))success
                       failure:(void (^)(NSString *str))failure;
 

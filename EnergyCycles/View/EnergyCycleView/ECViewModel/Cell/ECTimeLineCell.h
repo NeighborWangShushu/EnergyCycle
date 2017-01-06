@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, ECTimeLineCellActionType) {
 
 @property (nonatomic, strong) ECTimeLineModel *model;
 
-@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, strong) UITableView * tableView;
 
 @property (nonatomic, copy) void (^moreButtonClickedBlock)(NSIndexPath *indexPath);
 
@@ -46,5 +46,6 @@ typedef NS_ENUM(NSUInteger, ECTimeLineCellActionType) {
 
 - (void)didPopover:(ECTimeLineModel*)model atIndexPath:(NSIndexPath*)indexPath fromButton:(UIButton*)button;
 
+- (void)didDelete:(ECTimeLineModel*)model atIndexPath:(NSIndexPath*)indexPath fromButton:(UIButton*)button;
 
 @end

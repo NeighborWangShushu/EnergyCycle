@@ -401,6 +401,18 @@
 		26E987ED1C0DAE4000C6A7BB /* whiteback_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987C91C0DAE4000C6A7BB /* whiteback_normal@3x.png */; };
 		26E987EE1C0DAE4000C6A7BB /* whiteback_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */; };
 		26E987EF1C0DAE4000C6A7BB /* whiteback_pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */; };
+		3402F89D1E1501D400202365 /* RadioNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402F89C1E1501D400202365 /* RadioNotificationController.m */; };
+		3402F8B71E16608600202365 /* SettingRadioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402F8B51E16608600202365 /* SettingRadioCell.m */; };
+		3402F8B81E16608600202365 /* SettingRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3402F8B61E16608600202365 /* SettingRadioCell.xib */; };
+		3402F8BC1E1663DF00202365 /* SettingPlayRadioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3402F8BA1E1663DF00202365 /* SettingPlayRadioCell.m */; };
+		3402F8BD1E1663DF00202365 /* SettingPlayRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3402F8BB1E1663DF00202365 /* SettingPlayRadioCell.xib */; };
+		348EF1FC1E1B6E4B0046A529 /* RadioDurationTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 348EF1FA1E1B6E4B0046A529 /* RadioDurationTimeVC.m */; };
+		348EF1FD1E1B6E4B0046A529 /* RadioDurationTimeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 348EF1FB1E1B6E4B0046A529 /* RadioDurationTimeVC.xib */; };
+		348EF2011E1B82860046A529 /* RadioPlanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 348EF1FF1E1B82860046A529 /* RadioPlanCell.m */; };
+		348EF2021E1B82860046A529 /* RadioPlanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 348EF2001E1B82860046A529 /* RadioPlanCell.xib */; };
+		348EF2081E1B99020046A529 /* mine_playradio_checked_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 348EF2051E1B99020046A529 /* mine_playradio_checked_bg@2x.png */; };
+		348EF2091E1B99020046A529 /* mine_playradio_switch_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 348EF2061E1B99020046A529 /* mine_playradio_switch_button@2x.png */; };
+		348EF20A1E1B99020046A529 /* mine_playradio_time_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 348EF2071E1B99020046A529 /* mine_playradio_time_checked@2x.png */; };
 		34B360B81E02B034000A1296 /* HttpsWebViewProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360B71E02B034000A1296 /* HttpsWebViewProtocol.m */; };
 		34B360C71E039CD8000A1296 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360BB1E039CD8000A1296 /* AFHTTPSessionManager.m */; };
 		34B360C81E039CD8000A1296 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360BE1E039CD8000A1296 /* AFNetworkReachabilityManager.m */; };
@@ -409,6 +421,16 @@
 		34B360CB1E039CD8000A1296 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360C41E039CD8000A1296 /* AFURLResponseSerialization.m */; };
 		34B360CC1E039CD8000A1296 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B360C61E039CD8000A1296 /* AFURLSessionManager.m */; };
 		34B360CE1E093A5D000A1296 /* https.cer in Resources */ = {isa = PBXBuildFile; fileRef = 34B360CD1E093A5D000A1296 /* https.cer */; };
+		34C5EC651E1CBDFB005A2F9A /* RadioPlaySettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C5EC631E1CBDFB005A2F9A /* RadioPlaySettingVC.m */; };
+		34C5EC661E1CBDFB005A2F9A /* RadioPlaySettingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34C5EC641E1CBDFB005A2F9A /* RadioPlaySettingVC.xib */; };
+		34C5EC6A1E1CD159005A2F9A /* RadioChooseItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C5EC681E1CD159005A2F9A /* RadioChooseItemVC.m */; };
+		34C5EC6B1E1CD159005A2F9A /* RadioChooseItemVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34C5EC691E1CD159005A2F9A /* RadioChooseItemVC.xib */; };
+		34C5EC6F1E1CFE13005A2F9A /* RadioSetTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C5EC6D1E1CFE13005A2F9A /* RadioSetTimeVC.m */; };
+		34C5EC701E1CFE13005A2F9A /* RadioSetTimeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34C5EC6E1E1CFE13005A2F9A /* RadioSetTimeVC.xib */; };
+		34C5EC761E1CFFB6005A2F9A /* SVSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C5EC731E1CFFB6005A2F9A /* SVSegmentedControl.m */; };
+		34C5EC771E1CFFB6005A2F9A /* SVSegmentedThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C5EC751E1CFFB6005A2F9A /* SVSegmentedThumb.m */; };
+		34C5EC7A1E1DF43F005A2F9A /* learn_radio_clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34C5EC781E1DF43F005A2F9A /* learn_radio_clock@2x.png */; };
+		34C5EC7B1E1DF43F005A2F9A /* learn_radio_clock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34C5EC791E1DF43F005A2F9A /* learn_radio_clock@3x.png */; };
 		34F756611E0CCECE00A1C0DD /* ECSiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F7565F1E0CCECE00A1C0DD /* ECSiftCell.m */; };
 		34F756621E0CCECE00A1C0DD /* ECSiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F756601E0CCECE00A1C0DD /* ECSiftCell.xib */; };
 		34F756651E0CCFA900A1C0DD /* ECSiftCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756641E0CCFA900A1C0DD /* ECSiftCollectionCell.m */; };
@@ -423,6 +445,7 @@
 		34F756B21E12869900A1C0DD /* AMPopTip+Entrance.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756AA1E12869900A1C0DD /* AMPopTip+Entrance.m */; };
 		34F756B31E12869900A1C0DD /* AMPopTip+Exit.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756AC1E12869900A1C0DD /* AMPopTip+Exit.m */; };
 		34F756B41E12869900A1C0DD /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756AE1E12869900A1C0DD /* AMPopTip.m */; };
+		34F756B81E13C5AD00A1C0DD /* RadioClockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F756B71E13C5AD00A1C0DD /* RadioClockModel.m */; };
 		6202B1611D62F9AD000F7F39 /* ReportShareTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6202B15F1D62F9AD000F7F39 /* ReportShareTableViewCell.m */; };
 		6202B1621D62F9AD000F7F39 /* ReportShareTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6202B1601D62F9AD000F7F39 /* ReportShareTableViewCell.xib */; };
 		6202B17B1D62FF9A000F7F39 /* help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6202B1631D62FF9A000F7F39 /* help@2x.png */; };
@@ -733,8 +756,8 @@
 		D00591651D24F77D00F91692 /* wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591621D24F77D00F91692 /* wechat@2x.png */; };
 		D00591681D24FD0800F91692 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00591671D24FD0800F91692 /* WebKit.framework */; };
 		D005916B1D25152300F91692 /* MoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D005916A1D25152300F91692 /* MoreVC.m */; };
-		D005916E1D253FDF00F91692 /* australia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005916C1D253FDF00F91692 /* australia@2x.png */; };
-		D005916F1D253FDF00F91692 /* fox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005916D1D253FDF00F91692 /* fox@2x.png */; };
+		D005916E1D253FDF00F91692 /* Radio Australia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005916C1D253FDF00F91692 /* Radio Australia@2x.png */; };
+		D005916F1D253FDF00F91692 /* FOX News@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D005916D1D253FDF00F91692 /* FOX News@2x.png */; };
 		D00591791D25454000F91692 /* ec_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591731D25454000F91692 /* ec_search@2x.png */; };
 		D005917A1D25454000F91692 /* ec_sign@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591741D25454000F91692 /* ec_sign@2x.png */; };
 		D005917B1D25454000F91692 /* location_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00591751D25454000F91692 /* location_icon@2x.png */; };
@@ -981,13 +1004,13 @@
 		D07E243D1D127BE000854B51 /* HotPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E243C1D127BE000854B51 /* HotPageView.m */; };
 		D07E24401D12801F00854B51 /* LearnPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E243F1D12801F00854B51 /* LearnPageViewController.m */; };
 		D07E24431D129BA900854B51 /* OtherPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E24421D129BA900854B51 /* OtherPageView.m */; };
-		D07E244E1D12BFD100854B51 /* bbc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24471D12BFD100854B51 /* bbc@2x.png */; };
+		D07E244E1D12BFD100854B51 /* BBC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24471D12BFD100854B51 /* BBC@2x.png */; };
 		D07E244F1D12BFD100854B51 /* cctalk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24481D12BFD100854B51 /* cctalk@2x.png */; };
-		D07E24501D12BFD100854B51 /* cnn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24491D12BFD100854B51 /* cnn@2x.png */; };
-		D07E24511D12BFD100854B51 /* lbc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244A1D12BFD100854B51 /* lbc@2x.png */; };
-		D07E24521D12BFD100854B51 /* npr@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244B1D12BFD100854B51 /* npr@2x.png */; };
-		D07E24531D12BFD100854B51 /* ted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244C1D12BFD100854B51 /* ted@2x.png */; };
-		D07E24541D12BFD100854B51 /* voa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244D1D12BFD100854B51 /* voa@2x.png */; };
+		D07E24501D12BFD100854B51 /* CNN@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E24491D12BFD100854B51 /* CNN@2x.png */; };
+		D07E24511D12BFD100854B51 /* LBC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244A1D12BFD100854B51 /* LBC@2x.png */; };
+		D07E24521D12BFD100854B51 /* NPR@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244B1D12BFD100854B51 /* NPR@2x.png */; };
+		D07E24531D12BFD100854B51 /* TED@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244C1D12BFD100854B51 /* TED@2x.png */; };
+		D07E24541D12BFD100854B51 /* VOA@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E244D1D12BFD100854B51 /* VOA@2x.png */; };
 		D07E24581D12C8EA00854B51 /* ReferralHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E24571D12C8EA00854B51 /* ReferralHeadView.m */; };
 		D07E24611D13907300854B51 /* AFAudioRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E245E1D13907300854B51 /* AFAudioRouter.m */; };
 		D07E24621D13907300854B51 /* AFSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D07E24601D13907300854B51 /* AFSoundManager.m */; };
@@ -1127,14 +1150,6 @@
 		D0946DA01D3F676D003C9C4C /* ec_zhiding@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0946D9E1D3F676D003C9C4C /* ec_zhiding@2x.png */; };
 		D0946DA11D3F676D003C9C4C /* ec_zhiding@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0946D9F1D3F676D003C9C4C /* ec_zhiding@3x.png */; };
 		D0BD3F0F1D6460830010D9BB /* ECSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F0E1D6460830010D9BB /* ECSearchController.m */; };
-		D0BD3F201D6474AA0010D9BB /* RAMBounceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F131D6474AA0010D9BB /* RAMBounceAnimation.swift */; };
-		D0BD3F211D6474AA0010D9BB /* RAMFrameItemAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F151D6474AA0010D9BB /* RAMFrameItemAnimation.swift */; };
-		D0BD3F221D6474AA0010D9BB /* RAMFumeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F171D6474AA0010D9BB /* RAMFumeAnimation.swift */; };
-		D0BD3F231D6474AA0010D9BB /* RAMRotationAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F191D6474AA0010D9BB /* RAMRotationAnimation.swift */; };
-		D0BD3F241D6474AA0010D9BB /* RAMTransitionItemAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F1B1D6474AA0010D9BB /* RAMTransitionItemAnimations.swift */; };
-		D0BD3F251D6474AA0010D9BB /* RAMAnimatedTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F1C1D6474AA0010D9BB /* RAMAnimatedTabBarController.swift */; };
-		D0BD3F261D6474AA0010D9BB /* RAMBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F1E1D6474AA0010D9BB /* RAMBadge.swift */; };
-		D0BD3F271D6474AA0010D9BB /* RAMItemAnimationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD3F1F1D6474AA0010D9BB /* RAMItemAnimationProtocol.swift */; };
 		D0BEF3131D20DAEA00F1985C /* ECViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF3121D20DAEA00F1985C /* ECViewController.m */; };
 		D0BEF32D1D22A01600F1985C /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF32A1D22A01600F1985C /* UITableView+SDAutoTableViewCellHeight.m */; };
 		D0BEF32E1D22A01600F1985C /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF32C1D22A01600F1985C /* UIView+SDAutoLayout.m */; };
@@ -1494,8 +1509,6 @@
 		DA9A954A1C23ABEE00FBE107 /* yingbi@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA9A95201C23ABEE00FBE107 /* yingbi@3x.png */; };
 		DA9A954B1C23ABEE00FBE107 /* ziliao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA9A95211C23ABEE00FBE107 /* ziliao@2x.png */; };
 		DA9A954C1C23ABEE00FBE107 /* ziliao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA9A95221C23ABEE00FBE107 /* ziliao@3x.png */; };
-		DAA8DBD61C97A9020011EB7E /* placepic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA8DBD41C97A9020011EB7E /* placepic@2x.png */; };
-		DAA8DBD71C97A9020011EB7E /* placepic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA8DBD51C97A9020011EB7E /* placepic@3x.png */; };
 		DAA8DBDA1C97B0360011EB7E /* delete_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA8DBD81C97B0360011EB7E /* delete_icon@2x.png */; };
 		DAA8DBDB1C97B0360011EB7E /* delete_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA8DBD91C97B0360011EB7E /* delete_icon@3x.png */; };
 		DAA8DBDE1C97BAA20011EB7E /* SetNoteNameView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DBDD1C97BAA20011EB7E /* SetNoteNameView.m */; };
@@ -1656,6 +1669,19 @@
 			remoteInfo = EnergyCycles;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3402F8AE1E15305100202365 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2609B0061C02DD2A0006BC02 /* EnergyCycles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnergyCycles.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2220,6 +2246,26 @@
 		26E987C91C0DAE4000C6A7BB /* whiteback_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_normal@3x.png"; sourceTree = "<group>"; };
 		26E987CA1C0DAE4000C6A7BB /* whiteback_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@2x.png"; sourceTree = "<group>"; };
 		26E987CB1C0DAE4000C6A7BB /* whiteback_pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteback_pressed@3x.png"; sourceTree = "<group>"; };
+		3402F89B1E1501D400202365 /* RadioNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioNotificationController.h; sourceTree = "<group>"; };
+		3402F89C1E1501D400202365 /* RadioNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioNotificationController.m; sourceTree = "<group>"; };
+		3402F8A41E15305100202365 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		3402F8A51E15305100202365 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		3402F8A71E15305100202365 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3402F8B41E16608600202365 /* SettingRadioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingRadioCell.h; sourceTree = "<group>"; };
+		3402F8B51E16608600202365 /* SettingRadioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingRadioCell.m; sourceTree = "<group>"; };
+		3402F8B61E16608600202365 /* SettingRadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingRadioCell.xib; sourceTree = "<group>"; };
+		3402F8B91E1663DF00202365 /* SettingPlayRadioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingPlayRadioCell.h; sourceTree = "<group>"; };
+		3402F8BA1E1663DF00202365 /* SettingPlayRadioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingPlayRadioCell.m; sourceTree = "<group>"; };
+		3402F8BB1E1663DF00202365 /* SettingPlayRadioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingPlayRadioCell.xib; sourceTree = "<group>"; };
+		348EF1F91E1B6E4B0046A529 /* RadioDurationTimeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioDurationTimeVC.h; sourceTree = "<group>"; };
+		348EF1FA1E1B6E4B0046A529 /* RadioDurationTimeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioDurationTimeVC.m; sourceTree = "<group>"; };
+		348EF1FB1E1B6E4B0046A529 /* RadioDurationTimeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioDurationTimeVC.xib; sourceTree = "<group>"; };
+		348EF1FE1E1B82860046A529 /* RadioPlanCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RadioPlanCell.h; path = ../RadioPlanCell.h; sourceTree = "<group>"; };
+		348EF1FF1E1B82860046A529 /* RadioPlanCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RadioPlanCell.m; path = ../RadioPlanCell.m; sourceTree = "<group>"; };
+		348EF2001E1B82860046A529 /* RadioPlanCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RadioPlanCell.xib; path = ../RadioPlanCell.xib; sourceTree = "<group>"; };
+		348EF2051E1B99020046A529 /* mine_playradio_checked_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mine_playradio_checked_bg@2x.png"; sourceTree = "<group>"; };
+		348EF2061E1B99020046A529 /* mine_playradio_switch_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mine_playradio_switch_button@2x.png"; sourceTree = "<group>"; };
+		348EF2071E1B99020046A529 /* mine_playradio_time_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mine_playradio_time_checked@2x.png"; sourceTree = "<group>"; };
 		34B360B61E02B034000A1296 /* HttpsWebViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpsWebViewProtocol.h; sourceTree = "<group>"; };
 		34B360B71E02B034000A1296 /* HttpsWebViewProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpsWebViewProtocol.m; sourceTree = "<group>"; };
 		34B360BA1E039CD8000A1296 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -2236,6 +2282,21 @@
 		34B360C51E039CD8000A1296 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		34B360C61E039CD8000A1296 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		34B360CD1E093A5D000A1296 /* https.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = https.cer; sourceTree = "<group>"; };
+		34C5EC621E1CBDFB005A2F9A /* RadioPlaySettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioPlaySettingVC.h; sourceTree = "<group>"; };
+		34C5EC631E1CBDFB005A2F9A /* RadioPlaySettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioPlaySettingVC.m; sourceTree = "<group>"; };
+		34C5EC641E1CBDFB005A2F9A /* RadioPlaySettingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioPlaySettingVC.xib; sourceTree = "<group>"; };
+		34C5EC671E1CD159005A2F9A /* RadioChooseItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioChooseItemVC.h; sourceTree = "<group>"; };
+		34C5EC681E1CD159005A2F9A /* RadioChooseItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioChooseItemVC.m; sourceTree = "<group>"; };
+		34C5EC691E1CD159005A2F9A /* RadioChooseItemVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioChooseItemVC.xib; sourceTree = "<group>"; };
+		34C5EC6C1E1CFE13005A2F9A /* RadioSetTimeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioSetTimeVC.h; sourceTree = "<group>"; };
+		34C5EC6D1E1CFE13005A2F9A /* RadioSetTimeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioSetTimeVC.m; sourceTree = "<group>"; };
+		34C5EC6E1E1CFE13005A2F9A /* RadioSetTimeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioSetTimeVC.xib; sourceTree = "<group>"; };
+		34C5EC721E1CFFB6005A2F9A /* SVSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSegmentedControl.h; sourceTree = "<group>"; };
+		34C5EC731E1CFFB6005A2F9A /* SVSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSegmentedControl.m; sourceTree = "<group>"; };
+		34C5EC741E1CFFB6005A2F9A /* SVSegmentedThumb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSegmentedThumb.h; sourceTree = "<group>"; };
+		34C5EC751E1CFFB6005A2F9A /* SVSegmentedThumb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSegmentedThumb.m; sourceTree = "<group>"; };
+		34C5EC781E1DF43F005A2F9A /* learn_radio_clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "learn_radio_clock@2x.png"; sourceTree = "<group>"; };
+		34C5EC791E1DF43F005A2F9A /* learn_radio_clock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "learn_radio_clock@3x.png"; sourceTree = "<group>"; };
 		34F7565E1E0CCECE00A1C0DD /* ECSiftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSiftCell.h; sourceTree = "<group>"; };
 		34F7565F1E0CCECE00A1C0DD /* ECSiftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSiftCell.m; sourceTree = "<group>"; };
 		34F756601E0CCECE00A1C0DD /* ECSiftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECSiftCell.xib; sourceTree = "<group>"; };
@@ -2258,6 +2319,8 @@
 		34F756AD1E12869900A1C0DD /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTip.h; sourceTree = "<group>"; };
 		34F756AE1E12869900A1C0DD /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPopTip.m; sourceTree = "<group>"; };
 		34F756AF1E12869900A1C0DD /* AMPopTipDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTipDefaults.h; sourceTree = "<group>"; };
+		34F756B61E13C5AD00A1C0DD /* RadioClockModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioClockModel.h; sourceTree = "<group>"; };
+		34F756B71E13C5AD00A1C0DD /* RadioClockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioClockModel.m; sourceTree = "<group>"; };
 		6202B15E1D62F9AD000F7F39 /* ReportShareTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportShareTableViewCell.h; sourceTree = "<group>"; };
 		6202B15F1D62F9AD000F7F39 /* ReportShareTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportShareTableViewCell.m; sourceTree = "<group>"; };
 		6202B1601D62F9AD000F7F39 /* ReportShareTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportShareTableViewCell.xib; sourceTree = "<group>"; };
@@ -2660,8 +2723,8 @@
 		D00591671D24FD0800F91692 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D00591691D25152300F91692 /* MoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreVC.h; sourceTree = "<group>"; };
 		D005916A1D25152300F91692 /* MoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreVC.m; sourceTree = "<group>"; };
-		D005916C1D253FDF00F91692 /* australia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "australia@2x.png"; sourceTree = "<group>"; };
-		D005916D1D253FDF00F91692 /* fox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fox@2x.png"; sourceTree = "<group>"; };
+		D005916C1D253FDF00F91692 /* Radio Australia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Radio Australia@2x.png"; sourceTree = "<group>"; };
+		D005916D1D253FDF00F91692 /* FOX News@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FOX News@2x.png"; sourceTree = "<group>"; };
 		D00591731D25454000F91692 /* ec_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ec_search@2x.png"; path = "EnergyCycle/ec_search@2x.png"; sourceTree = "<group>"; };
 		D00591741D25454000F91692 /* ec_sign@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ec_sign@2x.png"; path = "EnergyCycle/ec_sign@2x.png"; sourceTree = "<group>"; };
 		D00591751D25454000F91692 /* location_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "location_icon@2x.png"; path = "EnergyCycle/location_icon@2x.png"; sourceTree = "<group>"; };
@@ -3022,13 +3085,13 @@
 		D07E243F1D12801F00854B51 /* LearnPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LearnPageViewController.m; sourceTree = "<group>"; };
 		D07E24411D129BA900854B51 /* OtherPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherPageView.h; sourceTree = "<group>"; };
 		D07E24421D129BA900854B51 /* OtherPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherPageView.m; sourceTree = "<group>"; };
-		D07E24471D12BFD100854B51 /* bbc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bbc@2x.png"; sourceTree = "<group>"; };
+		D07E24471D12BFD100854B51 /* BBC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BBC@2x.png"; sourceTree = "<group>"; };
 		D07E24481D12BFD100854B51 /* cctalk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cctalk@2x.png"; sourceTree = "<group>"; };
-		D07E24491D12BFD100854B51 /* cnn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cnn@2x.png"; sourceTree = "<group>"; };
-		D07E244A1D12BFD100854B51 /* lbc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lbc@2x.png"; sourceTree = "<group>"; };
-		D07E244B1D12BFD100854B51 /* npr@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "npr@2x.png"; sourceTree = "<group>"; };
-		D07E244C1D12BFD100854B51 /* ted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ted@2x.png"; sourceTree = "<group>"; };
-		D07E244D1D12BFD100854B51 /* voa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voa@2x.png"; sourceTree = "<group>"; };
+		D07E24491D12BFD100854B51 /* CNN@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CNN@2x.png"; sourceTree = "<group>"; };
+		D07E244A1D12BFD100854B51 /* LBC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LBC@2x.png"; sourceTree = "<group>"; };
+		D07E244B1D12BFD100854B51 /* NPR@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NPR@2x.png"; sourceTree = "<group>"; };
+		D07E244C1D12BFD100854B51 /* TED@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TED@2x.png"; sourceTree = "<group>"; };
+		D07E244D1D12BFD100854B51 /* VOA@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VOA@2x.png"; sourceTree = "<group>"; };
 		D07E24561D12C8EA00854B51 /* ReferralHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferralHeadView.h; sourceTree = "<group>"; };
 		D07E24571D12C8EA00854B51 /* ReferralHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferralHeadView.m; sourceTree = "<group>"; };
 		D07E245D1D13907300854B51 /* AFAudioRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAudioRouter.h; sourceTree = "<group>"; };
@@ -3234,14 +3297,6 @@
 		D0946D9F1D3F676D003C9C4C /* ec_zhiding@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ec_zhiding@3x.png"; sourceTree = "<group>"; };
 		D0BD3F0D1D6460830010D9BB /* ECSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSearchController.h; sourceTree = "<group>"; };
 		D0BD3F0E1D6460830010D9BB /* ECSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSearchController.m; sourceTree = "<group>"; };
-		D0BD3F131D6474AA0010D9BB /* RAMBounceAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMBounceAnimation.swift; sourceTree = "<group>"; };
-		D0BD3F151D6474AA0010D9BB /* RAMFrameItemAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMFrameItemAnimation.swift; sourceTree = "<group>"; };
-		D0BD3F171D6474AA0010D9BB /* RAMFumeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMFumeAnimation.swift; sourceTree = "<group>"; };
-		D0BD3F191D6474AA0010D9BB /* RAMRotationAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMRotationAnimation.swift; sourceTree = "<group>"; };
-		D0BD3F1B1D6474AA0010D9BB /* RAMTransitionItemAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMTransitionItemAnimations.swift; sourceTree = "<group>"; };
-		D0BD3F1C1D6474AA0010D9BB /* RAMAnimatedTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMAnimatedTabBarController.swift; sourceTree = "<group>"; };
-		D0BD3F1E1D6474AA0010D9BB /* RAMBadge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMBadge.swift; sourceTree = "<group>"; };
-		D0BD3F1F1D6474AA0010D9BB /* RAMItemAnimationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAMItemAnimationProtocol.swift; sourceTree = "<group>"; };
 		D0BEF3111D20DAEA00F1985C /* ECViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECViewController.h; sourceTree = "<group>"; };
 		D0BEF3121D20DAEA00F1985C /* ECViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECViewController.m; sourceTree = "<group>"; };
 		D0BEF3281D22A01600F1985C /* SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAutoLayout.h; sourceTree = "<group>"; };
@@ -3734,8 +3789,6 @@
 		DA9A95201C23ABEE00FBE107 /* yingbi@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yingbi@3x.png"; path = "MineCenterHome/yingbi@3x.png"; sourceTree = "<group>"; };
 		DA9A95211C23ABEE00FBE107 /* ziliao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ziliao@2x.png"; sourceTree = "<group>"; };
 		DA9A95221C23ABEE00FBE107 /* ziliao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ziliao@3x.png"; sourceTree = "<group>"; };
-		DAA8DBD41C97A9020011EB7E /* placepic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placepic@2x.png"; sourceTree = "<group>"; };
-		DAA8DBD51C97A9020011EB7E /* placepic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placepic@3x.png"; sourceTree = "<group>"; };
 		DAA8DBD81C97B0360011EB7E /* delete_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_icon@2x.png"; sourceTree = "<group>"; };
 		DAA8DBD91C97B0360011EB7E /* delete_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_icon@3x.png"; sourceTree = "<group>"; };
 		DAA8DBDC1C97BAA20011EB7E /* SetNoteNameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetNoteNameView.h; sourceTree = "<group>"; };
@@ -4024,6 +4077,7 @@
 				2609B0081C02DD2A0006BC02 /* EnergyCycles */,
 				2609B0221C02DD2B0006BC02 /* EnergyCyclesTests */,
 				D05A95D51D62F43A0063AD41 /* EnergyCyclesUITests */,
+				3402F8A31E15305100202365 /* ECRadioNotificationService */,
 				2609B0071C02DD2A0006BC02 /* Products */,
 				D0D3001D1D8FAB50007180F1 /* Frameworks */,
 			);
@@ -4345,6 +4399,7 @@
 		26D99D231C0C4D7B007AF579 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3402F89A1E1501C600202365 /* RadioNotificationController */,
 				D029BC0D1D365E5500B20D65 /* TabbarController */,
 				26D99D241C0C4D7B007AF579 /* AppTabBarController.h */,
 				26D99D251C0C4D7B007AF579 /* AppTabBarController.m */,
@@ -4516,6 +4571,7 @@
 		26D99D431C0C4D7B007AF579 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				34F756B51E13C55F00A1C0DD /* Setting */,
 				34B360B51E02AF92000A1296 /* Protocol */,
 				D0BD3F0C1D64605D0010D9BB /* Common */,
 				D058423D1D474FCE006859B9 /* ShareModel */,
@@ -4719,8 +4775,6 @@
 				DA937D521C44FDA900F174F6 /* touxiang@3x.png */,
 				DA8103A31C2BABD300CFFF44 /* loginicon@2x.png */,
 				DA8103A41C2BABD300CFFF44 /* loginIcon@3x.png */,
-				DAA8DBD41C97A9020011EB7E /* placepic@2x.png */,
-				DAA8DBD51C97A9020011EB7E /* placepic@3x.png */,
 				26D99D4B1C0C4D7B007AF579 /* EnergyCycle */,
 				26D99D4F1C0C4D7B007AF579 /* PK */,
 				26D99D4D1C0C4D7B007AF579 /* Learn */,
@@ -4799,12 +4853,14 @@
 		26D99D4D1C0C4D7B007AF579 /* Learn */ = {
 			isa = PBXGroup;
 			children = (
+				34C5EC781E1DF43F005A2F9A /* learn_radio_clock@2x.png */,
+				34C5EC791E1DF43F005A2F9A /* learn_radio_clock@3x.png */,
 				627C87431D812FE500D2FC6E /* LearnRecommend */,
 				D066C1891D4A2D82009F1208 /* learn_head_icon@2x.png */,
 				D066C18A1D4A2D82009F1208 /* learn_head_icon@3x.png */,
 				D010F30C1D2A094000CA5D7C /* read_icon@2x.png */,
-				D005916C1D253FDF00F91692 /* australia@2x.png */,
-				D005916D1D253FDF00F91692 /* fox@2x.png */,
+				D005916C1D253FDF00F91692 /* Radio Australia@2x.png */,
+				D005916D1D253FDF00F91692 /* FOX News@2x.png */,
 				D077C5101D1D264B00303A90 /* banner_dot_noamal@2x.png */,
 				D077C5111D1D264B00303A90 /* banner_dot_selected@2x.png */,
 				D01D88151D1A8DFD004B7F0F /* learn_add@2x.png */,
@@ -4817,13 +4873,13 @@
 				D07EB1D01D17D63300840AC2 /* close@2x.png */,
 				D07EB1CC1D17D2DD00840AC2 /* learn_delete@2x.png */,
 				D07EB1C31D17824200840AC2 /* play@2x.png */,
-				D07E24471D12BFD100854B51 /* bbc@2x.png */,
+				D07E24471D12BFD100854B51 /* BBC@2x.png */,
 				D07E24481D12BFD100854B51 /* cctalk@2x.png */,
-				D07E24491D12BFD100854B51 /* cnn@2x.png */,
-				D07E244A1D12BFD100854B51 /* lbc@2x.png */,
-				D07E244B1D12BFD100854B51 /* npr@2x.png */,
-				D07E244C1D12BFD100854B51 /* ted@2x.png */,
-				D07E244D1D12BFD100854B51 /* voa@2x.png */,
+				D07E24491D12BFD100854B51 /* CNN@2x.png */,
+				D07E244A1D12BFD100854B51 /* LBC@2x.png */,
+				D07E244B1D12BFD100854B51 /* NPR@2x.png */,
+				D07E244C1D12BFD100854B51 /* TED@2x.png */,
+				D07E244D1D12BFD100854B51 /* VOA@2x.png */,
 				D07E242C1D12433A00854B51 /* like@2x.png */,
 				D07E242D1D12433A00854B51 /* msg@2x.png */,
 				DA7674EB1C27F21A00A34D9C /* cha@2x.png */,
@@ -4847,6 +4903,7 @@
 		26D99D4E1C0C4D7B007AF579 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				348EF2041E1B99020046A529 /* PlayRadio */,
 				62BE73691D5B249700A83766 /* inform@2x.png */,
 				62BE736A1D5B249700A83766 /* inform@3x.png */,
 				62BE735C1D5B1FF000A83766 /* tongzhi@3x.png */,
@@ -5183,9 +5240,9 @@
 		26D99DAD1C0C4D7B007AF579 /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				34C5EC711E1CFFB6005A2F9A /* SVSegmentedControl */,
 				34F756A41E12869900A1C0DD /* AMPopTip */,
 				34B360B91E039CD8000A1296 /* AFNetworking */,
-				D0BD3F101D6474AA0010D9BB /* RAMAnimatedTabBarController */,
 				D0C97B871D5C8E9F00B62219 /* SCLAlertView */,
 				D05842021D47296A006859B9 /* ShareSDK */,
 				D08352501D2F92950094AC2E /* JSONKit */,
@@ -5616,6 +5673,7 @@
 		26D99E901C0C4D7B007AF579 /* MineView */ = {
 			isa = PBXGroup;
 			children = (
+				348EF2031E1B82980046A529 /* MineRadioPlanCell */,
 				62DDA0811D5853D8005C2CEB /* MineHeadTableView */,
 				62B666191D49FAA300660E1D /* MineRecommended */,
 				626D3F091D489A4200724000 /* MineChat */,
@@ -5718,6 +5776,64 @@
 			name = EnergyPostView;
 			sourceTree = "<group>";
 		};
+		3402F89A1E1501C600202365 /* RadioNotificationController */ = {
+			isa = PBXGroup;
+			children = (
+				3402F89B1E1501D400202365 /* RadioNotificationController.h */,
+				3402F89C1E1501D400202365 /* RadioNotificationController.m */,
+			);
+			path = RadioNotificationController;
+			sourceTree = "<group>";
+		};
+		3402F8A31E15305100202365 /* ECRadioNotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				3402F8A41E15305100202365 /* NotificationService.h */,
+				3402F8A51E15305100202365 /* NotificationService.m */,
+				3402F8A71E15305100202365 /* Info.plist */,
+			);
+			path = ECRadioNotificationService;
+			sourceTree = "<group>";
+		};
+		348EF1F81E1B6D670046A529 /* RadioPlan */ = {
+			isa = PBXGroup;
+			children = (
+				34C5EC621E1CBDFB005A2F9A /* RadioPlaySettingVC.h */,
+				34C5EC631E1CBDFB005A2F9A /* RadioPlaySettingVC.m */,
+				34C5EC641E1CBDFB005A2F9A /* RadioPlaySettingVC.xib */,
+				348EF1F91E1B6E4B0046A529 /* RadioDurationTimeVC.h */,
+				348EF1FA1E1B6E4B0046A529 /* RadioDurationTimeVC.m */,
+				348EF1FB1E1B6E4B0046A529 /* RadioDurationTimeVC.xib */,
+				34C5EC671E1CD159005A2F9A /* RadioChooseItemVC.h */,
+				34C5EC681E1CD159005A2F9A /* RadioChooseItemVC.m */,
+				34C5EC691E1CD159005A2F9A /* RadioChooseItemVC.xib */,
+				34C5EC6C1E1CFE13005A2F9A /* RadioSetTimeVC.h */,
+				34C5EC6D1E1CFE13005A2F9A /* RadioSetTimeVC.m */,
+				34C5EC6E1E1CFE13005A2F9A /* RadioSetTimeVC.xib */,
+			);
+			path = RadioPlan;
+			sourceTree = "<group>";
+		};
+		348EF2031E1B82980046A529 /* MineRadioPlanCell */ = {
+			isa = PBXGroup;
+			children = (
+				348EF1FE1E1B82860046A529 /* RadioPlanCell.h */,
+				348EF1FF1E1B82860046A529 /* RadioPlanCell.m */,
+				348EF2001E1B82860046A529 /* RadioPlanCell.xib */,
+			);
+			path = MineRadioPlanCell;
+			sourceTree = "<group>";
+		};
+		348EF2041E1B99020046A529 /* PlayRadio */ = {
+			isa = PBXGroup;
+			children = (
+				348EF2051E1B99020046A529 /* mine_playradio_checked_bg@2x.png */,
+				348EF2061E1B99020046A529 /* mine_playradio_switch_button@2x.png */,
+				348EF2071E1B99020046A529 /* mine_playradio_time_checked@2x.png */,
+			);
+			path = PlayRadio;
+			sourceTree = "<group>";
+		};
 		34B360B51E02AF92000A1296 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -5747,6 +5863,17 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		34C5EC711E1CFFB6005A2F9A /* SVSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				34C5EC721E1CFFB6005A2F9A /* SVSegmentedControl.h */,
+				34C5EC731E1CFFB6005A2F9A /* SVSegmentedControl.m */,
+				34C5EC741E1CFFB6005A2F9A /* SVSegmentedThumb.h */,
+				34C5EC751E1CFFB6005A2F9A /* SVSegmentedThumb.m */,
+			);
+			path = SVSegmentedControl;
+			sourceTree = "<group>";
+		};
 		34F756A41E12869900A1C0DD /* AMPopTip */ = {
 			isa = PBXGroup;
 			children = (
@@ -5763,6 +5890,15 @@
 				34F756AF1E12869900A1C0DD /* AMPopTipDefaults.h */,
 			);
 			path = AMPopTip;
+			sourceTree = "<group>";
+		};
+		34F756B51E13C55F00A1C0DD /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				34F756B61E13C5AD00A1C0DD /* RadioClockModel.h */,
+				34F756B71E13C5AD00A1C0DD /* RadioClockModel.m */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		6202B1651D62FF9A000F7F39 /* off */ = {
@@ -5991,6 +6127,7 @@
 		6293337A1D2B5E830085AE82 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				348EF1F81E1B6D670046A529 /* RadioPlan */,
 				625902271D2CF99C00F3F13C /* AccountManage */,
 				62EDB8061D34D39D00D6F772 /* About */,
 				6259021E1D2BB0EF00F3F13C /* SettingTableViewController.h */,
@@ -6002,6 +6139,12 @@
 		6293337E1D2B61300085AE82 /* MineSettingView */ = {
 			isa = PBXGroup;
 			children = (
+				3402F8B41E16608600202365 /* SettingRadioCell.h */,
+				3402F8B51E16608600202365 /* SettingRadioCell.m */,
+				3402F8B61E16608600202365 /* SettingRadioCell.xib */,
+				3402F8B91E1663DF00202365 /* SettingPlayRadioCell.h */,
+				3402F8BA1E1663DF00202365 /* SettingPlayRadioCell.m */,
+				3402F8BB1E1663DF00202365 /* SettingPlayRadioCell.xib */,
 				6259020A1D2B92B300F3F13C /* SettingOneViewCell.h */,
 				6259020B1D2B92B300F3F13C /* SettingOneViewCell.m */,
 				6259020C1D2B92B300F3F13C /* SettingOneViewCell.xib */,
@@ -7221,77 +7364,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		D0BD3F101D6474AA0010D9BB /* RAMAnimatedTabBarController */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F111D6474AA0010D9BB /* Animations */,
-				D0BD3F1C1D6474AA0010D9BB /* RAMAnimatedTabBarController.swift */,
-				D0BD3F1D1D6474AA0010D9BB /* RAMBadge */,
-				D0BD3F1F1D6474AA0010D9BB /* RAMItemAnimationProtocol.swift */,
-			);
-			path = RAMAnimatedTabBarController;
-			sourceTree = "<group>";
-		};
-		D0BD3F111D6474AA0010D9BB /* Animations */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F121D6474AA0010D9BB /* BounceAnimation */,
-				D0BD3F141D6474AA0010D9BB /* FrameAnimation */,
-				D0BD3F161D6474AA0010D9BB /* FumeAnimation */,
-				D0BD3F181D6474AA0010D9BB /* RotationAnimation */,
-				D0BD3F1A1D6474AA0010D9BB /* TransitionAniamtions */,
-			);
-			path = Animations;
-			sourceTree = "<group>";
-		};
-		D0BD3F121D6474AA0010D9BB /* BounceAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F131D6474AA0010D9BB /* RAMBounceAnimation.swift */,
-			);
-			path = BounceAnimation;
-			sourceTree = "<group>";
-		};
-		D0BD3F141D6474AA0010D9BB /* FrameAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F151D6474AA0010D9BB /* RAMFrameItemAnimation.swift */,
-			);
-			path = FrameAnimation;
-			sourceTree = "<group>";
-		};
-		D0BD3F161D6474AA0010D9BB /* FumeAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F171D6474AA0010D9BB /* RAMFumeAnimation.swift */,
-			);
-			path = FumeAnimation;
-			sourceTree = "<group>";
-		};
-		D0BD3F181D6474AA0010D9BB /* RotationAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F191D6474AA0010D9BB /* RAMRotationAnimation.swift */,
-			);
-			path = RotationAnimation;
-			sourceTree = "<group>";
-		};
-		D0BD3F1A1D6474AA0010D9BB /* TransitionAniamtions */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F1B1D6474AA0010D9BB /* RAMTransitionItemAnimations.swift */,
-			);
-			path = TransitionAniamtions;
-			sourceTree = "<group>";
-		};
-		D0BD3F1D1D6474AA0010D9BB /* RAMBadge */ = {
-			isa = PBXGroup;
-			children = (
-				D0BD3F1E1D6474AA0010D9BB /* RAMBadge.swift */,
-			);
-			path = RAMBadge;
-			sourceTree = "<group>";
-		};
 		D0BEF3271D22A01600F1985C /* SDAutoLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -8251,6 +8323,7 @@
 				2609B0031C02DD2A0006BC02 /* Frameworks */,
 				2609B0021C02DD2A0006BC02 /* Sources */,
 				2609B0041C02DD2A0006BC02 /* Resources */,
+				3402F8AE1E15305100202365 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -8291,6 +8364,7 @@
 					2609B0051C02DD2A0006BC02 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = V39449673K;
+						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -8385,6 +8459,7 @@
 				26D8B2061C0FEEE900A1DB04 /* 10_2@2x.png in Resources */,
 				D08352211D2D25340094AC2E /* CommentCollectionCell.xib in Resources */,
 				DA3190E31C22A54D00972F63 /* loginqq@2x.png in Resources */,
+				34C5EC661E1CBDFB005A2F9A /* RadioPlaySettingVC.xib in Resources */,
 				DA9A953E1C23ABEE00FBE107 /* nengliangquan@3x.png in Resources */,
 				DAE034E81C182181007E6DBD /* cai02_@3x.png in Resources */,
 				26D8B13A1C0FE81900A1DB04 /* cai_pressed@3x.png in Resources */,
@@ -8426,11 +8501,13 @@
 				D029BC071D361B9900B20D65 /* ec_comment_bg@2x.png in Resources */,
 				DAE034ED1C182181007E6DBD /* 35pen_@2x.png in Resources */,
 				26D8B2261C0FEEE900A1DB04 /* 18_2@2x.png in Resources */,
+				34C5EC7A1E1DF43F005A2F9A /* learn_radio_clock@2x.png in Resources */,
 				D07E24961D14173D00854B51 /* ColumCell.xib in Resources */,
 				D00AD7D41D4B451B004AB05A /* 2_023.png in Resources */,
 				6202B18D1D62FF9A000F7F39 /* onWechat@2x.png in Resources */,
 				D07E242F1D12433A00854B51 /* msg@2x.png in Resources */,
 				D029BC621D38B6DD00B20D65 /* ec_like_selected@3x.png in Resources */,
+				348EF2091E1B99020046A529 /* mine_playradio_switch_button@2x.png in Resources */,
 				DA677B781C3A6E11004A534E /* QDDT00014.png in Resources */,
 				62367E1D1D6AD11B00272505 /* retry@3x.png in Resources */,
 				26D8B27E1C10081100A1DB04 /* road_2@2x.png in Resources */,
@@ -8465,7 +8542,7 @@
 				DA8103A51C2BABD300CFFF44 /* loginicon@2x.png in Resources */,
 				D00AD7C81D4B451B004AB05A /* 2_011.png in Resources */,
 				625750EF1D33886400E46B2E /* paihang@3x.png in Resources */,
-				D07E24501D12BFD100854B51 /* cnn@2x.png in Resources */,
+				D07E24501D12BFD100854B51 /* CNN@2x.png in Resources */,
 				DA7674DE1C27CB2D00A34D9C /* SoicalTableViewCell.xib in Resources */,
 				DA7674CD1C27A68600A34D9C /* NewsTwoViewCell.xib in Resources */,
 				26E987671C0D6BD100C6A7BB /* EnergyPostViewCell.xib in Resources */,
@@ -8485,6 +8562,7 @@
 				D07EB1C41D17824200840AC2 /* play@2x.png in Resources */,
 				26D8B1FC1C0FEEE900A1DB04 /* 08_1@2x.png in Resources */,
 				62DDA0981D585707005C2CEB /* recommended@3x.png in Resources */,
+				34C5EC701E1CFE13005A2F9A /* RadioSetTimeVC.xib in Resources */,
 				DA9A95461C23ABEE00FBE107 /* tuijian@3x.png in Resources */,
 				DA677B8C1C3A6E11004A534E /* QDDT00034.png in Resources */,
 				DAE034D31C182181007E6DBD /* 3cai_@2x.png in Resources */,
@@ -8533,7 +8611,7 @@
 				DAE034D41C182181007E6DBD /* 3cai_@3x.png in Resources */,
 				D029BC211D3737E000B20D65 /* tabbar_normal_4@2x.png in Resources */,
 				D029BC2E1D37571E00B20D65 /* tabbar_normal_1@3x.png in Resources */,
-				D07E24531D12BFD100854B51 /* ted@2x.png in Resources */,
+				D07E24531D12BFD100854B51 /* TED@2x.png in Resources */,
 				626B803C1E0A24D70097CFA5 /* 150signIn_0@2x.png in Resources */,
 				26E987D61C0DAE4000C6A7BB /* blackback_pressed@2x.png in Resources */,
 				DA9A95381C23ABEE00FBE107 /* jinjiepk@3x.png in Resources */,
@@ -8574,6 +8652,7 @@
 				DA3190E41C22A54D00972F63 /* loginqq@3x.png in Resources */,
 				62724E691D41BBE800E84202 /* more@3x.png in Resources */,
 				626B80451E0A24D70097CFA5 /* 30signIn_0@3x.png in Resources */,
+				348EF1FD1E1B6E4B0046A529 /* RadioDurationTimeVC.xib in Resources */,
 				625AD2951D94D99200435FC2 /* ecphoto_unselected@2x.png in Resources */,
 				34F7569D1E11298500A1C0DD /* ec_sift_comment@3x.png in Resources */,
 				62EE48D81D7D193400012359 /* BadgeRulesCollectionViewCell.xib in Resources */,
@@ -8608,6 +8687,8 @@
 				26D8B2301C0FEEE900A1DB04 /* 21_1@2x.png in Resources */,
 				26E987E51C0DAE4000C6A7BB /* Rectangle @3x.png in Resources */,
 				626B80591E0A30AD0097CFA5 /* subscript_150signIn@3x.png in Resources */,
+				348EF2021E1B82860046A529 /* RadioPlanCell.xib in Resources */,
+				348EF20A1E1B99020046A529 /* mine_playradio_time_checked@2x.png in Resources */,
 				26D99F1B1C0C4D7C007AF579 /* SVProgressHUD.bundle in Resources */,
 				626B80581E0A30AD0097CFA5 /* subscript_150signIn@2x.png in Resources */,
 				D07EB2921D18DE6800840AC2 /* chat_send_message.png in Resources */,
@@ -8645,7 +8726,7 @@
 				DA677B7B1C3A6E11004A534E /* QDDT00017.png in Resources */,
 				DAAEC70F1C1FED4C00FA094B /* MineTwoViewCell.xib in Resources */,
 				D00AD7C91D4B451B004AB05A /* 2_012.png in Resources */,
-				D07E24521D12BFD100854B51 /* npr@2x.png in Resources */,
+				D07E24521D12BFD100854B51 /* NPR@2x.png in Resources */,
 				26E987E11C0DAE4000C6A7BB /* jia_normal@3x.png in Resources */,
 				DA9A23491C43B8AC0012265D /* weixin@3x.png in Resources */,
 				DA677B791C3A6E11004A534E /* QDDT00015.png in Resources */,
@@ -8708,6 +8789,7 @@
 				D00AD7D21D4B451B004AB05A /* 2_021.png in Resources */,
 				62E31A5B1D6DB0BC00F1D7C5 /* score_30@2x.png in Resources */,
 				DA677B721C3A6E11004A534E /* QDDT00008.png in Resources */,
+				34C5EC6B1E1CD159005A2F9A /* RadioChooseItemVC.xib in Resources */,
 				26D8B2071C0FEEE900A1DB04 /* 10_2@3x.png in Resources */,
 				DA937D551C44FDA900F174F6 /* touxiang@2x.png in Resources */,
 				D029BC221D3737E000B20D65 /* tabbar_pressed_1@2x.png in Resources */,
@@ -8793,7 +8875,7 @@
 				D083520A1D2CF91B0094AC2E /* 10weibo@2x.png in Resources */,
 				D00AD7DA1D4B451B004AB05A /* 2_029.png in Resources */,
 				26D8B2501C0FEEE900A1DB04 /* 29_1@2x.png in Resources */,
-				D07E24541D12BFD100854B51 /* voa@2x.png in Resources */,
+				D07E24541D12BFD100854B51 /* VOA@2x.png in Resources */,
 				DA9A95281C23ABEE00FBE107 /* hongdian@3x.png in Resources */,
 				DAF48DC41C1E8B0C00D9C136 /* xiangxiajiantou@3x.png in Resources */,
 				D07804B21D4EF40B001C432B /* ec_article_placeholder@2x.png in Resources */,
@@ -8845,6 +8927,7 @@
 				D07EB28E1D18DE6800840AC2 /* chat_animation_white3.png in Resources */,
 				626B80441E0A24D70097CFA5 /* 30signIn_0@2x.png in Resources */,
 				26D8B20E1C0FEEE900A1DB04 /* 12_2@2x.png in Resources */,
+				348EF2081E1B99020046A529 /* mine_playradio_checked_bg@2x.png in Resources */,
 				DA7675181C27F6FC00A34D9C /* InterMallCollectionViewCell.xib in Resources */,
 				263618541C0478DA00D26BE6 /* PushConfig.plist in Resources */,
 				625AD2981D94D99200435FC2 /* ecpicker_drop@3x.png in Resources */,
@@ -8855,6 +8938,7 @@
 				26D8B24F1C0FEEE900A1DB04 /* 28_2@3x.png in Resources */,
 				DA9A95431C23ABEE00FBE107 /* shenqing@2x.png in Resources */,
 				626B803F1E0A24D70097CFA5 /* 200signIn_0@3x.png in Resources */,
+				3402F8BD1E1663DF00202365 /* SettingPlayRadioCell.xib in Resources */,
 				62367E251D6ADDD400272505 /* PkSummaryTableViewCell.xib in Resources */,
 				26E987551C0D49CB00C6A7BB /* SignInOneCollectionViewCell.xib in Resources */,
 				626B80631E0BD7120097CFA5 /* 250signIn@3x.png in Resources */,
@@ -8873,7 +8957,7 @@
 				DA7675041C27F39900A34D9C /* 03xuanzhe@2x.png in Resources */,
 				26E987E91C0DAE4000C6A7BB /* video 1@3x.png in Resources */,
 				62EDB8041D34D0B000D6F772 /* AboutTableViewCell.xib in Resources */,
-				D07E24511D12BFD100854B51 /* lbc@2x.png in Resources */,
+				D07E24511D12BFD100854B51 /* LBC@2x.png in Resources */,
 				DAE1A47C1C196B58006FE119 /* OtherUserTableViewCell.xib in Resources */,
 				6202B1811D62FF9A000F7F39 /* offQQ@2x.png in Resources */,
 				6202B17E1D62FF9A000F7F39 /* offMoments@3x.png in Resources */,
@@ -8928,7 +9012,7 @@
 				26D8B13B1C0FE81900A1DB04 /* pinglun_normal@2x.png in Resources */,
 				26D8B2721C0FEEE900A1DB04 /* 7@2x.png in Resources */,
 				26D8B22E1C0FEEE900A1DB04 /* 20_2@2x.png in Resources */,
-				D005916E1D253FDF00F91692 /* australia@2x.png in Resources */,
+				D005916E1D253FDF00F91692 /* Radio Australia@2x.png in Resources */,
 				DAF48DA81C1E530C00D9C136 /* yuedu_@2x.png in Resources */,
 				26D8B2561C0FEEE900A1DB04 /* 30_2@2x.png in Resources */,
 				26D8B2031C0FEEE900A1DB04 /* 09_2@3x.png in Resources */,
@@ -8994,6 +9078,7 @@
 				DA7D19C71C5AF84600FFB337 /* 5_1280x800.jpeg in Resources */,
 				626B80491E0A24D70097CFA5 /* 100signIn@3x.png in Resources */,
 				62FCE90F1D3CB2A500F52E05 /* addAttention@2x.png in Resources */,
+				34C5EC7B1E1DF43F005A2F9A /* learn_radio_clock@3x.png in Resources */,
 				DA2AE4841C2D29E400F2F182 /* GuidePage_1@2x.png in Resources */,
 				62DDA09A1D585707005C2CEB /* toDayPK@3x.png in Resources */,
 				626B804B1E0A24D70097CFA5 /* 200signIn@3x.png in Resources */,
@@ -9195,7 +9280,7 @@
 				626D3F0E1D489A6C00724000 /* MineChatTableViewCell.xib in Resources */,
 				62FE50A11D45DEE40082BD03 /* MineMessageTableViewCell.xib in Resources */,
 				DAE035051C182181007E6DBD /* NO3_@2x.png in Resources */,
-				D07E244E1D12BFD100854B51 /* bbc@2x.png in Resources */,
+				D07E244E1D12BFD100854B51 /* BBC@2x.png in Resources */,
 				DA3190E81C22A54D00972F63 /* loginweixin@3x.png in Resources */,
 				D07EB2A81D18E5E900840AC2 /* learn_category_normal@2x.png in Resources */,
 				D059BD721D1A352800BDE5E6 /* share_icon@2x.png in Resources */,
@@ -9220,7 +9305,6 @@
 				D08352001D2CB1D90094AC2E /* ec_share@2x.png in Resources */,
 				DA796B351C7AB8A40076C52B /* zoom@2x.png in Resources */,
 				D07804C61D51D5A2001C432B /* InfoPlist.strings in Resources */,
-				DAA8DBD61C97A9020011EB7E /* placepic@2x.png in Resources */,
 				26D26FE31C118C8B008511A9 /* LearnShowCollectionViewCell.xib in Resources */,
 				D05842271D47296A006859B9 /* ShareSDKUI.bundle in Resources */,
 				D05A95B11D62B8030063AD41 /* ec_contact_unselected@2x.png in Resources */,
@@ -9278,11 +9362,10 @@
 				D00AD7DC1D4B451B004AB05A /* 2_031.png in Resources */,
 				26D8B2701C0FEEE900A1DB04 /* 6@2x.png in Resources */,
 				34B360CE1E093A5D000A1296 /* https.cer in Resources */,
-				D005916F1D253FDF00F91692 /* fox@2x.png in Resources */,
+				D005916F1D253FDF00F91692 /* FOX News@2x.png in Resources */,
 				DA9A23431C43B8890012265D /* weibo@3x.png in Resources */,
 				D00AD7E21D4B451B004AB05A /* 2_037.png in Resources */,
 				DA3190E91C22A54D00972F63 /* loginxianshi@2x.png in Resources */,
-				DAA8DBD71C97A9020011EB7E /* placepic@3x.png in Resources */,
 				D07EB2721D18DE6800840AC2 /* messageBubbleGray@2x.png in Resources */,
 				627C875A1D815E0200D2FC6E /* ToDay_BottomPost@3x.png in Resources */,
 				DA937D511C44FA7A00F174F6 /* EveryDayPKViewCell.xib in Resources */,
@@ -9301,6 +9384,7 @@
 				D029BC1F1D3737E000B20D65 /* tabbar_normal_2@2x.png in Resources */,
 				627C87591D815E0200D2FC6E /* ToDay_BottomPost@2x.png in Resources */,
 				26E9876D1C0D6C8100C6A7BB /* EnergyPostOneViewCell.xib in Resources */,
+				3402F8B81E16608600202365 /* SettingRadioCell.xib in Resources */,
 				D07EB2681D18DE6800840AC2 /* icon_avatar_default_big@2x.png in Resources */,
 				DA9A953F1C23ABEE00FBE107 /* nengliangyuan@2x.png in Resources */,
 				626B805B1E0A30AD0097CFA5 /* subscript_250signIn@3x.png in Resources */,
@@ -9358,6 +9442,7 @@
 				D07EB2A21D18DE6800840AC2 /* UUMessageFrame.m in Sources */,
 				DA7674E61C27DDF300A34D9C /* CoustomGiftView.m in Sources */,
 				D04B54881D23C7C400DC259A /* SDBaseTableViewController.m in Sources */,
+				34C5EC651E1CBDFB005A2F9A /* RadioPlaySettingVC.m in Sources */,
 				DA82CD011C3D0FBD00C6D8EA /* LearnTabModel.m in Sources */,
 				628C74E51D795AD8002C9FCF /* MineHomeView.m in Sources */,
 				D0C97B9E1D5C8E9F00B62219 /* SCLTextView.m in Sources */,
@@ -9389,8 +9474,10 @@
 				DA8AFF6C1C2A97740064B9A7 /* MineRecViewCell.m in Sources */,
 				D06215DC1D6C4CE300D3845E /* pinyin.m in Sources */,
 				26D99EFF1C0C4D7C007AF579 /* SBJsonParser.m in Sources */,
+				3402F89D1E1501D400202365 /* RadioNotificationController.m in Sources */,
 				D07EB2861D18DE6800840AC2 /* UIView+AnimationOptionsForCurve.m in Sources */,
 				D07D2EDA1D0FD6CC00AF35B1 /* MASViewConstraint.m in Sources */,
+				34C5EC771E1CFFB6005A2F9A /* SVSegmentedThumb.m in Sources */,
 				D04B54D21D23C90D00DC259A /* MLTextAttachment.m in Sources */,
 				DA7674CC1C27A68600A34D9C /* NewsTwoViewCell.m in Sources */,
 				D04B547C1D23C75700DC259A /* SDTimeLineRefreshFooter.m in Sources */,
@@ -9500,13 +9587,13 @@
 				DA677B351C3A0F57004A534E /* TheAdvTabModel.m in Sources */,
 				D05A95A11D61B8C20063AD41 /* ECContactCell.m in Sources */,
 				D07E248A1D13EFE900854B51 /* PopColumView.m in Sources */,
-				D0BD3F251D6474AA0010D9BB /* RAMAnimatedTabBarController.swift in Sources */,
 				DAA9E6911C571F5800BB0436 /* CustomButton.m in Sources */,
 				26D99E971C0C4D7B007AF579 /* LearnViewController.m in Sources */,
 				DA5D7D611CA236D900FF5378 /* OtherUserFenSiViewController.m in Sources */,
 				DA5D7D651CA23C5300FF5378 /* OtherUserShowViewCell.m in Sources */,
 				26D99EF31C0C4D7C007AF579 /* MJRefreshBackNormalFooter.m in Sources */,
 				DA6F79351C34F1740095C82F /* RecordModel.m in Sources */,
+				34F756B81E13C5AD00A1C0DD /* RadioClockModel.m in Sources */,
 				DA9125001C2940730018DBAF /* MyImageView.m in Sources */,
 				627F76F81D38D9EF00552B96 /* IntroViewController.m in Sources */,
 				DA68D5B71C96A1680073E0F6 /* MineEnergyShowThreeViewCell.m in Sources */,
@@ -9530,11 +9617,11 @@
 				62EE48DC1D7D22DB00012359 /* TheAdvPKDetailVC.m in Sources */,
 				26D99EAB1C0C4D7B007AF579 /* UIView+Extension.m in Sources */,
 				26D26FCC1C118626008511A9 /* LearnDetailViewController.m in Sources */,
-				D0BD3F201D6474AA0010D9BB /* RAMBounceAnimation.swift in Sources */,
 				625AD2831D9295B300435FC2 /* ECPickerController.m in Sources */,
 				62FCE9191D3CC52D00F52E05 /* AttentionAndFansModel.m in Sources */,
 				D07E24221D11554700854B51 /* OtherCell.m in Sources */,
 				D07D2EAD1D0FA0C700AF35B1 /* ScrollTagView.m in Sources */,
+				348EF2011E1B82860046A529 /* RadioPlanCell.m in Sources */,
 				26D99ECE1C0C4D7B007AF579 /* IQNSArray+Sort.m in Sources */,
 				D07E24851D13DB2300854B51 /* SDCycleScrollView.m in Sources */,
 				26D99EE31C0C4D7C007AF579 /* JSONAPI.m in Sources */,
@@ -9624,7 +9711,6 @@
 				26CB28CB1C1146590065083D /* CustomTextView.m in Sources */,
 				DA7674D81C27C97C00A34D9C /* SocialCollectionViewCell.m in Sources */,
 				DAC4D0AD1C4C95A000BCC979 /* CityDataManager.m in Sources */,
-				D0BD3F231D6474AA0010D9BB /* RAMRotationAnimation.swift in Sources */,
 				26E987421C0D382400C6A7BB /* ReportEveryPKViewController.m in Sources */,
 				D05A95B91D62E52D0063AD41 /* ECContactSelectedCell.m in Sources */,
 				D02F3B461D90EDCD00455A8E /* EnergyPostShareView.m in Sources */,
@@ -9649,12 +9735,10 @@
 				DAC4D0BA1C4C95AA00BCC979 /* FMDatabase.m in Sources */,
 				34F756B31E12869900A1C0DD /* AMPopTip+Exit.m in Sources */,
 				26D99F131C0C4D7C007AF579 /* UIButton+WebCache.m in Sources */,
-				D0BD3F221D6474AA0010D9BB /* RAMFumeAnimation.swift in Sources */,
 				26D99F121C0C4D7C007AF579 /* SDWebImagePrefetcher.m in Sources */,
 				DAAEC6CD1C1FAA7900FA094B /* LearnCustomChooseClassView.m in Sources */,
 				DA68D5B91C96A1680073E0F6 /* MineEnergyShowTwoViewCell.m in Sources */,
 				26D26FCF1C118651008511A9 /* CourseViewController.m in Sources */,
-				D0BD3F241D6474AA0010D9BB /* RAMTransitionItemAnimations.swift in Sources */,
 				DA68D5A71C9680310073E0F6 /* OtherUserEDPKViewController.m in Sources */,
 				D0BEF3131D20DAEA00F1985C /* ECViewController.m in Sources */,
 				625750A61D33493600E46B2E /* MineTableViewController.m in Sources */,
@@ -9677,6 +9761,7 @@
 				D05A95A81D61EB890063AD41 /* NSString+Utils.m in Sources */,
 				DAAEC6D11C1FB0C400FA094B /* CourseChooseTableViewCell.m in Sources */,
 				620720F61D472AD700C4F73D /* GetMessageModel.m in Sources */,
+				348EF1FC1E1B6E4B0046A529 /* RadioDurationTimeVC.m in Sources */,
 				D07E240A1D111AC600854B51 /* HealthModel.m in Sources */,
 				DAF48DBF1C1E72A000D9C136 /* CourseRegThrViewCell.m in Sources */,
 				D05A959C1D61AD500063AD41 /* ECContactVC.m in Sources */,
@@ -9717,6 +9802,7 @@
 				26D99ED31C0C4D7B007AF579 /* IQKeyboardManager.m in Sources */,
 				DA4459CC1C21364A0069415D /* RecommentViewController.m in Sources */,
 				DA7675271C280EE100A34D9C /* RecordTableViewCell.m in Sources */,
+				34C5EC6A1E1CD159005A2F9A /* RadioChooseItemVC.m in Sources */,
 				6202B1941D631306000F7F39 /* ReportPostingTableViewCell.m in Sources */,
 				26D99ED41C0C4D7B007AF579 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				D04B54D71D23C90D00DC259A /* MLLinkLabel.m in Sources */,
@@ -9740,6 +9826,7 @@
 				62C99F381D37A77A0032E83C /* EnergyPostTableViewController.m in Sources */,
 				D07EB25B1D18DE6800840AC2 /* Emoji.m in Sources */,
 				D06215DF1D6E891A00D3845E /* SLALertManager.m in Sources */,
+				34C5EC6F1E1CFE13005A2F9A /* RadioSetTimeVC.m in Sources */,
 				62DDA0851D5854A0005C2CEB /* MineHeadViewTableViewCell.m in Sources */,
 				D07E24801D13DB2300854B51 /* TAAbstractDotView.m in Sources */,
 				DA7D19C31C5AF84600FFB337 /* NSString+XHMD5.m in Sources */,
@@ -9788,11 +9875,12 @@
 				D07D2ED61D0FD6CC00AF35B1 /* MASConstraint.m in Sources */,
 				DA7D19CB1C5AF84600FFB337 /* XHCacheManager.m in Sources */,
 				62F109F81DC3204F00AFB806 /* RadioModel.m in Sources */,
+				3402F8BC1E1663DF00202365 /* SettingPlayRadioCell.m in Sources */,
 				DAE1A4761C196415006FE119 /* ReportThrTableViewCell.m in Sources */,
 				26D99F1D1C0C4D7C007AF579 /* SVRadialGradientLayer.m in Sources */,
-				D0BD3F211D6474AA0010D9BB /* RAMFrameItemAnimation.swift in Sources */,
 				26D99EA31C0C4D7B007AF579 /* BaseTableViewController.m in Sources */,
 				DA9124311C2917FE0018DBAF /* RecordDetailViewController.m in Sources */,
+				3402F8B71E16608600202365 /* SettingRadioCell.m in Sources */,
 				34B360CB1E039CD8000A1296 /* AFURLResponseSerialization.m in Sources */,
 				34B360B81E02B034000A1296 /* HttpsWebViewProtocol.m in Sources */,
 				D07EB25C1D18DE6800840AC2 /* EmojiEmoticons.m in Sources */,
@@ -9816,11 +9904,9 @@
 				26D99EA91C0C4D7B007AF579 /* UIImage+Extension.m in Sources */,
 				62EDB8091D34D3CF00D6F772 /* AboutViewController.m in Sources */,
 				26D99ECF1C0C4D7B007AF579 /* IQUITextFieldView+Additions.m in Sources */,
-				D0BD3F271D6474AA0010D9BB /* RAMItemAnimationProtocol.swift in Sources */,
 				DA7CE5551C3E38BF00272952 /* NSDate+Additions.m in Sources */,
 				DAE033831C181294007E6DBD /* TheAdvThrViewCell.m in Sources */,
 				D04B54601D23BEDF00DC259A /* ECTimeLineModel.m in Sources */,
-				D0BD3F261D6474AA0010D9BB /* RAMBadge.swift in Sources */,
 				26D99F221C0C4D7C007AF579 /* EnergyShowOneViewCell.m in Sources */,
 				625902361D2CFB6100F3F13C /* InputPasswordViewController.m in Sources */,
 				626D3F111D48A29400724000 /* ChatTableViewCell.m in Sources */,
@@ -9925,6 +10011,7 @@
 				DA4459BC1C2114B20069415D /* RegisterViewController.m in Sources */,
 				D05B9CF01D34961C00A88A10 /* ECNavMenuCell.m in Sources */,
 				26D99E9D1C0C4D7B007AF579 /* PKViewController.m in Sources */,
+				34C5EC761E1CFFB6005A2F9A /* SVSegmentedControl.m in Sources */,
 				DAA9E68E1C57149500BB0436 /* ServerModel.m in Sources */,
 				DA827FD71C48D0F8006E2704 /* LearnCommentModel.m in Sources */,
 				DA7AC8CC1C3FA1CB00CD97EE /* ReCiModel.m in Sources */,
@@ -10006,8 +10093,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -10029,7 +10116,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "38532ed1-fa20-4be6-8fff-394c6fee1f2c";
+				PROVISIONING_PROFILE = "e23c9884-554d-4f4a-b058-2509f7d8aa37";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -10052,8 +10139,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gong Hai (U5V584Z73H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gong Hai (U5V584Z73H)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -10068,7 +10155,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "38532ed1-fa20-4be6-8fff-394c6fee1f2c";
+				PROVISIONING_PROFILE = "466c1cb4-4b1b-4c85-a2f3-683f575509f7";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -10122,9 +10209,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "068dcfca-869e-4025-9fd8-c56e95f99975";
-				PROVISIONING_PROFILE_SPECIFIER = Energy_Cycle_Dev_12_28;
-				SWIFT_VERSION = 2.3;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = Energy_Cycle_Dev_12_29;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -10137,8 +10224,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = EnergyCycles/EnergyCycles.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Modern Elite Commerce Consultation Co., Ltd. (V39449673K)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = V39449673K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -10178,9 +10265,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Energy.Cycles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "466c1cb4-4b1b-4c85-a2f3-683f575509f7";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = EnergyCycle_AppStore;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
