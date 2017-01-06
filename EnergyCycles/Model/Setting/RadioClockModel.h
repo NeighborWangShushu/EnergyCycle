@@ -80,7 +80,6 @@ typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
 //minutes
 @property (nonatomic,assign)NSInteger minutes;
 
-
 //倒计时剩余时间
 @property (nonatomic)NSTimeInterval residueTime;
 

@@ -82,14 +82,9 @@
 - (void)addNotification:(RadioClockModel*)model {
     
     
-    
-    
 //    NSDateComponents *components = [[NSDateComponents alloc] init];
 //    components.hour = model.hour;
 //    components.minute = model.minutes;
-    
-    
-  
     
     
     NSArray * weekdayComponents= [model alertDateComponents];
@@ -97,7 +92,7 @@
     for (int i = 0; i < weekdayComponents.count; i++) {
         NSDateComponents *components = weekdayComponents[i];
         
-        NSString *imagePath = [[NSBundle mainBundle] pathForResource:model.channelName ofType:@"png"];
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@@2x",model.channelName] ofType:@"png"];
         
         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
         content.title = model.title;
