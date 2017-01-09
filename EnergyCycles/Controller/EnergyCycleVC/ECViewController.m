@@ -92,7 +92,7 @@
 @property (nonatomic,strong)NSMutableArray *menuDataArray;
 
 
-@property (nonatomic,strong)NSMutableArray * dataArray;
+@property (nonatomic,strong)NSMutableArray * dataArray; //精选
 @property (nonatomic,strong)NSMutableArray * commentArray;
 @property (nonatomic,strong)NSMutableArray * newerArray;
 @property (nonatomic,strong)NSMutableArray * attentionArray;
@@ -945,7 +945,6 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-
 //管理员权限弹窗
 - (UIView*)createMenuView:(NSIndexPath*)indexPath {
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 60)];
@@ -1173,9 +1172,30 @@
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
+// 取消置顶的代理方法实现
+- (void)cancelTopWithModel:(ECTimeLineModel *)model {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认取消置顶该动态吗?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[AppHttpManager shareInstance] sticklyArticleWithUrl:SticklyArticle PostOrGet:@"post" articleId:[model.ID integerValue] isChoice:0 token:User_TOKEN userId:[User_ID integerValue] success:^(NSDictionary *dict) {
+            [self.dataArray removeObject:model];
+            [self.tableView reloadData];
+        } failure:^(NSString *str) {
+            
+        }];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:alert completion:nil];
+    }];
+    [alert addAction:sureAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0 && pageType == 0) {
+        
         //精选动态
         ECSiftCell *cell = [tableView dequeueReusableCellWithIdentifier:kSiftTimeLineTableViewCellId];
         cell.delegate = self;

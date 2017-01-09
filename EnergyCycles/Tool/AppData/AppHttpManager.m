@@ -3045,7 +3045,7 @@ static AFHTTPSessionManager *manager;
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
     [dic setObject:token forKey:@"token"];
-    [dic setObject:[NSNumber numberWithBool:YES] forKey:@"IsChoice"];
+    [dic setObject:[NSNumber numberWithInteger:isChoice] forKey:@"IsChoice"];
     [dic setObject:[NSNumber numberWithInteger:articleId] forKey:@"ArticID"];
 
     
