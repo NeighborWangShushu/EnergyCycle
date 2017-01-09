@@ -10,6 +10,7 @@
 #import "SVSegmentedControl.h"
 #import "RadioChooseItemVC.h"
 #import "Masonry.h"
+#import "NSDate+Category.h"
 
 @interface RadioSetTimeVC ()<UIPickerViewDelegate,UIPickerViewDataSource>
 @property (nonatomic,strong)SVSegmentedControl *segmentedControl;
@@ -301,6 +302,7 @@
     //save
     self.model.hour = _hour;
     self.model.minutes = _minute;
+    self.model.weekdayOutRepeat = [[NSDate date] weekday];
     [self.model saveOrUpdate];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RADIOPLAYSETTINGMODELCHANGED" object:nil];
     [self.navigationController popViewControllerAnimated:YES];

@@ -56,6 +56,15 @@ AppDelegate *EnetgyCycle = nil;
     //退出登录
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUnLoginAPService:) name:@"isUnLoginSetAPService" object:nil];
     
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound|UNAuthorizationOptionAlert|UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+        }
+    }];
+    
+    center.delegate = self;
+    
     //注册推送
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
@@ -79,44 +88,6 @@ AppDelegate *EnetgyCycle = nil;
                                               categories:nil];
     }
     
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    center.delegate = self;
-    [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (!error) {
-            NSLog(@"request authorization succeeded!");
-        }
-    }];
-    
-    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-    content.title = @"Introduction to Notifications";
-    content.subtitle = @"Session 707";
-    content.body = @"Woah! These new notifications look amazing! Don’t you agree?";
-    content.badge = @1;
-    content.sound = [UNNotificationSound defaultSound];
-    content.categoryIdentifier = @"707";
-    
-
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"ec_manager_bg@2x" ofType:@"png"];
-    
-    // 5.依据 url 创建 attachment
-    UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:@"request_identifier1" URL:[NSURL fileURLWithPath:imagePath] options:nil error:nil];
-    content.attachments = @[attachment];
-    
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    components.weekday = 6;
-    components.hour = 15;
-    components.minute = 32;
-    UNCalendarNotificationTrigger *trigger3 = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];
-    
-    
-    NSString *requestIdentifier = @"sampleRequest";
-    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifier
-                                                                          content:content
-                                                                          trigger:trigger3];
-    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-        
-        
-    }];
     
     
     //如不需要使用IDFA，advertisingIdentifier 可为nil
@@ -309,8 +280,19 @@ AppDelegate *EnetgyCycle = nil;
 // iOS 10 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     // Required
-    NSDictionary * userInfo = response.notification.request.content.userInfo; if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo]; }
+    NSArray * notifications = [RadioClockModel findAll];
+    RadioClockModel*model = [notifications firstObject];
+    if (model) {
+        if ([response.notification.request.content.categoryIdentifier isEqualToString:model.identifier]) {
+            NSLog(@"收到通知%@",response.notification.request.content.categoryIdentifier);
+            [self.tabbarController setSelectIndex:2];
+        }
+    }
+   
+    
     completionHandler(); //
 }
 

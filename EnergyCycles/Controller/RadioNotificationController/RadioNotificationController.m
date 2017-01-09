@@ -9,7 +9,8 @@
 #import "RadioNotificationController.h"
 #import <UserNotifications/UserNotifications.h>
 
-@interface RadioNotificationController ()
+
+@interface RadioNotificationController ()<UNUserNotificationCenterDelegate>
 
 @property (nonatomic,assign)UNUserNotificationCenter * notificationCenter;
 
@@ -86,6 +87,8 @@
 //    components.hour = model.hour;
 //    components.minute = model.minutes;
     
+    [self.notificationCenter removeAllPendingNotificationRequests];
+    [self.notificationCenter removeAllDeliveredNotifications];
     
     NSArray * weekdayComponents= [model alertDateComponents];
     
@@ -105,7 +108,8 @@
             UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:model.identifier URL:[NSURL fileURLWithPath:imagePath] options:nil error:nil];
             content.attachments = @[attachment];
         }
-        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];
+        
+        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:model.isRepeat];
         UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:[NSString stringWithFormat:@"%i",i]
                                                                               content:content
                                                                               trigger:trigger];
@@ -113,18 +117,80 @@
         [self.notificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
             if (!error) {
                 NSLog(@"addNotificationRequest success");
-                
             }
-            
         }];
-    
+//        UNNotificationAction *action = [UNNotificationAction actionWithIdentifier:model.identifier title:@"收听" options:UNNotificationActionOptionForeground];
+//        
+//        UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:@"message" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+//        
+//        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithArray:@[category]]];
+
     }
+    
+    if (!weekdayComponents.count) {
+        [self addNotificationWithOutRepeat:model];
+    }
+    
     
 }
 
+- (void)addNotificationWithOutRepeat:(RadioClockModel*)model {
+    
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.weekday = model.weekdayOutRepeat;
+    components.hour = model.hour;
+    components.minute = model.minutes;
 
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@@2x",model.channelName] ofType:@"png"];
+    
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.title = model.title;
+    content.subtitle = model.subtitle;
+    content.body = model.body;
+    content.sound = [UNNotificationSound defaultSound];
+    content.categoryIdentifier = model.identifier;
+    // 5.依据 url 创建 attachment
+    if (imagePath) {
+        UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:model.identifier URL:[NSURL fileURLWithPath:imagePath] options:nil error:nil];
+        content.attachments = @[attachment];
+    }
+    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:model.isRepeat];
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:[NSString stringWithFormat:@"%@",model.identifier]
+                                                                          content:content
+                                                                          trigger:trigger];
+    
+    [self.notificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        if (!error) {
+            NSLog(@"addNotificationRequest success");
+        }
+    }];
+    
+//    UNNotificationAction *action = [UNNotificationAction actionWithIdentifier:model.identifier title:@"收听" options:UNNotificationActionOptionNone];
+//    
+//    UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:model.identifier actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+//    
+//    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithArray:@[category]]];
+    
 
+}
 
+- (void)findNotificationWithModel:(RadioClockModel *)model success:(void (^)(BOOL))isExist{
+    
+    __block BOOL exist = NO;
+  [self.notificationCenter getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+      
+      dispatch_sync(dispatch_get_main_queue(), ^{
+          for (UNNotification*r in requests) {
+              if ([r.request.content.categoryIdentifier isEqualToString:model.identifier]) {
+                  exist = YES;
+                  isExist(exist);
+              }
+          }
+      });
+      
+  }];
+    
+}
 
 - (void)removeAllNotifications {
     if (self.notificationCenter) {
@@ -151,6 +217,12 @@
     if (self.notificationCenter) {
         [self.notificationCenter removePendingNotificationRequestsWithIdentifiers:@[model.identifier]];
     }
+    
+}
+
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    NSLog(@"didReceiveNotificationResponse");
     
 }
 

@@ -11,6 +11,7 @@
 #import "NSDate+JKUtilities.h"
 #import "NSString+Utils.h"
 #import <UserNotifications/UserNotifications.h>
+#import "RadioNotificationController.h"
 
 #define RADIOTITLE @"能量圈"
 #define RADIOSUBTITLE @"一个暖心的提醒"
@@ -75,6 +76,7 @@
         }];
     }
     if (weekdays.length > 0) {
+        self.isRepeat = YES;
         return [weekdays substringWithRange:NSMakeRange(0, [weekdays length] - 1)];
     }
     return @"";
@@ -164,6 +166,7 @@
     _body = [NSString stringWithFormat:@"%ld点%ld分啦！能量圈提醒您应该收听%@电台啦！滑动本消息收听~",(long)hour,(long)minutes,self.channelName];
     self.hour = 9;
     self.minutes = 0;
+    
     self.img = @"BBC";
     self.identifier = [NSString stringWithFormat:@"%@%i",REQUESTIDENTIFIER,self.pk];
     

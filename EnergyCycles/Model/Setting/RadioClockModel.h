@@ -72,8 +72,8 @@ typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
 //图片
 @property (nonatomic,copy)NSString * img;
 
-//weeday
-//@property (nonatomic,assign)NSInteger weekday;
+//未设置重复的提醒日期
+@property (nonatomic,assign)NSInteger weekdayOutRepeat;
 
 //hour
 @property (nonatomic,assign)NSInteger hour;
