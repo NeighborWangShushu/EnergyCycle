@@ -13,6 +13,8 @@
 
 - (void)ecSiftCellDidSelectedItem:(NSIndexPath*)indexPath model:(ECTimeLineModel*)model;
 
+- (void)cancelTopWithModel:(ECTimeLineModel *)model;
+
 @end
 
 //精选动态

@@ -41,6 +41,18 @@
     
 }
 
+// 取消置顶的代理方法
+- (void)cellLongPress:(UILongPressGestureRecognizer *)longRecognizer {
+    // 判断代理方法是否实现
+    if ([self.delegate respondsToSelector:@selector(cancelTopWithModel:)]) {
+        // 判断手势方法的状态
+        if (longRecognizer.state == UIGestureRecognizerStateBegan) {
+            CGPoint location = [longRecognizer locationInView:self.collectionView];
+            NSIndexPath * indexPath = [self.collectionView indexPathForItemAtPoint:location];
+            [self.delegate cancelTopWithModel:[self.models objectAtIndex:indexPath.row]];
+        }
+    }
+}
 
 - (void)setModels:(NSMutableArray<ECTimeLineModel *> *)models {
     _models = models;
@@ -70,6 +82,12 @@
     ECSiftCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ECSiftCollectionCell" forIndexPath:indexPath];
 
     cell.model = [self.models objectAtIndex:indexPath.row];
+    
+    if (User_ROLE) {
+        UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cellLongPress:)];
+        longPressGesture.minimumPressDuration = 1.0f;
+        [cell addGestureRecognizer:longPressGesture];
+    }
     
     return cell;
 }
