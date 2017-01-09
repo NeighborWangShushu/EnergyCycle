@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RadioModel.h"
+#import "RadioClockModel.h"
 
 @interface RadioListTableViewCell : UITableViewCell
 
@@ -19,11 +20,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *radioIntro;
 
 @property (weak, nonatomic) IBOutlet UIView *RadioPlayAnimation;
+@property (weak, nonatomic) IBOutlet UILabel *radioTime;
+@property (weak, nonatomic) IBOutlet UIImageView *clock;
 
 // 正在播放/暂停的电台url链接
 @property (nonatomic, strong) NSURL *radioUrl;
 
-- (void)getDataWithModel:(RadioModel *)model;
+- (void)getDataWithModel:(RadioModel *)model clockModel:(RadioClockModel*)radioModel;
 
 - (void)play;
 
