@@ -195,9 +195,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _iconView.sd_cornerRadiusFromHeightRatio = [NSNumber numberWithFloat:0.5];
     
     _badge.sd_layout
-    .leftSpaceToView(_iconView,-15)
-    .topSpaceToView(_iconView,-20)
-    .widthIs(17)
+    .leftSpaceToView(_iconView,- (_iconView.width + 10))
+    .topSpaceToView(_iconView,-18)
+    .widthRatioToView(_iconView,1.4)
     .heightIs(21);
     
     
@@ -343,8 +343,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _shouldOpenContentLabel = NO;
     
     [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:EC_AVATAR_PLACEHOLDER];
-    _badge.image = [UIImage imageNamed:[NSString stringWithFormat:@"badge_%@",model.badge]];
-    NSLog(@"%@",model.iconName);
+    NSString * imageName = [NSString stringWithFormat:@"subscript_%@signIn",model.badge];
+    _badge.image = [UIImage imageNamed:imageName];
+    NSLog(@"imageName:%@",model.iconName);
     
     _nameLable.text = model.name;
     _location.text = model.location;

@@ -9,6 +9,7 @@
 #import "SettingPlayRadioCell.h"
 
 @interface SettingPlayRadioCell ()
+
 @property (weak, nonatomic) IBOutlet UILabel *weekday;
 @property (weak, nonatomic) IBOutlet UILabel *timeChannel;
 
@@ -19,7 +20,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    [self lineView];
+//    [self lineView];
 }
 
 - (void)setWeekdayValue:(NSString *)value {

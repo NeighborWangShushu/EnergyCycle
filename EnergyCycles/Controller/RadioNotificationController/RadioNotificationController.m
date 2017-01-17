@@ -10,6 +10,7 @@
 #import <UserNotifications/UserNotifications.h>
 
 
+
 @interface RadioNotificationController ()<UNUserNotificationCenterDelegate>
 
 @property (nonatomic,assign)UNUserNotificationCenter * notificationCenter;
@@ -131,7 +132,6 @@
         [self addNotificationWithOutRepeat:model];
     }
     
-    
 }
 
 - (void)addNotificationWithOutRepeat:(RadioClockModel*)model {
@@ -165,32 +165,31 @@
         }
     }];
     
-//    UNNotificationAction *action = [UNNotificationAction actionWithIdentifier:model.identifier title:@"收听" options:UNNotificationActionOptionNone];
-//    
-//    UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:model.identifier actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
-//    
-//    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithArray:@[category]]];
-    
-
 }
+
 
 - (void)findNotificationWithModel:(RadioClockModel *)model success:(void (^)(BOOL))isExist{
     
+    if (model.isNotification) {
+        isExist(YES);
+    }
+    
     __block BOOL exist = NO;
-  [self.notificationCenter getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
-      
-      dispatch_sync(dispatch_get_main_queue(), ^{
-          for (UNNotification*r in requests) {
-              if ([r.request.content.categoryIdentifier isEqualToString:model.identifier]) {
-                  exist = YES;
-                  isExist(exist);
-              }
-          }
-      });
-      
-  }];
+    
+        [self.notificationCenter getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (UNNotification*r in notifications) {
+                    if ([r.request.content.categoryIdentifier isEqualToString:model.identifier]) {
+                        exist = YES;
+                        isExist(exist);
+                    }
+                }
+            });
+        }];
     
 }
+
 
 - (void)removeAllNotifications {
     if (self.notificationCenter) {

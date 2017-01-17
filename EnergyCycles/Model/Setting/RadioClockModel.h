@@ -60,6 +60,9 @@ typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
 //是否打开提醒功能
 @property (nonatomic)BOOL isOpen;
 
+//从通知进入（收到通知）
+@property (nonatomic)BOOL isNotification;
+
 //标题
 @property (nonatomic,copy)NSString * title;
 

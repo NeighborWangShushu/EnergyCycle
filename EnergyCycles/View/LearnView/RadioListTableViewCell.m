@@ -15,6 +15,8 @@
 
 
 @property (nonatomic) dispatch_source_t timer;
+
+
 @property (nonatomic, strong) ECAudioPlayAnimation *animation;
 @property (nonatomic, strong) NSString *ID;
 @property (nonatomic, strong) NSURL *cellUrl;
@@ -71,22 +73,21 @@
 - (void)setupClock:(RadioClockModel*)radioModel withRadioModel:(RadioModel*)model {
     
     self.radioModel = radioModel;
-    
+    NSLog(@"radioModelName:%@------RadioModel:%@",radioModel.channelName,model.Name);
         //如果已经发送过通知(时间已到)
-            if (self.radioModel && [radioModel.channelName isEqualToString:model.Name] && self.radioModel.isOpen && self.radioModel.residueTime > 0) {
-                [[RadioNotificationController shareInstance] findNotificationWithModel:radioModel success:^(BOOL isExist) {
-                    if (isExist) {
-
-                    _clock.hidden = NO;
-                    _radioTime.hidden = NO;
-                    [self startCount];
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RadioCollectionCellPlay" object:nil userInfo:@{@"url" : [NSString stringWithFormat:@"%@", self.cellUrl], @"index" : self.ID}];
-                    [self setAnimation];
+        if (self.radioModel && [radioModel.channelName isEqualToString:model.Name] && self.radioModel.isOpen && self.radioModel.residueTime > 0) {
+            [[RadioNotificationController shareInstance] findNotificationWithModel:radioModel success:^(BOOL isExist) {
+                if (isExist) {
+                  [[NSNotificationCenter defaultCenter] postNotificationName:@"RadioCollectionCellPlay" object:nil userInfo:@{@"url" : [NSString stringWithFormat:@"%@", self.cellUrl], @"index" : self.ID}];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        _clock.hidden = NO;
+                        _radioTime.hidden = NO;
+                        [self startCount];
+                        [self setAnimation];
+                    });
                 }
             }];
         }
-    
 }
 
 
@@ -116,6 +117,7 @@
 - (void)stopAnimation {
     [self.radioModel saveOrUpdate];
     self.isPlay = NO;
+    [self stopCount];
     [self.animation stopAnimation];
 }
 
@@ -142,7 +144,7 @@
 
 - (void)startCount {
     __block int time = self.radioModel.residueTime;
-    if (!_timer) {
+
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
         dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), 1.0*NSEC_PER_SEC, 0);
@@ -150,17 +152,19 @@
             
             if (time <= 0) {
                 dispatch_source_cancel(_timer);
-                dispatch_sync(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     _radioTime.text = @"已完成";
                     [self stopAnimation];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"RadioCollectionCellStop" object:nil userInfo:@{@"url" : [NSString stringWithFormat:@"%@", self.cellUrl], @"index" : self.ID}];
+                    self.radioModel.isNotification = NO;
+                    [self.radioModel saveOrUpdate];
                     
                 });
             } else {
                 int minutes = time/60;
                 int seconds = time%60;
                 NSString * timeText = [NSString stringWithFormat:@"%.2d:%.2d",minutes,seconds];
-                dispatch_sync(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     _radioTime.text = timeText;
                 });
                 
@@ -171,14 +175,13 @@
             
         });
 
-    }
         dispatch_resume(_timer);
     
 }
 
 - (void)stopCount {
     if (_timer) {
-        dispatch_suspend(_timer);
+        dispatch_source_cancel(_timer);
     }
 }
 

@@ -46,6 +46,8 @@
     
     if (weekdays.count) {
         _weekdaysToString = [weekdays componentsJoinedByString:@","];
+    }else {
+        _weekdaysToString = @"";
     }
 }
 

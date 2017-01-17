@@ -20,11 +20,13 @@
 #import "ShareSDKManager.h"
 #import <AdSupport/AdSupport.h>
 #import <AudioToolbox/AudioToolbox.h>
+
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
+#endif
+
 #import "RadioClockModel.h"
 
-#endif
 
 @interface AppDelegate () <WeiboSDKDelegate,WXApiDelegate,QQApiInterfaceDelegate,UIAlertViewDelegate,JPUSHRegisterDelegate,UNUserNotificationCenterDelegate>
 //引导页
@@ -56,14 +58,7 @@ AppDelegate *EnetgyCycle = nil;
     //退出登录
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUnLoginAPService:) name:@"isUnLoginSetAPService" object:nil];
     
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound|UNAuthorizationOptionAlert|UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (granted) {
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
-        }
-    }];
-    
-    center.delegate = self;
+
     
     //注册推送
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
@@ -71,6 +66,25 @@ AppDelegate *EnetgyCycle = nil;
         JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
         entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
         [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+        
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        //必须写代理，不然无法监听通知的接收与点击事件
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (!error && granted) {
+                //用户点击允许
+                NSLog(@"注册成功");
+            }else{
+                //用户点击不允许
+                NSLog(@"注册失败");
+            }
+        }];
+        
+        // 可以通过 getNotificationSettingsWithCompletionHandler 获取权限设置
+        //之前注册推送服务，用户点击了同意还是不同意，以及用户之后又做了怎样的更改我们都无从得知，现在 apple 开放了这个 API，我们可以直接获取到用户的设定信息了。注意UNNotificationSettings是只读对象哦，不能直接修改！
+        [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+            NSLog(@"========%@",settings);
+        }];
         
 #endif
     } else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
@@ -283,11 +297,16 @@ AppDelegate *EnetgyCycle = nil;
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo]; }
+    
+  
     NSArray * notifications = [RadioClockModel findAll];
     RadioClockModel*model = [notifications firstObject];
     if (model) {
+        model.isNotification = YES;
+        [model saveOrUpdate];
         if ([response.notification.request.content.categoryIdentifier isEqualToString:model.identifier]) {
             NSLog(@"收到通知%@",response.notification.request.content.categoryIdentifier);
+            self.translateRadioList = YES;
             [self.tabbarController setSelectIndex:2];
         }
     }
@@ -320,13 +339,18 @@ AppDelegate *EnetgyCycle = nil;
     
     NSLog(@"actionIdentifier:%@",response.actionIdentifier);
     NSLog(@"categoryIdentifier:%@",response.notification.request.content.categoryIdentifier);
-    
+
     NSArray * notifications = [RadioClockModel findAll];
     [notifications enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        RadioClockModel*model = notifications[idx];
-        if ([model.identifier isEqualToString:response.actionIdentifier]) {
-            // do some action
-            
+        RadioClockModel*model = [notifications firstObject];
+        model.isNotification = YES;
+        [model saveOrUpdate];
+        if (model) {
+            if ([response.notification.request.content.categoryIdentifier isEqualToString:model.identifier]) {
+                NSLog(@"收到通知%@",response.notification.request.content.categoryIdentifier);
+                self.translateRadioList = YES;
+                [self.tabbarController setSelectIndex:2];
+            }
         }
     }];
     
