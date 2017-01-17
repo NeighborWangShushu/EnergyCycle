@@ -967,11 +967,6 @@
 		DA4459F71C2173290069415D /* InvitationOneViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA4459F51C2173290069415D /* InvitationOneViewCell.xib */; };
 		DA4459FB1C21733D0069415D /* InvitationTwoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4459F91C21733D0069415D /* InvitationTwoViewCell.m */; };
 		DA4459FC1C21733D0069415D /* InvitationTwoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA4459FA1C21733D0069415D /* InvitationTwoViewCell.xib */; };
-		DA4DBC401C2BE18700C1F7F1 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DBC3E1C2BE18700C1F7F1 /* BaiduMapAPI_Base.framework */; };
-		DA4DBC411C2BE18700C1F7F1 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DBC3F1C2BE18700C1F7F1 /* BaiduMapAPI_Location.framework */; };
-		DA4DBC561C2BF54400C1F7F1 /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DBC541C2BF54400C1F7F1 /* BaiduMapAPI_Map.framework */; };
-		DA4DBC571C2BF54400C1F7F1 /* BaiduMapAPI_Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DBC551C2BF54400C1F7F1 /* BaiduMapAPI_Utils.framework */; };
-		DA4DBC591C2BF60B00C1F7F1 /* BaiduMapAPI_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DBC581C2BF60B00C1F7F1 /* BaiduMapAPI_Search.framework */; };
 		DA4DBC5B1C2BF79500C1F7F1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DBC5A1C2BF79500C1F7F1 /* CoreLocation.framework */; };
 		DA4DBC5D1C2BF83A00C1F7F1 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DBC5C1C2BF83A00C1F7F1 /* libstdc++.6.0.9.tbd */; };
 		DA5D7D5E1CA236CA00FF5378 /* OtherUserGuanZhuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5D7D5D1CA236CA00FF5378 /* OtherUserGuanZhuViewController.m */; };
@@ -3414,10 +3409,8 @@
 				D058422D1D47296A006859B9 /* libWeChatSDK.a in Frameworks */,
 				D07EB2A51D18DE7500840AC2 /* libmp3lame.a in Frameworks */,
 				26D802FC1C0433A2001CD2D5 /* CoreText.framework in Frameworks */,
-				DA4DBC561C2BF54400C1F7F1 /* BaiduMapAPI_Map.framework in Frameworks */,
 				26D802F61C04338B001CD2D5 /* SystemConfiguration.framework in Frameworks */,
 				DA6345061C9AA86800DD1572 /* libWeChatSDK.a in Frameworks */,
-				DA4DBC411C2BE18700C1F7F1 /* BaiduMapAPI_Location.framework in Frameworks */,
 				D07EB27F1D18DE6800840AC2 /* libmp3lame.a in Frameworks */,
 				26D802F41C043380001CD2D5 /* Security.framework in Frameworks */,
 				D0D3001C1D8FA8BC007180F1 /* jpush-ios-2.1.9.a in Frameworks */,
@@ -3430,12 +3423,9 @@
 				26D802E81C04334F001CD2D5 /* libstdc++.tbd in Frameworks */,
 				D05842281D47296A006859B9 /* ShareSDKUI.framework in Frameworks */,
 				26D802E61C043345001CD2D5 /* libc++.tbd in Frameworks */,
-				DA4DBC571C2BF54400C1F7F1 /* BaiduMapAPI_Utils.framework in Frameworks */,
 				D05842251D47296A006859B9 /* ShareSDK.framework in Frameworks */,
 				DAC962211C51D1B700E8D542 /* libWeiboSDK.a in Frameworks */,
 				D05842261D47296A006859B9 /* ShareSDKExtension.framework in Frameworks */,
-				DA4DBC591C2BF60B00C1F7F1 /* BaiduMapAPI_Search.framework in Frameworks */,
-				DA4DBC401C2BE18700C1F7F1 /* BaiduMapAPI_Base.framework in Frameworks */,
 				26D802E41C04333C001CD2D5 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8905,7 +8895,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EnergyCycles/Tool/Help/ThirdParty/Tencent",
-					"$(PROJECT_DIR)/EnergyCycles/Tool/Help/BaiduMap_IOSSDK_v2",
 					"$(PROJECT_DIR)/EnergyCycles/Tool/Help/ThirdParty",
 					"$(PROJECT_DIR)/EnergyCycles/Tool/ThirdLib/ShareSDK",
 					"$(PROJECT_DIR)/EnergyCycles/Tool/ThirdLib/ShareSDK/Support/Optional",
@@ -8961,7 +8950,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EnergyCycles/Tool/Help/ThirdParty/Tencent",
-					"$(PROJECT_DIR)/EnergyCycles/Tool/Help/BaiduMap_IOSSDK_v2",
 					"$(PROJECT_DIR)/EnergyCycles/Tool/Help/ThirdParty",
 					"$(PROJECT_DIR)/EnergyCycles/Tool/ThirdLib/ShareSDK",
 					"$(PROJECT_DIR)/EnergyCycles/Tool/ThirdLib/ShareSDK/Support/Optional",
