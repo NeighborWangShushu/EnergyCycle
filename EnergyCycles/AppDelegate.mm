@@ -16,7 +16,7 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/QQApiInterfaceObject.h>
 #import "GuidePageViewController.h"
-#import "XMShareQQUtil.h"
+//#import "XMShareQQUtil.h"
 #import "ShareSDKManager.h"
 #import <AdSupport/AdSupport.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -169,7 +169,7 @@ AppDelegate *EnetgyCycle = nil;
     if ([urlArr.firstObject isEqualToString:@"wx4db0f86a514ef7ef"]) {//微信
         return [WXApi handleOpenURL:url delegate:self];
     }else if ([urlArr.firstObject isEqualToString:@"tencent1104987324"]) {//QQ
-        [QQApiInterface handleOpenURL:url delegate:[XMShareQQUtil sharedInstance]];
+//        [QQApiInterface handleOpenURL:url delegate:[XMShareQQUtil sharedInstance]];
         return [TencentOAuth HandleOpenURL:url];
     }else if ([urlArr.firstObject isEqualToString:@"wb4273175200"]) {//微博
         return [WeiboSDK handleOpenURL:url delegate:self];
