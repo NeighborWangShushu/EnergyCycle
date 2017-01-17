@@ -83,7 +83,7 @@
 
     cell.model = [self.models objectAtIndex:indexPath.row];
     
-    if (User_ROLE) {
+    if ([User_ROLE boolValue]) {
         UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cellLongPress:)];
         longPressGesture.minimumPressDuration = 1.0f;
         [cell addGestureRecognizer:longPressGesture];

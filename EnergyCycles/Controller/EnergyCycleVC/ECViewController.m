@@ -1174,22 +1174,24 @@
 
 // 取消置顶的代理方法实现
 - (void)cancelTopWithModel:(ECTimeLineModel *)model {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认取消置顶该动态吗?" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[AppHttpManager shareInstance] sticklyArticleWithUrl:SticklyArticle PostOrGet:@"post" articleId:[model.ID integerValue] isChoice:0 token:User_TOKEN userId:[User_ID integerValue] success:^(NSDictionary *dict) {
-            [self.dataArray removeObject:model];
-            [self.tableView reloadData];
-        } failure:^(NSString *str) {
-            
+    if ([User_ROLE boolValue]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认取消置顶该动态吗?" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[AppHttpManager shareInstance] sticklyArticleWithUrl:SticklyArticle PostOrGet:@"post" articleId:[model.ID integerValue] isChoice:0 token:User_TOKEN userId:[User_ID integerValue] success:^(NSDictionary *dict) {
+                [self.dataArray removeObject:model];
+                [self.tableView reloadData];
+            } failure:^(NSString *str) {
+                
+            }];
         }];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:alert completion:nil];
-    }];
-    [alert addAction:sureAction];
-    [alert addAction:cancelAction];
-    [self presentViewController:alert animated:YES completion:nil];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:alert completion:nil];
+        }];
+        [alert addAction:sureAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
