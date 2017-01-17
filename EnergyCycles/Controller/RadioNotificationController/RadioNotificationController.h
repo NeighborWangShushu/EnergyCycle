@@ -25,4 +25,6 @@
 
 - (NSArray*)getAllRequests;
 
+- (void)findNotificationWithModel:(RadioClockModel*)model success:(void(^)(BOOL isExist))isExist;
+
 @end

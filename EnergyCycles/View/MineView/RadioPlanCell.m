@@ -92,7 +92,7 @@
             make.centerY.equalTo(self.mas_centerY);
         }];
     }
-   if (self.model.isRepeat) {
+   if (self.model.isOpen) {
         [_switchButton setOn:YES];
     }
 }

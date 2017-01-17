@@ -80,7 +80,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ECSiftCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ECSiftCollectionCell" forIndexPath:indexPath];
-
+    
     cell.model = [self.models objectAtIndex:indexPath.row];
     
     if ([User_ROLE boolValue]) {

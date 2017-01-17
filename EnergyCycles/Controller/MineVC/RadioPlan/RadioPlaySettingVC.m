@@ -34,8 +34,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-   
+    
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,6 +62,7 @@
 
 
 - (void)setup {
+    
     self.title = @"定时播放电台";
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     self.view.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:239.0/255.0 blue:245.0/255.0 alpha:1.0];
@@ -131,7 +133,8 @@
 #pragma mark - UITableViewDelegate
 
 - (void)switchValueDidChange:(RadioPlanCell *)cell isSelected:(BOOL)selected {
-    
+    self.model.isOpen = selected;
+    [self.model saveOrUpdate];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -45,10 +45,10 @@
             case RadioChooseItemTypeRadio:
                 _datas = @[@"BBC",
                            @"CNN",
-                           @"FOX NEWS",
+                           @"FOX News",
                            @"NPR",
                            @"Radio Australia",
-                           @"TED",
+                           @"Ted",
                            @"LBC",
                            @"VOA",
                            @"JPR"];
@@ -177,6 +177,7 @@
         }else {
             [self.selectedDates removeObject:[NSString stringWithFormat:@"%ld",indexPath.row + 1]];
         }
+        NSLog(@"%@",self.selectedDates);
         self.model.weekdays = self.selectedDates;
     }else {
         if (_lastSelectedCell) {

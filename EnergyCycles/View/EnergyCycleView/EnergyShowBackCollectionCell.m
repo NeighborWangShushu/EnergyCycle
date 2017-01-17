@@ -11,7 +11,6 @@
 #import "EnergyShowTwoViewCell.h"
 #import "EnergyShowThreeViewCell.h"
 #import "EnergyMainModel.h"
-#import "EnergyCycleViewController.h"
 #import "GifHeader.h"
 
 

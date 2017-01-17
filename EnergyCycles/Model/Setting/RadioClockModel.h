@@ -53,11 +53,15 @@ typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
 
 //时段 上午 下午
 @property (nonatomic,assign)RadioTimeSlot slot;
+
 //是否重复
 @property (nonatomic)BOOL isRepeat;
 
 //是否打开提醒功能
 @property (nonatomic)BOOL isOpen;
+
+//从通知进入（收到通知）
+@property (nonatomic)BOOL isNotification;
 
 //标题
 @property (nonatomic,copy)NSString * title;
@@ -71,8 +75,8 @@ typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
 //图片
 @property (nonatomic,copy)NSString * img;
 
-//weeday
-//@property (nonatomic,assign)NSInteger weekday;
+//未设置重复的提醒日期
+@property (nonatomic,assign)NSInteger weekdayOutRepeat;
 
 //hour
 @property (nonatomic,assign)NSInteger hour;
@@ -101,7 +105,6 @@ typedef NS_ENUM(NSUInteger,RadioTimeSlot) {
 
 - (NSString*)durationTime;
 
-- (NSTimeInterval)durationTimeInterval;
 
 //本周需要设置推送的时间
 - (NSArray*)alertDateComponents;
