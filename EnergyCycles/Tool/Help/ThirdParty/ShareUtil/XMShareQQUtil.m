@@ -59,10 +59,23 @@
 
 #pragma mark - 登录
 - (void)login {
-    tencentOAuth = [[TencentOAuth alloc] initWithAppId:APP_KEY_QQ andDelegate:self];
-    permissions= [NSArray arrayWithObjects:@"get_user_info", @"get_simple_userinfo", @"add_t", nil];
+//    tencentOAuth = [[TencentOAuth alloc] initWithAppId:APP_KEY_QQ andDelegate:self];
+//    permissions= [NSArray arrayWithObjects:@"get_user_info", @"get_simple_userinfo", @"add_t", nil];
+//    
+//    [tencentOAuth authorize:permissions inSafari:NO];
     
-    [tencentOAuth authorize:permissions inSafari:NO];
+    
+    [SSEThirdPartyLoginHelper loginByPlatform:SSDKPlatformTypeQQ onUserSync:^(SSDKUser *user, SSEUserAssociateHandler associateHandler) {
+        associateHandler (user.uid, user, user);
+        NSLog(@"dd%@",user.rawData);
+        NSLog(@"dd%@",user.credential);
+    } onLoginResult:^(SSDKResponseState state, SSEBaseUser *user, NSError *error) {
+        if (state == SSDKResponseStateSuccess)
+        {
+            
+        }
+    }];
+    
 }
 
 //登陆完成调用

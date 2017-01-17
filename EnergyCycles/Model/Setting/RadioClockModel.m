@@ -11,6 +11,7 @@
 #import "NSDate+JKUtilities.h"
 #import "NSString+Utils.h"
 #import <UserNotifications/UserNotifications.h>
+#import "RadioNotificationController.h"
 
 #define RADIOTITLE @"能量圈"
 #define RADIOSUBTITLE @"一个暖心的提醒"
@@ -19,7 +20,7 @@
 
 @interface RadioClockModel ()
 
-@property (nonatomic,assign)UNUserNotificationCenter *notificationCenter;
+@property (nonatomic,assign)UNUserNotificationCenter * notificationCenter;
 
 
 @end
@@ -45,6 +46,8 @@
     
     if (weekdays.count) {
         _weekdaysToString = [weekdays componentsJoinedByString:@","];
+    }else {
+        _weekdaysToString = @"";
     }
 }
 
@@ -62,6 +65,7 @@
     if (![self.weekdaysToString isEqualToString:@""]) {
        arr = [self.weekdaysToString componentsSeparatedByString:@","];
     }
+    
    __block NSString * weekdays = @"";
     if (arr.count) {
         //为数组排序
@@ -74,6 +78,7 @@
         }];
     }
     if (weekdays.length > 0) {
+        self.isRepeat = YES;
         return [weekdays substringWithRange:NSMakeRange(0, [weekdays length] - 1)];
     }
     return @"";
@@ -96,18 +101,18 @@
         minutes = [NSString stringWithFormat:@"%ld",(long)self.minutes];
     }
     
-    NSString*slot = @"AM";
-    switch (self.slot) {
-        case RadioTimeSlotAM:
-            slot = @"AM";
-            break;
-        case RadioTimeSlotPM:
-            slot = @"PM";
-            break;
-        default:
-            break;
-    }
-    return [NSString stringWithFormat:@"%@:%@ %@",hour,minutes,slot];
+//    NSString*slot = @"AM";
+//    switch (self.slot) {
+//        case RadioTimeSlotAM:
+//            slot = @"AM";
+//            break;
+//        case RadioTimeSlotPM:
+//            slot = @"PM";
+//            break;
+//        default:
+//            break;
+//    }
+    return [NSString stringWithFormat:@"%@:%@",hour,minutes];
 }
 
 
@@ -143,9 +148,11 @@
 
 
 //持续时间
-- (NSTimeInterval)durationTimeInterval {
-    
-    return self.duration * 10 * 60;
+- (NSTimeInterval)residueTime {
+    if (_residueTime == 0) {
+        _residueTime = self.duration * 10 * 60;
+    }
+    return _residueTime;
 }
 
 #pragma mark - init
@@ -161,6 +168,7 @@
     _body = [NSString stringWithFormat:@"%ld点%ld分啦！能量圈提醒您应该收听%@电台啦！滑动本消息收听~",(long)hour,(long)minutes,self.channelName];
     self.hour = 9;
     self.minutes = 0;
+    
     self.img = @"BBC";
     self.identifier = [NSString stringWithFormat:@"%@%i",REQUESTIDENTIFIER,self.pk];
     

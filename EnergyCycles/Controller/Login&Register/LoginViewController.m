@@ -17,7 +17,6 @@
 #import <TencentOpenAPI/TencentApiInterface.h>
 
 #import "WeiboSDK.h"
-#import "XMShareQQUtil.h"
 #import "XMShareWeiboUtil.h"
 
 #import "SBJson.h"
@@ -30,7 +29,7 @@
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 
 
-@interface LoginViewController () <getQQLoginGetInformationDelegate,WBHttpRequestDelegate,WXApiDelegate> {
+@interface LoginViewController () <WBHttpRequestDelegate,WXApiDelegate> {
     NSString *weiBoOpenidStr;
 }
 

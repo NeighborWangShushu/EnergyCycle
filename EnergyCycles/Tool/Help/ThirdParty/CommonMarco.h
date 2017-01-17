@@ -18,7 +18,7 @@
 //微博
 #define APP_KEY_WEIBO             @"4273175200"
 #define APP_SECRECT_WEIBO         @"922730ffd03b87285c07c27325146937"
-#define APP_KEY_WEIBO_RedirectURL @"http://www.sharesdk.cn"
+#define APP_KEY_WEIBO_RedirectURL @"http://www.sina.com"
 
 //分享图片
 #define SHARE_IMG [UIImage imageNamed:@"icon-80.png"]

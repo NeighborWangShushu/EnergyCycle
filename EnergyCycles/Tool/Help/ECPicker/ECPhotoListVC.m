@@ -20,6 +20,7 @@
     BOOL drop;
     UIButton *titleButton;
     CGFloat tableViewHeight;
+    CGSize itemSize;
 }
 @property (nonatomic, strong) PHFetchResult *albumData;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -35,7 +36,7 @@
 @end
 
 static NSString * const photoReuseIdentifier = @"ECPhotoListCell";
-static CGSize itemSize;
+//static CGSize itemSize;
 
 @implementation ECPhotoListVC
 
