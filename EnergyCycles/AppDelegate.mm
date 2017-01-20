@@ -32,7 +32,6 @@
 //引导页
 @property (nonatomic, strong) GuidePageViewController *guidePageView;
 
-
 @end
 
 AppDelegate *EnetgyCycle = nil;
@@ -40,6 +39,7 @@ AppDelegate *EnetgyCycle = nil;
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     EnetgyCycle = self;
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
@@ -48,7 +48,8 @@ AppDelegate *EnetgyCycle = nil;
     
     [ShareSDKManager shareInstance];
     
-     NSString *isEnterGuidePage = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsEnterGuidePage"];
+    NSString *isEnterGuidePage = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsEnterGuidePage"];
+    
     if (!isEnterGuidePage) {
         [self creatGuidePageView];
     }

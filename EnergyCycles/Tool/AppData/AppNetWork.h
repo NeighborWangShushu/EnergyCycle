@@ -48,7 +48,7 @@
 
 //测试环境
 
-#define INTERFACE_URL @"http://192.168.1.111:8888/"
+//#define INTERFACE_URL @"http://192.168.1.111:8888/"
 
 //#define INTERFACE_URL @"https://www.woodybear.cn/Power/"
 
@@ -60,7 +60,7 @@
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 //阿里云
-//#define INTERFACE_URL @"http://120.26.218.68:8038/"
+#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 
 #define CCTalk @"http://www.cctalk.com/org/525/?from=singlemessage&isappinstalled=0"
