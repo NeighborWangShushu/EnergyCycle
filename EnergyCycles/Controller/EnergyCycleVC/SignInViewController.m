@@ -13,6 +13,7 @@
 
 #import "SignRankingTableVC.h"
 
+
 @interface SignInViewController () <UIScrollViewDelegate> {
     NSMutableArray *_dataArr;
     
@@ -35,9 +36,6 @@
     
     _dataArr = [[NSMutableArray alloc] init];
     days = 30;
-    [self setupLeftNavBarWithimage:@"loginfanhui"];
-    
-    [self setupRightNavBarWithTitle:@"规则"];
     
     self.dayLabel.text = @"";
     
@@ -126,6 +124,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self setupLeftNavBarWithimage:@"loginfanhui"];
+    
+    [self setupRightNavBarWithTitle:@"规则"];
+    
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
     [SVProgressHUD showWithStatus:@"加载中.."];
     
@@ -149,7 +151,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
     [backScrollView removeFromSuperview];
     backScrollView = nil;
 }
@@ -228,7 +229,7 @@
     backScrollView = nil;
     
     if (!backScrollView) {
-        backScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, Screen_Height-350, Screen_width, 320)];
+        backScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, Screen_Height-300, Screen_width, 320)];
         backScrollView.backgroundColor = [UIColor clearColor];
         backScrollView.contentSize = CGSizeMake(510+480+420, 0);
         backScrollView.showsVerticalScrollIndicator = NO;
