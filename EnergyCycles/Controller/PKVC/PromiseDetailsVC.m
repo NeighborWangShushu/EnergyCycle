@@ -57,7 +57,7 @@
     view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.view = view;
     
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 64, view.frame.size.width, 300 - 36)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 64, view.frame.size.width, 300)];
     calendar.dataSource = self;
     calendar.delegate = self;
     calendar.backgroundColor = [UIColor whiteColor];
@@ -70,16 +70,22 @@
     headerView_bottomBorder.backgroundColor = [UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:0.6].CGColor;
     [calendar.calendarWeekdayView.layer addSublayer:headerView_bottomBorder];
     
+    [calendar selectDate:[NSDate date] scrollToDate:YES]; // 默认选择今天
     calendar.today = nil; // 隐藏今天的背景
     calendar.appearance.titleSelectionColor = [UIColor colorWithRed:255/255.0 green:225/255.0 blue:20/255.0 alpha:1]; // 选中时文字的颜色
-    calendar.appearance.selectionColor = [UIColor clearColor];
+    calendar.appearance.selectionColor = [UIColor clearColor]; // 去除选中时的背景颜色
     calendar.appearance.weekdayTextColor = [UIColor colorWithRed:172/255.0 green:172/255.0 blue:172/255.0 alpha:1]; // 日的字体颜色
     calendar.appearance.titleDefaultColor = [UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:1]; // 星期的字体颜色
     calendar.placeholderType = FSCalendarPlaceholderTypeNone; // 隐藏其他月份的日,只显示当前月份的日期
-    calendar.headerHeight = 0; // 顶部月份隐藏
+//    calendar.headerHeight = 0; // 顶部月份隐藏
+    calendar.appearance.headerTitleColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1]; // 顶部月份文字颜色
+    calendar.appearance.headerDateFormat = @"yyyy/MM"; // 顶部月份显示格式
+    calendar.appearance.headerMinimumDissolvedAlpha = 0; // 顶部上下月份显示的透明度
     calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesUpperCase|FSCalendarCaseOptionsWeekdayUsesSingleUpperCase; // 修改星期显示文字
-    calendar.layer.borderColor = [UIColor clearColor].CGColor;
-    calendar.calendarWeekdayView.layer.borderColor = [UIColor clearColor].CGColor;
+//    calendar.layer.borderColor = [UIColor clearColor].CGColor;
+//    calendar.calendarWeekdayView.layer.borderColor = [UIColor clearColor].CGColor;
+    
+    // 给calendar底部添加阴影
     CALayer *calendar_bottomBorder = [CALayer layer];
     CGFloat c_y = calendar.frame.size.height;
     CGFloat c_w = calendar.frame.size.width;
@@ -88,7 +94,6 @@
     [calendar.layer addSublayer:calendar_bottomBorder];
     calendar.layer.shadowOpacity = 0.2;
     calendar.layer.shadowColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
-//    calendar
     calendar.layer.shadowOffset = CGSizeMake(0, 4);
     calendar.layer.shadowRadius = 3;
     [calendar registerClass:[CalendarCell class] forCellReuseIdentifier:@"cell"]; // 注册CalendarCell
@@ -153,6 +158,37 @@
 //    return @[appearance.eventDefaultColor];
 //}
 
+- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleDefaultColorForDate:(NSDate *)date {
+    NSString *key = [self.dateFormatter stringFromDate:date];
+    if ([self.dates.allKeys containsObject:key]) {
+        return [UIColor whiteColor];
+    }
+    return nil;
+}
+
+
+- (BOOL)calendar:(FSCalendar *)calendar shouldSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    return monthPosition == FSCalendarMonthPositionCurrent;
+}
+
+- (BOOL)calendar:(FSCalendar *)calendar shouldDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    return monthPosition == FSCalendarMonthPositionCurrent;
+}
+
+- (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    NSLog(@"did select date %@",[self.dateFormatter stringFromDate:date]);
+    [self configureVisibleCells];
+}
+
+- (void)calendar:(FSCalendar *)calendar didDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    NSLog(@"did deselect date %@",[self.dateFormatter stringFromDate:date]);
+    [self configureVisibleCells];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -198,6 +234,7 @@
         }
         
         calendarCell.selectionType = selectionType;
+        
     }
     
     if ([self.greforian isDateInToday:date]) {

@@ -1308,7 +1308,7 @@
                               failure:(void (^)(NSString *str))failure;
 
 
-#pragma mark - 116.置顶帖子
+#pragma mark - 114.置顶帖子
 //请求方式：POST
 //ArticleID   帖子ID
 //IsChoice    是否精选  1 是  0 否
@@ -1322,5 +1322,23 @@
                        userId:(NSInteger)userId
                       success:(void (^)(NSDictionary *dict))success
                       failure:(void (^)(NSString *str))failure;
+
+#pragma mark - 115.添加承诺
+//请求方式: POST
+//请求参数:
+//UserID    int // 用户ID
+//StartDate string // 承诺开始时间
+//EndDate   string // 承诺结束时间
+//ProjectID // 承诺项目的ID
+//ReportNum // 承诺每日的数量
+- (void)getAddTargetWithUserID:(int)userID
+                         Token:(NSString *)token
+                     StartDate:(NSString *)startDate
+                       EndDate:(NSString *)endDate
+                     ProjectID:(NSInteger)projectID
+                     ReportNum:(NSInteger)reportNum
+                     PostOrGet:(NSString *)postOrGetType
+                         success:(void (^)(NSDictionary *dict))success
+                         failure:(void (^)(NSString *str))failure;
 
 @end

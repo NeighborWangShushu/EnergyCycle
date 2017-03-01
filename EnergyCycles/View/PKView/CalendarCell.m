@@ -48,8 +48,19 @@
         self.selectionLayer.shadowOffset = CGSizeMake(0, 4); // 阴影偏移量
         self.selectionLayer.shadowRadius = 3; // 阴影半径
         
+    } else if (self.selectionType == SelectionTypeNone) {
+        
+        self.selectionLayer.fillColor = [UIColor clearColor].CGColor;
+        
     }
     
+}
+
+- (void)setSelectionType:(SelectionType)selectionType {
+    if (_selectionType != selectionType) {
+        _selectionType = selectionType;
+        [self setNeedsLayout];
+    }
 }
 
 /*

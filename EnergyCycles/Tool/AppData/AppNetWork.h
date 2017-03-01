@@ -437,6 +437,12 @@
 //114.置顶帖子
 #define SticklyArticle            @"Article/ArticleChoice_Set"
 
+//115.添加承诺
+#define Target_ADD                 @"Target/Target_ADD"
+
+//116.承诺列表
+//#define 
+
 
 
 #endif
