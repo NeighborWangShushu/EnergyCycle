@@ -14,9 +14,15 @@
 #import "ProjectVC.h"
 #import "SinglePromiseDetailsVC.h"
 
-@interface PromiseVC ()
+#define kCalendar_HeaderHeight 80
+
+@interface PromiseVC ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
+
+@property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) PromiseDetailsVC *promiseDetailsVC;
 //@property (nonatomic, strong) 
 
 @end
@@ -28,11 +34,6 @@
         self.dataArray = [NSMutableArray array];
     }
     return _dataArray;
-}
-
-- (void)endRefresh {
-    [self.tableView.mj_header endRefreshing];
-    [self.tableView.mj_footer endRefreshing];
 }
 
 - (void)leftAction {
@@ -53,9 +54,9 @@
 
     self.title = @"公众承诺";
     [self setupLeftNavBarWithimage:@"loginfanhui"];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    self.view.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+    [self createTableView];
+    [self createCalendar];
+//    self.view.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];v
     
     // Do any additional setup after loading the view.
 }
@@ -63,6 +64,27 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)createTableView {
+    
+    CGRect rect = self.view.bounds;
+    rect.size.height -= 64 + kCalendar_HeaderHeight;
+    self.tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+    [self.view addSubview:self.tableView];
+    
+}
+
+- (void)createCalendar {
+    self.promiseDetailsVC = [[PromiseDetailsVC alloc] init];
+//    CGFloat height = 50;
+    CGFloat pdVC_y = CGRectGetMaxY(self.tableView.frame);
+    self.promiseDetailsVC.view.frame = CGRectMake(0, pdVC_y, Screen_width, Screen_Height);
+    [self.view addSubview:self.promiseDetailsVC.view];
 }
 
 #pragma mark - TableViewDataSource
@@ -116,8 +138,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        SinglePromiseDetailsVC *spdVC = [[SinglePromiseDetailsVC alloc] init];
-        [self.navigationController pushViewController:spdVC animated:YES];
+//        SinglePromiseDetailsVC *spdVC = [[SinglePromiseDetailsVC alloc] init];
+//        [self.navigationController pushViewController:spdVC animated:YES];
+        PromiseDetailsVC *vc = [[PromiseDetailsVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     } else if (indexPath.section == 1) {
         ProjectVC *pVC = [[ProjectVC alloc] init];
         [self.navigationController pushViewController:pVC animated:YES];

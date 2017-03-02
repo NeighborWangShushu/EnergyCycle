@@ -8,6 +8,7 @@
 
 #import "PromiseDetailsVC.h"
 #import "CalendarCell.h"
+#import "Masonry.h"
 
 @interface PromiseDetailsVC ()
 
@@ -57,7 +58,7 @@
     view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.view = view;
     
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 64, view.frame.size.width, 300)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 15, view.frame.size.width, 300)];
     calendar.dataSource = self;
     calendar.delegate = self;
     calendar.backgroundColor = [UIColor whiteColor];
@@ -99,7 +100,6 @@
     [calendar registerClass:[CalendarCell class] forCellReuseIdentifier:@"cell"]; // 注册CalendarCell
     [self.view addSubview:calendar];
     self.calendar = calendar;
-    
 }
 
 // 当前月份的行数变化时日历控件的高度也随之变化
@@ -191,10 +191,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self createView];
     self.greforian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
 //    [self configureVisibleCells];
     // Do any additional setup after loading the view.
+}
+
+- (void)createView {
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 15)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:headerView];
+
+    UIView *tagView = [UIView new];
+    tagView.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+    [headerView addSubview:tagView];
+    [tagView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(headerView).with.offset(10);
+        make.width.equalTo(@30);
+        make.centerX.equalTo(headerView);
+        make.height.equalTo(@3);
+        tagView.layer.cornerRadius = 1.5;
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -237,10 +254,6 @@
         
     }
     
-    if ([self.greforian isDateInToday:date]) {
-        calendarCell.titleLabel.tintColor = [UIColor colorWithRed:255/255.0 green:225/255.0 blue:20/255.0 alpha:1];
-        calendarCell.appearance.titleSelectionColor = [UIColor colorWithRed:255/255.0 green:225/255.0 blue:20/255.0 alpha:1];
-    }
 }
 
 

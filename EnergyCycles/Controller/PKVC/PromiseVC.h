@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Apple. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import "BaseViewController.h"
 
-@interface PromiseVC : BaseTableViewController
+@interface PromiseVC : BaseViewController
 
 @end
