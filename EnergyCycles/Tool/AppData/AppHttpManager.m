@@ -60,7 +60,7 @@ static AFHTTPSessionManager *manager;
         manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://www.woodybear.cn"]];
     }
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager setSecurityPolicy:[AppHttpManager customSecurityPolicy]];
+//    [manager setSecurityPolicy:[AppHttpManager customSecurityPolicy]];
     
     manager.requestSerializer.timeoutInterval=30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
@@ -93,7 +93,7 @@ static AFHTTPSessionManager *manager;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager setSecurityPolicy:[AppHttpManager customSecurityPolicy]];
+//    [manager setSecurityPolicy:[AppHttpManager customSecurityPolicy]];
     manager.requestSerializer.timeoutInterval=30.0f;
     NSString *str = [NSString stringWithFormat:@"%@/%@",INTERFACE_URL,methodName];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", nil];
@@ -3039,6 +3039,48 @@ static AFHTTPSessionManager *manager;
     }];
     
     return resultTask;
+}
+
+- (void)sticklyArticleWithUrl:(NSString *)url PostOrGet:(NSString *)postOrGetType articleId:(NSInteger)articleId isChoice:(NSInteger)isChoice token:(NSString *)token userId:(NSInteger)userId success:(void (^)(NSDictionary *))success failure:(void (^)(NSString *))failure{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:[NSNumber numberWithInteger:userId] forKey:@"userId"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:[NSNumber numberWithInteger:isChoice] forKey:@"IsChoice"];
+    [dic setObject:[NSNumber numberWithInteger:articleId] forKey:@"ArticID"];
+
+    
+    [self callInterfaceByUrl:url
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+
+    
+    
+}
+
+#pragma mark - 113.早起签到排行榜
+- (void)getEarlySignRankingWithUserID:(int)userid
+                            PageIndex:(int)pageIndex
+                             PageSize:(int)pageSize
+                            PostOrGet:(NSString *)postOrGetType
+                              success:(void (^)(NSDictionary *dict))success
+                              failure:(void (^)(NSString *str))failure {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInt:userid] forKey:@"userid"];
+    [dic setObject:[NSNumber numberWithInt:pageIndex] forKey:@"pageindex"];
+    [dic setObject:[NSNumber numberWithInt:pageSize] forKey:@"pagesize"];
+    [self callInterfaceByUrl:Early_Sign_Ranking
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
 }
 
 @end

@@ -6,9 +6,10 @@
 
 #import <Foundation/Foundation.h>
 #import "CommonMarco.h"
-#import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
-#import <TencentOpenAPI/QQApiInterfaceObject.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
+
 
 #import "XMShareUtil.h"
 
@@ -23,7 +24,7 @@ typedef NS_ENUM(NSInteger, SHARE_QQ_TYPE){
 
 @end
 
-@interface XMShareQQUtil : XMShareUtil<TCAPIRequestDelegate,QQApiInterfaceDelegate,TencentSessionDelegate,TencentApiInterfaceDelegate>
+@interface XMShareQQUtil : XMShareUtil
 
 @property (nonatomic, strong) NSMutableDictionary *inforDict;
 

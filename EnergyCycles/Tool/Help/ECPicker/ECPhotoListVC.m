@@ -20,12 +20,15 @@
     BOOL drop;
     UIButton *titleButton;
     CGFloat tableViewHeight;
+    CGSize itemSize;
 }
 @property (nonatomic, strong) PHFetchResult *albumData;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) ECAlbumListVC *albumListVC;
 @property (nonatomic, strong) UIButton *maskButton;
-@property (nonatomic, strong) NSMutableArray *photoArr;
+
+// 临时存储图片的PHAsset对象
+@property (nonatomic, strong) NSMutableArray *assetArr;
 
 @property (nonatomic, strong) UIBarButtonItem *rightButtonItem;
 @property (nonatomic, strong) UIButton *rightItem;
@@ -33,22 +36,22 @@
 @end
 
 static NSString * const photoReuseIdentifier = @"ECPhotoListCell";
-static CGSize itemSize;
+//static CGSize itemSize;
 
 @implementation ECPhotoListVC
 
-- (NSMutableArray *)photoArr {
-    if (!_photoArr) {
-        self.photoArr = [NSMutableArray array];
-    }
-    return _photoArr;
-}
-
-- (NSArray *)imageIDArr {
+- (NSMutableArray *)imageIDArr {
     if (!_imageIDArr) {
         self.imageIDArr = [NSMutableArray array];
     }
     return _imageIDArr;
+}
+
+- (NSMutableArray *)assetArr {
+    if (!_assetArr) {
+        self.assetArr = [NSMutableArray array];
+    }
+    return _assetArr;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,10 +63,11 @@ static CGSize itemSize;
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFetchResult:) name:@"UpdateECAlbumPhoto" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePhotoArr:) name:@"UpdatePhotoArr" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetArr:) name:@"UpdateAssetArr" object:nil];
     
     [self setup];
     
+    [self localIdentifier];
     // Do any additional setup after loading the view.
 }
 
@@ -90,26 +94,63 @@ static CGSize itemSize;
     [self.collectionView reloadData];
 }
 
-- (void)updatePhotoArr:(NSNotification *)notification {
+/*
+    localIdentifier是每个资源元数据都拥有的唯一标识符,所以我们可以利用localIdentifier来将图片保存在本地,因为相同的一张相片在不同的设备中的localIdentifier是不同的,localIdentifier是以字符串的形式存在的,需要注意的是在iOS中对相片进行编辑后的资源元数据会发生改变,localIdentifier也会有所变化,但是不用担心这个改变并不是localIdentifier变了,而是编辑后的图片会在原有基础上再添加一个localIdentifier用来区分编辑前的数据和编辑后的数据,当然这个PHAsset就会拥有多个localIdentifier标签了
+ 
+    注:因为在PhotoKit框架中,照片影片之类的东西都是以资源元数据的形式存在的,既同一张相片以不同的大小或像素显示,但是底部的数据来源都是指向同一个资源元数据
+ */
+// 通过传进来的localIdentifier数组来获取图片PHAsset对象
+- (void)localIdentifier {
+    // PHFetchOptions是为获取数据时候的配置对象,用来设置获取时候的需要的条件
+    PHFetchOptions *photosOptions = [[PHFetchOptions alloc] init];
+    
+    // 图片配置中设置其排序规则-----降序
+    photosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+    
+    if (self.imageIDArr) {
+        PHFetchResult *imageData = [PHAsset fetchAssetsWithLocalIdentifiers:self.imageIDArr options:photosOptions];
+        for (PHAsset *asset in imageData) {
+            [self.assetArr addObject:asset];
+        }
+        [self.rightItem setFrame:CGRectMake(0, 0, 80, 25)];
+        [self.rightItem setTitle:[NSString stringWithFormat:@"下一步(%ld)", self.imageIDArr.count] forState:UIControlStateNormal];
+        [self.rightItem setBackgroundImage:[UIImage imageNamed:@"ecpicker_next_enable"] forState:UIControlStateNormal];
+        UIBarButtonItem *rightButtontItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightItem];
+        self.navigationItem.rightBarButtonItem = rightButtontItem;
+    }
+}
+
+// 每次选中操作时更新保存PHAsset对象数组
+- (void)updateAssetArr:(NSNotification *)notification {
     NSDictionary *dic = notification.object;
-    NSIndexPath *index = dic[@"imageIndex"];
+    PHAsset *asset = dic[@"asset"];
+    // 获取选中的状态
     BOOL selected = [dic[@"selected"] boolValue];
-    BOOL exist = [self.photoArr containsObject:index];
-    if (exist && !selected) {
-        [self.photoArr removeObject:index];
-        if (self.photoArr.count < 9) {
+    // 判断原有的数组中是否有这个PHAsset对象
+    BOOL asseted = [self.assetArr containsObject:asset];
+    
+    if (asseted && !selected) {
+        [self.assetArr removeObject:asset];
+        if ([self.imageIDArr containsObject:asset.localIdentifier]) {
+            [self.imageIDArr removeObject:asset.localIdentifier];
+        }
+        if (self.assetArr.count < 9) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"JudgeDisable" object:@{@"disable" : @(NO)}];
         }
     }
-    if (!exist && selected) {
-        [self.photoArr addObject:index];
-        if (self.photoArr.count >= 9) {
+    if (!asseted && selected) {
+        [self.assetArr addObject:asset];
+        if (![self.imageIDArr containsObject:asset.localIdentifier]) {
+            [self.imageIDArr addObject:asset.localIdentifier];
+        }
+        if (self.assetArr.count >= 9) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"JudgeDisable" object:@{@"disable" : @(YES)}];
         }
     }
-    if (self.photoArr.count >= 1) {
+    
+    if (self.imageIDArr.count >= 1) {
         [self.rightItem setFrame:CGRectMake(0, 0, 80, 25)];
-        [self.rightItem setTitle:[NSString stringWithFormat:@"下一步(%ld)", self.photoArr.count] forState:UIControlStateNormal];
+        [self.rightItem setTitle:[NSString stringWithFormat:@"下一步(%ld)", self.imageIDArr.count] forState:UIControlStateNormal];
         [self.rightItem setBackgroundImage:[UIImage imageNamed:@"ecpicker_next_enable"] forState:UIControlStateNormal];
         UIBarButtonItem *rightButtontItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightItem];
         self.navigationItem.rightBarButtonItem = rightButtontItem;
@@ -120,8 +161,10 @@ static CGSize itemSize;
         UIBarButtonItem *rightButtontItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightItem];
         self.navigationItem.rightBarButtonItem = rightButtontItem;
     }
+    
 }
 
+// 相册
 - (void)titleViewWith:(NSString *)title {
     // 添加navgation的titleView
     titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -136,7 +179,7 @@ static CGSize itemSize;
     self.navigationItem.titleView = titleButton;
 }
 
-
+// 布局
 - (void)setup {
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -167,7 +210,10 @@ static CGSize itemSize;
     
     [self createListTableView];
     [self navigationView];
+    
 }
+
+#pragma mark - 导航栏设置
 
 - (void)navigationView {
     
@@ -204,8 +250,7 @@ static CGSize itemSize;
     PHImageRequestOptions *requestOptions = [[PHImageRequestOptions alloc] init];
     requestOptions.version = PHImageRequestOptionsVersionCurrent;
     
-    for (NSIndexPath *index in self.photoArr) {
-        PHAsset *asset = self.albumData[index.row];
+    for (PHAsset *asset in self.assetArr) {
         [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:requestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
             if (result) {
                 // 排除取消，错误，低清图三种情况，即已经获取到了高清图时，把这张高清图缓存到 result 中
@@ -213,7 +258,7 @@ static CGSize itemSize;
                 if (downloadFinined) {
                     [imageData addObject:result];
                     [imageID addObject:asset.localIdentifier];
-                    if (imageData.count == self.photoArr.count && imageID.count == self.photoArr.count) {
+                    if (imageData.count == self.assetArr.count && imageID.count == self.assetArr.count) {
                         if ([self.delegate respondsToSelector:@selector(exportImageData:ID:)]) {
                             [self.delegate exportImageData:imageData ID:imageID];
                             [self cancel];
@@ -225,8 +270,7 @@ static CGSize itemSize;
     }
 }
 
-
-
+// 取消按钮方法
 - (void)cancel {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -262,6 +306,7 @@ static CGSize itemSize;
     
 }
 
+// 创建相册列表
 - (void)createListTableView {
     
     CGRect frame = CGRectMake(0, -tableViewHeight, Screen_width, tableViewHeight);
@@ -274,6 +319,7 @@ static CGSize itemSize;
 
 #pragma mark -----UICollectionViewDataSource-----
 
+// 一个相册中一共有多少图片
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.albumData.count;
 }
@@ -285,7 +331,8 @@ static CGSize itemSize;
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:itemSize contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         if (result) {
             cell.thumbnailImage = result;
-            if ([self.imageIDArr containsObject:asset.localIdentifier] || [self.photoArr containsObject:indexPath]) {
+            cell.asset = asset;
+            if ([self.imageIDArr containsObject:asset.localIdentifier]) {
                 cell.isSelected = YES;
                 cell.indexPath = indexPath;
                 [cell selected];

@@ -10,6 +10,7 @@
 #import "RadioListTableViewCell.h"
 #import "AFSoundManager.h"
 #import "GifHeader.h"
+#import "RadioClockModel.h"
 
 @interface RadioListVC () {
     int pageIndex;
@@ -17,7 +18,7 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
-
+@property (nonatomic, strong) RadioClockModel * model;
 @end
 
 @implementation RadioListVC
@@ -28,6 +29,19 @@
     }
     return _dataArray;
 }
+
+- (RadioClockModel*)model {
+    if (!_model) {
+        NSArray * arr = [RadioClockModel findAll];
+        if (arr.count) {
+            _model = [arr firstObject];
+        }else {
+            _model = [[RadioClockModel alloc] init];
+        }
+    }
+    return _model;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -118,10 +132,11 @@
     cell.selectionStyle = UITableViewCellSeparatorStyleNone;
     cell.radioUrl = self.radioUrl;
     RadioModel *model = self.dataArray[indexPath.row];
-    [cell getDataWithModel:model];
+    [cell getDataWithModel:model clockModel:self.model];
     
     return cell;
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     RadioListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];

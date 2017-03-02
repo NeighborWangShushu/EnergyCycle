@@ -59,4 +59,11 @@
     
 }
 
+
+
+- (NSString*)shortTime {
+    
+    return @"";
+}
+
 @end

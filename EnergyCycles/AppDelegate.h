@@ -15,6 +15,8 @@
 #import "MineNavController.h"
 #import "ECTabbarViewController.h"
 
+
+
 static NSString *appKey = @"da84470cd94e0e2dc2db282b";
 static NSString *channel = @"0";
 static BOOL isProduction = FALSE;
@@ -38,6 +40,8 @@ static BOOL isProduction = FALSE;
 //是否在消息界面
 @property (nonatomic, assign) BOOL isAtInformationView;
 
+@property (nonatomic)BOOL translateRadioList;
+
 //是否跳转消息界面
 @property (nonatomic, assign) BOOL isPushToMessageView;
 
@@ -45,6 +49,9 @@ static BOOL isProduction = FALSE;
 @property (nonatomic) NSInteger audioPlayIndex;
 
 @property (nonatomic,strong)ECTabbarViewController*tabbarController;
+
+
+
 
 @end
 

@@ -13,27 +13,33 @@
 #import "SettingTwoViewCell.h"
 #import "SettingThreeViewCell.h"
 #import "SettingFourViewCell.h"
-
+#import "SettingRadioCell.h"
+#import "SettingPlayRadioCell.h"
+#import "RadioDurationTimeVC.h"
+#import "RadioPlaySettingVC.h"
 #import "CacheManager.h"
+#import "RadioClockModel.h"
 
 @interface SettingTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
     BOOL isPhoneLogin;
 }
-
+@property (nonatomic,strong)RadioClockModel*radioModel;
 @end
 
 @implementation SettingTableViewController
 
 // 分组数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 5;
 }
 
 // 每一组的行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 2) {
+        return 2;
+    }else if (section == 3){
         return 3;
-    } else {
+    }else {
         return 1;
     }
 }
@@ -108,7 +114,30 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell updateDataWithJudge:[self isAllowedNotification]]; // 获取推送通知开关状态
         return cell;
-    } else if (indexPath.section == 2) { // 清楚缓存
+    }else if (indexPath.section == 2){ //定时电台
+        if (indexPath.row == 0) {
+            static NSString *fourViewCell = @"radioViewCell";
+            SettingRadioCell *cell = [tableView dequeueReusableCellWithIdentifier:fourViewCell];
+            if (cell == nil) {
+                cell = [[NSBundle mainBundle] loadNibNamed:@"SettingRadioCell" owner:self options:nil].lastObject;
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell setTimeValue:[self.radioModel durationTime]];
+            return cell;
+        }else {
+            static NSString *fourViewCell = @"radioPlayViewCell";
+            SettingPlayRadioCell *cell = [tableView dequeueReusableCellWithIdentifier:fourViewCell];
+            if (cell == nil) {
+                cell = [[NSBundle mainBundle] loadNibNamed:@"SettingPlayRadioCell" owner:self options:nil].lastObject;
+            }
+            [cell setWeekdayValue:[self.radioModel notificationWeekydays]];
+            [cell setTimeAndChannel:[NSString stringWithFormat:@"%@  %@",[self.radioModel specificTime], [self.radioModel channelName]]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+        
+    }
+    else if (indexPath.section == 3) { // 清楚缓存
         if (indexPath.row == 0) {
             static NSString *threeViewCell = @"threeViewCell";
             SettingThreeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:threeViewCell];
@@ -153,7 +182,20 @@
         }
     } else if (indexPath.section == 1) { // 消息推送
 //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"prefs:root=NOTIFICATIONS_ID&&path=%@",[[NSBundle mainBundle] bundleIdentifier]]]];
-    } else if (indexPath.section == 2) {
+    }else if (indexPath.section == 2) {
+        //电台
+        if (indexPath.row == 0) {
+            //定时停止电台
+            RadioDurationTimeVC *vc = [[RadioDurationTimeVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }else {
+            //定时播放电台
+            RadioPlaySettingVC * vc = [[RadioPlaySettingVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }else if (indexPath.section == 3) {
         if (indexPath.row == 0) { // 清除缓存
             [self clearDisk];
         } else if (indexPath.row == 1) { // 意见反馈
@@ -218,6 +260,7 @@
 
 // 清理缓存
 - (void)clearDisk {
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认清除缓存" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *exitAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -233,12 +276,30 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     NSString *string = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginType"]];
-//    string
+    
     if ([string isEqualToString:@"0"]) {
         isPhoneLogin = YES;
     } else {
         isPhoneLogin = NO;
     }
+}
+
+
+#pragma mark GET
+
+- (RadioClockModel*)radioModel {
+    if (!_radioModel) {
+        NSArray * arr = [RadioClockModel findAll];
+        if (arr.count) {
+            _radioModel = [arr firstObject];
+        }else {
+            _radioModel = [[RadioClockModel alloc] init];
+            [_radioModel saveOrUpdate];
+        }
+    }else {
+        _radioModel = [RadioClockModel findByPK:_radioModel.pk];
+    }
+    return _radioModel;
 }
 
 - (void)viewDidLoad {
@@ -254,6 +315,11 @@
 //    self.tableView.style = UITableViewStyleGrouped;
     
     // Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.tableView reloadData];
 }
 
 

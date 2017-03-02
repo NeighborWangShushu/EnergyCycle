@@ -41,6 +41,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     UIImageView *_badge;
     UILabel *_nameLable;
     UIButton *_deleteButton;
+    UIButton *_recommendButton;
     UIImageView *_locaIcon;
     UILabel *_location;
     UILabel *_time;
@@ -95,8 +96,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     
     _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_deleteButton setImage:[UIImage imageNamed:@"trash-icon"] forState:UIControlStateNormal];
-    [_deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+    [_deleteButton setImage:[UIImage imageNamed:@"ec_comment_arrow"] forState:UIControlStateNormal];
     _deleteButton.hidden = YES;
     
     _locaIcon = [UIImageView new];
@@ -164,8 +164,10 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
             default:
                 break;
         }
+        NSIndexPath * indexPath = [weakSelf.tableView indexPathForCell:weakSelf];
+
         if ([weakSelf.delegate respondsToSelector:@selector(didActionInCell:actionType:atIndexPath:)]) {
-            [weakSelf.delegate didActionInCell:weakSelf actionType:weakSelf.type atIndexPath:weakSelf.indexPath];
+            [weakSelf.delegate didActionInCell:weakSelf actionType:weakSelf.type atIndexPath:indexPath];
         }
     };
     
@@ -193,9 +195,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _iconView.sd_cornerRadiusFromHeightRatio = [NSNumber numberWithFloat:0.5];
     
     _badge.sd_layout
-    .leftSpaceToView(_iconView,-15)
-    .topSpaceToView(_iconView,-20)
-    .widthIs(17)
+    .leftSpaceToView(_iconView,- (_iconView.width + 10))
+    .topSpaceToView(_iconView,-18)
+    .widthRatioToView(_iconView,1.4)
     .heightIs(21);
     
     
@@ -213,10 +215,11 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     
     _deleteButton.sd_layout
-    .rightSpaceToView(contentView,10)
-    .topSpaceToView(contentView,10)
+    .rightSpaceToView(contentView,25)
+    .topSpaceToView(contentView,15)
     .widthIs(20)
     .heightIs(20);
+    
     
     _locaIcon.sd_layout
     .leftSpaceToView(_iconView,margin)
@@ -281,13 +284,22 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     if ([self.delegate respondsToSelector:@selector(didClickOtherUser:userId:userName:)]) {
         [self.delegate didClickOtherUser:self userId:self.model.UserID userName:self.model.name];
     }
-    
 }
 
+
+//管理员权限功能
+- (void)managerAction {
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:self];
+    if ([self.delegate respondsToSelector:@selector(didPopover:atIndexPath:fromButton:)]) {
+        [self.delegate didPopover:self.model atIndexPath:indexPath fromButton:_deleteButton];
+    }
+}
+
+//删除自己的帖子
 - (void)deleteAction {
-    
-    if ([self.delegate respondsToSelector:@selector(didDelete:atIndexPath:)]) {
-        [self.delegate didDelete:self.model atIndexPath:self.indexPath];
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:self];
+    if ([self.delegate respondsToSelector:@selector(didDelete:atIndexPath:fromButton:)]) {
+        [self.delegate didDelete:self.model atIndexPath:indexPath fromButton:_deleteButton];
     }
 }
 
@@ -311,9 +323,16 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 - (void)setModel:(ECTimeLineModel *)model
 {
     _model = model;
-    
-    if ([model.UserID isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
+    if([User_ROLE boolValue]){
         _deleteButton.hidden = NO;
+        [_deleteButton addTarget:self action:@selector(managerAction) forControlEvents:UIControlEventTouchUpInside];
+        _deleteButton.transform = CGAffineTransformMakeRotation(M_PI_2);
+
+    }else if ([model.UserID isEqualToString:[NSString stringWithFormat:@"%@",User_ID]]) {
+        _deleteButton.hidden = NO;
+        [_deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+        [_deleteButton setImage:[UIImage imageNamed:@"delete_icon"] forState:UIControlStateNormal];
+        
     }else {
         _deleteButton.hidden = YES;
     }
@@ -324,8 +343,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     _shouldOpenContentLabel = NO;
     
     [_iconView sd_setImageWithURL:[NSURL URLWithString:model.iconName] placeholderImage:EC_AVATAR_PLACEHOLDER];
-    _badge.image = [UIImage imageNamed:[NSString stringWithFormat:@"badge_%@",model.badge]];
-    NSLog(@"%@",model.iconName);
+    NSString * imageName = [NSString stringWithFormat:@"subscript_%@signIn",model.badge];
+    _badge.image = [UIImage imageNamed:imageName];
+    NSLog(@"imageName:%@",model.iconName);
     
     _nameLable.text = model.name;
     _location.text = model.location;
@@ -411,8 +431,9 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 
 - (void)moreButtonClicked
 {
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:self];
     if (self.moreButtonClickedBlock) {
-        self.moreButtonClickedBlock(self.indexPath);
+        self.moreButtonClickedBlock(indexPath);
     }
 }
 

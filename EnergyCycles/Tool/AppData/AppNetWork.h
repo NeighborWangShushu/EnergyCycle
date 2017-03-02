@@ -18,6 +18,7 @@
 #define User_ID [[AppHelpManager sharedInstance] readUserId]
 #define User_TOKEN [[AppHelpManager sharedInstance] readToken]
 #define User_PHONE [[AppHelpManager sharedInstance] readPhone]
+#define User_ROLE [[AppHelpManager sharedInstance] readRole]
 #define User_NAME [[AppHelpManager sharedInstance] readUserName]
 
 #define MYJYAppId @"1079791492"
@@ -47,7 +48,9 @@
 
 //测试环境
 
-#define INTERFACE_URL @"https://www.woodybear.cn/Power/"
+//#define INTERFACE_URL @"http://192.168.1.111:8888/"
+
+//#define INTERFACE_URL @"https://www.woodybear.cn/Power/"
 
 
 //测试公网环境
@@ -57,7 +60,7 @@
 //#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 //阿里云
-//#define INTERFACE_URL @"http://120.26.218.68:8038/"
+#define INTERFACE_URL @"http://120.26.218.68:8038/"
 
 
 #define CCTalk @"http://www.cctalk.com/org/525/?from=singlemessage&isappinstalled=0"
@@ -427,5 +430,14 @@
 
 //112.上传图片有水印
 #define Article_PostFile           @"Other/Article_PostFile"
+
+
+//113.早起签到排行榜
+#define Early_Sign_Ranking         @"article/Early_Sign_Ranking"
+
+//114.置顶帖子
+#define SticklyArticle            @"Article/ArticleChoice_Set"
+
+
 
 #endif

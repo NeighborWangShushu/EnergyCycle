@@ -20,6 +20,7 @@
 
 @interface ECTabbarViewController ()<ECTabbarDelegate> {
     UIViewController *viewController;
+    
 }
 
 @property (nonatomic,strong)ECTabbarView*tabbar;
@@ -47,7 +48,7 @@
             [self.tabbar mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.view.mas_left);
                 make.right.equalTo(self.view.mas_right);
-                make.bottom.equalTo(self.view.mas_bottom).with.offset(65);
+                make.bottom.equalTo(self.view.mas_bottom).with.offset(75);
                 make.height.equalTo(@43);
             }];
             
@@ -55,11 +56,12 @@
                 make.left.equalTo(self.view.mas_left);
                 make.right.equalTo(self.view.mas_right);
                 make.top.equalTo(self.view.mas_top);
-                make.bottom.equalTo(_tabbar.mas_top).with.offset(-10);
+                make.bottom.equalTo(_tabbar.mas_top).with.offset(-30);
                 
             }];
             [self.tabbar layoutIfNeeded];
         }];
+        
     }else {
         [UIView animateWithDuration:0.25 animations:^{
             [self.tabbar mas_updateConstraints:^(MASConstraintMaker *make) {

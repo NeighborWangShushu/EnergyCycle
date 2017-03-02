@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,17 +20,18 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="王宝强" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Org-bV-Pik">
-                        <rect key="frame" x="0.0" y="68" width="66" height="17"/>
+                        <rect key="frame" x="0.0" y="69" width="66" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gj3-jQ-PCW">
-                        <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
+                        <rect key="frame" x="8" y="0.0" width="50" height="49.5"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="Gj3-jQ-PCW" secondAttribute="height" multiplier="25:26" constant="2.5384615384615401" id="3WE-7s-NU4"/>
                             <constraint firstAttribute="height" constant="50" id="FJU-Lk-NkO"/>
                             <constraint firstAttribute="width" constant="66" id="TZT-PE-bCe"/>
+                            <constraint firstAttribute="width" constant="50" id="snv-nQ-zmm"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -40,10 +41,9 @@
                         </variation>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OLW-fJ-Hsa">
-                        <rect key="frame" x="46" y="47" width="17" height="21"/>
+                        <rect key="frame" x="0.0" y="48" width="66" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="Hna-GM-hWI"/>
-                            <constraint firstAttribute="width" constant="17" id="cZd-eq-p8X"/>
                         </constraints>
                     </imageView>
                 </subviews>
@@ -56,12 +56,12 @@
                 <constraint firstItem="Org-bV-Pik" firstAttribute="top" secondItem="Gj3-jQ-PCW" secondAttribute="bottom" constant="5" id="GNR-Q4-yUh"/>
                 <constraint firstAttribute="trailing" secondItem="Org-bV-Pik" secondAttribute="trailing" id="OBI-CK-SXS"/>
                 <constraint firstItem="Org-bV-Pik" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="SOh-10-xyc"/>
-                <constraint firstItem="Gj3-jQ-PCW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="XlQ-L0-WdS"/>
                 <constraint firstItem="Gj3-jQ-PCW" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ZT4-do-9em"/>
                 <constraint firstAttribute="trailing" secondItem="Gj3-jQ-PCW" secondAttribute="trailing" id="aVl-bq-aCp"/>
-                <constraint firstItem="Org-bV-Pik" firstAttribute="top" secondItem="Gj3-jQ-PCW" secondAttribute="bottom" constant="2" id="t0g-o3-Gqh"/>
+                <constraint firstItem="OLW-fJ-Hsa" firstAttribute="leading" secondItem="Gj3-jQ-PCW" secondAttribute="leading" constant="-8" id="goU-kK-fwY"/>
+                <constraint firstItem="OLW-fJ-Hsa" firstAttribute="trailing" secondItem="Gj3-jQ-PCW" secondAttribute="trailing" constant="8" id="nvw-7l-yzU"/>
+                <constraint firstAttribute="bottom" secondItem="Org-bV-Pik" secondAttribute="bottom" id="pnn-ET-TRK"/>
                 <constraint firstItem="Org-bV-Pik" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="tge-z7-GAM"/>
-                <constraint firstAttribute="trailing" secondItem="OLW-fJ-Hsa" secondAttribute="trailing" constant="3" id="vJm-56-sxR"/>
             </constraints>
             <size key="customSize" width="66" height="86"/>
             <variation key="default">

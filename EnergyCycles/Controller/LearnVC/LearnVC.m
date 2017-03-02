@@ -68,6 +68,14 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (delegate.translateRadioList) {
+        delegate.translateRadioList = NO;
+        [self radioList];
+    }
+}
+
 - (void)initliaize {
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -93,6 +101,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoCyclePostView:) name:@"EnergyCycleViewToPostView" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(learnRecommend:) name:@"LearnRecommend" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(radioList) name:@"MoreRadioListVC" object:nil];
+    
+   
     
 }
 
@@ -144,6 +154,7 @@
 
 
 #pragma mark 通知事件method
+
 
 /**
  *  UIPageController 页面滑动事件

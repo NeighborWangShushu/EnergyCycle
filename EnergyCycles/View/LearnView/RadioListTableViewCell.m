@@ -9,26 +9,40 @@
 #import "RadioListTableViewCell.h"
 #import "AFSoundManager.h"
 #import "ECAudioPlayAnimation.h"
+#import "RadioNotificationController.h"
 
 @interface RadioListTableViewCell ()
+
+
+@property (nonatomic) dispatch_source_t timer;
+
 
 @property (nonatomic, strong) ECAudioPlayAnimation *animation;
 @property (nonatomic, strong) NSString *ID;
 @property (nonatomic, strong) NSURL *cellUrl;
 @property (nonatomic, assign) BOOL isPlay;
+@property (nonatomic, strong) RadioClockModel * radioModel;
+@property (nonatomic, strong) RadioModel * model;
+
+
+@property (nonatomic)BOOL isCounting;
+
+@property (nonatomic) CGFloat duration;
 
 @end
 
 @implementation RadioListTableViewCell
 
-- (void)getDataWithModel:(RadioModel *)model {
+- (void)getDataWithModel:(RadioModel *)model clockModel:(RadioClockModel*)radioModel{
     
+    _model = model;
+    _radioModel = radioModel;
     self.cellUrl = [NSURL URLWithString:model.RadioUrl];
     self.ID = model.ID;
     if ([AFSoundManager sharedManager].player.status == AVPlayerStatusReadyToPlay) {
-        NSLog(@"111");
+        
         if ([self.cellUrl isEqual:self.radioUrl]) {
-            NSLog(@"222%@", model.Name);
+            
             [self setAnimation];
         }
     } else {
@@ -50,9 +64,32 @@
         self.radioIntro.text = model.Intro;
     }
     
-    [self lineView];
+    [self setupClock:radioModel withRadioModel:model];
     
+    [self lineView];
 }
+
+
+- (void)setupClock:(RadioClockModel*)radioModel withRadioModel:(RadioModel*)model {
+    
+    self.radioModel = radioModel;
+    NSLog(@"radioModelName:%@------RadioModel:%@",radioModel.channelName,model.Name);
+        //如果已经发送过通知(时间已到)
+        if (self.radioModel && [radioModel.channelName isEqualToString:model.Name] && self.radioModel.isOpen && self.radioModel.residueTime > 0) {
+            [[RadioNotificationController shareInstance] findNotificationWithModel:radioModel success:^(BOOL isExist) {
+                if (isExist) {
+                  [[NSNotificationCenter defaultCenter] postNotificationName:@"RadioCollectionCellPlay" object:nil userInfo:@{@"url" : [NSString stringWithFormat:@"%@", self.cellUrl], @"index" : self.ID}];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        _clock.hidden = NO;
+                        _radioTime.hidden = NO;
+                        [self startCount];
+                        [self setAnimation];
+                    });
+                }
+            }];
+        }
+}
+
 
 - (void)lineView {
     UIView *line = [[UIView alloc] init];
@@ -61,7 +98,9 @@
     [self.contentView addSubview:line];
 }
 
+
 - (void)setAnimation {
+    
     self.isPlay = YES;
     self.animation = [[ECAudioPlayAnimation alloc] initWithFrame:CGRectMake(0, 30, 50, 20)];
     self.animation.numberOfRect = 6;
@@ -72,10 +111,13 @@
     self.RadioPlayAnimation.clipsToBounds = YES;
     [self.RadioPlayAnimation addSubview:self.animation];
     [self.animation startAnimation];
+    
 }
 
 - (void)stopAnimation {
+    [self.radioModel saveOrUpdate];
     self.isPlay = NO;
+    [self stopCount];
     [self.animation stopAnimation];
 }
 
@@ -90,11 +132,59 @@
     if (!self.isPlay) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"RadioCollectionCellPlay" object:nil userInfo:@{@"url" : [NSString stringWithFormat:@"%@", self.cellUrl], @"index" : self.ID}];
         [self setAnimation];
+        [self setupClock:_radioModel withRadioModel:_model];
+        
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"RadioCollectionCellStop" object:nil userInfo:@{@"url" : [NSString stringWithFormat:@"%@", self.cellUrl], @"index" : self.ID}];
         [self stopAnimation];
+        [self stopCount];
+
     }
 }
+
+- (void)startCount {
+    __block int time = self.radioModel.residueTime;
+
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), 1.0*NSEC_PER_SEC, 0);
+        dispatch_source_set_event_handler(_timer, ^{
+            
+            if (time <= 0) {
+                dispatch_source_cancel(_timer);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _radioTime.text = @"已完成";
+                    [self stopAnimation];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RadioCollectionCellStop" object:nil userInfo:@{@"url" : [NSString stringWithFormat:@"%@", self.cellUrl], @"index" : self.ID}];
+                    self.radioModel.isNotification = NO;
+                    [self.radioModel saveOrUpdate];
+                    
+                });
+            } else {
+                int minutes = time/60;
+                int seconds = time%60;
+                NSString * timeText = [NSString stringWithFormat:@"%.2d:%.2d",minutes,seconds];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _radioTime.text = timeText;
+                });
+                
+                time--;
+                self.radioModel.residueTime = time;
+                
+            }
+            
+        });
+
+        dispatch_resume(_timer);
+    
+}
+
+- (void)stopCount {
+    if (_timer) {
+        dispatch_source_cancel(_timer);
+    }
+}
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];

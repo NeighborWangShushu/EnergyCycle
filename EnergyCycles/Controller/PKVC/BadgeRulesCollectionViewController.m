@@ -39,6 +39,7 @@ static NSString * const footerViewIdentifier = @"footerView";
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     self.title = @"徽章规则";
+    self.view.backgroundColor = [UIColor whiteColor];
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     
     [self getData];
