@@ -16,5 +16,6 @@
 
 @property (nonatomic, copy) NSString *contacts;
 
+@property (nonatomic)BOOL isNew;
 
 @end
