@@ -186,7 +186,7 @@
     NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKEnableUseClientShare];
     if (imageUrl == nil || [imageUrl isEqualToString:@""]) {
-        [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatTimeline];
+        [shareParams SSDKSetupWeChatParamsByText:model.content title:model.title url:[NSURL URLWithString:model.shareUrl] thumbImage:SHARE_IMG image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeImage forPlatformSubType:SSDKPlatformSubTypeWechatTimeline];
     } else {
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         [manager downloadImageWithURL:[NSURL URLWithString:imageUrl]
