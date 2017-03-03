@@ -435,13 +435,19 @@
 #define Early_Sign_Ranking         @"article/Early_Sign_Ranking"
 
 //114.置顶帖子
-#define SticklyArticle            @"Article/ArticleChoice_Set"
+#define SticklyArticle             @"Article/ArticleChoice_Set"
 
 //115.添加承诺
 #define Target_ADD                 @"Target/Target_ADD"
 
 //116.承诺列表
-//#define 
+#define My_Targrt_List             @"Target/My_Targrt_List"
+
+//117.承诺详情
+#define Target_Details             @"Target/Target_Details"
+
+//118.承诺日历列表
+#define My_TargetDetails_List      @"Target/My_TargetDetails_List"
 
 
 

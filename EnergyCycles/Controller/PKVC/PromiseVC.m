@@ -13,17 +13,20 @@
 #import "PromiseDetailsVC.h"
 #import "ProjectVC.h"
 #import "SinglePromiseDetailsVC.h"
+#import "PromiseModel.h"
 
 #define kCalendar_HeaderHeight 80
 
-@interface PromiseVC ()<UITableViewDelegate, UITableViewDataSource>
+@interface PromiseVC ()<UITableViewDelegate, UITableViewDataSource> {
+    NSInteger pageIndex;
+    NSInteger pageSize;
+}
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) PromiseDetailsVC *promiseDetailsVC;
-//@property (nonatomic, strong) 
 
 @end
 
@@ -40,6 +43,79 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)createTableView {
+    
+    CGRect rect = self.view.bounds;
+    rect.size.height -= 64 + kCalendar_HeaderHeight - 15;
+    self.tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+    [self.view addSubview:self.tableView];
+    
+}
+
+- (void)createCalendar {
+    
+    self.promiseDetailsVC = [[PromiseDetailsVC alloc] init];
+    CGFloat pdVC_y = CGRectGetMaxY(self.tableView.frame);
+    self.promiseDetailsVC.view.frame = CGRectMake(0, pdVC_y, Screen_width, Screen_Height);
+    UIButton *headerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, Screen_width, kCalendar_HeaderHeight)];
+    [headerButton addTarget:self action:@selector(changeControllerRect) forControlEvents:UIControlEventTouchUpInside];
+    [self.promiseDetailsVC.view addSubview:headerButton];
+    [self.view addSubview:self.promiseDetailsVC.view];
+    
+}
+
+- (void)createGestureRecognizer {
+    
+    UISwipeGestureRecognizer *swipe_up = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeView:)];
+    swipe_up.numberOfTouchesRequired = 1;
+    swipe_up.direction = UISwipeGestureRecognizerDirectionUp;
+    
+    UISwipeGestureRecognizer *swipe_down = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeView:)];
+    swipe_down.numberOfTouchesRequired = 1;
+    swipe_down.direction = UISwipeGestureRecognizerDirectionDown;
+    
+    [self.view addGestureRecognizer:swipe_up];
+    [self.view addGestureRecognizer:swipe_down];
+    
+}
+
+- (void)swipeView:(UISwipeGestureRecognizer *)sender {
+    [self changeControllerRect];
+}
+
+- (void)changeControllerRect {
+    CGFloat bottom = CGRectGetMaxY(self.tableView.frame);
+    CGFloat top = self.view.bounds.origin.y;
+    CGFloat pdVC_y = self.promiseDetailsVC.view.frame.origin.y;
+    if (pdVC_y == bottom) {
+        [UIView animateWithDuration:0.5 // 动画持续时间
+                              delay:0 // 动画延迟执行的时间
+             usingSpringWithDamping:0.8 // 震动效果，范围0~1，数值越小震动效果越明显
+              initialSpringVelocity:1 // 初始速度，数值越大初始速度越快
+                            options:UIViewAnimationOptionLayoutSubviews // 动画的过渡效果
+                         animations:^{
+                             //执行的动画
+                             self.promiseDetailsVC.view.frame = self.view.bounds;
+                         }
+                         completion:nil];
+    } else if (pdVC_y == top) {
+        [UIView animateWithDuration:0.5 // 动画持续时间
+                              delay:0 // 动画延迟执行的时间
+             usingSpringWithDamping:0.8 // 震动效果，范围0~1，数值越小震动效果越明显
+              initialSpringVelocity:1 // 初始速度，数值越大初始速度越快
+                            options:UIViewAnimationOptionLayoutSubviews // 动画的过渡效果
+                         animations:^{
+                             //执行的动画
+                             self.promiseDetailsVC.view.frame = CGRectMake(0, bottom, Screen_width, Screen_Height);
+                         }
+                         completion:nil];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     // 重新加载导航视图来去除导航视图底部的横线
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
@@ -54,8 +130,10 @@
 
     self.title = @"公众承诺";
     [self setupLeftNavBarWithimage:@"loginfanhui"];
+    [self getData];
     [self createTableView];
     [self createCalendar];
+    [self createGestureRecognizer];
 //    self.view.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];v
     
     // Do any additional setup after loading the view.
@@ -66,25 +144,30 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)createTableView {
-    
-    CGRect rect = self.view.bounds;
-    rect.size.height -= 64 + kCalendar_HeaderHeight;
-    self.tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
-    [self.view addSubview:self.tableView];
-    
+- (void)getData {
+    [[AppHttpManager shareInstance] getMyTargetListWithUserID:[User_ID integerValue] Type:1 PageIndex:0 PageSize:100 PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            NSDictionary *dateDic = dict[@"Data"];
+            for (NSDictionary *dic in dateDic) {
+                PromiseModel *model = [[PromiseModel alloc] initWithDictionary:dic error:nil];
+                [self.dataArray addObject:model];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+            
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
 }
 
-- (void)createCalendar {
-    self.promiseDetailsVC = [[PromiseDetailsVC alloc] init];
-//    CGFloat height = 50;
-    CGFloat pdVC_y = CGRectGetMaxY(self.tableView.frame);
-    self.promiseDetailsVC.view.frame = CGRectMake(0, pdVC_y, Screen_width, Screen_Height);
-    [self.view addSubview:self.promiseDetailsVC.view];
+
+#pragma mark - TableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 200;
 }
 
 #pragma mark - TableViewDataSource
@@ -95,15 +178,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-//        return [self.dataArray count];
-        return 1;
+        return [self.dataArray count];
     } else {
         return 1;
     }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -116,7 +194,9 @@
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell getDataWithModel];
+        
+        PromiseModel *model = self.dataArray[indexPath.row];
+        [cell getDataWithModel:model];
         
         return cell;
         
@@ -129,7 +209,7 @@
         }
         
         cell.selectionStyle = UITableViewCellSeparatorStyleNone;
-        [cell getDataWithModel];
+        [cell setup];
         
         return cell;
         
@@ -138,10 +218,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-//        SinglePromiseDetailsVC *spdVC = [[SinglePromiseDetailsVC alloc] init];
-//        [self.navigationController pushViewController:spdVC animated:YES];
-        PromiseDetailsVC *vc = [[PromiseDetailsVC alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+        PromiseModel *model = self.dataArray[indexPath.row];
+        SinglePromiseDetailsVC *spdVC = [[SinglePromiseDetailsVC alloc] init];
+        spdVC.targetID = [model.TargetID integerValue];
+        spdVC.model = model;
+        [self.navigationController pushViewController:spdVC animated:YES];
     } else if (indexPath.section == 1) {
         ProjectVC *pVC = [[ProjectVC alloc] init];
         [self.navigationController pushViewController:pVC animated:YES];

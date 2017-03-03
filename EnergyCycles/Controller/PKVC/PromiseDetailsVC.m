@@ -9,13 +9,20 @@
 #import "PromiseDetailsVC.h"
 #import "CalendarCell.h"
 #import "Masonry.h"
+#import "DailyPromiseTableViewCell.h"
+#import "PromiseDetailModel.h"
 
-@interface PromiseDetailsVC ()
+@interface PromiseDetailsVC ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSCalendar *greforian;
+
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 @property (strong, nonatomic) NSDictionary *dates;
+
+@property (strong, nonatomic) UITableView *tableView;
+
+@property (strong, nonatomic) NSMutableDictionary *datesDic;
 
 @end
 
@@ -45,6 +52,12 @@
     return self;
 }
 
+- (NSMutableDictionary *)datesDic {
+    if (!_datesDic) {
+        self.datesDic = [NSMutableDictionary dictionary];
+    }
+    return _datesDic;
+}
 
 - (NSDictionary *)dates {
     if (!_dates) {
@@ -58,7 +71,7 @@
     view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.view = view;
     
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 15, view.frame.size.width, 300)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 0, view.frame.size.width, 300)];
     calendar.dataSource = self;
     calendar.delegate = self;
     calendar.backgroundColor = [UIColor whiteColor];
@@ -106,6 +119,10 @@
 - (void)calendar:(FSCalendar *)calendar boundingRectWillChange:(CGRect)bounds animated:(BOOL)animated
 {
     calendar.frame = (CGRect){calendar.frame.origin,bounds.size};
+    CGRect rect = self.view.bounds;
+    rect.origin.y += CGRectGetMaxY(self.calendar.frame);
+    rect.size.height -= CGRectGetMaxY(self.calendar.frame);
+    self.tableView.frame = rect;
 //    self.bottomContainer.frame = kContainerFrame;
 }
 
@@ -189,19 +206,11 @@
     [self configureVisibleCells];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self createView];
-    self.greforian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-//    [self configureVisibleCells];
-    // Do any additional setup after loading the view.
-}
-
 - (void)createView {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 15)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, -15, Screen_width, 15)];
     headerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:headerView];
-
+    
     UIView *tagView = [UIView new];
     tagView.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
     [headerView addSubview:tagView];
@@ -214,9 +223,56 @@
     }];
 }
 
+- (void)createTableView {
+    
+    CGRect rect = self.view.bounds;
+    rect.origin.y += CGRectGetMaxY(self.calendar.frame);
+    rect.size.height -= CGRectGetMaxY(self.calendar.frame);
+    self.tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.tableView];
+    
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self getData];
+    [self createView];
+    [self createTableView];
+    self.greforian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+//    [self configureVisibleCells];
+    // Do any additional setup after loading the view.
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)getData {
+    [[AppHttpManager shareInstance] getMyTargetDetailsListWithUserID:[User_ID integerValue] StartDate:@"2017-03-01" EndDate:@"2017-03-31" PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            NSDictionary *dataDic = dict[@"Data"];
+            for (NSDictionary *dateDic in dataDic) {
+                NSMutableArray *dateArray = [NSMutableArray array];
+                for (NSDictionary *dic in dataDic[dateDic]) {
+                    PromiseDetailModel *model = [[PromiseDetailModel alloc] initWithDictionary:dic error:nil];
+                    [dateArray addObject:model];
+                }
+                [self.datesDic setObject:dateArray forKey:dateDic];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.calendar reloadData];
+                [self.tableView reloadData];
+            });
+            
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
 }
 
 #pragma mark - Private methods
@@ -256,6 +312,47 @@
     
 }
 
+
+#pragma mark - TableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 5;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
+
+#pragma mark - TableViewDataSoure
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *dailyPromiseTableViewCell = @"DailyPromiseTableViewCell";
+    DailyPromiseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dailyPromiseTableViewCell];
+    
+    if (cell == nil) {
+        cell = [[NSBundle mainBundle] loadNibNamed:dailyPromiseTableViewCell owner:self options:nil].firstObject;
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    PromiseDetailModel *model = self.datesDic[@"2017-03-03"][0];
+    [cell getDataWithModel:model];
+    
+    return cell;
+}
 
 /*
 #pragma mark - Navigation

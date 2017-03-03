@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
-
+#import "PromiseModel.h"
 @interface SinglePromiseDetailsVC : BaseViewController
+
+@property (nonatomic, assign) NSInteger targetID;
+
+@property (nonatomic, strong) PromiseModel *model;
 
 @end

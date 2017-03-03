@@ -10,6 +10,8 @@
 #import "FSCalendar.h"
 #import "CalendarCell.h"
 #import "Masonry.h"
+#import "PromiseModel.h"
+#import "CalendarDayModel.h"
 
 @interface SinglePromiseDetailsVC ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance>
 
@@ -21,15 +23,15 @@
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
-@property (nonatomic, strong) NSDictionary *dates;
+@property (nonatomic, strong) NSMutableDictionary *dates;
 
 @end
 
 @implementation SinglePromiseDetailsVC
 
-- (NSDictionary *)dates {
+- (NSMutableDictionary *)dates {
     if (!_dates) {
-        self.dates = [NSDictionary dictionary];
+        self.dates = [NSMutableDictionary dictionary];
     }
     return _dates;
 }
@@ -41,7 +43,7 @@
     [self.view addSubview:headerView];
     
     UILabel *titleLabel = [UILabel new];
-    [titleLabel setText:@"蹲起"];
+    [titleLabel setText:self.model.ProjectName];
     [titleLabel setFont:[UIFont fontWithName:@"PingFangSC-Medium" size:20]];
     [titleLabel setTextColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1]];
     [headerView addSubview:titleLabel];
@@ -61,7 +63,7 @@
     }];
     
     UILabel *durationLabel = [UILabel new];
-    [durationLabel setText:@"10天"];
+    [durationLabel setText:[NSString stringWithFormat:@"%@天", self.model.AllDays]];
     [durationLabel setFont:[UIFont systemFontOfSize:15]];
     [durationLabel setTextColor:[UIColor blackColor]];
     [headerView addSubview:durationLabel];
@@ -81,7 +83,7 @@
     }];
     
     UILabel *promiseLabel = [UILabel new];
-    [promiseLabel setText:@"10个"];
+    [promiseLabel setText:[NSString stringWithFormat:@"%@%@", self.model.ReportNum, self.model.P_UNIT]];
     [promiseLabel setFont:[UIFont systemFontOfSize:15]];
     [promiseLabel setTextColor:[UIColor blackColor]];
     [headerView addSubview:promiseLabel];
@@ -91,13 +93,32 @@
     }];
     
     UILabel *finishTimeLabel = [UILabel new];
-    [finishTimeLabel setText:@"完成目标第4/10天"];
     [finishTimeLabel setFont:[UIFont systemFontOfSize:12]];
     [finishTimeLabel setTextColor:[UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:1]];
     [headerView addSubview:finishTimeLabel];
     [finishTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@20);
         make.top.equalTo(durationLabel.mas_bottom).with.offset(15);
+        // 根据目标开始时间进行显示判断
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        NSDate *startDate = [formatter dateFromString:self.model.StartDate];
+        NSDate *nowDate = [NSDate date];
+        NSTimeInterval startDateInterval = [startDate timeIntervalSince1970]; // 开始时间的时间间隔
+        NSTimeInterval nowDateInterval = [nowDate timeIntervalSince1970]; // 现在时间的时间间隔
+        if (startDateInterval > nowDateInterval) {
+            formatter.dateFormat = @"MM/dd";
+            NSString *startDate_str = [formatter stringFromDate:startDate];
+            NSMutableAttributedString *startText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"目标将于%@开始", startDate_str]];
+            NSRange range = NSMakeRange(4, startDate_str.length);
+            [startText addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15], NSForegroundColorAttributeName: [UIColor blackColor]} range:range];
+            [finishTimeLabel setAttributedText:startText];
+        } else {
+            NSRange range = NSMakeRange(5, self.model.FinishDays.length + self.model.AllDays.length + 1);
+            NSMutableAttributedString *startText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"完成目标第%ld/%ld天", [self.model.FinishDays integerValue], [self.model.AllDays integerValue]]];
+            [startText addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15], NSForegroundColorAttributeName: [UIColor blackColor]} range:range];
+            finishTimeLabel.attributedText = startText;
+        }
     }];
     
     UILabel *finishLabel = [UILabel new];
@@ -110,8 +131,11 @@
         make.top.equalTo(promiseLabel.mas_bottom).with.offset(15);
     }];
     
+    // 完成进度
+    CGFloat modulus = [self.model.FinishDays integerValue] / [self.model.AllDays integerValue];
+
     UILabel *finishPercentage = [UILabel new];
-    [finishPercentage setText:@"40%"];
+    [finishPercentage setText:[NSString stringWithFormat:@"%.f%%", modulus * 100]];
     [finishPercentage setFont:[UIFont systemFontOfSize:12]];
     [finishPercentage setTextColor:[UIColor blackColor]];
     [headerView addSubview:finishPercentage];
@@ -130,7 +154,7 @@
         make.bottom.equalTo(@-20);
         percentageView.layer.cornerRadius = 7 / 2;
         CALayer *percentageLayer = [CALayer layer];
-        CGFloat percentage = (Screen_width - 30) * 0.4;
+        CGFloat percentage = (Screen_width - 30) * modulus;
         percentageLayer.frame = CGRectMake(0.0f, 0.0f, percentage, 7);
         percentageLayer.cornerRadius = 7 / 2;
         percentageLayer.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
@@ -139,16 +163,6 @@
         percentageLayer.shadowOffset = CGSizeMake(2, 2);
         [percentageView.layer addSublayer:percentageLayer];
     }];
-//    percentageView.layer.cornerRadius = 7/ 2;
-//    CALayer *percentageLayer = [CALayer layer];
-//    CGFloat percentage = percentageView.frame.size.width * 0.4;
-//    percentageLayer.frame = CGRectMake(0.0f, 0.0f, percentage, percentageView.frame.size.height);
-//    percentageLayer.cornerRadius = 7 / 2;
-//    percentageLayer.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
-//    percentageLayer.shadowColor = percentageLayer.backgroundColor;
-//    percentageLayer.shadowOpacity = 0.5;
-//    percentageLayer.shadowOffset = CGSizeMake(2, 2);
-//    [percentageView.layer addSublayer:percentageLayer];
 }
 
 - (void)loadView {
@@ -156,7 +170,7 @@
     view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.view = view;
     
-//    [self getAllDate];
+    [self getData];
     [self createHeaderView];
     
     FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 180, view.frame.size.width, 300)];
@@ -203,12 +217,39 @@
     
 }
 
+// 获取数据
 - (void)getData {
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
-    self.dateFormatter.dateFormat = @"yyyy/MM/dd";
+    self.dateFormatter.dateFormat = @"yyyy-MM-dd";
     
-    
+    [[AppHttpManager shareInstance] getTargetDetailsWithTargetID:self.targetID PostOrGet:@"get" success:^(NSDictionary *dict) {
+        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            NSDictionary *target = dict[@"Data"][@"Target"];
+            NSDictionary *targetDetails = dict[@"Data"][@"TargetDetails"];
+            for (NSDictionary *dic in target) {
+                PromiseModel *model = [[PromiseModel alloc] initWithDictionary:dic error:nil];
+                self.model = model;
+            }
+            
+            for (NSDictionary *dic in targetDetails) {
+                CalendarDayModel *model = [[CalendarDayModel alloc] initWithDictionary:dic error:nil];
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                NSDate *reportDate = [formatter dateFromString:model.ReportDate];
+                formatter.dateFormat = @"yyyy-MM-dd";
+                NSString *reportDate_str = [formatter stringFromDate:reportDate];
+                [self.dates setObject:model.IsFinish forKey:reportDate_str];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.calendar reloadData];
+            });
+            
+        }
+    } failure:^(NSString *str) {
+        NSLog(@"%@", str);
+    }];
     
 }
 
@@ -306,8 +347,6 @@
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     [self setupRightNavBarWithimage:@"Promise_Del"];
     
-    [self createHeaderView];
-    
     // Do any additional setup after loading the view.
 }
 
@@ -384,9 +423,16 @@
     if (monthPosition == FSCalendarMonthPositionCurrent) {
         
         SelectionType selectionType = SelectionTypeNone;
-        NSString *key = [self.dateFormatter stringFromDate:date];
+        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+        NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];
+        NSDate *date_jetLag = [date dateByAddingTimeInterval:interval];
+        NSString *key = [self.dateFormatter stringFromDate:date_jetLag];
         if ([self.dates.allKeys containsObject:key]) {
-            selectionType = SelectionTypeUndone;
+            if ([self.dates[key] isEqualToString:@"1"]) {
+                selectionType = SelectionTypeFinish;
+            } else {
+                selectionType = SelectionTypeUndone;
+            }
         } else {
             selectionType = SelectionTypeNone;
         }

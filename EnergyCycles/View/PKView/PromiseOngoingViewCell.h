@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PromiseModel.h"
 
 @interface PromiseOngoingViewCell : UITableViewCell
 
@@ -18,6 +19,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *scheduleLabel; // 进度百分比
 @property (weak, nonatomic) IBOutlet UIView *scheduleView; // 进度块
 
-- (void)getDataWithModel;
+- (void)getDataWithModel:(PromiseModel *)model;
 
 @end

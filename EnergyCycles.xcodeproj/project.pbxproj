@@ -528,6 +528,10 @@
 		62F142141E66B25100495CB0 /* SinglePromiseDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F142131E66B25100495CB0 /* SinglePromiseDetailsVC.m */; };
 		62F142181E66C74900495CB0 /* Promise_Del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F142161E66C74900495CB0 /* Promise_Del@2x.png */; };
 		62F142191E66C74900495CB0 /* Promise_Del@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F142171E66C74900495CB0 /* Promise_Del@3x.png */; };
+		62F1421C1E693C5F00495CB0 /* CalendarDayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F1421B1E693C5F00495CB0 /* CalendarDayModel.m */; };
+		62F142201E69509200495CB0 /* DailyPromiseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F1421E1E69509200495CB0 /* DailyPromiseTableViewCell.m */; };
+		62F142211E69509200495CB0 /* DailyPromiseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62F1421F1E69509200495CB0 /* DailyPromiseTableViewCell.xib */; };
+		62F142241E69726A00495CB0 /* PromiseDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F142231E69726A00495CB0 /* PromiseDetailModel.m */; };
 		62F60E7C1D5311C000EE7E9B /* chartBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E7A1D5311C000EE7E9B /* chartBg.png */; };
 		62F60E7D1D5311C000EE7E9B /* chartBg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E7B1D5311C000EE7E9B /* chartBg@3x.png */; };
 		62F60E821D532B3000EE7E9B /* addPraise.png in Resources */ = {isa = PBXBuildFile; fileRef = 62F60E7E1D532B3000EE7E9B /* addPraise.png */; };
@@ -2087,6 +2091,13 @@
 		62F142131E66B25100495CB0 /* SinglePromiseDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePromiseDetailsVC.m; sourceTree = "<group>"; };
 		62F142161E66C74900495CB0 /* Promise_Del@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Promise_Del@2x.png"; sourceTree = "<group>"; };
 		62F142171E66C74900495CB0 /* Promise_Del@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Promise_Del@3x.png"; sourceTree = "<group>"; };
+		62F1421A1E693C5F00495CB0 /* CalendarDayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayModel.h; sourceTree = "<group>"; };
+		62F1421B1E693C5F00495CB0 /* CalendarDayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayModel.m; sourceTree = "<group>"; };
+		62F1421D1E69509200495CB0 /* DailyPromiseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyPromiseTableViewCell.h; sourceTree = "<group>"; };
+		62F1421E1E69509200495CB0 /* DailyPromiseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyPromiseTableViewCell.m; sourceTree = "<group>"; };
+		62F1421F1E69509200495CB0 /* DailyPromiseTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailyPromiseTableViewCell.xib; sourceTree = "<group>"; };
+		62F142221E69726A00495CB0 /* PromiseDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromiseDetailModel.h; sourceTree = "<group>"; };
+		62F142231E69726A00495CB0 /* PromiseDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromiseDetailModel.m; sourceTree = "<group>"; };
 		62F60E7A1D5311C000EE7E9B /* chartBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chartBg.png; path = ../chartBg.png; sourceTree = "<group>"; };
 		62F60E7B1D5311C000EE7E9B /* chartBg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chartBg@3x.png"; path = "../chartBg@3x.png"; sourceTree = "<group>"; };
 		62F60E7E1D532B3000EE7E9B /* addPraise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addPraise.png; sourceTree = "<group>"; };
@@ -3686,6 +3697,10 @@
 				62219E611DC1E1810048D648 /* PraiseRankingModel.m */,
 				62F1420C1E66AE1200495CB0 /* PromiseModel.h */,
 				62F1420D1E66AE1200495CB0 /* PromiseModel.m */,
+				62F1421A1E693C5F00495CB0 /* CalendarDayModel.h */,
+				62F1421B1E693C5F00495CB0 /* CalendarDayModel.m */,
+				62F142221E69726A00495CB0 /* PromiseDetailModel.h */,
+				62F142231E69726A00495CB0 /* PromiseDetailModel.m */,
 			);
 			path = PKModel;
 			sourceTree = "<group>";
@@ -5095,6 +5110,9 @@
 				628BFE5F1E5EA913002FA631 /* SetProjectCell.h */,
 				628BFE601E5EA913002FA631 /* SetProjectCell.m */,
 				628BFE611E5EA913002FA631 /* SetProjectCell.xib */,
+				62F1421D1E69509200495CB0 /* DailyPromiseTableViewCell.h */,
+				62F1421E1E69509200495CB0 /* DailyPromiseTableViewCell.m */,
+				62F1421F1E69509200495CB0 /* DailyPromiseTableViewCell.xib */,
 			);
 			name = PromiseView;
 			sourceTree = "<group>";
@@ -7501,6 +7519,7 @@
 				D00AD7D91D4B451B004AB05A /* 2_028.png in Resources */,
 				DAAEC70A1C1FED3C00FA094B /* MineOneViewCell.xib in Resources */,
 				D07EB2631D18DE6800840AC2 /* faceDelete.png in Resources */,
+				62F142211E69509200495CB0 /* DailyPromiseTableViewCell.xib in Resources */,
 				DA68D5AA1C96984B0073E0F6 /* fenxiang_blue@2x.png in Resources */,
 				D07EB2971D18DE6800840AC2 /* chatto_bg_normal.png in Resources */,
 				D00AD7D01D4B451B004AB05A /* 2_019.png in Resources */,
@@ -7773,6 +7792,7 @@
 				D0C97B991D5C8E9F00B62219 /* SCLAlertView.m in Sources */,
 				D07EB29B1D18DE6800840AC2 /* JiaoLiuListModel.m in Sources */,
 				627C873C1D81161700D2FC6E /* CollectionSliderDetailCell.m in Sources */,
+				62F1421C1E693C5F00495CB0 /* CalendarDayModel.m in Sources */,
 				626D3F161D48A43A00724000 /* MineChatViewController.m in Sources */,
 				62BE73681D5B236800A83766 /* InformTableViewController.m in Sources */,
 				34F756B01E12869900A1C0DD /* AMPopTip+Animation.m in Sources */,
@@ -7809,6 +7829,7 @@
 				62B6661D1D49FACD00660E1D /* MineRecommendedTableViewCell.m in Sources */,
 				26D99EE21C0C4D7C007AF579 /* NSArray+JSONModel.m in Sources */,
 				6202B1611D62F9AD000F7F39 /* ReportShareTableViewCell.m in Sources */,
+				62F142241E69726A00495CB0 /* PromiseDetailModel.m in Sources */,
 				D07D2EE11D0FE1BB00AF35B1 /* ECLabel.m in Sources */,
 				DA735E191C3B9A3000CE9995 /* OtherReportModel.m in Sources */,
 				DA8AFF621C2A63F80064B9A7 /* MineEveryDayOneViewCell.m in Sources */,
@@ -8022,6 +8043,7 @@
 				D0BEF32E1D22A01600F1985C /* UIView+SDAutoLayout.m in Sources */,
 				26D99EBD1C0C4D7B007AF579 /* WXApiResponseHandler.m in Sources */,
 				D0BD3F0F1D6460830010D9BB /* ECSearchController.m in Sources */,
+				62F142201E69509200495CB0 /* DailyPromiseTableViewCell.m in Sources */,
 				D083524E1D2F909E0094AC2E /* NSObject+MJProperty.m in Sources */,
 				D0C97B9F1D5C8E9F00B62219 /* SCLTimerDisplay.m in Sources */,
 				D05A95A81D61EB890063AD41 /* NSString+Utils.m in Sources */,

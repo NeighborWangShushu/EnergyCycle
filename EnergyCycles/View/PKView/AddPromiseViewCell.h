@@ -16,6 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *bottomLabel; // 底部标签
 
-- (void)getDataWithModel;
+- (void)setup;
 
 @end
