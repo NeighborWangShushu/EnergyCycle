@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="132" id="KGk-i7-Jjw" customClass="RightNavMenuCell">
+            <rect key="frame" x="0.0" y="0.0" width="115" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="115" height="39"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="promise_explanation.png" translatesAutoresizingMaskIntoConstraints="NO" id="58Z-eV-gHB">
+                        <rect key="frame" x="8" y="10" width="20" height="20"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="奖惩说明" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rko-B1-HJ4">
+                        <rect key="frame" x="35" y="13.5" width="49.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="Rko-B1-HJ4" firstAttribute="centerY" secondItem="58Z-eV-gHB" secondAttribute="centerY" id="Ibi-ya-qmZ"/>
+                    <constraint firstItem="58Z-eV-gHB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Rnq-AN-NhJ"/>
+                    <constraint firstItem="Rko-B1-HJ4" firstAttribute="leading" secondItem="58Z-eV-gHB" secondAttribute="trailing" constant="7" id="kmM-6y-Km3"/>
+                    <constraint firstItem="58Z-eV-gHB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zve-cq-dPC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="iconImage" destination="58Z-eV-gHB" id="sky-EV-szh"/>
+                <outlet property="titleLabel" destination="Rko-B1-HJ4" id="DTf-xf-B0W"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="98"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="promise_explanation.png" width="20" height="20"/>
+    </resources>
+</document>

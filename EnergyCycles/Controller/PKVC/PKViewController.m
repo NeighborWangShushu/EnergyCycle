@@ -17,6 +17,7 @@
 #import "PKGatherViewController.h"
 #import "BadgeRulesCollectionViewController.h"
 #import "PraiseRankingTableVC.h"
+#import "PromiseVC.h"
 #import "AppDelegate.h"
 
 @interface PKViewController () <UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate> {
@@ -132,7 +133,7 @@
 
 #pragma mark - UITableView协议方法
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -165,9 +166,11 @@
         cell.titleLabel.text = @"每日PK";
         cell.titleLabel.textColor = [UIColor whiteColor];
         cell.downBackImageView.image = [UIImage imageNamed:@"meirix.png"];
-    }else {
+    } else if (indexPath.section == 2) {
+        cell.titleLabel.text = @"公众承诺区";
+        cell.downBackImageView.image = [UIImage imageNamed:@"Promise_Entrance"];
+    } else if (indexPath.section == 3) {
         cell.titleLabel.text = @"进阶PK";
-        cell.downBackImageView.image = [UIImage imageNamed:@"placepic.png"];
         cell.downBackImageView.image = [UIImage imageNamed:@"jinjiex.png"];
     }
     
@@ -227,7 +230,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 2) {
+    if (section == 3) {
         return 0.01f;
     }
     return 10.f;
@@ -257,6 +260,11 @@
         view.backgroundColor = [UIColor whiteColor];
         return view;
     }
+    if (section == 2) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 10)];
+        view.backgroundColor = [UIColor whiteColor];
+        return view;
+    }
     return nil;
 }
 
@@ -269,7 +277,11 @@
         }else {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
         }
-    }else {//进阶PK
+    } else if (button.tag == 2003) { // 公众承诺区
+        [self.delegate.tabbarController hideTabbar:YES];
+        PromiseVC *promiseVC = [[PromiseVC alloc] init];
+        [self.navigationController pushViewController:promiseVC animated:YES];
+    } else if (button.tag == 2004) { // 进阶PK
         [self.delegate.tabbarController hideTabbar:YES];
         [self performSegueWithIdentifier:@"PKViewToTheAdvPKView" sender:nil];
     }

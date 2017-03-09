@@ -18,11 +18,13 @@
 
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
-@property (strong, nonatomic) NSDictionary *dates;
+@property (strong, nonatomic) NSMutableDictionary *dates;
 
 @property (strong, nonatomic) UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableDictionary *datesDic;
+
+@property (strong, nonatomic) NSString *selectedDate;
 
 @end
 
@@ -33,21 +35,7 @@
     self = [super init];
     if (self) {
         self.dateFormatter = [[NSDateFormatter alloc] init];
-        self.dateFormatter.dateFormat = @"yyyy/MM/dd";
-        
-        self.dates = @{@"2017/02/07" : @"YES",
-                       @"2017/02/08" : @"YES",
-                       @"2017/02/09" : @"YES",
-                       @"2017/02/10" : @"NO",
-                       @"2017/02/11" : @"YES",
-                       @"2017/02/12" : @"NO",
-                       @"2017/02/13" : @"YES",
-                       @"2017/02/14" : @"NO",
-                       @"2017/02/15" : @"NO",
-                       @"2017/02/16" : @"NO",
-                       @"2017/02/17" : @"NO",
-                       @"2017/02/18" : @"NO"};
-        
+        self.dateFormatter.dateFormat = @"yyyy-MM-dd";
     }
     return self;
 }
@@ -59,9 +47,9 @@
     return _datesDic;
 }
 
-- (NSDictionary *)dates {
+- (NSMutableDictionary *)dates {
     if (!_dates) {
-        self.dates = [NSDictionary dictionary];
+        self.dates = [NSMutableDictionary dictionary];
     }
     return _dates;
 }
@@ -126,16 +114,6 @@
 //    self.bottomContainer.frame = kContainerFrame;
 }
 
-//- (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar
-//{
-//    return [self.dateFormatter dateFromString:@"2016-01-08"];
-//}
-//
-//- (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
-//{
-//    return [self.dateFormatter dateFromString:@"2018-10-08"];
-//}
-
 #pragma mark - FSCalendarDataSource
 
 // 提醒为今日的下标
@@ -183,12 +161,18 @@
     return nil;
 }
 
+// 切换月份的方法
+- (void)calendarCurrentPageDidChange:(FSCalendar *)calendar {
+    [self getData];
+}
 
+// 点击日期的方法
 - (BOOL)calendar:(FSCalendar *)calendar shouldSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     return monthPosition == FSCalendarMonthPositionCurrent;
 }
 
+// 取消当前日期的方法
 - (BOOL)calendar:(FSCalendar *)calendar shouldDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     return monthPosition == FSCalendarMonthPositionCurrent;
@@ -197,6 +181,7 @@
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     NSLog(@"did select date %@",[self.dateFormatter stringFromDate:date]);
+    [self.tableView reloadData];
     [self configureVisibleCells];
 }
 
@@ -221,6 +206,8 @@
         make.height.equalTo(@3);
         tagView.layer.cornerRadius = 1.5;
     }];
+    
+    
 }
 
 - (void)createTableView {
@@ -237,10 +224,23 @@
     
 }
 
+- (void)createIndicatorImg {
+    self.indicatorImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ecpicker_drop"]];
+    self.indicatorImg.contentMode = UIViewContentModeScaleAspectFit;
+    [self.calendar addSubview:self.indicatorImg];
+    [self.indicatorImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.calendar.mas_centerX).with.offset(40);
+        make.top.equalTo(@15);
+        make.width.equalTo(@15);
+        make.height.equalTo(@15);
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self getData];
     [self createView];
+    [self createIndicatorImg];
     [self createTableView];
     self.greforian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
 //    [self configureVisibleCells];
@@ -252,15 +252,42 @@
 }
 
 - (void)getData {
-    [[AppHttpManager shareInstance] getMyTargetDetailsListWithUserID:[User_ID integerValue] StartDate:@"2017-03-01" EndDate:@"2017-03-31" PostOrGet:@"get" success:^(NSDictionary *dict) {
+    
+    // 获取上个月月初和下个月月末的日期,获取三个月的数据
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = nil;
+    comps = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.calendar.currentPage];
+    NSDateComponents *newComps = [[NSDateComponents alloc] init];
+    [newComps setMonth:-1];
+    NSDate *startDate = [calendar dateByAddingComponents:newComps toDate:self.calendar.currentPage options:0];
+    [newComps setMonth:3];
+    [newComps setDay:-1];
+    NSDate *endDate = [calendar dateByAddingComponents:newComps toDate:self.calendar.currentPage options:0];
+    NSString *startDate_str = [self.dateFormatter stringFromDate:startDate];
+    NSString *endDate_str = [self.dateFormatter stringFromDate:endDate];
+    
+    // 请求数据
+    [[AppHttpManager shareInstance] getMyTargetDetailsListWithUserID:[User_ID integerValue] StartDate:startDate_str EndDate:endDate_str PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             NSDictionary *dataDic = dict[@"Data"];
+            [self.dates removeAllObjects];
+            [self.datesDic removeAllObjects];
             for (NSDictionary *dateDic in dataDic) {
                 NSMutableArray *dateArray = [NSMutableArray array];
+                BOOL isFinish = YES;
                 for (NSDictionary *dic in dataDic[dateDic]) {
                     PromiseDetailModel *model = [[PromiseDetailModel alloc] initWithDictionary:dic error:nil];
+                    if ([model.IsFinish isEqualToString:@"0"]) {
+                        isFinish = NO;
+                    }
                     [dateArray addObject:model];
                 }
+                if (isFinish) {
+                    [self.dates setObject:@"YES" forKey:dateDic];
+                } else {
+                    [self.dates setObject:@"NO" forKey:dateDic];
+                }
+                
                 [self.datesDic setObject:dateArray forKey:dateDic];
             }
             
@@ -336,7 +363,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    NSString *date = [self.dateFormatter stringFromDate:self.calendar.selectedDate];
+    return [self.datesDic[date] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -348,7 +376,8 @@
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    PromiseDetailModel *model = self.datesDic[@"2017-03-03"][0];
+    NSString *date = [self.dateFormatter stringFromDate:self.calendar.selectedDate];
+    PromiseDetailModel *model = self.datesDic[date][indexPath.row];
     [cell getDataWithModel:model];
     
     return cell;

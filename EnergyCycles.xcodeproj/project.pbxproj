@@ -404,6 +404,27 @@
 		626B80611E0BD7120097CFA5 /* 150signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B805D1E0BD7120097CFA5 /* 150signIn@3x.png */; };
 		626B80621E0BD7120097CFA5 /* 250signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B805E1E0BD7120097CFA5 /* 250signIn@2x.png */; };
 		626B80631E0BD7120097CFA5 /* 250signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B805F1E0BD7120097CFA5 /* 250signIn@3x.png */; };
+		626B97BC1E6D4E4900B8E817 /* HistoryPromiseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 626B97BB1E6D4E4900B8E817 /* HistoryPromiseVC.m */; };
+		626B97C01E6D4E8400B8E817 /* HistoryPromiseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626B97BE1E6D4E8400B8E817 /* HistoryPromiseCell.m */; };
+		626B97C11E6D4E8400B8E817 /* HistoryPromiseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626B97BF1E6D4E8400B8E817 /* HistoryPromiseCell.xib */; };
+		626B97C61E6D513300B8E817 /* promise_finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97C21E6D513300B8E817 /* promise_finish@2x.png */; };
+		626B97C71E6D513300B8E817 /* promise_finish@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97C31E6D513300B8E817 /* promise_finish@3x.png */; };
+		626B97C81E6D513300B8E817 /* promise_unfinish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97C41E6D513300B8E817 /* promise_unfinish@2x.png */; };
+		626B97C91E6D513300B8E817 /* promise_unfinish@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97C51E6D513300B8E817 /* promise_unfinish@3x.png */; };
+		626B97CC1E6D593E00B8E817 /* promise_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97CA1E6D593E00B8E817 /* promise_more@2x.png */; };
+		626B97CD1E6D593E00B8E817 /* promise_more@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97CB1E6D593E00B8E817 /* promise_more@3x.png */; };
+		626B97D01E6D6CDD00B8E817 /* RightNavMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 626B97CF1E6D6CDD00B8E817 /* RightNavMenuView.m */; };
+		626B97D41E6D788F00B8E817 /* RightNavMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626B97D21E6D788F00B8E817 /* RightNavMenuCell.m */; };
+		626B97D51E6D788F00B8E817 /* RightNavMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626B97D31E6D788F00B8E817 /* RightNavMenuCell.xib */; };
+		626B97DA1E6D7A7000B8E817 /* promise_explanation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97D61E6D7A7000B8E817 /* promise_explanation@2x.png */; };
+		626B97DB1E6D7A7000B8E817 /* promise_explanation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97D71E6D7A7000B8E817 /* promise_explanation@3x.png */; };
+		626B97DC1E6D7A7000B8E817 /* promise_history@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97D81E6D7A7000B8E817 /* promise_history@2x.png */; };
+		626B97DD1E6D7A7000B8E817 /* promise_history@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97D91E6D7A7000B8E817 /* promise_history@3x.png */; };
+		626B97E01E6E589700B8E817 /* RightNavMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 626B97DF1E6E589700B8E817 /* RightNavMenuModel.m */; };
+		626B97E31E6E960F00B8E817 /* Promise_Entrance@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97E11E6E960F00B8E817 /* Promise_Entrance@2x.png */; };
+		626B97E41E6E960F00B8E817 /* Promise_Entrance@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97E21E6E960F00B8E817 /* Promise_Entrance@3x.png */; };
+		626B97E71E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97E51E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@2x.png */; };
+		626B97E81E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97E61E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@3x.png */; };
 		626D3F0D1D489A6C00724000 /* MineChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */; };
 		626D3F0E1D489A6C00724000 /* MineChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */; };
 		626D3F111D48A29400724000 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F101D48A29400724000 /* ChatTableViewCell.m */; };
@@ -1902,6 +1923,32 @@
 		626B805D1E0BD7120097CFA5 /* 150signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "150signIn@3x.png"; sourceTree = "<group>"; };
 		626B805E1E0BD7120097CFA5 /* 250signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "250signIn@2x.png"; sourceTree = "<group>"; };
 		626B805F1E0BD7120097CFA5 /* 250signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "250signIn@3x.png"; sourceTree = "<group>"; };
+		626B97BA1E6D4E4900B8E817 /* HistoryPromiseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryPromiseVC.h; sourceTree = "<group>"; };
+		626B97BB1E6D4E4900B8E817 /* HistoryPromiseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryPromiseVC.m; sourceTree = "<group>"; };
+		626B97BD1E6D4E8400B8E817 /* HistoryPromiseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryPromiseCell.h; sourceTree = "<group>"; };
+		626B97BE1E6D4E8400B8E817 /* HistoryPromiseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryPromiseCell.m; sourceTree = "<group>"; };
+		626B97BF1E6D4E8400B8E817 /* HistoryPromiseCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryPromiseCell.xib; sourceTree = "<group>"; };
+		626B97C21E6D513300B8E817 /* promise_finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promise_finish@2x.png"; sourceTree = "<group>"; };
+		626B97C31E6D513300B8E817 /* promise_finish@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promise_finish@3x.png"; sourceTree = "<group>"; };
+		626B97C41E6D513300B8E817 /* promise_unfinish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promise_unfinish@2x.png"; sourceTree = "<group>"; };
+		626B97C51E6D513300B8E817 /* promise_unfinish@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promise_unfinish@3x.png"; sourceTree = "<group>"; };
+		626B97CA1E6D593E00B8E817 /* promise_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promise_more@2x.png"; sourceTree = "<group>"; };
+		626B97CB1E6D593E00B8E817 /* promise_more@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promise_more@3x.png"; sourceTree = "<group>"; };
+		626B97CE1E6D6CDD00B8E817 /* RightNavMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightNavMenuView.h; sourceTree = "<group>"; };
+		626B97CF1E6D6CDD00B8E817 /* RightNavMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightNavMenuView.m; sourceTree = "<group>"; };
+		626B97D11E6D788F00B8E817 /* RightNavMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightNavMenuCell.h; sourceTree = "<group>"; };
+		626B97D21E6D788F00B8E817 /* RightNavMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightNavMenuCell.m; sourceTree = "<group>"; };
+		626B97D31E6D788F00B8E817 /* RightNavMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightNavMenuCell.xib; sourceTree = "<group>"; };
+		626B97D61E6D7A7000B8E817 /* promise_explanation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promise_explanation@2x.png"; sourceTree = "<group>"; };
+		626B97D71E6D7A7000B8E817 /* promise_explanation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promise_explanation@3x.png"; sourceTree = "<group>"; };
+		626B97D81E6D7A7000B8E817 /* promise_history@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promise_history@2x.png"; sourceTree = "<group>"; };
+		626B97D91E6D7A7000B8E817 /* promise_history@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promise_history@3x.png"; sourceTree = "<group>"; };
+		626B97DE1E6E589700B8E817 /* RightNavMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightNavMenuModel.h; sourceTree = "<group>"; };
+		626B97DF1E6E589700B8E817 /* RightNavMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightNavMenuModel.m; sourceTree = "<group>"; };
+		626B97E11E6E960F00B8E817 /* Promise_Entrance@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Promise_Entrance@2x.png"; sourceTree = "<group>"; };
+		626B97E21E6E960F00B8E817 /* Promise_Entrance@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Promise_Entrance@3x.png"; sourceTree = "<group>"; };
+		626B97E51E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Promise_Explanation_BackgroundImage@2x.png"; sourceTree = "<group>"; };
+		626B97E61E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Promise_Explanation_BackgroundImage@3x.png"; sourceTree = "<group>"; };
 		626D3F0A1D489A6C00724000 /* MineChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineChatTableViewCell.h; sourceTree = "<group>"; };
 		626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineChatTableViewCell.m; sourceTree = "<group>"; };
 		626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineChatTableViewCell.xib; sourceTree = "<group>"; };
@@ -3701,6 +3748,8 @@
 				62F1421B1E693C5F00495CB0 /* CalendarDayModel.m */,
 				62F142221E69726A00495CB0 /* PromiseDetailModel.h */,
 				62F142231E69726A00495CB0 /* PromiseDetailModel.m */,
+				626B97DE1E6E589700B8E817 /* RightNavMenuModel.h */,
+				626B97DF1E6E589700B8E817 /* RightNavMenuModel.m */,
 			);
 			path = PKModel;
 			sourceTree = "<group>";
@@ -5079,6 +5128,8 @@
 				62D72C8C1E54487C007998BC /* PromiseDetailsVC.m */,
 				622C01B81E5C215700188CA4 /* PromiseVC.h */,
 				622C01B91E5C215700188CA4 /* PromiseVC.m */,
+				626B97BA1E6D4E4900B8E817 /* HistoryPromiseVC.h */,
+				626B97BB1E6D4E4900B8E817 /* HistoryPromiseVC.m */,
 				62F142121E66B25100495CB0 /* SinglePromiseDetailsVC.h */,
 				62F142131E66B25100495CB0 /* SinglePromiseDetailsVC.m */,
 				622C01C01E5D454000188CA4 /* ProjectVC.h */,
@@ -5113,6 +5164,14 @@
 				62F1421D1E69509200495CB0 /* DailyPromiseTableViewCell.h */,
 				62F1421E1E69509200495CB0 /* DailyPromiseTableViewCell.m */,
 				62F1421F1E69509200495CB0 /* DailyPromiseTableViewCell.xib */,
+				626B97BD1E6D4E8400B8E817 /* HistoryPromiseCell.h */,
+				626B97BE1E6D4E8400B8E817 /* HistoryPromiseCell.m */,
+				626B97BF1E6D4E8400B8E817 /* HistoryPromiseCell.xib */,
+				626B97CE1E6D6CDD00B8E817 /* RightNavMenuView.h */,
+				626B97CF1E6D6CDD00B8E817 /* RightNavMenuView.m */,
+				626B97D11E6D788F00B8E817 /* RightNavMenuCell.h */,
+				626B97D21E6D788F00B8E817 /* RightNavMenuCell.m */,
+				626B97D31E6D788F00B8E817 /* RightNavMenuCell.xib */,
 			);
 			name = PromiseView;
 			sourceTree = "<group>";
@@ -5268,6 +5327,20 @@
 		62F142151E66C73B00495CB0 /* Promise */ = {
 			isa = PBXGroup;
 			children = (
+				626B97E51E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@2x.png */,
+				626B97E61E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@3x.png */,
+				626B97E11E6E960F00B8E817 /* Promise_Entrance@2x.png */,
+				626B97E21E6E960F00B8E817 /* Promise_Entrance@3x.png */,
+				626B97D61E6D7A7000B8E817 /* promise_explanation@2x.png */,
+				626B97D71E6D7A7000B8E817 /* promise_explanation@3x.png */,
+				626B97D81E6D7A7000B8E817 /* promise_history@2x.png */,
+				626B97D91E6D7A7000B8E817 /* promise_history@3x.png */,
+				626B97C21E6D513300B8E817 /* promise_finish@2x.png */,
+				626B97C31E6D513300B8E817 /* promise_finish@3x.png */,
+				626B97C41E6D513300B8E817 /* promise_unfinish@2x.png */,
+				626B97C51E6D513300B8E817 /* promise_unfinish@3x.png */,
+				626B97CA1E6D593E00B8E817 /* promise_more@2x.png */,
+				626B97CB1E6D593E00B8E817 /* promise_more@3x.png */,
 				62F142161E66C74900495CB0 /* Promise_Del@2x.png */,
 				62F142171E66C74900495CB0 /* Promise_Del@3x.png */,
 			);
@@ -7144,6 +7217,7 @@
 				622EF2D21E12320500A19B05 /* MineSignRankingTableViewCell.xib in Resources */,
 				DA4459FC1C21733D0069415D /* InvitationTwoViewCell.xib in Resources */,
 				627C874B1D812FE500D2FC6E /* Learn_AudioBooks@3x.png in Resources */,
+				626B97CC1E6D593E00B8E817 /* promise_more@2x.png in Resources */,
 				D0946D9B1D3CAC90003C9C4C /* icon-80@2x.png in Resources */,
 				626B804D1E0A24D70097CFA5 /* 300signIn@3x.png in Resources */,
 				6259021D1D2BAEBF00F3F13C /* SettingFourViewCell.xib in Resources */,
@@ -7193,12 +7267,14 @@
 				DA8103A51C2BABD300CFFF44 /* loginicon@2x.png in Resources */,
 				D00AD7C81D4B451B004AB05A /* 2_011.png in Resources */,
 				D07E24501D12BFD100854B51 /* CNN@2x.png in Resources */,
+				626B97C81E6D513300B8E817 /* promise_unfinish@2x.png in Resources */,
 				DA7674DE1C27CB2D00A34D9C /* SoicalTableViewCell.xib in Resources */,
 				DA7674CD1C27A68600A34D9C /* NewsTwoViewCell.xib in Resources */,
 				26E987671C0D6BD100C6A7BB /* EnergyPostViewCell.xib in Resources */,
 				62DE91C61D7FEF93009F365E /* subscript_30signIn@3x.png in Resources */,
 				26E987E21C0DAE4000C6A7BB /* jia_pressed@2x.png in Resources */,
 				D07EB2691D18DE6800840AC2 /* input-bar.png in Resources */,
+				626B97CD1E6D593E00B8E817 /* promise_more@3x.png in Resources */,
 				D07EB2751D18DE6800840AC2 /* messageBubbleTyping.png in Resources */,
 				D07EB2AB1D1917B500840AC2 /* hot@2x.png in Resources */,
 				62FCE9111D3CB2A500F52E05 /* attention@2x.png in Resources */,
@@ -7209,6 +7285,7 @@
 				D07EB2911D18DE6800840AC2 /* Chat_record_circle.png in Resources */,
 				D07EB28B1D18DE6800840AC2 /* chat_animation3.png in Resources */,
 				627C874D1D812FE500D2FC6E /* Learn_CCTalk@3x.png in Resources */,
+				626B97DC1E6D7A7000B8E817 /* promise_history@2x.png in Resources */,
 				D00AD7D81D4B451B004AB05A /* 2_027.png in Resources */,
 				D07EB27D1D18DE6800840AC2 /* 默认avator.png in Resources */,
 				D05A959D1D61AD500063AD41 /* ECContactVC.xib in Resources */,
@@ -7230,6 +7307,7 @@
 				D07E24531D12BFD100854B51 /* Ted@2x.png in Resources */,
 				626B803C1E0A24D70097CFA5 /* 150signIn_0@2x.png in Resources */,
 				DA7675021C27F39900A34D9C /* 02tianjia@2x.png in Resources */,
+				626B97DB1E6D7A7000B8E817 /* promise_explanation@3x.png in Resources */,
 				DA735E201C3BB90700CE9995 /* hxin@3x.png in Resources */,
 				DAE1A4681C194258006FE119 /* ReportOneCollectionViewCell.xib in Resources */,
 				26D8B2641C0FEEE900A1DB04 /* 11@2x.png in Resources */,
@@ -7239,6 +7317,7 @@
 				DA5D7D661CA23C5300FF5378 /* OtherUserShowViewCell.xib in Resources */,
 				DA3190DD1C22A54D00972F63 /* loginbeijing@2x.png in Resources */,
 				62F60E851D532B3000EE7E9B /* praise@3x.png in Resources */,
+				626B97C91E6D513300B8E817 /* promise_unfinish@3x.png in Resources */,
 				DAE034E61C182181007E6DBD /* 7xinzheng_@3x.png in Resources */,
 				62F9B8421DCC8379001C98FB /* praiseRankingSecond@2x.png in Resources */,
 				DA8AFF531C2A4BF90064B9A7 /* 08QQ@3x.png in Resources */,
@@ -7317,6 +7396,7 @@
 				D029BC3E1D3777C500B20D65 /* ECShareCell.xib in Resources */,
 				D07EB2621D18DE6800840AC2 /* face@2x.png in Resources */,
 				6202B1991D632DB3000F7F39 /* offWechat@3x.png in Resources */,
+				626B97E81E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@3x.png in Resources */,
 				DA9A23341C43B24B0012265D /* 50zan_@2x.png in Resources */,
 				627C874C1D812FE500D2FC6E /* Learn_CCTalk@2x.png in Resources */,
 				D07E24231D11554700854B51 /* OtherCell.xib in Resources */,
@@ -7370,10 +7450,12 @@
 				D00AD7DD1D4B451B004AB05A /* 2_032.png in Resources */,
 				626B803D1E0A24D70097CFA5 /* 150signIn_0@3x.png in Resources */,
 				D00AD7E51D4B451B004AB05A /* 2_040.png in Resources */,
+				626B97C61E6D513300B8E817 /* promise_finish@2x.png in Resources */,
 				DAE0337F1C181283007E6DBD /* TheAdvTwoViewCell.xib in Resources */,
 				D05A95A21D61B8C20063AD41 /* ECContactCell.xib in Resources */,
 				D083520A1D2CF91B0094AC2E /* 10weibo@2x.png in Resources */,
 				D00AD7DA1D4B451B004AB05A /* 2_029.png in Resources */,
+				626B97C71E6D513300B8E817 /* promise_finish@3x.png in Resources */,
 				D07E24541D12BFD100854B51 /* VOA@2x.png in Resources */,
 				DAF48DC41C1E8B0C00D9C136 /* xiangxiajiantou@3x.png in Resources */,
 				D07804B21D4EF40B001C432B /* ec_article_placeholder@2x.png in Resources */,
@@ -7519,6 +7601,7 @@
 				D00AD7D91D4B451B004AB05A /* 2_028.png in Resources */,
 				DAAEC70A1C1FED3C00FA094B /* MineOneViewCell.xib in Resources */,
 				D07EB2631D18DE6800840AC2 /* faceDelete.png in Resources */,
+				626B97E31E6E960F00B8E817 /* Promise_Entrance@2x.png in Resources */,
 				62F142211E69509200495CB0 /* DailyPromiseTableViewCell.xib in Resources */,
 				DA68D5AA1C96984B0073E0F6 /* fenxiang_blue@2x.png in Resources */,
 				D07EB2971D18DE6800840AC2 /* chatto_bg_normal.png in Resources */,
@@ -7551,6 +7634,7 @@
 				26D26FE81C118FFF008511A9 /* LearnOneViewCell.xib in Resources */,
 				622C01C71E5D6BA500188CA4 /* ProjectCollectionViewCell.xib in Resources */,
 				6202B18B1D62FF9A000F7F39 /* onQQ@2x.png in Resources */,
+				626B97DA1E6D7A7000B8E817 /* promise_explanation@2x.png in Resources */,
 				6259020E1D2B92B300F3F13C /* SettingOneViewCell.xib in Resources */,
 				62DDA0861D5854A0005C2CEB /* MineHeadViewTableViewCell.xib in Resources */,
 				26D8B2661C0FEEE900A1DB04 /* 1@2x.png in Resources */,
@@ -7594,6 +7678,7 @@
 				26E987E31C0DAE4000C6A7BB /* jia_pressed@3x.png in Resources */,
 				D07EB2771D18DE6800840AC2 /* privateMsgTitli.png in Resources */,
 				D07804B51D4EF40B001C432B /* learn_banner_placeholder@2x.png in Resources */,
+				626B97D51E6D788F00B8E817 /* RightNavMenuCell.xib in Resources */,
 				DAF48DA71C1E530C00D9C136 /* sousuo_@3x.png in Resources */,
 				D066C18C1D4A2D82009F1208 /* learn_head_icon@3x.png in Resources */,
 				626D3F0E1D489A6C00724000 /* MineChatTableViewCell.xib in Resources */,
@@ -7610,9 +7695,12 @@
 				D01D88161D1A8DFD004B7F0F /* learn_add@2x.png in Resources */,
 				DA8AFF4F1C2A4BF90064B9A7 /* 06tuijian@3x.png in Resources */,
 				2609B0161C02DD2A0006BC02 /* Assets.xcassets in Resources */,
+				626B97DD1E6D7A7000B8E817 /* promise_history@3x.png in Resources */,
 				DA7675081C27F39900A34D9C /* 05choujiang@2x.png in Resources */,
+				626B97E71E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@2x.png in Resources */,
 				DA3190E11C22A54D00972F63 /* loginguanbi@2x.png in Resources */,
 				DA796B351C7AB8A40076C52B /* zoom@2x.png in Resources */,
+				626B97C11E6D4E8400B8E817 /* HistoryPromiseCell.xib in Resources */,
 				D07804C61D51D5A2001C432B /* InfoPlist.strings in Resources */,
 				26D26FE31C118C8B008511A9 /* LearnShowCollectionViewCell.xib in Resources */,
 				D05842271D47296A006859B9 /* ShareSDKUI.bundle in Resources */,
@@ -7648,6 +7736,7 @@
 				62DE91C11D7FEF93009F365E /* subscript_200signIn@2x.png in Resources */,
 				628BFE631E5EA913002FA631 /* SetProjectCell.xib in Resources */,
 				DA68D5AB1C96984B0073E0F6 /* fenxiang_blue@3x.png in Resources */,
+				626B97E41E6E960F00B8E817 /* Promise_Entrance@3x.png in Resources */,
 				D00AD7DC1D4B451B004AB05A /* 2_031.png in Resources */,
 				26D8B2701C0FEEE900A1DB04 /* 6@2x.png in Resources */,
 				34B360CE1E093A5D000A1296 /* https.cer in Resources */,
@@ -8072,6 +8161,7 @@
 				62EDB80C1D34E51300D6F772 /* FunctionViewController.m in Sources */,
 				26D99EFC1C0C4D7C007AF579 /* UIView+MJExtension.m in Sources */,
 				D0C97BAC1D5DB26800B62219 /* NSDate+JKUtilities.m in Sources */,
+				626B97BC1E6D4E4900B8E817 /* HistoryPromiseVC.m in Sources */,
 				DA39A69C1C3E64AF0045E224 /* NSDate+Category.m in Sources */,
 				DA7AC8D21C3FBF1B00CD97EE /* JiFenHistoryModel.m in Sources */,
 				D07EB1D81D17EA6900840AC2 /* JKDBModel.m in Sources */,
@@ -8116,6 +8206,7 @@
 				D04B54D31D23C90D00DC259A /* NSAttributedString+MLExpression.m in Sources */,
 				62C99F381D37A77A0032E83C /* EnergyPostTableViewController.m in Sources */,
 				62D72C751E543D34007998BC /* FSCalendar.m in Sources */,
+				626B97D41E6D788F00B8E817 /* RightNavMenuCell.m in Sources */,
 				D07EB25B1D18DE6800840AC2 /* Emoji.m in Sources */,
 				D06215DF1D6E891A00D3845E /* SLALertManager.m in Sources */,
 				34C5EC6F1E1CFE13005A2F9A /* RadioSetTimeVC.m in Sources */,
@@ -8154,6 +8245,7 @@
 				34F756B11E12869900A1C0DD /* AMPopTip+Draw.m in Sources */,
 				DA9A23311C43A9210012265D /* PKViewCollectionModel.m in Sources */,
 				34B360C71E039CD8000A1296 /* AFHTTPSessionManager.m in Sources */,
+				626B97E01E6E589700B8E817 /* RightNavMenuModel.m in Sources */,
 				DA91243B1C29242A0018DBAF /* NSTimer+Addition.m in Sources */,
 				DA7CE52F1C3E0DC300272952 /* MyPkEveryModel.m in Sources */,
 				26D99EFB1C0C4D7C007AF579 /* UIScrollView+MJRefresh.m in Sources */,
@@ -8250,6 +8342,7 @@
 				62BE736F1D5B37BB00A83766 /* NotifyModel.m in Sources */,
 				DAE1A45E1C192C7C006FE119 /* ReportTwoTableViewCell.m in Sources */,
 				DA7CE54F1C3E38BF00272952 /* UIColor+HelperAdditions.m in Sources */,
+				626B97D01E6D6CDD00B8E817 /* RightNavMenuView.m in Sources */,
 				26D99EE01C0C4D7C007AF579 /* JSONModelClassProperty.m in Sources */,
 				26D99EE11C0C4D7C007AF579 /* JSONModelError.m in Sources */,
 				DAC4D0C11C4C98C100BCC979 /* GetPhoneModel.m in Sources */,
@@ -8259,6 +8352,7 @@
 				62D72C7C1E543D34007998BC /* FSCalendarDelegationFactory.m in Sources */,
 				DA735E241C3BC5B900CE9995 /* WDScrollView.m in Sources */,
 				DAE1A46C1C1954DC006FE119 /* SelectProjectCollectionViewCell.m in Sources */,
+				626B97C01E6D4E8400B8E817 /* HistoryPromiseCell.m in Sources */,
 				DA26A4FE1C30DD8B00F503CD /* PKHomeModel.m in Sources */,
 				26D99F0D1C0C4D7C007AF579 /* SDWebImageCompat.m in Sources */,
 				26D99EBA1C0C4D7B007AF579 /* WXMediaMessage+messageConstruct.m in Sources */,
