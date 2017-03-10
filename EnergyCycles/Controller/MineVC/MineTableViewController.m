@@ -39,6 +39,9 @@
 
 #import "AppDelegate.h"
 
+#import "PromiseDetailsVC.h"
+#import "PromiseVC.h"
+
 @interface MineTableViewController ()<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     BOOL isCheck;
     
@@ -169,6 +172,14 @@
             // [self.delegate.tabbarController hideTabbar:YES];
             // ECPickerController *picker = [[ECPickerController alloc] init];
             // [self.view.window.rootViewController presentViewController:picker animated:YES completion:nil];
+            
+//            PromiseDetailsVC *promiseDetailsVC = [[PromiseDetailsVC alloc] init];
+//            [self.navigationController pushViewController:promiseDetailsVC animated:YES];
+            
+            [self.delegate.tabbarController hideTabbar:YES];
+            PromiseVC *promiseVC = [[PromiseVC alloc] init];
+            [self.navigationController pushViewController:promiseVC animated:YES];
+            
         } else if (indexPath.row == 1) { // 我的资料
             [self.delegate.tabbarController hideTabbar:YES];
             MyProfileViewController *myVC = MainStoryBoard(@"MyProfileViewController");
