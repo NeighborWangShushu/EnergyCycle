@@ -3174,7 +3174,7 @@ static AFHTTPSessionManager *manager;
 
 #pragma mark - 118.承诺日历列表
 // 请求方式: GET
-// 请求方式:
+// 请求参数:
 // UserID   int // 用户ID
 // StartDate string // 请求开始的时间
 // EndDate   string // 请求结束的时间
@@ -3201,5 +3201,32 @@ static AFHTTPSessionManager *manager;
     
 }
 
+#pragma mark - 119.退出承诺目标
+// 请求方式: POST
+// 请求参数:
+// UserID   int // 用户ID
+// TargetID int // 目标ID
+- (void)getTargetDelWithUserID:(NSInteger)userID
+                         Token:(NSString *)token
+                      TargetID:(NSInteger)targetID
+                     PostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure {
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInteger:userID] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:[NSNumber numberWithInteger:targetID] forKey:@"targetid"];
+    
+    [self callInterfaceByUrl:Target_Del
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+    
+}
 
 @end

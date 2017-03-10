@@ -12,6 +12,7 @@
 @interface HistoryPromiseCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIImageView *picImage; // 项目图片
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;// 项目名称
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel; // 目标开始与结束时间
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel; // 目标时长

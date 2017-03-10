@@ -21,5 +21,6 @@
 @property (nonatomic, strong) NSString<Optional> *ReportNum; // 每日目标数
 @property (nonatomic, strong) NSString<Optional> *RowNum; // 列表位数
 @property (nonatomic, strong) NSString<Optional> *RowsCount; // 列表总数
+@property (nonatomic, strong) NSString<Optional> *P_PICURL; // 项目图片
 
 @end

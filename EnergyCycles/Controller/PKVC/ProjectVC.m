@@ -128,7 +128,9 @@ static NSString * const reuseIdentifier = @"Cell";
             cell.projectImageView.transform = CGAffineTransformMakeScale(1, 1);
             cell.projectImageView.layer.shadowColor = [UIColor clearColor].CGColor;
             PKSelectedModel *model = self.dataArr[indexPath.row];
+            
             SetProjectVC *setVC = [[SetProjectVC alloc] init];
+            
             setVC.model = model;
             [self.navigationController pushViewController:setVC animated:YES];
         }];

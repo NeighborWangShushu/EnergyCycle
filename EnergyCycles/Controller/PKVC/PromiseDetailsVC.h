@@ -15,4 +15,6 @@
 
 @property (nonatomic, strong) UIImageView *indicatorImg;
 
+- (void)getData;
+
 @end

@@ -63,6 +63,7 @@
                        forBarPosition:UIBarPositionAny
                            barMetrics:UIBarMetricsDefault];
     [navigationBar setShadowImage:[UIImage new]];
+    [self getData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -108,6 +109,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, rect.size.width, 20)];
     self.tableView.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
     [self.view addSubview:self.tableView];
     
@@ -150,13 +152,13 @@
     explanationLabel.textAlignment = NSTextAlignmentCenter;
     explanationLabel.font = [UIFont systemFontOfSize:10];
     explanationLabel.numberOfLines = 0;
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"公众承诺区目标最低天数：\n5天，低于5天的目标无法设立\n\n完成当日目标，积分奖励政策如下：\n5-10天 10分/天\n11-20天 30分/天\n21天以上 50分/天\n\n若有一天未达成承诺，\n当日及之后的积分均无法获得\n\n任何情况下取消承诺\n将扣除已获得的所有积分，\n并且追加扣除100分作为失信惩罚"];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"公众承诺区目标最低天数：\n5天，低于5天的目标无法设立\n\n完成当日目标，积分奖励政策如下：\n5-10天 10分/天\n11-20天 30分/天\n21天以上 50分/天\n\n若有一天未达成承诺，\n当日及之后的积分均无法获得\n\n任何情况下取消承诺\n将无法获得奖励积分，\n并且追加扣除100分作为失信惩罚"];
     NSRange rang = NSMakeRange(13, 14);
     UIColor *redcolor = [UIColor colorWithRed:231/255.0 green:18/255.0 blue:17/255.0 alpha:1];
     [text addAttribute:NSForegroundColorAttributeName value:redcolor range:rang];
     rang = NSMakeRange(45, 37);
     [text addAttribute:NSForegroundColorAttributeName value:redcolor range:rang];
-    rang = NSMakeRange(120, 12);
+    rang = NSMakeRange(120, 11);
     [text addAttribute:NSForegroundColorAttributeName value:redcolor range:rang];
     explanationLabel.attributedText = text;
     
@@ -206,6 +208,7 @@
                              //执行的动画
                              self.promiseDetailsVC.view.frame = self.view.bounds;
                              self.promiseDetailsVC.indicatorImg.transform = CGAffineTransformMakeScale(1.0, -1.0);
+                             [self.promiseDetailsVC getData];
                          }
                          completion:nil];
     } else if (pdVC_y == top) {
@@ -229,7 +232,6 @@
     self.title = @"公众承诺";
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     [self setupRightNavBarWithimage:@"promise_more"];
-    [self getData];
     [self getNavMenuData];
     [self createTableView];
     [self createCalendar];
@@ -246,6 +248,9 @@
 - (void)getData {
     [[AppHttpManager shareInstance] getMyTargetListWithUserID:[User_ID integerValue] Type:1 PageIndex:0 PageSize:100 PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+            if ([self.dataArray count]) {
+                [self.dataArray removeAllObjects];
+            }
             NSDictionary *dataDic = dict[@"Data"];
             for (NSDictionary *dic in dataDic) {
                 PromiseModel *model = [[PromiseModel alloc] initWithDictionary:dic error:nil];

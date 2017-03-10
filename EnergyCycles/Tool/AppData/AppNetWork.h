@@ -449,6 +449,8 @@
 //118.承诺日历列表
 #define My_TargetDetails_List      @"Target/My_TargetDetails_List"
 
+//119.退出承诺目标
+#define Target_Del                 @"Target/Target_Del"
 
 
 #endif

@@ -13,6 +13,7 @@
 - (void)getDataWithModel:(PromiseModel *)model {
     
     self.backgroundColor = [UIColor clearColor];
+    [self.picImage sd_setImageWithURL:[NSURL URLWithString:model.P_PICURL]];
     self.titleLabel.text = model.ProjectName;
     NSString *startDate_str = [model.StartDate substringToIndex:10];
     NSString *endDate_str= [model.EndDate substringToIndex:10];
