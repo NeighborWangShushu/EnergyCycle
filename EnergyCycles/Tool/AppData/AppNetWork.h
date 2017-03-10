@@ -48,15 +48,9 @@
 
 //测试环境
 
-<<<<<<< HEAD
 #define INTERFACE_URL @"http://192.168.1.111:8888/"
 
-
-
-=======
 //#define INTERFACE_URL @"http://192.168.1.111:8888/"
-#define INTERFACE_URL @"http://192.168.1.111:8888/"
->>>>>>> wangbin
 
 //#define INTERFACE_URL @"https://www.woodybear.cn/Power/"
 
