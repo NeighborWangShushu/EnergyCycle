@@ -425,6 +425,12 @@
 		626B97E41E6E960F00B8E817 /* Promise_Entrance@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97E21E6E960F00B8E817 /* Promise_Entrance@3x.png */; };
 		626B97E71E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97E51E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@2x.png */; };
 		626B97E81E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97E61E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@3x.png */; };
+		626B97EB1E72AE9C00B8E817 /* 260signIn_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97E91E72AE9C00B8E817 /* 260signIn_0@2x.png */; };
+		626B97EC1E72AE9C00B8E817 /* 260signIn_0@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97EA1E72AE9C00B8E817 /* 260signIn_0@3x.png */; };
+		626B97EF1E72AEA800B8E817 /* 260signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97ED1E72AEA800B8E817 /* 260signIn@2x.png */; };
+		626B97F01E72AEA800B8E817 /* 260signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97EE1E72AEA800B8E817 /* 260signIn@3x.png */; };
+		626B97F31E72B00200B8E817 /* subscript_260signIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97F11E72B00200B8E817 /* subscript_260signIn@2x.png */; };
+		626B97F41E72B00200B8E817 /* subscript_260signIn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 626B97F21E72B00200B8E817 /* subscript_260signIn@3x.png */; };
 		626D3F0D1D489A6C00724000 /* MineChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */; };
 		626D3F0E1D489A6C00724000 /* MineChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */; };
 		626D3F111D48A29400724000 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 626D3F101D48A29400724000 /* ChatTableViewCell.m */; };
@@ -1949,6 +1955,12 @@
 		626B97E21E6E960F00B8E817 /* Promise_Entrance@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Promise_Entrance@3x.png"; sourceTree = "<group>"; };
 		626B97E51E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Promise_Explanation_BackgroundImage@2x.png"; sourceTree = "<group>"; };
 		626B97E61E6EA9E400B8E817 /* Promise_Explanation_BackgroundImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Promise_Explanation_BackgroundImage@3x.png"; sourceTree = "<group>"; };
+		626B97E91E72AE9C00B8E817 /* 260signIn_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "260signIn_0@2x.png"; sourceTree = "<group>"; };
+		626B97EA1E72AE9C00B8E817 /* 260signIn_0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "260signIn_0@3x.png"; sourceTree = "<group>"; };
+		626B97ED1E72AEA800B8E817 /* 260signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "260signIn@2x.png"; sourceTree = "<group>"; };
+		626B97EE1E72AEA800B8E817 /* 260signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "260signIn@3x.png"; sourceTree = "<group>"; };
+		626B97F11E72B00200B8E817 /* subscript_260signIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_260signIn@2x.png"; sourceTree = "<group>"; };
+		626B97F21E72B00200B8E817 /* subscript_260signIn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subscript_260signIn@3x.png"; sourceTree = "<group>"; };
 		626D3F0A1D489A6C00724000 /* MineChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineChatTableViewCell.h; sourceTree = "<group>"; };
 		626D3F0B1D489A6C00724000 /* MineChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineChatTableViewCell.m; sourceTree = "<group>"; };
 		626D3F0C1D489A6C00724000 /* MineChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineChatTableViewCell.xib; sourceTree = "<group>"; };
@@ -4930,6 +4942,8 @@
 				626B80221E0A24D70097CFA5 /* 150signIn_0@3x.png */,
 				626B80231E0A24D70097CFA5 /* 200signIn_0@2x.png */,
 				626B80241E0A24D70097CFA5 /* 200signIn_0@3x.png */,
+				626B97E91E72AE9C00B8E817 /* 260signIn_0@2x.png */,
+				626B97EA1E72AE9C00B8E817 /* 260signIn_0@3x.png */,
 				626B80251E0A24D70097CFA5 /* 250signIn_0@2x.png */,
 				626B80261E0A24D70097CFA5 /* 250signIn_0@3x.png */,
 				626B80271E0A24D70097CFA5 /* 300signIn_0@2x.png */,
@@ -4946,6 +4960,8 @@
 		626B802D1E0A24D70097CFA5 /* DetailBadge */ = {
 			isa = PBXGroup;
 			children = (
+				626B97ED1E72AEA800B8E817 /* 260signIn@2x.png */,
+				626B97EE1E72AEA800B8E817 /* 260signIn@3x.png */,
 				626B805C1E0BD7120097CFA5 /* 150signIn@2x.png */,
 				626B805D1E0BD7120097CFA5 /* 150signIn@3x.png */,
 				626B805E1E0BD7120097CFA5 /* 250signIn@2x.png */,
@@ -5252,6 +5268,8 @@
 				626B80551E0A30AD0097CFA5 /* subscript_150signIn@3x.png */,
 				626B80561E0A30AD0097CFA5 /* subscript_250signIn@2x.png */,
 				626B80571E0A30AD0097CFA5 /* subscript_250signIn@3x.png */,
+				626B97F11E72B00200B8E817 /* subscript_260signIn@2x.png */,
+				626B97F21E72B00200B8E817 /* subscript_260signIn@3x.png */,
 			);
 			path = Subscript;
 			sourceTree = "<group>";
@@ -7271,6 +7289,7 @@
 				DA7674DE1C27CB2D00A34D9C /* SoicalTableViewCell.xib in Resources */,
 				DA7674CD1C27A68600A34D9C /* NewsTwoViewCell.xib in Resources */,
 				26E987671C0D6BD100C6A7BB /* EnergyPostViewCell.xib in Resources */,
+				626B97F31E72B00200B8E817 /* subscript_260signIn@2x.png in Resources */,
 				62DE91C61D7FEF93009F365E /* subscript_30signIn@3x.png in Resources */,
 				26E987E21C0DAE4000C6A7BB /* jia_pressed@2x.png in Resources */,
 				D07EB2691D18DE6800840AC2 /* input-bar.png in Resources */,
@@ -7324,6 +7343,7 @@
 				DA76750B1C27F39900A34D9C /* 06beijing01@3x.png in Resources */,
 				627C874E1D812FE500D2FC6E /* Learn_GreatVideo@2x.png in Resources */,
 				62F60E7D1D5311C000EE7E9B /* chartBg@3x.png in Resources */,
+				626B97EB1E72AE9C00B8E817 /* 260signIn_0@2x.png in Resources */,
 				622C01B71E5BEE9500188CA4 /* AddPromiseViewCell.xib in Resources */,
 				D07EB2611D18DE6800840AC2 /* face.png in Resources */,
 				62FCE9121D3CB2A500F52E05 /* attention@3x.png in Resources */,
@@ -7439,6 +7459,7 @@
 				D00AD7E11D4B451B004AB05A /* 2_036.png in Resources */,
 				6202B18A1D62FF9A000F7F39 /* onPost@3x.png in Resources */,
 				D07EB28A1D18DE6800840AC2 /* chat_animation2.png in Resources */,
+				626B97EC1E72AE9C00B8E817 /* 260signIn_0@3x.png in Resources */,
 				626B80411E0A24D70097CFA5 /* 250signIn_0@3x.png in Resources */,
 				D07E243A1D12769E00854B51 /* BannerCell.xib in Resources */,
 				D077C5121D1D264B00303A90 /* banner_dot_noamal@2x.png in Resources */,
@@ -7527,6 +7548,7 @@
 				DA7675071C27F39900A34D9C /* 04icon@3x.png in Resources */,
 				D00AD7DE1D4B451B004AB05A /* 2_033.png in Resources */,
 				DAE035431C1831FC007E6DBD /* right@2x.png in Resources */,
+				626B97EF1E72AEA800B8E817 /* 260signIn@2x.png in Resources */,
 				D07804B61D4EF40B001C432B /* learn_placeholder@2x.png in Resources */,
 				D00AD7DB1D4B451B004AB05A /* 2_030.png in Resources */,
 				DAF48DB61C1E726F00D9C136 /* CourseRrgOneViewCell.xib in Resources */,
@@ -7587,6 +7609,7 @@
 				D00AD7F21D4B45DF004AB05A /* 2_02.png in Resources */,
 				DA7674C81C27A66900A34D9C /* NewsOneViewCell.xib in Resources */,
 				DA68D5C91C96A46E0073E0F6 /* MineTheAdvTwoViewCell.xib in Resources */,
+				626B97F41E72B00200B8E817 /* subscript_260signIn@3x.png in Resources */,
 				622BA6511D40ADBB00194984 /* MinePKRecordViewTableViewCell.xib in Resources */,
 				DA68D5B61C96A1680073E0F6 /* MineEnergyShowOneViewCell.xib in Resources */,
 				26E987E41C0DAE4000C6A7BB /* Rectangle @2x.png in Resources */,
@@ -7767,6 +7790,7 @@
 				D00AD7CD1D4B451B004AB05A /* 2_016.png in Resources */,
 				626B80401E0A24D70097CFA5 /* 250signIn_0@2x.png in Resources */,
 				DA8AFF4D1C2A4BF90064B9A7 /* 05jinjie@3x.png in Resources */,
+				626B97F01E72AEA800B8E817 /* 260signIn@3x.png in Resources */,
 				DAE033741C180D7E007E6DBD /* TheAdvPKCollectionViewCell.xib in Resources */,
 				DA8AFF541C2A4BF90064B9A7 /* 09weixin@2x.png in Resources */,
 				D05842301D47296A006859B9 /* ShareSDK.bundle in Resources */,

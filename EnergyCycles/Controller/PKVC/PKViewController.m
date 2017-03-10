@@ -278,9 +278,13 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
         }
     } else if (button.tag == 2003) { // 公众承诺区
-        [self.delegate.tabbarController hideTabbar:YES];
-        PromiseVC *promiseVC = [[PromiseVC alloc] init];
-        [self.navigationController pushViewController:promiseVC animated:YES];
+        if (User_TOKEN.length > 0) {
+            [self.delegate.tabbarController hideTabbar:YES];
+            PromiseVC *promiseVC = [[PromiseVC alloc] init];
+            [self.navigationController pushViewController:promiseVC animated:YES];
+        }else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
+        }
     } else if (button.tag == 2004) { // 进阶PK
         [self.delegate.tabbarController hideTabbar:YES];
         [self performSegueWithIdentifier:@"PKViewToTheAdvPKView" sender:nil];

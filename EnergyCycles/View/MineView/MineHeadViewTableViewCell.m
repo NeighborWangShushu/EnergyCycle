@@ -40,8 +40,8 @@
                         string = @"150";
                         if (report >= 200) {
                             string = @"200";
-                            if (report >= 250) {
-                                string = @"250";
+                            if (report >= 260) {
+                                string = @"260";
                                 if (report >= 300) {
                                     string = @"300";
                                 }
