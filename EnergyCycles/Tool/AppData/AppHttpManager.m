@@ -3112,10 +3112,121 @@ static AFHTTPSessionManager *manager;
                     withDict:dic
                      success:^(NSDictionary *dict) {
                          success(dict);
-                    } failure:^(NSString *str) {
-                        failure(str);
-                    }];
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
 }
 
+#pragma mark - 116.承诺列表
+// 请求方式: GET
+// 请求参数:
+// UserID   int // 用户ID
+// Type     int // 请求列表类型:1.当前进行的目标;2.历史目标
+// PageIndex int // 页码
+// PageSize int // 页数
+- (void)getMyTargetListWithUserID:(NSInteger)userID
+                             Type:(NSInteger)type
+                        PageIndex:(NSInteger)pageIndex
+                         PageSize:(NSInteger)pageSize
+                        PostOrGet:(NSString *)postOrGetType
+                          success:(void (^)(NSDictionary *dict))success
+                          failure:(void (^)(NSString *str))failure {
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInteger:userID] forKey:@"userid"];
+    [dic setObject:[NSNumber numberWithInteger:type] forKey:@"type"];
+    [dic setObject:[NSNumber numberWithInteger:pageIndex] forKey:@"pageindex"];
+    [dic setObject:[NSNumber numberWithInteger:pageSize] forKey:@"pagesize"];
+    
+    [self callInterfaceByUrl:My_Targrt_List
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+    
+}
+
+#pragma mark - 117.承诺详情
+// 请求方式: GET
+// 请求参数:
+// TargetID int // 目标ID
+- (void)getTargetDetailsWithTargetID:(NSInteger)targetID
+                           PostOrGet:(NSString *)postOrGetType
+                             success:(void (^)(NSDictionary *dict))success
+                             failure:(void (^)(NSString *str))failure {
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInteger:targetID] forKey:@"targetid"];
+    
+    [self callInterfaceByUrl:Target_Details
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+    
+}
+
+#pragma mark - 118.承诺日历列表
+// 请求方式: GET
+// 请求参数:
+// UserID   int // 用户ID
+// StartDate string // 请求开始的时间
+// EndDate   string // 请求结束的时间
+- (void)getMyTargetDetailsListWithUserID:(NSInteger)userID
+                               StartDate:(NSString *)startDate
+                                 EndDate:(NSString *)endDate
+                               PostOrGet:(NSString *)postOrGetType
+                                 success:(void (^)(NSDictionary *dict))success
+                                 failure:(void (^)(NSString *str))failure {
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInteger:userID] forKey:@"userid"];
+    [dic setObject:startDate forKey:@"startdate"];
+    [dic setObject:endDate forKey:@"enddate"];
+    
+    [self callInterfaceByUrl:My_TargetDetails_List
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+    
+}
+
+#pragma mark - 119.退出承诺目标
+// 请求方式: POST
+// 请求参数:
+// UserID   int // 用户ID
+// TargetID int // 目标ID
+- (void)getTargetDelWithUserID:(NSInteger)userID
+                         Token:(NSString *)token
+                      TargetID:(NSInteger)targetID
+                     PostOrGet:(NSString *)postOrGetType
+                       success:(void (^)(NSDictionary *dict))success
+                       failure:(void (^)(NSString *str))failure {
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dic setObject:[NSNumber numberWithInteger:userID] forKey:@"userid"];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:[NSNumber numberWithInteger:targetID] forKey:@"targetid"];
+    
+    [self callInterfaceByUrl:Target_Del
+                   PostOrGet:postOrGetType
+                    withDict:dic
+                     success:^(NSDictionary *dict) {
+                         success(dict);
+                     } failure:^(NSString *str) {
+                         failure(str);
+                     }];
+    
+}
 
 @end

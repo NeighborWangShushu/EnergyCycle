@@ -13,4 +13,8 @@
 
 @property (weak, nonatomic) FSCalendar *calendar;
 
+@property (nonatomic, strong) UIImageView *indicatorImg;
+
+- (void)getData;
+
 @end

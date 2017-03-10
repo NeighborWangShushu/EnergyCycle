@@ -47,6 +47,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(brokenLineViewController:) name:@"HomePageControllerToBrokenLineViewController" object:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)createScrollView {
     CGRect frame = self.view.bounds;
     frame.origin.y = 40;
