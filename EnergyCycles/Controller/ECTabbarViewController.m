@@ -71,16 +71,22 @@
                 make.height.equalTo(@43);
             }];
             
-            [self.tabbar layoutIfNeeded];
         }];
-        [viewController.view mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view.mas_left);
-            make.right.equalTo(self.view.mas_right);
-            make.top.equalTo(self.view.mas_top);
-            make.bottom.equalTo(_tabbar.mas_top).with.offset(0);
-            
-        }];
+        [self.tabbar layoutIfNeeded];
         
+        NSLog(@"%@",self.view.superview);
+        NSLog(@"%@",viewController.view.superview);
+        if (viewController.view.superview) {
+            [viewController.view mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.view.mas_left);
+                make.right.equalTo(self.view.mas_right);
+                make.top.equalTo(self.view.mas_top);
+                make.bottom.equalTo(_tabbar.mas_top).with.offset(0);
+                
+            }];
+        }
+     
+
     }
 }
 
