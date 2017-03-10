@@ -654,12 +654,12 @@
                   moduleName = "EnergyCycles"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Controller/EnergyCycleVC/PostingViewController.m"
-                  timestampString = "510135612.624112"
+                  timestampString = "510825159.972695"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "614"
                   endingLineNumber = "614"
-                  offsetFromSymbolStart = "308">
+                  offsetFromSymbolStart = "319">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -669,12 +669,12 @@
                   moduleName = "EnergyCycles"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Controller/EnergyCycleVC/PostingViewController.m"
-                  timestampString = "510135612.625657"
+                  timestampString = "510825159.975738"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "614"
                   endingLineNumber = "614"
-                  offsetFromSymbolStart = "16">
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
