@@ -82,7 +82,7 @@ static NSString * const setProjectCell = @"SetProjectCell";
 }
 
 - (void)fullPromise {
-    NSLog(@"%@,%@",startDate, endDate);
+//    NSLog(@"%@,%@",startDate, endDate);
     
     // 加上时差
     NSTimeZone *zone = [NSTimeZone systemTimeZone];
@@ -199,7 +199,12 @@ static NSString * const setProjectCell = @"SetProjectCell";
         self.datePicker.minimumDate = startDate;
         self.datePicker.maximumDate = endDate;
     } else if (num == 2) {
-        self.datePicker.minimumDate = startDate;
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *comps = nil;
+        comps = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:startDate];
+        NSDateComponents *newComps = [[NSDateComponents alloc] init];
+        [newComps setDay:5];
+        self.datePicker.minimumDate = [calendar dateByAddingComponents:newComps toDate:startDate options:0];
     }
     [self addTargetWithNum:num];
     [self.view addSubview:self.datePicker];

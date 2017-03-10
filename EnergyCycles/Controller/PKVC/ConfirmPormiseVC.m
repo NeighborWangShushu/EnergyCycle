@@ -25,6 +25,8 @@
 
 @property (nonatomic, strong) NSMutableDictionary *dates;
 
+@property (nonatomic, strong) UIButton *sureButton;
+
 @end
 
 @implementation ConfirmPormiseVC
@@ -95,32 +97,40 @@
 }
 
 - (void)createSureButton {
-    UIButton *sureButton = [[UIButton alloc] init];
-    [sureButton setTitle:@"完成制定" forState:UIControlStateNormal];
-    [sureButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
-    [sureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [sureButton setBackgroundColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1]];
-    [self.view addSubview:sureButton];
-    [sureButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.sureButton = [[UIButton alloc] init];
+    [self.sureButton setTitle:@"完成制定" forState:UIControlStateNormal];
+    [self.sureButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
+    [self.sureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.view addSubview:self.sureButton];
+    [self.sureButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.calendar.mas_bottom).with.offset(80);
         make.centerX.equalTo(self.view);
         make.width.equalTo(@(Screen_width * 0.6));
         make.height.equalTo(@45);
     }];
-    sureButton.layer.cornerRadius = 45 / 2;
-    sureButton.layer.shadowColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
-    sureButton.layer.shadowOpacity = 0.5;
-    sureButton.layer.shadowOffset = CGSizeMake(0, 2);
-    [sureButton addTarget:self action:@selector(addPromise) forControlEvents:UIControlEventTouchUpInside];
+    self.sureButton.layer.cornerRadius = 45 / 2;
+    self.sureButton.layer.shadowOpacity = 0.5;
+    self.sureButton.layer.shadowOffset = CGSizeMake(0, 2);
+    [self.sureButton addTarget:self action:@selector(addPromise) forControlEvents:UIControlEventTouchUpInside];
     
     UILabel *sureLabel = [[UILabel alloc] init];
-    [sureLabel setText:@"制定完成后,不可更改"];
+    if (self.dates.count < 5) {
+        self.sureButton.enabled = NO;
+        [self.sureButton setBackgroundColor:[UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:1]];
+        self.sureButton.layer.shadowColor = [UIColor blackColor].CGColor;
+        [sureLabel setText:@"制定目标最少要求5天"];
+    } else {
+        self.sureButton.enabled = YES;
+        [self.sureButton setBackgroundColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1]];
+        self.sureButton.layer.shadowColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
+        [sureLabel setText:@"制定完成后,不可更改"];
+    }
     [sureLabel setFont:[UIFont systemFontOfSize:12]];
     [sureLabel setTextColor:[UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:1]];
     [self.view addSubview:sureLabel];
     [sureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(sureButton.mas_bottom).with.offset(15);
-        make.centerX.equalTo(sureButton);
+        make.top.equalTo(self.sureButton.mas_bottom).with.offset(15);
+        make.centerX.equalTo(self.sureButton);
     }];
 }
 
@@ -198,6 +208,9 @@
 
 // 添加承诺
 - (void)addPromise {
+    
+    self.sureButton.enabled = NO;
+    
     NSString *startDate_str = [self.dateFormatter stringFromDate:self.startDate];
     NSString *endDate_str = [self.dateFormatter stringFromDate:self.endDate];
     

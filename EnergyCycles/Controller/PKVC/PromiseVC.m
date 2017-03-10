@@ -207,7 +207,8 @@
                          animations:^{
                              //执行的动画
                              self.promiseDetailsVC.view.frame = self.view.bounds;
-                             self.promiseDetailsVC.indicatorImg.transform = CGAffineTransformMakeScale(1.0, -1.0);
+//                             self.promiseDetailsVC.indicatorImg.transform = CGAffineTransformMakeScale(1.0, -1.0);
+                             self.promiseDetailsVC.indicatorImg.hidden = YES;
                              [self.promiseDetailsVC getData];
                          }
                          completion:nil];
@@ -220,7 +221,8 @@
                          animations:^{
                              //执行的动画
                              self.promiseDetailsVC.view.frame = CGRectMake(0, bottom, Screen_width, Screen_Height);
-                             self.promiseDetailsVC.indicatorImg.transform = CGAffineTransformMakeScale(1.0, 1.0);
+//                             self.promiseDetailsVC.indicatorImg.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                             self.promiseDetailsVC.indicatorImg.hidden = NO;
                          }
                          completion:nil];
     }
