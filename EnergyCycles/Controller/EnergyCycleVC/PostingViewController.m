@@ -115,15 +115,22 @@
 - (void)setup {
     
     NSArray * firstModel = [DraftsModel findAll];
-    if (firstModel.count) {
+    DraftsModel * model = [firstModel lastObject];
+    if (firstModel.count && model.isNew) {
+        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否加载上次没发完的内容？" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction*cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction*cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            // 改为已经提醒过是否加载草稿提示
+            _model = [firstModel lastObject];
+            _model.isNew = NO;
+            
+        }];
         UIAlertAction*okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            _model = [firstModel firstObject];
+            _model = [firstModel lastObject];
             if (_model) {
                 energyPostViewCell.informationTextView.text = _model.context;
                 [postDict setObject:_model.context forKey:@"content"];
-                
+                _model.isNew = NO;
                 NSString*documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES)firstObject];
                 NSString*newFielPath = [documentsPath stringByAppendingPathComponent:_model.imgLocalURL];
                 NSArray *content = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@.plist",newFielPath]];
@@ -282,6 +289,9 @@
         [actionSheet showInView:self.view];
         
     }else {
+        if (_model) {
+            [_model saveOrUpdate];
+        }
         [self back];
     }
 }
@@ -308,6 +318,7 @@
 - (void)saveModel {
     if (!_model) {
         DraftsModel*model = [[DraftsModel alloc] init];
+        model.isNew = YES;
         _model = model;
     }
 
@@ -610,7 +621,11 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    NSString *shareImageUrl = _dataArr[0];
+    
+    NSString *shareImageUrl = @"";
+    if (_dataArr.count > 0) {
+        shareImageUrl = _dataArr[0];
+    }
     [[ShareSDKManager shareInstance] shareClientToWeixinTimeLine:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
@@ -636,7 +651,10 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    NSString *shareImageUrl = _dataArr[0];
+    NSString *shareImageUrl = @"";
+    if (_dataArr.count > 0) {
+        shareImageUrl = _dataArr[0];
+    }
     [[ShareSDKManager shareInstance] shareClientToWeixinSession:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
@@ -663,7 +681,10 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    NSString *shareImageUrl = _dataArr[0];
+    NSString *shareImageUrl = @"";
+    if (_dataArr.count > 0) {
+        shareImageUrl = _dataArr[0];
+    }
     [[ShareSDKManager shareInstance] shareClientToWeibo:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:
@@ -691,7 +712,10 @@
     model.title = title;
     model.content = @"";
     model.shareUrl = url;
-    NSString *shareImageUrl = _dataArr[0];
+    NSString *shareImageUrl = @"";
+    if (_dataArr.count > 0) {
+        shareImageUrl = _dataArr[0];
+    }
     [[ShareSDKManager shareInstance] shareClientToQQSession:model imageUrl:shareImageUrl block:^(SSDKResponseState state) {
         switch (state) {
             case SSDKResponseStateSuccess:

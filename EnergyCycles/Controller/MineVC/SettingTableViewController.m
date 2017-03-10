@@ -276,6 +276,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     NSString *string = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginType"]];
+    [self.tableView reloadData];
     
     if ([string isEqualToString:@"0"]) {
         isPhoneLogin = YES;
@@ -319,7 +320,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.tableView reloadData];
 }
 
 

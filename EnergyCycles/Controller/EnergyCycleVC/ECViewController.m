@@ -1290,6 +1290,7 @@
     NSString * share_url = @"";
     share_url = [NSString stringWithFormat:@"%@%@?aid=%@",INTERFACE_URL,ArticleDetailAspx,model.ID];
     shareView.shareUrl = [NSString stringWithFormat:@"%@&is_Share=1",share_url];
+    NSLog(@"shareurl:%@",share_url);
     [[UIApplication sharedApplication].keyWindow addSubview:shareView];
     [UIView animateWithDuration:0.25 animations:^{
         shareView.alpha = 1.0;
