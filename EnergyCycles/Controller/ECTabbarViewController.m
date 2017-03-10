@@ -73,6 +73,14 @@
             
             [self.tabbar layoutIfNeeded];
         }];
+        [viewController.view mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left);
+            make.right.equalTo(self.view.mas_right);
+            make.top.equalTo(self.view.mas_top);
+            make.bottom.equalTo(_tabbar.mas_top).with.offset(0);
+            
+        }];
+        
     }
 }
 
