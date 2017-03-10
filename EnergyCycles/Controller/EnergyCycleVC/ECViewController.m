@@ -742,6 +742,7 @@
     if ([User_TOKEN length] <= 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"AllVCNotificationTabBarConToLoginView" object:nil];
     }else {
+        [delegate.tabbarController hideTabbar:YES];
         [self performSegueWithIdentifier:@"EnergyCycleViewToSignInView" sender:nil];
     }
 }
