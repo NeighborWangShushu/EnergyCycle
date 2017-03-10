@@ -112,6 +112,16 @@
     sureButton.layer.shadowOpacity = 0.5;
     sureButton.layer.shadowOffset = CGSizeMake(0, 2);
     [sureButton addTarget:self action:@selector(addPromise) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *sureLabel = [[UILabel alloc] init];
+    [sureLabel setText:@"制定完成后,不可更改"];
+    [sureLabel setFont:[UIFont systemFontOfSize:12]];
+    [sureLabel setTextColor:[UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:1]];
+    [self.view addSubview:sureLabel];
+    [sureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(sureButton.mas_bottom).with.offset(15);
+        make.centerX.equalTo(sureButton);
+    }];
 }
 
 - (void)loadView {
@@ -190,12 +200,21 @@
 - (void)addPromise {
     NSString *startDate_str = [self.dateFormatter stringFromDate:self.startDate];
     NSString *endDate_str = [self.dateFormatter stringFromDate:self.endDate];
+    
+    NSString *postStr = [NSString stringWithFormat:@"【%@的公众承诺】，从%@至%@ ，每天完成%@项目%ld%@。我将坚守承诺，每天全力以赴，完成目标，若食言，将无法获得奖励积分，并追加扣除100积分作为惩罚，立帖为证！【来自能量圈APP-公众承诺】", User_NAME, startDate_str, endDate_str, self.model.name, self.promise_number, self.model.unit];
+    
     [[AppHttpManager shareInstance] getAddTargetWithUserID:[User_ID intValue] Token:User_TOKEN StartDate:startDate_str EndDate:endDate_str ProjectID:[self.model.myId integerValue] ReportNum:self.promise_number PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIViewController *backVC = self.navigationController.viewControllers[1];
-                [self.navigationController popToViewController:backVC animated:YES];
-            });
+            [[AppHttpManager shareInstance] postAddArticleWithTitle:@"" Content:postStr VideoUrl:@"" UserId:[User_ID intValue] token:User_TOKEN List:nil Location:@"" UserList:nil PostOrGet:@"post" success:^(NSDictionary *dict) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIViewController *backVC = self.navigationController.viewControllers[1];
+                    [self.navigationController popToViewController:backVC animated:YES];
+                });
+                
+            } failure:^(NSString *str) {
+                NSLog(@"%@", str);
+            }];
         }
     } failure:^(NSString *str) {
         NSLog(@"%@", str);

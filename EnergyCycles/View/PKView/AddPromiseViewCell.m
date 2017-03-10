@@ -10,8 +10,8 @@
 
 @implementation AddPromiseViewCell
 
-- (void)getDataWithModel {
-    
+- (void)setup {
+
     self.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
     
     self.containerView.layer.cornerRadius = 10; // 内容视图圆角

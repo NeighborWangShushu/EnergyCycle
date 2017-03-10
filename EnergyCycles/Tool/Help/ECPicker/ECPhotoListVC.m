@@ -176,6 +176,7 @@ static NSString * const photoReuseIdentifier = @"ECPhotoListCell";
     // 在UIButton中默认图片在左文字在右,利用edgeInsets来改变图片和文字的位置
     [titleButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -titleButton.imageView.bounds.size.width, 0, titleButton.imageView.bounds.size.width)];
     [titleButton setImageEdgeInsets:UIEdgeInsetsMake(0, titleButton.titleLabel.bounds.size.width, 0, -titleButton.titleLabel.bounds.size.width)];
+    titleButton.adjustsImageWhenHighlighted = NO;
     self.navigationItem.titleView = titleButton;
 }
 

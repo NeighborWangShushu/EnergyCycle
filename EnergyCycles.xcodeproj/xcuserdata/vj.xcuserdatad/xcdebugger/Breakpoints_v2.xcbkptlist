@@ -606,12 +606,21 @@
                   moduleName = "EnergyCycles"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Controller/EnergyCycleVC/PostingViewController.m"
+<<<<<<< HEAD
                   timestampString = "510138228.619255"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "618"
                   endingLineNumber = "618"
                   offsetFromSymbolStart = "404">
+=======
+                  timestampString = "510825159.972695"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "614"
+                  endingLineNumber = "614"
+                  offsetFromSymbolStart = "319">
+>>>>>>> wangbin
                </Location>
                <Location
                   shouldBeEnabled = "No"
@@ -621,12 +630,21 @@
                   moduleName = "EnergyCycles"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vj/work/team/project-dev/EnergyCycle/EnergyCycles/Controller/EnergyCycleVC/PostingViewController.m"
+<<<<<<< HEAD
                   timestampString = "510138228.620927"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "618"
                   endingLineNumber = "618"
                   offsetFromSymbolStart = "16">
+=======
+                  timestampString = "510825159.975738"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "614"
+                  endingLineNumber = "614"
+                  offsetFromSymbolStart = "12">
+>>>>>>> wangbin
                </Location>
             </Locations>
          </BreakpointContent>
