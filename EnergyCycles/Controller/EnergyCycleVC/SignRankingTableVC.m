@@ -117,7 +117,11 @@
 // 每组分别有多少row
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 1;
+        if (self.userModel) {
+            return 1;
+        } else {
+            return 0;
+        }
     } else {
         return [self.dataArray count];
     }

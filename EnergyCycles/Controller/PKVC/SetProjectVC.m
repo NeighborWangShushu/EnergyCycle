@@ -9,6 +9,7 @@
 #import "SetProjectVC.h"
 #import "SetProjectCell.h"
 #import "ConfirmPormiseVC.h"
+#import "Masonry.h"
 
 @interface SetProjectVC ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
     NSDate *startDate; // 日期控件开始时间
@@ -22,6 +23,8 @@
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSDate *endTime;
 @property (nonatomic, assign) NSInteger dailyNumber;
+
+@property (nonatomic, strong) UIView *sureDate;
 
 @property (nonatomic, strong) UIDatePicker *datePicker;
 
@@ -49,6 +52,46 @@ static NSString * const setProjectCell = @"SetProjectCell";
     self.tableView.layer.shadowOffset = CGSizeMake(0, 2);
     [self.view addSubview:self.tableView];
     
+}
+
+- (void)selectDate:(NSInteger)num {
+    self.sureDate = [[UIView alloc] init];
+    self.sureDate.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.sureDate];
+    [self.sureDate mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.datePicker).with.offset(-30);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.height.equalTo(@30);
+    }];
+    
+    UILabel *title = [[UILabel alloc] init];
+    if (num == 1) {
+        [title setText:@"开始时间"];
+    } else if (num == 2) {
+        [title setText:@"结束时间"];
+    }
+    [self.sureDate addSubview:title];
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.sureDate);
+        make.centerY.equalTo(self.sureDate);
+    }];
+    
+    UIButton *sureButton = [[UIButton alloc] init];
+    sureButton.adjustsImageWhenHighlighted = NO;
+    [sureButton setTitle:@"确认" forState:UIControlStateNormal];
+    [sureButton setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
+    if (num == 1) {
+        [sureButton addTarget:self action:@selector(sureStart) forControlEvents:UIControlEventTouchUpInside];
+    } else if (num == 2) {
+        [sureButton addTarget:self action:@selector(sureEnd) forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self.sureDate addSubview:sureButton];
+    [sureButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.sureDate);
+        make.right.equalTo(self.sureDate).with.offset(-10);
+        make.height.equalTo(@30);
+    }];
 }
 
 - (void)createNextButton {
@@ -162,9 +205,11 @@ static NSString * const setProjectCell = @"SetProjectCell";
 
     if (textField == self.startTimeTextField) {
         [self createDatePickerWithNum:1];
+        [self selectDate:1];
         return NO;
     } else if (textField == self.endTimeTextField) {
         [self createDatePickerWithNum:2];
+        [self selectDate:2];
         return NO;
     } else if (textField == self.dailyNumberTextField) {
         return YES;
@@ -175,6 +220,13 @@ static NSString * const setProjectCell = @"SetProjectCell";
 }
 
 - (void)judgeNext {
+    
+    if (self.sureDate) {
+        [self.sureDate removeFromSuperview];
+    }
+    if (self.datePicker) {
+        [self.datePicker removeFromSuperview];
+    }
     
     if (self.startTimeTextField.text.length && self.endTimeTextField.text.length && self.dailyNumberTextField.text.length) {
         self.nextButton.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
@@ -219,6 +271,14 @@ static NSString * const setProjectCell = @"SetProjectCell";
         [self.datePicker addTarget:self action:@selector(sureEndTime:) forControlEvents:UIControlEventValueChanged];
     }
     
+}
+
+- (void)sureStart {
+    [self sureStartTime:self.datePicker];
+}
+
+- (void)sureEnd {
+    [self sureEndTime:self.datePicker];
 }
 
 - (void)sureStartTime:(UIDatePicker *)picker {

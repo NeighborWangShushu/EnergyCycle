@@ -296,6 +296,13 @@
                 [cell.rightImage setBackgroundImage:[UIImage imageNamed:@"addPraise.png"] forState:UIControlStateNormal];
             }
             cell.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.8];
+            
+            if ([myModel.name isEqualToString:@"深蹲"] || [myModel.name isEqualToString:@"仰卧起坐"] || [myModel.name isEqualToString:@"卷腹"] || [myModel.name isEqualToString:@"俯卧撑"]) {
+                if ([model.repItemNum integerValue] > 300) {
+                    cell.classLabel.text = [NSString stringWithFormat:@"300+%@", model.unit];
+                }
+            }
+            
         }
 
         return cell;
@@ -330,6 +337,12 @@
     if (_dataArr.count) {
         EveryDPKPMModel *model = (EveryDPKPMModel *)_dataArr[indexPath.row];
         [cell updateEveryDayPKDataWithIndex:indexPath.row-1 withModel:model];
+        if ([myModel.name isEqualToString:@"深蹲"] || [myModel.name isEqualToString:@"仰卧起坐"] || [myModel.name isEqualToString:@"卷腹"] || [myModel.name isEqualToString:@"俯卧撑"]) {
+            if ([model.repItemNum integerValue] > 300) {
+                cell.jiluLabel.text = [NSString stringWithFormat:@"300+%@", model.unit];
+            }
+        }
+
         
         if (indexPath.row == 1) {
             progress = [model.repItemNum floatValue];

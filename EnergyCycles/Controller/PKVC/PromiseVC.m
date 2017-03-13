@@ -317,14 +317,29 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return [self.dataArray count];
-    } else {
         return 1;
+    } else {
+        return [self.dataArray count];
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
+        
+        static NSString *addPromiseViewCell = @"AddPromiseViewCell";
+        AddPromiseViewCell *cell = [tableView dequeueReusableCellWithIdentifier:addPromiseViewCell];
+        
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle] loadNibNamed:addPromiseViewCell owner:self options:nil].firstObject;
+        }
+        
+        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+        [cell setup];
+        
+        return cell;
+        
+    } else {
+        
         static NSString *promiseOngoingViewCell = @"PromiseOngoingViewCell";
         PromiseOngoingViewCell *cell = [tableView dequeueReusableCellWithIdentifier:promiseOngoingViewCell];
         
@@ -339,32 +354,19 @@
         
         return cell;
         
-    } else {
-        static NSString *addPromiseViewCell = @"AddPromiseViewCell";
-        AddPromiseViewCell *cell = [tableView dequeueReusableCellWithIdentifier:addPromiseViewCell];
-        
-        if (cell == nil) {
-            cell = [[NSBundle mainBundle] loadNibNamed:addPromiseViewCell owner:self options:nil].firstObject;
-        }
-        
-        cell.selectionStyle = UITableViewCellSeparatorStyleNone;
-        [cell setup];
-        
-        return cell;
-        
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
+        ProjectVC *pVC = [[ProjectVC alloc] init];
+        [self.navigationController pushViewController:pVC animated:YES];
+    } else if (indexPath.section == 1) {
         PromiseModel *model = self.dataArray[indexPath.row];
         SinglePromiseDetailsVC *spdVC = [[SinglePromiseDetailsVC alloc] init];
         spdVC.targetID = [model.TargetID integerValue];
         spdVC.model = model;
         [self.navigationController pushViewController:spdVC animated:YES];
-    } else if (indexPath.section == 1) {
-        ProjectVC *pVC = [[ProjectVC alloc] init];
-        [self.navigationController pushViewController:pVC animated:YES];
     }
 }
 

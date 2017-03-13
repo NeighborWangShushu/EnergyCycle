@@ -27,6 +27,8 @@
 
 @property (nonatomic, strong) UIButton *sureButton;
 
+@property (nonatomic, strong) UIButton *cancelButton;
+
 @end
 
 @implementation ConfirmPormiseVC
@@ -187,6 +189,65 @@
     [self createSureButton];
 }
 
+- (void)hintView {
+    
+    self.cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.cancelButton.frame = [UIApplication sharedApplication].keyWindow.bounds;
+    self.cancelButton.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
+    [self.cancelButton addTarget:self action:@selector(hintKnow) forControlEvents:UIControlEventTouchUpInside];
+    [[UIApplication sharedApplication].keyWindow addSubview:self.cancelButton];
+    
+    UIView *hintView = [[UIView alloc] init];
+    hintView.backgroundColor = [UIColor whiteColor];
+    [self.cancelButton addSubview:hintView];
+    [hintView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.cancelButton);
+        make.centerY.equalTo(self.cancelButton);
+        make.width.equalTo(self.cancelButton).multipliedBy(0.6);
+        make.height.equalTo(@150);
+    }];
+    hintView.layer.cornerRadius = 20;
+    
+    UILabel *hintLabel = [[UILabel alloc] init];
+    [hintLabel setText:@"您在这个时间段中已有类似的目标"];
+    hintLabel.font = [UIFont systemFontOfSize:14];
+    hintLabel.textAlignment = NSTextAlignmentCenter;
+    hintLabel.numberOfLines = 0;
+    [hintView addSubview:hintLabel];
+    [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(hintView).with.offset(-20);
+        make.centerX.equalTo(hintView);
+        make.width.equalTo(hintView).multipliedBy(0.7);
+    }];
+    
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+    [hintView addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(hintView).with.offset(-40);
+        make.left.equalTo(hintView);
+        make.right.equalTo(hintView);
+        make.height.equalTo(@1);
+    }];
+    
+    UIButton *know = [UIButton new];
+    know.adjustsImageWhenHighlighted = NO;
+    [know setTitle:@"确认" forState:UIControlStateNormal];
+    [know setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
+    [know addTarget:self action:@selector(hintKnow) forControlEvents:UIControlEventTouchUpInside];
+    [hintView addSubview:know];
+    [know mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(line).with.offset(5);
+        make.width.equalTo(hintView);
+        make.centerX.equalTo(hintView);
+    }];
+    
+}
+
+- (void)hintKnow {
+    [self.cancelButton removeFromSuperview];
+}
+
 // 获取所有时间
 - (void)getAllDate {
     
@@ -228,6 +289,10 @@
             } failure:^(NSString *str) {
                 NSLog(@"%@", str);
             }];
+        } else if ([dict[@"Code"] integerValue] == 402 && [dict[@"IsSuccess"] integerValue] == 0) {
+            self.sureButton.enabled = YES;
+            [self hintView];
+            
         }
     } failure:^(NSString *str) {
         NSLog(@"%@", str);
