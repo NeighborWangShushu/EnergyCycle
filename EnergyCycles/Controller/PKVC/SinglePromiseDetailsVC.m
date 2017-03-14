@@ -54,6 +54,7 @@
     
     UILabel *durationTitle = [UILabel new];
     [durationTitle setText:@"目标时长"];
+    durationTitle.textAlignment = NSTextAlignmentCenter;
     [durationTitle setFont:[UIFont systemFontOfSize:12]];
     [headerView addSubview:durationTitle];
     [durationTitle setTextColor:[UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:1]];
@@ -91,6 +92,16 @@
         make.top.equalTo(promiseTitle.mas_top).with.offset(20);
         make.centerX.equalTo(promiseTitle);
     }];
+    
+    if ([self.model.P_UNIT isEqualToString:@"天"]) {
+        [durationTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(titleLabel);
+            make.top.equalTo(@75);
+        }];
+        promiseTitle.hidden = YES;
+        promiseLabel.hidden = YES;
+    }
+    
     
     UILabel *finishTimeLabel = [UILabel new];
     [finishTimeLabel setFont:[UIFont systemFontOfSize:12]];
@@ -132,7 +143,7 @@
     }];
     
     // 完成进度
-    CGFloat modulus = [self.model.FinishDays integerValue] / [self.model.AllDays integerValue];
+    CGFloat modulus = [self.model.FinishDays floatValue] / [self.model.AllDays floatValue];
 
     UILabel *finishPercentage = [UILabel new];
     [finishPercentage setText:[NSString stringWithFormat:@"%.f%%", modulus * 100]];

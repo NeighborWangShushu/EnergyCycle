@@ -27,7 +27,11 @@
         self.completeLabel.text = @"未完成";
     }
     
-    self.promise.text = [NSString stringWithFormat:@"%@%@%@", model.P_NAME, model.ReportNum, model.P_UNIT];
+    if ([model.P_UNIT isEqualToString:@"天"]) {
+        self.promise.text = [NSString stringWithFormat:@"%@", model.P_NAME];
+    } else {
+        self.promise.text = [NSString stringWithFormat:@"%@%@%@", model.P_NAME, model.ReportNum, model.P_UNIT];
+    }
     
     self.containerView.layer.shadowColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
     self.containerView.layer.shadowOpacity = 0.2;

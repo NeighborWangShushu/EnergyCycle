@@ -7,6 +7,7 @@
 //
 
 #import "PromiseOngoingViewCell.h"
+#import "Masonry.h"
 
 @implementation PromiseOngoingViewCell
 
@@ -34,8 +35,15 @@
     }
     
     // 完成进度
-    CGFloat modulus = [model.FinishDays integerValue] / [model.AllDays integerValue];
+    CGFloat modulus = [model.FinishDays floatValue] / [model.AllDays floatValue];
     self.titleLabel.text = model.ProjectName;
+    if ([model.P_UNIT isEqualToString:@"天"]) {
+        [self.timeTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.titleLabel);
+        }];
+        self.dailyGoalTitle.hidden = YES;
+        self.dailyGoal.hidden = YES;
+    }
     self.timeLabel.text = [NSString stringWithFormat:@"%@天", model.AllDays];
     self.dailyGoal.text = [NSString stringWithFormat:@"%@%@", model.ReportNum, model.P_UNIT];
     self.scheduleLabel.text = [NSString stringWithFormat:@"%.f%%", modulus * 100];

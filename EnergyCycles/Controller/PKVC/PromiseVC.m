@@ -152,13 +152,13 @@
     explanationLabel.textAlignment = NSTextAlignmentCenter;
     explanationLabel.font = [UIFont systemFontOfSize:10];
     explanationLabel.numberOfLines = 0;
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"公众承诺区目标最低天数：\n5天，低于5天的目标无法设立\n\n完成当日目标，积分奖励政策如下：\n5-10天 10分/天\n11-20天 30分/天\n21天以上 50分/天\n\n若有一天未达成承诺，\n当日及之后的积分均无法获得\n\n任何情况下取消承诺\n将无法获得奖励积分，\n并且追加扣除100分作为失信惩罚"];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"公众承诺区目标最低天数：\n5天，低于5天的目标无法设立\n\n完成当日目标，积分奖励政策如下：\n5-10天 10分/天\n11-20天 30分/天\n21天以上 50分/天\n\n若有一天未达成承诺，\n所有积分均无法获得\n\n任何情况下取消承诺\n将无法获得奖励积分，\n并且追加扣除100分作为失信惩罚"];
     NSRange rang = NSMakeRange(13, 14);
     UIColor *redcolor = [UIColor colorWithRed:231/255.0 green:18/255.0 blue:17/255.0 alpha:1];
     [text addAttribute:NSForegroundColorAttributeName value:redcolor range:rang];
     rang = NSMakeRange(45, 37);
     [text addAttribute:NSForegroundColorAttributeName value:redcolor range:rang];
-    rang = NSMakeRange(120, 11);
+    rang = NSMakeRange(116, 9);
     [text addAttribute:NSForegroundColorAttributeName value:redcolor range:rang];
     explanationLabel.attributedText = text;
     

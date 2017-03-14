@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="199.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zi-2r-s9h">
@@ -27,7 +27,7 @@
                                 <color key="textColor" red="0.94901960780000005" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目标时长" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y66-d3-LQX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目标时长" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y66-d3-LQX">
                                 <rect key="frame" x="60" y="75" width="50" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.62352941176470589" green="0.62352941176470589" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
@@ -111,10 +111,12 @@
             <connections>
                 <outlet property="containerView" destination="8zi-2r-s9h" id="Oxx-6K-Rku"/>
                 <outlet property="dailyGoal" destination="rUk-Nv-tb6" id="944-tH-a7L"/>
+                <outlet property="dailyGoalTitle" destination="5fO-CE-zzq" id="gHi-Al-lwd"/>
                 <outlet property="scheduleLabel" destination="ity-Xe-iVo" id="fbA-CF-sZN"/>
                 <outlet property="scheduleView" destination="i6M-tL-NjC" id="khx-bv-69V"/>
                 <outlet property="startTimeLabel" destination="dGz-Lj-hXf" id="HgS-9T-AU6"/>
                 <outlet property="timeLabel" destination="6eC-LS-sxg" id="crD-AE-71z"/>
+                <outlet property="timeTitle" destination="Y66-d3-LQX" id="xM6-k1-2AQ"/>
                 <outlet property="titleLabel" destination="3Sg-Tg-prc" id="0YD-GD-rxa"/>
             </connections>
         </tableViewCell>

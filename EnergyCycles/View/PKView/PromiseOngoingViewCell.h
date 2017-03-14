@@ -13,7 +13,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel; // 项目名称
+@property (weak, nonatomic) IBOutlet UILabel *timeTitle;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel; // 目标时长
+@property (weak, nonatomic) IBOutlet UILabel *dailyGoalTitle;
 @property (weak, nonatomic) IBOutlet UILabel *dailyGoal; // 每日目标
 @property (weak, nonatomic) IBOutlet UILabel *startTimeLabel; // 开始时间
 @property (weak, nonatomic) IBOutlet UILabel *scheduleLabel; // 进度百分比

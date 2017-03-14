@@ -12,6 +12,7 @@
 #import "Masonry.h"
 
 @interface SetProjectVC ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate> {
+    NSDateFormatter *formatter;
     NSDate *startDate; // 日期控件开始时间
     NSDate *endDate; // 日期控件结束时间
 }
@@ -42,7 +43,7 @@ static NSString * const setProjectCell = @"SetProjectCell";
 
 - (void)createTableView {
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 195) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, Screen_width, 195 - ([self.model.unit isEqualToString:@"天"] * 65)) style:UITableViewStylePlain];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -117,11 +118,11 @@ static NSString * const setProjectCell = @"SetProjectCell";
 }
 
 - (void)setStartAndEndDate {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd";
     startDate = [NSDate date];
-//    NSString *startDate_str = [formatter stringFromDate:startDate];
-//    startDate = [formatter dateFromString:startDate_str];
+    NSString *startDate_str = [formatter stringFromDate:startDate];
+    startDate = [formatter dateFromString:startDate_str];
     endDate = [formatter dateFromString:@"2099-12-31"];
 }
 
@@ -129,13 +130,19 @@ static NSString * const setProjectCell = @"SetProjectCell";
 //    NSLog(@"%@,%@",startDate, endDate);
     
     // 加上时差
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];
+//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+//    NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];
     ConfirmPormiseVC *cpVC = [[ConfirmPormiseVC alloc] init];
     cpVC.model = self.model;
-    cpVC.startDate = [startDate dateByAddingTimeInterval:interval];;
-    cpVC.endDate = [endDate dateByAddingTimeInterval:interval];;
-    cpVC.promise_number = self.dailyNumberTextField.text.integerValue;
+//    cpVC.startDate = [startDate dateByAddingTimeInterval:interval];;
+//    cpVC.endDate = [endDate dateByAddingTimeInterval:interval];;
+    cpVC.startDate = startDate;
+    cpVC.endDate = endDate;
+    if ([self.model.unit isEqualToString:@"天"]) {
+        cpVC.promise_number = 1;
+    } else {
+        cpVC.promise_number = self.dailyNumberTextField.text.integerValue;
+    }
     [self.navigationController pushViewController:cpVC animated:YES];
 }
 
@@ -161,6 +168,9 @@ static NSString * const setProjectCell = @"SetProjectCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([self.model.unit isEqualToString:@"天"]) {
+        return 2;
+    }
     return 3;
 }
 
@@ -232,15 +242,26 @@ static NSString * const setProjectCell = @"SetProjectCell";
     if (self.datePicker) {
         [self.datePicker removeFromSuperview];
     }
-    
-    if (self.startTimeTextField.text.length && self.endTimeTextField.text.length && self.dailyNumberTextField.text.length) {
-        self.nextButton.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
-        [self.nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        self.nextButton.enabled = YES;
+    if ([self.model.unit isEqualToString:@"天"]) {
+        if (self.startTimeTextField.text.length && self.endTimeTextField.text.length) {
+            self.nextButton.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+            [self.nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            self.nextButton.enabled = YES;
+        } else {
+            self.nextButton.backgroundColor = [UIColor clearColor];
+            [self.nextButton setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
+            self.nextButton.enabled = NO;
+        }
     } else {
-        self.nextButton.backgroundColor = [UIColor clearColor];
-        [self.nextButton setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
-        self.nextButton.enabled = NO;
+        if (self.startTimeTextField.text.length && self.endTimeTextField.text.length && self.dailyNumberTextField.text.length && ([self.dailyNumberTextField.text integerValue] > 0)) {
+            self.nextButton.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+            [self.nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            self.nextButton.enabled = YES;
+        } else {
+            self.nextButton.backgroundColor = [UIColor clearColor];
+            [self.nextButton setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
+            self.nextButton.enabled = NO;
+        }
     }
     
 }
@@ -249,7 +270,7 @@ static NSString * const setProjectCell = @"SetProjectCell";
     
     self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, Screen_Height- 180 - 64, Screen_width, 180)];
     self.datePicker.datePickerMode = UIDatePickerModeDate;
-    [self.datePicker setDate:[NSDate date] animated:YES];
+    [self.datePicker setDate:startDate animated:YES];
     // 设置日期选择器的时区为系统时区
     [self.datePicker setTimeZone:[NSTimeZone systemTimeZone]];
     if (num == 1) {
@@ -260,7 +281,7 @@ static NSString * const setProjectCell = @"SetProjectCell";
         NSDateComponents *comps = nil;
         comps = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:startDate];
         NSDateComponents *newComps = [[NSDateComponents alloc] init];
-        [newComps setDay:5];
+        [newComps setDay:4];
         self.datePicker.minimumDate = [calendar dateByAddingComponents:newComps toDate:startDate options:0];
     }
     [self addTargetWithNum:num];
@@ -294,8 +315,6 @@ static NSString * const setProjectCell = @"SetProjectCell";
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm +0800"];
 //    NSTimeZone *zone = [NSTimeZone systemTimeZone];
 //    startDate = [selectedDate dateByAddingTimeInterval:[zone secondsFromGMTForDate:selectedDate]];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy-MM-dd";
     NSString *dateString = [formatter stringFromDate:selectedDate];
     self.startTimeTextField.text = dateString;
     [self judgeNext];
@@ -309,8 +328,6 @@ static NSString * const setProjectCell = @"SetProjectCell";
     endDate = selectedDate;
 //    NSTimeZone *zone = [NSTimeZone systemTimeZone];
 //    endDate = [selectedDate dateByAddingTimeInterval:[zone secondsFromGMTForDate:selectedDate]];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy-MM-dd";
     NSString *dateString = [formatter stringFromDate:selectedDate];
     self.endTimeTextField.text = dateString;
     [self judgeNext];

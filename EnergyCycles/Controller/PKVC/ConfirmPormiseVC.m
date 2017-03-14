@@ -58,6 +58,7 @@
     
     UILabel *durationTitle = [UILabel new];
     [durationTitle setText:@"目标时长"];
+    durationTitle.textAlignment = NSTextAlignmentCenter;
     [durationTitle setFont:[UIFont systemFontOfSize:12]];
     [headerView addSubview:durationTitle];
     [durationTitle setTextColor:[UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:1]];
@@ -95,6 +96,15 @@
         make.top.equalTo(promiseTitle.mas_top).with.offset(20);
         make.centerX.equalTo(promiseTitle);
     }];
+    
+    if ([self.model.unit isEqualToString:@"天"]) {
+        [durationTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(titleLabel);
+            make.top.equalTo(@75);
+        }];
+        promiseTitle.hidden = YES;
+        promiseLabel.hidden = YES;
+    }
     
 }
 
@@ -257,9 +267,11 @@
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateFormat = @"yyyy/MM/dd";
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];
     
-    long nowTime = [self.startDate timeIntervalSince1970]; //开始时间
-    long endTime = [self.endDate timeIntervalSince1970]; //结束时间
+    long nowTime = [[self.startDate dateByAddingTimeInterval:interval] timeIntervalSince1970]; //开始时间
+    long endTime = [[self.endDate dateByAddingTimeInterval:interval] timeIntervalSince1970]; //结束时间
     long dayTime = 24*60*60;
     long time = nowTime - (nowTime % dayTime);
     

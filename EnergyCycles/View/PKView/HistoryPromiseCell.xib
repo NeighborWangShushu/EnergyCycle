@@ -99,6 +99,7 @@
             <connections>
                 <outlet property="containerView" destination="5iY-GO-eCA" id="RKf-cF-Fz9"/>
                 <outlet property="dailyGoalLabel" destination="aLP-P0-UJH" id="yhf-5E-Gzn"/>
+                <outlet property="dailyGoalTitle" destination="lHs-7S-V2W" id="q9e-9S-fKR"/>
                 <outlet property="dateLabel" destination="O95-rY-80N" id="kOB-rc-EQI"/>
                 <outlet property="finishImage" destination="yvC-Ku-5Hs" id="76a-SW-qJ2"/>
                 <outlet property="picImage" destination="Hfe-S7-gPS" id="MnE-r8-akh"/>

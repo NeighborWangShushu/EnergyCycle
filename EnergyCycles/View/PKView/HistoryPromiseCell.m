@@ -19,6 +19,11 @@
     NSString *endDate_str= [model.EndDate substringToIndex:10];
     self.dateLabel.text = [NSString stringWithFormat:@"%@-%@", startDate_str, endDate_str];
     self.timeLabel.text = [NSString stringWithFormat:@"%@天", model.AllDays];
+    if ([model.P_UNIT isEqualToString:@"天"]) {
+        self.dailyGoalTitle.hidden = YES;
+        self.dailyGoalLabel.hidden = YES;
+    }
+    
     self.dailyGoalLabel.text = [NSString stringWithFormat:@"%@%@", model.ReportNum, model.P_UNIT];
     
     // 内容视图
