@@ -282,7 +282,7 @@
     [exitPromise setTitle:@"退出目标" forState:UIControlStateNormal];
     [exitPromise setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
     [exitPromise setBackgroundColor:[UIColor whiteColor]];
-    [exitPromise addTarget:self action:@selector(exitPromise) forControlEvents:UIControlEventTouchUpInside];
+    [exitPromise addTarget:self action:@selector(hintView) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomView addSubview:exitPromise];
     [exitPromise mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.bottomView);
@@ -323,6 +323,59 @@
     
 }
 
+- (void)hintView {
+    
+    UIView *hintView = [[UIView alloc] init];
+    hintView.backgroundColor = [UIColor whiteColor];
+    [self.exitBackground addSubview:hintView];
+    [hintView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.exitBackground);
+        make.centerY.equalTo(self.exitBackground);
+        make.width.equalTo(self.exitBackground).multipliedBy(0.6);
+        make.height.equalTo(@150);
+    }];
+    hintView.layer.cornerRadius = 20;
+    hintView.layer.shadowColor = [UIColor blackColor].CGColor;
+    hintView.layer.shadowOpacity = 0.2;
+    hintView.layer.shadowRadius = 3;
+    hintView.layer.shadowOffset = CGSizeMake(0, 0);
+    
+    UILabel *hintLabel = [[UILabel alloc] init];
+    [hintLabel setText:@"确定要退出目标么"];
+    hintLabel.font = [UIFont systemFontOfSize:14];
+    hintLabel.textAlignment = NSTextAlignmentCenter;
+    hintLabel.numberOfLines = 0;
+    [hintView addSubview:hintLabel];
+    [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(hintView).with.offset(-20);
+        make.centerX.equalTo(hintView);
+        make.width.equalTo(hintView).multipliedBy(0.7);
+    }];
+    
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+    [hintView addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(hintView).with.offset(-40);
+        make.left.equalTo(hintView);
+        make.right.equalTo(hintView);
+        make.height.equalTo(@1);
+    }];
+    
+    UIButton *exit = [UIButton new];
+    exit.adjustsImageWhenHighlighted = NO;
+    [exit setTitle:@"确认" forState:UIControlStateNormal];
+    [exit setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
+    [exit addTarget:self action:@selector(exitPromise) forControlEvents:UIControlEventTouchUpInside];
+    [hintView addSubview:exit];
+    [exit mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(line).with.offset(5);
+        make.width.equalTo(hintView);
+        make.centerX.equalTo(hintView);
+    }];
+    
+}
+
 - (void)cancel {
     CGPoint cancelPoint = self.bottomView.center;
     cancelPoint.y += self.bottomView.frame.size.height;
@@ -336,7 +389,6 @@
 
 // 退出目标
 - (void)exitPromise {
-    
     [[AppHttpManager shareInstance] getTargetDelWithUserID:[User_ID integerValue] Token:User_TOKEN TargetID:[self.model.TargetID integerValue]PostOrGet:@"post" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{

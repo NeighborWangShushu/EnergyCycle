@@ -207,9 +207,13 @@
         make.height.equalTo(@150);
     }];
     hintView.layer.cornerRadius = 20;
+    hintView.layer.shadowColor = [UIColor blackColor].CGColor;
+    hintView.layer.shadowOpacity = 0.2;
+    hintView.layer.shadowRadius = 3;
+    hintView.layer.shadowOffset = CGSizeMake(0, 0);
     
     UILabel *hintLabel = [[UILabel alloc] init];
-    [hintLabel setText:@"您在这个时间段中已有类似的目标"];
+    [hintLabel setText:@"您在这个时间段中已有相同的目标"];
     hintLabel.font = [UIFont systemFontOfSize:14];
     hintLabel.textAlignment = NSTextAlignmentCenter;
     hintLabel.numberOfLines = 0;

@@ -55,6 +55,7 @@ static NSString * const setProjectCell = @"SetProjectCell";
 }
 
 - (void)selectDate:(NSInteger)num {
+    
     self.sureDate = [[UIView alloc] init];
     self.sureDate.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.sureDate];
@@ -201,6 +202,10 @@ static NSString * const setProjectCell = @"SetProjectCell";
     
     if (self.datePicker.superview) {
         [self.datePicker removeFromSuperview];
+    }
+    
+    if (self.sureDate) {
+        [self.sureDate removeFromSuperview];
     }
 
     if (textField == self.startTimeTextField) {
