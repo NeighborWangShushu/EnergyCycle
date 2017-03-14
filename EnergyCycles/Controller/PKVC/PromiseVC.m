@@ -253,10 +253,12 @@
             if ([self.dataArray count]) {
                 [self.dataArray removeAllObjects];
             }
-            NSDictionary *dataDic = dict[@"Data"];
-            for (NSDictionary *dic in dataDic) {
-                PromiseModel *model = [[PromiseModel alloc] initWithDictionary:dic error:nil];
-                [self.dataArray addObject:model];
+            if (![dict[@"Data"] isEqual:[NSNull null]]) {
+                NSDictionary *dataDic = dict[@"Data"];
+                for (NSDictionary *dic in dataDic) {
+                    PromiseModel *model = [[PromiseModel alloc] initWithDictionary:dic error:nil];
+                    [self.dataArray addObject:model];
+                }
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{

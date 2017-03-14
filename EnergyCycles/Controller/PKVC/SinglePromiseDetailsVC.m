@@ -13,7 +13,9 @@
 #import "PromiseModel.h"
 #import "CalendarDayModel.h"
 
-@interface SinglePromiseDetailsVC ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance>
+@interface SinglePromiseDetailsVC ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance> {
+    BOOL sure;
+}
 
 @property (nonatomic, strong) UIButton *exitBackground;
 
@@ -335,7 +337,7 @@
 }
 
 - (void)hintView {
-    
+    sure = YES;
     UIView *hintView = [[UIView alloc] init];
     hintView.backgroundColor = [UIColor whiteColor];
     [self.exitBackground addSubview:hintView];
@@ -400,16 +402,19 @@
 
 // 退出目标
 - (void)exitPromise {
-    [[AppHttpManager shareInstance] getTargetDelWithUserID:[User_ID integerValue] Token:User_TOKEN TargetID:[self.model.TargetID integerValue]PostOrGet:@"post" success:^(NSDictionary *dict) {
-        if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self cancel];
-                [self leftAction];
-            });
-        }
-    } failure:^(NSString *str) {
-        NSLog(@"%@", str);
-    }];
+    if (sure) {
+        sure = NO;
+        [[AppHttpManager shareInstance] getTargetDelWithUserID:[User_ID integerValue] Token:User_TOKEN TargetID:[self.model.TargetID integerValue]PostOrGet:@"post" success:^(NSDictionary *dict) {
+            if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self cancel];
+                    [self leftAction];
+                });
+            }
+        } failure:^(NSString *str) {
+            NSLog(@"%@", str);
+        }];
+    }
 }
 
 - (void)viewDidLoad {

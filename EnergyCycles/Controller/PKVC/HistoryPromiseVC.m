@@ -48,10 +48,12 @@
 - (void)getData {
     [[AppHttpManager shareInstance] getMyTargetListWithUserID:[User_ID integerValue] Type:2 PageIndex:0 PageSize:1000 PostOrGet:@"get" success:^(NSDictionary *dict) {
         if ([dict[@"Code"] integerValue] == 200 && [dict[@"IsSuccess"] integerValue] == 1) {
-            NSDictionary *dataDic = dict[@"Data"];
-            for (NSDictionary *dic in dataDic) {
-                PromiseModel *model = [[PromiseModel alloc] initWithDictionary:dic error:nil];
-                [self.dataArray addObject:model];
+            if (![dict[@"Data"] isEqual:[NSNull null]]) {
+                NSDictionary *dataDic = dict[@"Data"];
+                for (NSDictionary *dic in dataDic) {
+                    PromiseModel *model = [[PromiseModel alloc] initWithDictionary:dic error:nil];
+                    [self.dataArray addObject:model];
+                }
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
