@@ -120,7 +120,7 @@ static NSString * const reuseIdentifier = @"Cell";
 //                             [collectionView bringSubviewToFront:cell];
                              cell.projectImageView.transform = CGAffineTransformMakeScale(1.05, 1.05);
                              cell.projectImageView.layer.shadowColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
-                             cell.projectImageView.layer.shadowOpacity = 0.8;
+                             cell.projectImageView.layer.shadowOpacity = 0.4;
                              cell.projectImageView.layer.shadowRadius = 5;
                              cell.projectImageView.layer.shadowOffset = CGSizeMake(0, 0);
                              [collectionView bringSubviewToFront:cell];

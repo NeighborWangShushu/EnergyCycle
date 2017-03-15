@@ -17,6 +17,7 @@
 #import "PKGatherViewController.h"
 #import "RightNavMenuView.h"
 #import "PromiseModel.h"
+#import "PromiseDetailModel.h"
 #import "Masonry.h"
 
 #define kCalendar_HeaderHeight 80
@@ -38,6 +39,8 @@
 
 @property (nonatomic, strong) UIButton *explanation;
 
+@property (nonatomic, strong) UIButton *navMenuBackground;
+
 @end
 
 @implementation PromiseVC
@@ -57,34 +60,58 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     // 重新加载导航视图来去除导航视图底部的横线
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     [navigationBar setBackgroundImage:[UIImage imageNamed:@"top-blue.png"]
                        forBarPosition:UIBarPositionAny
                            barMetrics:UIBarMetricsDefault];
     [navigationBar setShadowImage:[UIImage new]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(singlePromise:) name:@"PushSinglePromiseDetailsVC" object:nil];
     [self getData];
+}
+
+- (void)singlePromise:(NSNotification *)notification {
+    NSDictionary *dic = notification.object;
+    PromiseModel *model = dic[@"Model"];
+    SinglePromiseDetailsVC *spdVC = [[SinglePromiseDetailsVC alloc] init];
+    spdVC.targetID = [model.TargetID integerValue];
+    spdVC.model = model;
+    [self.navigationController pushViewController:spdVC animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self removeNavMenuView];
 }
 
 - (void)leftAction {
-    [self.navigationController popViewControllerAnimated:YES];
+    CGFloat top = self.view.bounds.origin.y;
+    CGFloat pdVC_y = self.promiseDetailsVC.view.frame.origin.y;
+    if (pdVC_y == top) {
+        [self changeControllerRect];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)rightAction {
     
     // 顶部导航栏右侧菜单
-    if (!self.rightNavMenuView) {
+    if (!self.navMenuBackground) {
+        self.navMenuBackground = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.navMenuBackground.frame = [UIApplication sharedApplication].keyWindow.bounds;
+        self.navMenuBackground.backgroundColor = [UIColor clearColor];
+        [self.navMenuBackground addTarget:self action:@selector(removeNavMenuView) forControlEvents:UIControlEventTouchUpInside];
+        [[UIApplication sharedApplication].keyWindow addSubview:self.navMenuBackground];
+        
         self.rightNavMenuView = [[RightNavMenuView alloc] initWithDataArray:self.menuDataArray];
-        [[[UIApplication sharedApplication] keyWindow] addSubview:self.rightNavMenuView];
+        [self.navMenuBackground addSubview:self.rightNavMenuView];
         self.rightNavMenuView.delegate = self;
         [self.rightNavMenuView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(@60);
-            make.right.equalTo(self.view.mas_right).with.offset(-10);
+            make.right.equalTo(self.navMenuBackground.mas_right).with.offset(-10);
             make.width.equalTo(@115);
             make.height.equalTo(@(self.menuDataArray.count * 40 + 25));
         }];
@@ -96,8 +123,8 @@
 
 // 清楚顶部菜单栏
 - (void)removeNavMenuView {
-    [self.rightNavMenuView removeFromSuperview];
-    self.rightNavMenuView = nil;
+    [self.navMenuBackground removeFromSuperview];
+    self.navMenuBackground = nil;
 }
 
 // 创建目标列表
@@ -121,6 +148,22 @@
     self.promiseDetailsVC = [[PromiseDetailsVC alloc] init];
     CGFloat pdVC_y = CGRectGetMaxY(self.tableView.frame);
     self.promiseDetailsVC.view.frame = CGRectMake(0, pdVC_y, Screen_width, Screen_Height);
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, -15, Screen_width, 15)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    [self.promiseDetailsVC.view addSubview:headerView];
+    
+    UIView *tagView = [UIView new];
+    tagView.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
+    [headerView addSubview:tagView];
+    [tagView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(headerView).with.offset(10);
+        make.width.equalTo(@30);
+        make.centerX.equalTo(headerView);
+        make.height.equalTo(@3);
+        tagView.layer.cornerRadius = 1.5;
+    }];
+    
     UIButton *headerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, Screen_width, kCalendar_HeaderHeight)];
     [headerButton addTarget:self action:@selector(changeControllerRect) forControlEvents:UIControlEventTouchUpInside];
     [self.promiseDetailsVC.view addSubview:headerButton];
@@ -191,10 +234,6 @@
 
 - (void)changeControllerRect {
     
-    if (self.rightNavMenuView) {
-        [self removeNavMenuView];
-    }
-    
     CGFloat bottom = CGRectGetMaxY(self.tableView.frame);
     CGFloat top = self.view.bounds.origin.y;
     CGFloat pdVC_y = self.promiseDetailsVC.view.frame.origin.y;
@@ -206,7 +245,9 @@
                             options:UIViewAnimationOptionLayoutSubviews // 动画的过渡效果
                          animations:^{
                              //执行的动画
-                             self.promiseDetailsVC.view.frame = self.view.bounds;
+                             CGRect rect = self.view.bounds;
+                             rect.origin.y = top;
+                             self.promiseDetailsVC.view.frame = rect;
 //                             self.promiseDetailsVC.indicatorImg.transform = CGAffineTransformMakeScale(1.0, -1.0);
                              self.promiseDetailsVC.indicatorImg.hidden = YES;
                              [self.promiseDetailsVC getData];

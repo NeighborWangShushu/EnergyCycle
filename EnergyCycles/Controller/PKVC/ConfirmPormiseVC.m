@@ -280,7 +280,7 @@
         [self.dates setValue:@"NO" forKey:showOldDate];
         time += dayTime;
     }
-    NSLog(@"%@",self.dates);
+    
 }
 
 // 添加承诺

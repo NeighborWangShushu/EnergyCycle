@@ -15,6 +15,8 @@
     NSDateFormatter *formatter;
     NSDate *startDate; // 日期控件开始时间
     NSDate *endDate; // 日期控件结束时间
+    NSString *startDate_str; // 日期控件默认开始时间
+    NSString *endDate_str; // 日期控件默认结束时间
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -121,21 +123,22 @@ static NSString * const setProjectCell = @"SetProjectCell";
     formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd";
     startDate = [NSDate date];
-    NSString *startDate_str = [formatter stringFromDate:startDate];
+    startDate_str = [formatter stringFromDate:startDate];
     startDate = [formatter dateFromString:startDate_str];
-    endDate = [formatter dateFromString:@"2099-12-31"];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = nil;
+    comps = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:startDate];
+    NSDateComponents *newComps = [[NSDateComponents alloc] init];
+    [newComps setDay:4];
+    endDate = [calendar dateByAddingComponents:newComps toDate:startDate options:0];
+    endDate_str = [formatter stringFromDate:endDate];
+    
 }
 
 - (void)fullPromise {
-//    NSLog(@"%@,%@",startDate, endDate);
-    
-    // 加上时差
-//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-//    NSInteger interval = [zone secondsFromGMTForDate:[NSDate date]];
     ConfirmPormiseVC *cpVC = [[ConfirmPormiseVC alloc] init];
     cpVC.model = self.model;
-//    cpVC.startDate = [startDate dateByAddingTimeInterval:interval];;
-//    cpVC.endDate = [endDate dateByAddingTimeInterval:interval];;
     cpVC.startDate = startDate;
     cpVC.endDate = endDate;
     if ([self.model.unit isEqualToString:@"天"]) {
@@ -149,7 +152,7 @@ static NSString * const setProjectCell = @"SetProjectCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"制定目标";
+    self.title = self.model.name;
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupLeftNavBarWithimage:@"loginfanhui"];
     
@@ -190,10 +193,12 @@ static NSString * const setProjectCell = @"SetProjectCell";
     if (indexPath.row == 0) {
         self.startTimeTextField = cell.timeTextField;
         self.startTimeTextField.delegate = self;
+        self.startTimeTextField.text = startDate_str;
         [cell lineView];
     } else if (indexPath.row == 1) {
         self.endTimeTextField = cell.timeTextField;
         self.endTimeTextField.delegate = self;
+        self.endTimeTextField.text = endDate_str;
         [cell lineView];
     } else if (indexPath.row == 2) {
         cell.unitLabel.text = self.model.unit;
@@ -284,18 +289,7 @@ static NSString * const setProjectCell = @"SetProjectCell";
         [newComps setDay:4];
         self.datePicker.minimumDate = [calendar dateByAddingComponents:newComps toDate:startDate options:0];
     }
-    [self addTargetWithNum:num];
     [self.view addSubview:self.datePicker];
-    
-}
-
-- (void)addTargetWithNum:(NSInteger)num {
-    
-    if (num == 1) {
-        [self.datePicker addTarget:self action:@selector(sureStartTime:) forControlEvents:UIControlEventValueChanged];
-    } else if (num == 2) {
-        [self.datePicker addTarget:self action:@selector(sureEndTime:) forControlEvents:UIControlEventValueChanged];
-    }
     
 }
 
@@ -311,10 +305,6 @@ static NSString * const setProjectCell = @"SetProjectCell";
     
     NSDate *selectedDate = picker.date;
     startDate = selectedDate;
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm +0800"];
-//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-//    startDate = [selectedDate dateByAddingTimeInterval:[zone secondsFromGMTForDate:selectedDate]];
     NSString *dateString = [formatter stringFromDate:selectedDate];
     self.startTimeTextField.text = dateString;
     [self judgeNext];
@@ -326,8 +316,6 @@ static NSString * const setProjectCell = @"SetProjectCell";
     
     NSDate *selectedDate = picker.date;
     endDate = selectedDate;
-//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-//    endDate = [selectedDate dateByAddingTimeInterval:[zone secondsFromGMTForDate:selectedDate]];
     NSString *dateString = [formatter stringFromDate:selectedDate];
     self.endTimeTextField.text = dateString;
     [self judgeNext];

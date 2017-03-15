@@ -15,6 +15,14 @@
 
 @interface SinglePromiseDetailsVC ()<FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance> {
     BOOL sure;
+    UIView *hintView;
+    UILabel *titleLabel; // 项目名称
+    UILabel *durationLabel; // 目标时长
+    UILabel *promiseLabel; // 每日目标
+    UILabel *finishTimeLabel; // 目标完成小计
+    UILabel *finishPercentage; // 完成进度百分比
+    UIView *percentageView; // 完成进度条
+    
 }
 
 @property (nonatomic, strong) UIButton *exitBackground;
@@ -38,14 +46,20 @@
     return _dates;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self getData];
+}
+
 - (void)createHeaderView {
     UIView *headerView = [[UIView alloc] init];
     headerView.frame = CGRectMake(0, 0, Screen_width, 180);
     headerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:headerView];
     
-    UILabel *titleLabel = [UILabel new];
-    [titleLabel setText:self.model.ProjectName];
+    titleLabel = [UILabel new];
+//    [titleLabel setText:self.model.ProjectName];
+    [titleLabel setText:@"--"];
     [titleLabel setFont:[UIFont fontWithName:@"PingFangSC-Medium" size:20]];
     [titleLabel setTextColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1]];
     [headerView addSubview:titleLabel];
@@ -65,8 +79,9 @@
         make.top.equalTo(@75);
     }];
     
-    UILabel *durationLabel = [UILabel new];
-    [durationLabel setText:[NSString stringWithFormat:@"%@天", self.model.AllDays]];
+    durationLabel = [UILabel new];
+//    [durationLabel setText:[NSString stringWithFormat:@"%@天", self.model.AllDays]];
+    [durationLabel setText:@"-天"];
     [durationLabel setFont:[UIFont systemFontOfSize:15]];
     [durationLabel setTextColor:[UIColor blackColor]];
     [headerView addSubview:durationLabel];
@@ -85,8 +100,9 @@
         make.top.equalTo(@75);
     }];
     
-    UILabel *promiseLabel = [UILabel new];
-    [promiseLabel setText:[NSString stringWithFormat:@"%@%@", self.model.ReportNum, self.model.P_UNIT]];
+    promiseLabel = [UILabel new];
+//    [promiseLabel setText:[NSString stringWithFormat:@"%@%@", self.model.ReportNum, self.model.P_UNIT]];
+    [promiseLabel setText:@"--"];
     [promiseLabel setFont:[UIFont systemFontOfSize:15]];
     [promiseLabel setTextColor:[UIColor blackColor]];
     [headerView addSubview:promiseLabel];
@@ -105,33 +121,13 @@
     }
     
     
-    UILabel *finishTimeLabel = [UILabel new];
+    finishTimeLabel = [UILabel new];
     [finishTimeLabel setFont:[UIFont systemFontOfSize:12]];
     [finishTimeLabel setTextColor:[UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:1]];
     [headerView addSubview:finishTimeLabel];
     [finishTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@20);
         make.top.equalTo(durationLabel.mas_bottom).with.offset(15);
-        // 根据目标开始时间进行显示判断
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-        NSDate *startDate = [formatter dateFromString:self.model.StartDate];
-        NSDate *nowDate = [NSDate date];
-        NSTimeInterval startDateInterval = [startDate timeIntervalSince1970]; // 开始时间的时间间隔
-        NSTimeInterval nowDateInterval = [nowDate timeIntervalSince1970]; // 现在时间的时间间隔
-        if (startDateInterval > nowDateInterval) {
-            formatter.dateFormat = @"MM/dd";
-            NSString *startDate_str = [formatter stringFromDate:startDate];
-            NSMutableAttributedString *startText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"目标将于%@开始", startDate_str]];
-            NSRange range = NSMakeRange(4, startDate_str.length);
-            [startText addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15], NSForegroundColorAttributeName: [UIColor blackColor]} range:range];
-            [finishTimeLabel setAttributedText:startText];
-        } else {
-            NSRange range = NSMakeRange(5, self.model.FinishDays.length + self.model.AllDays.length + 1);
-            NSMutableAttributedString *startText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"完成目标第%ld/%ld天", [self.model.FinishDays integerValue], [self.model.AllDays integerValue]]];
-            [startText addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15], NSForegroundColorAttributeName: [UIColor blackColor]} range:range];
-            finishTimeLabel.attributedText = startText;
-        }
     }];
     
     UILabel *finishLabel = [UILabel new];
@@ -145,10 +141,11 @@
     }];
     
     // 完成进度
-    CGFloat modulus = [self.model.FinishDays floatValue] / [self.model.AllDays floatValue];
+//    CGFloat modulus = [self.model.FinishDays floatValue] / [self.model.AllDays floatValue];
 
-    UILabel *finishPercentage = [UILabel new];
-    [finishPercentage setText:[NSString stringWithFormat:@"%.f%%", modulus * 100]];
+    finishPercentage = [UILabel new];
+//    [finishPercentage setText:[NSString stringWithFormat:@"%.f%%", modulus * 100]];
+    [finishPercentage setText:@"0%"];
     [finishPercentage setFont:[UIFont systemFontOfSize:12]];
     [finishPercentage setTextColor:[UIColor blackColor]];
     [headerView addSubview:finishPercentage];
@@ -157,7 +154,7 @@
         make.top.equalTo(promiseLabel.mas_bottom).with.offset(15);
     }];
     
-    UIView *percentageView = [UIView new];
+    percentageView = [UIView new];
     [percentageView setBackgroundColor:[UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:0.3]];
     [headerView addSubview:percentageView];
     [percentageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -165,17 +162,49 @@
         make.width.equalTo(@(Screen_width - 30));
         make.height.equalTo(@7);
         make.bottom.equalTo(@-20);
-        percentageView.layer.cornerRadius = 7 / 2;
-        CALayer *percentageLayer = [CALayer layer];
-        CGFloat percentage = (Screen_width - 30) * modulus;
-        percentageLayer.frame = CGRectMake(0.0f, 0.0f, percentage, 7);
-        percentageLayer.cornerRadius = 7 / 2;
-        percentageLayer.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
-        percentageLayer.shadowColor = percentageLayer.backgroundColor;
-        percentageLayer.shadowOpacity = 0.5;
-        percentageLayer.shadowOffset = CGSizeMake(2, 2);
-        [percentageView.layer addSublayer:percentageLayer];
     }];
+    percentageView.layer.cornerRadius = 7 / 2;
+}
+
+- (void)addHeaderViewData {
+    [titleLabel setText:self.model.ProjectName];
+    [durationLabel setText:[NSString stringWithFormat:@"%@天", self.model.AllDays]];
+    [promiseLabel setText:[NSString stringWithFormat:@"%@%@", self.model.ReportNum, self.model.P_UNIT]];
+    
+    // 根据目标开始时间进行显示判断
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSDate *startDate = [formatter dateFromString:self.model.StartDate];
+    NSDate *nowDate = [NSDate date];
+    NSTimeInterval startDateInterval = [startDate timeIntervalSince1970]; // 开始时间的时间间隔
+    NSTimeInterval nowDateInterval = [nowDate timeIntervalSince1970]; // 现在时间的时间间隔
+    if (startDateInterval > nowDateInterval) {
+        formatter.dateFormat = @"MM/dd";
+        NSString *startDate_str = [formatter stringFromDate:startDate];
+        NSMutableAttributedString *startText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"目标将于%@开始", startDate_str]];
+        NSRange range = NSMakeRange(4, startDate_str.length);
+        [startText addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15], NSForegroundColorAttributeName: [UIColor blackColor]} range:range];
+        [finishTimeLabel setAttributedText:startText];
+    } else {
+        NSRange range = NSMakeRange(5, self.model.FinishDays.length + self.model.AllDays.length + 1);
+        NSMutableAttributedString *startText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"完成目标第%ld/%ld天", [self.model.FinishDays integerValue], [self.model.AllDays integerValue]]];
+        [startText addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15], NSForegroundColorAttributeName: [UIColor blackColor]} range:range];
+        finishTimeLabel.attributedText = startText;
+    }
+    
+    CGFloat modulus = [self.model.FinishDays floatValue] / [self.model.AllDays floatValue];
+
+    [finishPercentage setText:[NSString stringWithFormat:@"%.f%%", modulus * 100]];
+    
+    CALayer *percentageLayer = [CALayer layer];
+    CGFloat percentage = (Screen_width - 30) * modulus;
+    percentageLayer.frame = CGRectMake(0.0f, 0.0f, percentage, 7);
+    percentageLayer.cornerRadius = 7 / 2;
+    percentageLayer.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
+    percentageLayer.shadowColor = percentageLayer.backgroundColor;
+    percentageLayer.shadowOpacity = 0.5;
+    percentageLayer.shadowOffset = CGSizeMake(2, 2);
+    [percentageView.layer addSublayer:percentageLayer];
 }
 
 - (void)loadView {
@@ -183,9 +212,8 @@
     view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.view = view;
     
-    [self getData];
     [self createHeaderView];
-    
+
     FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 180, view.frame.size.width, 300)];
     calendar.scope = FSCalendarScopeWeek;
     calendar.dataSource = self;
@@ -256,6 +284,7 @@
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self addHeaderViewData];
                 [self.calendar reloadData];
             });
             
@@ -295,7 +324,7 @@
     [exitPromise setTitle:@"退出目标" forState:UIControlStateNormal];
     [exitPromise setTitleColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1] forState:UIControlStateNormal];
     [exitPromise setBackgroundColor:[UIColor whiteColor]];
-    [exitPromise addTarget:self action:@selector(hintView) forControlEvents:UIControlEventTouchUpInside];
+    [exitPromise addTarget:self action:@selector(showHintView) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomView addSubview:exitPromise];
     [exitPromise mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.bottomView);
@@ -322,24 +351,9 @@
         make.top.equalTo(exitPromise.mas_bottom).with.offset(10);
     }];
     
-    CGPoint addPoint = self.bottomView.center;
-    addPoint.y -= self.bottomView.frame.size.height;
-    [UIView animateWithDuration:0.5
-                          delay:0
-         usingSpringWithDamping:0.8
-          initialSpringVelocity:2
-                        options:UIViewAnimationOptionLayoutSubviews
-                     animations:^{
-                         self.bottomView.center = addPoint;
-                         self.exitBackground.alpha = 1;
-    } completion:nil];
-    
-}
-
-- (void)hintView {
-    sure = YES;
-    UIView *hintView = [[UIView alloc] init];
+    hintView = [[UIView alloc] init];
     hintView.backgroundColor = [UIColor whiteColor];
+    hintView.hidden = YES;
     [self.exitBackground addSubview:hintView];
     [hintView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.exitBackground);
@@ -386,6 +400,32 @@
         make.width.equalTo(hintView);
         make.centerX.equalTo(hintView);
     }];
+    
+    CGPoint addPoint = self.bottomView.center;
+    addPoint.y -= self.bottomView.frame.size.height;
+    [UIView animateWithDuration:0.5
+                          delay:0
+         usingSpringWithDamping:0.8
+          initialSpringVelocity:2
+                        options:UIViewAnimationOptionLayoutSubviews
+                     animations:^{
+                         self.bottomView.center = addPoint;
+                         self.exitBackground.alpha = 1;
+    } completion:nil];
+    
+}
+
+- (void)showHintView {
+    
+    if (self.exitBackground) {
+        sure = YES;
+        CGPoint cancelPoint = self.bottomView.center;
+        cancelPoint.y += self.bottomView.frame.size.height;
+        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:2 options:UIViewAnimationOptionLayoutSubviews animations:^{
+            self.bottomView.center = cancelPoint;
+            hintView.hidden = NO;
+        } completion:nil];
+    }
     
 }
 

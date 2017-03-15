@@ -135,6 +135,7 @@
     [self configureCell:cell forDate:date atMonthPosition:monthPosition];
 }
 
+
 #pragma mark - FSCalendarDelegate
 
 //// 标记数量
@@ -191,25 +192,6 @@
     [self configureVisibleCells];
 }
 
-- (void)createView {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, -15, Screen_width, 15)];
-    headerView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:headerView];
-    
-    UIView *tagView = [UIView new];
-    tagView.backgroundColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1];
-    [headerView addSubview:tagView];
-    [tagView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(headerView).with.offset(10);
-        make.width.equalTo(@30);
-        make.centerX.equalTo(headerView);
-        make.height.equalTo(@3);
-        tagView.layer.cornerRadius = 1.5;
-    }];
-    
-    
-}
-
 - (void)createTableView {
     
     CGRect rect = self.view.bounds;
@@ -239,7 +221,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self getData];
-    [self createView];
     [self createIndicatorImg];
     [self createTableView];
     self.greforian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
@@ -354,6 +335,14 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     return view;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *date = [self.dateFormatter stringFromDate:self.calendar.selectedDate];
+    PromiseDetailModel *model = self.datesDic[date][indexPath.row];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushSinglePromiseDetailsVC" object:@{@"Model" : model}];
+    
 }
 
 #pragma mark - TableViewDataSoure
