@@ -135,8 +135,10 @@
         self.sureButton.enabled = YES;
         [self.sureButton setBackgroundColor:[UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1]];
         self.sureButton.layer.shadowColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
-        [sureLabel setText:@"制定完成后,不可更改"];
+        [sureLabel setText:@"制定完成后,不可更改\n请在每日PK中汇报打卡\n其余汇报途径均无效"];
     }
+    sureLabel.textAlignment = NSTextAlignmentCenter;
+    sureLabel.numberOfLines = 0;
     [sureLabel setFont:[UIFont systemFontOfSize:12]];
     [sureLabel setTextColor:[UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:1]];
     [self.view addSubview:sureLabel];

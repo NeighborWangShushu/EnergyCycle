@@ -113,7 +113,11 @@ static NSString * const setProjectCell = @"SetProjectCell";
     self.nextButton.layer.shadowColor = [UIColor colorWithRed:242/255.0 green:77/255.0 blue:77/255.0 alpha:1].CGColor;
     self.nextButton.layer.shadowOpacity = 0.5;
     self.nextButton.layer.shadowOffset = CGSizeMake(0, 2);
-    self.nextButton.enabled = NO;
+    if ([self.model.unit isEqualToString:@"天"]) {
+        self.nextButton.enabled = YES;
+    } else {
+        self.nextButton.enabled = NO;
+    }
     [self.nextButton addTarget:self action:@selector(fullPromise) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextButton];
     

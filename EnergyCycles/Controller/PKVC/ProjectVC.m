@@ -72,7 +72,8 @@ static NSString * const reuseIdentifier = @"Cell";
     layout.minimumLineSpacing = 20;
     layout.minimumInteritemSpacing = 10;
     layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    CGFloat itemWidth = (Screen_width - 40) / 3;
+    // 适配plus 多减1
+    CGFloat itemWidth = (Screen_width - 41) / 3;
     layout.itemSize = CGSizeMake(itemWidth, (itemWidth * 6) / 5);
     
     CGRect rect = self.view.bounds;

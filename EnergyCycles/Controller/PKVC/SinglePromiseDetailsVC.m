@@ -368,7 +368,7 @@
     hintView.layer.shadowOffset = CGSizeMake(0, 0);
     
     UILabel *hintLabel = [[UILabel alloc] init];
-    [hintLabel setText:@"确定要退出目标么"];
+    [hintLabel setText:@"确定要退出目标么\n退出将扣除100积分作为惩罚"];
     hintLabel.font = [UIFont systemFontOfSize:14];
     hintLabel.textAlignment = NSTextAlignmentCenter;
     hintLabel.numberOfLines = 0;
@@ -376,7 +376,7 @@
     [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(hintView).with.offset(-20);
         make.centerX.equalTo(hintView);
-        make.width.equalTo(hintView).multipliedBy(0.7);
+        make.width.equalTo(hintView).multipliedBy(0.75);
     }];
     
     UIView *line = [[UIView alloc] init];
