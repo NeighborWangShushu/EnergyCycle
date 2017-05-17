@@ -2031,8 +2031,8 @@
                                     <action selector="qqButtonClick:" destination="3Vv-LR-md3" eventType="touchUpInside" id="WZ2-XH-igw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x9p-ul-4Li">
-                                <rect key="frame" x="274" y="526" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x9p-ul-4Li">
+                                <rect key="frame" x="182" y="662" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="5Qv-z6-Vlp"/>
                                     <constraint firstAttribute="height" constant="50" id="vy5-nc-h23"/>
@@ -2844,8 +2844,8 @@
                                                 <constraint firstItem="s8V-Fz-Bc9" firstAttribute="width" secondItem="gmL-Ka-tv9" secondAttribute="width" id="voh-XD-ED1"/>
                                             </constraints>
                                         </view>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ocg-lG-YUw">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ocg-lG-YUw">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="240"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="240" id="A2a-nO-tOL"/>
                                             </constraints>
@@ -6232,13 +6232,13 @@
         <image name="write_normal.png" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="K0f-pe-vys"/>
+        <segue reference="OUY-i2-Yfb"/>
+        <segue reference="axj-NJ-TGV"/>
+        <segue reference="Jyv-eP-V7z"/>
+        <segue reference="mMa-EG-ekD"/>
+        <segue reference="HwS-RU-Cgf"/>
         <segue reference="S85-qA-OJo"/>
         <segue reference="R8s-I5-eNH"/>
-        <segue reference="Jyv-eP-V7z"/>
-        <segue reference="axj-NJ-TGV"/>
-        <segue reference="HwS-RU-Cgf"/>
-        <segue reference="mMa-EG-ekD"/>
-        <segue reference="vpn-CB-KIX"/>
+        <segue reference="K0f-pe-vys"/>
     </inferredMetricsTieBreakers>
 </document>

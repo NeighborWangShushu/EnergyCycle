@@ -81,7 +81,7 @@
     
     NSLog(@"%@",self.url);
     
-    request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.baidu.com"]];
+    request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
 //    [webview loadRequest:request];
     
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
